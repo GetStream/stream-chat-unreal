@@ -1,20 +1,20 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "StreamChatUnreal.h"
+#include "StreamChatModule.h"
 
 #define LOCTEXT_NAMESPACE "FStreamChatUnrealModule"
 
-void FStreamChatUnrealModule::StartupModule()
+void FStreamChatModule::StartupModule()
 {
 	// This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module
 }
 
-void FStreamChatUnrealModule::ShutdownModule()
+void FStreamChatModule::ShutdownModule()
 {
 	// This function may be called during shutdown to clean up your module.  For modules that support dynamic reloading,
 	// we call this function before unloading the module.
 }
 
 #undef LOCTEXT_NAMESPACE
-	
-IMPLEMENT_MODULE(FStreamChatUnrealModule, StreamChatUnreal)
+
+IMPLEMENT_MODULE(FStreamChatModule, StreamChat)

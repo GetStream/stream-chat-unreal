@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Modules/ModuleManager.h"
 
-class FStreamChatUnrealModule : public IModuleInterface
+class FStreamChatModule : public IModuleInterface
 {
 public:
 
