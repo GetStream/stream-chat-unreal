@@ -75,3 +75,9 @@ DerivedDataCache/*
 
 # ue4cli package output
 dist/*
+
+# Rider IDE config
+.idea/*
+
+# Developer plugins
+Plugins/Developer/*
