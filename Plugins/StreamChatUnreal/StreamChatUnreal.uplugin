@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "StreamChatUnreal",
+	"Description": "Official Unreal Plugin for Stream Chat",
+	"Category": "Other",
+	"CreatedBy": "Stream",
+	"CreatedByURL": "https://getstream.io",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": true,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "StreamChatUnreal",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}
