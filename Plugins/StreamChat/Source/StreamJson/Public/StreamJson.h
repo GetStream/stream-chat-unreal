@@ -2,13 +2,14 @@
 
 #include "CoreMinimal.h"
 #include "Detail/JsonDetail.h"
+#include "NamingConvention.h"
 
 namespace Json
 {
 template <class T>
-FString Serialize(const T& Struct)
+FString Serialize(const T& Struct, ENamingConvention NamingConvention = ENamingConvention::SnakeCase)
 {
-	return Detail::Serialize(T::StaticStruct(), &Struct);
+	return Detail::Serialize(T::StaticStruct(), &Struct, NamingConvention);
 }
 
 template <class T>

@@ -13,6 +13,15 @@ enum class ETestEnum : uint8
 };
 
 USTRUCT()
+struct FTestEnum
+{
+	GENERATED_BODY()
+
+	UPROPERTY()
+	ETestEnum Enum;
+};
+
+USTRUCT()
 struct FTestNestedJson
 {
 	GENERATED_BODY()
