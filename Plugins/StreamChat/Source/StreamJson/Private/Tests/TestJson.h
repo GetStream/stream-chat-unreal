@@ -18,7 +18,16 @@ struct FTestEnum
 	GENERATED_BODY()
 
 	UPROPERTY()
-	ETestEnum Enum;
+	ETestEnum ManyWordsEnum;
+};
+
+USTRUCT()
+struct FTestNestedEnum
+{
+	GENERATED_BODY()
+
+	UPROPERTY()
+	FTestEnum NestedEnum;
 };
 
 USTRUCT()

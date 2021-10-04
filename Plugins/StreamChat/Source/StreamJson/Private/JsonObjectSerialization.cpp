@@ -22,6 +22,24 @@ TSharedPtr<FJsonValue> ApplyNamingConventionToValue(FProperty* Property, const v
 
 		return MakeShared<FJsonValueString>(StringValue);
 	}
+	if (const FStructProperty* StructProperty = CastField<FStructProperty>(Property))
+	{
+		UScriptStruct::ICppStructOps* TheCppStructOps = StructProperty->Struct->GetCppStructOps();
+		// Intentionally exclude the JSON Object wrapper, which specifically needs to export JSON in an object representation
+		// instead of a string
+		if (StructProperty->Struct != FJsonObjectWrapper::StaticStruct() && TheCppStructOps && TheCppStructOps->HasExportTextItem())
+		{
+			FString OutValueStr;
+			TheCppStructOps->ExportTextItem(OutValueStr, Value, nullptr, nullptr, PPF_None, nullptr);
+			return MakeShared<FJsonValueString>(OutValueStr);
+		}
+
+		TSharedRef<FJsonObject> Out = MakeShared<FJsonObject>();
+		if (JsonObjectSerialization::UStructToJsonObject(StructProperty->Struct, Value, Out, NamingConvention))
+		{
+			return MakeShared<FJsonValueObject>(Out);
+		}
+	}
 	return nullptr;
 }
 

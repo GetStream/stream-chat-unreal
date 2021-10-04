@@ -111,11 +111,11 @@ void FJsonSpec::Define()
 				{
 					const FString Json = R"(
 {
-  "enum": "SecondEnumValue"
+  "ManyWordsEnum": "SecondEnumValue"
 }
 					)";
 					const FTestEnum Obj = Json::Deserialize<FTestEnum>(Json);
-					TestEqual("enum", Obj.Enum, ETestEnum::SecondEnumValue);
+					TestEqual("enum", Obj.ManyWordsEnum, ETestEnum::SecondEnumValue);
 				});
 
 			It("should deserialize snake_case with number string unions to enums", EAsyncExecution::ThreadPool,
@@ -123,11 +123,11 @@ void FJsonSpec::Define()
 				{
 					const FString Json = R"(
 {
-  "enum": "number3"
+  "many_words_enum": "number3"
 }
 					)";
 					const FTestEnum Obj = Json::Deserialize<FTestEnum>(Json);
-					TestEqual("enum", Obj.Enum, ETestEnum::Number3);
+					TestEqual("enum", Obj.ManyWordsEnum, ETestEnum::Number3);
 				});
 
 			It("should deserialize snake_case string unions to enums", EAsyncExecution::ThreadPool,
@@ -135,11 +135,11 @@ void FJsonSpec::Define()
 				{
 					const FString Json = R"(
 {
-  "enum": "second_enum_value"
+  "many_words_enum": "second_enum_value"
 }
 					)";
-					const FTestJson Obj = Json::Deserialize<FTestJson>(Json);
-					TestEqual("enum", Obj.Enum, ETestEnum::SecondEnumValue);
+					const FTestEnum Obj = Json::Deserialize<FTestEnum>(Json);
+					TestEqual("enum", Obj.ManyWordsEnum, ETestEnum::SecondEnumValue);
 				});
 
 			It("should deserialize with snake_case property names", EAsyncExecution::ThreadPool,
@@ -195,7 +195,7 @@ void FJsonSpec::Define()
 				{
 					constexpr FTestEnum Obj{ETestEnum::SecondEnumValue};
 					const FString Json = Json::Serialize(Obj, ENamingConvention::UpperCamelCase);
-					const FString ExpectedJson = R"({"enum":"SecondEnumValue"})";
+					const FString ExpectedJson = R"({"ManyWordsEnum":"SecondEnumValue"})";
 					TestEqual("JSON", Json, ExpectedJson);
 				});
 
@@ -204,7 +204,16 @@ void FJsonSpec::Define()
 				{
 					constexpr FTestEnum Obj{ETestEnum::SecondEnumValue};
 					const FString Json = Json::Serialize(Obj, ENamingConvention::SnakeCase);
-					const FString ExpectedJson = R"({"enum":"second_enum_value"})";
+					const FString ExpectedJson = R"({"many_words_enum":"second_enum_value"})";
+					TestEqual("JSON", Json, ExpectedJson);
+				});
+
+			It("should serialize nested enum value to snake_case string", EAsyncExecution::ThreadPool,
+				[this]()
+				{
+					constexpr FTestNestedEnum Obj{{ETestEnum::SecondEnumValue}};
+					const FString Json = Json::Serialize(Obj, ENamingConvention::SnakeCase);
+					const FString ExpectedJson = R"({"nested_enum":{"many_words_enum":"second_enum_value"}})";
 					TestEqual("JSON", Json, ExpectedJson);
 				});
 		});
