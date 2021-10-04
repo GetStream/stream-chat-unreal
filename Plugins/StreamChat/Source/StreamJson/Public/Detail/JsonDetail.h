@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Detail/JsonObjectSerialization.h"
+#include "Detail/JsonObjectDeserialization.h"
 #include "NamingConvention.h"
 
 namespace Detail
@@ -11,7 +11,7 @@ template <class T>
 T Deserialize(const FString& Json)
 {
 	T OutData;
-	JsonObjectSerialization::JsonObjectStringToUStruct<T>(Json, &OutData);
+	JsonObjectDeserialization::JsonObjectStringToUStruct<T>(Json, &OutData);
 	return OutData;
 }
 }	 // namespace Detail

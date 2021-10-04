@@ -1,6 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "Detail/JsonObjectSerialization.h"
+#include "Detail/JsonObjectDeserialization.h"
 
 #include "Internationalization/Culture.h"
 #include "JsonObjectWrapper.h"
@@ -319,7 +319,7 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(const TSharedPtr<FJsonValue>
 					CheckFlags & (~CPF_ParmFlags), SkipFlags))
 			{
 				UE_LOG(LogJson, Error,
-					TEXT("JsonValueToUProperty - JsonObjectSerialization::JsonObjectToUStruct failed for property %s"),
+					TEXT("JsonValueToUProperty - JsonObjectDeserialization::JsonObjectToUStruct failed for property %s"),
 					*Property->GetNameCPP());
 				return false;
 			}
@@ -440,7 +440,7 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(const TSharedPtr<FJsonValue>
 					Obj->Values, PropertyClass, CreatedObj, PropertyClass, CreatedObj, CheckFlags & (~CPF_ParmFlags), SkipFlags))
 			{
 				UE_LOG(LogJson, Error,
-					TEXT("JsonValueToUProperty - JsonObjectSerialization::JsonObjectToUStruct failed for property %s"),
+					TEXT("JsonValueToUProperty - JsonObjectDeserialization::JsonObjectToUStruct failed for property %s"),
 					*Property->GetNameCPP());
 				return false;
 			}
@@ -563,7 +563,18 @@ bool JsonAttributesToUStructWithContainer(const TMap<FString, TSharedPtr<FJsonVa
 		}
 
 		// find a json value matching this property name
-		const TSharedPtr<FJsonValue>* JsonValue = JsonAttributes.Find(Property->GetName());
+		const FString PropertyName = Property->GetName();
+		const TSharedPtr<FJsonValue>* JsonValue = JsonAttributes.Find(PropertyName);
+		// Try again stripping things like 'b'
+		if (!JsonValue && CastField<FBoolProperty>(Property))
+		{
+			JsonValue = JsonAttributes.Find(NamingConventionConversion::ConvertPropertyNameToUpperCamelCase(PropertyName));
+		}
+		// Try again converting from snake_case
+		if (!JsonValue)
+		{
+			JsonValue = JsonAttributes.Find(NamingConventionConversion::ConvertPropertyNameToSnakeCase(PropertyName));
+		}
 		if (!JsonValue)
 		{
 			// we allow values to not be found since this mirrors the typical UObject mantra that all the fields are optional when
@@ -593,13 +604,13 @@ bool JsonAttributesToUStructWithContainer(const TMap<FString, TSharedPtr<FJsonVa
 }
 }	 // namespace
 
-bool JsonObjectSerialization::JsonObjectToUStruct(
+bool JsonObjectDeserialization::JsonObjectToUStruct(
 	const TSharedRef<FJsonObject>& JsonObject, const UStruct* StructDefinition, void* OutStruct, int64 CheckFlags, int64 SkipFlags)
 {
 	return JsonAttributesToUStruct(JsonObject->Values, StructDefinition, OutStruct, CheckFlags, SkipFlags);
 }
 
-bool JsonObjectSerialization::JsonAttributesToUStruct(const TMap<FString, TSharedPtr<FJsonValue> >& JsonAttributes,
+bool JsonObjectDeserialization::JsonAttributesToUStruct(const TMap<FString, TSharedPtr<FJsonValue> >& JsonAttributes,
 	const UStruct* StructDefinition, void* OutStruct, int64 CheckFlags, int64 SkipFlags)
 {
 	return JsonAttributesToUStructWithContainer(

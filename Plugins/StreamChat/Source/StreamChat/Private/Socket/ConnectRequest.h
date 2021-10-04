@@ -8,8 +8,6 @@
 
 #include "ConnectRequest.generated.h"
 
-// ReSharper disable CppUE4CodingStandardNamingViolationWarning
-
 /**
  *
  */
@@ -19,14 +17,14 @@ struct FConnectRequest
 	GENERATED_BODY()
 
 	UPROPERTY()
-	bool server_determines_connection_id;
+	bool bServerDeterminesConnectionId;
 
 	UPROPERTY()
-	FString client_id;
+	FString ClientId;
 
 	UPROPERTY()
-	FUser user_details;
+	FUser UserDetails;
 
 	UPROPERTY()
-	FDeviceFields device;
+	FDeviceFields Device;
 };

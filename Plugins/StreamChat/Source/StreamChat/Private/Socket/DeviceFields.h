@@ -7,8 +7,6 @@
 
 #include "DeviceFields.generated.h"
 
-// ReSharper disable CppUE4CodingStandardNamingViolationWarning
-
 /**
  *
  */
@@ -18,8 +16,8 @@ struct FDeviceFields
 	GENERATED_BODY()
 
 	UPROPERTY()
-	EPushProvider push_provider;
+	EPushProvider PushProvider;
 
 	UPROPERTY()
-	FString id;
+	FString Id;
 };

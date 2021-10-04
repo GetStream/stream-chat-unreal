@@ -6,6 +6,41 @@
 
 namespace
 {
+FStringView TrimPropertyNameSuperfluous(const FStringView View)
+{
+	int32 NameOffset = 0;
+
+	for (;;)
+	{
+		// Strip the "b" prefix from bool names
+		if (View.Len() - NameOffset >= 2 && View[NameOffset] == TEXT('b') && FChar::IsUpper(View[NameOffset + 1]))
+		{
+			NameOffset += 1;
+			continue;
+		}
+
+		// Strip the "In" prefix from names
+		if (View.Len() - NameOffset >= 3 && View[NameOffset] == TEXT('I') && View[NameOffset + 1] == TEXT('n') &&
+			FChar::IsUpper(View[NameOffset + 2]))
+		{
+			NameOffset += 2;
+			continue;
+		}
+
+		// Strip the "Out" prefix from names
+		// if (View.Len() - NameOffset >= 4 && View[NameOffset] == TEXT('O') && View[NameOffset + 1] == TEXT('u') &&
+		// View[NameOffset + 2] == TEXT('t') && FChar::IsUpper(View[NameOffset + 3]))
+		//{
+		//	NameOffset += 3;
+		//	continue;
+		//}
+
+		// Nothing more to strip
+		break;
+	}
+
+	return NameOffset ? View.RightChop(NameOffset) : View;
+}
 TSharedPtr<IBreakIterator> NameBreakIterator;
 TSharedPtr<IBreakIterator> GraphemeIterator;
 }	 // namespace
@@ -57,38 +92,12 @@ FString NamingConventionConversion::ConvertNameToSnakeCase(const FStringView InN
 
 FString NamingConventionConversion::ConvertPropertyNameToSnakeCase(const FStringView InName)
 {
-	int32 NameOffset = 0;
+	return ConvertNameToSnakeCase(TrimPropertyNameSuperfluous(InName));
+}
 
-	for (;;)
-	{
-		// Strip the "b" prefix from bool names
-		if (InName.Len() - NameOffset >= 2 && InName[NameOffset] == TEXT('b') && FChar::IsUpper(InName[NameOffset + 1]))
-		{
-			NameOffset += 1;
-			continue;
-		}
-
-		// Strip the "In" prefix from names
-		if (InName.Len() - NameOffset >= 3 && InName[NameOffset] == TEXT('I') && InName[NameOffset + 1] == TEXT('n') &&
-			FChar::IsUpper(InName[NameOffset + 2]))
-		{
-			NameOffset += 2;
-			continue;
-		}
-
-		// Strip the "Out" prefix from names
-		// if (InName.Len() - NameOffset >= 4 && InName[NameOffset] == TEXT('O') && InName[NameOffset + 1] == TEXT('u') &&
-		// InName[NameOffset + 2] == TEXT('t') && FChar::IsUpper(InName[NameOffset + 3]))
-		//{
-		//	NameOffset += 3;
-		//	continue;
-		//}
-
-		// Nothing more to strip
-		break;
-	}
-
-	return ConvertNameToSnakeCase(NameOffset ? InName.RightChop(NameOffset) : InName);
+FString NamingConventionConversion::ConvertPropertyNameToUpperCamelCase(const FStringView InName)
+{
+	return FString(TrimPropertyNameSuperfluous(InName));
 }
 
 FString NamingConventionConversion::ConvertSnakeCaseToUpperCamelCase(const FStringView InString)
@@ -105,15 +114,13 @@ FString NamingConventionConversion::ConvertSnakeCaseToUpperCamelCase(const FStri
 	for (int32 PrevBreak = 0, GraphemeBreak = GraphemeIterator->MoveToNext(); GraphemeBreak != INDEX_NONE;
 		 GraphemeBreak = GraphemeIterator->MoveToNext())
 	{
-		if (InString[PrevBreak] == TEXT('_'))
+		if (InString[PrevBreak] != TEXT('_'))
 		{
-			continue;
+			// Append first char as upper
+			UpperCamelCase.AppendChar(FChar::ToUpper(InString[PrevBreak]));
+			// Append rest of word
+			UpperCamelCase.AppendChars(&InString[PrevBreak] + 1, GraphemeBreak - PrevBreak - 1);
 		}
-
-		// Append first char as upper
-		UpperCamelCase.AppendChar(FChar::ToUpper(InString[PrevBreak]));
-		// Append rest of word
-		UpperCamelCase.AppendChars(&InString[PrevBreak] + 1, GraphemeBreak - PrevBreak - 1);
 
 		PrevBreak = GraphemeBreak;
 	}

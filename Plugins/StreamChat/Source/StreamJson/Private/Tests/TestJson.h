@@ -51,7 +51,7 @@ struct FTestJson
 	double Double;
 
 	UPROPERTY()
-	bool Boolean;
+	bool bBoolean;
 
 	UPROPERTY()
 	FString String;

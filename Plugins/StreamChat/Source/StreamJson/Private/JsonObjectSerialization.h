@@ -4,7 +4,7 @@
 class FJsonObject;
 class FJsonValue;
 
-namespace JsonObjectDeserialization
+namespace JsonObjectSerialization
 {
 /**
  * Converts from a UStruct to a json string containing an object, using exportText
@@ -43,4 +43,4 @@ static bool UStructToJsonObject(const UStruct* StructDefinition, const void* Str
 static bool UStructToJsonAttributes(const UStruct* StructDefinition, const void* Struct,
 	TMap<FString, TSharedPtr<FJsonValue> >& OutJsonAttributes,
 	ENamingConvention NamingConvention = ENamingConvention::UpperCamelCase);
-}	 // namespace JsonObjectDeserialization
+}	 // namespace JsonObjectSerialization

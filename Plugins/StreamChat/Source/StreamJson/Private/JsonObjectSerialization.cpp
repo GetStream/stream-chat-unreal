@@ -1,4 +1,4 @@
-#include "JsonObjectDeserialization.h"
+#include "JsonObjectSerialization.h"
 
 #include "Dom/JsonObject.h"
 #include "JsonObjectConverter.h"
@@ -34,8 +34,8 @@ bool UStructToJsonObjectStringInternal(const TSharedRef<FJsonObject>& JsonObject
 	return bSuccess;
 }
 
-bool JsonObjectDeserialization::UStructToJsonObjectString(const UStruct* StructDefinition, const void* Struct,
-	FString& OutJsonString, ENamingConvention NamingConvention, bool bPrettyPrint)
+bool JsonObjectSerialization::UStructToJsonObjectString(const UStruct* StructDefinition, const void* Struct, FString& OutJsonString,
+	ENamingConvention NamingConvention, bool bPrettyPrint)
 {
 	const TSharedRef<FJsonObject> JsonObject = MakeShared<FJsonObject>();
 	if (UStructToJsonObject(StructDefinition, Struct, JsonObject, NamingConvention))
@@ -62,13 +62,13 @@ bool JsonObjectDeserialization::UStructToJsonObjectString(const UStruct* StructD
 	return false;
 }
 
-bool JsonObjectDeserialization::UStructToJsonObject(
+bool JsonObjectSerialization::UStructToJsonObject(
 	const UStruct* StructDefinition, const void* Struct, TSharedRef<FJsonObject> OutJsonObject, ENamingConvention NamingConvention)
 {
 	return UStructToJsonAttributes(StructDefinition, Struct, OutJsonObject->Values, NamingConvention);
 }
 
-bool JsonObjectDeserialization::UStructToJsonAttributes(const UStruct* StructDefinition, const void* Struct,
+bool JsonObjectSerialization::UStructToJsonAttributes(const UStruct* StructDefinition, const void* Struct,
 	TMap<FString, TSharedPtr<FJsonValue> >& OutJsonAttributes, ENamingConvention NamingConvention)
 {
 	// Skip deprecated, transient and skip serialization by default when writing
@@ -97,6 +97,10 @@ bool JsonObjectDeserialization::UStructToJsonAttributes(const UStruct* StructDef
 		}
 
 		FString VariableName = Property->GetName();
+		if (NamingConvention == ENamingConvention::UpperCamelCase)
+		{
+			VariableName = NamingConventionConversion::ConvertPropertyNameToUpperCamelCase(VariableName);
+		}
 		if (NamingConvention == ENamingConvention::SnakeCase)
 		{
 			VariableName = NamingConventionConversion::ConvertPropertyNameToSnakeCase(VariableName);

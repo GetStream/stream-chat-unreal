@@ -7,7 +7,7 @@
 #include "Serialization/JsonSerializer.h"
 
 /** Class that handles converting Json objects to UStructs */
-namespace JsonObjectSerialization
+namespace JsonObjectDeserialization
 {
 /**
  * Converts from a Json Object to a UStruct, using importText
@@ -74,11 +74,11 @@ bool JsonObjectStringToUStruct(const FString& JsonString, OutStructType* OutStru
 		UE_LOG(LogJson, Warning, TEXT("JsonObjectStringToUStruct - Unable to parse json=[%s]"), *JsonString);
 		return false;
 	}
-	if (!JsonObjectSerialization::JsonObjectToUStruct(JsonObject.ToSharedRef(), OutStruct, CheckFlags, SkipFlags))
+	if (!JsonObjectDeserialization::JsonObjectToUStruct(JsonObject.ToSharedRef(), OutStruct, CheckFlags, SkipFlags))
 	{
 		UE_LOG(LogJson, Warning, TEXT("JsonObjectStringToUStruct - Unable to deserialize. json=[%s]"), *JsonString);
 		return false;
 	}
 	return true;
 }
-};	  // namespace JsonObjectSerialization
+};	  // namespace JsonObjectDeserialization
