@@ -4,6 +4,7 @@
 
 #include "Internationalization/Culture.h"
 #include "JsonObjectWrapper.h"
+#include "NamingConventionConversion.h"
 #include "UObject/Class.h"
 #include "UObject/EnumProperty.h"
 #include "UObject/ObjectMacros.h"
@@ -80,8 +81,15 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(const TSharedPtr<FJsonValue>
 			const UEnum* Enum = EnumProperty->GetEnum();
 			check(Enum);
 			FString StrValue = JsonValue->AsString();
-			// TODO snake_case
 			int64 IntValue = Enum->GetValueByName(FName(*StrValue));
+
+			// Try converting from snake_case to UpperCamelCase
+			if (IntValue == INDEX_NONE)
+			{
+				StrValue = NamingConventionConversion::ConvertSnakeCaseToUpperCamelCase(StrValue);
+				IntValue = Enum->GetValueByName(FName(*StrValue));
+			}
+
 			if (IntValue == INDEX_NONE)
 			{
 				UE_LOG(LogJson, Error, TEXT("JsonValueToUProperty - Unable import enum %s from string value %s for property %s"),

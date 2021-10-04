@@ -7,7 +7,8 @@
 namespace
 {
 TSharedPtr<IBreakIterator> NameBreakIterator;
-}
+TSharedPtr<IBreakIterator> GraphemeIterator;
+}	 // namespace
 FString NamingConventionConversion::ConvertNameToSnakeCase(const FStringView InName)
 {
 	FString SnakeCaseName;
@@ -88,4 +89,35 @@ FString NamingConventionConversion::ConvertPropertyNameToSnakeCase(const FString
 	}
 
 	return ConvertNameToSnakeCase(NameOffset ? InName.RightChop(NameOffset) : InName);
+}
+
+FString NamingConventionConversion::ConvertSnakeCaseToUpperCamelCase(const FStringView InString)
+{
+	FString UpperCamelCase;
+	UpperCamelCase.Reserve(InString.Len());
+
+	if (!GraphemeIterator.IsValid())
+	{
+		GraphemeIterator = FBreakIterator::CreateCamelCaseBreakIterator();
+	}
+
+	GraphemeIterator->SetStringRef(InString);
+	for (int32 PrevBreak = 0, GraphemeBreak = GraphemeIterator->MoveToNext(); GraphemeBreak != INDEX_NONE;
+		 GraphemeBreak = GraphemeIterator->MoveToNext())
+	{
+		if (InString[PrevBreak] == TEXT('_'))
+		{
+			continue;
+		}
+
+		// Append first char as upper
+		UpperCamelCase.AppendChar(FChar::ToUpper(InString[PrevBreak]));
+		// Append rest of word
+		UpperCamelCase.AppendChars(&InString[PrevBreak] + 1, GraphemeBreak - PrevBreak - 1);
+
+		PrevBreak = GraphemeBreak;
+	}
+	GraphemeIterator->ClearString();
+
+	return UpperCamelCase;
 }

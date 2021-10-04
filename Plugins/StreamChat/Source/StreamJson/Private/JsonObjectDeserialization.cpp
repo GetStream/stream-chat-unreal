@@ -26,30 +26,28 @@ TSharedPtr<FJsonValue> ApplyNamingConventionToValue(FProperty* Property, const v
 }
 
 template <class CharType, class PrintPolicy>
-bool UStructToJsonObjectStringInternal(const TSharedRef<FJsonObject>& JsonObject, FString& OutJsonString, int32 Indent)
+bool UStructToJsonObjectStringInternal(const TSharedRef<FJsonObject>& JsonObject, FString& OutJsonString)
 {
-	TSharedRef<TJsonWriter<CharType, PrintPolicy> > JsonWriter =
-		TJsonWriterFactory<CharType, PrintPolicy>::Create(&OutJsonString, Indent);
+	TSharedRef<TJsonWriter<CharType, PrintPolicy> > JsonWriter = TJsonWriterFactory<CharType, PrintPolicy>::Create(&OutJsonString);
 	const bool bSuccess = FJsonSerializer::Serialize(JsonObject, JsonWriter);
 	JsonWriter->Close();
 	return bSuccess;
 }
 
 bool JsonObjectDeserialization::UStructToJsonObjectString(const UStruct* StructDefinition, const void* Struct,
-	FString& OutJsonString, int64 CheckFlags, int64 SkipFlags, int32 Indent, ENamingConvention NamingConvention, bool bPrettyPrint)
+	FString& OutJsonString, ENamingConvention NamingConvention, bool bPrettyPrint)
 {
 	const TSharedRef<FJsonObject> JsonObject = MakeShared<FJsonObject>();
-	if (UStructToJsonObject(StructDefinition, Struct, JsonObject, CheckFlags, SkipFlags, NamingConvention))
+	if (UStructToJsonObject(StructDefinition, Struct, JsonObject, NamingConvention))
 	{
 		bool bSuccess;
 		if (bPrettyPrint)
 		{
-			bSuccess = UStructToJsonObjectStringInternal<TCHAR, TPrettyJsonPrintPolicy<TCHAR> >(JsonObject, OutJsonString, Indent);
+			bSuccess = UStructToJsonObjectStringInternal<TCHAR, TPrettyJsonPrintPolicy<TCHAR> >(JsonObject, OutJsonString);
 		}
 		else
 		{
-			bSuccess =
-				UStructToJsonObjectStringInternal<TCHAR, TCondensedJsonPrintPolicy<TCHAR> >(JsonObject, OutJsonString, Indent);
+			bSuccess = UStructToJsonObjectStringInternal<TCHAR, TCondensedJsonPrintPolicy<TCHAR> >(JsonObject, OutJsonString);
 		}
 		if (bSuccess)
 		{
@@ -64,21 +62,17 @@ bool JsonObjectDeserialization::UStructToJsonObjectString(const UStruct* StructD
 	return false;
 }
 
-bool JsonObjectDeserialization::UStructToJsonObject(const UStruct* StructDefinition, const void* Struct,
-	TSharedRef<FJsonObject> OutJsonObject, int64 CheckFlags, int64 SkipFlags, ENamingConvention NamingConvention)
+bool JsonObjectDeserialization::UStructToJsonObject(
+	const UStruct* StructDefinition, const void* Struct, TSharedRef<FJsonObject> OutJsonObject, ENamingConvention NamingConvention)
 {
-	return UStructToJsonAttributes(StructDefinition, Struct, OutJsonObject->Values, CheckFlags, SkipFlags, NamingConvention);
+	return UStructToJsonAttributes(StructDefinition, Struct, OutJsonObject->Values, NamingConvention);
 }
 
 bool JsonObjectDeserialization::UStructToJsonAttributes(const UStruct* StructDefinition, const void* Struct,
-	TMap<FString, TSharedPtr<FJsonValue> >& OutJsonAttributes, int64 CheckFlags, int64 SkipFlags,
-	ENamingConvention NamingConvention)
+	TMap<FString, TSharedPtr<FJsonValue> >& OutJsonAttributes, ENamingConvention NamingConvention)
 {
-	if (SkipFlags == 0)
-	{
-		// If we have no specified skip flags, skip deprecated, transient and skip serialization by default when writing
-		SkipFlags |= CPF_Deprecated | CPF_Transient;
-	}
+	// Skip deprecated, transient and skip serialization by default when writing
+	constexpr int64 SkipFlags = CPF_Deprecated | CPF_Transient;
 
 	if (StructDefinition == FJsonObjectWrapper::StaticStruct())
 	{
@@ -97,10 +91,6 @@ bool JsonObjectDeserialization::UStructToJsonAttributes(const UStruct* StructDef
 		FProperty* Property = *It;
 
 		// Check to see if we should ignore this property
-		if (CheckFlags != 0 && !Property->HasAnyPropertyFlags(CheckFlags))
-		{
-			continue;
-		}
 		if (Property->HasAnyPropertyFlags(SkipFlags))
 		{
 			continue;
@@ -116,8 +106,7 @@ bool JsonObjectDeserialization::UStructToJsonAttributes(const UStruct* StructDef
 		// convert the property to a FJsonValue
 		FJsonObjectConverter::CustomExportCallback Callback =
 			FJsonObjectConverter::CustomExportCallback::CreateStatic(&ApplyNamingConventionToValue, NamingConvention);
-		TSharedPtr<FJsonValue> JsonValue =
-			FJsonObjectConverter::UPropertyToJsonValue(Property, Value, CheckFlags, SkipFlags, &Callback);
+		TSharedPtr<FJsonValue> JsonValue = FJsonObjectConverter::UPropertyToJsonValue(Property, Value, 0, SkipFlags, &Callback);
 		if (!JsonValue.IsValid())
 		{
 			const FFieldClass* PropClass = Property->GetClass();
