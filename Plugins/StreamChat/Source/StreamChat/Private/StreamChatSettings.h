@@ -16,6 +16,6 @@ class UStreamChatSettings final : public UObject
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, Config, meta = (DisplayName = "API Key"))
-	FString ApiKey;
+	UPROPERTY(EditAnywhere)
+	FString Domain = TEXT("chat-us-east-1.stream-io-api.com");
 };
