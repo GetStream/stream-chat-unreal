@@ -85,7 +85,7 @@ void FHttpRequestsSpec::Define()
 					const FString FakeTitle = TEXT("Foo");
 					const FString FakeBody = TEXT("Bar");
 					HttpRequests::Post(TEXT("https://jsonplaceholder.typicode.com/posts"))
-						.Json(FJsonPlaceholderPost{FakeUserId, -1, FakeTitle, FakeBody})
+						.Json(FJsonPlaceholderPost{FakeUserId, -1, FakeTitle, FakeBody}, ENamingConvention::UpperCamelCase)
 						.Send(
 							[=](const FHttpResponse Response)
 							{

@@ -17,10 +17,11 @@ public:
 	 *
 	 * @tparam T Input struct type
 	 * @param Struct Will be serialized as JSON in the body of the request
+	 * @param NamingConvention JSON keys and values will be formatted according to this naming convention (snake_case by default)
 	 * @return Builder to continue creating a request
 	 */
 	template <class T>
-	FRequestBuilder& Json(const T& Struct);
+	FRequestBuilder& Json(const T& Struct, ENamingConvention NamingConvention = ENamingConvention::SnakeCase);
 
 	/**
 	 * Send a HTTP request to the target URL, calling the callback when a response is received
@@ -34,9 +35,9 @@ private:
 };
 
 template <class T>
-FRequestBuilder& FRequestBuilder::Json(const T& Struct)
+FRequestBuilder& FRequestBuilder::Json(const T& Struct, ENamingConvention NamingConvention)
 {
-	const FString JsonBody = Json::Serialize(Struct);
+	const FString JsonBody = Json::Serialize(Struct, NamingConvention);
 	Request->SetContentAsString(JsonBody);
 	Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
 	return *this;

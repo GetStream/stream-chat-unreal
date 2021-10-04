@@ -2,6 +2,6 @@
 
 enum class ENamingConvention
 {
-	CamelCase,
+	UpperCamelCase,
 	SnakeCase,
 };

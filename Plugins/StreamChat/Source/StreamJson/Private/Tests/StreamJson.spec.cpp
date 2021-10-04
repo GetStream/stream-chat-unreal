@@ -117,7 +117,7 @@ void FJsonSpec::Define()
 					TestEqual("enum", Obj.Enum, ETestEnum::SecondEnumValue);
 				});
 
-			It("should deserialize CamelCase string unions to enums", EAsyncExecution::ThreadPool,
+			It("should deserialize UpperCamelCase string unions to enums", EAsyncExecution::ThreadPool,
 				[this]()
 				{
 					const FString Json = R"(
@@ -152,22 +152,33 @@ void FJsonSpec::Define()
 				{
 					const FTestJson Obj = {1, 2, 3.f, 4., true, "hello", {"hi", 1.f}, {1, 2, 3}, {5, 6}, {2.f, 4.f}, {8., 16.},
 						{true, false}, {"a", "b"}, {{"1", 1.f}}, ETestEnum::Number3};
-					const FString Json = Json::Serialize(Obj);
+					const FString Json = Json::Serialize(Obj, ENamingConvention::SnakeCase);
+					const FString ExpectedJson =
+						R"({"int32":1,"int64":2,"float":3,"double":4,"boolean":true,"string":"hello","nested_object":{"foo":"hi","bar":1},"array_of_int32":[1,2,3],"array_of_int64":[5,6],"array_of_float":[2,4],"array_of_double":[8,16],"array_of_boolean":[true,false],"array_of_string":["a","b"],"array_of_nested_object":[{"foo":"1","bar":1}],"enum":"number3"})";
+					TestEqual("JSON", Json, ExpectedJson);
+				});
+
+			It("should serialize property names and enum values to UpperCamelCase", EAsyncExecution::ThreadPool,
+				[this]()
+				{
+					const FTestJson Obj = {1, 2, 3.f, 4., true, "hello", {"hi", 1.f}, {1, 2, 3}, {5, 6}, {2.f, 4.f}, {8., 16.},
+						{true, false}, {"a", "b"}, {{"1", 1.f}}, ETestEnum::Number3};
+					const FString Json = Json::Serialize(Obj, ENamingConvention::UpperCamelCase);
 					const FString ExpectedJson =
 						R"({"int32":1,"int64":2,"float":3,"double":4,"boolean":true,"string":"hello","nestedObject":{"foo":"hi","bar":1},"arrayOfInt32":[1,2,3],"arrayOfInt64":[5,6],"arrayOfFloat":[2,4],"arrayOfDouble":[8,16],"arrayOfBoolean":[true,false],"arrayOfString":["a","b"],"arrayOfNestedObject":[{"foo":"1","bar":1}],"enum":"Number3"})";
 					TestEqual("JSON", Json, ExpectedJson);
 				});
 
-			It("should serialize enum to CamelCase string", EAsyncExecution::ThreadPool,
+			It("should serialize enum value to UpperCamelCase string", EAsyncExecution::ThreadPool,
 				[this]()
 				{
 					constexpr FTestEnum Obj{ETestEnum::SecondEnumValue};
-					const FString Json = Json::Serialize(Obj, ENamingConvention::CamelCase);
+					const FString Json = Json::Serialize(Obj, ENamingConvention::UpperCamelCase);
 					const FString ExpectedJson = R"({"enum":"SecondEnumValue"})";
 					TestEqual("JSON", Json, ExpectedJson);
 				});
 
-			It("should serialize enum to snake_case string", EAsyncExecution::ThreadPool,
+			It("should serialize enum value to snake_case string", EAsyncExecution::ThreadPool,
 				[this]()
 				{
 					constexpr FTestEnum Obj{ETestEnum::SecondEnumValue};
@@ -175,31 +186,5 @@ void FJsonSpec::Define()
 					const FString ExpectedJson = R"({"enum":"second_enum_value"})";
 					TestEqual("JSON", Json, ExpectedJson);
 				});
-
-			/*
-						It("should deserialize CamelCase string unions to enums", EAsyncExecution::ThreadPool,
-							[this]()
-							{
-								const FString Json = R"(
-						   {
-							 "enum": "number3"
-						   }
-											)";
-								const FTestJson Obj = Json::Deserialize<FTestJson>(Json);
-								TestEqual("enum", Obj.Enum, ETestEnum::Number3);
-							});
-
-						It("should deserialize snake_case string unions to enums", EAsyncExecution::ThreadPool,
-							[this]()
-							{
-								const FString Json = R"(
-						   {
-							 "enum": "second_enum_value"
-						   }
-											)";
-								const FTestJson Obj = Json::Deserialize<FTestJson>(Json);
-								TestEqual("enum", Obj.Enum, ETestEnum::SecondEnumValue);
-							});
-							*/
 		});
 }
