@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "DeviceFields.h"
 #include "User.h"
 
 #include "ConnectRequest.generated.h"
@@ -21,8 +22,11 @@ struct FConnectRequest
 	bool server_determines_connection_id;
 
 	UPROPERTY()
-	FString user_id;
+	FString client_id;
 
 	UPROPERTY()
 	FUser user_details;
+
+	UPROPERTY()
+	FDeviceFields device;
 };
