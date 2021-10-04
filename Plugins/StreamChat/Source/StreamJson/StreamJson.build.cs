@@ -8,6 +8,8 @@ public class StreamJson : ModuleRules
 
         PublicDependencyModuleNames.AddRange(new string[] {
             "Core",
+            "CoreUObject",
+            "Json",
             "JsonUtilities"
         });
     }
