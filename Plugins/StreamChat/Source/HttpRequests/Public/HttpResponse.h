@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Interfaces/IHttpRequest.h"
-#include "JsonObjectConverter.h"
+#include "StreamJson.h"
 
 #include "HttpResponse.generated.h"
 
@@ -33,7 +33,5 @@ struct FHttpResponse
 template <class T>
 T FHttpResponse::Json() const
 {
-	T OutData;
-	FJsonObjectConverter::JsonObjectStringToUStruct<T>(Text, &OutData);
-	return OutData;
+	return Json::Deserialize<T>(Text);
 }

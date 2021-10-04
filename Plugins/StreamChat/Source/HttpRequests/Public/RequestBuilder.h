@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "HttpResponse.h"
 #include "Interfaces/IHttpRequest.h"
+#include "StreamJson.h"
 
 class FRequestBuilder
 {
@@ -35,8 +36,7 @@ private:
 template <class T>
 FRequestBuilder& FRequestBuilder::Json(const T& Struct)
 {
-	FString JsonBody;
-	FJsonObjectConverter::UStructToJsonObjectString(Struct, JsonBody);
+	const FString JsonBody = Json::Serialize(Struct);
 	Request->SetContentAsString(JsonBody);
 	Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
 	return *this;

@@ -24,6 +24,11 @@
 			"Name": "HttpRequests",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "StreamJson",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
 		}
 	]
 }

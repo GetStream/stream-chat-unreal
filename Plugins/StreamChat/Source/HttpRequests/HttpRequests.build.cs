@@ -10,11 +10,11 @@ public class HttpRequests : ModuleRules
 		PublicDependencyModuleNames.AddRange(new[]
 		{
 			"Core",
+			"StreamJson",
 		});
 
         PrivateDependencyModuleNames.AddRange(new[] {
             "CoreUObject",
-            "Engine",
 			"HTTP",
 			"Json",
 			"JsonUtilities"

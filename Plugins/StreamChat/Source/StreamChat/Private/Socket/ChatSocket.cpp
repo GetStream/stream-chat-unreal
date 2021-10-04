@@ -2,8 +2,8 @@
 
 #include "ConnectRequest.h"
 #include "IWebSocket.h"
-#include "JsonObjectConverter.h"
 #include "StreamChatSettings.h"
+#include "StreamJson/Public/StreamJson.h"
 #include "WebSocketsModule.h"
 
 FChatSocket::FChatSocket(const FString& ApiKey, const FUser& User, const FTokenManager& TokenManager)
@@ -60,8 +60,7 @@ FString FChatSocket::BuildUrl(const FString& ApiKey, const FUser& User, const FT
 		User.Id,
 		User,
 	};
-	FString Json;
-	FJsonObjectConverter::UStructToJsonObjectString(Request, Json, 0, 0, 0, nullptr, false);
+	const FString Json = Json::Serialize(Request);
 	return FString::Printf(
 		TEXT("wss://%s/connect?json=%s&api_key=%s&authorization=%s&stream-auth-type=jwt"), *Domain, *Json, *ApiKey, *Token);
 }
