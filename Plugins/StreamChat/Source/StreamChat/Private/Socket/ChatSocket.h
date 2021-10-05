@@ -11,7 +11,7 @@ class FChatSocket : public TSharedFromThis<FChatSocket>
 public:
 	explicit FChatSocket(const FString& ApiKey, const FUser& User, const FTokenManager& TokenManager);
 	~FChatSocket();
-	void Connect();
+	void Connect(TFunction<void()> Callback);
 	void Disconnect();
 
 private:

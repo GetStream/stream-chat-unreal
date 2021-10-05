@@ -24,4 +24,7 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess))
 	UStreamChatClientComponent* Client;
+
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess))
+	UChatChannel* Channel;
 };

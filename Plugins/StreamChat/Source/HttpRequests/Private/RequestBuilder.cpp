@@ -70,13 +70,17 @@ FRequestBuilder& FRequestBuilder::Query(const FStringFormatNamedArguments& Query
 	return *this;
 }
 
-void FRequestBuilder::Send(const TFunction<void(FHttpResponse)> Callback)
+void FRequestBuilder::Send(const TFunction<void(FHttpResponse)> Callback) const
 {
+	UE_LOG(LogTemp, Log, TEXT("Sending HTTP request to %s"), *Request->GetURL());
 	Request->OnProcessRequestComplete().BindLambda(
 		[Callback](FHttpRequestPtr Request, const FHttpResponsePtr Response, bool bConnectedSuccessfully)
 		{
 			const FHttpResponse HttpResponse{Response};
-			Callback(HttpResponse);
+			if (Callback)
+			{
+				Callback(HttpResponse);
+			}
 		});
 	Request->ProcessRequest();
 }

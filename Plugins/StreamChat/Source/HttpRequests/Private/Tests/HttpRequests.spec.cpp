@@ -3,7 +3,8 @@
 #include "JsonPlaceholderPost.h"
 #include "Misc/AutomationTest.h"
 
-BEGIN_DEFINE_SPEC(FHttpRequestsSpec, "StreamChat.HttpRequests",
+BEGIN_DEFINE_SPEC(FHttpRequestsSpec,
+	"StreamChat.HttpRequests",
 	EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)
 const int32 TotalSimultaneousRequests = 20;
 TArray<FHttpResponse> SimultaneousResponses;
@@ -14,7 +15,8 @@ void FHttpRequestsSpec::Define()
 	Describe("Get",
 		[this]
 		{
-			LatentIt("should return 200 and body", EAsyncExecution::ThreadPool,
+			LatentIt("should return 200 and body",
+				EAsyncExecution::ThreadPool,
 				[this](const FDoneDelegate TestDone)
 				{
 					HttpRequests::Get(TEXT("https://jsonplaceholder.typicode.com/posts/1"))
@@ -23,13 +25,15 @@ void FHttpRequestsSpec::Define()
 							{
 								AddInfo(Response.Text);
 								TestEqual("Response code", Response.StatusCode, 200);
-								TestTrue("Text", Response.Text.Contains(
-													 "sunt aut facere repellat provident occaecati excepturi optio reprehenderit"));
+								TestTrue("Text",
+									Response.Text.Contains(
+										"sunt aut facere repellat provident occaecati excepturi optio reprehenderit"));
 								TestDone.Execute();
 							});
 				});
 
-			LatentIt("simultaneous requests should all return", EAsyncExecution::ThreadPool,
+			LatentIt("simultaneous requests should all return",
+				EAsyncExecution::ThreadPool,
 				[this](const FDoneDelegate TestDone)
 				{
 					for (int32 i = 0; i < TotalSimultaneousRequests; ++i)
@@ -49,7 +53,8 @@ void FHttpRequestsSpec::Define()
 					}
 				});
 
-			LatentIt("should deserialize JSON", EAsyncExecution::ThreadPool,
+			LatentIt("should deserialize JSON",
+				EAsyncExecution::ThreadPool,
 				[this](const FDoneDelegate TestDone)
 				{
 					HttpRequests::Get(TEXT("https://jsonplaceholder.typicode.com/posts/1"))
@@ -62,9 +67,11 @@ void FHttpRequestsSpec::Define()
 
 								TestEqual("UserId", UserId, 1);
 								TestEqual("Id", Id, 1);
-								TestEqual("Title", Title,
+								TestEqual("Title",
+									Title,
 									TEXT("sunt aut facere repellat provident occaecati excepturi optio reprehenderit"));
-								TestEqual("Body", Body,
+								TestEqual("Body",
+									Body,
 									TEXT("quia et suscipit\n"
 										 "suscipit recusandae consequuntur expedita et cum\n"
 										 "reprehenderit molestiae ut ut quas totam\n"
@@ -78,7 +85,8 @@ void FHttpRequestsSpec::Define()
 	Describe("Post",
 		[this]
 		{
-			LatentIt("should return 200 and new resource", EAsyncExecution::ThreadPool,
+			LatentIt("should return 200 and new resource",
+				EAsyncExecution::ThreadPool,
 				[this](const FDoneDelegate TestDone)
 				{
 					constexpr int32 FakeUserId = 11;

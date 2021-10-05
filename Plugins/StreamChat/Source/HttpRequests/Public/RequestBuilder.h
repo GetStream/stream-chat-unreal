@@ -4,7 +4,7 @@
 #include "Interfaces/IHttpRequest.h"
 #include "StreamJson.h"
 
-class FRequestBuilder
+class HTTPREQUESTS_API FRequestBuilder
 {
 public:
 	explicit FRequestBuilder(const FString& Verb, const FString& Url);
@@ -28,7 +28,7 @@ public:
 	 *
 	 * @param Callback A function to be called when the response is received
 	 */
-	void Send(TFunction<void(FHttpResponse)> Callback);
+	void Send(TFunction<void(FHttpResponse)> Callback) const;
 
 private:
 	FHttpRequestPtr Request;

@@ -23,8 +23,10 @@ public class StreamChat : ModuleRules
 				"CoreUObject",
 				"Engine",
 				"WebSockets",
+				"Json",
 				"JsonUtilities",
-				"StreamJson"
+				"StreamJson",
+				"HttpRequests"
 				// ... add private dependencies that you statically link with here ...
 			}
 			);

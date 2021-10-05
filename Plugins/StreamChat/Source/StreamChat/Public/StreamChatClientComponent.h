@@ -10,6 +10,7 @@
 class FChatApi;
 class FChatSocket;
 class FTokenManager;
+class UChatChannel;
 struct FUser;
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
@@ -23,8 +24,10 @@ public:
 	explicit UStreamChatClientComponent(FVTableHelper&);
 	virtual ~UStreamChatClientComponent() override;
 
-	void ConnectUser(const FUser& User, const FString& Token);
+	void ConnectUser(const TFunction<void()> Callback, const FUser& User, const FString& Token);
 	void DisconnectUser();
+
+	UChatChannel* Channel(const FString& Type, const FString& Id = {});
 
 	UPROPERTY(EditAnywhere, Config, meta = (DisplayName = "API Key"))
 	FString ApiKey;
@@ -34,6 +37,9 @@ private:
 	virtual void BeginPlay() override;
 
 	TUniquePtr<FTokenManager> TokenManager;
-	TUniquePtr<FChatApi> Api;
+	TSharedPtr<FChatApi> Api;
 	TSharedPtr<FChatSocket> Socket;
+
+	UPROPERTY(Transient)
+	TMap<FString, UChatChannel*> Channels;
 };

@@ -1,6 +1,6 @@
 ﻿#include "ChatSocket.h"
 
-#include "ConnectRequest.h"
+#include "Dto/ConnectRequest.h"
 #include "IWebSocket.h"
 #include "StreamChatSettings.h"
 #include "StreamJson/Public/StreamJson.h"
@@ -30,8 +30,10 @@ FChatSocket::~FChatSocket()
 	}
 }
 
-void FChatSocket::Connect()
+void FChatSocket::Connect(TFunction<void()> Callback)
 {
+	WebSocket->OnConnected().AddLambda(Callback);
+
 	WebSocket->OnConnected().AddSP(this, &FChatSocket::HandleWebSocketConnected);
 	WebSocket->OnConnectionError().AddSP(this, &FChatSocket::HandleWebSocketConnectionError);
 	WebSocket->OnClosed().AddSP(this, &FChatSocket::HandleWebSocketConnectionClosed);
@@ -53,7 +55,7 @@ void FChatSocket::Disconnect()
 
 FString FChatSocket::BuildUrl(const FString& ApiKey, const FUser& User, const FTokenManager& TokenManager)
 {
-	const FString Domain = GetDefault<UStreamChatSettings>()->Domain;
+	const FString Domain = GetDefault<UStreamChatSettings>()->Host;
 	const FString Token = TokenManager.LoadToken();
 	const FConnectRequest Request = {
 		true,
@@ -84,8 +86,12 @@ void FChatSocket::HandleWebSocketConnectionClosed(int32 Status, const FString& R
 {
 	bClosePending = false;
 
-	UE_LOG(LogTemp, Log, TEXT("Websocket connection closed (clean: %s, status %d) with reason: %s"),
-		bWasClean ? TEXT("true") : TEXT("false"), Status, *Reason);
+	UE_LOG(LogTemp,
+		Log,
+		TEXT("Websocket connection closed (clean: %s, status %d) with reason: %s"),
+		bWasClean ? TEXT("true") : TEXT("false"),
+		Status,
+		*Reason);
 }
 
 void FChatSocket::HandleWebSocketMessage(const FString& Message)
