@@ -33,8 +33,6 @@ FChatSocket::~FChatSocket()
 
 void FChatSocket::Connect(TFunction<void()> Callback)
 {
-    WebSocket->OnConnected().AddLambda(Callback);
-
     WebSocket->OnConnected().AddSP(this, &FChatSocket::HandleWebSocketConnected);
     WebSocket->OnConnectionError().AddSP(this, &FChatSocket::HandleWebSocketConnectionError);
     WebSocket->OnClosed().AddSP(this, &FChatSocket::HandleWebSocketConnectionClosed);
@@ -42,6 +40,8 @@ void FChatSocket::Connect(TFunction<void()> Callback)
 
     UE_LOG(LogTemp, Log, TEXT("Initiating websocket connection"));
     WebSocket->Connect();
+
+    OnHealthCheckEvent.AddLambda(Callback);
 }
 
 void FChatSocket::Disconnect()
@@ -109,5 +109,6 @@ void FChatSocket::HandleWebSocketMessage(const FString& Message)
     if (Event.Type == TEXT("health.check"))
     {
         ConnectionId = Event.ConnectionId;
+        OnHealthCheckEvent.Broadcast();
     }
 }

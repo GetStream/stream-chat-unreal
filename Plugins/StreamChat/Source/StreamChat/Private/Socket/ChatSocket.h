@@ -24,12 +24,15 @@ private:
     void HandleWebSocketConnectionClosed(int32 Status, const FString& Reason, bool bWasClean);
     void HandleWebSocketMessage(const FString& Message);
 
-    TSharedPtr<IWebSocket> WebSocket;
+    DECLARE_EVENT(FChatSocket, FOnHealthCheckEvent)
+    FOnHealthCheckEvent OnHealthCheckEvent;
 
     /**
      * Provided by the server when the websocket connection is established
      */
     FString ConnectionId;
+
+    TSharedPtr<IWebSocket> WebSocket;
 
     bool bClosePending = false;
 };

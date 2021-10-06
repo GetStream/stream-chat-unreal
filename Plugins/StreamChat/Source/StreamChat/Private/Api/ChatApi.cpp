@@ -12,8 +12,8 @@ FChatApi::FChatApi(const FString& InApiKey, const TSharedRef<FTokenManager>& InT
     , Scheme(TEXT("https"))
     , Host(GetDefault<UStreamChatSettings>()->Host)
 {
-    Client->OnRequestEvent.AddRaw(this, &FChatApi::AddAuth);
-    Client->OnErrorEvent.AddStatic(&FChatApi::OnError);
+    Client->OnRequestDelegate.AddRaw(this, &FChatApi::AddAuth);
+    Client->OnErrorDelegate.AddStatic(&FChatApi::OnError);
 }
 
 void FChatApi::GetOrCreateChannel(
