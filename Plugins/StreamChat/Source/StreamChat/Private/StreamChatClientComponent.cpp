@@ -8,17 +8,9 @@
 #include "Token/ConstantTokenProvider.h"
 #include "Token/TokenManager.h"
 
-UStreamChatClientComponent::UStreamChatClientComponent() : TokenManager(MakeUnique<FTokenManager>())
+UStreamChatClientComponent::UStreamChatClientComponent() : TokenManager(MakeShared<FTokenManager>())
 {
     PrimaryComponentTick.bCanEverTick = false;
-}
-
-UStreamChatClientComponent::UStreamChatClientComponent(FVTableHelper&)
-{
-}
-
-UStreamChatClientComponent::~UStreamChatClientComponent()
-{
 }
 
 // Called when the game starts
@@ -26,12 +18,14 @@ void UStreamChatClientComponent::BeginPlay()
 {
     Super::BeginPlay();
 
-    // Initialize in begin play to ensure properties like ApiKey are loaded from BP
-    Api = MakeShared<FChatApi>(ApiKey);
+    // Initialize in BeginPlay to ensure properties like ApiKey are loaded from BP, TODO I don't like this
+    Api = MakeShared<FChatApi>(ApiKey, TokenManager.ToSharedRef());
 }
 
 void UStreamChatClientComponent::ConnectUser(const TFunction<void()> Callback, const FUser& User, const FString& Token)
 {
+    // TODO: I don't like that the TokenManager is so stateful. Maybe instantiate a token provider each time one is
+    // needed?
     TokenManager->SetTokenProvider(MakeUnique<FConstantTokenProvider>(Token));
     Socket = MakeShared<FChatSocket>(ApiKey, User, *TokenManager);
     Socket->Connect(Callback);

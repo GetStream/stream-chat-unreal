@@ -16,5 +16,6 @@ UChatChannel* UChatChannel::Create(const TSharedRef<FChatApi>& InApi, const FStr
 
 void UChatChannel::Watch(const TFunction<void(const FChannelState&)> Callback)
 {
-    Api->GetOrCreateChannel(Callback, Type, true, true);
+    // TODO don't use bool flags
+    Api->GetOrCreateChannel(Callback, Type, Id, true, true);
 }

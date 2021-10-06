@@ -20,9 +20,6 @@ class STREAMCHAT_API UStreamChatClientComponent final : public UActorComponent
 
 public:
     UStreamChatClientComponent();
-    // Needed due to TUniquePtr in UObject
-    explicit UStreamChatClientComponent(FVTableHelper&);
-    virtual ~UStreamChatClientComponent() override;
 
     void ConnectUser(const TFunction<void()> Callback, const FUser& User, const FString& Token);
     void DisconnectUser();
@@ -36,7 +33,7 @@ private:
     // Called when the game starts
     virtual void BeginPlay() override;
 
-    TUniquePtr<FTokenManager> TokenManager;
+    TSharedPtr<FTokenManager> TokenManager;
     TSharedPtr<FChatApi> Api;
     TSharedPtr<FChatSocket> Socket;
 

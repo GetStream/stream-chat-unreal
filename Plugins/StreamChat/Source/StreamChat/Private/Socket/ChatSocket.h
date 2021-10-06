@@ -26,5 +26,10 @@ private:
 
     TSharedPtr<IWebSocket> WebSocket;
 
+    /**
+     * Provided by the server when the websocket connection is established
+     */
+    FString ConnectionId;
+
     bool bClosePending = false;
 };

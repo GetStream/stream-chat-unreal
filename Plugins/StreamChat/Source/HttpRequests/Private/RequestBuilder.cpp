@@ -76,7 +76,7 @@ FRequestBuilder& FRequestBuilder::Query(const FStringFormatNamedArguments& Query
 
 void FRequestBuilder::Send(TFunction<void(const FHttpResponse&)> Callback)
 {
-    Client->OnRequestDelegate.Broadcast(*this);
+    Client->OnRequestEvent.Broadcast(*this);
     UE_LOG(LogTemp, Log, TEXT("Sending HTTP request [Url=%s]"), *Request->GetURL());
     Request->OnProcessRequestComplete().BindLambda(
         [Client = Client, Callback](
@@ -92,7 +92,7 @@ void FRequestBuilder::Send(TFunction<void(const FHttpResponse&)> Callback)
                     TEXT("HTTP request succeeded [StatusCode=%d, Url=%s]"),
                     HttpResponse.StatusCode,
                     *Request->GetURL());
-                Client->OnResponseDelegate.Broadcast(HttpResponse);
+                Client->OnResponseEvent.Broadcast(HttpResponse);
             }
             else
             {
@@ -102,7 +102,7 @@ void FRequestBuilder::Send(TFunction<void(const FHttpResponse&)> Callback)
                     TEXT("HTTP request returned an error [StatusCode=%d, Url=%s]"),
                     HttpResponse.StatusCode,
                     *Request->GetURL());
-                Client->OnErrorDelegate.Broadcast(HttpResponse);
+                Client->OnErrorEvent.Broadcast(HttpResponse);
             }
             if (Callback)
             {

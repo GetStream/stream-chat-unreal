@@ -14,9 +14,6 @@ struct FChannelGetOrCreateRequest
 {
     GENERATED_BODY()
 
-    UPROPERTY()
-    FString ConnectionId;
-
     // TODO uncomment
     // UPROPERTY()
     // FChannelRequest Data;

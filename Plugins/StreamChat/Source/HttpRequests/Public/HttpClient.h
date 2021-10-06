@@ -3,8 +3,8 @@
 #include "CoreMinimal.h"
 #include "RequestBuilder.h"
 
-DECLARE_MULTICAST_DELEGATE_OneParam(FOnRequestDelegate, FRequestBuilder&);
-DECLARE_MULTICAST_DELEGATE_OneParam(FOnResponseDelegate, const FHttpResponse&);
+DECLARE_EVENT_OneParam(FHttpClient, FOnRequestEvent, FRequestBuilder&);
+DECLARE_EVENT_OneParam(FHttpClient, FOnResponseEvent, const FHttpResponse&);
 
 class HTTPREQUESTS_API FHttpClient : public TSharedFromThis<FHttpClient>
 {
@@ -16,15 +16,15 @@ public:
     FRequestBuilder Delete(const FString& Url) const;
 
     /**
-     * Delegate which will be executed before each request is sent.
+     * Event which will be executed before each request is sent.
      */
-    FOnRequestDelegate OnRequestDelegate;
+    FOnRequestEvent OnRequestEvent;
     /**
-     * Delegate which will be executed on each request success.
+     * Event which will be executed on each request success.
      */
-    FOnResponseDelegate OnResponseDelegate;
+    FOnResponseEvent OnResponseEvent;
     /**
-     * Delegate which will be executed on each request failure.
+     * Event which will be executed on each request failure.
      */
-    FOnResponseDelegate OnErrorDelegate;
+    FOnResponseEvent OnErrorEvent;
 };
