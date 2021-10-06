@@ -6,6 +6,8 @@
 
 class FHttpClient;
 
+DECLARE_LOG_CATEGORY_EXTERN(LogHttpClient, Verbose, All);
+
 class HTTPREQUESTS_API FRequestBuilder
 {
 public:
@@ -55,6 +57,8 @@ public:
     void Send(TFunction<void(const T&)> Callback);
 
 private:
+    FRequestBuilder& Json(const FString& Json);
+
     TSharedPtr<const FHttpClient> Client;
     FHttpRequestPtr Request;
 };
@@ -63,9 +67,7 @@ template <class T>
 FRequestBuilder& FRequestBuilder::Json(const T& Struct, ENamingConvention NamingConvention)
 {
     const FString JsonBody = Json::Serialize(Struct, NamingConvention);
-    Request->SetContentAsString(JsonBody);
-    Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
-    return *this;
+    return Json(JsonBody);
 }
 
 template <class T>

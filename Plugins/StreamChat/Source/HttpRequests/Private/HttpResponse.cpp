@@ -4,6 +4,5 @@
 
 FHttpResponse::FHttpResponse(const FHttpResponsePtr Response)
     : StatusCode(Response->GetResponseCode()), Text(Response->GetContentAsString())
-
 {
 }

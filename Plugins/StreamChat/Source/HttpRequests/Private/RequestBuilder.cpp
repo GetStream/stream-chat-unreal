@@ -4,6 +4,8 @@
 #include "HttpClient.h"
 #include "HttpModule.h"
 
+DEFINE_LOG_CATEGORY(LogHttpClient);
+
 namespace
 {
 FString ToString(const FStringFormatArg& Arg)
@@ -77,7 +79,6 @@ FRequestBuilder& FRequestBuilder::Query(const FStringFormatNamedArguments& Query
 void FRequestBuilder::Send(TFunction<void(const FHttpResponse&)> Callback)
 {
     Client->OnRequestDelegate.Broadcast(*this);
-    UE_LOG(LogTemp, Log, TEXT("Sending HTTP request [Url=%s]"), *Request->GetURL());
     Request->OnProcessRequestComplete().BindLambda(
         [Client = Client, Callback](
             const FHttpRequestPtr Request, const FHttpResponsePtr Response, bool bConnectedSuccessfully)
@@ -87,7 +88,7 @@ void FRequestBuilder::Send(TFunction<void(const FHttpResponse&)> Callback)
             if (HttpResponse.StatusCode >= 200 && HttpResponse.StatusCode < 300)
             {
                 UE_LOG(
-                    LogTemp,
+                    LogHttpClient,
                     Log,
                     TEXT("HTTP request succeeded [StatusCode=%d, Url=%s]"),
                     HttpResponse.StatusCode,
@@ -97,7 +98,7 @@ void FRequestBuilder::Send(TFunction<void(const FHttpResponse&)> Callback)
             else
             {
                 UE_LOG(
-                    LogTemp,
+                    LogHttpClient,
                     Error,
                     TEXT("HTTP request returned an error [StatusCode=%d, Url=%s]"),
                     HttpResponse.StatusCode,
@@ -110,4 +111,14 @@ void FRequestBuilder::Send(TFunction<void(const FHttpResponse&)> Callback)
             }
         });
     Request->ProcessRequest();
+    UE_LOG(LogHttpClient, Log, TEXT("Sent HTTP request [Url=%s]"), *Request->GetURL());
+}
+
+FRequestBuilder& FRequestBuilder::Json(const FString& Json)
+{
+    Request->SetContentAsString(Json);
+    Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
+
+    UE_LOG(LogHttpClient, Log, TEXT("Set request body [Json=%s]"), *Json);
+    return *this;
 }
