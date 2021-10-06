@@ -4,6 +4,28 @@
 #include "HttpClient.h"
 #include "HttpModule.h"
 
+namespace
+{
+FString ToString(const FStringFormatArg& Arg)
+{
+    switch (Arg.Type)
+    {
+        case FStringFormatArg::Int:
+            return LexToString(Arg.IntValue);
+        case FStringFormatArg::UInt:
+            return LexToString(Arg.UIntValue);
+        case FStringFormatArg::Double:
+            return LexToString(Arg.DoubleValue);
+        case FStringFormatArg::String:
+            return FGenericPlatformHttp::UrlEncode(Arg.StringValue);
+        case FStringFormatArg::StringLiteral:
+            return FGenericPlatformHttp::UrlEncode(Arg.StringLiteralValue);
+        default:
+            return {};
+    }
+}
+}    // namespace
+
 FRequestBuilder::FRequestBuilder(const TSharedRef<const FHttpClient>& InClient, const FString& Verb, const FString& Url)
     : Client(InClient)
 {
@@ -15,39 +37,19 @@ FRequestBuilder::FRequestBuilder(const TSharedRef<const FHttpClient>& InClient, 
     Request->SetHeader(TEXT("User-Agent"), TEXT("X-UnrealEngine-Agent"));
 }
 
+FRequestBuilder& FRequestBuilder::Header(const FStringFormatNamedArguments& Headers)
+{
+    for (auto [Key, Value] : Headers)
+    {
+        Request->SetHeader(Key, ToString(Value));
+    }
+    return *this;
+}
+
 FRequestBuilder& FRequestBuilder::Body(const FString& Text)
 {
     Request->SetContentAsString(Text);
     return *this;
-}
-
-// Stolen from Misc/StringFormatter.cpp
-void AppendToString(const FStringFormatArg& Arg, FString& StringToAppendTo)
-{
-    switch (Arg.Type)
-    {
-        case FStringFormatArg::Int:
-            StringToAppendTo.Append(LexToString(Arg.IntValue));
-            break;
-        case FStringFormatArg::UInt:
-            StringToAppendTo.Append(LexToString(Arg.UIntValue));
-            break;
-        case FStringFormatArg::Double:
-            StringToAppendTo.Append(LexToString(Arg.DoubleValue));
-            break;
-        case FStringFormatArg::String:
-        {
-            const FString EncodedString = FGenericPlatformHttp::UrlEncode(Arg.StringValue);
-            StringToAppendTo.AppendChars(*EncodedString, EncodedString.Len());
-            break;
-        }
-        case FStringFormatArg::StringLiteral:
-        {
-            const FString EncodedString = FGenericPlatformHttp::UrlEncode(Arg.StringLiteralValue);
-            StringToAppendTo.AppendChars(*EncodedString, EncodedString.Len());
-            break;
-        }
-    }
 }
 
 FRequestBuilder& FRequestBuilder::Query(const FStringFormatNamedArguments& Query)
@@ -59,7 +61,7 @@ FRequestBuilder& FRequestBuilder::Query(const FStringFormatNamedArguments& Query
         for (auto It = Query.CreateConstIterator(); It;)
         {
             Result += FString::Printf(TEXT("%s="), *It->Key);
-            AppendToString(It->Value, Result);
+            Result.Append(ToString(It->Value));
             if (++It)
             {
                 Result += TEXT("&");

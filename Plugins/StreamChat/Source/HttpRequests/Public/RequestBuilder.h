@@ -15,6 +15,14 @@ public:
 
     explicit FRequestBuilder(const TSharedRef<const FHttpClient>&, const FString& Verb, const FString& Url);
 
+    /**
+     * Sets optional header info on the request.
+     * Calling with the same Key will overwrite any previous values
+     * @param Headers Map of key-value pairs, e.g. `{{TEXT("X-Api-Key"), 1234}}`
+     * @return Builder to continue creating a request
+     */
+    FRequestBuilder& Header(const FStringFormatNamedArguments& Headers);
+
     FRequestBuilder& Body(const FString& Text);
     FRequestBuilder& Query(const FStringFormatNamedArguments& Query);
 
