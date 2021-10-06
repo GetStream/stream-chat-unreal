@@ -14,41 +14,46 @@ constexpr auto SettingsModuleName = "Settings";
 
 void FStreamChatModule::StartupModule()
 {
-	RegisterSettings();
+    RegisterSettings();
 }
 
 void FStreamChatModule::ShutdownModule()
 {
-	if (UObjectInitialized())
-	{
-		UnregisterSettings();
-	}
+    if (UObjectInitialized())
+    {
+        UnregisterSettings();
+    }
 }
 
 void FStreamChatModule::RegisterSettings()
 {
-	if (ISettingsModule* SettingsModule = FModuleManager::GetModulePtr<ISettingsModule>(SettingsModuleName))
-	{
-		// Create the new category
-		const ISettingsContainerPtr SettingsContainer = SettingsModule->GetContainer("Project");
+    if (ISettingsModule* SettingsModule = FModuleManager::GetModulePtr<ISettingsModule>(SettingsModuleName))
+    {
+        // Create the new category
+        const ISettingsContainerPtr SettingsContainer = SettingsModule->GetContainer("Project");
 
-		SettingsContainer->DescribeCategory(SettingsCategoryName, LOCTEXT("SettingsCategoryName", "Stream Chat"),
-			LOCTEXT("SettingsCategoryDescription", "Settings for the Stream Chat plugin"));
+        SettingsContainer->DescribeCategory(
+            SettingsCategoryName,
+            LOCTEXT("SettingsCategoryName", "Stream Chat"),
+            LOCTEXT("SettingsCategoryDescription", "Settings for the Stream Chat plugin"));
 
-		// Register the settings
-		const ISettingsSectionPtr SettingsSection = SettingsModule->RegisterSettings("Project", SettingsCategoryName, "General",
-			LOCTEXT("GeneralSettingsSectionName", "General"),
-			LOCTEXT("GeneralSettingsSectionDescription", "General settings for the Stream Chat plugin"),
-			GetMutableDefault<UStreamChatSettings>());
-	}
+        // Register the settings
+        const ISettingsSectionPtr SettingsSection = SettingsModule->RegisterSettings(
+            "Project",
+            SettingsCategoryName,
+            "General",
+            LOCTEXT("GeneralSettingsSectionName", "General"),
+            LOCTEXT("GeneralSettingsSectionDescription", "General settings for the Stream Chat plugin"),
+            GetMutableDefault<UStreamChatSettings>());
+    }
 }
 
 void FStreamChatModule::UnregisterSettings()
 {
-	if (ISettingsModule* SettingsModule = FModuleManager::GetModulePtr<ISettingsModule>(SettingsModuleName))
-	{
-		SettingsModule->UnregisterSettings("Project", SettingsCategoryName, "General");
-	}
+    if (ISettingsModule* SettingsModule = FModuleManager::GetModulePtr<ISettingsModule>(SettingsModuleName))
+    {
+        SettingsModule->UnregisterSettings("Project", SettingsCategoryName, "General");
+    }
 }
 
 #undef LOCTEXT_NAMESPACE

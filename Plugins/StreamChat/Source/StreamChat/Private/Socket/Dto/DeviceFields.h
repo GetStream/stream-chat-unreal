@@ -13,11 +13,11 @@
 USTRUCT()
 struct FDeviceFields
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-	UPROPERTY()
-	EPushProvider PushProvider;
+    UPROPERTY()
+    EPushProvider PushProvider;
 
-	UPROPERTY()
-	FString Id;
+    UPROPERTY()
+    FString Id;
 };

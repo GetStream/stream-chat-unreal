@@ -12,8 +12,8 @@
 USTRUCT(BlueprintType)
 struct STREAMCHAT_API FUser
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-	UPROPERTY(BlueprintReadOnly)
-	FString Id;
+    UPROPERTY(BlueprintReadOnly)
+    FString Id;
 };

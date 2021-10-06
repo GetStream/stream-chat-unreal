@@ -13,7 +13,8 @@
 UCLASS()
 class STREAMCHATSAMPLE_API AStreamChatSampleGameModeBase : public AGameModeBase
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
+
 public:
-	AStreamChatSampleGameModeBase();
+    AStreamChatSampleGameModeBase();
 };

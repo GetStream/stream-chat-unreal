@@ -6,5 +6,5 @@ FConstantTokenProvider::FConstantTokenProvider(const FString& InToken) : Token(I
 
 FString FConstantTokenProvider::LoadToken() const
 {
-	return Token;
+    return Token;
 }

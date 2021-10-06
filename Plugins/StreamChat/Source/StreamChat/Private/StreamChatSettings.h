@@ -13,9 +13,9 @@
 UCLASS(Config = Game, DefaultConfig)
 class UStreamChatSettings final : public UObject
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere)
-	FString Host = TEXT("chat-us-east-1.stream-io-api.com");
+    UPROPERTY(EditAnywhere)
+    FString Host = TEXT("chat-us-east-1.stream-io-api.com");
 };

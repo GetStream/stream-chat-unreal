@@ -12,7 +12,7 @@
 UENUM()
 enum class EPushProvider : uint8
 {
-	Firebase,
-	Apn,
-	Huawei
+    Firebase,
+    Apn,
+    Huawei
 };

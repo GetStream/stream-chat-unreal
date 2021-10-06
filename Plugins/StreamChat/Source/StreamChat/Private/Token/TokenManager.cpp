@@ -2,15 +2,15 @@
 
 void FTokenManager::SetTokenProvider(TUniquePtr<ITokenProvider> InTokenProvider)
 {
-	TokenProvider = MoveTemp(InTokenProvider);
+    TokenProvider = MoveTemp(InTokenProvider);
 }
 
 void FTokenManager::Reset()
 {
-	TokenProvider.Reset();
+    TokenProvider.Reset();
 }
 
 FString FTokenManager::LoadToken() const
 {
-	return TokenProvider->LoadToken();
+    return TokenProvider->LoadToken();
 }

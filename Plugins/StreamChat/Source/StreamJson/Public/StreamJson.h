@@ -9,12 +9,12 @@ namespace Json
 template <class T>
 FString Serialize(const T& Struct, ENamingConvention NamingConvention = ENamingConvention::SnakeCase)
 {
-	return Detail::Serialize(T::StaticStruct(), &Struct, NamingConvention);
+    return Detail::Serialize(T::StaticStruct(), &Struct, NamingConvention);
 }
 
 template <class T>
 T Deserialize(const FString& Json)
 {
-	return Detail::Deserialize<T>(Json);
+    return Detail::Deserialize<T>(Json);
 }
-}	 // namespace Json
+}    // namespace Json

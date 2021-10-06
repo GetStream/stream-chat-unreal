@@ -16,8 +16,12 @@ namespace JsonObjectSerialization
  *
  * @return False if any properties failed to write
  */
-static bool UStructToJsonObjectString(const UStruct* StructDefinition, const void* Struct, FString& OutJsonString,
-	ENamingConvention NamingConvention = ENamingConvention::UpperCamelCase, bool bPrettyPrint = true);
+static bool UStructToJsonObjectString(
+    const UStruct* StructDefinition,
+    const void* Struct,
+    FString& OutJsonString,
+    ENamingConvention NamingConvention = ENamingConvention::UpperCamelCase,
+    bool bPrettyPrint = true);
 
 /**
  * Converts from a UStruct to a Json Object, using exportText
@@ -28,8 +32,11 @@ static bool UStructToJsonObjectString(const UStruct* StructDefinition, const voi
  *
  * @return False if any properties failed to write
  */
-static bool UStructToJsonObject(const UStruct* StructDefinition, const void* Struct, TSharedRef<FJsonObject> OutJsonObject,
-	ENamingConvention NamingConvention = ENamingConvention::UpperCamelCase);
+static bool UStructToJsonObject(
+    const UStruct* StructDefinition,
+    const void* Struct,
+    TSharedRef<FJsonObject> OutJsonObject,
+    ENamingConvention NamingConvention = ENamingConvention::UpperCamelCase);
 
 /**
  * Converts from a UStruct to a set of json attributes (possibly from within a JsonObject)
@@ -40,7 +47,9 @@ static bool UStructToJsonObject(const UStruct* StructDefinition, const void* Str
  *
  * @return False if any properties failed to write
  */
-static bool UStructToJsonAttributes(const UStruct* StructDefinition, const void* Struct,
-	TMap<FString, TSharedPtr<FJsonValue> >& OutJsonAttributes,
-	ENamingConvention NamingConvention = ENamingConvention::UpperCamelCase);
-}	 // namespace JsonObjectSerialization
+static bool UStructToJsonAttributes(
+    const UStruct* StructDefinition,
+    const void* Struct,
+    TMap<FString, TSharedPtr<FJsonValue> >& OutJsonAttributes,
+    ENamingConvention NamingConvention = ENamingConvention::UpperCamelCase);
+}    // namespace JsonObjectSerialization

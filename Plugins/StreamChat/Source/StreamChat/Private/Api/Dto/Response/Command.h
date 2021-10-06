@@ -12,23 +12,23 @@
 USTRUCT()
 struct FCommand
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-	UPROPERTY()
-	FDateTime CreatedAt;
+    UPROPERTY()
+    FDateTime CreatedAt;
 
-	UPROPERTY()
-	FDateTime UpdatedAt;
+    UPROPERTY()
+    FDateTime UpdatedAt;
 
-	UPROPERTY()
-	FString Name;
+    UPROPERTY()
+    FString Name;
 
-	UPROPERTY()
-	FString Description;
+    UPROPERTY()
+    FString Description;
 
-	UPROPERTY()
-	FString Args;
+    UPROPERTY()
+    FString Args;
 
-	UPROPERTY()
-	FString Set;
+    UPROPERTY()
+    FString Set;
 };

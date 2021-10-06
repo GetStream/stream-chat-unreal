@@ -14,17 +14,18 @@
 UCLASS()
 class STREAMCHATSAMPLE_API AStreamChatSampleHud final : public AHUD
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
+
 public:
-	AStreamChatSampleHud();
+    AStreamChatSampleHud();
 
 private:
-	virtual void BeginPlay() override;
-	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+    virtual void BeginPlay() override;
+    virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess))
-	UStreamChatClientComponent* Client;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess))
+    UStreamChatClientComponent* Client;
 
-	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess))
-	UChatChannel* Channel;
+    UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess))
+    UChatChannel* Channel;
 };

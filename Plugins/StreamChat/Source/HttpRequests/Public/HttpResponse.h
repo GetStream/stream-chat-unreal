@@ -9,29 +9,29 @@
 USTRUCT(BlueprintType)
 struct FHttpResponse
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-	FHttpResponse() = default;
+    FHttpResponse() = default;
 
-	explicit FHttpResponse(const FHttpResponsePtr Response);
+    explicit FHttpResponse(const FHttpResponsePtr Response);
 
-	/**
-	 * Deserializes the JSON content of this response to a UStruct
-	 * @tparam T The type of UStruct to attempt to deserialize to
-	 * @return A new UStruct filled from the JSON content
-	 */
-	template <class T>
-	T Json() const;
+    /**
+     * Deserializes the JSON content of this response to a UStruct
+     * @tparam T The type of UStruct to attempt to deserialize to
+     * @return A new UStruct filled from the JSON content
+     */
+    template <class T>
+    T Json() const;
 
-	UPROPERTY(BlueprintReadOnly)
-	int32 StatusCode;
+    UPROPERTY(BlueprintReadOnly)
+    int32 StatusCode;
 
-	UPROPERTY(BlueprintReadOnly)
-	FString Text;
+    UPROPERTY(BlueprintReadOnly)
+    FString Text;
 };
 
 template <class T>
 T FHttpResponse::Json() const
 {
-	return Json::Deserialize<T>(Text);
+    return Json::Deserialize<T>(Text);
 }

@@ -12,26 +12,26 @@
 USTRUCT()
 struct FChannelGetOrCreateRequest
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-	UPROPERTY()
-	FString ConnectionId;
+    UPROPERTY()
+    FString ConnectionId;
 
-	// TODO uncomment
-	// UPROPERTY()
-	// FChannelRequest Data;
+    // TODO uncomment
+    // UPROPERTY()
+    // FChannelRequest Data;
 
-	/// Start watching the channel
-	UPROPERTY()
-	bool bWatch;
+    /// Start watching the channel
+    UPROPERTY()
+    bool bWatch;
 
-	/// Refresh channel state
-	UPROPERTY()
-	bool bState;
+    /// Refresh channel state
+    UPROPERTY()
+    bool bState;
 
-	/// Fetch user presence info
-	UPROPERTY()
-	bool bPresence;
+    /// Fetch user presence info
+    UPROPERTY()
+    bool bPresence;
 
-	// TODO Messages, members, watchers
+    // TODO Messages, members, watchers
 };

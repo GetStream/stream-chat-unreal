@@ -4,10 +4,10 @@
 class FTokenManager
 {
 public:
-	void SetTokenProvider(TUniquePtr<ITokenProvider> InTokenProvider);
-	void Reset();
-	FString LoadToken() const;
+    void SetTokenProvider(TUniquePtr<ITokenProvider> InTokenProvider);
+    void Reset();
+    FString LoadToken() const;
 
 private:
-	TUniquePtr<ITokenProvider> TokenProvider;
+    TUniquePtr<ITokenProvider> TokenProvider;
 };

@@ -14,17 +14,17 @@
 USTRUCT()
 struct FConnectRequest
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
-	UPROPERTY()
-	bool bServerDeterminesConnectionId;
+    UPROPERTY()
+    bool bServerDeterminesConnectionId;
 
-	UPROPERTY()
-	FString ClientId;
+    UPROPERTY()
+    FString ClientId;
 
-	UPROPERTY()
-	FUser UserDetails;
+    UPROPERTY()
+    FUser UserDetails;
 
-	UPROPERTY()
-	FDeviceFields Device;
+    UPROPERTY()
+    FDeviceFields Device;
 };

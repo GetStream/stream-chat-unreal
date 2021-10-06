@@ -6,5 +6,5 @@
 
 AStreamChatSampleGameModeBase::AStreamChatSampleGameModeBase()
 {
-	HUDClass = AStreamChatSampleHud::StaticClass();
+    HUDClass = AStreamChatSampleHud::StaticClass();
 }
