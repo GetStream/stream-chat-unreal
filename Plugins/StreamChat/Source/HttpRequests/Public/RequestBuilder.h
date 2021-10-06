@@ -4,41 +4,71 @@
 #include "Interfaces/IHttpRequest.h"
 #include "StreamJson.h"
 
+class FHttpClient;
+
 class HTTPREQUESTS_API FRequestBuilder
 {
 public:
-	explicit FRequestBuilder(const FString& Verb, const FString& Url);
+    FRequestBuilder() = delete;
+    FRequestBuilder(const FRequestBuilder&) = delete;
+    void operator=(const FRequestBuilder&) = delete;
 
-	FRequestBuilder& Body(const FString& Text);
-	FRequestBuilder& Query(const FStringFormatNamedArguments& Query);
+    explicit FRequestBuilder(const TSharedRef<const FHttpClient>&, const FString& Verb, const FString& Url);
 
-	/**
-	 * Add a body to the request formatted as JSON
-	 *
-	 * @tparam T Input struct type
-	 * @param Struct Will be serialized as JSON in the body of the request
-	 * @param NamingConvention JSON keys and values will be formatted according to this naming convention (snake_case by default)
-	 * @return Builder to continue creating a request
-	 */
-	template <class T>
-	FRequestBuilder& Json(const T& Struct, ENamingConvention NamingConvention = ENamingConvention::SnakeCase);
+    FRequestBuilder& Body(const FString& Text);
+    FRequestBuilder& Query(const FStringFormatNamedArguments& Query);
 
-	/**
-	 * Send a HTTP request to the target URL, calling the callback when a response is received
-	 *
-	 * @param Callback A function to be called when the response is received
-	 */
-	void Send(TFunction<void(FHttpResponse)> Callback) const;
+    /**
+     * Add a body to the request formatted as JSON
+     *
+     * @tparam T Input struct type
+     * @param Struct Will be serialized as JSON in the body of the request
+     * @param NamingConvention JSON keys and values will be formatted according to this naming convention (snake_case by
+     * default)
+     * @return Builder to continue creating a request
+     */
+    template <class T>
+    FRequestBuilder& Json(const T& Struct, ENamingConvention NamingConvention = ENamingConvention::SnakeCase);
+
+    /**
+     * Send a HTTP request to the target URL, calling the callback when a response is received.
+     *
+     * @param Callback A function to be called when the response is received
+     */
+    void Send(TFunction<void(const FHttpResponse&)> Callback);
+
+    /**
+     * Send a HTTP request to the target URL, calling the callback when a response is received, deserializing the body
+     * as JSON on success.
+     *
+     * @param Callback A function to be called when the response is received
+     */
+    template <class T>
+    void Send(TFunction<void(const T&)> Callback);
 
 private:
-	FHttpRequestPtr Request;
+    TSharedPtr<const FHttpClient> Client;
+    FHttpRequestPtr Request;
 };
 
 template <class T>
 FRequestBuilder& FRequestBuilder::Json(const T& Struct, ENamingConvention NamingConvention)
 {
-	const FString JsonBody = Json::Serialize(Struct, NamingConvention);
-	Request->SetContentAsString(JsonBody);
-	Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
-	return *this;
+    const FString JsonBody = Json::Serialize(Struct, NamingConvention);
+    Request->SetContentAsString(JsonBody);
+    Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
+    return *this;
+}
+
+template <class T>
+void FRequestBuilder::Send(TFunction<void(const T&)> Callback)
+{
+    Send(
+        [Callback](const FHttpResponse& Response)
+        {
+            if (Callback)
+            {
+                Callback(Response.Json<T>());
+            }
+        });
 }

@@ -16,18 +16,19 @@ struct FChannelState;
 UCLASS()
 class STREAMCHAT_API UChatChannel final : public UObject
 {
-	GENERATED_BODY()
-public:
-	static UChatChannel* Create(const TSharedRef<FChatApi>&, const FString& Type, const FString& Id);
+    GENERATED_BODY()
 
-	void Watch(TFunction<void(FChannelState)> Callback = {});
+public:
+    static UChatChannel* Create(const TSharedRef<FChatApi>&, const FString& Type, const FString& Id);
+
+    void Watch(TFunction<void(const FChannelState&)> Callback = {});
 
 private:
-	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess))
-	FString Type;
+    UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess))
+    FString Type;
 
-	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess))
-	FString Id;
+    UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess))
+    FString Id;
 
-	TSharedPtr<FChatApi> Api;
+    TSharedPtr<FChatApi> Api;
 };

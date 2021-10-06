@@ -1,21 +1,28 @@
 ﻿#pragma once
 #include "Dto/Response/ChannelState.h"
+#include "HttpClient.h"
+#include "RequestBuilder.h"
 
 class FChatApi
 {
 public:
-	explicit FChatApi(const FString& ApiKey);
-	void GetOrCreateChannel(TFunction<void(FChannelState)> Callback,
-		const FString& ChannelType,
-		bool bState = true,
-		bool bWatch = false,
-		bool bPresence = false,
-		const FString& ChannelId = {});
+    explicit FChatApi(const FString& InApiKey);
+    void GetOrCreateChannel(
+        TFunction<void(const FChannelState&)> Callback,
+        const FString& ChannelType,
+        bool bState = true,
+        bool bWatch = false,
+        bool bPresence = false,
+        const FString& ChannelId = {}) const;
 
 private:
-	FString BuildUrl(const FString& Path) const;
+    FString BuildUrl(const FString& Path) const;
 
-	FString ApiKey;
-	FString Scheme;
-	FString Host;
+    void AddAuth(FRequestBuilder&) const;
+    static void OnError(const FHttpResponse&);
+
+    TSharedPtr<FHttpClient> Client;
+    FString ApiKey;
+    FString Scheme;
+    FString Host;
 };
