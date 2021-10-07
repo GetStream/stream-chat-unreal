@@ -3,6 +3,8 @@
 #include "Channel/ChatChannel.h"
 
 #include "Api/ChatApi.h"
+#include "Api/Dto/Response/ChannelStateResponseDto.h"
+#include "Api/Dto/Response/MessageResponseDto.h"
 
 UChatChannel* UChatChannel::Create(
     const TSharedRef<FChatApi>& InApi,
@@ -25,7 +27,7 @@ void UChatChannel::Watch(const TFunction<void()> Callback)
     check(!ConnectionId.IsEmpty());
 
     Api->GetOrCreateChannel(
-        [this, Callback](const FChannelStateDto& State)
+        [this, Callback](const FChannelStateResponseDto& State)
         {
             Messages.Empty(State.Messages.Num());
             for (auto&& Message : State.Messages)
@@ -42,4 +44,21 @@ void UChatChannel::Watch(const TFunction<void()> Callback)
         ConnectionId,
         Id,
         EChannelCreationFlags::State | EChannelCreationFlags::Watch);
+}
+
+void UChatChannel::SendMessage(const FString& Message)
+{
+    Api->SendNewMessage(
+        [](const FMessageResponseDto& Response)
+        {
+            UE_LOG(LogTemp, Log, TEXT("Sent message [Id=%s]"), *Response.Message.Id);
+        },
+        Type,
+        Id,
+        {Message});
+}
+
+const TArray<FMessage>& UChatChannel::GetMessages() const
+{
+    return Messages;
 }

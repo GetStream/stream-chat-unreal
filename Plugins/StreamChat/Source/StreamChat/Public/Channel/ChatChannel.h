@@ -24,11 +24,11 @@ public:
 
     void Watch(TFunction<void()> Callback = {});
 
+    UFUNCTION(BlueprintCallable)
+    void SendMessage(const FString& Message);
+
     UFUNCTION(BlueprintPure)
-    const TArray<FMessage>& GetMessages() const
-    {
-        return Messages;
-    }
+    const TArray<FMessage>& GetMessages() const;
 
 private:
     UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess))

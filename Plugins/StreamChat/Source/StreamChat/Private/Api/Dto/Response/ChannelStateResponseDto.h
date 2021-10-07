@@ -6,13 +6,13 @@
 #include "CoreMinimal.h"
 #include "MessageDto.h"
 
-#include "ChannelStateDto.generated.h"
+#include "ChannelStateResponseDto.generated.h"
 
 /**
  *
  */
 USTRUCT()
-struct FChannelStateDto
+struct FChannelStateResponseDto
 {
     GENERATED_BODY()
 

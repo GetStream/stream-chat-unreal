@@ -1,7 +1,8 @@
 ﻿#include "ChatApi.h"
 
 #include "Dto/Request/ChannelGetOrCreateRequestDto.h"
-#include "Dto/Response/ChannelStateDto.h"
+#include "Dto/Request/SendMessageRequestDto.h"
+#include "Dto/Response/ChannelStateResponseDto.h"
 #include "StreamChatSettings.h"
 #include "Token/TokenManager.h"
 
@@ -17,7 +18,7 @@ FChatApi::FChatApi(const FString& InApiKey, const TSharedRef<FTokenManager>& InT
 }
 
 void FChatApi::GetOrCreateChannel(
-    const TFunction<void(const FChannelStateDto&)> Callback,
+    const TFunction<void(const FChannelStateResponseDto&)> Callback,
     const FString& ChannelType,
     const FString& ConnectionId,
     const FString& ChannelId,
@@ -32,6 +33,19 @@ void FChatApi::GetOrCreateChannel(
         EnumHasAnyFlags(Flags, EChannelCreationFlags::Watch),
         EnumHasAnyFlags(Flags, EChannelCreationFlags::State),
         EnumHasAnyFlags(Flags, EChannelCreationFlags::Presence)};
+    Client->Post(Url).Json(Body).Send(Callback);
+}
+
+void FChatApi::SendNewMessage(
+    const TFunction<void(const FMessageResponseDto&)> Callback,
+    const FString& ChannelType,
+    const FString& ChannelId,
+    const FMessageRequestDto& MessageRequest,
+    const bool bSkipPush) const
+{
+    const FString Path = FString::Printf(TEXT("channels/%s/%s/message"), *ChannelType, *ChannelId);
+    const FString Url = BuildUrl(Path);
+    const FSendMessageRequestDto Body{MessageRequest, bSkipPush};
     Client->Post(Url).Json(Body).Send(Callback);
 }
 

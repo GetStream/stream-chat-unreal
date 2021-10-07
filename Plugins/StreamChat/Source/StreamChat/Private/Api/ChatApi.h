@@ -1,20 +1,24 @@
 ﻿#pragma once
-#include "Dto/Response/ChannelStateDto.h"
 #include "HttpClient.h"
 #include "RequestBuilder.h"
 
+struct FChannelStateResponseDto;
+struct FMessageResponseDto;
+struct FMessageRequestDto;
 class FTokenManager;
 
 enum class EChannelCreationFlags : uint8
 {
+    None = 0,
+
     // Refresh channel state
-    State = 0x00,
+    State = 1 << 0,
 
     // Start watching the channel
-    Watch = 1 << 0,
+    Watch = 1 << 1,
 
     // Fetch user presence info
-    Presence = 1 << 1,
+    Presence = 1 << 2,
 };
 ENUM_CLASS_FLAGS(EChannelCreationFlags);
 
@@ -24,11 +28,18 @@ public:
     explicit FChatApi(const FString& InApiKey, const TSharedRef<FTokenManager>&);
 
     void GetOrCreateChannel(
-        TFunction<void(const FChannelStateDto&)> Callback,
+        TFunction<void(const FChannelStateResponseDto&)> Callback,
         const FString& ChannelType,
         const FString& ConnectionId,
         const FString& ChannelId = {},
         EChannelCreationFlags Flags = EChannelCreationFlags::Watch) const;
+
+    void SendNewMessage(
+        TFunction<void(const FMessageResponseDto&)> Callback,
+        const FString& ChannelType,
+        const FString& ChannelId,
+        const FMessageRequestDto& MessageRequest,
+        bool bSkipPush = false) const;
 
 private:
     FString BuildUrl(const FString& Path) const;

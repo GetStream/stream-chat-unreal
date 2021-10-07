@@ -8,7 +8,8 @@
 #include "MessageDto.generated.h"
 
 /**
- *
+ * Represents any chat message.
+ * Used in responses only
  */
 USTRUCT()
 struct FMessageDto
