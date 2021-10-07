@@ -5,20 +5,30 @@
 
 class FTokenManager;
 
+enum class EChannelCreationFlags : uint8
+{
+    // Refresh channel state
+    State = 0x00,
+
+    // Start watching the channel
+    Watch = 1 << 0,
+
+    // Fetch user presence info
+    Presence = 1 << 1,
+};
+ENUM_CLASS_FLAGS(EChannelCreationFlags);
+
 class FChatApi
 {
 public:
     explicit FChatApi(const FString& InApiKey, const TSharedRef<FTokenManager>&);
 
-    // TODO don't use bool flags
     void GetOrCreateChannel(
         TFunction<void(const FChannelStateDto&)> Callback,
         const FString& ChannelType,
         const FString& ConnectionId,
         const FString& ChannelId = {},
-        bool bState = true,
-        bool bWatch = false,
-        bool bPresence = false) const;
+        EChannelCreationFlags Flags = EChannelCreationFlags::Watch) const;
 
 private:
     FString BuildUrl(const FString& Path) const;

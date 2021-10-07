@@ -21,15 +21,17 @@ void FChatApi::GetOrCreateChannel(
     const FString& ChannelType,
     const FString& ConnectionId,
     const FString& ChannelId,
-    const bool bState,
-    const bool bWatch,
-    const bool bPresence) const
+    const EChannelCreationFlags Flags) const
 {
     const FString ChannelPath =
         ChannelId.IsEmpty() ? ChannelType : FString::Printf(TEXT("%s/%s"), *ChannelType, *ChannelId);
     const FString Path = FString::Printf(TEXT("channels/%s/query"), *ChannelPath);
     const FString Url = BuildUrl(Path);
-    const FChannelGetOrCreateRequestDto Body{ConnectionId, bWatch, bState, bPresence};
+    const FChannelGetOrCreateRequestDto Body{
+        ConnectionId,
+        EnumHasAnyFlags(Flags, EChannelCreationFlags::Watch),
+        EnumHasAnyFlags(Flags, EChannelCreationFlags::State),
+        EnumHasAnyFlags(Flags, EChannelCreationFlags::Presence)};
     Client->Post(Url).Json(Body).Send(Callback);
 }
 

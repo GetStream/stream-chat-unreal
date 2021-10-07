@@ -41,6 +41,5 @@ void UChatChannel::Watch(const TFunction<void()> Callback)
         Type,
         ConnectionId,
         Id,
-        true,
-        true);
+        EChannelCreationFlags::State | EChannelCreationFlags::Watch);
 }
