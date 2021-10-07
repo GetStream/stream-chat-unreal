@@ -8,7 +8,7 @@
 AStreamChatSampleHud::AStreamChatSampleHud()
 {
     Client = CreateDefaultSubobject<UStreamChatClientComponent>(TEXT("Client"));
-    Client->ApiKey = TEXT("b67pax5b2wdq");
+    Client->ApiKey = TEXT("kmajgxb2rk4p");
 }
 
 void AStreamChatSampleHud::BeginPlay()
@@ -22,7 +22,7 @@ void AStreamChatSampleHud::BeginPlay()
     Client->ConnectUser(
         [this]
         {
-            Channel = Client->Channel(TEXT("messaging"), TEXT("flutterdevs"));
+            Channel = Client->Channel(TEXT("messaging"), TEXT("unrealdevs"));
             Channel->Watch(
                 [this]
                 {

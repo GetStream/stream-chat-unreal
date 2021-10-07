@@ -17,5 +17,5 @@ class UStreamChatSettings final : public UObject
 
 public:
     UPROPERTY(EditAnywhere)
-    FString Host = TEXT("chat-us-east-1.stream-io-api.com");
+    FString Host = TEXT("chat.stream-io-api.com");
 };

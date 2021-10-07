@@ -29,9 +29,8 @@ void FChatApi::GetOrCreateChannel(
         ChannelId.IsEmpty() ? ChannelType : FString::Printf(TEXT("%s/%s"), *ChannelType, *ChannelId);
     const FString Path = FString::Printf(TEXT("channels/%s/query"), *ChannelPath);
     const FString Url = BuildUrl(Path);
-    // TODO ConnectionId should go only go in body, pending backend fix
     const FChannelGetOrCreateRequestDto Body{ConnectionId, bWatch, bState, bPresence};
-    Client->Post(Url).Query({{TEXT("connection_id"), ConnectionId}}).Json(Body).Send(Callback);
+    Client->Post(Url).Json(Body).Send(Callback);
 }
 
 FString FChatApi::BuildUrl(const FString& Path) const
