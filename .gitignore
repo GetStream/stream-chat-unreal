@@ -78,6 +78,7 @@ dist/*
 
 # Rider IDE config
 .idea/*
+*.DotSettings.user
 
 # Developer plugins
 Plugins/Developer/*
