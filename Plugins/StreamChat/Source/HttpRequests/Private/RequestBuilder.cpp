@@ -35,22 +35,9 @@ FRequestBuilder& FRequestBuilder::Body(const FString& Text)
 
 FRequestBuilder& FRequestBuilder::Query(const FStringFormatNamedArguments& Query)
 {
-    FString Result = Request->GetURL();
-    if (Query.Num() > 0)
-    {
-        Result += TEXT("?");
-        for (auto It = Query.CreateConstIterator(); It;)
-        {
-            Result += FString::Printf(TEXT("%s="), *It->Key);
-            Result.Append(QueryUtils::ToString(It->Value));
-            if (++It)
-            {
-                Result += TEXT("&");
-            }
-        }
-    }
+    const FString NewUrl = QueryUtils::AddQueryToUrl(Request->GetURL(), Query);
 
-    Request->SetURL(Result);
+    Request->SetURL(NewUrl);
 
     return *this;
 }

@@ -10,6 +10,7 @@ void SplitUrl(const FString& Url, FStringView& Path, FStringView& Query, FString
     int32 QuestionIndex, HashIndex;
     if (!Url.FindChar(TEXT('?'), QuestionIndex))
     {
+        Path = FStringView(Url);
         return;
     }
 
@@ -81,10 +82,6 @@ FString QueryUtils::AddQueryToUrl(const FString& Url, const FStringFormatNamedAr
 {
     FStringView Path, Query, Fragment;
     SplitUrl(Url, Path, Query, Fragment);
-    if (Query.IsEmpty())
-    {
-        return Url;
-    }
 
     TMap<FString, FString> ExistingParams = ParseQueryString(Query);
 

@@ -40,6 +40,17 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(
 bool FAddQueryToUrlTest::RunTest(const FString& Parameters)
 {
     {
+        const FString Url = TEXT("apple.com/users");
+        const FString NewUrl = QueryUtils::AddQueryToUrl(
+            Url,
+            {
+                {TEXT("sort"), TEXT("date_added")},
+            });
+
+        TestEqual("New URL", NewUrl, TEXT("apple.com/users?sort=date_added"));
+    }
+
+    {
         const FString Url = TEXT("google.com/query?a=1&b=2&c=3#frag");
         const FString NewUrl = QueryUtils::AddQueryToUrl(
             Url,
