@@ -48,8 +48,8 @@ public:
     void Send(TFunction<void(const FHttpResponse&)> Callback);
 
     /**
-     * Send a HTTP request to the target URL, calling the callback when a response is received, deserializing the body
-     * as JSON on success.
+     * Send a HTTP request to the target URL, calling the callback when a response is received.
+     * This convenience version will deserialize the body from JSON on success, returning it directly.
      *
      * @param Callback A function to be called when the response is received
      */

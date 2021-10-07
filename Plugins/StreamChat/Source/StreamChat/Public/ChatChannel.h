@@ -19,9 +19,10 @@ class STREAMCHAT_API UChatChannel final : public UObject
     GENERATED_BODY()
 
 public:
-    static UChatChannel* Create(const TSharedRef<FChatApi>&, const FString& Type, const FString& Id);
+    static UChatChannel*
+    Create(const TSharedRef<FChatApi>&, const FString& ConnectionId, const FString& Type, const FString& Id);
 
-    void Watch(TFunction<void(const FChannelState&)> Callback = {});
+    void Watch(TFunction<void(const FChannelState&)> Callback = {}) const;
 
 private:
     UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess))
@@ -29,6 +30,8 @@ private:
 
     UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess))
     FString Id;
+
+    FString ConnectionId;
 
     TSharedPtr<FChatApi> Api;
 };

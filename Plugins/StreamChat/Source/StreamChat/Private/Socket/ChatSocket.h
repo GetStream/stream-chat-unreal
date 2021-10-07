@@ -14,9 +14,11 @@ public:
     void Connect(TFunction<void()> Callback);
     void Disconnect();
 
+    bool IsConnected() const;
+    const FString& GetConnectionId() const;
+
 private:
     static FString BuildUrl(const FString& ApiKey, const FUser& User, const FTokenManager& TokenManager);
-    bool IsConnected() const;
 
     // WS event handlers
     void HandleWebSocketConnected();

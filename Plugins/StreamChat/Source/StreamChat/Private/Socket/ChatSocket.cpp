@@ -77,6 +77,11 @@ bool FChatSocket::IsConnected() const
     return WebSocket && WebSocket->IsConnected() && !bClosePending;
 }
 
+const FString& FChatSocket::GetConnectionId() const
+{
+    return ConnectionId;
+}
+
 void FChatSocket::HandleWebSocketConnected()
 {
     UE_LOG(LogTemp, Log, TEXT("Websocket connected"));

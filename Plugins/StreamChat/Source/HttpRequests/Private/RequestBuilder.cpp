@@ -1,32 +1,11 @@
 ﻿#include "RequestBuilder.h"
 
-#include "GenericPlatform/GenericPlatformHttp.h"
 #include "HttpClient.h"
 #include "HttpModule.h"
+#include "QueryUtils.h"
+#include "String/ParseTokens.h"
 
 DEFINE_LOG_CATEGORY(LogHttpClient);
-
-namespace
-{
-FString ToString(const FStringFormatArg& Arg)
-{
-    switch (Arg.Type)
-    {
-        case FStringFormatArg::Int:
-            return LexToString(Arg.IntValue);
-        case FStringFormatArg::UInt:
-            return LexToString(Arg.UIntValue);
-        case FStringFormatArg::Double:
-            return LexToString(Arg.DoubleValue);
-        case FStringFormatArg::String:
-            return FGenericPlatformHttp::UrlEncode(Arg.StringValue);
-        case FStringFormatArg::StringLiteral:
-            return FGenericPlatformHttp::UrlEncode(Arg.StringLiteralValue);
-        default:
-            return {};
-    }
-}
-}    // namespace
 
 FRequestBuilder::FRequestBuilder(const TSharedRef<const FHttpClient>& InClient, const FString& Verb, const FString& Url)
     : Client(InClient)
@@ -43,7 +22,7 @@ FRequestBuilder& FRequestBuilder::Header(const FStringFormatNamedArguments& Head
 {
     for (auto [Key, Value] : Headers)
     {
-        Request->SetHeader(Key, ToString(Value));
+        Request->SetHeader(Key, QueryUtils::ToString(Value));
     }
     return *this;
 }
@@ -63,7 +42,7 @@ FRequestBuilder& FRequestBuilder::Query(const FStringFormatNamedArguments& Query
         for (auto It = Query.CreateConstIterator(); It;)
         {
             Result += FString::Printf(TEXT("%s="), *It->Key);
-            Result.Append(ToString(It->Value));
+            Result.Append(QueryUtils::ToString(It->Value));
             if (++It)
             {
                 Result += TEXT("&");

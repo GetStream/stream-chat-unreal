@@ -19,6 +19,7 @@ FChatApi::FChatApi(const FString& InApiKey, const TSharedRef<FTokenManager>& InT
 void FChatApi::GetOrCreateChannel(
     const TFunction<void(const FChannelState&)> Callback,
     const FString& ChannelType,
+    const FString& ConnectionId,
     const FString& ChannelId,
     const bool bState,
     const bool bWatch,
@@ -28,8 +29,9 @@ void FChatApi::GetOrCreateChannel(
         ChannelId.IsEmpty() ? ChannelType : FString::Printf(TEXT("%s/%s"), *ChannelType, *ChannelId);
     const FString Path = FString::Printf(TEXT("channels/%s/query"), *ChannelPath);
     const FString Url = BuildUrl(Path);
-    const FChannelGetOrCreateRequest Body{bWatch, bState, bPresence};
-    Client->Post(Url).Json(Body).Send(Callback);
+    // TODO ConnectionId should go only go in body, pending backend fix
+    const FChannelGetOrCreateRequest Body{ConnectionId, bWatch, bState, bPresence};
+    Client->Post(Url).Query({{TEXT("connection_id"), ConnectionId}}).Json(Body).Send(Callback);
 }
 
 FString FChatApi::BuildUrl(const FString& Path) const
@@ -47,11 +49,6 @@ void FChatApi::AddAuth(FRequestBuilder& Request) const
             {TEXT("Authorization"), Token},
         })
         .Query({{TEXT("api_key"), ApiKey}});
-}
-
-void FChatApi::AddConnectionId(FRequestBuilder& Request) const
-{
-    Request.Query({{TEXT("connection_id"), ApiKey}});
 }
 
 void FChatApi::OnError(const FHttpResponse& Response)
