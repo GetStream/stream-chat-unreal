@@ -3,7 +3,7 @@
 #include "StreamChatClientComponent.h"
 
 #include "Api/ChatApi.h"
-#include "ChatChannel.h"
+#include "Channel/ChatChannel.h"
 #include "Socket/ChatSocket.h"
 #include "Token/ConstantTokenProvider.h"
 #include "Token/TokenManager.h"

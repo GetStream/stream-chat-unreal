@@ -1,6 +1,6 @@
 // Copyright Stream.IO, Inc. All Rights Reserved.
 
-#include "ChatChannel.h"
+#include "Channel/ChatChannel.h"
 
 #include "Api/ChatApi.h"
 
@@ -10,6 +10,8 @@ UChatChannel* UChatChannel::Create(
     const FString& Type,
     const FString& Id)
 {
+    check(!ConnectionId.IsEmpty());
+
     UChatChannel* Channel = NewObject<UChatChannel>();
     Channel->Api = InApi;
     Channel->ConnectionId = ConnectionId;
@@ -18,8 +20,27 @@ UChatChannel* UChatChannel::Create(
     return Channel;
 }
 
-void UChatChannel::Watch(const TFunction<void(const FChannelState&)> Callback) const
+void UChatChannel::Watch(const TFunction<void()> Callback)
 {
-    // TODO don't use bool flags
-    Api->GetOrCreateChannel(Callback, Type, ConnectionId, Id, true, true);
+    check(!ConnectionId.IsEmpty());
+
+    Api->GetOrCreateChannel(
+        [this, Callback](const FChannelStateDto& State)
+        {
+            Messages.Empty(State.Messages.Num());
+            for (auto&& Message : State.Messages)
+            {
+                Messages.Add(FMessage{Message});
+            }
+
+            if (Callback)
+            {
+                Callback();
+            }
+        },
+        Type,
+        ConnectionId,
+        Id,
+        true,
+        true);
 }

@@ -1,7 +1,7 @@
 ﻿#include "ChatApi.h"
 
-#include "Dto/Request/ChannelGetOrCreateRequest.h"
-#include "Dto/Response/ChannelState.h"
+#include "Dto/Request/ChannelGetOrCreateRequestDto.h"
+#include "Dto/Response/ChannelStateDto.h"
 #include "StreamChatSettings.h"
 #include "Token/TokenManager.h"
 
@@ -17,7 +17,7 @@ FChatApi::FChatApi(const FString& InApiKey, const TSharedRef<FTokenManager>& InT
 }
 
 void FChatApi::GetOrCreateChannel(
-    const TFunction<void(const FChannelState&)> Callback,
+    const TFunction<void(const FChannelStateDto&)> Callback,
     const FString& ChannelType,
     const FString& ConnectionId,
     const FString& ChannelId,
@@ -30,7 +30,7 @@ void FChatApi::GetOrCreateChannel(
     const FString Path = FString::Printf(TEXT("channels/%s/query"), *ChannelPath);
     const FString Url = BuildUrl(Path);
     // TODO ConnectionId should go only go in body, pending backend fix
-    const FChannelGetOrCreateRequest Body{ConnectionId, bWatch, bState, bPresence};
+    const FChannelGetOrCreateRequestDto Body{ConnectionId, bWatch, bState, bPresence};
     Client->Post(Url).Query({{TEXT("connection_id"), ConnectionId}}).Json(Body).Send(Callback);
 }
 

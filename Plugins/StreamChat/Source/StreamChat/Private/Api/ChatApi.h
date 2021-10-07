@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "Dto/Response/ChannelState.h"
+#include "Dto/Response/ChannelStateDto.h"
 #include "HttpClient.h"
 #include "RequestBuilder.h"
 
@@ -9,8 +9,10 @@ class FChatApi
 {
 public:
     explicit FChatApi(const FString& InApiKey, const TSharedRef<FTokenManager>&);
+
+    // TODO don't use bool flags
     void GetOrCreateChannel(
-        TFunction<void(const FChannelState&)> Callback,
+        TFunction<void(const FChannelStateDto&)> Callback,
         const FString& ChannelType,
         const FString& ConnectionId,
         const FString& ChannelId = {},

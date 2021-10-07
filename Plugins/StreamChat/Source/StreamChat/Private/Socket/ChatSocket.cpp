@@ -96,13 +96,16 @@ void FChatSocket::HandleWebSocketConnectionClosed(int32 Status, const FString& R
 {
     bClosePending = false;
 
-    UE_LOG(
-        LogTemp,
-        Log,
-        TEXT("Websocket connection closed (clean: %s, status %d) with reason: %s"),
-        bWasClean ? TEXT("true") : TEXT("false"),
-        Status,
-        *Reason);
+    // TODO Human readable status codes
+    if (bWasClean)
+    {
+        UE_LOG(LogTemp, Log, TEXT("Websocket connection closed [Status=%d, Reason=%s]"), Status, *Reason);
+    }
+    else
+    {
+        UE_LOG(
+            LogTemp, Warning, TEXT("Websocket connection closed unexpectedly [Status=%d, Reason=%s]"), Status, *Reason);
+    }
 }
 
 void FChatSocket::HandleWebSocketMessage(const FString& Message)

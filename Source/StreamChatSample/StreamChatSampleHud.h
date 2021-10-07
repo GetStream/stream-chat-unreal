@@ -19,6 +19,9 @@ class STREAMCHATSAMPLE_API AStreamChatSampleHud final : public AHUD
 public:
     AStreamChatSampleHud();
 
+    UFUNCTION(BlueprintImplementableEvent)
+    void OnConnect();
+
 private:
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;

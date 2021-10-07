@@ -2,16 +2,16 @@
 
 #pragma once
 
-#include "Command.h"
+#include "CommandDto.h"
 #include "CoreMinimal.h"
 
-#include "ChannelConfig.generated.h"
+#include "ChannelConfigDto.generated.h"
 
 /**
  *
  */
 USTRUCT()
-struct FChannelConfig
+struct FChannelConfigDto
 {
     GENERATED_BODY()
 
@@ -19,7 +19,7 @@ struct FChannelConfig
     FString Automod = TEXT("flag");
 
     /// List of available commands
-    TArray<FCommand> Commands;
+    TArray<FCommandDto> Commands;
 
     /// True if the channel should send connect events
     bool bConnectEvents;

@@ -2,13 +2,13 @@
 
 #pragma once
 
+#include "Channel/Message.h"
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 
 #include "ChatChannel.generated.h"
 
 class FChatApi;
-struct FChannelState;
 
 /**
  *
@@ -22,7 +22,13 @@ public:
     static UChatChannel*
     Create(const TSharedRef<FChatApi>&, const FString& ConnectionId, const FString& Type, const FString& Id);
 
-    void Watch(TFunction<void(const FChannelState&)> Callback = {}) const;
+    void Watch(TFunction<void()> Callback = {});
+
+    UFUNCTION(BlueprintPure)
+    const TArray<FMessage>& GetMessages() const
+    {
+        return Messages;
+    }
 
 private:
     UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess))
@@ -30,6 +36,8 @@ private:
 
     UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess))
     FString Id;
+
+    TArray<FMessage> Messages;
 
     FString ConnectionId;
 

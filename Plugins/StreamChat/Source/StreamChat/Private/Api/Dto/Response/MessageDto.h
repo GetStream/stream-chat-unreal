@@ -3,15 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "User.h"
+#include "UserDto.h"
 
-#include "Message.generated.h"
+#include "MessageDto.generated.h"
 
 /**
  *
  */
 USTRUCT()
-struct FMessage
+struct FMessageDto
 {
     GENERATED_BODY()
 
@@ -38,7 +38,7 @@ struct FMessage
 
     /// The list of user mentioned in the message
     UPROPERTY()
-    TArray<FUser> MentionedUsers;
+    TArray<FUserDto> MentionedUsers;
 
     /// A map describing the count of number of every reaction
     // TODO Optional
@@ -71,7 +71,7 @@ struct FMessage
     // TODO Optional
     // TODO recursive?
     // UPROPERTY()
-    // FMessage QuotedMessage;
+    // FMessageDto QuotedMessage;
 
     /// The ID of the quoted message, if the message is a quoted reply.
     // TODO Optional
@@ -86,7 +86,7 @@ struct FMessage
     /// Reserved field indicating the thread participants for this message.
     // TODO Optional
     UPROPERTY()
-    TArray<FUser> ThreadParticipants;
+    TArray<FUserDto> ThreadParticipants;
 
     /// Check if this message needs to show in the channel.
     // TODO Optional
@@ -117,7 +117,7 @@ struct FMessage
     /// User who sent the message
     // TODO Optional
     UPROPERTY()
-    FUser User;
+    FUserDto User;
 
     /// If true the message is pinned
     UPROPERTY()
@@ -138,7 +138,7 @@ struct FMessage
     /// Reserved field indicating who pinned the message
     // TODO Optional
     UPROPERTY()
-    FUser PinnedBy;
+    FUserDto PinnedBy;
 
     // TODO extraData
 };

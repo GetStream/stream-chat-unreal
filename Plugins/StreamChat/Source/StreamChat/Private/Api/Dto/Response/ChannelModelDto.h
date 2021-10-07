@@ -2,17 +2,17 @@
 
 #pragma once
 
-#include "ChannelConfig.h"
+#include "ChannelConfigDto.h"
 #include "CoreMinimal.h"
-#include "User.h"
+#include "UserDto.h"
 
-#include "ChannelModel.generated.h"
+#include "ChannelModelDto.generated.h"
 
 /**
  *
  */
 USTRUCT()
-struct FChannelModel
+struct FChannelModelDto
 {
     GENERATED_BODY()
 
@@ -30,12 +30,12 @@ struct FChannelModel
 
     /// The channel configuration data
     UPROPERTY()
-    FChannelConfig Config;
+    FChannelConfigDto Config;
 
     /// The user that created this channel
     // TODO: Optional
     UPROPERTY()
-    FUser CreatedBy;
+    FUserDto CreatedBy;
 
     /// True if this channel is frozen
     UPROPERTY()

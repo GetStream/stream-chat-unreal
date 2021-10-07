@@ -2,27 +2,27 @@
 
 #pragma once
 
-#include "ChannelModel.h"
+#include "ChannelModelDto.h"
 #include "CoreMinimal.h"
-#include "Message.h"
+#include "MessageDto.h"
 
-#include "ChannelState.generated.h"
+#include "ChannelStateDto.generated.h"
 
 /**
  *
  */
 USTRUCT()
-struct FChannelState
+struct FChannelStateDto
 {
     GENERATED_BODY()
 
     /// The channel to which this state belongs
     UPROPERTY()
-    FChannelModel Channel;
+    FChannelModelDto Channel;
 
     /// A paginated list of channel messages
     UPROPERTY()
-    TArray<FMessage> Messages;
+    TArray<FMessageDto> Messages;
 
     /// A paginated list of channel members
     // TODO Uncomment
@@ -31,7 +31,7 @@ struct FChannelState
 
     /// A paginated list of pinned messages
     UPROPERTY()
-    TArray<FMessage> PinnedMessages;
+    TArray<FMessageDto> PinnedMessages;
 
     /// The count of users watching the channel
     UPROPERTY()
@@ -39,7 +39,7 @@ struct FChannelState
 
     /// A paginated list of users watching the channel
     UPROPERTY()
-    TArray<FUser> Watchers;
+    TArray<FUserDto> Watchers;
 
     /// The list of channel reads
     // TODO Uncomment

@@ -6,6 +6,8 @@
 
 #include "User.generated.h"
 
+struct FUserDto;
+
 /**
  *
  */
@@ -14,6 +16,10 @@ struct STREAMCHAT_API FUser
 {
     GENERATED_BODY()
 
-    UPROPERTY(BlueprintReadOnly)
+    FUser() = default;
+    explicit FUser(const FUserDto&);
+    explicit FUser(const FString& InId);
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
     FString Id;
 };

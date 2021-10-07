@@ -2,7 +2,7 @@
 
 #include "StreamChatSampleHud.h"
 
-#include "ChatChannel.h"
+#include "Channel/ChatChannel.h"
 #include "User.h"
 
 AStreamChatSampleHud::AStreamChatSampleHud()
@@ -23,7 +23,11 @@ void AStreamChatSampleHud::BeginPlay()
         [this]
         {
             Channel = Client->Channel(TEXT("messaging"), TEXT("flutterdevs"));
-            Channel->Watch();
+            Channel->Watch(
+                [this]
+                {
+                    OnConnect();
+                });
         },
         User,
         Token);

@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 
-#include "Command.generated.h"
+#include "CommandDto.generated.h"
 
 /**
  *
  */
 USTRUCT()
-struct FCommand
+struct FCommandDto
 {
     GENERATED_BODY()
 

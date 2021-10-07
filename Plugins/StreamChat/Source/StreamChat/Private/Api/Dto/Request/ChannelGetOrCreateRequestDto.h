@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 
-#include "ChannelGetOrCreateRequest.generated.h"
+#include "ChannelGetOrCreateRequestDto.generated.h"
 
 /**
  *
  */
 USTRUCT()
-struct FChannelGetOrCreateRequest
+struct FChannelGetOrCreateRequestDto
 {
     GENERATED_BODY()
 
