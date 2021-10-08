@@ -6,6 +6,7 @@
 #include "IWebSocket.h"
 #include "StreamChatSettings.h"
 #include "StreamJson/Public/StreamJson.h"
+#include "WebSocketCloseCodes.h"
 #include "WebSocketsModule.h"
 
 FChatSocket::FChatSocket(const FString& ApiKey, const FUser& User, const FTokenManager& TokenManager)
@@ -52,7 +53,7 @@ void FChatSocket::Disconnect()
     {
         UE_LOG(LogTemp, Log, TEXT("Closing websocket connection"));
         bClosePending = true;
-        WebSocket->Close(/* going away */ 1001);
+        WebSocket->Close(WebSocketCloseCode::GoingAway);
     }
 }
 
@@ -98,15 +99,15 @@ void FChatSocket::HandleWebSocketConnectionClosed(const int32 Status, const FStr
 {
     bClosePending = false;
 
-    // TODO Human readable status codes
+    const TCHAR* Code = WebSocketCloseCode::ToString(Status);
     if (bWasClean)
     {
-        UE_LOG(LogTemp, Log, TEXT("Websocket connection closed [Status=%d, Reason=%s]"), Status, *Reason);
+        UE_LOG(LogTemp, Log, TEXT("Websocket connection closed [Status=%s, Reason=%s]"), Code, *Reason);
     }
     else
     {
         UE_LOG(
-            LogTemp, Warning, TEXT("Websocket connection closed unexpectedly [Status=%d, Reason=%s]"), Status, *Reason);
+            LogTemp, Warning, TEXT("Websocket connection closed unexpectedly [Status=%s, Reason=%s]"), Code, *Reason);
     }
 }
 
