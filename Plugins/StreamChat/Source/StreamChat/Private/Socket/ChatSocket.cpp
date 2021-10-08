@@ -32,7 +32,7 @@ FChatSocket::~FChatSocket()
     }
 }
 
-void FChatSocket::Connect(TFunction<void()> Callback)
+void FChatSocket::Connect(const TFunction<void()> Callback)
 {
     WebSocket->OnConnected().AddSP(this, &FChatSocket::HandleWebSocketConnected);
     WebSocket->OnConnectionError().AddSP(this, &FChatSocket::HandleWebSocketConnectionError);
@@ -42,7 +42,8 @@ void FChatSocket::Connect(TFunction<void()> Callback)
     UE_LOG(LogTemp, Log, TEXT("Initiating websocket connection"));
     WebSocket->Connect();
 
-    HealthCheckEventDelegate.BindLambda(Callback);
+    SubscribeToEvent<FHealthCheckEvent>(
+        TEventReceivedDelegate<FHealthCheckEvent>::CreateSP(this, &FChatSocket::OnHealthCheckEvent, Callback));
 }
 
 void FChatSocket::Disconnect()
@@ -113,17 +114,28 @@ void FChatSocket::HandleWebSocketMessage(const FString& Message)
 {
     UE_LOG(LogTemp, Log, TEXT("Websocket received message: %s"), *Message);
 
-    if (const auto [Type, Cid, CreatedAt] = Json::Deserialize<FChatEvent>(Message); Type == TEXT("health.check"))
+    // TODO we end up deserializing twice to determine the event type: here and in TEventSubscription<::OnMessage
+    const auto [Type, Cid, CreatedAt] = Json::Deserialize<FChatEvent>(Message);
+    if (Type.IsNone())
     {
-        const FHealthCheckEvent HealthCheckEvent = Json::Deserialize<FHealthCheckEvent>(Message);
-        ConnectionId = HealthCheckEvent.ConnectionId;
-
-        check(HealthCheckEventDelegate.IsBound());
-        HealthCheckEventDelegate.Execute();
+        UE_LOG(LogTemp, Error, TEXT("Trying to deserialize a WebSocket event with no type"));
+        return;
     }
-    else if (Type == TEXT("message.new"))
+    if (const TUniquePtr<IEventSubscription>* Subscription = Subscriptions.Find(Type))
     {
-        const FNewMessageEvent NewMessageEvent = Json::Deserialize<FNewMessageEvent>(Message);
-        NewMessageEventDelegate.Broadcast(NewMessageEvent);
+        Subscription->Get()->OnMessage(Message);
+    }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("No subscriptions to WebSocket event. Discarding. [Type=%s]"), *Type.ToString());
+    }
+}
+
+void FChatSocket::OnHealthCheckEvent(const FHealthCheckEvent& HealthCheckEvent, const TFunction<void()> Callback)
+{
+    ConnectionId = HealthCheckEvent.ConnectionId;
+    if (Callback)
+    {
+        Callback();
     }
 }

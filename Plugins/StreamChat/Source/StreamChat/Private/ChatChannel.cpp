@@ -17,7 +17,8 @@ UChatChannel::Create(const TSharedRef<FChatApi>& InApi, FChatSocket& Socket, con
     Channel->ConnectionId = Socket.GetConnectionId();
     Channel->Type = Type;
     Channel->Id = Id;
-    Socket.NewMessageEventDelegate.AddUObject(Channel, &UChatChannel::OnNewMessage);
+    Socket.SubscribeToEvent<FNewMessageEvent>(
+        TEventReceivedDelegate<FNewMessageEvent>::CreateUObject(Channel, &UChatChannel::OnNewMessage));
 
     check(!Channel->ConnectionId.IsEmpty());
 

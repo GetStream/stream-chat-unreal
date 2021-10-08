@@ -14,8 +14,7 @@ struct FNewMessageEvent : public FChatEvent
 {
     GENERATED_BODY()
 
-    UPROPERTY()
-    FString ConnectionId;
+    inline static FName StaticType = TEXT("message.new");
 
     UPROPERTY()
     FMessageDto Message;
