@@ -9,6 +9,11 @@
 #include "ChatChannel.generated.h"
 
 class FChatApi;
+class FChatSocket;
+struct FChannelStateResponseDto;
+struct FNewMessageEvent;
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessagesUpdatedDelegate, const TArray<FMessage>&, Messages);
 
 /**
  *
@@ -19,18 +24,25 @@ class STREAMCHAT_API UChatChannel final : public UObject
     GENERATED_BODY()
 
 public:
-    static UChatChannel*
-    Create(const TSharedRef<FChatApi>&, const FString& ConnectionId, const FString& Type, const FString& Id);
+    static UChatChannel* Create(const TSharedRef<FChatApi>&, FChatSocket&, const FString& Type, const FString& Id);
 
     void Watch(TFunction<void()> Callback = {});
 
     UFUNCTION(BlueprintCallable)
-    void SendMessage(const FString& Message);
+    void SendMessage(const FString& Message, const FUser& FromUser);
 
     UFUNCTION(BlueprintPure)
     const TArray<FMessage>& GetMessages() const;
 
+    UPROPERTY(BlueprintAssignable)
+    FMessagesUpdatedDelegate MessagesUpdated;
+
 private:
+    void ApplyState(const FChannelStateResponseDto&);
+    void AddMessage(const FMessage&);
+
+    void OnNewMessage(const FNewMessageEvent&);
+
     UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess))
     FString Type;
 

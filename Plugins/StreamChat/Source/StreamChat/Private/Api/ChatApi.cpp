@@ -37,11 +37,11 @@ void FChatApi::GetOrCreateChannel(
 }
 
 void FChatApi::SendNewMessage(
-    const TFunction<void(const FMessageResponseDto&)> Callback,
     const FString& ChannelType,
     const FString& ChannelId,
     const FMessageRequestDto& MessageRequest,
-    const bool bSkipPush) const
+    const bool bSkipPush,
+    const TFunction<void(const FMessageResponseDto&)> Callback) const
 {
     const FString Path = FString::Printf(TEXT("channels/%s/%s/message"), *ChannelType, *ChannelId);
     const FString Url = BuildUrl(Path);

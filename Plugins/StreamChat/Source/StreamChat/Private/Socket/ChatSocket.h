@@ -4,6 +4,7 @@
 #include "Token/TokenManager.h"
 
 struct FUser;
+struct FNewMessageEvent;
 class IWebSocket;
 
 class FChatSocket : public TSharedFromThis<FChatSocket>
@@ -17,6 +18,9 @@ public:
     bool IsConnected() const;
     const FString& GetConnectionId() const;
 
+    DECLARE_MULTICAST_DELEGATE_OneParam(FNewMessageEventDelegate, const FNewMessageEvent&);
+    FNewMessageEventDelegate NewMessageEventDelegate;
+
 private:
     static FString BuildUrl(const FString& ApiKey, const FUser& User, const FTokenManager& TokenManager);
 
@@ -26,8 +30,8 @@ private:
     void HandleWebSocketConnectionClosed(int32 Status, const FString& Reason, bool bWasClean);
     void HandleWebSocketMessage(const FString& Message);
 
-    DECLARE_EVENT(FChatSocket, FOnHealthCheckEvent)
-    FOnHealthCheckEvent OnHealthCheckEvent;
+    DECLARE_DELEGATE(FHealthCheckEventDelegate);
+    FHealthCheckEventDelegate HealthCheckEventDelegate;
 
     /**
      * Provided by the server when the websocket connection is established

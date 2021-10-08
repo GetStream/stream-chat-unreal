@@ -24,6 +24,7 @@ void UStreamChatClientComponent::BeginPlay()
 
 void UStreamChatClientComponent::ConnectUser(const FUser& User, const FString& Token, const TFunction<void()> Callback)
 {
+    CurrentUser = User;
     // TODO: I don't like that the TokenManager is stateful. Maybe instantiate a token provider each time one is
     // needed?
     TokenManager->SetTokenProvider(MakeUnique<FConstantTokenProvider>(Token));
@@ -33,11 +34,12 @@ void UStreamChatClientComponent::ConnectUser(const FUser& User, const FString& T
 
 void UStreamChatClientComponent::DisconnectUser()
 {
-    TokenManager->Reset();
     if (Socket)
     {
         Socket->Disconnect();
     }
+    TokenManager->Reset();
+    CurrentUser.Reset();
 }
 
 UChatChannel* UStreamChatClientComponent::Channel(const FString& Type, const FString& Id)
@@ -45,9 +47,15 @@ UChatChannel* UStreamChatClientComponent::Channel(const FString& Type, const FSt
     // TODO Can we return something from ConnectUser() that is required for this function to prevent ordering ambiguity?
     check(Socket->IsConnected());
 
-    UChatChannel* Channel = UChatChannel::Create(Api.ToSharedRef(), Socket->GetConnectionId(), Type, Id);
+    UChatChannel* Channel = UChatChannel::Create(Api.ToSharedRef(), *Socket, Type, Id);
 
     // TODO This is obviously wrong
     Channels.Add(Type + TEXT(":") + Id, Channel);
     return Channel;
+}
+
+FUser UStreamChatClientComponent::GetCurrentUser() const
+{
+    // TODO Better optional support
+    return CurrentUser.Get(FUser{TEXT("ERROR")});
 }

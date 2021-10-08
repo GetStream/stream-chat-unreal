@@ -4,6 +4,7 @@
 
 #include "Components/ActorComponent.h"
 #include "CoreMinimal.h"
+#include "User.h"
 
 #include "StreamChatClientComponent.generated.h"
 
@@ -11,7 +12,6 @@ class FChatApi;
 class FChatSocket;
 class FTokenManager;
 class UChatChannel;
-struct FUser;
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class STREAMCHAT_API UStreamChatClientComponent final : public UActorComponent
@@ -26,6 +26,9 @@ public:
 
     UChatChannel* Channel(const FString& Type, const FString& Id = {});
 
+    UFUNCTION(BlueprintPure)
+    FUser GetCurrentUser() const;
+
     UPROPERTY(EditAnywhere, Config, meta = (DisplayName = "API Key"))
     FString ApiKey;
 
@@ -36,6 +39,8 @@ private:
     TSharedPtr<FTokenManager> TokenManager;
     TSharedPtr<FChatApi> Api;
     TSharedPtr<FChatSocket> Socket;
+
+    TOptional<FUser> CurrentUser;
 
     UPROPERTY(Transient)
     TMap<FString, UChatChannel*> Channels;

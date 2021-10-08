@@ -1,6 +1,7 @@
 ﻿#include "ChatSocket.h"
 
 #include "Dto/Event/HealthCheckEvent.h"
+#include "Dto/Event/NewMessageEvent.h"
 #include "Dto/Request/ConnectRequest.h"
 #include "IWebSocket.h"
 #include "StreamChatSettings.h"
@@ -41,7 +42,7 @@ void FChatSocket::Connect(TFunction<void()> Callback)
     UE_LOG(LogTemp, Log, TEXT("Initiating websocket connection"));
     WebSocket->Connect();
 
-    OnHealthCheckEvent.AddLambda(Callback);
+    HealthCheckEventDelegate.BindLambda(Callback);
 }
 
 void FChatSocket::Disconnect()
@@ -112,11 +113,17 @@ void FChatSocket::HandleWebSocketMessage(const FString& Message)
 {
     UE_LOG(LogTemp, Log, TEXT("Websocket received message: %s"), *Message);
 
-    // TODO Support more than just health.check
-    FHealthCheckEvent Event = Json::Deserialize<FHealthCheckEvent>(Message);
-    if (Event.Type == TEXT("health.check"))
+    if (const auto [Type, Cid, CreatedAt] = Json::Deserialize<FChatEvent>(Message); Type == TEXT("health.check"))
     {
-        ConnectionId = Event.ConnectionId;
-        OnHealthCheckEvent.Broadcast();
+        const FHealthCheckEvent HealthCheckEvent = Json::Deserialize<FHealthCheckEvent>(Message);
+        ConnectionId = HealthCheckEvent.ConnectionId;
+
+        check(HealthCheckEventDelegate.IsBound());
+        HealthCheckEventDelegate.Execute();
+    }
+    else if (Type == TEXT("message.new"))
+    {
+        const FNewMessageEvent NewMessageEvent = Json::Deserialize<FNewMessageEvent>(Message);
+        NewMessageEventDelegate.Broadcast(NewMessageEvent);
     }
 }

@@ -8,6 +8,15 @@
 #include "Message.generated.h"
 
 struct FMessageDto;
+struct FMessageRequestDto;
+
+UENUM(BlueprintType)
+enum class EMessageSendState : uint8
+{
+    Sending,
+    Sent
+    // TODO updating, deleting, failure?
+};
 
 /**
  *
@@ -18,6 +27,7 @@ struct FMessage
     GENERATED_BODY()
 
     FMessage() = default;
+    explicit FMessage(const FMessageRequestDto&, const FUser& SendingUser);
     explicit FMessage(const FMessageDto&);
 
     /// The message ID. This is either created by Stream or set client side when
@@ -30,6 +40,10 @@ struct FMessage
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
     FString Text;
 
+    /// Sending state of the message
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+    EMessageSendState State;
+
     /// The message type
     UPROPERTY()
     FString Type;
@@ -38,22 +52,14 @@ struct FMessage
     UPROPERTY()
     TArray<FUser> MentionedUsers;
 
-    /// If true the message is silent
-    UPROPERTY()
-    bool bSilent;
-
-    /// If true the message is shadowed
-    UPROPERTY()
-    bool bShadowed;
-
     /// User who sent the message
     // TODO Optional
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
     FUser User;
 
-    /// If true the message is pinned
-    UPROPERTY()
-    bool bPinned;
+    /// Reserved field indicating when the message was updated last time.
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+    FDateTime UpdatedAt;
 
     // TODO rest of fields
 };

@@ -28,7 +28,7 @@ struct FMessageDto
 
     /// The message type
     UPROPERTY()
-    // TODO enum
+    // TODO enum https://getstream.io/chat/docs/other-rest/message_format/#message-types
     FString Type = TEXT("regular");
 
     /// The list of attachments, either provided by the user or generated from a
@@ -89,7 +89,7 @@ struct FMessageDto
     UPROPERTY()
     TArray<FUserDto> ThreadParticipants;
 
-    /// Check if this message needs to show in the channel.
+    /// Whether thread reply should be shown in the channel as well
     // TODO Optional
     UPROPERTY()
     bool bShowInChannel;

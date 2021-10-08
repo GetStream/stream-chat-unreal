@@ -35,11 +35,11 @@ public:
         TFunction<void(const FChannelStateResponseDto&)> Callback = {}) const;
 
     void SendNewMessage(
-        TFunction<void(const FMessageResponseDto&)> Callback,
         const FString& ChannelType,
         const FString& ChannelId,
         const FMessageRequestDto& MessageRequest,
-        bool bSkipPush = false) const;
+        bool bSkipPush = false,
+        TFunction<void(const FMessageResponseDto&)> Callback = {}) const;
 
 private:
     FString BuildUrl(const FString& Path) const;

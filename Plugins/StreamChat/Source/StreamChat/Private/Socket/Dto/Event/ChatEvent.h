@@ -6,13 +6,24 @@
 
 /**
  * Represents an event that happened in Stream Chat
+ * https://getstream.io/chat/docs/other-rest/event_object/#event-object
  */
 USTRUCT()
 struct FChatEvent
 {
     GENERATED_BODY()
 
-    // TODO this can be an enum
+    /// Event type
+    // TODO can this can be an enum
     UPROPERTY()
-    FString Type;
+    FName Type;
+
+    /// Channel ID
+    UPROPERTY()
+    FString Cid;
+
+    UPROPERTY()
+    FDateTime CreatedAt;
+
+    // TODO Me?
 };

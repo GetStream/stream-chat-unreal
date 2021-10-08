@@ -6,20 +6,21 @@
 #include "Api/Dto/Request/MessageRequestDto.h"
 #include "Api/Dto/Response/ChannelStateResponseDto.h"
 #include "Api/Dto/Response/MessageResponseDto.h"
+#include "Socket/ChatSocket.h"
+#include "Socket/Dto/Event/NewMessageEvent.h"
 
-UChatChannel* UChatChannel::Create(
-    const TSharedRef<FChatApi>& InApi,
-    const FString& ConnectionId,
-    const FString& Type,
-    const FString& Id)
+UChatChannel*
+UChatChannel::Create(const TSharedRef<FChatApi>& InApi, FChatSocket& Socket, const FString& Type, const FString& Id)
 {
-    check(!ConnectionId.IsEmpty());
-
     UChatChannel* Channel = NewObject<UChatChannel>();
     Channel->Api = InApi;
-    Channel->ConnectionId = ConnectionId;
+    Channel->ConnectionId = Socket.GetConnectionId();
     Channel->Type = Type;
     Channel->Id = Id;
+    Socket.NewMessageEventDelegate.AddUObject(Channel, &UChatChannel::OnNewMessage);
+
+    check(!Channel->ConnectionId.IsEmpty());
+
     return Channel;
 }
 
@@ -34,11 +35,7 @@ void UChatChannel::Watch(const TFunction<void()> Callback)
         EChannelCreationFlags::State | EChannelCreationFlags::Watch,
         [this, Callback](const FChannelStateResponseDto& State)
         {
-            Messages.Empty(State.Messages.Num());
-            for (auto&& Message : State.Messages)
-            {
-                Messages.Add(FMessage{Message});
-            }
+            ApplyState(State);
 
             if (Callback)
             {
@@ -47,19 +44,61 @@ void UChatChannel::Watch(const TFunction<void()> Callback)
         });
 }
 
-void UChatChannel::SendMessage(const FString& Message)
+void UChatChannel::SendMessage(const FString& Message, const FUser& FromUser)
 {
+    // TODO Wait for attachments to upload
+
+    const FMessageRequestDto Request{
+        FGuid::NewGuid().ToString(EGuidFormats::DigitsWithHyphens),
+        Message,
+    };
+    AddMessage(FMessage{Request, FromUser});
     Api->SendNewMessage(
-        [](const FMessageResponseDto& Response)
-        {
-            UE_LOG(LogTemp, Log, TEXT("Sent message [Id=%s]"), *Response.Message.Id);
-        },
         Type,
         Id,
-        {Message});
+        Request,
+        false,
+        [this](const FMessageResponseDto& Response)
+        {
+            AddMessage(FMessage{Response.Message});
+            UE_LOG(LogTemp, Log, TEXT("Sent message [Id=%s]"), *Response.Message.Id);
+        });
+
+    // TODO Cooldown?
 }
 
 const TArray<FMessage>& UChatChannel::GetMessages() const
 {
     return Messages;
+}
+
+void UChatChannel::ApplyState(const FChannelStateResponseDto& State)
+{
+    for (auto&& Message : State.Messages)
+    {
+        AddMessage(FMessage{Message});
+    }
+}
+
+void UChatChannel::AddMessage(const FMessage& Message)
+{
+    // TODO Threads
+    // TODO Quoting
+
+    if (const int32 Index = Messages.FindLastByPredicate([&](const FMessage& M) { return M.Id == Message.Id; });
+        Index != INDEX_NONE)
+    {
+        Messages[Index] = Message;
+    }
+    else
+    {
+        Messages.Add(Message);
+    }
+
+    MessagesUpdated.Broadcast(Messages);
+}
+
+void UChatChannel::OnNewMessage(const FNewMessageEvent& NewMessageEvent)
+{
+    AddMessage(FMessage{NewMessageEvent.Message});
 }

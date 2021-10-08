@@ -14,6 +14,10 @@ struct FMessageRequestDto
 {
     GENERATED_BODY()
 
+    // Not in spec, but seems needed
+    UPROPERTY()
+    FString Id;
+
     UPROPERTY()
     FString Text;
 
