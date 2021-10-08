@@ -92,7 +92,7 @@ void FChatSocket::HandleWebSocketConnectionError(const FString& Error)
     UE_LOG(LogTemp, Error, TEXT("Websocket error :%s"), *Error);
 }
 
-void FChatSocket::HandleWebSocketConnectionClosed(int32 Status, const FString& Reason, bool bWasClean)
+void FChatSocket::HandleWebSocketConnectionClosed(const int32 Status, const FString& Reason, const bool bWasClean)
 {
     bClosePending = false;
 

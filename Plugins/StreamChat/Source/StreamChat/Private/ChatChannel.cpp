@@ -3,6 +3,7 @@
 #include "Channel/ChatChannel.h"
 
 #include "Api/ChatApi.h"
+#include "Api/Dto/Request/MessageRequestDto.h"
 #include "Api/Dto/Response/ChannelStateResponseDto.h"
 #include "Api/Dto/Response/MessageResponseDto.h"
 
@@ -27,6 +28,10 @@ void UChatChannel::Watch(const TFunction<void()> Callback)
     check(!ConnectionId.IsEmpty());
 
     Api->GetOrCreateChannel(
+        Type,
+        ConnectionId,
+        Id,
+        EChannelCreationFlags::State | EChannelCreationFlags::Watch,
         [this, Callback](const FChannelStateResponseDto& State)
         {
             Messages.Empty(State.Messages.Num());
@@ -39,11 +44,7 @@ void UChatChannel::Watch(const TFunction<void()> Callback)
             {
                 Callback();
             }
-        },
-        Type,
-        ConnectionId,
-        Id,
-        EChannelCreationFlags::State | EChannelCreationFlags::Watch);
+        });
 }
 
 void UChatChannel::SendMessage(const FString& Message)

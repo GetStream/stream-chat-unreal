@@ -28,11 +28,11 @@ public:
     explicit FChatApi(const FString& InApiKey, const TSharedRef<FTokenManager>&);
 
     void GetOrCreateChannel(
-        TFunction<void(const FChannelStateResponseDto&)> Callback,
         const FString& ChannelType,
         const FString& ConnectionId,
         const FString& ChannelId = {},
-        EChannelCreationFlags Flags = EChannelCreationFlags::Watch) const;
+        EChannelCreationFlags Flags = EChannelCreationFlags::Watch,
+        TFunction<void(const FChannelStateResponseDto&)> Callback = {}) const;
 
     void SendNewMessage(
         TFunction<void(const FMessageResponseDto&)> Callback,

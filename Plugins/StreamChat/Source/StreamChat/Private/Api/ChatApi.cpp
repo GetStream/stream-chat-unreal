@@ -18,11 +18,11 @@ FChatApi::FChatApi(const FString& InApiKey, const TSharedRef<FTokenManager>& InT
 }
 
 void FChatApi::GetOrCreateChannel(
-    const TFunction<void(const FChannelStateResponseDto&)> Callback,
     const FString& ChannelType,
     const FString& ConnectionId,
     const FString& ChannelId,
-    const EChannelCreationFlags Flags) const
+    const EChannelCreationFlags Flags,
+    const TFunction<void(const FChannelStateResponseDto&)> Callback) const
 {
     const FString ChannelPath =
         ChannelId.IsEmpty() ? ChannelType : FString::Printf(TEXT("%s/%s"), *ChannelType, *ChannelId);

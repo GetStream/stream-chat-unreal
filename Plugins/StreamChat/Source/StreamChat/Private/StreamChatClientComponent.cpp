@@ -22,7 +22,7 @@ void UStreamChatClientComponent::BeginPlay()
     Api = MakeShared<FChatApi>(ApiKey, TokenManager.ToSharedRef());
 }
 
-void UStreamChatClientComponent::ConnectUser(const TFunction<void()> Callback, const FUser& User, const FString& Token)
+void UStreamChatClientComponent::ConnectUser(const FUser& User, const FString& Token, const TFunction<void()> Callback)
 {
     // TODO: I don't like that the TokenManager is stateful. Maybe instantiate a token provider each time one is
     // needed?

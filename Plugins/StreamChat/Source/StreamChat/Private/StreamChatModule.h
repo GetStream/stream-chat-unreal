@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 
-class FStreamChatModule : public IModuleInterface
+class FStreamChatModule final : public IModuleInterface
 {
 public:
     /** IModuleInterface implementation */

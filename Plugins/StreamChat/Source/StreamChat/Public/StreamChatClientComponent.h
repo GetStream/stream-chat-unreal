@@ -21,7 +21,7 @@ class STREAMCHAT_API UStreamChatClientComponent final : public UActorComponent
 public:
     UStreamChatClientComponent();
 
-    void ConnectUser(const TFunction<void()> Callback, const FUser& User, const FString& Token);
+    void ConnectUser(const FUser& User, const FString& Token, TFunction<void()> Callback);
     void DisconnectUser();
 
     UChatChannel* Channel(const FString& Type, const FString& Id = {});

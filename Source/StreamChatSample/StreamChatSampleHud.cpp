@@ -20,6 +20,8 @@ void AStreamChatSampleHud::BeginPlay()
         TEXT("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidHV0b3JpYWwtZmx1dHRlciJ9.S-"
              "MJpoSwDiqyXpUURgO5wVqJ4vKlIVFLSEyrFYCOE1c")};
     Client->ConnectUser(
+        User,
+        Token,
         [this]
         {
             Channel = Client->Channel(TEXT("messaging"), TEXT("unrealdevs"));
@@ -28,9 +30,7 @@ void AStreamChatSampleHud::BeginPlay()
                 {
                     OnConnect();
                 });
-        },
-        User,
-        Token);
+        });
 }
 
 void AStreamChatSampleHud::EndPlay(const EEndPlayReason::Type EndPlayReason)
