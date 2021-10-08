@@ -13,9 +13,9 @@ class FChatSocket : public TSharedFromThis<FChatSocket>
 public:
     explicit FChatSocket(const FString& ApiKey, const FUser& User, const FTokenManager& TokenManager);
     ~FChatSocket();
+
     void Connect(TFunction<void()> Callback);
     void Disconnect();
-
     bool IsConnected() const;
     const FString& GetConnectionId() const;
 
@@ -23,8 +23,6 @@ public:
     FDelegateHandle SubscribeToEvent(TEventReceivedDelegate<TEvent> Callback);
 
 private:
-    static FString BuildUrl(const FString& ApiKey, const FUser& User, const FTokenManager& TokenManager);
-
     // WS event handlers
     void HandleWebSocketConnected();
     void HandleWebSocketConnectionError(const FString& Error);
@@ -36,11 +34,11 @@ private:
     template <class TEvent>
     TEventSubscription<TEvent>& GetSubscription();
 
+    static FString BuildUrl(const FString& ApiKey, const FUser& User, const FTokenManager& TokenManager);
+
     TMap<FName, TUniquePtr<IEventSubscription>> Subscriptions;
 
-    /**
-     * Provided by the server when the websocket connection is established
-     */
+    /// Provided by the server when the websocket connection is established
     FString ConnectionId;
 
     TSharedPtr<IWebSocket> WebSocket;
@@ -57,13 +55,9 @@ FDelegateHandle FChatSocket::SubscribeToEvent(TEventReceivedDelegate<TEvent> Cal
 template <class TEvent>
 TEventSubscription<TEvent>& FChatSocket::GetSubscription()
 {
-    // TODO don't like the double StaticCast
     const FName& EventType = TEvent::StaticType;
-    if (const TUniquePtr<IEventSubscription>* Subscription = Subscriptions.Find(EventType))
-    {
-        return StaticCast<TEventSubscription<TEvent>&>(**Subscription);
-    }
+    const TUniquePtr<IEventSubscription>* Existing = Subscriptions.Find(EventType);
     const TUniquePtr<IEventSubscription>& Subscription =
-        Subscriptions.Emplace(EventType, MakeUnique<TEventSubscription<TEvent>>());
+        Existing ? *Existing : Subscriptions.Emplace(EventType, MakeUnique<TEventSubscription<TEvent>>());
     return StaticCast<TEventSubscription<TEvent>&>(*Subscription);
 }
