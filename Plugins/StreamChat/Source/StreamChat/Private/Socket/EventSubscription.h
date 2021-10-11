@@ -1,4 +1,6 @@
 #pragma once
+
+#include "CoreMinimal.h"
 #include "StreamJson.h"
 
 template <class TEvent>

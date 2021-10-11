@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
+#include "Detail/ChatSocketDetail.h"
 #include "EventSubscription.h"
 #include "Token/TokenManager.h"
 
@@ -31,9 +32,6 @@ private:
 
     void OnHealthCheckEvent(const FHealthCheckEvent&, TFunction<void()> Callback);
 
-    template <class TEvent>
-    TEventSubscription<TEvent>& GetSubscription();
-
     static FString BuildUrl(const FString& ApiKey, const FUser& User, const FTokenManager& TokenManager);
 
     TMap<FName, TUniquePtr<IEventSubscription>> Subscriptions;
@@ -49,15 +47,5 @@ private:
 template <class TEvent>
 FDelegateHandle FChatSocket::SubscribeToEvent(TEventReceivedDelegate<TEvent> Callback)
 {
-    return GetSubscription<TEvent>().Delegate.Add(MoveTemp(Callback));
-}
-
-template <class TEvent>
-TEventSubscription<TEvent>& FChatSocket::GetSubscription()
-{
-    const FName& EventType = TEvent::StaticType;
-    const TUniquePtr<IEventSubscription>* Existing = Subscriptions.Find(EventType);
-    const TUniquePtr<IEventSubscription>& Subscription =
-        Existing ? *Existing : Subscriptions.Emplace(EventType, MakeUnique<TEventSubscription<TEvent>>());
-    return StaticCast<TEventSubscription<TEvent>&>(*Subscription);
+    return Detail::SubscribeToEvent<TEvent>(Subscriptions, Callback);
 }
