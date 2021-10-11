@@ -1,4 +1,6 @@
 #pragma once
+
+#include "CoreMinimal.h"
 #include "NamingConvention.h"
 
 class FJsonObject;
@@ -16,7 +18,7 @@ namespace JsonObjectSerialization
  *
  * @return False if any properties failed to write
  */
-static bool UStructToJsonObjectString(
+bool UStructToJsonObjectString(
     const UStruct* StructDefinition,
     const void* Struct,
     FString& OutJsonString,
@@ -32,7 +34,7 @@ static bool UStructToJsonObjectString(
  *
  * @return False if any properties failed to write
  */
-static bool UStructToJsonObject(
+bool UStructToJsonObject(
     const UStruct* StructDefinition,
     const void* Struct,
     TSharedRef<FJsonObject> OutJsonObject,
@@ -47,7 +49,7 @@ static bool UStructToJsonObject(
  *
  * @return False if any properties failed to write
  */
-static bool UStructToJsonAttributes(
+bool UStructToJsonAttributes(
     const UStruct* StructDefinition,
     const void* Struct,
     TMap<FString, TSharedPtr<FJsonValue> >& OutJsonAttributes,

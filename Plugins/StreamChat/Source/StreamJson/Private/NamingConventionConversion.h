@@ -1,5 +1,7 @@
 #pragma once
 
+#include "CoreMinimal.h"
+
 namespace NamingConventionConversion
 {
 /** Given a UpperCamelCase name, convert it to snake_case */

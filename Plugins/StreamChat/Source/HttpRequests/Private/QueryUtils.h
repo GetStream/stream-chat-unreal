@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include "CoreMinimal.h"
+
 namespace QueryUtils
 {
 FString ToString(const FStringFormatArg& Arg);

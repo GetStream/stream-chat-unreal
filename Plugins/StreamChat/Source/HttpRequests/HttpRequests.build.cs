@@ -7,17 +7,11 @@ public class HttpRequests : ModuleRules
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
         CppStandard = CppStandardVersion.Cpp17;
 
-		PublicDependencyModuleNames.AddRange(new[]
-		{
-			"Core",
-			"StreamJson",
-		});
-
         PrivateDependencyModuleNames.AddRange(new[] {
+			"Core",
             "CoreUObject",
 			"HTTP",
-			"Json",
-			"JsonUtilities"
+			"StreamJson",
         });
     }
 }

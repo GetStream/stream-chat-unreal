@@ -1,10 +1,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Dom/JsonObject.h"
-#include "JsonObjectWrapper.h"
-#include "Serialization/JsonReader.h"
-#include "Serialization/JsonSerializer.h"
+
+class FJsonValue;
+class FJsonObject;
 
 /** Class that handles converting Json objects to UStructs */
 namespace JsonObjectDeserialization
@@ -15,36 +14,24 @@ namespace JsonObjectDeserialization
  * @param JsonObject Json Object to copy data out of
  * @param StructDefinition UStruct definition that is looked over for properties
  * @param OutStruct The UStruct instance to copy in to
- * @param CheckFlags Only convert properties that match at least one of these flags. If 0 check all properties.
- * @param SkipFlags Skip properties that match any of these flags
  *
  * @return False if any properties matched but failed to deserialize
  */
-STREAMJSON_API bool JsonObjectToUStruct(
-    const TSharedRef<FJsonObject>& JsonObject,
-    const UStruct* StructDefinition,
-    void* OutStruct,
-    int64 CheckFlags = 0,
-    int64 SkipFlags = 0);
+STREAMJSON_API bool
+JsonObjectToUStruct(const TSharedRef<FJsonObject>& JsonObject, const UStruct* StructDefinition, void* OutStruct);
 
 /**
  * Templated version of JsonObjectToUStruct
  *
  * @param JsonObject Json Object to copy data out of
  * @param OutStruct The UStruct instance to copy in to
- * @param CheckFlags Only convert properties that match at least one of these flags. If 0 check all properties.
- * @param SkipFlags Skip properties that match any of these flags
  *
  * @return False if any properties matched but failed to deserialize
  */
 template <typename OutStructType>
-bool JsonObjectToUStruct(
-    const TSharedRef<FJsonObject>& JsonObject,
-    OutStructType* OutStruct,
-    int64 CheckFlags = 0,
-    int64 SkipFlags = 0)
+bool JsonObjectToUStruct(const TSharedRef<FJsonObject>& JsonObject, OutStructType* OutStruct)
 {
-    return JsonObjectToUStruct(JsonObject, OutStructType::StaticStruct(), OutStruct, CheckFlags, SkipFlags);
+    return JsonObjectToUStruct(JsonObject, OutStructType::StaticStruct(), OutStruct);
 }
 
 /**
@@ -53,45 +40,44 @@ bool JsonObjectToUStruct(
  * @param JsonAttributes Json Object to copy data out of
  * @param StructDefinition UStruct definition that is looked over for properties
  * @param OutStruct The UStruct instance to copy in to
- * @param CheckFlags Only convert properties that match at least one of these flags. If 0 check all properties.
- * @param SkipFlags Skip properties that match any of these flags
  *
  * @return False if any properties matched but failed to deserialize
  */
 bool JsonAttributesToUStruct(
     const TMap<FString, TSharedPtr<FJsonValue>>& JsonAttributes,
     const UStruct* StructDefinition,
-    void* OutStruct,
-    int64 CheckFlags = 0,
-    int64 SkipFlags = 0);
+    void* OutStruct);
+
+/**
+ * Converts from a json string containing an object to a UStruct
+ *
+ * @param JsonString String containing JSON formatted data.
+ * @param OutObject JsonObject to created from parsed JSON text
+ *
+ * @return False if any properties matched but failed to deserialize
+ */
+STREAMJSON_API bool JsonObjectStringToJsonObject(const FString& JsonString, TSharedPtr<FJsonObject>& OutObject);
 
 /**
  * Converts from a json string containing an object to a UStruct
  *
  * @param JsonString String containing JSON formatted data.
  * @param OutStruct The UStruct instance to copy in to
- * @param CheckFlags Only convert properties that match at least one of these flags. If 0 check all properties.
- * @param SkipFlags Skip properties that match any of these flags
  *
  * @return False if any properties matched but failed to deserialize
  */
 template <typename OutStructType>
-bool JsonObjectStringToUStruct(
-    const FString& JsonString,
-    OutStructType* OutStruct,
-    int64 CheckFlags = 0,
-    int64 SkipFlags = 0)
+bool JsonObjectStringToUStruct(const FString& JsonString, OutStructType* OutStruct)
 {
     TSharedPtr<FJsonObject> JsonObject;
-    const TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonString);
-    if (!FJsonSerializer::Deserialize(JsonReader, JsonObject) || !JsonObject.IsValid())
+    if (JsonObjectDeserialization::JsonObjectStringToJsonObject(JsonString, JsonObject))
     {
-        UE_LOG(LogJson, Warning, TEXT("JsonObjectStringToUStruct - Unable to parse json=[%s]"), *JsonString);
+        UE_LOG(LogTemp, Warning, TEXT("JsonObjectStringToUStruct - Unable to parse json=[%s]"), *JsonString);
         return false;
     }
-    if (!JsonObjectDeserialization::JsonObjectToUStruct(JsonObject.ToSharedRef(), OutStruct, CheckFlags, SkipFlags))
+    if (!JsonObjectDeserialization::JsonObjectToUStruct(JsonObject.ToSharedRef(), OutStruct))
     {
-        UE_LOG(LogJson, Warning, TEXT("JsonObjectStringToUStruct - Unable to deserialize. json=[%s]"), *JsonString);
+        UE_LOG(LogTemp, Warning, TEXT("JsonObjectStringToUStruct - Unable to deserialize. json=[%s]"), *JsonString);
         return false;
     }
     return true;

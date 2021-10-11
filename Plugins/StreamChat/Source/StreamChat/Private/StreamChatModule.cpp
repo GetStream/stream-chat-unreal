@@ -5,6 +5,7 @@
 #include "ISettingsContainer.h"
 #include "ISettingsModule.h"
 #include "ISettingsSection.h"
+#include "Modules/ModuleManager.h"
 #include "StreamChatSettings.h"
 
 #define LOCTEXT_NAMESPACE "FStreamChatUnrealModule"

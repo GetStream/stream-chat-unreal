@@ -25,11 +25,7 @@ void AStreamChatSampleHud::BeginPlay()
         [this]
         {
             Channel = Client->Channel(TEXT("messaging"), TEXT("unrealdevs"));
-            Channel->Watch(
-                [this]
-                {
-                    OnConnect();
-                });
+            Channel->Watch([this] { OnConnect(); });
         });
 }
 

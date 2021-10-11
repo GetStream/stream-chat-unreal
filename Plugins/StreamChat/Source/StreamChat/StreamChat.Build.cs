@@ -9,26 +9,15 @@ public class StreamChat : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 		CppStandard = CppStandardVersion.Cpp17;
 
-		PublicDependencyModuleNames.AddRange(
-			new string[]
+		PrivateDependencyModuleNames.AddRange(
+			new[]
 			{
 				"Core",
-				// ... add other public dependencies that you statically link with here ...
-			}
-			);
-
-
-		PrivateDependencyModuleNames.AddRange(
-			new string[]
-			{
 				"CoreUObject",
 				"Engine",
 				"WebSockets",
-				"Json",
-				"JsonUtilities",
 				"StreamJson",
 				"HttpRequests"
-				// ... add private dependencies that you statically link with here ...
 			}
 			);
 	}
