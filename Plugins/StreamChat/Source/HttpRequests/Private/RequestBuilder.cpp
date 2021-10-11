@@ -47,7 +47,7 @@ void FRequestBuilder::Send(TFunction<void(const FHttpResponse&)> Callback)
     Client->OnRequestDelegate.Broadcast(*this);
     Request->OnProcessRequestComplete().BindLambda(
         [Client = Client, Callback](
-            const FHttpRequestPtr Request, const FHttpResponsePtr Response, bool bConnectedSuccessfully)
+            const FHttpRequestPtr OriginalRequest, const FHttpResponsePtr Response, bool bConnectedSuccessfully)
         {
             const FHttpResponse HttpResponse{Response};
 
@@ -58,7 +58,7 @@ void FRequestBuilder::Send(TFunction<void(const FHttpResponse&)> Callback)
                     Log,
                     TEXT("HTTP request succeeded [StatusCode=%d, Url=%s]"),
                     HttpResponse.StatusCode,
-                    *Request->GetURL());
+                    *OriginalRequest->GetURL());
                 Client->OnResponseDelegate.Broadcast(HttpResponse);
             }
             else
@@ -68,7 +68,7 @@ void FRequestBuilder::Send(TFunction<void(const FHttpResponse&)> Callback)
                     Error,
                     TEXT("HTTP request returned an error [StatusCode=%d, Url=%s]"),
                     HttpResponse.StatusCode,
-                    *Request->GetURL());
+                    *OriginalRequest->GetURL());
                 Client->OnErrorDelegate.Broadcast(HttpResponse);
             }
             if (Callback)

@@ -17,7 +17,8 @@ public class StreamChat : ModuleRules
 				"Engine",
 				"WebSockets",
 				"StreamJson",
-				"HttpRequests"
+				"HttpRequests",
+				"Json",
 			}
 			);
 	}

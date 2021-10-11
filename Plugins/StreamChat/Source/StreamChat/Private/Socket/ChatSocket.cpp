@@ -129,24 +129,34 @@ void FChatSocket::HandleWebSocketMessage(const FString& Message)
 {
     UE_LOG(LogChatSocket, Log, TEXT("Websocket received message: %s"), *Message);
 
-    // TODO we end up deserializing twice to determine the event type: here and in TEventSubscription<::OnMessage
-    const auto [Type, Cid, CreatedAt] = Json::Deserialize<FChatEvent>(Message);
-    if (Type.IsNone())
+    TSharedPtr<FJsonObject> JsonObject;
+    if (!JsonObjectDeserialization::JsonObjectStringToJsonObject(Message, JsonObject))
     {
-        UE_LOG(LogChatSocket, Error, TEXT("Trying to deserialize a WebSocket event with no type"));
+        UE_LOG(LogChatSocket, Warning, TEXT("Unable to parse JSON=%s"), *Message);
         return;
     }
-    if (const TUniquePtr<IEventSubscription>* Subscription = Subscriptions.Find(Type))
+
+    FString Type;
+    if (!JsonObject->TryGetStringField(TEXT("type"), Type))
     {
-        Subscription->Get()->OnMessage(Message);
+        UE_LOG(LogChatSocket, Error, TEXT("Trying to deserialize a WebSocket event with no type [JSON=%s]"), *Message);
+        return;
     }
-    else
+
+    const TUniquePtr<IEventSubscription>* Subscription = Subscriptions.Find(FName(Type));
+    if (!Subscription)
+    {
+        UE_LOG(LogChatSocket, Warning, TEXT("No subscriptions to WebSocket event. Discarding. [type=%s]"), *Type);
+        return;
+    }
+
+    if (!Subscription->Get()->OnMessage(JsonObject.ToSharedRef()))
     {
         UE_LOG(
             LogChatSocket,
             Warning,
-            TEXT("No subscriptions to WebSocket event. Discarding. [Type=%s]"),
-            *Type.ToString());
+            TEXT("Unable to deserialize WebSocket event [type=%s]"),
+            *JsonObject->GetStringField(TEXT("type")));
     }
 }
 

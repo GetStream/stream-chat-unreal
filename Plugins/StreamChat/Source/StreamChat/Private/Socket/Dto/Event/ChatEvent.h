@@ -14,7 +14,6 @@ struct FChatEvent
     GENERATED_BODY()
 
     /// Event type
-    // TODO can this can be an enum
     UPROPERTY()
     FName Type;
 

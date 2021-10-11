@@ -12,20 +12,27 @@ class IEventSubscription
 {
 public:
     virtual ~IEventSubscription() = default;
-    virtual void OnMessage(const FString& Message) = 0;
+    virtual bool OnMessage(const TSharedRef<FJsonObject>&) = 0;
 };
 
 template <class T>
 class TEventSubscription final : public IEventSubscription
 {
 public:
-    virtual void OnMessage(const FString& Message) override;
+    virtual bool OnMessage(const TSharedRef<FJsonObject>&) override;
 
     TEventReceivedMulticastDelegate<T> Delegate;
 };
 
 template <class T>
-void TEventSubscription<T>::OnMessage(const FString& Message)
+bool TEventSubscription<T>::OnMessage(const TSharedRef<FJsonObject>& JsonObject)
 {
-    Delegate.Broadcast(Json::Deserialize<T>(Message));
+    T OutStruct;
+    if (!JsonObjectDeserialization::JsonObjectToUStruct<T>(JsonObject, &OutStruct))
+    {
+        return false;
+    }
+
+    Delegate.Broadcast(OutStruct);
+    return true;
 }

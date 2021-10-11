@@ -5,8 +5,7 @@
 
 namespace Detail
 {
-STREAMJSON_API inline FString
-Serialize(const UStruct* StructDefinition, const void* Struct, ENamingConvention NamingConvention);
+STREAMJSON_API FString Serialize(const UStruct* Definition, const void* Struct, ENamingConvention NamingConvention);
 
 template <class T>
 T Deserialize(const FString& Json)
