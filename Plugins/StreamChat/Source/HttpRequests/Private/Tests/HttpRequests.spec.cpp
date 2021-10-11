@@ -6,7 +6,7 @@ BEGIN_DEFINE_SPEC(
     FHttpRequestsSpec,
     "StreamChat.HttpRequests",
     EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)
-FHttpClient Client;
+TSharedRef<FHttpClient> Client = MakeShared<FHttpClient>();
 const int32 TotalSimultaneousRequests = 20;
 TArray<FHttpResponse> SimultaneousResponses;
 END_DEFINE_SPEC(FHttpRequestsSpec)
@@ -22,7 +22,7 @@ void FHttpRequestsSpec::Define()
                 EAsyncExecution::ThreadPool,
                 [this](const FDoneDelegate TestDone)
                 {
-                    Client.Get(TEXT("https://jsonplaceholder.typicode.com/posts/1"))
+                    Client->Get(TEXT("https://jsonplaceholder.typicode.com/posts/1"))
                         .Send(
                             [this, TestDone](const FHttpResponse Response)
                             {
@@ -43,7 +43,7 @@ void FHttpRequestsSpec::Define()
                 {
                     for (int32 i = 0; i < TotalSimultaneousRequests; ++i)
                     {
-                        Client.Get(FString::Printf(TEXT("https://jsonplaceholder.typicode.com/posts/%d"), i + 1))
+                        Client->Get(FString::Printf(TEXT("https://jsonplaceholder.typicode.com/posts/%d"), i + 1))
                             .Send(
                                 [this, TestDone](const FHttpResponse Response)
                                 {
@@ -63,7 +63,7 @@ void FHttpRequestsSpec::Define()
                 EAsyncExecution::ThreadPool,
                 [this](const FDoneDelegate TestDone)
                 {
-                    Client.Get(TEXT("https://jsonplaceholder.typicode.com/posts/1"))
+                    Client->Get(TEXT("https://jsonplaceholder.typicode.com/posts/1"))
                         .Send(
                             [this, TestDone](const FHttpResponse Response)
                             {
@@ -102,7 +102,7 @@ void FHttpRequestsSpec::Define()
                     constexpr int32 FakeUserId = 11;
                     const FString FakeTitle = TEXT("Foo");
                     const FString FakeBody = TEXT("Bar");
-                    Client.Post(TEXT("https://jsonplaceholder.typicode.com/posts"))
+                    Client->Post(TEXT("https://jsonplaceholder.typicode.com/posts"))
                         .Json(
                             FJsonPlaceholderPost{FakeUserId, -1, FakeTitle, FakeBody},
                             ENamingConvention::UpperCamelCase)
