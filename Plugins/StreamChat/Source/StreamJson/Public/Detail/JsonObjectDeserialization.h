@@ -70,7 +70,7 @@ template <typename OutStructType>
 bool JsonObjectStringToUStruct(const FString& JsonString, OutStructType* OutStruct)
 {
     TSharedPtr<FJsonObject> JsonObject;
-    if (JsonObjectDeserialization::JsonObjectStringToJsonObject(JsonString, JsonObject))
+    if (!JsonObjectDeserialization::JsonObjectStringToJsonObject(JsonString, JsonObject))
     {
         UE_LOG(LogTemp, Warning, TEXT("JsonObjectStringToUStruct - Unable to parse json=[%s]"), *JsonString);
         return false;

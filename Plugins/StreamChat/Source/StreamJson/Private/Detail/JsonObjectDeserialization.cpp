@@ -711,5 +711,5 @@ bool JsonObjectDeserialization::JsonObjectStringToJsonObject(
     TSharedPtr<FJsonObject>& OutObject)
 {
     const TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonString);
-    return FJsonSerializer::Deserialize(JsonReader, OutObject) || !OutObject.IsValid();
+    return FJsonSerializer::Deserialize(JsonReader, OutObject) && OutObject.IsValid();
 }
