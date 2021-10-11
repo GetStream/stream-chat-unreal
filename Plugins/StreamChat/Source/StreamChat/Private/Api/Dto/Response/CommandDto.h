@@ -7,7 +7,7 @@
 #include "CommandDto.generated.h"
 
 /**
- *
+ * #/components/schemas/Command
  */
 USTRUCT()
 struct FCommandDto

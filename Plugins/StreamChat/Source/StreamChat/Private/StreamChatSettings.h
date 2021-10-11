@@ -18,4 +18,8 @@ class UStreamChatSettings final : public UObject
 public:
     UPROPERTY(EditAnywhere)
     FString Host = TEXT("chat.stream-io-api.com");
+
+    /// How frequently the backend is pinged to keep the WebSocket connection alive in seconds
+    UPROPERTY(EditAnywhere)
+    float WebSocketKeepAliveInterval = 20.f;
 };

@@ -10,6 +10,7 @@
 /**
  * Represents any chat message.
  * Used in responses only
+ * #/components/schemas/Message
  */
 USTRUCT()
 struct FMessageDto

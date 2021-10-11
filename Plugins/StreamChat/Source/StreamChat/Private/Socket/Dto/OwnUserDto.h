@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 
-#include "UserDto.generated.h"
+#include "OwnUserDto.generated.h"
 
 /**
- * #/components/schemas/UserObject
+ * #/components/schemas/OwnUser
  */
 USTRUCT(BlueprintType)
-struct STREAMCHAT_API FUserDto
+struct STREAMCHAT_API FOwnUserDto
 {
     GENERATED_BODY()
 

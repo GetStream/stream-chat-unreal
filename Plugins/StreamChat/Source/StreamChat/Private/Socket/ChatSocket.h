@@ -5,6 +5,8 @@
 #include "EventSubscription.h"
 #include "Token/TokenManager.h"
 
+DECLARE_LOG_CATEGORY_EXTERN(LogChatSocket, Verbose, All);
+
 struct FUser;
 struct FHealthCheckEvent;
 class IWebSocket;
@@ -31,6 +33,9 @@ private:
     void HandleWebSocketMessage(const FString& Message);
 
     void OnHealthCheckEvent(const FHealthCheckEvent&, TFunction<void()> Callback);
+    void OnConnect(TFunction<void()> Callback);
+
+    bool KeepAlive(float DeltaTime) const;
 
     static FString BuildUrl(const FString& ApiKey, const FUser& User, const FTokenManager& TokenManager);
 
@@ -42,6 +47,7 @@ private:
     TSharedPtr<IWebSocket> WebSocket;
 
     bool bClosePending = false;
+    FDelegateHandle KeepAliveTickerHandle;
 };
 
 template <class TEvent>

@@ -8,7 +8,7 @@
 #include "MessageResponseDto.generated.h"
 
 /**
- *
+ * #/components/schemas/MessageResponse
  */
 USTRUCT()
 struct FMessageResponseDto

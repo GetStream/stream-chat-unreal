@@ -2,6 +2,7 @@
 
 #include "ChatEvent.h"
 #include "CoreMinimal.h"
+#include "Socket/Dto/OwnUserDto.h"
 
 #include "HealthCheckEvent.generated.h"
 
@@ -17,6 +18,9 @@ struct FHealthCheckEvent : public FChatEvent
 
     UPROPERTY()
     FString ConnectionId;
+
+    UPROPERTY()
+    FOwnUserDto Me;
 
     // TODO everything else
 };
