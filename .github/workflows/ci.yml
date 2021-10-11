@@ -37,6 +37,11 @@ jobs:
       - name: 🔓 Fix permissions
         run: chown -R ue4:ue4 ${{ github.workspace }}
 
+      - name: 🔪 Prerequisites
+        run: |
+          echo alias python=python3 >> /home/ue4/.bashrc
+          pip install junit_xml
+
       - name: 🔨 Build
         run: runuser -u ue4 -- ue4 build
 
@@ -44,7 +49,7 @@ jobs:
         run: runuser -u ue4 -- ue4 test StreamChat -- -ReportExportPath='$pwd/Saved/Automation/Reports'
 
       - name: 🏭 Generate JUnit report
-        shell: python3 {0}
+        shell: python3
         run: |
           input = 'Saved/Automation/Reports/index.json'
           output = 'Saved/Automation/Reports/report.xml'
