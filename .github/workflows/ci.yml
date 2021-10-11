@@ -1,0 +1,95 @@
+name: CI
+
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: DoozyX/clang-format-lint-action@v0.12
+      with:
+        source: 'Source'
+        clangFormatVersion: 12
+
+  build:
+    runs-on: self-hosted
+    container:
+      image: cloud.canister.io:5000/jeevcat/ue4-full:4.27.0-linux
+      options: --user root -v ${{ github.workspace }}:${{ github.workspace }}:rw
+      credentials:
+         username: jeevcat
+         password: ${{ secrets.CANISTER_PASSWORD }}
+
+    steps:
+      - uses: actions/checkout@v2
+        name: 🛒 Checkout
+
+      - name: 🔓 Fix permissions
+        run: chown -R ue4:ue4 ${{ github.workspace }}
+
+      - name: 🔨 Build
+        run: runuser -u ue4 -- ue4 build
+
+      - name: 🧪 Run tests
+        run: runuser -u ue4 -- ue4 test StreamChat -- -ReportExportPath='$pwd/Saved/Automation/Reports'
+
+      - name: 🏭 Generate JUnit report
+        shell: python
+        run: |
+          input = 'Saved/Automation/Reports/index.json'
+          output = 'Saved/Automation/Reports/report.xml'
+
+          import json
+          from junit_xml import TestSuite, TestCase
+
+          with open(input, encoding='utf-8-sig') as f:
+              data = json.load(f)
+
+          cases = []
+          for t in data['tests']:
+              case = TestCase(
+                  name=t['testDisplayName'], classname=t['fullTestPath'], status=t['state'])
+              for e in t['entries']:
+                  event = e['event']
+                  case.add_failure_info(message=event['message'], failure_type=event['type'],
+                                          output=e['filename'] + ", line " + str(e['lineNumber']))
+              cases.append(case)
+          ts = TestSuite(name=data['clientDescriptor'],
+                          test_cases=cases, timestamp=data['reportCreatedOn'])
+          with open(output, 'w') as f:
+              TestSuite.to_file(f, [ts], prettyprint=False)
+
+      - name: ⚗️ Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        with:
+          files: Saved/Automation/Reports/report.xml
+
+      - name: 📦 Package plugin
+        run: |
+          cd Plugins/StreamChat
+          runuser -u ue4 -- ue4 package -NoPCH -NoSharedPCH -DisableUnity
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: StreamChat
+          path: Plugins/StreamChat/dist
+        name: 📁 Upload plugin artifact
+
+      - name: 📦 Package sample project
+        run: runuser -u ue4 -- ue4 package -NoPCH -NoSharedPCH -DisableUnity
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: StreamChatSample
+          path: dist
+        name: 📁 Upload plugin artifact
