@@ -49,7 +49,7 @@ jobs:
         run: runuser -u ue4 -- ue4 test StreamChat -- -ReportExportPath='$pwd/Saved/Automation/Reports'
 
       - name: 🏭 Generate JUnit report
-        shell: python
+        shell: python3 {0}
         run: |
           input = 'Saved/Automation/Reports/index.json'
           output = 'Saved/Automation/Reports/report.xml'
