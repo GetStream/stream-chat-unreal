@@ -2,6 +2,8 @@
 
 #include "StreamChatModule.h"
 
+#include "Modules/ModuleManager.h"
+
 void FStreamChatModule::StartupModule()
 {
 }
