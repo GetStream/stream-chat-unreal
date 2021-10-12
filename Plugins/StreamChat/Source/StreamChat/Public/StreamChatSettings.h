@@ -11,7 +11,7 @@
  *
  */
 UCLASS(Config = Game, DefaultConfig)
-class UStreamChatSettings final : public UObject
+class STREAMCHAT_API UStreamChatSettings final : public UObject
 {
     GENERATED_BODY()
 

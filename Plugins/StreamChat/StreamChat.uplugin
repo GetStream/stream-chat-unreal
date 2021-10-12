@@ -21,6 +21,11 @@
 			"LoadingPhase": "Default"
 		},
 		{
+			"Name": "StreamChatEditor",
+			"Type": "Editor",
+			"LoadingPhase": "Default"
+		},
+		{
 			"Name": "HttpRequests",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
