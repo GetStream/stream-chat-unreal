@@ -23,4 +23,12 @@ FDelegateHandle SubscribeToEvent(
     return Detail::GetSubscription<TEvent>(Subscriptions).Delegate.Add(MoveTemp(Callback));
 }
 
+template <class TEvent>
+bool UnsubscribeFromEvent(
+    TMap<FName, TUniquePtr<IEventSubscription>>& Subscriptions,
+    FDelegateHandle DelegateHandle)
+{
+    return Detail::GetSubscription<TEvent>(Subscriptions).Delegate.Remove(DelegateHandle);
+}
+
 }    // namespace Detail

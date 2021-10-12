@@ -49,9 +49,8 @@ void FRequestBuilder::Send(TFunction<void(const FHttpResponse&)> Callback)
         [Client = Client, Callback](
             const FHttpRequestPtr OriginalRequest, const FHttpResponsePtr Response, bool bConnectedSuccessfully)
         {
-            const FHttpResponse HttpResponse{Response};
-
-            if (HttpResponse.StatusCode >= 200 && HttpResponse.StatusCode < 300)
+            if (const FHttpResponse HttpResponse{Response};
+                HttpResponse.StatusCode >= 200 && HttpResponse.StatusCode < 300)
             {
                 UE_LOG(
                     LogHttpClient,
@@ -60,6 +59,10 @@ void FRequestBuilder::Send(TFunction<void(const FHttpResponse&)> Callback)
                     HttpResponse.StatusCode,
                     *OriginalRequest->GetURL());
                 Client->OnResponseDelegate.Broadcast(HttpResponse);
+                if (Callback)
+                {
+                    Callback(HttpResponse);
+                }
             }
             else
             {
@@ -70,10 +73,6 @@ void FRequestBuilder::Send(TFunction<void(const FHttpResponse&)> Callback)
                     HttpResponse.StatusCode,
                     *OriginalRequest->GetURL());
                 Client->OnErrorDelegate.Broadcast(HttpResponse);
-            }
-            if (Callback)
-            {
-                Callback(HttpResponse);
             }
         });
     Request->ProcessRequest();
