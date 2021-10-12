@@ -86,12 +86,7 @@ FString FChatSocket::BuildUrl(const FString& ApiKey, const FUser& User, const FT
 
 bool FChatSocket::IsConnected() const
 {
-    return WebSocket && WebSocket->IsConnected();
-}
-
-bool FChatSocket::IsHealthy() const
-{
-    return IsConnected() && ConnectionState == EConnectionState::Healthy;
+    return WebSocket && WebSocket->IsConnected() && ConnectionState == EConnectionState::Connected;
 }
 
 const FString& FChatSocket::GetConnectionId() const
@@ -256,7 +251,6 @@ void FChatSocket::OnHealthCheckEvent(const FHealthCheckEvent& HealthCheckEvent)
 
 void FChatSocket::OnHealthyConnect()
 {
-    ConnectionState = EConnectionState::Healthy;
     UE_LOG(LogChatSocket, Log, TEXT("Connection successful [ConnectionId=%s]"), *ConnectionId);
 
     if (PendingOnConnectCallback.IsBound())
@@ -300,7 +294,7 @@ void FChatSocket::StopMonitoring()
 
 bool FChatSocket::KeepAlive(float) const
 {
-    if (IsHealthy())
+    if (IsConnected())
     {
         UE_LOG(LogChatSocket, Verbose, TEXT("Sending keep alive signal"));
         WebSocket->Send(TEXT(""));

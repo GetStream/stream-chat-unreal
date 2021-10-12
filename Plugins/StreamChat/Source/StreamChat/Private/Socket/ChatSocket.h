@@ -20,7 +20,6 @@ public:
     void Connect(TFunction<void()> Callback);
     void Disconnect();
     bool IsConnected() const;
-    bool IsHealthy() const;
     const FString& GetConnectionId() const;
 
     template <class TEvent>
@@ -34,7 +33,6 @@ private:
         NotConnected,
         Connecting,
         Connected,
-        Healthy,
         Disconnecting,
         Reconnecting,
     };
