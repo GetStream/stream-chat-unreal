@@ -33,6 +33,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         name: 🛒 Checkout
+        with:
+          lfs: true
 
       - name: 🔓 Fix permissions
         run: chown -R ue4:ue4 ${{ github.workspace }}
