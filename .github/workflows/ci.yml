@@ -103,7 +103,10 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: StreamChat
-          path: Plugins/StreamChat/dist
+          path: |
+            Plugins/StreamChat/dist
+            !**/Binaries
+            !**/Intermediate
         name: 📁 Upload plugin artifact
 
       - name: 📦 Package sample project
@@ -111,6 +114,8 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: StreamChatSample
-          path: dist
+          name: StreamChatSample-Linux
+          path: |
+            dist/LinuxNoEditor
+            Manifest_NonUFSFiles*.txt
         name: 📁 Upload plugin artifact
