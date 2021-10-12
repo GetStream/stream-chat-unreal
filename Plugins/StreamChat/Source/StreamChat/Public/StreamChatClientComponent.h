@@ -26,10 +26,10 @@ public:
 
     UChatChannel* Channel(const FString& Type, const FString& Id = {});
 
-    UFUNCTION(BlueprintPure)
+    UFUNCTION(BlueprintPure, Category = "Stream Chat Client")
     FUser GetCurrentUser() const;
 
-    UPROPERTY(EditAnywhere, Config, meta = (DisplayName = "API Key"))
+    UPROPERTY(EditAnywhere, Config, Category = "Stream Chat Client", meta = (DisplayName = "API Key"))
     FString ApiKey;
 
 private:

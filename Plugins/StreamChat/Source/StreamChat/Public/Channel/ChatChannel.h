@@ -16,7 +16,7 @@ struct FNewMessageEvent;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessagesUpdatedDelegate, const TArray<FMessage>&, Messages);
 
 /**
- *
+ * The client-side representation of a Stream Chat channel
  */
 UCLASS()
 class STREAMCHAT_API UChatChannel final : public UObject
@@ -28,13 +28,13 @@ public:
 
     void Watch(TFunction<void()> Callback = {});
 
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel")
     void SendMessage(const FString& Message, const FUser& FromUser);
 
-    UFUNCTION(BlueprintPure)
+    UFUNCTION(BlueprintPure, Category = "Stream Chat Channel")
     const TArray<FMessage>& GetMessages() const;
 
-    UPROPERTY(BlueprintAssignable)
+    UPROPERTY(BlueprintAssignable, Category = "Stream Chat Channel")
     FMessagesUpdatedDelegate MessagesUpdated;
 
 private:
@@ -43,10 +43,10 @@ private:
 
     void OnNewMessage(const FNewMessageEvent&);
 
-    UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess))
+    UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess), Category = "Stream Chat Channel")
     FString Type;
 
-    UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess))
+    UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess), Category = "Stream Chat Channel")
     FString Id;
 
     TArray<FMessage> Messages;

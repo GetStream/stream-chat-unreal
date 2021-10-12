@@ -16,10 +16,10 @@ class UStreamChatSettings final : public UObject
     GENERATED_BODY()
 
 public:
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = "Stream Chat Settings")
     FString Host = TEXT("chat.stream-io-api.com");
 
     /// How frequently the backend is pinged to keep the WebSocket connection alive in seconds
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = "Stream Chat Settings")
     float WebSocketKeepAliveInterval = 20.f;
 };

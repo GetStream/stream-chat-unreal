@@ -19,7 +19,7 @@ enum class EMessageSendState : uint8
 };
 
 /**
- *
+ * A Stream Chat message
  */
 USTRUCT(BlueprintType)
 struct FMessage
@@ -37,11 +37,11 @@ struct FMessage
 
     /// The text of this message
     // TODO Optional
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
     FString Text;
 
     /// Sending state of the message
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
     EMessageSendState State;
 
     /// The message type
@@ -54,11 +54,11 @@ struct FMessage
 
     /// User who sent the message
     // TODO Optional
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
     FUser User;
 
     /// Reserved field indicating when the message was updated last time.
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
     FDateTime UpdatedAt;
 
     // TODO rest of fields

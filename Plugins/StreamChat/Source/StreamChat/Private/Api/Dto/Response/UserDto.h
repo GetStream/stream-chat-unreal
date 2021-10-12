@@ -14,6 +14,6 @@ struct STREAMCHAT_API FUserDto
 {
     GENERATED_BODY()
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY()
     FString Id;
 };

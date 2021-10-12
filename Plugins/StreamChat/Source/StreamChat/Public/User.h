@@ -9,7 +9,7 @@
 struct FUserDto;
 
 /**
- *
+ * A Stream Chat user
  */
 USTRUCT(BlueprintType)
 struct STREAMCHAT_API FUser
@@ -20,6 +20,6 @@ struct STREAMCHAT_API FUser
     explicit FUser(const FUserDto&);
     explicit FUser(const FString& InId);
 
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat User")
     FString Id;
 };

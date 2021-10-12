@@ -23,10 +23,10 @@ struct FHttpResponse
     template <class T>
     T Json() const;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "HTTP Response")
     int32 StatusCode;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "HTTP Response")
     FString Text;
 };
 
