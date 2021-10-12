@@ -42,12 +42,17 @@ jobs:
           echo alias python=python3 >> /home/ue4/.bashrc
           pip install junit_xml
 
-      - name: 🔨 Build
-        run: runuser -u ue4 -- ue4 build
+      - name: 🔨 Build plugin
+        run: |
+          cd Plugins/StreamChat
+          runuser -u ue4 -- ue4 build -NoPCH -NoSharedPCH -DisableUnity
+
+      - name: 🔨 Build sample project
+        run: runuser -u ue4 -- ue4 build -NoPCH -NoSharedPCH -DisableUnity
 
       - name: 🧪 Run tests
         run: runuser -u ue4 -- ue4 test StreamChat -- -ReportExportPath=$PWD/Saved/Automation/Reports
-      
+
       - name: 🏭 Generate JUnit report
         shell: python3 {0}
         run: |

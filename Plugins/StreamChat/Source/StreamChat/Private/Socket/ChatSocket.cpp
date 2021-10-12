@@ -1,7 +1,8 @@
 ﻿#include "ChatSocket.h"
 
+#include "Containers/Ticker.h"
+#include "Dom/JsonObject.h"
 #include "Dto/Event/HealthCheckEvent.h"
-#include "Dto/Event/NewMessageEvent.h"
 #include "Dto/Request/ConnectRequest.h"
 #include "IWebSocket.h"
 #include "StreamChatSettings.h"
