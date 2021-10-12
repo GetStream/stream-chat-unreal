@@ -16,9 +16,8 @@ void AStreamChatSampleHud::BeginPlay()
     Super::BeginPlay();
 
     const FUser User{TEXT("tutorial-unreal")};
-    const FString Token{
-        TEXT("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidHV0b3JpYWwtZmx1dHRlciJ9.S-"
-             "MJpoSwDiqyXpUURgO5wVqJ4vKlIVFLSEyrFYCOE1c")};
+    const FString Token{TEXT(
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidHV0b3JpYWwtdW5yZWFsIn0.EBRZ81XroGtR4boK7BF1UzHxhuuHPqvy0e7noNx5fj4")};
     Client->ConnectUser(
         User,
         Token,

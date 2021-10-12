@@ -71,6 +71,7 @@ void UChatChannel::SendMessage(const FString& Message, const FUser& FromUser)
         });
 
     // TODO Cooldown?
+    // TODO Retry logic
 }
 
 const TArray<FMessage>& UChatChannel::GetMessages() const
