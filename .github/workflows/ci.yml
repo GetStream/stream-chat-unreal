@@ -12,6 +12,7 @@ on:
 
 jobs:
   format:
+    name: 🎨 Format
     runs-on: ubuntu-latest
 
     steps:
@@ -22,6 +23,7 @@ jobs:
         clangFormatVersion: 12
 
   build:
+    name: 🔨 Build
     runs-on: self-hosted
     container:
       image: cloud.canister.io:5000/jeevcat/ue4-full:4.27.0-linux
