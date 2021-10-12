@@ -3,6 +3,7 @@
 #include "Dto/Request/ChannelGetOrCreateRequestDto.h"
 #include "Dto/Request/SendMessageRequestDto.h"
 #include "Dto/Response/ChannelStateResponseDto.h"
+#include "Dto/Response/ErrorResponseDto.h"
 #include "Dto/Response/MessageResponseDto.h"
 #include "StreamChatSettings.h"
 #include "Token/TokenManager.h"
@@ -69,6 +70,6 @@ void FChatApi::AddAuth(FRequestBuilder& Request) const
 
 void FChatApi::OnError(const FHttpResponse& Response)
 {
-    // TODO: Deserialize error JSON
-    UE_LOG(LogTemp, Error, TEXT("API error response [Text=%s]"), *Response.Text);
+    const auto [StatusCode, Code, Duration, Message, MoreInfo] = Response.Json<FErrorResponseDto>();
+    UE_LOG(LogTemp, Error, TEXT("API error response [Code=%d, Message=%s]"), Code, *Message);
 }

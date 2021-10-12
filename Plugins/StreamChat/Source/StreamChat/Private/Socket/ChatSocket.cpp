@@ -1,5 +1,6 @@
 ﻿#include "ChatSocket.h"
 
+#include "Api/Dto/Response/ErrorResponseDto.h"
 #include "Containers/Ticker.h"
 #include "Dom/JsonObject.h"
 #include "Dto/Event/HealthCheckEvent.h"
@@ -184,19 +185,42 @@ void FChatSocket::HandleWebSocketConnectionClosed(const int32 Status, const FStr
 void FChatSocket::HandleWebSocketMessage(const FString& Message)
 {
     LastEventTime = FDateTime::Now();
-    UE_LOG(LogChatSocket, Log, TEXT("Websocket received message: %s"), *Message);
+    UE_LOG(LogChatSocket, Verbose, TEXT("Websocket received message: %s"), *Message);
 
     TSharedPtr<FJsonObject> JsonObject;
     if (!JsonObjectDeserialization::JsonObjectStringToJsonObject(Message, JsonObject))
     {
-        UE_LOG(LogChatSocket, Warning, TEXT("Unable to parse JSON=%s"), *Message);
+        UE_LOG(LogChatSocket, Warning, TEXT("Unable to parse JSON [Json=%s]"), *Message);
         return;
     }
 
     FString Type;
     if (!JsonObject->TryGetStringField(TEXT("type"), Type))
     {
-        UE_LOG(LogChatSocket, Error, TEXT("Trying to deserialize a WebSocket event with no type [JSON=%s]"), *Message);
+        if (const TSharedPtr<FJsonObject>* ErrorJsonObject;
+            JsonObject->TryGetObjectField(TEXT("error"), ErrorJsonObject))
+        {
+            FErrorResponseDto ErrorResponse;
+            if (JsonObjectDeserialization::JsonObjectToUStruct(ErrorJsonObject->ToSharedRef(), &ErrorResponse))
+            {
+                UE_LOG(
+                    LogChatSocket,
+                    Error,
+                    TEXT("WebSocket responded with error [Code=%d, Message=%s]"),
+                    ErrorResponse.Code,
+                    *ErrorResponse.Message);
+            }
+            else
+            {
+                UE_LOG(
+                    LogChatSocket, Error, TEXT("Unable to deserialize WebSocket error event [Message=%s]"), *Message);
+            }
+        }
+        else
+        {
+            UE_LOG(
+                LogChatSocket, Error, TEXT("Trying to deserialize a WebSocket event with no type [JSON=%s]"), *Message);
+        }
         return;
     }
 
