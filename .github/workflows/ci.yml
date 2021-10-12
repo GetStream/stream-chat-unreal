@@ -117,5 +117,5 @@ jobs:
           name: StreamChatSample-Linux
           path: |
             dist/LinuxNoEditor
-            Manifest_NonUFSFiles*.txt
-        name: 📁 Upload plugin artifact
+            !Manifest_NonUFSFiles*.txt
+        name: 📁 Upload sample project artifact
