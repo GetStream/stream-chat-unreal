@@ -15,6 +15,7 @@ public class StreamChat : ModuleRules
 				"Core",
 				"CoreUObject",
 				"Engine",
+				"Settings",
 				"WebSockets",
 				"StreamJson",
 				"HttpRequests",
