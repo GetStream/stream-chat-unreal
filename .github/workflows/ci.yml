@@ -93,7 +93,7 @@ jobs:
       - name: 📦 Package plugin
         run: |
           cd Plugins/StreamChat
-          runuser -u ue4 -- ue4 package -- -NoPCH -NoSharedPCH -DisableUnity
+          runuser -u ue4 -- ue4 package -NoPCH -NoSharedPCH -DisableUnity
 
       - uses: actions/upload-artifact@v2
         with:
@@ -102,7 +102,7 @@ jobs:
         name: 📁 Upload plugin artifact
 
       - name: 📦 Package sample project
-        run: runuser -u ue4 -- ue4 package -- -NoPCH -NoSharedPCH -DisableUnity
+        run: runuser -u ue4 -- ue4 package Shipping -NoPCH -NoSharedPCH -DisableUnity
 
       - uses: actions/upload-artifact@v2
         with:
