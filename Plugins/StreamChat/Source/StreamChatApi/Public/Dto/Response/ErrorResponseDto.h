@@ -10,7 +10,7 @@
  * #/components/schemas/APIError
  */
 USTRUCT(BlueprintType)
-struct STREAMCHAT_API FErrorResponseDto
+struct STREAMCHATAPI_API FErrorResponseDto
 {
     GENERATED_BODY()
 

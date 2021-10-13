@@ -1,12 +1,12 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
-#include "HttpClient.h"
-#include "PaginationOptions.h"
-#include "RequestBuilder.h"
 #include "Dto/Request/FilterDto.h"
 #include "Dto/Request/SortOptionDto.h"
+#include "PaginationOptions.h"
 
+struct FHttpResponse;
+class FRequestBuilder;
 struct FChannelsResponseDto;
 struct FChannelStateResponseDto;
 struct FChannelResponseDto;
@@ -14,6 +14,7 @@ struct FMessageResponseDto;
 struct FMessageRequestDto;
 struct FSortOption;
 class FTokenManager;
+class FHttpClient;
 
 template <class T>
 using TCallback = TFunction<void(const T&)>;
@@ -33,10 +34,10 @@ enum class EChannelFlags : uint8
 };
 ENUM_CLASS_FLAGS(EChannelFlags);
 
-class FChatApi
+class STREAMCHATAPI_API FChatApi
 {
 public:
-    explicit FChatApi(const FString& InApiKey, const TSharedRef<FTokenManager>&);
+    explicit FChatApi(const FString& InApiKey, const FString& InHost, const TSharedRef<FTokenManager>&);
 
     void GetOrCreateChannel(
         const FString& ChannelType,

@@ -15,11 +15,15 @@ public class StreamChat : ModuleRules
 				"Core",
 				"CoreUObject",
 				"Engine",
+				"Json",
 				"WebSockets",
 				"StreamJson",
-				"HttpRequests",
-				"Json",
 			}
 			);
+		PublicDependencyModuleNames.AddRange(
+			new []
+			{
+				"StreamChatApi"
+			});
 	}
 }

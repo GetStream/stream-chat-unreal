@@ -7,10 +7,7 @@
 struct FSortOption;
 
 USTRUCT()
-struct FSortOptionDto
+struct STREAMCHATAPI_API FSortOptionDto
 {
     GENERATED_BODY()
-
-    FSortOptionDto() = default;
-    explicit FSortOptionDto(const FSortOption&);
 };

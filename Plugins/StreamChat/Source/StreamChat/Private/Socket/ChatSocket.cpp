@@ -1,6 +1,6 @@
 ﻿#include "ChatSocket.h"
 
-#include "Api/Dto/Response/ErrorResponseDto.h"
+#include "Dto/Response/ErrorResponseDto.h"
 #include "Containers/Ticker.h"
 #include "Dom/JsonObject.h"
 #include "Dto/Event/HealthCheckEvent.h"

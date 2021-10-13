@@ -1,4 +1,4 @@
-﻿#include "ConstantTokenProvider.h"
+﻿#include "Token/ConstantTokenProvider.h"
 
 FConstantTokenProvider::FConstantTokenProvider(const FString& InToken) : Token(InToken)
 {

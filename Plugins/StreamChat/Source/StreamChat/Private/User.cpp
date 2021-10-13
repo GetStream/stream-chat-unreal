@@ -1,6 +1,6 @@
 ﻿#include "User.h"
 
-#include "Api/Dto/Response/UserDto.h"
+#include "Dto/Response/UserDto.h"
 
 FUser::FUser(const FUserDto& Dto) : Id(Dto.Id)
 {

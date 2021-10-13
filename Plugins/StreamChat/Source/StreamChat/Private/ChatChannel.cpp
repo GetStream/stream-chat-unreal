@@ -2,10 +2,10 @@
 
 #include "Channel/ChatChannel.h"
 
-#include "Api/ChatApi.h"
-#include "Api/Dto/Request/MessageRequestDto.h"
-#include "Api/Dto/Response/ChannelStateResponseDto.h"
-#include "Api/Dto/Response/MessageResponseDto.h"
+#include "ChatApi.h"
+#include "Dto/Request/MessageRequestDto.h"
+#include "Dto/Response/ChannelStateResponseDto.h"
+#include "Dto/Response/MessageResponseDto.h"
 #include "Socket/ChatSocket.h"
 #include "Socket/Dto/Event/NewMessageEvent.h"
 

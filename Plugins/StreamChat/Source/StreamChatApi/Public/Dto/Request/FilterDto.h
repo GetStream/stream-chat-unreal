@@ -7,9 +7,7 @@
 struct FFilter;
 
 USTRUCT()
-struct FFilterDto
+struct STREAMCHATAPI_API FFilterDto
 {
-    FFilterDto() = default;
-    explicit FFilterDto(const FFilter&);
     GENERATED_BODY()
 };

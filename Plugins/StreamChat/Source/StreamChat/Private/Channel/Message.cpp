@@ -1,7 +1,7 @@
 ﻿#include "Channel/Message.h"
 
-#include "Api/Dto/Request/MessageRequestDto.h"
-#include "Api/Dto/Response/MessageDto.h"
+#include "Dto/Request/MessageRequestDto.h"
+#include "Dto/Response/MessageDto.h"
 
 FMessage::FMessage(const FMessageDto& Dto)
     : Id{Dto.Id}

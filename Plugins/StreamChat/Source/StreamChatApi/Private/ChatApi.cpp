@@ -7,15 +7,15 @@
 #include "Dto/Response/ChannelsResponseDto.h"
 #include "Dto/Response/ErrorResponseDto.h"
 #include "Dto/Response/MessageResponseDto.h"
-#include "StreamChatSettings.h"
+#include "HttpClient.h"
 #include "Token/TokenManager.h"
 
-FChatApi::FChatApi(const FString& InApiKey, const TSharedRef<FTokenManager>& InTokenManager)
+FChatApi::FChatApi(const FString& InApiKey, const FString& InHost, const TSharedRef<FTokenManager>& InTokenManager)
     : TokenManager(InTokenManager)
     , ApiKey(InApiKey)
     , Client(MakeShared<FHttpClient>())
     , Scheme(TEXT("https"))
-    , Host(GetDefault<UStreamChatSettings>()->Host)
+    , Host(InHost)
 {
     Client->OnRequestDelegate.AddRaw(this, &FChatApi::AddAuth);
     Client->OnErrorDelegate.AddStatic(&FChatApi::OnError);

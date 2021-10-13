@@ -3,12 +3,13 @@
 #include "StreamChatClientComponent.h"
 
 #include "Algo/Transform.h"
-#include "Api/ChatApi.h"
-#include "Api/Dto/Response/ChannelsResponseDto.h"
-#include "Api/Dto/Util.h"
-#include "Api/PaginationOptions.h"
 #include "Channel/ChatChannel.h"
+#include "ChatApi.h"
+#include "Dto/Response/ChannelsResponseDto.h"
+#include "Dto/Util.h"
+#include "PaginationOptions.h"
 #include "Socket/ChatSocket.h"
+#include "StreamChatSettings.h"
 #include "Token/ConstantTokenProvider.h"
 #include "Token/TokenManager.h"
 
@@ -23,7 +24,7 @@ void UStreamChatClientComponent::BeginPlay()
     Super::BeginPlay();
 
     // Initialize in BeginPlay to ensure properties like ApiKey are loaded from BP, TODO I don't like this
-    Api = MakeShared<FChatApi>(ApiKey, TokenManager.ToSharedRef());
+    Api = MakeShared<FChatApi>(ApiKey, GetDefault<UStreamChatSettings>()->Host, TokenManager.ToSharedRef());
 }
 
 void UStreamChatClientComponent::ConnectUser(const FUser& User, const FString& Token, const TFunction<void()> Callback)
@@ -64,15 +65,15 @@ void UStreamChatClientComponent::QueryChannels(
         {},
         [this, Callback](const FChannelsResponseDto& Response)
         {
-            TArray<UChatChannel*> Channels;
+            TArray<UChatChannel*> NewChannels;
             Algo::Transform(
                 Response.Channels,
-                Channels,
+                NewChannels,
                 [this](const FChannelStateResponseFieldsDto& ResponseChannel) {
                     return UChatChannel::Create(
                         Api.ToSharedRef(), *Socket, ResponseChannel.Channel.Type, ResponseChannel.Channel.Id);
                 });
-            Callback(Channels);
+            Callback(NewChannels);
         });
 }
 
