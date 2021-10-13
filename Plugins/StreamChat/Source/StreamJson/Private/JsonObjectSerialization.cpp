@@ -95,8 +95,8 @@ bool JsonObjectSerialization::UStructToJsonObjectString(
 bool JsonObjectSerialization::UStructToJsonObject(
     const UStruct* StructDefinition,
     const void* Struct,
-    TSharedRef<FJsonObject> OutJsonObject,
-    ENamingConvention NamingConvention)
+    const TSharedRef<FJsonObject> OutJsonObject,
+    const ENamingConvention NamingConvention)
 {
     return UStructToJsonAttributes(StructDefinition, Struct, OutJsonObject->Values, NamingConvention);
 }
@@ -105,17 +105,15 @@ bool JsonObjectSerialization::UStructToJsonAttributes(
     const UStruct* StructDefinition,
     const void* Struct,
     TMap<FString, TSharedPtr<FJsonValue> >& OutJsonAttributes,
-    ENamingConvention NamingConvention)
+    const ENamingConvention NamingConvention)
 {
     // Skip deprecated, transient and skip serialization by default when writing
     constexpr int64 SkipFlags = CPF_Deprecated | CPF_Transient;
 
     if (StructDefinition == FJsonObjectWrapper::StaticStruct())
     {
-        // Just copy it into the object
-        const FJsonObjectWrapper* ProxyObject = static_cast<const FJsonObjectWrapper*>(Struct);
-
-        if (ProxyObject->JsonObject.IsValid())
+        if (const FJsonObjectWrapper* ProxyObject = static_cast<const FJsonObjectWrapper*>(Struct);
+            ProxyObject->JsonObject.IsValid())
         {
             OutJsonAttributes = ProxyObject->JsonObject->Values;
         }

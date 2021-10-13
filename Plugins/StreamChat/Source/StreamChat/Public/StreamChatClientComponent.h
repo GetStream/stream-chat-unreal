@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "Channel/Filter.h"
+#include "Channel/SortOption.h"
 #include "Components/ActorComponent.h"
 #include "CoreMinimal.h"
 #include "User.h"
@@ -23,6 +25,11 @@ public:
 
     void ConnectUser(const FUser& User, const FString& Token, TFunction<void()> Callback);
     void DisconnectUser();
+
+    void QueryChannels(
+        const TOptional<FFilter>& Filter = {},
+        const TOptional<TArray<FSortOption>>& SortOptions = {},
+        TFunction<void(const TArray<UChatChannel*>&)> Callback = {});
 
     UChatChannel* Channel(const FString& Type, const FString& Id = {});
 

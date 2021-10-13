@@ -547,7 +547,6 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
     return true;
 }
 
-// KEEP
 bool JsonValueToFPropertyWithContainer(
     const TSharedPtr<FJsonValue>& JsonValue,
     FProperty* Property,
@@ -613,7 +612,6 @@ bool JsonValueToFPropertyWithContainer(
     return true;
 }
 
-// KEEP
 bool JsonAttributesToUStructWithContainer(
     const TMap<FString, TSharedPtr<FJsonValue>>& JsonAttributes,
     const UStruct* StructDefinition,

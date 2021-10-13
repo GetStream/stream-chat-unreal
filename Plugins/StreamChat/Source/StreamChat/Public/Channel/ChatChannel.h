@@ -18,7 +18,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessagesUpdatedDelegate, const TArr
 /**
  * The client-side representation of a Stream Chat channel
  */
-UCLASS()
+UCLASS(BlueprintType)
 class STREAMCHAT_API UChatChannel final : public UObject
 {
     GENERATED_BODY()

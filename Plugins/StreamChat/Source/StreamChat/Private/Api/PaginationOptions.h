@@ -2,10 +2,8 @@
 
 #include "CoreMinimal.h"
 
-#include "PaginationOptions.generated.h"
-
-USTRUCT()
 struct FPaginationOptions
 {
-    GENERATED_BODY()
+    uint32 Limit;
+    TOptional<uint32> Offset;
 };

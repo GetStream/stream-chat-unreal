@@ -2,9 +2,9 @@
 
 #pragma once
 
-#include "Api/Filter.h"
-#include "Api/SortOption.h"
 #include "CoreMinimal.h"
+#include "FilterDto.h"
+#include "SortOptionDto.h"
 
 #include "QueryChannelsRequestDto.generated.h"
 
@@ -22,7 +22,7 @@ struct FQueryChannelsRequestDto
     FString ConnectionId;
 
     UPROPERTY()
-    FFilter FilterConditions;
+    FFilterDto FilterConditions;
 
     /// Number of channels to limit
     UPROPERTY()
@@ -46,7 +46,7 @@ struct FQueryChannelsRequestDto
 
     /// List of sort parameters
     UPROPERTY()
-    TArray<FSortOption> Sort;
+    TArray<FSortOptionDto> Sort;
 
     /// Refresh channel state
     UPROPERTY()

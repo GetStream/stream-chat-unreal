@@ -1,11 +1,13 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
-#include "Filter.h"
 #include "HttpClient.h"
 #include "PaginationOptions.h"
 #include "RequestBuilder.h"
+#include "Dto/Request/FilterDto.h"
+#include "Dto/Request/SortOptionDto.h"
 
+struct FChannelsResponseDto;
 struct FChannelStateResponseDto;
 struct FChannelResponseDto;
 struct FMessageResponseDto;
@@ -63,13 +65,13 @@ public:
      */
     void QueryChannels(
         const FString& ConnectionId,
-        const TOptional<FFilter>& Filter = {},
-        const TOptional<TArray<FSortOption>>& SortOptions = {},
+        const TOptional<FFilterDto>& Filter = {},
+        const TOptional<TArray<FSortOptionDto>>& SortOptions = {},
         TOptional<uint32> MemberLimit = {},
         TOptional<uint32> MessageLimit = {},
         EChannelFlags Flags = EChannelFlags::State | EChannelFlags::Watch,
         FPaginationOptions PaginationOptions = {},
-        TCallback<FChannelResponseDto> Callback = {});
+        TCallback<FChannelsResponseDto> Callback = {});
 
 private:
     FString BuildUrl(const FString& Path) const;

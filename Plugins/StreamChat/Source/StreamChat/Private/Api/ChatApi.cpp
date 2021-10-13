@@ -4,6 +4,7 @@
 #include "Dto/Request/QueryChannelsRequestDto.h"
 #include "Dto/Request/SendMessageRequestDto.h"
 #include "Dto/Response/ChannelStateResponseDto.h"
+#include "Dto/Response/ChannelsResponseDto.h"
 #include "Dto/Response/ErrorResponseDto.h"
 #include "Dto/Response/MessageResponseDto.h"
 #include "StreamChatSettings.h"
@@ -54,18 +55,27 @@ void FChatApi::SendNewMessage(
 
 void FChatApi::QueryChannels(
     const FString& ConnectionId,
-    const TOptional<FFilter>& Filter,
-    const TOptional<TArray<FSortOption>>& SortOptions,
-    TOptional<uint32> MemberLimit,
-    TOptional<uint32> MessageLimit,
-    EChannelFlags Flags,
-    FPaginationOptions PaginationOptions,
-    const TCallback<FChannelResponseDto> Callback)
+    const TOptional<FFilterDto>& Filter,
+    const TOptional<TArray<FSortOptionDto>>& SortOptions,
+    const TOptional<uint32> MemberLimit,
+    const TOptional<uint32> MessageLimit,
+    const EChannelFlags Flags,
+    const FPaginationOptions PaginationOptions,
+    const TCallback<FChannelsResponseDto> Callback)
 {
     const FString Url = BuildUrl(TEXT("channels"));
+    // TODO Optional!
     const FQueryChannelsRequestDto Body{
         ConnectionId,
-        Filter.GetValue(),
+        Filter.Get({}),
+        PaginationOptions.Limit,
+        MemberLimit.Get(0),
+        MessageLimit.Get(0),
+        PaginationOptions.Offset.Get(0),
+        EnumHasAnyFlags(Flags, EChannelFlags::Presence),
+        SortOptions.Get({}),
+        EnumHasAnyFlags(Flags, EChannelFlags::State),
+        EnumHasAnyFlags(Flags, EChannelFlags::Watch),
     };
     Client->Post(Url).Json(Body).Send(Callback);
 }

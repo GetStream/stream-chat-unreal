@@ -23,8 +23,14 @@ void AStreamChatSampleHud::BeginPlay()
         Token,
         [this]
         {
-            Channel = Client->Channel(TEXT("messaging"), TEXT("unrealdevs"));
-            Channel->Watch([this] { OnConnect(); });
+            Client->QueryChannels(
+                {},
+                {},
+                [this](const TArray<UChatChannel*> ReceivedChannels)
+                {
+                    Channels = ReceivedChannels;
+                    OnConnect();
+                });
         });
 }
 

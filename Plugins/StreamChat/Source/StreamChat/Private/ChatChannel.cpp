@@ -81,6 +81,7 @@ const TArray<FMessage>& UChatChannel::GetMessages() const
 
 void UChatChannel::ApplyState(const FChannelStateResponseDto& State)
 {
+    // TODO this is O(N^2) due to the Find() in AddMessage
     for (auto&& Message : State.Messages)
     {
         AddMessage(FMessage{Message});
