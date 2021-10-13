@@ -9,16 +9,10 @@ public class StreamChatApi : ModuleRules
 
         PrivateDependencyModuleNames.AddRange(new[]
         {
+            "Core",
+            "CoreUObject",
             "HttpRequests",
             "StreamJson",
         });
-
-        PublicDependencyModuleNames.AddRange(new string[] {
-            "Core",
-            "CoreUObject",
-            "Engine",
-        });
-
-
     }
 }
