@@ -33,7 +33,7 @@ void UChatChannel::Watch(const TFunction<void()> Callback)
         Type,
         ConnectionId,
         Id,
-        EChannelCreationFlags::State | EChannelCreationFlags::Watch,
+        EChannelFlags::State | EChannelFlags::Watch,
         [this, Callback](const FChannelStateResponseDto& State)
         {
             if (!IsValid(this))

@@ -1,6 +1,7 @@
 ﻿#include "ChatApi.h"
 
 #include "Dto/Request/ChannelGetOrCreateRequestDto.h"
+#include "Dto/Request/QueryChannelsRequestDto.h"
 #include "Dto/Request/SendMessageRequestDto.h"
 #include "Dto/Response/ChannelStateResponseDto.h"
 #include "Dto/Response/ErrorResponseDto.h"
@@ -23,7 +24,7 @@ void FChatApi::GetOrCreateChannel(
     const FString& ChannelType,
     const FString& ConnectionId,
     const FString& ChannelId,
-    const EChannelCreationFlags Flags,
+    const EChannelFlags Flags,
     const TFunction<void(const FChannelStateResponseDto&)> Callback) const
 {
     const FString ChannelPath =
@@ -32,9 +33,9 @@ void FChatApi::GetOrCreateChannel(
     const FString Url = BuildUrl(Path);
     const FChannelGetOrCreateRequestDto Body{
         ConnectionId,
-        EnumHasAnyFlags(Flags, EChannelCreationFlags::Watch),
-        EnumHasAnyFlags(Flags, EChannelCreationFlags::State),
-        EnumHasAnyFlags(Flags, EChannelCreationFlags::Presence)};
+        EnumHasAnyFlags(Flags, EChannelFlags::Watch),
+        EnumHasAnyFlags(Flags, EChannelFlags::State),
+        EnumHasAnyFlags(Flags, EChannelFlags::Presence)};
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
@@ -48,6 +49,24 @@ void FChatApi::SendNewMessage(
     const FString Path = FString::Printf(TEXT("channels/%s/%s/message"), *ChannelType, *ChannelId);
     const FString Url = BuildUrl(Path);
     const FSendMessageRequestDto Body{MessageRequest, bSkipPush};
+    Client->Post(Url).Json(Body).Send(Callback);
+}
+
+void FChatApi::QueryChannels(
+    const FString& ConnectionId,
+    const TOptional<FFilter>& Filter,
+    const TOptional<TArray<FSortOption>>& SortOptions,
+    TOptional<uint32> MemberLimit,
+    TOptional<uint32> MessageLimit,
+    EChannelFlags Flags,
+    FPaginationOptions PaginationOptions,
+    TFunction<void(const FChannelResponseDto&)> Callback)
+{
+    const FString Url = BuildUrl(TEXT("channels"));
+    const FQueryChannelsRequestDto Body{
+        ConnectionId,
+        Filter.GetValue(),
+    };
     Client->Post(Url).Json(Body).Send(Callback);
 }
 

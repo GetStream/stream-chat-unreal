@@ -1,13 +1,19 @@
 ﻿#pragma once
+
+#include "CoreMinimal.h"
+#include "Filter.h"
 #include "HttpClient.h"
+#include "PaginationOptions.h"
 #include "RequestBuilder.h"
 
 struct FChannelStateResponseDto;
+struct FChannelResponseDto;
 struct FMessageResponseDto;
 struct FMessageRequestDto;
+struct FSortOption;
 class FTokenManager;
 
-enum class EChannelCreationFlags : uint8
+enum class EChannelFlags : uint8
 {
     None = 0,
 
@@ -20,7 +26,7 @@ enum class EChannelCreationFlags : uint8
     // Fetch user presence info
     Presence = 1 << 2,
 };
-ENUM_CLASS_FLAGS(EChannelCreationFlags);
+ENUM_CLASS_FLAGS(EChannelFlags);
 
 class FChatApi
 {
@@ -31,7 +37,7 @@ public:
         const FString& ChannelType,
         const FString& ConnectionId,
         const FString& ChannelId = {},
-        EChannelCreationFlags Flags = EChannelCreationFlags::Watch,
+        EChannelFlags Flags = EChannelFlags::Watch,
         TFunction<void(const FChannelStateResponseDto&)> Callback = {}) const;
 
     void SendNewMessage(
@@ -40,6 +46,27 @@ public:
         const FMessageRequestDto& MessageRequest,
         bool bSkipPush = false,
         TFunction<void(const FMessageResponseDto&)> Callback = {}) const;
+
+    /**
+     * Query channels with filter query
+     * @param ConnectionId
+     * @param Filter
+     * @param SortOptions
+     * @param MemberLimit
+     * @param MessageLimit
+     * @param Flags
+     * @param PaginationOptions
+     * @param Callback
+     */
+    void QueryChannels(
+        const FString& ConnectionId,
+        const TOptional<FFilter>& Filter = {},
+        const TOptional<TArray<FSortOption>>& SortOptions = {},
+        TOptional<uint32> MemberLimit = {},
+        TOptional<uint32> MessageLimit = {},
+        EChannelFlags Flags = EChannelFlags::State | EChannelFlags::Watch,
+        FPaginationOptions PaginationOptions = {},
+        TFunction<void(const FChannelResponseDto&)> Callback = {});
 
 private:
     FString BuildUrl(const FString& Path) const;

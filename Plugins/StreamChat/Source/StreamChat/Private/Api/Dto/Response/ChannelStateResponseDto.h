@@ -2,47 +2,22 @@
 
 #pragma once
 
-#include "ChannelModelDto.h"
+#include "ChannelResponseDto.h"
+#include "ChannelStateResponseFieldsDto.h"
 #include "CoreMinimal.h"
 #include "MessageDto.h"
 
 #include "ChannelStateResponseDto.generated.h"
 
 /**
- *
+ * #/components/schemas/ChannelStateResponse
  */
 USTRUCT()
-struct FChannelStateResponseDto
+struct FChannelStateResponseDto : public FChannelStateResponseFieldsDto
 {
     GENERATED_BODY()
 
-    /// The channel to which this state belongs
+    /// Duration of the request in human readable format
     UPROPERTY()
-    FChannelModelDto Channel;
-
-    /// A paginated list of channel messages
-    UPROPERTY()
-    TArray<FMessageDto> Messages;
-
-    /// A paginated list of channel members
-    // TODO Uncomment
-    // UPROPERTY()
-    // TArray<FMember> Members;
-
-    /// A paginated list of pinned messages
-    UPROPERTY()
-    TArray<FMessageDto> PinnedMessages;
-
-    /// The count of users watching the channel
-    UPROPERTY()
-    int32 WatcherCount;
-
-    /// A paginated list of users watching the channel
-    UPROPERTY()
-    TArray<FUserDto> Watchers;
-
-    /// The list of channel reads
-    // TODO Uncomment
-    // UPROPERTY()
-    // TArray<FRead> Read;
+    FString Duration;
 };
