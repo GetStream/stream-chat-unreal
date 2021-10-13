@@ -25,7 +25,7 @@ void FChatApi::GetOrCreateChannel(
     const FString& ConnectionId,
     const FString& ChannelId,
     const EChannelFlags Flags,
-    const TFunction<void(const FChannelStateResponseDto&)> Callback) const
+    const TCallback<FChannelStateResponseDto> Callback) const
 {
     const FString ChannelPath =
         ChannelId.IsEmpty() ? ChannelType : FString::Printf(TEXT("%s/%s"), *ChannelType, *ChannelId);
@@ -44,7 +44,7 @@ void FChatApi::SendNewMessage(
     const FString& ChannelId,
     const FMessageRequestDto& MessageRequest,
     const bool bSkipPush,
-    const TFunction<void(const FMessageResponseDto&)> Callback) const
+    const TCallback<FMessageResponseDto> Callback) const
 {
     const FString Path = FString::Printf(TEXT("channels/%s/%s/message"), *ChannelType, *ChannelId);
     const FString Url = BuildUrl(Path);
@@ -60,7 +60,7 @@ void FChatApi::QueryChannels(
     TOptional<uint32> MessageLimit,
     EChannelFlags Flags,
     FPaginationOptions PaginationOptions,
-    TFunction<void(const FChannelResponseDto&)> Callback)
+    const TCallback<FChannelResponseDto> Callback)
 {
     const FString Url = BuildUrl(TEXT("channels"));
     const FQueryChannelsRequestDto Body{

@@ -13,6 +13,9 @@ struct FMessageRequestDto;
 struct FSortOption;
 class FTokenManager;
 
+template <class T>
+using TCallback = TFunction<void(const T&)>;
+
 enum class EChannelFlags : uint8
 {
     None = 0,
@@ -38,14 +41,14 @@ public:
         const FString& ConnectionId,
         const FString& ChannelId = {},
         EChannelFlags Flags = EChannelFlags::Watch,
-        TFunction<void(const FChannelStateResponseDto&)> Callback = {}) const;
+        TCallback<FChannelStateResponseDto> Callback = {}) const;
 
     void SendNewMessage(
         const FString& ChannelType,
         const FString& ChannelId,
         const FMessageRequestDto& MessageRequest,
         bool bSkipPush = false,
-        TFunction<void(const FMessageResponseDto&)> Callback = {}) const;
+        TCallback<FMessageResponseDto> Callback = {}) const;
 
     /**
      * Query channels with filter query
@@ -66,7 +69,7 @@ public:
         TOptional<uint32> MessageLimit = {},
         EChannelFlags Flags = EChannelFlags::State | EChannelFlags::Watch,
         FPaginationOptions PaginationOptions = {},
-        TFunction<void(const FChannelResponseDto&)> Callback = {});
+        TCallback<FChannelResponseDto> Callback = {});
 
 private:
     FString BuildUrl(const FString& Path) const;
