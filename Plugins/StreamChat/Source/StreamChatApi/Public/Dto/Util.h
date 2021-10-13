@@ -25,7 +25,7 @@ FORCEINLINE TOptional<TArray<OutT>> Convert(const TOptional<TArray<InT>>& Input)
 {
     if (Input.IsSet())
     {
-        return TOptional<TArray<OutT>>{Util::Convert<OutT>(Input.GetValue())};
+        return TOptional<TArray<OutT>>{Util::Convert<OutT, InT>(Input.GetValue())};
     }
     return {};
 }
