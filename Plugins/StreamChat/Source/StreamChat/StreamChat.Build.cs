@@ -18,12 +18,8 @@ public class StreamChat : ModuleRules
 				"Json",
 				"WebSockets",
 				"StreamJson",
+				"StreamChatApi",
 			}
 			);
-		PublicDependencyModuleNames.AddRange(
-			new []
-			{
-				"StreamChatApi"
-			});
 	}
 }

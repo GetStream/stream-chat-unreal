@@ -1,17 +1,15 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
-#include "Dto/Request/SortOptionDto.h"
 
 #include "SortOption.generated.h"
+
+struct FSortOptionDto;
 
 USTRUCT()
 struct FSortOption
 {
     GENERATED_BODY()
 
-    explicit operator FSortOptionDto() const
-    {
-        return {};
-    }
+    explicit operator FSortOptionDto() const;
 };
