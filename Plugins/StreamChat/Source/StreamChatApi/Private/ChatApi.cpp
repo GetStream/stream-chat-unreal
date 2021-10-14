@@ -1,5 +1,6 @@
 ﻿#include "ChatApi.h"
 
+#include "HttpClient.h"
 #include "Request/ChannelGetOrCreateRequestDto.h"
 #include "Request/QueryChannelsRequestDto.h"
 #include "Request/SendMessageRequestDto.h"
@@ -7,7 +8,6 @@
 #include "Response/ChannelsResponseDto.h"
 #include "Response/ErrorResponseDto.h"
 #include "Response/MessageResponseDto.h"
-#include "HttpClient.h"
 #include "Token/TokenManager.h"
 
 FChatApi::FChatApi(const FString& InApiKey, const FString& InHost, const TSharedRef<FTokenManager>& InTokenManager)
@@ -55,7 +55,7 @@ void FChatApi::SendNewMessage(
 
 void FChatApi::QueryChannels(
     const FString& ConnectionId,
-    const TOptional<FFilterDto>& Filter,
+    const TOptional<FJsonObjectWrapper>& Filter,
     const TOptional<TArray<FSortOptionDto>>& SortOptions,
     const TOptional<uint32> MemberLimit,
     const TOptional<uint32> MessageLimit,

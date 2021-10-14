@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "FilterDto.h"
+#include "JsonObjectWrapper.h"
 #include "SortOptionDto.h"
 
 #include "QueryChannelsRequestDto.generated.h"
@@ -22,7 +22,7 @@ struct FQueryChannelsRequestDto
     FString ConnectionId;
 
     UPROPERTY()
-    FFilterDto FilterConditions;
+    FJsonObjectWrapper FilterConditions;
 
     /// Number of channels to limit
     UPROPERTY()

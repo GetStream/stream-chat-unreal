@@ -17,6 +17,7 @@ public class StreamChatApi : ModuleRules
         PublicDependencyModuleNames.AddRange(new[]
         {
             "Core",
+            "JsonUtilities",
             "StreamChatDto",
         });
     }

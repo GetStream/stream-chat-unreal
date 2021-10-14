@@ -6,6 +6,7 @@
 #include "Channel/ChatChannel.h"
 #include "ChatApi.h"
 #include "ChatSocket.h"
+#include "JsonObjectWrapper.h"
 #include "PaginationOptions.h"
 #include "Response/ChannelsResponseDto.h"
 #include "StreamChatSettings.h"
@@ -49,7 +50,7 @@ void UStreamChatClientComponent::DisconnectUser()
 }
 
 void UStreamChatClientComponent::QueryChannels(
-    const TOptional<FFilter>& Filter,
+    const UFilter* Filter,
     const TOptional<TArray<FSortOption>>& SortOptions,
     TFunction<void(const TArray<UChatChannel*>&)> Callback)
 {
@@ -58,7 +59,7 @@ void UStreamChatClientComponent::QueryChannels(
 
     Api->QueryChannels(
         Socket->GetConnectionId(),
-        Util::Convert<FFilterDto>(Filter),
+        Util::Convert<FJsonObjectWrapper>(Filter),
         Util::Convert<FSortOptionDto>(SortOptions),
         {},
         {},

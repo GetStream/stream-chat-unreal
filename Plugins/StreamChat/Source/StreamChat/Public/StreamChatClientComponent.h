@@ -27,7 +27,7 @@ public:
     void DisconnectUser();
 
     void QueryChannels(
-        const TOptional<FFilter>& Filter = {},
+        const UFilter* Filter = nullptr,
         const TOptional<TArray<FSortOption>>& SortOptions = {},
         TFunction<void(const TArray<UChatChannel*>&)> Callback = {});
 

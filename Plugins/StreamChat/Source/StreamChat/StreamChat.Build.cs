@@ -11,6 +11,8 @@ public class StreamChat : ModuleRules
 
 		PrivateDependencyModuleNames.AddRange(new[]
 		{
+			"Json", // Filter
+			"JsonUtilities", // Filter
 			"StreamJson",
 			"StreamChatDto",
 			"StreamChatApi",

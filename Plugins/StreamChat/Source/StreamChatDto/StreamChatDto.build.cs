@@ -13,6 +13,7 @@ public class StreamChatDto : ModuleRules
 
         PublicDependencyModuleNames.AddRange(new[] {
             "Core",
+            "JsonUtilities",
         });
     }
 }

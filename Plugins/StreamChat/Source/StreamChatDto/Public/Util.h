@@ -19,6 +19,17 @@ FORCEINLINE TOptional<OutT> Convert(const TOptional<InT>& Input)
     return {};
 }
 
+/// Map from an pointer of one type to an optional of another using direct initialization
+template <typename OutT, typename InT>
+FORCEINLINE TOptional<OutT> Convert(const InT* Input)
+{
+    if (Input != nullptr)
+    {
+        return TOptional<OutT>{static_cast<OutT>(*Input)};
+    }
+    return {};
+}
+
 /// Map from an optional array of one type to an optional array of another using direct initialization
 template <typename OutT, typename InT>
 FORCEINLINE TOptional<TArray<OutT>> Convert(const TOptional<TArray<InT>>& Input)

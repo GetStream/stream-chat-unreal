@@ -1,8 +1,8 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
+#include "JsonObjectWrapper.h"
 #include "PaginationOptions.h"
-#include "Request/FilterDto.h"
 #include "Request/SortOptionDto.h"
 
 class FHttpClient;
@@ -66,7 +66,7 @@ public:
      */
     void QueryChannels(
         const FString& ConnectionId,
-        const TOptional<FFilterDto>& Filter = {},
+        const TOptional<FJsonObjectWrapper>& Filter = {},
         const TOptional<TArray<FSortOptionDto>>& SortOptions = {},
         TOptional<uint32> MemberLimit = {},
         TOptional<uint32> MessageLimit = {},
