@@ -23,14 +23,14 @@ void AStreamChatSampleHud::BeginPlay()
         Token,
         [this, UserId = User.Id]
         {
+            const UFilter* Filter = UFilter::In(TEXT("members"), {UserId});
             Client->QueryChannels(
-                UFilter::In(TEXT("members"), {UserId}),
-                {},
                 [this](const TArray<UChatChannel*> ReceivedChannels)
                 {
                     Channels = ReceivedChannels;
                     OnConnect();
-                });
+                },
+                Filter);
         });
 }
 

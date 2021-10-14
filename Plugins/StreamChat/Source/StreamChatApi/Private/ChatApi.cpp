@@ -22,11 +22,11 @@ FChatApi::FChatApi(const FString& InApiKey, const FString& InHost, const TShared
 }
 
 void FChatApi::GetOrCreateChannel(
+    const TCallback<FChannelStateResponseDto> Callback,
     const FString& ChannelType,
     const FString& ConnectionId,
     const FString& ChannelId,
-    const EChannelFlags Flags,
-    const TCallback<FChannelStateResponseDto> Callback) const
+    const EChannelFlags Flags) const
 {
     const FString ChannelPath =
         ChannelId.IsEmpty() ? ChannelType : FString::Printf(TEXT("%s/%s"), *ChannelType, *ChannelId);
@@ -54,14 +54,14 @@ void FChatApi::SendNewMessage(
 }
 
 void FChatApi::QueryChannels(
+    const TCallback<FChannelsResponseDto> Callback,
     const FString& ConnectionId,
     const TOptional<FJsonObjectWrapper>& Filter,
     const TOptional<TArray<FSortOptionDto>>& SortOptions,
     const TOptional<uint32> MemberLimit,
     const TOptional<uint32> MessageLimit,
     const EChannelFlags Flags,
-    const FPaginationOptions PaginationOptions,
-    const TCallback<FChannelsResponseDto> Callback)
+    const FPaginationOptions PaginationOptions)
 {
     const FString Url = BuildUrl(TEXT("channels"));
     // TODO Optional!

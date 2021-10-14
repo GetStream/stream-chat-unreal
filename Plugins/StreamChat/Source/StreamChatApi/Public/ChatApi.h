@@ -40,11 +40,11 @@ public:
     explicit FChatApi(const FString& InApiKey, const FString& InHost, const TSharedRef<FTokenManager>&);
 
     void GetOrCreateChannel(
+        TCallback<FChannelStateResponseDto> Callback,
         const FString& ChannelType,
         const FString& ConnectionId,
         const FString& ChannelId = {},
-        EChannelFlags Flags = EChannelFlags::Watch,
-        TCallback<FChannelStateResponseDto> Callback = {}) const;
+        EChannelFlags Flags = EChannelFlags::Watch) const;
 
     void SendNewMessage(
         const FString& ChannelType,
@@ -65,14 +65,14 @@ public:
      * @param Callback
      */
     void QueryChannels(
+        TCallback<FChannelsResponseDto> Callback,
         const FString& ConnectionId,
         const TOptional<FJsonObjectWrapper>& Filter = {},
         const TOptional<TArray<FSortOptionDto>>& SortOptions = {},
         TOptional<uint32> MemberLimit = {},
         TOptional<uint32> MessageLimit = {},
         EChannelFlags Flags = EChannelFlags::State | EChannelFlags::Watch,
-        FPaginationOptions PaginationOptions = {},
-        TCallback<FChannelsResponseDto> Callback = {});
+        FPaginationOptions PaginationOptions = {});
 
 private:
     FString BuildUrl(const FString& Path) const;

@@ -42,10 +42,6 @@ void UChatChannel::Watch(const TFunction<void()> Callback)
     check(!ConnectionId.IsEmpty());
 
     Api->GetOrCreateChannel(
-        Type,
-        ConnectionId,
-        Id,
-        EChannelFlags::State | EChannelFlags::Watch,
         [this, Callback](const FChannelStateResponseDto& State)
         {
             if (!IsValid(this))
@@ -59,7 +55,11 @@ void UChatChannel::Watch(const TFunction<void()> Callback)
             {
                 Callback();
             }
-        });
+        },
+        Type,
+        ConnectionId,
+        Id,
+        EChannelFlags::State | EChannelFlags::Watch);
 }
 
 void UChatChannel::SendMessage(const FString& Message, const FUser& FromUser)

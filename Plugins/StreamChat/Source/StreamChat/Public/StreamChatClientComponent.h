@@ -23,13 +23,13 @@ class STREAMCHAT_API UStreamChatClientComponent final : public UActorComponent
 public:
     UStreamChatClientComponent();
 
-    void ConnectUser(const FUser& User, const FString& Token, TFunction<void()> Callback);
+    void ConnectUser(const FUser& User, const FString& Token, TFunction<void()> Callback = {});
     void DisconnectUser();
 
     void QueryChannels(
+        TFunction<void(const TArray<UChatChannel*>&)> Callback,
         const UFilter* Filter = nullptr,
-        const TOptional<TArray<FSortOption>>& SortOptions = {},
-        TFunction<void(const TArray<UChatChannel*>&)> Callback = {});
+        const TOptional<TArray<FSortOption>>& SortOptions = {});
 
     UChatChannel* Channel(const FString& Type, const FString& Id = {});
 

@@ -50,21 +50,14 @@ void UStreamChatClientComponent::DisconnectUser()
 }
 
 void UStreamChatClientComponent::QueryChannels(
+    TFunction<void(const TArray<UChatChannel*>&)> Callback,
     const UFilter* Filter,
-    const TOptional<TArray<FSortOption>>& SortOptions,
-    TFunction<void(const TArray<UChatChannel*>&)> Callback)
+    const TOptional<TArray<FSortOption>>& SortOptions)
 {
     // TODO Can we return something from ConnectUser() that is required for this function to prevent ordering ambiguity?
     check(Socket->IsConnected());
 
     Api->QueryChannels(
-        Socket->GetConnectionId(),
-        Util::Convert<FJsonObjectWrapper>(Filter),
-        Util::Convert<FSortOptionDto>(SortOptions),
-        {},
-        {},
-        EChannelFlags::State | EChannelFlags::Watch,
-        {},
         [this, Callback](const FChannelsResponseDto& Response)
         {
             TArray<UChatChannel*> NewChannels;
@@ -74,7 +67,10 @@ void UStreamChatClientComponent::QueryChannels(
                 [this](const FChannelStateResponseFieldsDto& ResponseChannel)
                 { return UChatChannel::Create(Api.ToSharedRef(), *Socket, ResponseChannel); });
             Callback(NewChannels);
-        });
+        },
+        Socket->GetConnectionId(),
+        Util::Convert<FJsonObjectWrapper>(Filter),
+        Util::Convert<FSortOptionDto>(SortOptions));
 }
 
 UChatChannel* UStreamChatClientComponent::Channel(const FString& Type, const FString& Id)
