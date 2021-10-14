@@ -24,10 +24,38 @@ const TMap<EFilterOperator, FString> AsString = {
 
 }    // namespace
 
+UFilter::operator FJsonObject() const
+{
+    FJsonObject JsonObject;
+
+    // Logical (group) operators
+    if (ChildFilters.Num() > 0)
+    {
+        // Filters with group operators are encoded in the following form:
+        // { $<operator>: [ <filter 1>, <filter 2> ] }
+        TArray<TSharedPtr<FJsonValue>> Array;
+        Array.Reserve(ChildFilters.Num());
+        for (const UFilter* Child : ChildFilters)
+        {
+            Array.Emplace(MakeShared<FJsonValueObject>(MakeShared<FJsonObject>(*Child)));
+        }
+        JsonObject.SetArrayField(AsString[Operator], Array);
+    }
+    else if (!Key.IsNone())
+    {
+        // Normal filters are encoded in the following form:
+        // { key: { $<operator>: <value> } }
+        JsonObject.SetField(Key.ToString(), Value);
+    }
+
+    return JsonObject;
+}
+
 UFilter::operator FJsonObjectWrapper() const
 {
-    // TODO
-    return FJsonObjectWrapper{TEXT("{}")};
+    FJsonObjectWrapper Wrapper;
+    Wrapper.JsonObject = MakeShared<FJsonObject>(*this);
+    return Wrapper;
 }
 
 UFilter* UFilter::And(const TArray<UFilter*>& Filters)
@@ -203,8 +231,7 @@ UFilter* UFilter::MakeLogical(const EFilterOperator Operator, const TArray<UFilt
     return New;
 }
 
-template <>
-UFilter* UFilter::MakeComparison<const FString&>(const EFilterOperator Operator, const FName& Key, const FString& Value)
+UFilter* UFilter::MakeComparison(const EFilterOperator Operator, const FName& Key, const FString& Value)
 {
     UFilter* New = NewObject<UFilter>();
     New->Operator = Operator;
@@ -213,8 +240,7 @@ UFilter* UFilter::MakeComparison<const FString&>(const EFilterOperator Operator,
     return New;
 }
 
-template <>
-UFilter* UFilter::MakeComparison<bool>(const EFilterOperator Operator, const FName& Key, bool bValue)
+UFilter* UFilter::MakeComparison(const EFilterOperator Operator, const FName& Key, bool bValue)
 {
     UFilter* New = NewObject<UFilter>();
     New->Operator = Operator;
@@ -223,9 +249,7 @@ UFilter* UFilter::MakeComparison<bool>(const EFilterOperator Operator, const FNa
     return New;
 }
 
-template <>
-UFilter*
-UFilter::MakeArrayComparison<FString>(const EFilterOperator Operator, const FName& Key, const TArray<FString>& Values)
+UFilter* UFilter::MakeArrayComparison(const EFilterOperator Operator, const FName& Key, const TArray<FString>& Values)
 {
     UFilter* New = NewObject<UFilter>();
     New->Operator = Operator;

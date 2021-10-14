@@ -65,6 +65,7 @@ class UFilter final : public UObject
     GENERATED_BODY()
 
 public:
+    explicit operator FJsonObject() const;
     explicit operator FJsonObjectWrapper() const;
 
     static UFilter* And(const TArray<UFilter*>& Filters);
@@ -107,13 +108,10 @@ private:
     static UFilter* MakeLogical(EFilterOperator Operator, const TArray<UFilter*>& Filters);
     template <class T>
     static UFilter* MakeComparison(EFilterOperator Operator, const FName& Key, T Value);
-    template <>
     static UFilter* MakeComparison(EFilterOperator Operator, const FName& Key, const FString& Value);
-    template <>
     static UFilter* MakeComparison(EFilterOperator Operator, const FName& Key, bool bValue);
     template <class T>
     static UFilter* MakeArrayComparison(EFilterOperator Operator, const FName& Key, const TArray<T>& Values);
-    template <>
     static UFilter* MakeArrayComparison(EFilterOperator Operator, const FName& Key, const TArray<FString>& Values);
 
     EFilterOperator Operator;
