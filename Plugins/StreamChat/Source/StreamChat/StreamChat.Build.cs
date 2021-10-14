@@ -9,17 +9,19 @@ public class StreamChat : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 		CppStandard = CppStandardVersion.Cpp17;
 
-		PrivateDependencyModuleNames.AddRange(
-			new[]
-			{
-				"Core",
-				"CoreUObject",
-				"Engine",
-				"Json",
-				"WebSockets",
-				"StreamJson",
-				"StreamChatApi",
-			}
-			);
+		PrivateDependencyModuleNames.AddRange(new[]
+		{
+			"StreamJson",
+			"StreamChatDto",
+			"StreamChatApi",
+			"StreamChatWebSocket",
+		});
+
+		PublicDependencyModuleNames.AddRange(new[]
+		{
+			"Core",
+			"CoreUObject",
+			"Engine",
+		});
 	}
 }

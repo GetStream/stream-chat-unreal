@@ -1,20 +1,20 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
-#include "Dto/Request/FilterDto.h"
-#include "Dto/Request/SortOptionDto.h"
 #include "PaginationOptions.h"
+#include "Request/FilterDto.h"
+#include "Request/SortOptionDto.h"
 
-struct FHttpResponse;
-class FRequestBuilder;
-struct FChannelsResponseDto;
-struct FChannelStateResponseDto;
-struct FChannelResponseDto;
-struct FMessageResponseDto;
-struct FMessageRequestDto;
-struct FSortOption;
-class FTokenManager;
 class FHttpClient;
+class FRequestBuilder;
+class FTokenManager;
+struct FChannelResponseDto;
+struct FChannelStateResponseDto;
+struct FChannelsResponseDto;
+struct FHttpResponse;
+struct FMessageRequestDto;
+struct FMessageResponseDto;
+struct FSortOption;
 
 template <class T>
 using TCallback = TFunction<void(const T&)>;

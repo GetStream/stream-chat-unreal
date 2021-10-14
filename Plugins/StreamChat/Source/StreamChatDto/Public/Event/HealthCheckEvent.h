@@ -2,7 +2,7 @@
 
 #include "ChatEvent.h"
 #include "CoreMinimal.h"
-#include "Socket/Dto/OwnUserDto.h"
+#include "OwnUserDto.h"
 
 #include "HealthCheckEvent.generated.h"
 

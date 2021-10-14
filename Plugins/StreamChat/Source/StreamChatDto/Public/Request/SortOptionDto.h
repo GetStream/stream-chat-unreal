@@ -7,7 +7,7 @@
 struct FSortOption;
 
 USTRUCT()
-struct STREAMCHATAPI_API FSortOptionDto
+struct STREAMCHATDTO_API FSortOptionDto
 {
     GENERATED_BODY()
 };

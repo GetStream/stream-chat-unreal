@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Dto/Response/MessageDto.h"
+#include "Response/MessageDto.h"
 #include "ChatEvent.h"
 #include "CoreMinimal.h"
 

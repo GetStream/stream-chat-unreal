@@ -1,12 +1,12 @@
 ﻿#include "ChatSocket.h"
 
-#include "Dto/Response/ErrorResponseDto.h"
 #include "Containers/Ticker.h"
 #include "Dom/JsonObject.h"
-#include "Dto/Event/HealthCheckEvent.h"
-#include "Dto/Request/ConnectRequest.h"
+#include "Event/HealthCheckEvent.h"
 #include "IWebSocket.h"
-#include "StreamChatSettings.h"
+#include "Request/ConnectRequest.h"
+#include "Response/ErrorResponseDto.h"
+#include "StreamChatWebSocketSettings.h"
 #include "StreamJson.h"
 #include "WebSocketCloseCodes.h"
 #include "WebSocketsModule.h"
@@ -28,9 +28,9 @@ float GetReconnectDelay(const uint32 Attempt)
 }
 }    // namespace
 
-FChatSocket::FChatSocket(const FString& ApiKey, const FUser& User, const FTokenManager& TokenManager)
+FChatSocket::FChatSocket(const FString& ApiKey, const FString& Token, const FString& Host, const FUserDto& User)
 {
-    const FString Url = BuildUrl(ApiKey, User, TokenManager);
+    const FString Url = BuildUrl(ApiKey, Token, Host, User);
     WebSocket = FWebSocketsModule::Get().CreateWebSocket(Url, TEXT("wss"));
     UE_LOG(LogChatSocket, Log, TEXT("WebSocket configured with URL: %s"), *Url);
 }
@@ -66,10 +66,8 @@ void FChatSocket::Disconnect()
     StopMonitoring();
 }
 
-FString FChatSocket::BuildUrl(const FString& ApiKey, const FUser& User, const FTokenManager& TokenManager)
+FString FChatSocket::BuildUrl(const FString& ApiKey, const FString& Token, const FString& Host, const FUserDto& User)
 {
-    const FString Domain = GetDefault<UStreamChatSettings>()->Host;
-    const FString Token = TokenManager.LoadToken();
     const FConnectRequest Request = {
         true,
         User.Id,
@@ -78,7 +76,7 @@ FString FChatSocket::BuildUrl(const FString& ApiKey, const FUser& User, const FT
     const FString Json = Json::Serialize(Request);
     return FString::Printf(
         TEXT("wss://%s/connect?json=%s&api_key=%s&authorization=%s&stream-auth-type=jwt"),
-        *Domain,
+        *Host,
         *Json,
         *ApiKey,
         *Token);
@@ -219,7 +217,7 @@ void FChatSocket::HandleWebSocketMessage(const FString& Message)
         return;
     }
 
-    const TUniquePtr<IEventSubscription>* Subscription = Subscriptions.Find(FName(Type));
+    const FEventSubscriptionPtr* Subscription = Subscriptions.Find(FName(Type));
     if (!Subscription)
     {
         UE_LOG(LogChatSocket, Warning, TEXT("No subscriptions to WebSocket event. Discarding. [type=%s]"), *Type);
@@ -270,11 +268,11 @@ void FChatSocket::StartMonitoring()
     StopMonitoring();
     KeepAliveTickerHandle = FTicker::GetCoreTicker().AddTicker(
         FTickerDelegate::CreateSP(this, &FChatSocket::KeepAlive),
-        GetDefault<UStreamChatSettings>()->WebSocketKeepAliveInterval);
+        GetDefault<UStreamChatWebSocketSettings>()->KeepAliveInterval);
 
     ReconnectTickerHandle = FTicker::GetCoreTicker().AddTicker(
         FTickerDelegate::CreateSP(this, &FChatSocket::CheckNeedToReconnect),
-        GetDefault<UStreamChatSettings>()->WebSocketCheckReconnectInterval);
+        GetDefault<UStreamChatWebSocketSettings>()->CheckReconnectInterval);
 }
 
 void FChatSocket::StopMonitoring()
@@ -314,7 +312,7 @@ bool FChatSocket::CheckNeedToReconnect(float)
         }
 
         const float Delta = (FDateTime::Now() - LastEventTime.GetValue()).GetTotalSeconds();
-        return Delta > GetDefault<UStreamChatSettings>()->WebSocketReconnectionTimeout;
+        return Delta > GetDefault<UStreamChatWebSocketSettings>()->ReconnectionTimeout;
     }();
     if (bShouldReconnect)
     {

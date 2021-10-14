@@ -5,13 +5,13 @@
 #include "Algo/Transform.h"
 #include "Channel/ChatChannel.h"
 #include "ChatApi.h"
-#include "Dto/Response/ChannelsResponseDto.h"
-#include "Dto/Util.h"
+#include "ChatSocket.h"
 #include "PaginationOptions.h"
-#include "Socket/ChatSocket.h"
+#include "Response/ChannelsResponseDto.h"
 #include "StreamChatSettings.h"
 #include "Token/ConstantTokenProvider.h"
 #include "Token/TokenManager.h"
+#include "Util.h"
 
 UStreamChatClientComponent::UStreamChatClientComponent() : TokenManager(MakeShared<FTokenManager>())
 {
@@ -33,7 +33,8 @@ void UStreamChatClientComponent::ConnectUser(const FUser& User, const FString& T
     // TODO: I don't like that the TokenManager is stateful. Maybe instantiate a token provider each time one is
     // needed?
     TokenManager->SetTokenProvider(MakeUnique<FConstantTokenProvider>(Token));
-    Socket = MakeShared<FChatSocket>(ApiKey, User, *TokenManager);
+    Socket = MakeShared<FChatSocket>(
+        ApiKey, TokenManager->LoadToken(), GetDefault<UStreamChatSettings>()->Host, static_cast<FUserDto>(User));
     Socket->Connect(Callback);
 }
 

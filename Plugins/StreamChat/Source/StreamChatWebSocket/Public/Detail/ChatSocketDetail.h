@@ -1,0 +1,32 @@
+﻿#pragma once
+
+#include "CoreMinimal.h"
+#include "EventSubscription.h"
+
+namespace Detail
+{
+template <class TEvent>
+TEventSubscription<TEvent>& GetSubscription(TMap<FName, FEventSubscriptionPtr>& Subscriptions)
+{
+    const FName& EventType = TEvent::StaticType;
+    const FEventSubscriptionPtr* Existing = Subscriptions.Find(EventType);
+    const FEventSubscriptionPtr& Subscription =
+        Existing ? *Existing : Subscriptions.Emplace(EventType, MakeShared<TEventSubscription<TEvent>>());
+    return StaticCast<TEventSubscription<TEvent>&>(*Subscription);
+}
+
+template <class TEvent>
+FDelegateHandle SubscribeToEvent(
+    TMap<FName, FEventSubscriptionPtr>& Subscriptions,
+    TEventReceivedDelegate<TEvent> Callback)
+{
+    return Detail::GetSubscription<TEvent>(Subscriptions).Delegate.Add(MoveTemp(Callback));
+}
+
+template <class TEvent>
+bool UnsubscribeFromEvent(TMap<FName, FEventSubscriptionPtr>& Subscriptions, FDelegateHandle DelegateHandle)
+{
+    return Detail::GetSubscription<TEvent>(Subscriptions).Delegate.Remove(DelegateHandle);
+}
+
+}    // namespace Detail

@@ -36,7 +36,17 @@
 			"LoadingPhase": "Default"
 		},
 		{
+			"Name": "StreamChatDto",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
 			"Name": "StreamChatApi",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "StreamChatWebSocket",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
 		}

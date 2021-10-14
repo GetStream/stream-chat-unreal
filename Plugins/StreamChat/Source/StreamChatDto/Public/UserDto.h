@@ -10,7 +10,7 @@
  * #/components/schemas/UserObject
  */
 USTRUCT(BlueprintType)
-struct STREAMCHATAPI_API FUserDto
+struct STREAMCHATDTO_API FUserDto
 {
     GENERATED_BODY()
 

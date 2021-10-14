@@ -2,19 +2,18 @@
 
 #include "CoreMinimal.h"
 #include "Detail/ChatSocketDetail.h"
-#include "EventSubscription.h"
-#include "Token/TokenManager.h"
+#include "Detail/EventSubscription.h"
 
 DECLARE_LOG_CATEGORY_EXTERN(LogChatSocket, Verbose, All);
 
-struct FUser;
+struct FUserDto;
 struct FHealthCheckEvent;
 class IWebSocket;
 
-class FChatSocket : public TSharedFromThis<FChatSocket>
+class STREAMCHATWEBSOCKET_API FChatSocket : public TSharedFromThis<FChatSocket>
 {
 public:
-    explicit FChatSocket(const FString& ApiKey, const FUser& User, const FTokenManager& TokenManager);
+    explicit FChatSocket(const FString& ApiKey, const FString& Token, const FString& Host, const FUserDto& User);
     ~FChatSocket();
 
     void Connect(TFunction<void()> Callback);
@@ -57,9 +56,9 @@ private:
     bool CheckNeedToReconnect(float DeltaTime);
     void Reconnect();
 
-    static FString BuildUrl(const FString& ApiKey, const FUser& User, const FTokenManager& TokenManager);
+    static FString BuildUrl(const FString& ApiKey, const FString& Token, const FString& Host, const FUserDto& User);
 
-    TMap<FName, TUniquePtr<IEventSubscription>> Subscriptions;
+    TMap<FName, FEventSubscriptionPtr> Subscriptions;
 
     /// Provided by the server when the websocket connection is established
     FString ConnectionId;

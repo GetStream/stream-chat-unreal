@@ -3,11 +3,11 @@
 #include "Channel/ChatChannel.h"
 
 #include "ChatApi.h"
-#include "Dto/Request/MessageRequestDto.h"
-#include "Dto/Response/ChannelStateResponseDto.h"
-#include "Dto/Response/MessageResponseDto.h"
-#include "Socket/ChatSocket.h"
-#include "Socket/Dto/Event/NewMessageEvent.h"
+#include "Request/MessageRequestDto.h"
+#include "Response/ChannelStateResponseDto.h"
+#include "Response/MessageResponseDto.h"
+#include "ChatSocket.h"
+#include "Event/NewMessageEvent.h"
 
 UChatChannel*
 UChatChannel::Create(const TSharedRef<FChatApi>& InApi, FChatSocket& Socket, const FString& Type, const FString& Id)

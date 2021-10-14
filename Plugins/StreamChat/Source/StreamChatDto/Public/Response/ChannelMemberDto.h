@@ -11,7 +11,7 @@
  * #/components/schemas/ChannelMember
  */
 USTRUCT(BlueprintType)
-struct STREAMCHATAPI_API FChannelMemberDto
+struct STREAMCHATDTO_API FChannelMemberDto
 {
     GENERATED_BODY()
 

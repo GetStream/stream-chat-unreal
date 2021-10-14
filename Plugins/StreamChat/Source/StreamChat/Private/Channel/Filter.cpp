@@ -1,5 +1,5 @@
 #include "Channel/Filter.h"
-#include "Dto/Request/FilterDto.h"
+#include "Request/FilterDto.h"
 
 FFilter::operator FFilterDto() const
 {

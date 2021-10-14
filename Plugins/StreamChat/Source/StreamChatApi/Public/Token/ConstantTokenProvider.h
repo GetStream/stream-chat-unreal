@@ -1,4 +1,5 @@
 ﻿#pragma once
+
 #include "Token/ITokenProvider.h"
 
 class STREAMCHATAPI_API FConstantTokenProvider final : public ITokenProvider

@@ -1,23 +1,23 @@
 using UnrealBuildTool;
 
-public class StreamChatApi : ModuleRules
+public class StreamChatWebSocket : ModuleRules
 {
-    public StreamChatApi(ReadOnlyTargetRules Target) : base(Target)
+    public StreamChatWebSocket(ReadOnlyTargetRules Target) : base(Target)
     {
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
         CppStandard = CppStandardVersion.Cpp17;
 
-        PrivateDependencyModuleNames.AddRange(new[]
-        {
+        PrivateDependencyModuleNames.AddRange(new[] {
             "CoreUObject",
-            "HttpRequests",
-            "StreamJson",
+            "WebSockets",
+            "StreamChatDto",
         });
 
         PublicDependencyModuleNames.AddRange(new[]
         {
             "Core",
-            "StreamChatDto",
+            "Json",
+            "StreamJson",
         });
     }
 }

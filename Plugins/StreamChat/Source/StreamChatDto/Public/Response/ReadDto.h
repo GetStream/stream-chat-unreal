@@ -11,7 +11,7 @@
  * #/components/schemas/Read
  */
 USTRUCT(BlueprintType)
-struct STREAMCHATAPI_API FReadDto
+struct STREAMCHATDTO_API FReadDto
 {
     GENERATED_BODY()
 

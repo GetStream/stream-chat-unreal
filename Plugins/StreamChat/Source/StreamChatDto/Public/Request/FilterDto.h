@@ -7,7 +7,7 @@
 struct FFilter;
 
 USTRUCT()
-struct STREAMCHATAPI_API FFilterDto
+struct STREAMCHATDTO_API FFilterDto
 {
     GENERATED_BODY()
 };

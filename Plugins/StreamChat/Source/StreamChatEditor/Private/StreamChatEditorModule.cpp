@@ -4,14 +4,16 @@
 
 #include "ISettingsContainer.h"
 #include "ISettingsModule.h"
-#include "ISettingsSection.h"
 #include "Modules/ModuleManager.h"
 #include "StreamChatSettings.h"
+#include "StreamChatWebSocketSettings.h"
 
 #define LOCTEXT_NAMESPACE "StreamChatEditor"
 
 constexpr auto SettingsCategoryName = "StreamChat";
 constexpr auto SettingsModuleName = "Settings";
+constexpr auto GeneralSectionName = "General";
+constexpr auto WebSocketSectionName = "WebSocket";
 
 void FStreamChatEditorModule::StartupModule()
 {
@@ -39,13 +41,20 @@ void FStreamChatEditorModule::RegisterSettings()
             LOCTEXT("SettingsCategoryDescription", "Settings for the Stream Chat plugin"));
 
         // Register the settings
-        const ISettingsSectionPtr SettingsSection = SettingsModule->RegisterSettings(
+        SettingsModule->RegisterSettings(
             "Project",
             SettingsCategoryName,
-            "General",
+            GeneralSectionName,
             LOCTEXT("GeneralSettingsSectionName", "General"),
             LOCTEXT("GeneralSettingsSectionDescription", "General settings for the Stream Chat plugin"),
             GetMutableDefault<UStreamChatSettings>());
+        SettingsModule->RegisterSettings(
+            "Project",
+            SettingsCategoryName,
+            WebSocketSectionName,
+            LOCTEXT("GeneralSettingsSectionName", "WebSocket"),
+            LOCTEXT("GeneralSettingsSectionDescription", "WebSocket settings for the Stream Chat plugin"),
+            GetMutableDefault<UStreamChatWebSocketSettings>());
     }
 }
 
@@ -53,7 +62,8 @@ void FStreamChatEditorModule::UnregisterSettings()
 {
     if (ISettingsModule* SettingsModule = FModuleManager::GetModulePtr<ISettingsModule>(SettingsModuleName))
     {
-        SettingsModule->UnregisterSettings("Project", SettingsCategoryName, "General");
+        SettingsModule->UnregisterSettings("Project", SettingsCategoryName, GeneralSectionName);
+        SettingsModule->UnregisterSettings("Project", SettingsCategoryName, WebSocketSectionName);
     }
 }
 

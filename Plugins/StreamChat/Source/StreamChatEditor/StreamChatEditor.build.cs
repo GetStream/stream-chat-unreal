@@ -14,6 +14,7 @@ public class StreamChatEditor : ModuleRules
             "Engine",
             "Settings",
             "StreamChat",
+            "StreamChatWebSocket",
         });
     }
 }

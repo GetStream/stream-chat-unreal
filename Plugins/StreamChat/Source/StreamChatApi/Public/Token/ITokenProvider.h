@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 
-class ITokenProvider
+class STREAMCHATAPI_API ITokenProvider
 {
 public:
     virtual ~ITokenProvider() = default;
