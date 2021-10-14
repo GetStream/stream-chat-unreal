@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ExtraFields.h"
 
 class FJsonValue;
 class FJsonObject;
@@ -80,6 +81,7 @@ bool JsonObjectStringToUStruct(const FString& JsonString, OutStructType* OutStru
         UE_LOG(LogTemp, Warning, TEXT("JsonObjectStringToUStruct - Unable to deserialize. json=[%s]"), *JsonString);
         return false;
     }
+    ExtraFields::InvokeDeserializeExtra(*JsonObject, *OutStruct);
     return true;
 }
 };    // namespace JsonObjectDeserialization

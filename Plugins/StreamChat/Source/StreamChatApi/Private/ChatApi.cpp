@@ -57,23 +57,24 @@ void FChatApi::QueryChannels(
     const TCallback<FChannelsResponseDto> Callback,
     const FString& ConnectionId,
     const TOptional<FJsonObjectWrapper>& Filter,
-    const TOptional<TArray<FSortOptionDto>>& SortOptions,
+    const TArray<FSortOptionDto>& SortOptions,
     const TOptional<uint32> MemberLimit,
     const TOptional<uint32> MessageLimit,
     const EChannelFlags Flags,
     const FPaginationOptions PaginationOptions)
 {
     const FString Url = BuildUrl(TEXT("channels"));
-    // TODO Optional!
+    // TODO FJsonObjectWrapper for filter?
+    // TODO Pagination?
     const FQueryChannelsRequestDto Body{
         ConnectionId,
         Filter.Get({}),
         PaginationOptions.Limit,
-        MemberLimit.Get(100),
-        MessageLimit.Get(UINT32_MAX),
+        MemberLimit,
+        MessageLimit,
         PaginationOptions.Offset.Get(0),
         EnumHasAnyFlags(Flags, EChannelFlags::Presence),
-        SortOptions.Get({}),
+        SortOptions,
         EnumHasAnyFlags(Flags, EChannelFlags::State),
         EnumHasAnyFlags(Flags, EChannelFlags::Watch),
     };

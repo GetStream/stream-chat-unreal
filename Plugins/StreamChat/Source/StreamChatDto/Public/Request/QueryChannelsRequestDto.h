@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Dom/JsonObject.h"
 #include "JsonObjectWrapper.h"
 #include "SortOptionDto.h"
 
@@ -17,9 +18,10 @@ struct FQueryChannelsRequestDto
 {
     GENERATED_BODY()
 
+    STREAMCHATDTO_API static void SerializeExtra(const FQueryChannelsRequestDto& Self, FJsonObject& JsonObject);
+
     /// WebSocket connection ID to interact with
-    UPROPERTY()
-    FString ConnectionId;
+    UPROPERTY() FString ConnectionId;
 
     UPROPERTY()
     FJsonObjectWrapper FilterConditions;
@@ -29,12 +31,10 @@ struct FQueryChannelsRequestDto
     uint32 Limit;
 
     /// Number of members to limit
-    UPROPERTY()
-    uint32 MemberLimit;
+    TOptional<uint32> MemberLimit;
 
     /// Number of messages to limit
-    UPROPERTY()
-    uint32 MessageLimit;
+    TOptional<uint32> MessageLimit;
 
     /// Channel pagination offset
     UPROPERTY()

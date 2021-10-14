@@ -8,22 +8,6 @@ class FJsonValue;
 
 namespace JsonObjectSerialization
 {
-/**
- * Converts from a UStruct to a json string containing an object, using exportText
- *
- * @param StructDefinition UStruct definition that is looked over for properties
- * @param Struct The UStruct instance to copy out of
- * @param OutJsonString Json string to be filled in with data from the UStruct
- * @param bPrettyPrint Option to use pretty print (e.g., adds line endings) or condensed print
- *
- * @return False if any properties failed to write
- */
-bool UStructToJsonObjectString(
-    const UStruct* StructDefinition,
-    const void* Struct,
-    FString& OutJsonString,
-    ENamingConvention NamingConvention = ENamingConvention::UpperCamelCase,
-    bool bPrettyPrint = true);
 
 /**
  * Converts from a UStruct to a Json Object, using exportText
@@ -34,10 +18,9 @@ bool UStructToJsonObjectString(
  *
  * @return False if any properties failed to write
  */
-bool UStructToJsonObject(
+STREAMJSON_API TSharedRef<FJsonObject> UStructToJsonObject(
     const UStruct* StructDefinition,
     const void* Struct,
-    TSharedRef<FJsonObject> OutJsonObject,
     ENamingConvention NamingConvention = ENamingConvention::UpperCamelCase);
 
 /**

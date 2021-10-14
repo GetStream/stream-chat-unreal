@@ -1,5 +1,6 @@
-#include "JsonObjectSerialization.h"
+#include "Detail/JsonObjectSerialization.h"
 
+#include "Detail/ExtraFields.h"
 #include "Dom/JsonObject.h"
 #include "JsonObjectConverter.h"
 #include "JsonObjectWrapper.h"
@@ -10,7 +11,7 @@
 namespace
 {
 TSharedPtr<FJsonValue>
-ApplyNamingConventionToValue(FProperty* Property, const void* Value, ENamingConvention NamingConvention)
+ApplyNamingConventionToValue(FProperty* Property, const void* Value, const ENamingConvention NamingConvention)
 {
     if (const FEnumProperty* EnumProperty = CastField<FEnumProperty>(Property))
     {
@@ -38,11 +39,9 @@ ApplyNamingConventionToValue(FProperty* Property, const void* Value, ENamingConv
             return MakeShared<FJsonValueString>(OutValueStr);
         }
 
-        if (TSharedRef<FJsonObject> Out = MakeShared<FJsonObject>();
-            JsonObjectSerialization::UStructToJsonObject(StructProperty->Struct, Value, Out, NamingConvention))
-        {
-            return MakeShared<FJsonValueObject>(Out);
-        }
+        TSharedRef<FJsonObject> Out =
+            JsonObjectSerialization::UStructToJsonObject(StructProperty->Struct, Value, NamingConvention);
+        return MakeShared<FJsonValueObject>(Out);
     }
     return nullptr;
 }
@@ -58,47 +57,14 @@ bool UStructToJsonObjectStringInternal(const TSharedRef<FJsonObject>& JsonObject
     return bSuccess;
 }
 
-bool JsonObjectSerialization::UStructToJsonObjectString(
+TSharedRef<FJsonObject> JsonObjectSerialization::UStructToJsonObject(
     const UStruct* StructDefinition,
     const void* Struct,
-    FString& OutJsonString,
-    const ENamingConvention NamingConvention,
-    const bool bPrettyPrint)
-{
-    if (const TSharedRef<FJsonObject> JsonObject = MakeShared<FJsonObject>();
-        UStructToJsonObject(StructDefinition, Struct, JsonObject, NamingConvention))
-    {
-        bool bSuccess;
-        if (bPrettyPrint)
-        {
-            bSuccess =
-                UStructToJsonObjectStringInternal<TCHAR, TPrettyJsonPrintPolicy<TCHAR> >(JsonObject, OutJsonString);
-        }
-        else
-        {
-            bSuccess =
-                UStructToJsonObjectStringInternal<TCHAR, TCondensedJsonPrintPolicy<TCHAR> >(JsonObject, OutJsonString);
-        }
-        if (bSuccess)
-        {
-            return true;
-        }
-        else
-        {
-            UE_LOG(LogJson, Warning, TEXT("UStructToJsonObjectString - Unable to write out json"));
-        }
-    }
-
-    return false;
-}
-
-bool JsonObjectSerialization::UStructToJsonObject(
-    const UStruct* StructDefinition,
-    const void* Struct,
-    const TSharedRef<FJsonObject> OutJsonObject,
     const ENamingConvention NamingConvention)
 {
-    return UStructToJsonAttributes(StructDefinition, Struct, OutJsonObject->Values, NamingConvention);
+    const TSharedRef<FJsonObject> OutJsonObject = MakeShared<FJsonObject>();
+    UStructToJsonAttributes(StructDefinition, Struct, OutJsonObject->Values, NamingConvention);
+    return OutJsonObject;
 }
 
 bool JsonObjectSerialization::UStructToJsonAttributes(

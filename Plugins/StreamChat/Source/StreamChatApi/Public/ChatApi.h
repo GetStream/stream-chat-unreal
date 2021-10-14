@@ -68,7 +68,7 @@ public:
         TCallback<FChannelsResponseDto> Callback,
         const FString& ConnectionId,
         const TOptional<FJsonObjectWrapper>& Filter = {},
-        const TOptional<TArray<FSortOptionDto>>& SortOptions = {},
+        const TArray<FSortOptionDto>& SortOptions = {},
         TOptional<uint32> MemberLimit = {},
         TOptional<uint32> MessageLimit = {},
         EChannelFlags Flags = EChannelFlags::State | EChannelFlags::Watch,
