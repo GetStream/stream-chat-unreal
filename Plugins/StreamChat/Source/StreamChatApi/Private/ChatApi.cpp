@@ -69,7 +69,7 @@ void FChatApi::QueryChannels(
         ConnectionId,
         Filter.Get({}),
         PaginationOptions.Limit,
-        MemberLimit.Get(UINT32_MAX),
+        MemberLimit.Get(100),
         MessageLimit.Get(UINT32_MAX),
         PaginationOptions.Offset.Get(0),
         EnumHasAnyFlags(Flags, EChannelFlags::Presence),
