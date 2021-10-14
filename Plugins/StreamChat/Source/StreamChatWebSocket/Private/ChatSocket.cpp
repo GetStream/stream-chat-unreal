@@ -84,7 +84,7 @@ FString FChatSocket::BuildUrl(const FString& ApiKey, const FString& Token, const
 
 bool FChatSocket::IsConnected() const
 {
-    return WebSocket && WebSocket->IsConnected() && ConnectionState == EConnectionState::Connected;
+    return WebSocket->IsConnected() && ConnectionState == EConnectionState::Connected;
 }
 
 const FString& FChatSocket::GetConnectionId() const
@@ -107,7 +107,7 @@ void FChatSocket::InitWebSocket()
 void FChatSocket::CloseWebSocket()
 {
     UnbindEventHandlers();
-    if (!IsConnected())
+    if (!WebSocket->IsConnected())
     {
         return;
     }

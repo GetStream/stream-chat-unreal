@@ -3,11 +3,12 @@
 #include "Channel/ChatChannel.h"
 
 #include "ChatApi.h"
+#include "ChatSocket.h"
+#include "Event/NewMessageEvent.h"
 #include "Request/MessageRequestDto.h"
 #include "Response/ChannelStateResponseDto.h"
 #include "Response/MessageResponseDto.h"
-#include "ChatSocket.h"
-#include "Event/NewMessageEvent.h"
+#include "Util.h"
 
 UChatChannel*
 UChatChannel::Create(const TSharedRef<FChatApi>& InApi, FChatSocket& Socket, const FString& Type, const FString& Id)
@@ -21,6 +22,17 @@ UChatChannel::Create(const TSharedRef<FChatApi>& InApi, FChatSocket& Socket, con
         TEventReceivedDelegate<FNewMessageEvent>::CreateUObject(Channel, &UChatChannel::OnNewMessage));
 
     check(!Channel->ConnectionId.IsEmpty());
+
+    return Channel;
+}
+
+UChatChannel* UChatChannel::Create(
+    const TSharedRef<FChatApi>& InApi,
+    FChatSocket& Socket,
+    const FChannelStateResponseFieldsDto& Fields)
+{
+    UChatChannel* Channel = Create(InApi, Socket, Fields.Channel.Type, Fields.Channel.Id);
+    Channel->InitializeState(Fields);
 
     return Channel;
 }
@@ -41,7 +53,7 @@ void UChatChannel::Watch(const TFunction<void()> Callback)
                 return;
             }
 
-            ApplyState(State);
+            InitializeState(State);
 
             if (Callback)
             {
@@ -79,13 +91,10 @@ const TArray<FMessage>& UChatChannel::GetMessages() const
     return Messages;
 }
 
-void UChatChannel::ApplyState(const FChannelStateResponseDto& State)
+void UChatChannel::InitializeState(const FChannelStateResponseFieldsDto& State)
 {
-    // TODO this is O(N^2) due to the Find() in AddMessage
-    for (auto&& Message : State.Messages)
-    {
-        AddMessage(FMessage{Message});
-    }
+    Messages = Util::Convert<FMessage>(State.Messages);
+    MessagesUpdated.Broadcast(Messages);
 }
 
 void UChatChannel::AddMessage(const FMessage& Message)

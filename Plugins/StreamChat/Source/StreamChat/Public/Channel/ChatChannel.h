@@ -11,6 +11,7 @@
 class FChatApi;
 class FChatSocket;
 struct FChannelStateResponseDto;
+struct FChannelStateResponseFieldsDto;
 struct FNewMessageEvent;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessagesUpdatedDelegate, const TArray<FMessage>&, Messages);
@@ -25,6 +26,7 @@ class STREAMCHAT_API UChatChannel final : public UObject
 
 public:
     static UChatChannel* Create(const TSharedRef<FChatApi>&, FChatSocket&, const FString& Type, const FString& Id);
+    static UChatChannel* Create(const TSharedRef<FChatApi>&, FChatSocket&, const FChannelStateResponseFieldsDto&);
 
     void Watch(TFunction<void()> Callback = {});
 
@@ -38,7 +40,7 @@ public:
     FMessagesUpdatedDelegate MessagesUpdated;
 
 private:
-    void ApplyState(const FChannelStateResponseDto&);
+    void InitializeState(const FChannelStateResponseFieldsDto&);
     void AddMessage(const FMessage&);
 
     void OnNewMessage(const FNewMessageEvent&);

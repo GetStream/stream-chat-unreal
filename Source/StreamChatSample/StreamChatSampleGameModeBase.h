@@ -11,7 +11,7 @@
  *
  */
 UCLASS()
-class STREAMCHATSAMPLE_API AStreamChatSampleGameModeBase : public AGameModeBase
+class STREAMCHATSAMPLE_API AStreamChatSampleGameModeBase final : public AGameModeBase
 {
     GENERATED_BODY()
 

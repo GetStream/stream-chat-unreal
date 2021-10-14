@@ -71,10 +71,8 @@ void UStreamChatClientComponent::QueryChannels(
             Algo::Transform(
                 Response.Channels,
                 NewChannels,
-                [this](const FChannelStateResponseFieldsDto& ResponseChannel) {
-                    return UChatChannel::Create(
-                        Api.ToSharedRef(), *Socket, ResponseChannel.Channel.Type, ResponseChannel.Channel.Id);
-                });
+                [this](const FChannelStateResponseFieldsDto& ResponseChannel)
+                { return UChatChannel::Create(Api.ToSharedRef(), *Socket, ResponseChannel); });
             Callback(NewChannels);
         });
 }
