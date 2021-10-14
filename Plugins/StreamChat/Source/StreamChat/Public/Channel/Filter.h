@@ -5,6 +5,7 @@
 #include "Filter.generated.h"
 
 class FJsonValue;
+class FJsonObject;
 struct FJsonObjectWrapper;
 
 enum class EFilterOperator : uint8
@@ -60,7 +61,7 @@ enum class EFilterOperator : uint8
  * @remark This is a UObject for easier interaction with Blueprints
  */
 UCLASS(BlueprintType)
-class UFilter final : public UObject
+class STREAMCHAT_API UFilter final : public UObject
 {
     GENERATED_BODY()
 
@@ -121,30 +122,3 @@ private:
     UPROPERTY(Transient)
     TArray<UFilter*> ChildFilters;
 };
-
-template <class T>
-UFilter* UFilter::MakeComparison(const EFilterOperator Operator, const FName& Key, T Value)
-{
-    UFilter* New = NewObject<UFilter>();
-    New->Operator = Operator;
-    New->Key = Key;
-    New->Value = MakeShared<FJsonValueNumberString>(LexToString(Value));
-    return New;
-}
-
-template <class T>
-UFilter* UFilter::MakeArrayComparison(const EFilterOperator Operator, const FName& Key, const TArray<T>& Values)
-{
-    UFilter* New = NewObject<UFilter>();
-    New->Operator = Operator;
-    New->Key = Key;
-
-    TArray<TSharedPtr<FJsonValue>> Array;
-    Array.Reserve(Values.Num());
-    for (const T& Value : Values)
-    {
-        Array.Emplace(MakeShared<FJsonValueNumberString>(LexToString(Value)));
-    }
-    New->Value = MakeShared<FJsonValueArray>(Array);
-    return New;
-}

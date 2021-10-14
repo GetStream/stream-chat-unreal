@@ -1,5 +1,6 @@
 #include "Channel/Filter.h"
 
+#include "Dom/JsonObject.h"
 #include "Dom/JsonValue.h"
 #include "JsonObjectWrapper.h"
 #include "StreamJson.h"
@@ -269,6 +270,33 @@ UFilter* UFilter::MakeArrayComparison(const EFilterOperator Operator, const FNam
     for (const FString& Value : Values)
     {
         Array.Emplace(MakeShared<FJsonValueString>(Value));
+    }
+    New->Value = MakeShared<FJsonValueArray>(Array);
+    return New;
+}
+
+template <class T>
+UFilter* UFilter::MakeComparison(const EFilterOperator Operator, const FName& Key, T Value)
+{
+    UFilter* New = NewObject<UFilter>();
+    New->Operator = Operator;
+    New->Key = Key;
+    New->Value = MakeShared<FJsonValueNumberString>(LexToString(Value));
+    return New;
+}
+
+template <class T>
+UFilter* UFilter::MakeArrayComparison(const EFilterOperator Operator, const FName& Key, const TArray<T>& Values)
+{
+    UFilter* New = NewObject<UFilter>();
+    New->Operator = Operator;
+    New->Key = Key;
+
+    TArray<TSharedPtr<FJsonValue>> Array;
+    Array.Reserve(Values.Num());
+    for (const T& Value : Values)
+    {
+        Array.Emplace(MakeShared<FJsonValueNumberString>(LexToString(Value)));
     }
     New->Value = MakeShared<FJsonValueArray>(Array);
     return New;

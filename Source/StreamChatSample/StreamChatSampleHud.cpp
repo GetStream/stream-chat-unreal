@@ -21,10 +21,10 @@ void AStreamChatSampleHud::BeginPlay()
     Client->ConnectUser(
         User,
         Token,
-        [this]
+        [this, UserId = User.Id]
         {
             Client->QueryChannels(
-                {},
+                UFilter::In(TEXT("members"), {UserId}),
                 {},
                 [this](const TArray<UChatChannel*> ReceivedChannels)
                 {
