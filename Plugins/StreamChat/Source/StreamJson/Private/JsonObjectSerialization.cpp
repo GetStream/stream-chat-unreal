@@ -62,11 +62,11 @@ bool JsonObjectSerialization::UStructToJsonObjectString(
     const UStruct* StructDefinition,
     const void* Struct,
     FString& OutJsonString,
-    ENamingConvention NamingConvention,
-    bool bPrettyPrint)
+    const ENamingConvention NamingConvention,
+    const bool bPrettyPrint)
 {
-    const TSharedRef<FJsonObject> JsonObject = MakeShared<FJsonObject>();
-    if (UStructToJsonObject(StructDefinition, Struct, JsonObject, NamingConvention))
+    if (const TSharedRef<FJsonObject> JsonObject = MakeShared<FJsonObject>();
+        UStructToJsonObject(StructDefinition, Struct, JsonObject, NamingConvention))
     {
         bool bSuccess;
         if (bPrettyPrint)

@@ -6,6 +6,8 @@
 
 namespace Json
 {
+FString STREAMJSON_API Serialize(const TSharedRef<FJsonObject>& JsonObject);
+
 template <class T>
 FString Serialize(const T& Struct, ENamingConvention NamingConvention = ENamingConvention::SnakeCase)
 {

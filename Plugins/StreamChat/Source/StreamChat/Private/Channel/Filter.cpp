@@ -1,6 +1,8 @@
 #include "Channel/Filter.h"
 
+#include "Dom/JsonValue.h"
 #include "JsonObjectWrapper.h"
+#include "StreamJson.h"
 
 namespace
 {
@@ -24,9 +26,9 @@ const TMap<EFilterOperator, FString> AsString = {
 
 }    // namespace
 
-UFilter::operator FJsonObject() const
+UFilter::operator TSharedPtr<FJsonObject>() const
 {
-    FJsonObject JsonObject;
+    TSharedPtr<FJsonObject> JsonObject = MakeShared<FJsonObject>();
 
     // Logical (group) operators
     if (ChildFilters.Num() > 0)
@@ -37,15 +39,17 @@ UFilter::operator FJsonObject() const
         Array.Reserve(ChildFilters.Num());
         for (const UFilter* Child : ChildFilters)
         {
-            Array.Emplace(MakeShared<FJsonValueObject>(MakeShared<FJsonObject>(*Child)));
+            Array.Emplace(MakeShared<FJsonValueObject>(static_cast<TSharedPtr<FJsonObject>>(*Child)));
         }
-        JsonObject.SetArrayField(AsString[Operator], Array);
+        JsonObject->SetArrayField(AsString[Operator], Array);
     }
     else if (!Key.IsNone())
     {
         // Normal filters are encoded in the following form:
         // { key: { $<operator>: <value> } }
-        JsonObject.SetField(Key.ToString(), Value);
+        const TSharedPtr<FJsonObject> InnerObject = MakeShared<FJsonObject>();
+        InnerObject->SetField(AsString[Operator], Value);
+        JsonObject->SetObjectField(Key.ToString(), InnerObject);
     }
 
     return JsonObject;
@@ -54,8 +58,13 @@ UFilter::operator FJsonObject() const
 UFilter::operator FJsonObjectWrapper() const
 {
     FJsonObjectWrapper Wrapper;
-    Wrapper.JsonObject = MakeShared<FJsonObject>(*this);
+    Wrapper.JsonObject = static_cast<TSharedPtr<FJsonObject>>(*this);
     return Wrapper;
+}
+
+FString UFilter::ToJson() const
+{
+    return Json::Serialize(static_cast<TSharedPtr<FJsonObject>>(*this).ToSharedRef());
 }
 
 UFilter* UFilter::And(const TArray<UFilter*>& Filters)

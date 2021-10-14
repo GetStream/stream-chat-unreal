@@ -3,7 +3,7 @@
 #include "JsonObjectConverter.h"
 #include "JsonObjectSerialization.h"
 
-FString Detail::Serialize(const UStruct* Definition, const void* Struct, ENamingConvention NamingConvention)
+FString Detail::Serialize(const UStruct* Definition, const void* Struct, const ENamingConvention NamingConvention)
 {
     FString Json;
     JsonObjectSerialization::UStructToJsonObjectString(Definition, Struct, Json, NamingConvention, false);

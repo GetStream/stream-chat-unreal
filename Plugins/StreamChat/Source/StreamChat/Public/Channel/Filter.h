@@ -65,8 +65,9 @@ class UFilter final : public UObject
     GENERATED_BODY()
 
 public:
-    explicit operator FJsonObject() const;
+    explicit operator TSharedPtr<FJsonObject>() const;
     explicit operator FJsonObjectWrapper() const;
+    FString ToJson() const;
 
     static UFilter* And(const TArray<UFilter*>& Filters);
     static UFilter* Or(const TArray<UFilter*>& Filters);
