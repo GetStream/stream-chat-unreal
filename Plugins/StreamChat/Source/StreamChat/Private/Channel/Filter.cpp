@@ -50,7 +50,10 @@ FFilter::operator TSharedPtr<FJsonObject>() const
         Array.Reserve(ChildFilters.Num());
         for (const FFilter& Child : ChildFilters)
         {
-            Array.Emplace(MakeShared<FJsonValueObject>(static_cast<TSharedPtr<FJsonObject>>(Child)));
+            if (Child.IsValid())
+            {
+                Array.Emplace(MakeShared<FJsonValueObject>(static_cast<TSharedPtr<FJsonObject>>(Child)));
+            }
         }
         JsonObject->SetArrayField(AsString[Operator], Array);
     }
@@ -262,6 +265,11 @@ FFilter FFilter::MakeArrayComparison(const EFilterOperator Operator, const FName
         Array.Emplace(MakeShared<FJsonValueString>(Value));
     }
     return {Operator, Key, MakeShared<FJsonValueArray>(Array)};
+}
+
+bool FFilter::IsValid() const
+{
+    return ChildFilters.Num() > 0 || (!Key.IsNone() && Value.IsValid());
 }
 
 template <class T>

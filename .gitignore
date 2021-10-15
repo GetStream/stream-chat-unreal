@@ -81,5 +81,6 @@ Plugins/*/dist/*
 .idea/*
 *.DotSettings.user
 
-# Developer plugins
+# Developer plugins and content
 Plugins/Developer/*
+Content/Developers/*

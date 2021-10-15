@@ -120,6 +120,8 @@ private:
     static FFilter MakeArrayComparison(EFilterOperator Operator, const FName& Key, const TArray<T>& Values);
     static FFilter MakeArrayComparison(EFilterOperator Operator, const FName& Key, const TArray<FString>& Values);
 
+    bool IsValid() const;
+
     EFilterOperator Operator;
     FName Key;
     TSharedPtr<FJsonValue> Value;
