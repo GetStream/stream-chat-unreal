@@ -11,15 +11,16 @@ FString STREAMJSON_API Serialize(const TSharedRef<FJsonObject>& JsonObject);
 template <class T>
 FString Serialize(const T& Struct, ENamingConvention NamingConvention = ENamingConvention::SnakeCase)
 {
-    return Detail::Serialize(Struct, NamingConvention);
+    return Detail::SerializeStruct(Struct, NamingConvention);
 }
 
 template <class T>
 T Deserialize(const FString& Json)
 {
-    return Detail::Deserialize<T>(Json);
+    return Detail::DeserializeStruct<T>(Json);
 }
 
-void STREAMJSON_API SerializeField(const TOptional<uint32>& Field, const FString& FieldName, FJsonObject& JsonObject);
-void STREAMJSON_API DeserializeField(const FJsonObject& JsonObject, const FString& FieldName, TOptional<uint32>& Field);
+void STREAMJSON_API SerializeField(const TOptional<uint32>& Field, const FString& FieldName, FJsonObject&);
+
+void STREAMJSON_API DeserializeField(const FJsonObject&, const FString& FieldName, TOptional<uint32>& Field);
 }    // namespace Json

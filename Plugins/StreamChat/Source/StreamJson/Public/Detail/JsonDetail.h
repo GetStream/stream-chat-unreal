@@ -3,25 +3,26 @@
 #include "Detail/JsonObjectDeserialization.h"
 #include "Detail/JsonObjectSerialization.h"
 #include "NamingConvention.h"
-#include "StreamJson.h"
 
 class FJsonObject;
 
 namespace Detail
 {
+STREAMJSON_API FString SerializeJsonObject(const TSharedRef<FJsonObject>&);
+
 template <class T>
-FString Serialize(const T& Struct, ENamingConvention NamingConvention)
+FString SerializeStruct(const T& Struct, ENamingConvention NamingConvention)
 {
     const TSharedRef<FJsonObject> JsonObject =
         JsonObjectSerialization::UStructToJsonObject(T::StaticStruct(), &Struct, NamingConvention);
 
     ExtraFields::InvokeSerializeExtra<T>(Struct, *JsonObject);
 
-    return Json::Serialize(JsonObject);
+    return SerializeJsonObject(JsonObject);
 }
 
 template <class T>
-T Deserialize(const FString& Json)
+T DeserializeStruct(const FString& Json)
 {
     T OutData;
     JsonObjectDeserialization::JsonObjectStringToUStruct<T>(Json, &OutData);
