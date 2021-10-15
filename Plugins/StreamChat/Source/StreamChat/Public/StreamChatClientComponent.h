@@ -28,7 +28,7 @@ public:
 
     void QueryChannels(
         TFunction<void(const TArray<UChatChannel*>&)> Callback,
-        const UFilter* Filter = nullptr,
+        TOptional<FFilter> Filter = {},
         const TArray<FSortOption>& SortOptions = {});
 
     UChatChannel* Channel(const FString& Type, const FString& Id = {});

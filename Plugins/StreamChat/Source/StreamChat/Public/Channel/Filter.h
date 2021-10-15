@@ -58,67 +58,70 @@ enum class EFilterOperator : uint8
 
 /**
  * TODO Query, AutoComplete, Exists, Contains
- * @remark This is a UObject for easier interaction with Blueprints
  */
-UCLASS(BlueprintType)
-class STREAMCHAT_API UFilter final : public UObject
+USTRUCT(BlueprintType)
+struct STREAMCHAT_API FFilter
 {
     GENERATED_BODY()
 
-public:
+    // USTRUCTs need a default constructor
+    FFilter() = default;
+    // Make logical filter
+    FFilter(EFilterOperator Operator, const TArray<FFilter>& Filters);
+    // Make comparison filter
+    FFilter(EFilterOperator Operator, const FName& Key, const TSharedPtr<FJsonValue>& Value);
+
     explicit operator TSharedPtr<FJsonObject>() const;
     explicit operator FJsonObjectWrapper() const;
     FString ToJson() const;
 
-    static UFilter* And(const TArray<UFilter*>& Filters);
-    static UFilter* Or(const TArray<UFilter*>& Filters);
-    static UFilter* Nor(const TArray<UFilter*>& Filters);
+    static FFilter And(const TArray<FFilter>& Filters);
+    static FFilter Or(const TArray<FFilter>& Filters);
+    static FFilter Nor(const TArray<FFilter>& Filters);
 
-    static UFilter* Equal(const FName& Key, int32 Value);
-    static UFilter* Equal(const FName& Key, float Value);
-    static UFilter* Equal(const FName& Key, const FString& Value);
-    static UFilter* Equal(const FName& Key, bool bValue);
-    static UFilter* NotEqual(const FName& Key, int32 Value);
-    static UFilter* NotEqual(const FName& Key, float Value);
-    static UFilter* NotEqual(const FName& Key, const FString& Value);
-    static UFilter* NotEqual(const FName& Key, bool bValue);
-    static UFilter* Greater(const FName& Key, int32 Value);
-    static UFilter* Greater(const FName& Key, float Value);
-    static UFilter* Greater(const FName& Key, const FString& Value);
-    static UFilter* Greater(const FName& Key, bool bValue);
-    static UFilter* GreaterOrEqual(const FName& Key, int32 Value);
-    static UFilter* GreaterOrEqual(const FName& Key, float Value);
-    static UFilter* GreaterOrEqual(const FName& Key, const FString& Value);
-    static UFilter* GreaterOrEqual(const FName& Key, bool bValue);
-    static UFilter* Less(const FName& Key, int32 Value);
-    static UFilter* Less(const FName& Key, float Value);
-    static UFilter* Less(const FName& Key, const FString& Value);
-    static UFilter* Less(const FName& Key, bool bValue);
-    static UFilter* LessOrEqual(const FName& Key, int32 Value);
-    static UFilter* LessOrEqual(const FName& Key, float Value);
-    static UFilter* LessOrEqual(const FName& Key, const FString& Value);
-    static UFilter* LessOrEqual(const FName& Key, bool bValue);
+    static FFilter Equal(const FName& Key, int32 Value);
+    static FFilter Equal(const FName& Key, float Value);
+    static FFilter Equal(const FName& Key, const FString& Value);
+    static FFilter Equal(const FName& Key, bool bValue);
+    static FFilter NotEqual(const FName& Key, int32 Value);
+    static FFilter NotEqual(const FName& Key, float Value);
+    static FFilter NotEqual(const FName& Key, const FString& Value);
+    static FFilter NotEqual(const FName& Key, bool bValue);
+    static FFilter Greater(const FName& Key, int32 Value);
+    static FFilter Greater(const FName& Key, float Value);
+    static FFilter Greater(const FName& Key, const FString& Value);
+    static FFilter Greater(const FName& Key, bool bValue);
+    static FFilter GreaterOrEqual(const FName& Key, int32 Value);
+    static FFilter GreaterOrEqual(const FName& Key, float Value);
+    static FFilter GreaterOrEqual(const FName& Key, const FString& Value);
+    static FFilter GreaterOrEqual(const FName& Key, bool bValue);
+    static FFilter Less(const FName& Key, int32 Value);
+    static FFilter Less(const FName& Key, float Value);
+    static FFilter Less(const FName& Key, const FString& Value);
+    static FFilter Less(const FName& Key, bool bValue);
+    static FFilter LessOrEqual(const FName& Key, int32 Value);
+    static FFilter LessOrEqual(const FName& Key, float Value);
+    static FFilter LessOrEqual(const FName& Key, const FString& Value);
+    static FFilter LessOrEqual(const FName& Key, bool bValue);
 
-    static UFilter* In(const FName& Key, const TArray<int32>& Values);
-    static UFilter* In(const FName& Key, const TArray<float>& Values);
-    static UFilter* In(const FName& Key, const TArray<FString>& Values);
-    static UFilter* NotIn(const FName& Key, const TArray<int32>& Values);
-    static UFilter* NotIn(const FName& Key, const TArray<float>& Values);
-    static UFilter* NotIn(const FName& Key, const TArray<FString>& Values);
+    static FFilter In(const FName& Key, const TArray<int32>& Values);
+    static FFilter In(const FName& Key, const TArray<float>& Values);
+    static FFilter In(const FName& Key, const TArray<FString>& Values);
+    static FFilter NotIn(const FName& Key, const TArray<int32>& Values);
+    static FFilter NotIn(const FName& Key, const TArray<float>& Values);
+    static FFilter NotIn(const FName& Key, const TArray<FString>& Values);
 
 private:
-    static UFilter* MakeLogical(EFilterOperator Operator, const TArray<UFilter*>& Filters);
     template <class T>
-    static UFilter* MakeComparison(EFilterOperator Operator, const FName& Key, T Value);
-    static UFilter* MakeComparison(EFilterOperator Operator, const FName& Key, const FString& Value);
-    static UFilter* MakeComparison(EFilterOperator Operator, const FName& Key, bool bValue);
+    static FFilter MakeComparison(EFilterOperator Operator, const FName& Key, T Value);
+    static FFilter MakeComparison(EFilterOperator Operator, const FName& Key, const FString& Value);
+    static FFilter MakeComparison(EFilterOperator Operator, const FName& Key, bool bValue);
     template <class T>
-    static UFilter* MakeArrayComparison(EFilterOperator Operator, const FName& Key, const TArray<T>& Values);
-    static UFilter* MakeArrayComparison(EFilterOperator Operator, const FName& Key, const TArray<FString>& Values);
+    static FFilter MakeArrayComparison(EFilterOperator Operator, const FName& Key, const TArray<T>& Values);
+    static FFilter MakeArrayComparison(EFilterOperator Operator, const FName& Key, const TArray<FString>& Values);
 
     EFilterOperator Operator;
     FName Key;
     TSharedPtr<FJsonValue> Value;
-    UPROPERTY(Transient)
-    TArray<UFilter*> ChildFilters;
+    TArray<FFilter> ChildFilters;
 };
