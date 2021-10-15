@@ -124,6 +124,7 @@ SpacesInCStyleCastParentheses: false
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
 Standard:        Auto
+# Prevent wrapping U-macros
 TypenameMacros:
   - UPROPERTY
   - UFUNCTION

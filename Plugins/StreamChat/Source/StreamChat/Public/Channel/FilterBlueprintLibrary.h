@@ -12,7 +12,7 @@ class STREAMCHAT_API UFilterBlueprintLibrary final : public UBlueprintFunctionLi
     GENERATED_BODY()
 
 public:
-    UFUNCTION(BlueprintPure)
+    UFUNCTION(BlueprintPure, Category = "Stream Chat Filter")
     static FString ToJsonString(const FFilter& Filter);
 
     /// Matches all the values specified in an array.
