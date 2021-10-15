@@ -8,7 +8,6 @@ class FJsonValue;
 
 namespace JsonObjectSerialization
 {
-
 /**
  * Converts from a UStruct to a Json Object, using exportText
  *
