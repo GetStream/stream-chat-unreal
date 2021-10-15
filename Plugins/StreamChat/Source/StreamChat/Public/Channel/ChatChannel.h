@@ -9,7 +9,7 @@
 #include "ChatChannel.generated.h"
 
 class FChatApi;
-class FChatSocket;
+class IChatSocket;
 struct FChannelStateResponseDto;
 struct FChannelStateResponseFieldsDto;
 struct FNewMessageEvent;
@@ -25,8 +25,8 @@ class STREAMCHAT_API UChatChannel final : public UObject
     GENERATED_BODY()
 
 public:
-    static UChatChannel* Create(const TSharedRef<FChatApi>&, FChatSocket&, const FString& Type, const FString& Id);
-    static UChatChannel* Create(const TSharedRef<FChatApi>&, FChatSocket&, const FChannelStateResponseFieldsDto&);
+    static UChatChannel* Create(const TSharedRef<FChatApi>&, IChatSocket&, const FString& Type, const FString& Id);
+    static UChatChannel* Create(const TSharedRef<FChatApi>&, IChatSocket&, const FChannelStateResponseFieldsDto&);
 
     void Watch(TFunction<void()> Callback = {});
 

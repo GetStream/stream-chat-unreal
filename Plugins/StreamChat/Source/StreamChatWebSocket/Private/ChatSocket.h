@@ -1,30 +1,26 @@
 ﻿#pragma once
 
+#include "ChatSocketEvents.h"
 #include "CoreMinimal.h"
-#include "Detail/ChatSocketDetail.h"
-#include "Detail/EventSubscription.h"
-
-DECLARE_LOG_CATEGORY_EXTERN(LogChatSocket, Verbose, All);
+#include "IChatSocket.h"
 
 struct FUserDto;
 struct FHealthCheckEvent;
 class IWebSocket;
 
-class STREAMCHATWEBSOCKET_API FChatSocket : public TSharedFromThis<FChatSocket>
+class FChatSocket final : public IChatSocket
 {
 public:
+    FChatSocket() = delete;
     explicit FChatSocket(const FString& ApiKey, const FString& Token, const FString& Host, const FUserDto& User);
-    ~FChatSocket();
+    virtual ~FChatSocket() override;
 
-    void Connect(TFunction<void()> Callback);
-    void Disconnect();
-    bool IsConnected() const;
-    const FString& GetConnectionId() const;
+    virtual void Connect(TFunction<void()> Callback) override;
+    virtual void Disconnect() override;
+    virtual bool IsConnected() const override;
+    virtual const FString& GetConnectionId() const override;
 
-    template <class TEvent>
-    FDelegateHandle SubscribeToEvent(TEventReceivedDelegate<TEvent> Callback);
-    template <class TEvent>
-    bool UnsubscribeFromEvent(FDelegateHandle);
+    virtual FChatSocketEvents& Events() override;
 
 private:
     enum class EConnectionState
@@ -57,8 +53,7 @@ private:
     void Reconnect();
 
     static FString BuildUrl(const FString& ApiKey, const FString& Token, const FString& Host, const FUserDto& User);
-
-    TMap<FName, FEventSubscriptionPtr> Subscriptions;
+    TUniquePtr<FChatSocketEvents> ChatSocketEvents;
 
     /// Provided by the server when the websocket connection is established
     FString ConnectionId;
@@ -73,15 +68,3 @@ private:
     TOptional<FDateTime> LastEventTime;
     uint32 ReconnectAttempt = 0;
 };
-
-template <class TEvent>
-FDelegateHandle FChatSocket::SubscribeToEvent(TEventReceivedDelegate<TEvent> Callback)
-{
-    return Detail::SubscribeToEvent<TEvent>(Subscriptions, Callback);
-}
-
-template <class TEvent>
-bool FChatSocket::UnsubscribeFromEvent(const FDelegateHandle DelegateHandle)
-{
-    return Detail::UnsubscribeFromEvent<TEvent>(Subscriptions, DelegateHandle);
-}

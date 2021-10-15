@@ -1,17 +1,14 @@
 ﻿#include "ChatSocket.h"
 
 #include "Containers/Ticker.h"
-#include "Dom/JsonObject.h"
 #include "Event/HealthCheckEvent.h"
 #include "IWebSocket.h"
+#include "LogChatSocket.h"
 #include "Request/ConnectRequest.h"
-#include "Response/ErrorResponseDto.h"
 #include "StreamChatWebSocketSettings.h"
 #include "StreamJson.h"
 #include "WebSocketCloseCodes.h"
 #include "WebSocketsModule.h"
-
-DEFINE_LOG_CATEGORY(LogChatSocket);
 
 namespace
 {
@@ -29,6 +26,7 @@ float GetReconnectDelay(const uint32 Attempt)
 }    // namespace
 
 FChatSocket::FChatSocket(const FString& ApiKey, const FString& Token, const FString& Host, const FUserDto& User)
+    : ChatSocketEvents(MakeUnique<FChatSocketEvents>())
 {
     const FString Url = BuildUrl(ApiKey, Token, Host, User);
     WebSocket = FWebSocketsModule::Get().CreateWebSocket(Url, TEXT("wss"));
@@ -92,6 +90,11 @@ const FString& FChatSocket::GetConnectionId() const
     return ConnectionId;
 }
 
+FChatSocketEvents& FChatSocket::Events()
+{
+    return *ChatSocketEvents;
+}
+
 void FChatSocket::InitWebSocket()
 {
     if (IsConnected())
@@ -124,7 +127,7 @@ void FChatSocket::BindEventHandlers()
     WebSocket->OnClosed().AddSP(this, &FChatSocket::HandleWebSocketConnectionClosed);
     WebSocket->OnMessage().AddSP(this, &FChatSocket::HandleWebSocketMessage);
 
-    HealthCheckEventDelegateHandle = SubscribeToEvent<FHealthCheckEvent>(
+    HealthCheckEventDelegateHandle = Events().Subscribe<FHealthCheckEvent>(
         TEventReceivedDelegate<FHealthCheckEvent>::CreateSP(this, &FChatSocket::OnHealthCheckEvent));
 }
 
@@ -135,7 +138,7 @@ void FChatSocket::UnbindEventHandlers()
     WebSocket->OnClosed().RemoveAll(this);
     WebSocket->OnMessage().RemoveAll(this);
 
-    UnsubscribeFromEvent<FHealthCheckEvent>(HealthCheckEventDelegateHandle);
+    Events().Unsubscribe<FHealthCheckEvent>(HealthCheckEventDelegateHandle);
 }
 
 void FChatSocket::HandleWebSocketConnected()
@@ -180,58 +183,7 @@ void FChatSocket::HandleWebSocketMessage(const FString& Message)
     LastEventTime = FDateTime::Now();
     UE_LOG(LogChatSocket, Verbose, TEXT("Websocket received message: %s"), *Message);
 
-    TSharedPtr<FJsonObject> JsonObject;
-    if (!JsonObjectDeserialization::JsonObjectStringToJsonObject(Message, JsonObject))
-    {
-        UE_LOG(LogChatSocket, Warning, TEXT("Unable to parse JSON [Json=%s]"), *Message);
-        return;
-    }
-
-    FString Type;
-    if (!JsonObject->TryGetStringField(TEXT("type"), Type))
-    {
-        if (const TSharedPtr<FJsonObject>* ErrorJsonObject;
-            JsonObject->TryGetObjectField(TEXT("error"), ErrorJsonObject))
-        {
-            FErrorResponseDto ErrorResponse;
-            if (JsonObjectDeserialization::JsonObjectToUStruct(ErrorJsonObject->ToSharedRef(), &ErrorResponse))
-            {
-                UE_LOG(
-                    LogChatSocket,
-                    Error,
-                    TEXT("WebSocket responded with error [Code=%d, Message=%s]"),
-                    ErrorResponse.Code,
-                    *ErrorResponse.Message);
-            }
-            else
-            {
-                UE_LOG(
-                    LogChatSocket, Error, TEXT("Unable to deserialize WebSocket error event [Message=%s]"), *Message);
-            }
-        }
-        else
-        {
-            UE_LOG(
-                LogChatSocket, Error, TEXT("Trying to deserialize a WebSocket event with no type [JSON=%s]"), *Message);
-        }
-        return;
-    }
-
-    const FEventSubscriptionPtr* Subscription = Subscriptions.Find(FName(Type));
-    if (!Subscription)
-    {
-        UE_LOG(LogChatSocket, Warning, TEXT("No subscriptions to WebSocket event. Discarding. [type=%s]"), *Type);
-        return;
-    }
-
-    if (!Subscription->Get()->OnMessage(JsonObject.ToSharedRef()))
-    {
-        UE_LOG(
-            LogChatSocket,
-            Warning,
-            TEXT("Unable to deserialize WebSocket event [type=%s]"),
-            *JsonObject->GetStringField(TEXT("type")));
-    }
+    Events().ProcessEvent(Message);
 }
 
 void FChatSocket::OnHealthCheckEvent(const FHealthCheckEvent& HealthCheckEvent)
@@ -342,9 +294,10 @@ void FChatSocket::Reconnect()
         LogChatSocket, Log, TEXT("Enqueuing a reconnecting attempt [Attempt=%d, Delay=%g]"), ReconnectAttempt, Delay);
     FTicker::GetCoreTicker().AddTicker(
         FTickerDelegate::CreateLambda(
-            [WeakThis = TWeakPtr<FChatSocket>(AsShared())](float)
+            // Use a weak pointer to this FChatSocket in case it is destroyed by the time the ticker fires
+            [WeakThis = TWeakPtr<IChatSocket>(AsShared())](float)
             {
-                if (const TSharedPtr<FChatSocket> Pinned = WeakThis.Pin())
+                if (const TSharedPtr<FChatSocket> Pinned = StaticCastSharedPtr<FChatSocket>(WeakThis.Pin()))
                 {
                     UE_LOG(LogChatSocket, Log, TEXT("Retrying connection [Attempt=%d]"), Pinned->ReconnectAttempt);
                     Pinned->InitWebSocket();

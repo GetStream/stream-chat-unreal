@@ -3,22 +3,24 @@
 #include "Channel/ChatChannel.h"
 
 #include "ChatApi.h"
-#include "ChatSocket.h"
+#include "ChatSocketEvents.h"
+#include "Detail/EventSubscription.h"
 #include "Event/NewMessageEvent.h"
+#include "IChatSocket.h"
 #include "Request/MessageRequestDto.h"
 #include "Response/ChannelStateResponseDto.h"
 #include "Response/MessageResponseDto.h"
 #include "Util.h"
 
 UChatChannel*
-UChatChannel::Create(const TSharedRef<FChatApi>& InApi, FChatSocket& Socket, const FString& Type, const FString& Id)
+UChatChannel::Create(const TSharedRef<FChatApi>& InApi, IChatSocket& Socket, const FString& Type, const FString& Id)
 {
     UChatChannel* Channel = NewObject<UChatChannel>();
     Channel->Api = InApi;
     Channel->ConnectionId = Socket.GetConnectionId();
     Channel->Type = Type;
     Channel->Id = Id;
-    Socket.SubscribeToEvent<FNewMessageEvent>(
+    Socket.Events().Subscribe<FNewMessageEvent>(
         TEventReceivedDelegate<FNewMessageEvent>::CreateUObject(Channel, &UChatChannel::OnNewMessage));
 
     check(!Channel->ConnectionId.IsEmpty());
@@ -28,7 +30,7 @@ UChatChannel::Create(const TSharedRef<FChatApi>& InApi, FChatSocket& Socket, con
 
 UChatChannel* UChatChannel::Create(
     const TSharedRef<FChatApi>& InApi,
-    FChatSocket& Socket,
+    IChatSocket& Socket,
     const FChannelStateResponseFieldsDto& Fields)
 {
     UChatChannel* Channel = Create(InApi, Socket, Fields.Channel.Type, Fields.Channel.Id);

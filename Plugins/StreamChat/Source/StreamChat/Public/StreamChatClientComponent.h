@@ -11,7 +11,7 @@
 #include "StreamChatClientComponent.generated.h"
 
 class FChatApi;
-class FChatSocket;
+class IChatSocket;
 class FTokenManager;
 class UChatChannel;
 
@@ -48,7 +48,7 @@ private:
 
     TSharedPtr<FTokenManager> TokenManager;
     TSharedPtr<FChatApi> Api;
-    TSharedPtr<FChatSocket> Socket;
+    TSharedPtr<IChatSocket> Socket;
 
     TOptional<FUser> CurrentUser;
 
