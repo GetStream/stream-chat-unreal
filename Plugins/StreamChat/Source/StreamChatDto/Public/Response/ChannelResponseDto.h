@@ -108,4 +108,12 @@ struct FChannelResponseDto
     /// The date of the last channel update
     UPROPERTY()
     FDateTime UpdatedAt;
+
+    // Not in spec but common additional field
+    UPROPERTY()
+    FString Name;
+
+    // URL of channel image. Not in spec but common additional field
+    UPROPERTY()
+    FString Image;
 };

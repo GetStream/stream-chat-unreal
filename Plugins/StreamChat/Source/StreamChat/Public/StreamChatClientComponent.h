@@ -36,6 +36,9 @@ public:
     UFUNCTION(BlueprintPure, Category = "Stream Chat Client")
     FUser GetCurrentUser() const;
 
+    UFUNCTION(BlueprintPure, Category = "Stream Chat Client")
+    const TArray<UChatChannel*>& GetChannels() const;
+
     UPROPERTY(EditAnywhere, Config, Category = "Stream Chat Client", meta = (DisplayName = "API Key"))
     FString ApiKey;
 
@@ -50,5 +53,5 @@ private:
     TOptional<FUser> CurrentUser;
 
     UPROPERTY(Transient)
-    TMap<FString, UChatChannel*> Channels;
+    TArray<UChatChannel*> Channels;
 };

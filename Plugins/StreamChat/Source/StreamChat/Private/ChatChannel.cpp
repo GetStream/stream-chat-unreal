@@ -93,6 +93,8 @@ const TArray<FMessage>& UChatChannel::GetMessages() const
 
 void UChatChannel::InitializeState(const FChannelStateResponseFieldsDto& State)
 {
+    Name = State.Channel.Name;
+    ImageUrl = State.Channel.Image;
     Messages = Util::Convert<FMessage>(State.Messages);
     MessagesUpdated.Broadcast(Messages);
 }

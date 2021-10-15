@@ -51,6 +51,14 @@ private:
     UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess), Category = "Stream Chat Channel")
     FString Id;
 
+    // Not in spec so might not be set
+    UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess), Category = "Stream Chat Channel")
+    FString Name;
+
+    // Not in spec so might not be set
+    UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess), Category = "Stream Chat Channel")
+    FString ImageUrl;
+
     TArray<FMessage> Messages;
 
     FString ConnectionId;

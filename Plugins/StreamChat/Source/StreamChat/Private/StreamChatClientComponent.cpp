@@ -66,6 +66,7 @@ void UStreamChatClientComponent::QueryChannels(
                 NewChannels,
                 [this](const FChannelStateResponseFieldsDto& ResponseChannel)
                 { return UChatChannel::Create(Api.ToSharedRef(), *Socket, ResponseChannel); });
+            Channels = NewChannels;
             Callback(NewChannels);
         },
         Socket->GetConnectionId(),
@@ -80,8 +81,7 @@ UChatChannel* UStreamChatClientComponent::Channel(const FString& Type, const FSt
 
     UChatChannel* Channel = UChatChannel::Create(Api.ToSharedRef(), *Socket, Type, Id);
 
-    // TODO This is obviously wrong
-    Channels.Add(Type + TEXT(":") + Id, Channel);
+    Channels.Add(Channel);
     return Channel;
 }
 
@@ -89,4 +89,9 @@ FUser UStreamChatClientComponent::GetCurrentUser() const
 {
     // TODO Better optional support
     return CurrentUser.Get(FUser{TEXT("ERROR")});
+}
+
+const TArray<UChatChannel*>& UStreamChatClientComponent::GetChannels() const
+{
+    return Channels;
 }
