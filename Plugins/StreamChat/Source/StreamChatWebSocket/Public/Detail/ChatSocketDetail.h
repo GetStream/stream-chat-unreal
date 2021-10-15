@@ -23,6 +23,27 @@ FDelegateHandle SubscribeToEvent(
     return Detail::GetSubscription<TEvent>(Subscriptions).Delegate.Add(MoveTemp(Callback));
 }
 
+template <class TEvent, class UserClass>
+FDelegateHandle SubscribeToUObjectEvent(
+    TMap<FName, FEventSubscriptionPtr>& Subscriptions,
+    UserClass* InObj,
+    TEventReceivedDelegateUObjectMethodPtr<TEvent, UserClass> InMethod)
+{
+    const TEventReceivedDelegate<TEvent> Delegate = TEventReceivedDelegate<TEvent>::CreateUObject(InObj, InMethod);
+    return Detail::SubscribeToEvent<TEvent>(Subscriptions, Delegate);
+}
+
+template <class TEvent, class UserClass>
+FDelegateHandle SubscribeToSpEvent(
+    TMap<FName, FEventSubscriptionPtr>& Subscriptions,
+    UserClass* InObj,
+    TEventReceivedDelegateSpMethodPtr<TEvent, UserClass> InMethod)
+{
+    const TEventReceivedDelegate<TEvent> Delegate = TEventReceivedDelegate<TEvent>::CreateSP(InObj, InMethod);
+    return Detail::SubscribeToEvent<TEvent>(Subscriptions, Delegate);
+}
+
+
 template <class TEvent>
 bool UnsubscribeFromEvent(TMap<FName, FEventSubscriptionPtr>& Subscriptions, FDelegateHandle DelegateHandle)
 {

@@ -127,8 +127,7 @@ void FChatSocket::BindEventHandlers()
     WebSocket->OnClosed().AddSP(this, &FChatSocket::HandleWebSocketConnectionClosed);
     WebSocket->OnMessage().AddSP(this, &FChatSocket::HandleWebSocketMessage);
 
-    HealthCheckEventDelegateHandle = Events().Subscribe<FHealthCheckEvent>(
-        TEventReceivedDelegate<FHealthCheckEvent>::CreateSP(this, &FChatSocket::OnHealthCheckEvent));
+    HealthCheckEventDelegateHandle = Events().SubscribeSp<FHealthCheckEvent>(this, &FChatSocket::OnHealthCheckEvent);
 }
 
 void FChatSocket::UnbindEventHandlers()

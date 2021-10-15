@@ -8,6 +8,12 @@ template <class TEvent>
 using TEventReceivedMulticastDelegate = TMulticastDelegate<void(const TEvent& Event)>;
 template <class TEvent>
 using TEventReceivedDelegate = typename TEventReceivedMulticastDelegate<TEvent>::FDelegate;
+template <class TEvent, class UserClass>
+using TEventReceivedDelegateUObjectMethodPtr =
+    typename TEventReceivedDelegate<TEvent>::template TUObjectMethodDelegate<UserClass>::FMethodPtr;
+template <class TEvent, class UserClass>
+using TEventReceivedDelegateSpMethodPtr =
+    typename TEventReceivedDelegate<TEvent>::template TSPMethodDelegate<UserClass>::FMethodPtr;
 
 class IEventSubscription
 {

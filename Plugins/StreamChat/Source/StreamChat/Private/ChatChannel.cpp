@@ -4,7 +4,6 @@
 
 #include "ChatApi.h"
 #include "ChatSocketEvents.h"
-#include "Detail/EventSubscription.h"
 #include "Event/NewMessageEvent.h"
 #include "IChatSocket.h"
 #include "Request/MessageRequestDto.h"
@@ -20,8 +19,7 @@ UChatChannel::Create(const TSharedRef<FChatApi>& InApi, IChatSocket& Socket, con
     Channel->ConnectionId = Socket.GetConnectionId();
     Channel->Type = Type;
     Channel->Id = Id;
-    Socket.Events().Subscribe<FNewMessageEvent>(
-        TEventReceivedDelegate<FNewMessageEvent>::CreateUObject(Channel, &UChatChannel::OnNewMessage));
+    Socket.Events().SubscribeUObject<FNewMessageEvent>(Channel, &UChatChannel::OnNewMessage);
 
     check(!Channel->ConnectionId.IsEmpty());
 
