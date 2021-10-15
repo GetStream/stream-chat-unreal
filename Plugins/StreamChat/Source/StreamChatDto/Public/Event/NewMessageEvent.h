@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Response/MessageDto.h"
 #include "ChatEvent.h"
 #include "CoreMinimal.h"
+#include "Response/MessageDto.h"
 
 #include "NewMessageEvent.generated.h"
 

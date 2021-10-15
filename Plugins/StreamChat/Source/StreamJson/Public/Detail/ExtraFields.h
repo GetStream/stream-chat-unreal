@@ -41,4 +41,4 @@ void InvokeSerializeExtra(const T& Self, FJsonObject& JsonObject)
 {
     InvokeSerializeExtraImpl(Self, JsonObject, static_cast<T*>(nullptr));
 }
-}    // namespace Extra
+}    // namespace ExtraFields

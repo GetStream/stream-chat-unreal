@@ -124,6 +124,11 @@ SpacesInCStyleCastParentheses: false
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
 Standard:        Auto
+TypenameMacros:
+  - UPROPERTY
+  - UFUNCTION
+  - UCLASS
+  - USTRUCT
 TabWidth:        4
 UseTab:          Never
 ...
