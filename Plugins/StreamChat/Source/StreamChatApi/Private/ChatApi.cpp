@@ -4,6 +4,7 @@
 #include "Request/ChannelGetOrCreateRequestDto.h"
 #include "Request/QueryChannelsRequestDto.h"
 #include "Request/SendMessageRequestDto.h"
+#include "Request/UpdateMessageRequestDto.h"
 #include "Response/ChannelStateResponseDto.h"
 #include "Response/ChannelsResponseDto.h"
 #include "Response/ErrorResponseDto.h"
@@ -58,7 +59,8 @@ void FChatApi::UpdateMessage(const FMessageRequestDto& MessageRequest, const TCa
 {
     const FString Path = FString::Printf(TEXT("messages/%s"), *MessageRequest.Id);
     const FString Url = BuildUrl(Path);
-    Client->Post(Url).Json(MessageRequest).Send(Callback);
+    const FUpdateMessageRequestDto Body{MessageRequest};
+    Client->Post(Url).Json(Body).Send(Callback);
 }
 
 void FChatApi::QueryChannels(

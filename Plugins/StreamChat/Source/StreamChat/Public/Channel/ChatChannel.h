@@ -12,7 +12,8 @@ class FChatApi;
 class IChatSocket;
 struct FChannelStateResponseDto;
 struct FChannelStateResponseFieldsDto;
-struct FNewMessageEvent;
+struct FMessageNewEvent;
+struct FMessageUpdatedEvent;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessagesUpdatedDelegate, const TArray<FMessage>&, Messages);
 
@@ -46,7 +47,8 @@ private:
     void InitializeState(const FChannelStateResponseFieldsDto&);
     void AddMessage(const FMessage&);
 
-    void OnNewMessage(const FNewMessageEvent&);
+    void OnMessageNew(const FMessageNewEvent&);
+    void OnMessageUpdated(const FMessageUpdatedEvent&);
 
     UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess), Category = "Stream Chat Channel")
     FString Type;

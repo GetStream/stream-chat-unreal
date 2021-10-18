@@ -4,17 +4,17 @@
 #include "CoreMinimal.h"
 #include "Response/MessageDto.h"
 
-#include "NewMessageEvent.generated.h"
+#include "MessageUpdatedEvent.generated.h"
 
 /**
- * Represents an event that happened in Stream Chat
+ * #/components/schemas/MessageUpdatedEvent
  */
 USTRUCT()
-struct FNewMessageEvent : public FChatEvent
+struct FMessageUpdatedEvent : public FChatEvent
 {
     GENERATED_BODY()
 
-    inline static FName StaticType = TEXT("message.new");
+    inline static FName StaticType = TEXT("message.updated");
 
     UPROPERTY()
     FMessageDto Message;
