@@ -43,7 +43,6 @@ FDelegateHandle SubscribeToSpEvent(
     return Detail::SubscribeToEvent<TEvent>(Subscriptions, Delegate);
 }
 
-
 template <class TEvent>
 bool UnsubscribeFromEvent(TMap<FName, FEventSubscriptionPtr>& Subscriptions, FDelegateHandle DelegateHandle)
 {
