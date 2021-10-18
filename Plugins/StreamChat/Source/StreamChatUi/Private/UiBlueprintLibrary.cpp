@@ -1,6 +1,10 @@
 ﻿#include "UiBlueprintLibrary.h"
 
 #include "Components/Widget.h"
+#include "Framework/Application/IMenu.h"
+#include "Framework/Application/MenuStack.h"
+#include "Framework/Application/SlateApplication.h"
+#include "Layout/WidgetPath.h"
 
 void UUiBlueprintLibrary::AddContextMenu(UWidget* Widget, const FPointerEvent& InMouseEvent)
 {

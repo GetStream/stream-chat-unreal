@@ -9,7 +9,6 @@ public class StreamChatUi : ModuleRules
 
         PrivateDependencyModuleNames.AddRange(new[] {
             "Slate",
-            "SlateCore",
             "InputCore"
         });
 
@@ -18,6 +17,7 @@ public class StreamChatUi : ModuleRules
             "CoreUObject",
             "Engine",
             "UMG",
+            "SlateCore",
         });
     }
 }
