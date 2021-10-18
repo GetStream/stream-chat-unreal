@@ -33,6 +33,8 @@ public:
 
     UChatChannel* Channel(const FString& Type, const FString& Id = {});
 
+    void UpdateMessage(const FString& Id, const FString& Text) const;
+
     UFUNCTION(BlueprintPure, Category = "Stream Chat Client")
     FUser GetCurrentUser() const;
 

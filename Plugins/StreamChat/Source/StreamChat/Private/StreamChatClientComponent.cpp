@@ -85,6 +85,14 @@ UChatChannel* UStreamChatClientComponent::Channel(const FString& Type, const FSt
     return Channel;
 }
 
+void UStreamChatClientComponent::UpdateMessage(const FString& Id, const FString& Text) const
+{
+    // TODO Can we return something from ConnectUser() that is required for this function to prevent ordering ambiguity?
+    check(Socket->IsConnected());
+
+    Api->UpdateMessage(FMessageRequestDto{Id, Text});
+}
+
 FUser UStreamChatClientComponent::GetCurrentUser() const
 {
     // TODO Better optional support

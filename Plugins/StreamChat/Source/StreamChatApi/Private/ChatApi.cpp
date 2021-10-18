@@ -53,6 +53,14 @@ void FChatApi::SendNewMessage(
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
+void FChatApi::UpdateMessage(const FMessageRequestDto& MessageRequest, const TCallback<FMessageResponseDto> Callback)
+    const
+{
+    const FString Path = FString::Printf(TEXT("messages/%s"), *MessageRequest.Id);
+    const FString Url = BuildUrl(Path);
+    Client->Post(Url).Json(MessageRequest).Send(Callback);
+}
+
 void FChatApi::QueryChannels(
     const TCallback<FChannelsResponseDto> Callback,
     const FString& ConnectionId,
@@ -61,7 +69,7 @@ void FChatApi::QueryChannels(
     const TOptional<uint32> MemberLimit,
     const TOptional<uint32> MessageLimit,
     const EChannelFlags Flags,
-    const FPaginationOptions PaginationOptions)
+    const FPaginationOptions PaginationOptions) const
 {
     const FString Url = BuildUrl(TEXT("channels"));
     // TODO FJsonObjectWrapper for filter?

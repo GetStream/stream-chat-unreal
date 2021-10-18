@@ -31,7 +31,10 @@ public:
     void Watch(TFunction<void()> Callback = {});
 
     UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel")
-    void SendMessage(const FString& Message, const FUser& FromUser);
+    void SendMessage(const FString& Text, const FUser& FromUser);
+
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel")
+    void UpdateMessage(const FMessage& Message);
 
     UFUNCTION(BlueprintPure, Category = "Stream Chat Channel")
     const TArray<FMessage>& GetMessages() const;

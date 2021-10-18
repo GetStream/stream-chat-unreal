@@ -53,6 +53,10 @@ public:
         bool bSkipPush = false,
         TCallback<FMessageResponseDto> Callback = {}) const;
 
+    void UpdateMessage(
+        const FMessageRequestDto& MessageRequest,
+        TCallback<FMessageResponseDto> Callback = {}) const;
+
     /**
      * Query channels with filter query
      * @param ConnectionId
@@ -72,7 +76,7 @@ public:
         TOptional<uint32> MemberLimit = {},
         TOptional<uint32> MessageLimit = {},
         EChannelFlags Flags = EChannelFlags::State | EChannelFlags::Watch,
-        FPaginationOptions PaginationOptions = {});
+        FPaginationOptions PaginationOptions = {}) const;
 
 private:
     FString BuildUrl(const FString& Path) const;

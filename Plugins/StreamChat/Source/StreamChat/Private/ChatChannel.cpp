@@ -62,13 +62,13 @@ void UChatChannel::Watch(const TFunction<void()> Callback)
         EChannelFlags::State | EChannelFlags::Watch);
 }
 
-void UChatChannel::SendMessage(const FString& Message, const FUser& FromUser)
+void UChatChannel::SendMessage(const FString& Text, const FUser& FromUser)
 {
     // TODO Wait for attachments to upload
 
     const FMessageRequestDto Request{
         FGuid::NewGuid().ToString(EGuidFormats::DigitsWithHyphens),
-        Message,
+        Text,
     };
     AddMessage(FMessage{Request, FromUser});
     Api->SendNewMessage(
@@ -78,12 +78,28 @@ void UChatChannel::SendMessage(const FString& Message, const FUser& FromUser)
         false,
         [this](const FMessageResponseDto& Response)
         {
-            AddMessage(FMessage{Response.Message});
+            AddMessage(Util::Convert<FMessage>(Response.Message));
             UE_LOG(LogTemp, Log, TEXT("Sent message [Id=%s]"), *Response.Message.Id);
         });
 
     // TODO Cooldown?
     // TODO Retry logic
+}
+
+void UChatChannel::UpdateMessage(const FMessage& Message)
+{
+    // TODO Attachments
+
+    FMessage UpdatedMessage = Message;
+    UpdatedMessage.State = EMessageSendState::Updating;
+    AddMessage(UpdatedMessage);
+    Api->UpdateMessage(
+        Util::Convert<FMessageRequestDto>(UpdatedMessage),
+        [this](const FMessageResponseDto& Response)
+        {
+            AddMessage(Util::Convert<FMessage>(Response.Message));
+            UE_LOG(LogTemp, Log, TEXT("Updated message [Id=%s]"), *Response.Message.Id);
+        });
 }
 
 const TArray<FMessage>& UChatChannel::GetMessages() const
@@ -119,5 +135,5 @@ void UChatChannel::AddMessage(const FMessage& Message)
 
 void UChatChannel::OnNewMessage(const FNewMessageEvent& NewMessageEvent)
 {
-    AddMessage(FMessage{NewMessageEvent.Message});
+    AddMessage(Util::Convert<FMessage>(NewMessageEvent.Message));
 }

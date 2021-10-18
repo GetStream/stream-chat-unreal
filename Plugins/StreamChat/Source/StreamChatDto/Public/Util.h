@@ -7,6 +7,13 @@
  */
 namespace Util
 {
+/// Map from one type to an another using direct initialization
+template <typename OutT, typename InT>
+FORCEINLINE OutT Convert(const InT& Input)
+{
+    return static_cast<OutT>(Input);
+}
+
 /// Map from an optional of one type to an optional of another using direct initialization
 template <typename OutT, typename InT>
 FORCEINLINE TOptional<OutT> Convert(const TOptional<InT>& Input)

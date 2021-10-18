@@ -14,8 +14,9 @@ UENUM(BlueprintType)
 enum class EMessageSendState : uint8
 {
     Sending,
-    Sent
-    // TODO updating, deleting, failure?
+    Sent,
+    Updating
+    // TODO deleting, failure?
 };
 
 /**
@@ -27,8 +28,12 @@ struct FMessage
     GENERATED_BODY()
 
     FMessage() = default;
-    explicit FMessage(const FMessageRequestDto&, const FUser& SendingUser);
+    // From server responses
     explicit FMessage(const FMessageDto&);
+    // Updating
+    explicit operator FMessageRequestDto() const;
+    // Sending
+    explicit FMessage(const FMessageRequestDto&, const FUser& SendingUser);
 
     /// The message ID. This is either created by Stream or set client side when
     /// the message is added.
@@ -44,6 +49,11 @@ struct FMessage
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
     EMessageSendState State;
 
+    /// User who sent the message
+    // TODO Optional
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
+    FUser User;
+
     /// The message type
     UPROPERTY()
     FString Type;
@@ -51,11 +61,6 @@ struct FMessage
     /// The list of user mentioned in the message
     UPROPERTY()
     TArray<FUser> MentionedUsers;
-
-    /// User who sent the message
-    // TODO Optional
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
-    FUser User;
 
     /// Reserved field indicating when the message was updated last time.
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
