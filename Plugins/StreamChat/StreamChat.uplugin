@@ -49,6 +49,11 @@
 			"Name": "StreamChatWebSocket",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "StreamChatUi",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
 		}
 	]
 }
