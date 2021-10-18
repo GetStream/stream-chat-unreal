@@ -63,6 +63,13 @@ void FChatApi::UpdateMessage(const FMessageRequestDto& MessageRequest, const TCa
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
+void FChatApi::DeleteMessage(const FString& Id, bool bHard, const TCallback<FMessageResponseDto> Callback) const
+{
+    const FString Path = FString::Printf(TEXT("messages/%s"), *Id);
+    const FString Url = BuildUrl(Path);
+    Client->Delete(Url).Query({{TEXT("hard"), bHard}}).Send(Callback);
+}
+
 void FChatApi::QueryChannels(
     const TCallback<FChannelsResponseDto> Callback,
     const FString& ConnectionId,

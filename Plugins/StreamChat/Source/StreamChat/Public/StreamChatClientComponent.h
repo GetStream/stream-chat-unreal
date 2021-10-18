@@ -33,7 +33,9 @@ public:
 
     UChatChannel* Channel(const FString& Type, const FString& Id = {});
 
+    // TODO does this need to be exposed?
     void UpdateMessage(const FString& Id, const FString& Text) const;
+    void DeleteMessage(const FString& Id) const;
 
     UFUNCTION(BlueprintPure, Category = "Stream Chat Client")
     FUser GetCurrentUser() const;

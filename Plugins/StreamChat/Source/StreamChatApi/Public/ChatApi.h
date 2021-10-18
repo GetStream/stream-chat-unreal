@@ -54,6 +54,7 @@ public:
         TCallback<FMessageResponseDto> Callback = {}) const;
 
     void UpdateMessage(const FMessageRequestDto& MessageRequest, TCallback<FMessageResponseDto> Callback = {}) const;
+    void DeleteMessage(const FString& Id, bool bHard = false, TCallback<FMessageResponseDto> Callback = {}) const;
 
     /**
      * Query channels with filter query

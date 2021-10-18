@@ -37,6 +37,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel")
     void UpdateMessage(const FMessage& Message);
 
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel")
+    void DeleteMessage(const FMessage& Message);
+
     UFUNCTION(BlueprintPure, Category = "Stream Chat Channel")
     const TArray<FMessage>& GetMessages() const;
 

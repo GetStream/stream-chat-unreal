@@ -8,9 +8,10 @@ FMessage::FMessage(const FMessageDto& Dto)
     , Text{Dto.Text}
     , State{EMessageSendState::Sent}    // Assume response dto => sent
     , User{Dto.User}
-    , Type{Dto.Type}
+    , Type{static_cast<EMessageType>(Dto.Type)}
     , MentionedUsers{Dto.MentionedUsers}
     , UpdatedAt{Dto.UpdatedAt}
+    , DeletedAt{Dto.DeletedAt}
 {
 }
 
@@ -19,6 +20,7 @@ FMessage::FMessage(const FMessageRequestDto& Dto, const FUser& SendingUser)
     , Text{Dto.Text}
     , State{EMessageSendState::Sending}    // Assume request dto => sending
     , User{SendingUser}
+    , Type(EMessageType::Regular)
 {
 }
 

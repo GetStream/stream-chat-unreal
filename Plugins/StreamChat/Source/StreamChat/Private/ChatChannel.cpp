@@ -95,6 +95,7 @@ void UChatChannel::UpdateMessage(const FMessage& Message)
     FMessage UpdatedMessage = Message;
     UpdatedMessage.State = EMessageSendState::Updating;
     AddMessage(UpdatedMessage);
+
     Api->UpdateMessage(
         Util::Convert<FMessageRequestDto>(UpdatedMessage),
         [this](const FMessageResponseDto& Response)
@@ -102,6 +103,42 @@ void UChatChannel::UpdateMessage(const FMessage& Message)
             AddMessage(Util::Convert<FMessage>(Response.Message));
             UE_LOG(LogTemp, Log, TEXT("Updated message [Id=%s]"), *Response.Message.Id);
         });
+    // TODO retry?
+}
+
+void UChatChannel::DeleteMessage(const FMessage& Message)
+{
+    // TODO Attachments
+
+    // Directly deleting the local messages which are not yet sent to server
+    if (Message.State == EMessageSendState::Sending || Message.State == EMessageSendState::Failed)
+    {
+        FMessage DeletedMessage = Message;
+        DeletedMessage.Type = EMessageType::Deleted;
+        DeletedMessage.State = EMessageSendState::Sent;
+        AddMessage(DeletedMessage);
+        return;
+    }
+
+    FMessage DeletedMessage = Message;
+    DeletedMessage.Type = EMessageType::Deleted;
+    DeletedMessage.State = EMessageSendState::Deleting;
+    if (!DeletedMessage.DeletedAt)
+    {
+        DeletedMessage.DeletedAt.Emplace(FDateTime::Now());
+    }
+    AddMessage(DeletedMessage);
+
+    Api->DeleteMessage(
+        DeletedMessage.Id,
+        false,
+        [this](const FMessageResponseDto& Response)
+        {
+            AddMessage(Util::Convert<FMessage>(Response.Message));
+            UE_LOG(LogTemp, Log, TEXT("Deleted message [Id=%s]"), *Response.Message.Id);
+        });
+
+    // TODO retry?
 }
 
 const TArray<FMessage>& UChatChannel::GetMessages() const

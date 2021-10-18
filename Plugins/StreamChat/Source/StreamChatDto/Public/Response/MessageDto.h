@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MessageTypeDto.h"
 #include "UserDto.h"
 
 #include "MessageDto.generated.h"
@@ -17,46 +18,58 @@ struct FMessageDto
 {
     GENERATED_BODY()
 
-    /// The message ID. This is either created by Stream or set client side when
-    /// the message is added.
-    UPROPERTY()
-    FString Id;
-
-    /// The text of this message
-    // TODO Optional
-    UPROPERTY()
-    FString Text;
-
-    /// The message type
-    UPROPERTY()
-    // TODO enum https://getstream.io/chat/docs/other-rest/message_format/#message-types
-    FString Type = TEXT("regular");
-
     /// The list of attachments, either provided by the user or generated from a
     /// command or as a result of URL scraping.
     // TODO Uncomment
     // UPROPERTY()
     // TArray<FAttachment> Attachments;
 
-    /// The list of user mentioned in the message
+    /// Channel unique identifier
     UPROPERTY()
-    TArray<FUserDto> MentionedUsers;
+    FString Cid;
 
-    /// A map describing the count of number of every reaction
+    /// Contains provided slash command
     // TODO Optional
     UPROPERTY()
-    TMap<FString, int32> ReactionCounts;
+    FString Command;
 
-    /// A map describing the count of score of every reaction
-    // TODO Optional
+    /// Date/time of creation
     UPROPERTY()
-    TMap<FString, int32> ReactionScores;
+    FDateTime CreatedAt;
+
+    /// Date/time of deletion
+    UPROPERTY()
+    FDateTime DeletedAt;
+
+    /// Contains HTML markup of the message
+    UPROPERTY()
+    FString Html;
+
+    // TODO is this an object?
+    UPROPERTY()
+    FString I18n;
+
+    /// The message ID. This is either created by Stream or set client side when
+    /// the message is added.
+    UPROPERTY()
+    FString Id;
+
+    // TODO ImageLabels
 
     /// The latest reactions to the message created by any user.
     // TODO Uncomment
     // TODO Optional
     // UPROPERTY()
     // TArray<FReaction> LatestReactions;
+
+    /// The list of user mentioned in the message
+    UPROPERTY()
+    TArray<FUserDto> MentionedUsers;
+
+    /// Messaging Markup Language
+    /// Should be empty if `text` is provided
+    UPROPERTY()
+    FString Mml;
 
     /// The reactions added to the message by the current user.
     // TODO Uncomment
@@ -69,6 +82,27 @@ struct FMessageDto
     UPROPERTY()
     FString ParentId;
 
+    /// Reserved field indicating when the message will expire
+    ///
+    /// if `null` message has no expiry
+    // TODO Optional
+    UPROPERTY()
+    FDateTime PinExpires;
+
+    /// If true the message is pinned
+    UPROPERTY()
+    bool bPinned;
+
+    /// Reserved field indicating when the message was pinned
+    // TODO Optional
+    UPROPERTY()
+    FDateTime PinnedAt;
+
+    /// Reserved field indicating who pinned the message
+    // TODO Optional
+    UPROPERTY()
+    FUserDto PinnedBy;
+
     /// A quoted reply message
     // TODO Optional
     // TODO recursive?
@@ -80,15 +114,24 @@ struct FMessageDto
     UPROPERTY()
     FString QuotedMessageId;
 
+    /// A map describing the count of number of every reaction
+    // TODO Optional
+    UPROPERTY()
+    TMap<FString, int32> ReactionCounts;
+
+    /// A map describing the count of score of every reaction
+    // TODO Optional
+    UPROPERTY()
+    TMap<FString, int32> ReactionScores;
+
     /// Reserved field indicating the number of replies for this message.
     // TODO Optional
     UPROPERTY()
     int ReplyCount;
 
-    /// Reserved field indicating the thread participants for this message.
-    // TODO Optional
+    /// If true the message is shadowed
     UPROPERTY()
-    TArray<FUserDto> ThreadParticipants;
+    bool bShadowed;
 
     /// Whether thread reply should be shown in the channel as well
     // TODO Optional
@@ -99,18 +142,18 @@ struct FMessageDto
     UPROPERTY()
     bool bSilent;
 
-    /// If true the message is shadowed
+    /// The text of this message
     UPROPERTY()
-    bool bShadowed;
+    FString Text;
 
-    /// A used command name.
+    /// Reserved field indicating the thread participants for this message.
     // TODO Optional
     UPROPERTY()
-    FString Command;
+    TArray<FUserDto> ThreadParticipants;
 
-    /// Reserved field indicating when the message was created.
+    /// The message type
     UPROPERTY()
-    FDateTime CreatedAt;
+    EMessageTypeDto Type = EMessageTypeDto::Regular;
 
     /// Reserved field indicating when the message was updated last time.
     UPROPERTY()
@@ -120,27 +163,6 @@ struct FMessageDto
     // TODO Optional
     UPROPERTY()
     FUserDto User;
-
-    /// If true the message is pinned
-    UPROPERTY()
-    bool bPinned;
-
-    /// Reserved field indicating when the message was pinned
-    // TODO Optional
-    UPROPERTY()
-    FDateTime PinnedAt;
-
-    /// Reserved field indicating when the message will expire
-    ///
-    /// if `null` message has no expiry
-    // TODO Optional
-    UPROPERTY()
-    FDateTime PinExpires;
-
-    /// Reserved field indicating who pinned the message
-    // TODO Optional
-    UPROPERTY()
-    FUserDto PinnedBy;
 
     // TODO extraData
 };

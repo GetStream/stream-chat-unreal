@@ -15,8 +15,20 @@ enum class EMessageSendState : uint8
 {
     Sending,
     Sent,
-    Updating
-    // TODO deleting, failure?
+    Updating,
+    Deleting,
+    Failed
+};
+
+UENUM(BlueprintType)
+enum class EMessageType : uint8
+{
+    Regular,
+    Ephemeral,
+    Error,
+    Reply,
+    System,
+    Deleted
 };
 
 /**
@@ -55,8 +67,8 @@ struct FMessage
     FUser User;
 
     /// The message type
-    UPROPERTY()
-    FString Type;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
+    EMessageType Type;
 
     /// The list of user mentioned in the message
     UPROPERTY()
@@ -65,6 +77,9 @@ struct FMessage
     /// Reserved field indicating when the message was updated last time.
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
     FDateTime UpdatedAt;
+
+    /// Reserved field indicating when the message was deleted.
+    TOptional<FDateTime> DeletedAt;
 
     // TODO rest of fields
 };
