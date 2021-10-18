@@ -4,6 +4,7 @@
 
 #include "ChatApi.h"
 #include "ChatSocketEvents.h"
+#include "Event/MessageDeletedEvent.h"
 #include "Event/MessageNewEvent.h"
 #include "Event/MessageUpdatedEvent.h"
 #include "IChatSocket.h"
@@ -22,6 +23,7 @@ UChatChannel::Create(const TSharedRef<FChatApi>& InApi, IChatSocket& Socket, con
     Channel->Id = Id;
     Socket.Events().SubscribeUObject<FMessageNewEvent>(Channel, &UChatChannel::OnMessageNew);
     Socket.Events().SubscribeUObject<FMessageUpdatedEvent>(Channel, &UChatChannel::OnMessageUpdated);
+    Socket.Events().SubscribeUObject<FMessageDeletedEvent>(Channel, &UChatChannel::OnMessageDeleted);
 
     check(!Channel->ConnectionId.IsEmpty());
 
@@ -172,12 +174,17 @@ void UChatChannel::AddMessage(const FMessage& Message)
     MessagesUpdated.Broadcast(Messages);
 }
 
-void UChatChannel::OnMessageNew(const FMessageNewEvent& NewMessageEvent)
+void UChatChannel::OnMessageNew(const FMessageNewEvent& Event)
 {
-    AddMessage(Util::Convert<FMessage>(NewMessageEvent.Message));
+    AddMessage(Util::Convert<FMessage>(Event.Message));
 }
 
-void UChatChannel::OnMessageUpdated(const FMessageUpdatedEvent& UpdatedMessageEvent)
+void UChatChannel::OnMessageUpdated(const FMessageUpdatedEvent& Event)
 {
-    AddMessage(Util::Convert<FMessage>(UpdatedMessageEvent.Message));
+    AddMessage(Util::Convert<FMessage>(Event.Message));
+}
+
+void UChatChannel::OnMessageDeleted(const FMessageDeletedEvent& Event)
+{
+    AddMessage(Util::Convert<FMessage>(Event.Message));
 }

@@ -46,26 +46,6 @@ TMap<FString, FString> ParseQueryString(const FStringView& QueryString)
 }
 }    // namespace
 
-FString QueryUtils::ToString(const FStringFormatArg& Arg)
-{
-    switch (Arg.Type)
-    {
-        case FStringFormatArg::Int:
-            return LexToString(Arg.IntValue);
-        case FStringFormatArg::UInt:
-            return LexToString(Arg.UIntValue);
-        case FStringFormatArg::Double:
-            // Trim trailing zeroes. e.g. 0.5f => "0.5" instead of "0.500000"
-            return FString::Printf(TEXT("%g"), Arg.DoubleValue);
-        case FStringFormatArg::String:
-            return FGenericPlatformHttp::UrlEncode(Arg.StringValue);
-        case FStringFormatArg::StringLiteral:
-            return FGenericPlatformHttp::UrlEncode(Arg.StringLiteralValue);
-        default:
-            return {};
-    }
-}
-
 TMap<FString, FString> QueryUtils::ParseQueryFromUrl(const FString& Url)
 {
     FStringView Path, Query, Fragment;
@@ -78,7 +58,7 @@ TMap<FString, FString> QueryUtils::ParseQueryFromUrl(const FString& Url)
     return ParseQueryString(Query);
 }
 
-FString QueryUtils::AddQueryToUrl(const FString& Url, const FStringFormatNamedArguments& Parameters)
+FString QueryUtils::AddQueryToUrl(const FString& Url, const FQueryParameters& Parameters)
 {
     FStringView Path, Query, Fragment;
     SplitUrl(Url, Path, Query, Fragment);
@@ -89,7 +69,7 @@ FString QueryUtils::AddQueryToUrl(const FString& Url, const FStringFormatNamedAr
     ExistingParams.Reserve(ExistingParams.Num() + Parameters.Num());
     for (auto& Pair : Parameters)
     {
-        ExistingParams.Emplace(Pair.Key, ToString(Pair.Value));
+        ExistingParams.Emplace(Pair.Key, Pair.Value.ToString());
     }
 
     FString Result(Path);

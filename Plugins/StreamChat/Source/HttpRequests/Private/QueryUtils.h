@@ -1,11 +1,10 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
+#include "QueryParameters.h"
 
 namespace QueryUtils
 {
-FString ToString(const FStringFormatArg& Arg);
-
 TMap<FString, FString> ParseQueryFromUrl(const FString& Url);
 
 /**
@@ -17,5 +16,5 @@ TMap<FString, FString> ParseQueryFromUrl(const FString& Url);
  * @param Parameters Parameters to add to the URL
  * @return A new URL with the query parameters added
  */
-FString AddQueryToUrl(const FString& Url, const FStringFormatNamedArguments& Parameters);
+FString AddQueryToUrl(const FString& Url, const FQueryParameters& Parameters);
 }    // namespace QueryUtils

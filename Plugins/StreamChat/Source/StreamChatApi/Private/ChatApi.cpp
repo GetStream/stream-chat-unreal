@@ -67,7 +67,12 @@ void FChatApi::DeleteMessage(const FString& Id, bool bHard, const TCallback<FMes
 {
     const FString Path = FString::Printf(TEXT("messages/%s"), *Id);
     const FString Url = BuildUrl(Path);
-    Client->Delete(Url).Query({{TEXT("hard"), bHard}}).Send(Callback);
+    FRequestBuilder Req = Client->Delete(Url);
+    if (bHard)
+    {
+        Req.Query({{TEXT("hard"), true}});
+    }
+    Req.Send(Callback);
 }
 
 void FChatApi::QueryChannels(

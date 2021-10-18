@@ -14,6 +14,7 @@ struct FChannelStateResponseDto;
 struct FChannelStateResponseFieldsDto;
 struct FMessageNewEvent;
 struct FMessageUpdatedEvent;
+struct FMessageDeletedEvent;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessagesUpdatedDelegate, const TArray<FMessage>&, Messages);
 
@@ -52,6 +53,7 @@ private:
 
     void OnMessageNew(const FMessageNewEvent&);
     void OnMessageUpdated(const FMessageUpdatedEvent&);
+    void OnMessageDeleted(const FMessageDeletedEvent&);
 
     UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess), Category = "Stream Chat Channel")
     FString Type;

@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "HttpResponse.h"
 #include "Interfaces/IHttpRequest.h"
+#include "QueryParameters.h"
 #include "StreamJson.h"
 
 class FHttpClient;
@@ -23,10 +24,10 @@ public:
      * @param Headers Map of key-value pairs, e.g. `{{TEXT("X-Api-Key"), 1234}}`
      * @return Builder to continue creating a request
      */
-    FRequestBuilder& Header(const FStringFormatNamedArguments& Headers);
+    FRequestBuilder& Header(const FQueryParameters& Headers);
 
     FRequestBuilder& Body(const FString& Text);
-    FRequestBuilder& Query(const FStringFormatNamedArguments& Query);
+    FRequestBuilder& Query(const FQueryParameters& Query);
 
     /**
      * Add a body to the request formatted as JSON

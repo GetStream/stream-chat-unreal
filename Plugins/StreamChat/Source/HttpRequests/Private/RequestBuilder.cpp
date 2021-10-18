@@ -2,6 +2,7 @@
 
 #include "HttpClient.h"
 #include "HttpModule.h"
+#include "QueryParameters.h"
 #include "QueryUtils.h"
 #include "String/ParseTokens.h"
 
@@ -18,11 +19,11 @@ FRequestBuilder::FRequestBuilder(const TSharedRef<const FHttpClient>& InClient, 
     Request->SetHeader(TEXT("User-Agent"), TEXT("X-UnrealEngine-Agent"));
 }
 
-FRequestBuilder& FRequestBuilder::Header(const FStringFormatNamedArguments& Headers)
+FRequestBuilder& FRequestBuilder::Header(const FQueryParameters& Headers)
 {
     for (auto [Key, Value] : Headers)
     {
-        Request->SetHeader(Key, QueryUtils::ToString(Value));
+        Request->SetHeader(Key, Value.ToString());
     }
     return *this;
 }
@@ -33,7 +34,7 @@ FRequestBuilder& FRequestBuilder::Body(const FString& Text)
     return *this;
 }
 
-FRequestBuilder& FRequestBuilder::Query(const FStringFormatNamedArguments& Query)
+FRequestBuilder& FRequestBuilder::Query(const FQueryParameters& Query)
 {
     const FString NewUrl = QueryUtils::AddQueryToUrl(Request->GetURL(), Query);
 
