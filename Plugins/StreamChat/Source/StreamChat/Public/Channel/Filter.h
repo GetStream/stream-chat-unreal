@@ -71,8 +71,8 @@ struct STREAMCHAT_API FFilter
     // Make comparison filter
     FFilter(EFilterOperator Operator, const FName& Key, const TSharedPtr<FJsonValue>& Value);
 
-    explicit operator TSharedPtr<FJsonObject>() const;
-    explicit operator FJsonObjectWrapper() const;
+    TSharedPtr<FJsonObject> ToJsonObject() const;
+    FJsonObjectWrapper ToJsonObjectWrapper() const;
     FString ToJson() const;
 
     static FFilter And(const TArray<FFilter>& Filters);

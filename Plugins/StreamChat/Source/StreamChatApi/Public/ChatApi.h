@@ -53,9 +53,7 @@ public:
         bool bSkipPush = false,
         TCallback<FMessageResponseDto> Callback = {}) const;
 
-    void UpdateMessage(
-        const FMessageRequestDto& MessageRequest,
-        TCallback<FMessageResponseDto> Callback = {}) const;
+    void UpdateMessage(const FMessageRequestDto& MessageRequest, TCallback<FMessageResponseDto> Callback = {}) const;
 
     /**
      * Query channels with filter query

@@ -37,7 +37,7 @@ FFilter::FFilter(const EFilterOperator Operator, const FName& Key, const TShared
 {
 }
 
-FFilter::operator TSharedPtr<FJsonObject>() const
+TSharedPtr<FJsonObject> FFilter::ToJsonObject() const
 {
     TSharedPtr<FJsonObject> JsonObject = MakeShared<FJsonObject>();
 
@@ -52,7 +52,7 @@ FFilter::operator TSharedPtr<FJsonObject>() const
         {
             if (Child.IsValid())
             {
-                Array.Emplace(MakeShared<FJsonValueObject>(static_cast<TSharedPtr<FJsonObject>>(Child)));
+                Array.Emplace(MakeShared<FJsonValueObject>(Child.ToJsonObject()));
             }
         }
         JsonObject->SetArrayField(AsString[Operator], Array);
@@ -69,16 +69,16 @@ FFilter::operator TSharedPtr<FJsonObject>() const
     return JsonObject;
 }
 
-FFilter::operator FJsonObjectWrapper() const
+FJsonObjectWrapper FFilter::ToJsonObjectWrapper() const
 {
     FJsonObjectWrapper Wrapper;
-    Wrapper.JsonObject = static_cast<TSharedPtr<FJsonObject>>(*this);
+    Wrapper.JsonObject = ToJsonObject();
     return Wrapper;
 }
 
 FString FFilter::ToJson() const
 {
-    return Json::Serialize(static_cast<TSharedPtr<FJsonObject>>(*this).ToSharedRef());
+    return Json::Serialize(ToJsonObject().ToSharedRef());
 }
 
 FFilter FFilter::And(const TArray<FFilter>& Filters)

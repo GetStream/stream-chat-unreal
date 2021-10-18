@@ -6,8 +6,7 @@
 #include "Channel/ChatChannel.h"
 #include "ChatApi.h"
 #include "IChatSocket.h"
-#include "JsonObjectWrapper.h"
-#include "PaginationOptions.h"
+#include "Request/MessageRequestDto.h"
 #include "Response/ChannelsResponseDto.h"
 #include "StreamChatSettings.h"
 #include "Token/ConstantTokenProvider.h"
@@ -70,7 +69,7 @@ void UStreamChatClientComponent::QueryChannels(
             Callback(NewChannels);
         },
         Socket->GetConnectionId(),
-        Util::Convert<FJsonObjectWrapper>(Filter),
+        Filter->ToJsonObjectWrapper(),
         Util::Convert<FSortOptionDto>(SortOptions));
 }
 
