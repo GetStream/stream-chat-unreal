@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Event/Abstract/ChatEvent.h"
 #include "CoreMinimal.h"
+#include "Event/Abstract/ChatEvent.h"
 #include "OwnUserDto.h"
 
 #include "HealthCheckEvent.generated.h"
