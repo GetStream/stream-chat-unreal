@@ -42,7 +42,7 @@ struct FMessageRequestDto
 
     /// A map describing the count of score of every reaction
     UPROPERTY()
-    TMap<FString, int32> ReactionScores;
+    TMap<FName, int32> ReactionScores;
 
     // Whether message is silent or not
     UPROPERTY()

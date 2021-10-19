@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Reaction.h"
+#include "ReactionGroup.h"
 #include "User.h"
 
 #include "Message.generated.h"
@@ -81,23 +82,9 @@ struct FMessage
     /// Reserved field indicating when the message was deleted.
     TOptional<FDateTime> DeletedAt;
 
-    // Reactions
-
-    /// A map describing the count of number of every reaction
+    /// All reactions of this message, grouped by their type
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
-    TMap<FString, int32> ReactionCounts;
-
-    /// A map describing the count of score of every reaction
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
-    TMap<FString, int32> ReactionScores;
-
-    /// The latest reactions to the message created by any user.
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
-    TArray<FReaction> LatestReactions;
-
-    /// The reactions added to the message by the current user.
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
-    TArray<FReaction> OwnReactions;
+    TMap<FName, FReactionGroup> Reactions;
 
     // TODO rest of fields
 };

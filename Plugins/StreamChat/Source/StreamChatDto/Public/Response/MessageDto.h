@@ -110,11 +110,11 @@ struct FMessageDto
 
     /// A map describing the count of number of every reaction
     UPROPERTY()
-    TMap<FString, int32> ReactionCounts;
+    TMap<FName, int32> ReactionCounts;
 
     /// A map describing the count of score of every reaction
     UPROPERTY()
-    TMap<FString, int32> ReactionScores;
+    TMap<FName, int32> ReactionScores;
 
     /// Reserved field indicating the number of replies for this message.
     UPROPERTY()

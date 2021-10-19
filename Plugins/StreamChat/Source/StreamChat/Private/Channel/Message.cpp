@@ -12,10 +12,11 @@ FMessage::FMessage(const FMessageDto& Dto)
     , MentionedUsers{Dto.MentionedUsers}
     , UpdatedAt{Dto.UpdatedAt}
     , DeletedAt{Dto.DeletedAt}
-    , ReactionCounts{Dto.ReactionCounts}
-    , ReactionScores{Dto.ReactionScores}
-    , LatestReactions{Dto.LatestReactions}
-    , OwnReactions{Dto.OwnReactions}
+    , Reactions{FReactionGroup::CollectReactions(
+          Dto.ReactionCounts,
+          Dto.ReactionScores,
+          Dto.LatestReactions,
+          Dto.OwnReactions)}
 {
 }
 
@@ -25,11 +26,10 @@ FMessage::FMessage(const FMessageRequestDto& Dto, const FUser& SendingUser)
     , State{EMessageSendState::Sending}    // Assume request dto => sending
     , User{SendingUser}
     , Type(EMessageType::Regular)
-    , ReactionScores{Dto.ReactionScores}
 {
 }
 
 FMessage::operator FMessageRequestDto() const
 {
-    return FMessageRequestDto{{}, {}, Id, {}, ReactionScores, false, Text};
+    return FMessageRequestDto{{}, {}, Id, {}, FReactionGroup::GetScores(Reactions), false, Text};
 }

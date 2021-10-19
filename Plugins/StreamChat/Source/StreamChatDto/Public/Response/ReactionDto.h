@@ -30,7 +30,7 @@ struct FReactionDto
 
     /// The type of reaction (e.g. 'like', 'laugh', 'wow')
     UPROPERTY()
-    FString Type;
+    FName Type;
 
     /// Date/time of the last update
     UPROPERTY()
