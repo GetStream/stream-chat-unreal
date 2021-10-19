@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ChatEvent.h"
+#include "Event/Abstract/ChatEvent.h"
 #include "CoreMinimal.h"
 #include "OwnUserDto.h"
 

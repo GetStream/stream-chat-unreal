@@ -37,3 +37,12 @@ TMap<FName, int32> FReactionGroup::GetScores(const TMap<FName, FReactionGroup>& 
     }
     return Result;
 }
+
+void FReactionGroup::FixOwnReactions(TMap<FName, FReactionGroup>& ReactionGroups, FString UserId)
+{
+    for (auto& [Type, Group] : ReactionGroups)
+    {
+        Group.OwnReactions =
+            Group.LatestReactions.FilterByPredicate([&UserId](const FReaction& R) { return R.User.Id == UserId; });
+    }
+}

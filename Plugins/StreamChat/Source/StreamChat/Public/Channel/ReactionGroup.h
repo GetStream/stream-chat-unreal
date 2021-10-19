@@ -22,6 +22,8 @@ struct FReactionGroup
         const TArray<FReactionDto>& OwnReactions);
 
     static TMap<FName, int32> GetScores(const TMap<FName, FReactionGroup>&);
+    /// Remove OwnReactions which are NOT the given user ID
+    static void FixOwnReactions(TMap<FName, FReactionGroup>&, FString UserId);
 
     /// The type of reaction (e.g. 'like', 'laugh', 'wow')
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Reaction")

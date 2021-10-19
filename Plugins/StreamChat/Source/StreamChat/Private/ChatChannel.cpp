@@ -7,23 +7,30 @@
 #include "Event/MessageDeletedEvent.h"
 #include "Event/MessageNewEvent.h"
 #include "Event/MessageUpdatedEvent.h"
+#include "Event/ReactionDeletedEvent.h"
+#include "Event/ReactionNewEvent.h"
+#include "Event/ReactionUpdatedEvent.h"
 #include "IChatSocket.h"
 #include "Request/MessageRequestDto.h"
 #include "Response/ChannelStateResponseDto.h"
 #include "Response/MessageResponseDto.h"
+#include "StreamChatClientComponent.h"
 #include "Util.h"
 
-UChatChannel*
-UChatChannel::Create(const TSharedRef<FChatApi>& InApi, IChatSocket& Socket, const FString& Type, const FString& Id)
+UChatChannel* UChatChannel::Create(const UStreamChatClientComponent& Client, const FString& Type, const FString& Id)
 {
     UChatChannel* Channel = NewObject<UChatChannel>();
-    Channel->Api = InApi;
-    Channel->ConnectionId = Socket.GetConnectionId();
+    Channel->Api = Client.GetApi();
+    Channel->ConnectionId = Client.GetSocket()->GetConnectionId();
     Channel->Type = Type;
     Channel->Id = Id;
-    Socket.Events().SubscribeUObject<FMessageNewEvent>(Channel, &UChatChannel::OnMessageNew);
-    Socket.Events().SubscribeUObject<FMessageUpdatedEvent>(Channel, &UChatChannel::OnMessageUpdated);
-    Socket.Events().SubscribeUObject<FMessageDeletedEvent>(Channel, &UChatChannel::OnMessageDeleted);
+    Channel->UserId = Client.GetCurrentUser().Id;
+    Client.GetSocket()->Events().SubscribeUObject<FMessageNewEvent>(Channel, &UChatChannel::OnMessageNew);
+    Client.GetSocket()->Events().SubscribeUObject<FMessageUpdatedEvent>(Channel, &UChatChannel::OnMessageUpdated);
+    Client.GetSocket()->Events().SubscribeUObject<FMessageDeletedEvent>(Channel, &UChatChannel::OnMessageDeleted);
+    Client.GetSocket()->Events().SubscribeUObject<FReactionNewEvent>(Channel, &UChatChannel::OnReactionNew);
+    Client.GetSocket()->Events().SubscribeUObject<FReactionUpdatedEvent>(Channel, &UChatChannel::OnReactionUpdated);
+    Client.GetSocket()->Events().SubscribeUObject<FReactionDeletedEvent>(Channel, &UChatChannel::OnReactionDeleted);
 
     check(!Channel->ConnectionId.IsEmpty());
 
@@ -31,11 +38,10 @@ UChatChannel::Create(const TSharedRef<FChatApi>& InApi, IChatSocket& Socket, con
 }
 
 UChatChannel* UChatChannel::Create(
-    const TSharedRef<FChatApi>& InApi,
-    IChatSocket& Socket,
+    const UStreamChatClientComponent& Client,
     const FChannelStateResponseFieldsDto& Fields)
 {
-    UChatChannel* Channel = Create(InApi, Socket, Fields.Channel.Type, Fields.Channel.Id);
+    UChatChannel* Channel = Create(Client, Fields.Channel.Type, Fields.Channel.Id);
     Channel->InitializeState(Fields);
 
     return Channel;
@@ -194,4 +200,25 @@ void UChatChannel::OnMessageUpdated(const FMessageUpdatedEvent& Event)
 void UChatChannel::OnMessageDeleted(const FMessageDeletedEvent& Event)
 {
     AddMessage(Util::Convert<FMessage>(Event.Message));
+}
+
+void UChatChannel::OnReactionNew(const FReactionNewEvent& Event)
+{
+    FMessage Message{Event.Message};
+    FReactionGroup::FixOwnReactions(Message.Reactions, UserId);
+    AddMessage(Message);
+}
+
+void UChatChannel::OnReactionUpdated(const FReactionUpdatedEvent& Event)
+{
+    FMessage Message{Event.Message};
+    FReactionGroup::FixOwnReactions(Message.Reactions, UserId);
+    AddMessage(Message);
+}
+
+void UChatChannel::OnReactionDeleted(const FReactionDeletedEvent& Event)
+{
+    FMessage Message{Event.Message};
+    FReactionGroup::FixOwnReactions(Message.Reactions, UserId);
+    AddMessage(Message);
 }

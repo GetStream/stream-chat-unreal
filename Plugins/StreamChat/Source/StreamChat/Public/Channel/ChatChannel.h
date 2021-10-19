@@ -10,11 +10,15 @@
 
 class FChatApi;
 class IChatSocket;
+class UStreamChatClientComponent;
 struct FChannelStateResponseDto;
 struct FChannelStateResponseFieldsDto;
+struct FMessageDeletedEvent;
 struct FMessageNewEvent;
 struct FMessageUpdatedEvent;
-struct FMessageDeletedEvent;
+struct FReactionDeletedEvent;
+struct FReactionNewEvent;
+struct FReactionUpdatedEvent;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessagesUpdatedDelegate, const TArray<FMessage>&, Messages);
 
@@ -27,8 +31,8 @@ class STREAMCHAT_API UChatChannel final : public UObject
     GENERATED_BODY()
 
 public:
-    static UChatChannel* Create(const TSharedRef<FChatApi>&, IChatSocket&, const FString& Type, const FString& Id);
-    static UChatChannel* Create(const TSharedRef<FChatApi>&, IChatSocket&, const FChannelStateResponseFieldsDto&);
+    static UChatChannel* Create(const UStreamChatClientComponent&, const FString& Type, const FString& Id);
+    static UChatChannel* Create(const UStreamChatClientComponent&, const FChannelStateResponseFieldsDto&);
 
     void Watch(TFunction<void()> Callback = {});
 
@@ -54,6 +58,9 @@ private:
     void OnMessageNew(const FMessageNewEvent&);
     void OnMessageUpdated(const FMessageUpdatedEvent&);
     void OnMessageDeleted(const FMessageDeletedEvent&);
+    void OnReactionNew(const FReactionNewEvent&);
+    void OnReactionUpdated(const FReactionUpdatedEvent&);
+    void OnReactionDeleted(const FReactionDeletedEvent&);
 
     UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess), Category = "Stream Chat Channel")
     FString Type;
@@ -75,6 +82,6 @@ private:
     TArray<FMessage> Messages;
 
     FString ConnectionId;
-
+    FString UserId;
     TSharedPtr<FChatApi> Api;
 };

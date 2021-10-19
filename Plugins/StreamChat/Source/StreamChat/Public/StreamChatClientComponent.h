@@ -43,6 +43,9 @@ public:
     UFUNCTION(BlueprintPure, Category = "Stream Chat Client")
     const TArray<UChatChannel*>& GetChannels() const;
 
+    TSharedRef<FChatApi> GetApi() const;
+    TSharedRef<IChatSocket> GetSocket() const;
+
     UPROPERTY(EditAnywhere, Config, Category = "Stream Chat Client", meta = (DisplayName = "API Key"))
     FString ApiKey;
 

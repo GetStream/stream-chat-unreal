@@ -64,7 +64,7 @@ void UStreamChatClientComponent::QueryChannels(
                 Response.Channels,
                 NewChannels,
                 [this](const FChannelStateResponseFieldsDto& ResponseChannel)
-                { return UChatChannel::Create(Api.ToSharedRef(), *Socket, ResponseChannel); });
+                { return UChatChannel::Create(*this, ResponseChannel); });
             Channels = NewChannels;
             Callback(NewChannels);
         },
@@ -78,7 +78,7 @@ UChatChannel* UStreamChatClientComponent::Channel(const FString& Type, const FSt
     // TODO Can we return something from ConnectUser() that is required for this function to prevent ordering ambiguity?
     check(Socket->IsConnected());
 
-    UChatChannel* Channel = UChatChannel::Create(Api.ToSharedRef(), *Socket, Type, Id);
+    UChatChannel* Channel = UChatChannel::Create(*this, Type, Id);
 
     Channels.Add(Channel);
     return Channel;
@@ -109,4 +109,14 @@ FUser UStreamChatClientComponent::GetCurrentUser() const
 const TArray<UChatChannel*>& UStreamChatClientComponent::GetChannels() const
 {
     return Channels;
+}
+
+TSharedRef<FChatApi> UStreamChatClientComponent::GetApi() const
+{
+    return Api.ToSharedRef();
+}
+
+TSharedRef<IChatSocket> UStreamChatClientComponent::GetSocket() const
+{
+    return Socket.ToSharedRef();
 }

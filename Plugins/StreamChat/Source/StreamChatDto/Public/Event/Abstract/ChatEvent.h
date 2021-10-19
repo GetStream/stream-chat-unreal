@@ -23,6 +23,4 @@ struct FChatEvent
 
     UPROPERTY()
     FDateTime CreatedAt;
-
-    // TODO Me?
 };
