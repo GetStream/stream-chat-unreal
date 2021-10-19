@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "MessageTypeDto.h"
+#include "ReactionDto.h"
 #include "UserDto.h"
 
 #include "MessageDto.generated.h"
@@ -29,7 +30,6 @@ struct FMessageDto
     FString Cid;
 
     /// Contains provided slash command
-    // TODO Optional
     UPROPERTY()
     FString Command;
 
@@ -57,10 +57,8 @@ struct FMessageDto
     // TODO ImageLabels
 
     /// The latest reactions to the message created by any user.
-    // TODO Uncomment
-    // TODO Optional
-    // UPROPERTY()
-    // TArray<FReaction> LatestReactions;
+    UPROPERTY()
+    TArray<FReactionDto> LatestReactions;
 
     /// The list of user mentioned in the message
     UPROPERTY()
@@ -72,13 +70,10 @@ struct FMessageDto
     FString Mml;
 
     /// The reactions added to the message by the current user.
-    // TODO Uncomment
-    // TODO Optional
-    // UPROPERTY()
-    // TArray<FReaction> OwnReactions;
+    UPROPERTY()
+    TArray<FReactionDto> OwnReactions;
 
     /// The ID of the parent message, if the message is a thread reply.
-    // TODO Optional
     UPROPERTY()
     FString ParentId;
 
@@ -110,31 +105,26 @@ struct FMessageDto
     // FMessageDto QuotedMessage;
 
     /// The ID of the quoted message, if the message is a quoted reply.
-    // TODO Optional
     UPROPERTY()
     FString QuotedMessageId;
 
     /// A map describing the count of number of every reaction
-    // TODO Optional
     UPROPERTY()
     TMap<FString, int32> ReactionCounts;
 
     /// A map describing the count of score of every reaction
-    // TODO Optional
     UPROPERTY()
     TMap<FString, int32> ReactionScores;
 
     /// Reserved field indicating the number of replies for this message.
-    // TODO Optional
     UPROPERTY()
-    int ReplyCount;
+    uint32 ReplyCount;
 
     /// If true the message is shadowed
     UPROPERTY()
     bool bShadowed;
 
     /// Whether thread reply should be shown in the channel as well
-    // TODO Optional
     UPROPERTY()
     bool bShowInChannel;
 
@@ -147,7 +137,6 @@ struct FMessageDto
     FString Text;
 
     /// Reserved field indicating the thread participants for this message.
-    // TODO Optional
     UPROPERTY()
     TArray<FUserDto> ThreadParticipants;
 

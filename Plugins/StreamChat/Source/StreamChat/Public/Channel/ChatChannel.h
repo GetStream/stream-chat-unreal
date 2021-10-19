@@ -69,6 +69,9 @@ private:
     UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess), Category = "Stream Chat Channel")
     FString ImageUrl;
 
+    /// The cid of this channel
+    FString Cid;
+
     TArray<FMessage> Messages;
 
     FString ConnectionId;

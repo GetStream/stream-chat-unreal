@@ -71,7 +71,12 @@ void UChatChannel::SendMessage(const FString& Text, const FUser& FromUser)
     // TODO Wait for attachments to upload
 
     const FMessageRequestDto Request{
+        Cid,
+        {},
         FGuid::NewGuid().ToString(EGuidFormats::DigitsWithHyphens),
+        {},
+        {},
+        false,
         Text,
     };
     AddMessage(FMessage{Request, FromUser});
@@ -150,6 +155,8 @@ const TArray<FMessage>& UChatChannel::GetMessages() const
 
 void UChatChannel::InitializeState(const FChannelStateResponseFieldsDto& State)
 {
+    Id = State.Channel.Id;
+    Cid = State.Channel.Cid;
     Name = State.Channel.Name;
     ImageUrl = State.Channel.Image;
     Messages = Util::Convert<FMessage>(State.Messages);

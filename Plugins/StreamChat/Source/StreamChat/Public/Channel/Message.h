@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Reaction.h"
 #include "User.h"
 
 #include "Message.generated.h"
@@ -53,7 +54,6 @@ struct FMessage
     FString Id;
 
     /// The text of this message
-    // TODO Optional
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
     FString Text;
 
@@ -80,6 +80,24 @@ struct FMessage
 
     /// Reserved field indicating when the message was deleted.
     TOptional<FDateTime> DeletedAt;
+
+    // Reactions
+
+    /// A map describing the count of number of every reaction
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
+    TMap<FString, int32> ReactionCounts;
+
+    /// A map describing the count of score of every reaction
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
+    TMap<FString, int32> ReactionScores;
+
+    /// The latest reactions to the message created by any user.
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
+    TArray<FReaction> LatestReactions;
+
+    /// The reactions added to the message by the current user.
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
+    TArray<FReaction> OwnReactions;
 
     // TODO rest of fields
 };
