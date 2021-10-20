@@ -48,6 +48,9 @@ public:
     UFUNCTION(BlueprintPure, Category = "Stream Chat Channel")
     const TArray<FMessage>& GetMessages() const;
 
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel")
+    void SendReaction(const FMessage& Message, const FName& ReactionType, bool bEnforceUnique = true);
+
     UPROPERTY(BlueprintAssignable, Category = "Stream Chat Channel")
     FMessagesUpdatedDelegate MessagesUpdated;
 
@@ -82,6 +85,6 @@ private:
     TArray<FMessage> Messages;
 
     FString ConnectionId;
-    FString UserId;
+    FUser User;
     TSharedPtr<FChatApi> Api;
 };

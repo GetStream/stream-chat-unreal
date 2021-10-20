@@ -5,8 +5,6 @@
 
 #include "ReactionGroup.generated.h"
 
-struct FReactionDto;
-
 /**
  * An abstraction to group reactions by their type.
  */
@@ -14,16 +12,6 @@ USTRUCT(BlueprintType)
 struct FReactionGroup
 {
     GENERATED_BODY()
-
-    static TMap<FName, FReactionGroup> CollectReactions(
-        const TMap<FName, int32>& ReactionCounts,
-        const TMap<FName, int32>& ReactionScores,
-        const TArray<FReactionDto>& LatestReactions,
-        const TArray<FReactionDto>& OwnReactions);
-
-    static TMap<FName, int32> GetScores(const TMap<FName, FReactionGroup>&);
-    /// Remove OwnReactions which are NOT the given user ID
-    static void FixOwnReactions(TMap<FName, FReactionGroup>&, FString UserId);
 
     /// The type of reaction (e.g. 'like', 'laugh', 'wow')
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Reaction")

@@ -5,8 +5,8 @@
 #include "ChannelMemberDto.h"
 #include "ChannelResponseDto.h"
 #include "CoreMinimal.h"
-#include "MessageDto.h"
 #include "ReadDto.h"
+#include "Response/Message/MessageDto.h"
 
 #include "ChannelStateResponseFieldsDto.generated.h"
 

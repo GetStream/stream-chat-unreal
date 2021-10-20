@@ -11,9 +11,11 @@
 #include "Event/ReactionNewEvent.h"
 #include "Event/ReactionUpdatedEvent.h"
 #include "IChatSocket.h"
-#include "Request/MessageRequestDto.h"
-#include "Response/ChannelStateResponseDto.h"
-#include "Response/MessageResponseDto.h"
+#include "Reaction/Reaction.h"
+#include "Request/Message/MessageRequestDto.h"
+#include "Request/Reaction/ReactionRequestDto.h"
+#include "Response/Channel/ChannelStateResponseDto.h"
+#include "Response/Message/MessageResponseDto.h"
 #include "StreamChatClientComponent.h"
 #include "Util.h"
 
@@ -24,7 +26,7 @@ UChatChannel* UChatChannel::Create(const UStreamChatClientComponent& Client, con
     Channel->ConnectionId = Client.GetSocket()->GetConnectionId();
     Channel->Type = Type;
     Channel->Id = Id;
-    Channel->UserId = Client.GetCurrentUser().Id;
+    Channel->User = Client.GetCurrentUser();
     Client.GetSocket()->Events().SubscribeUObject<FMessageNewEvent>(Channel, &UChatChannel::OnMessageNew);
     Client.GetSocket()->Events().SubscribeUObject<FMessageUpdatedEvent>(Channel, &UChatChannel::OnMessageUpdated);
     Client.GetSocket()->Events().SubscribeUObject<FMessageDeletedEvent>(Channel, &UChatChannel::OnMessageDeleted);
@@ -159,6 +161,25 @@ const TArray<FMessage>& UChatChannel::GetMessages() const
     return Messages;
 }
 
+void UChatChannel::SendReaction(const FMessage& Message, const FName& ReactionType, const bool bEnforceUnique)
+{
+    FMessage NewMessage{Message};
+    // Remove all previous reactions current user did
+    if (bEnforceUnique)
+    {
+        NewMessage.Reactions.RemoveReactionWhere([this](const FReaction& R) { return R.User.Id == User.Id; });
+    }
+
+    const FReaction NewReaction{ReactionType, User, Message.Id};
+    NewMessage.Reactions.AddReaction(NewReaction);
+
+    NewMessage.Reactions.UpdateOwnReactions(User.Id);
+
+    AddMessage(NewMessage);
+
+    Api->SendReaction(Message.Id, {Message.Id, 1, ReactionType}, bEnforceUnique, false);
+}
+
 void UChatChannel::InitializeState(const FChannelStateResponseFieldsDto& State)
 {
     Id = State.Channel.Id;
@@ -205,20 +226,20 @@ void UChatChannel::OnMessageDeleted(const FMessageDeletedEvent& Event)
 void UChatChannel::OnReactionNew(const FReactionNewEvent& Event)
 {
     FMessage Message{Event.Message};
-    FReactionGroup::FixOwnReactions(Message.Reactions, UserId);
+    Message.Reactions.UpdateOwnReactions(User.Id);
     AddMessage(Message);
 }
 
 void UChatChannel::OnReactionUpdated(const FReactionUpdatedEvent& Event)
 {
     FMessage Message{Event.Message};
-    FReactionGroup::FixOwnReactions(Message.Reactions, UserId);
+    Message.Reactions.UpdateOwnReactions(User.Id);
     AddMessage(Message);
 }
 
 void UChatChannel::OnReactionDeleted(const FReactionDeletedEvent& Event)
 {
     FMessage Message{Event.Message};
-    FReactionGroup::FixOwnReactions(Message.Reactions, UserId);
+    Message.Reactions.UpdateOwnReactions(User.Id);
     AddMessage(Message);
 }

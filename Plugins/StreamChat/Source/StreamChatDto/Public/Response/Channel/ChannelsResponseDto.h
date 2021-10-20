@@ -2,11 +2,8 @@
 
 #pragma once
 
-#include "ChannelConfigDto.h"
-#include "ChannelMemberDto.h"
 #include "ChannelStateResponseFieldsDto.h"
 #include "CoreMinimal.h"
-#include "UserDto.h"
 
 #include "ChannelsResponseDto.generated.h"
 

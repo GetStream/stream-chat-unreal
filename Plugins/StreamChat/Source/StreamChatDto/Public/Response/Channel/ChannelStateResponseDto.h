@@ -2,10 +2,8 @@
 
 #pragma once
 
-#include "ChannelResponseDto.h"
 #include "ChannelStateResponseFieldsDto.h"
 #include "CoreMinimal.h"
-#include "MessageDto.h"
 
 #include "ChannelStateResponseDto.generated.h"
 

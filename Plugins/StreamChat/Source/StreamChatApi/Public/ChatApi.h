@@ -3,8 +3,10 @@
 #include "CoreMinimal.h"
 #include "JsonObjectWrapper.h"
 #include "PaginationOptions.h"
-#include "Request/SortOptionDto.h"
+#include "Request/Channel/SortOptionDto.h"
+#include "Response/Reaction/ReactionResponseDto.h"
 
+struct FReactionRequestDto;
 class FHttpClient;
 class FRequestBuilder;
 class FTokenManager;
@@ -55,6 +57,13 @@ public:
 
     void UpdateMessage(const FMessageRequestDto& MessageRequest, TCallback<FMessageResponseDto> Callback = {}) const;
     void DeleteMessage(const FString& Id, bool bHard = false, TCallback<FMessageResponseDto> Callback = {}) const;
+
+    void SendReaction(
+        const FString& MessageId,
+        const FReactionRequestDto& ReactionRequest,
+        bool bEnforceUnique = true,
+        bool bSkipPush = false,
+        TCallback <FReactionResponseDto> Callback = {});
 
     /**
      * Query channels with filter query

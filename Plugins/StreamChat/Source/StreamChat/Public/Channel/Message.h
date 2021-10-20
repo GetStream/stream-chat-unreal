@@ -3,8 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Reaction.h"
-#include "ReactionGroup.h"
+#include "Reaction/Reactions.h"
 #include "User.h"
 
 #include "Message.generated.h"
@@ -84,7 +83,7 @@ struct FMessage
 
     /// All reactions of this message, grouped by their type
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
-    TMap<FName, FReactionGroup> Reactions;
+    FReactions Reactions;
 
     // TODO rest of fields
 };

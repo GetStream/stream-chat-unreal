@@ -1,4 +1,4 @@
-﻿#include "Request/QueryChannelsRequestDto.h"
+﻿#include "Request/Channel/QueryChannelsRequestDto.h"
 
 #include "StreamJson.h"
 

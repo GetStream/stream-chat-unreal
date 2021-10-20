@@ -66,7 +66,7 @@ void FChatSocket::Disconnect()
 
 FString FChatSocket::BuildUrl(const FString& ApiKey, const FString& Token, const FString& Host, const FUserDto& User)
 {
-    const FConnectRequest Request = {
+    const FConnectRequestDto Request = {
         true,
         User.Id,
         User,

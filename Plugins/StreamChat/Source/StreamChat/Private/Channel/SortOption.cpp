@@ -1,6 +1,6 @@
 #include "Channel/SortOption.h"
 
-#include "Request/SortOptionDto.h"
+#include "Request/Channel/SortOptionDto.h"
 
 FSortOption::operator FSortOptionDto() const
 {

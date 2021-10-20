@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "Event/Abstract/ChatEvent.h"
-#include "Response/MessageDto.h"
+#include "Response/Message/MessageDto.h"
 
 #include "MessageUpdatedEvent.generated.h"
 

@@ -1,14 +1,16 @@
 ﻿#include "ChatApi.h"
 
 #include "HttpClient.h"
-#include "Request/ChannelGetOrCreateRequestDto.h"
-#include "Request/QueryChannelsRequestDto.h"
-#include "Request/SendMessageRequestDto.h"
-#include "Request/UpdateMessageRequestDto.h"
-#include "Response/ChannelStateResponseDto.h"
-#include "Response/ChannelsResponseDto.h"
+#include "Request/Channel/ChannelGetOrCreateRequestDto.h"
+#include "Request/Channel/QueryChannelsRequestDto.h"
+#include "Request/Message/SendMessageRequestDto.h"
+#include "Request/Message/UpdateMessageRequestDto.h"
+#include "Request/Reaction/SendReactionRequestDto.h"
+#include "Response/Channel/ChannelStateResponseDto.h"
+#include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/ErrorResponseDto.h"
-#include "Response/MessageResponseDto.h"
+#include "Response/Message/MessageResponseDto.h"
+#include "Response/Reaction/ReactionResponseDto.h"
 #include "Token/TokenManager.h"
 
 FChatApi::FChatApi(const FString& InApiKey, const FString& InHost, const TSharedRef<FTokenManager>& InTokenManager)
@@ -73,6 +75,19 @@ void FChatApi::DeleteMessage(const FString& Id, bool bHard, const TCallback<FMes
         Req.Query({{TEXT("hard"), true}});
     }
     Req.Send(Callback);
+}
+
+void FChatApi::SendReaction(
+    const FString& MessageId,
+    const FReactionRequestDto& ReactionRequest,
+    const bool bEnforceUnique,
+    const bool bSkipPush,
+    const TCallback<FReactionResponseDto> Callback)
+{
+    const FString Path = FString::Printf(TEXT("messages/%s/reaction"), *MessageId);
+    const FString Url = BuildUrl(Path);
+    const FSendReactionRequestDto Body{bEnforceUnique, ReactionRequest, bSkipPush};
+    Client->Post(Url).Json(Body).Send(Callback);
 }
 
 void FChatApi::QueryChannels(

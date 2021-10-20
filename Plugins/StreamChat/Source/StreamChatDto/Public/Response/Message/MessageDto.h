@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "MessageTypeDto.h"
-#include "ReactionDto.h"
+#include "Response/Reaction/ReactionDto.h"
 #include "UserDto.h"
 
 #include "MessageDto.generated.h"

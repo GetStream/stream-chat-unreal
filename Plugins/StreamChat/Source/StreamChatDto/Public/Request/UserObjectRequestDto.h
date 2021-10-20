@@ -6,13 +6,13 @@
 #include "DeviceFields.h"
 #include "UserDto.h"
 
-#include "ConnectRequest.generated.h"
+#include "UserObjectRequestDto.generated.h"
 
 /**
  *
  */
 USTRUCT()
-struct FConnectRequestDto
+struct FUserObjectRequestDto
 {
     GENERATED_BODY()
 

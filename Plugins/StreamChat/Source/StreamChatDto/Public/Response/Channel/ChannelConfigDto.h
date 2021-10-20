@@ -2,8 +2,8 @@
 
 #pragma once
 
-#include "CommandDto.h"
 #include "CoreMinimal.h"
+#include "Response/Message/CommandDto.h"
 
 #include "ChannelConfigDto.generated.h"
 

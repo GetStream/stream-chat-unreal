@@ -1,7 +1,7 @@
 ﻿#include "Channel/Message.h"
 
-#include "Request/MessageRequestDto.h"
-#include "Response/MessageDto.h"
+#include "Request/Message/MessageRequestDto.h"
+#include "Response/Message/MessageDto.h"
 
 FMessage::FMessage(const FMessageDto& Dto)
     : Id{Dto.Id}
@@ -12,11 +12,8 @@ FMessage::FMessage(const FMessageDto& Dto)
     , MentionedUsers{Dto.MentionedUsers}
     , UpdatedAt{Dto.UpdatedAt}
     , DeletedAt{Dto.DeletedAt}
-    , Reactions{FReactionGroup::CollectReactions(
-          Dto.ReactionCounts,
-          Dto.ReactionScores,
-          Dto.LatestReactions,
-          Dto.OwnReactions)}
+    , Reactions{
+          FReactions::CollectReactions(Dto.ReactionCounts, Dto.ReactionScores, Dto.LatestReactions, Dto.OwnReactions)}
 {
 }
 
@@ -31,5 +28,5 @@ FMessage::FMessage(const FMessageRequestDto& Dto, const FUser& SendingUser)
 
 FMessage::operator FMessageRequestDto() const
 {
-    return FMessageRequestDto{{}, {}, Id, {}, FReactionGroup::GetScores(Reactions), false, Text};
+    return FMessageRequestDto{{}, {}, Id, {}, Reactions.GetScores(), false, Text};
 }
