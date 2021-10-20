@@ -317,12 +317,14 @@ void FChatSocket::SetConnectionState(const EConnectionState NewState)
     const bool bOnline = NewState == EConnectionState::Connected;
     if (bWasOnline != bOnline)
     {
-        Events().Broadcast(FConnectionChangedEvent{FConnectionChangedEvent::StaticType, bOnline});
+        const FConnectionChangedEvent Event{FConnectionChangedEvent::StaticType, bOnline};
+        Events().Broadcast(Event);
 
         if (bOnline)
         {
             // TODO offline support: recovered connection
-            Events().Broadcast(FConnectionRecoveredEvent{FConnectionRecoveredEvent::StaticType});
+            const FConnectionRecoveredEvent RecoveredEvent{FConnectionRecoveredEvent::StaticType};
+            Events().Broadcast(RecoveredEvent);
         }
     }
 
