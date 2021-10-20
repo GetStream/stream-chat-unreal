@@ -82,12 +82,22 @@ void FChatApi::SendReaction(
     const FReactionRequestDto& ReactionRequest,
     const bool bEnforceUnique,
     const bool bSkipPush,
-    const TCallback<FReactionResponseDto> Callback)
+    const TCallback<FReactionResponseDto> Callback) const
 {
     const FString Path = FString::Printf(TEXT("messages/%s/reaction"), *MessageId);
     const FString Url = BuildUrl(Path);
     const FSendReactionRequestDto Body{bEnforceUnique, ReactionRequest, bSkipPush};
     Client->Post(Url).Json(Body).Send(Callback);
+}
+
+void FChatApi::DeleteReaction(
+    const FString& MessageId,
+    const FName& Type,
+    const TCallback<FReactionResponseDto> Callback) const
+{
+    const FString Path = FString::Printf(TEXT("messages/%s/reaction/%s"), *MessageId, *Type.ToString());
+    const FString Url = BuildUrl(Path);
+    Client->Delete(Url).Send(Callback);
 }
 
 void FChatApi::QueryChannels(
