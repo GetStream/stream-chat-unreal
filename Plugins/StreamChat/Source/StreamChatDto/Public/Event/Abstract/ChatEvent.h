@@ -17,10 +17,6 @@ struct FChatEvent
     UPROPERTY()
     FName Type;
 
-    /// Channel ID
-    UPROPERTY()
-    FString Cid;
-
     UPROPERTY()
     FDateTime CreatedAt;
 };

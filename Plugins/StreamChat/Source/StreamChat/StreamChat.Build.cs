@@ -16,7 +16,6 @@ public class StreamChat : ModuleRules
 			"StreamJson",
 			"StreamChatDto",
 			"StreamChatApi",
-			"StreamChatWebSocket",
 		});
 
 		PublicDependencyModuleNames.AddRange(new[]
@@ -24,6 +23,7 @@ public class StreamChat : ModuleRules
 			"Core",
 			"CoreUObject",
 			"Engine",
+			"StreamChatWebSocket",
 		});
 	}
 }

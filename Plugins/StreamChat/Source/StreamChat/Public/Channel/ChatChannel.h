@@ -3,10 +3,23 @@
 #pragma once
 
 #include "Channel/Message.h"
+#include "ChatSocketEvents.h"
 #include "CoreMinimal.h"
+#include "IChatSocket.h"
 #include "UObject/NoExportTypes.h"
 
 #include "ChatChannel.generated.h"
+
+template <class TEvent>
+using TEventReceivedMulticastDelegate = TMulticastDelegate<void(const TEvent& Event)>;
+template <class TEvent>
+using TEventReceivedDelegate = typename TEventReceivedMulticastDelegate<TEvent>::FDelegate;
+template <class TEvent, class UserClass>
+using TEventReceivedDelegateUObjectMethodPtr =
+    typename TEventReceivedDelegate<TEvent>::template TUObjectMethodDelegate<UserClass>::FMethodPtr;
+template <class TEvent, class UserClass>
+using TEventReceivedDelegateSpMethodPtr =
+    typename TEventReceivedDelegate<TEvent>::template TSPMethodDelegate<UserClass>::FMethodPtr;
 
 class FChatApi;
 class IChatSocket;
@@ -54,6 +67,27 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel")
     void DeleteReaction(const FMessage& Message, const FReaction& Reaction);
 
+    /// Subscribe to a WebSocket event using your own delegate object
+    template <class TEvent>
+    FDelegateHandle Subscribe(TEventReceivedDelegate<TEvent> Callback);
+
+    /// Subscribe to a WebSocket event using a UObject-based member function delegate.
+    template <class TEvent, class UserClass>
+    FORCEINLINE FDelegateHandle
+    SubscribeUObject(UserClass* Obj, TEventReceivedDelegateUObjectMethodPtr<TEvent, UserClass> Method);
+
+    /// Subscribe to a WebSocket event using a shared pointer-based (fast, not thread-safe) member function delegate.
+    template <class TEvent, class UserClass>
+    FORCEINLINE FDelegateHandle
+    SubscribeSp(UserClass* Obj, TEventReceivedDelegateSpMethodPtr<TEvent, UserClass> Method);
+
+    /// Subscribe to a WebSocket event using a UObject-based member function delegate.
+    template <class TEvent, typename FunctorType, typename... VarTypes>
+    FORCEINLINE FDelegateHandle SubscribeLambda(FunctorType&& InFunctor, VarTypes... Vars);
+
+    template <class TEvent>
+    bool Unsubscribe(FDelegateHandle) const;
+
     const FString& GetCid() const;
 
     UPROPERTY(BlueprintAssignable, Category = "Stream Chat Channel")
@@ -89,7 +123,52 @@ private:
 
     TArray<FMessage> Messages;
 
-    FString ConnectionId;
     FUser User;
     TSharedPtr<FChatApi> Api;
+    TSharedPtr<IChatSocket> Socket;
 };
+
+template <class TEvent>
+FDelegateHandle UChatChannel::Subscribe(TEventReceivedDelegate<TEvent> Callback)
+{
+    return Socket->Events().SubscribeLambda<TEvent>(
+        [this, Callback](const TEvent& Event)
+        {
+            // TODO static assert with nice error message
+            // https://stackoverflow.com/questions/1005476/how-to-detect-whether-there-is-a-specific-member-variable-in-class
+            if (Event.Cid == Cid)
+            {
+                Callback.ExecuteIfBound(Event);
+            }
+        });
+}
+
+template <class TEvent, class UserClass>
+FDelegateHandle UChatChannel::SubscribeUObject(
+    UserClass* Obj,
+    TEventReceivedDelegateUObjectMethodPtr<TEvent, UserClass> Method)
+{
+    const TEventReceivedDelegate<TEvent> Delegate = TEventReceivedDelegate<TEvent>::CreateUObject(Obj, Method);
+    return Subscribe<TEvent>(Delegate);
+}
+
+template <class TEvent, class UserClass>
+FDelegateHandle UChatChannel::SubscribeSp(UserClass* Obj, TEventReceivedDelegateSpMethodPtr<TEvent, UserClass> Method)
+{
+    const TEventReceivedDelegate<TEvent> Delegate = TEventReceivedDelegate<TEvent>::CreateSP(Obj, Method);
+    return Subscribe<TEvent>(Delegate);
+}
+
+template <class TEvent, typename FunctorType, typename... VarTypes>
+FDelegateHandle UChatChannel::SubscribeLambda(FunctorType&& InFunctor, VarTypes... Vars)
+{
+    const TEventReceivedDelegate<TEvent> Delegate =
+        TEventReceivedDelegate<TEvent>::CreateLambda(Forward<FunctorType>(InFunctor), Vars...);
+    return Subscribe<TEvent>(Delegate);
+}
+
+template <class TEvent>
+bool UChatChannel::Unsubscribe(const FDelegateHandle Handle) const
+{
+    return Socket->Events().Unsubscribe<TEvent>(Handle);
+}

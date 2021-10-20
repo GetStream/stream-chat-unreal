@@ -1,7 +1,7 @@
 ﻿#include "ChatSocket.h"
 
 #include "Containers/Ticker.h"
-#include "Event/HealthCheckEvent.h"
+#include "Event/Client/HealthCheckEvent.h"
 #include "IWebSocket.h"
 #include "LogChatSocket.h"
 #include "Request/ConnectRequest.h"

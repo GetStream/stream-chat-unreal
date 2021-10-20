@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ChatEvent.h"
+#include "ChannelEvent.h"
 #include "CoreMinimal.h"
 #include "Response/Message/MessageDto.h"
 
@@ -10,7 +10,7 @@
  * #/components/schemas/ReactionNewEvent
  */
 USTRUCT()
-struct FReactionEvent : public FChatEvent
+struct FReactionEvent : public FChannelEvent
 {
     GENERATED_BODY()
 
