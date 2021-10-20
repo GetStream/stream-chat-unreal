@@ -26,12 +26,12 @@ UChatChannel* UChatChannel::Create(const UStreamChatClientComponent& Client, con
     Channel->Type = Type;
     Channel->Id = Id;
     Channel->User = Client.GetCurrentUser();
-    Channel->SubscribeUObject<FMessageNewEvent>(Channel, &UChatChannel::OnMessageNew);
-    Channel->SubscribeUObject<FMessageUpdatedEvent>(Channel, &UChatChannel::OnMessageUpdated);
-    Channel->SubscribeUObject<FMessageDeletedEvent>(Channel, &UChatChannel::OnMessageDeleted);
-    Channel->SubscribeUObject<FReactionNewEvent>(Channel, &UChatChannel::OnReactionNew);
-    Channel->SubscribeUObject<FReactionUpdatedEvent>(Channel, &UChatChannel::OnReactionUpdated);
-    Channel->SubscribeUObject<FReactionDeletedEvent>(Channel, &UChatChannel::OnReactionDeleted);
+    Channel->On<FMessageNewEvent>(Channel, &UChatChannel::OnMessageNew);
+    Channel->On<FMessageUpdatedEvent>(Channel, &UChatChannel::OnMessageUpdated);
+    Channel->On<FMessageDeletedEvent>(Channel, &UChatChannel::OnMessageDeleted);
+    Channel->On<FReactionNewEvent>(Channel, &UChatChannel::OnReactionNew);
+    Channel->On<FReactionUpdatedEvent>(Channel, &UChatChannel::OnReactionUpdated);
+    Channel->On<FReactionDeletedEvent>(Channel, &UChatChannel::OnReactionDeleted);
 
     check(!Channel->Socket->GetConnectionId().IsEmpty());
 
