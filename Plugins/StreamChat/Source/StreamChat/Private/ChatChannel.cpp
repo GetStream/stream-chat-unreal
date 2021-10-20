@@ -199,6 +199,20 @@ void UChatChannel::SendReaction(const FMessage& Message, const FName& ReactionTy
     Api->SendReaction(Message.Id, {Message.Id, 1, ReactionType}, bEnforceUnique, false);
 }
 
+void UChatChannel::DeleteReaction(const FMessage& Message, const FReaction& Reaction)
+{
+    FMessage NewMessage{Message};
+    NewMessage.Reactions.RemoveReactionWhere(
+        [&Reaction](const FReaction& R)
+        { return R.User.Id == Reaction.User.Id && R.Type == Reaction.Type && R.MessageId == Reaction.MessageId; });
+
+    NewMessage.Reactions.UpdateOwnReactions(User.Id);
+
+    AddMessage(NewMessage);
+
+    Api->DeleteReaction(Message.Id, Reaction.Type);
+}
+
 const FString& UChatChannel::GetCid() const
 {
     return Cid;

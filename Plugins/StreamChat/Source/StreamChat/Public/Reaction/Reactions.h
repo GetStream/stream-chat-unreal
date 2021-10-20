@@ -42,8 +42,11 @@ class STREAMCHAT_API UReactionsBlueprintLibrary final : public UBlueprintFunctio
     GENERATED_BODY()
 
 public:
-    UFUNCTION(BlueprintPure, Category = "Stream Chat Reactions")
-    static bool HasOwnReaction(const FReactions& Reactions, const FName& ReactionType);
+    UFUNCTION(BlueprintPure, Category = "Stream Chat Reactions", meta = (DisplayName = HasOwnReaction))
+    static bool HasOwnReaction_Reactions(const FReactions& Reactions, const FName& ReactionType);
+
+    UFUNCTION(BlueprintPure, Category = "Stream Chat Reactions", meta = (DisplayName = HasOwnReaction))
+    static bool HasOwnReaction_ReactionGroup(const FReactionGroup& ReactionGroup);
 
     UFUNCTION(BlueprintPure, Category = "Stream Chat Reactions")
     static bool IsEmpty(const FReactions& Reactions);

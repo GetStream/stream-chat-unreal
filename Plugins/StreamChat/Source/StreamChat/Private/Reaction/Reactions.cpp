@@ -77,7 +77,7 @@ bool FReactions::HasOwnReaction(const FName& ReactionType) const
 {
     if (const FReactionGroup* Group = ReactionGroups.Find(ReactionType))
     {
-        return Group->OwnReactions.Num() > 0;
+        return Group->HasOwnReaction();
     }
     return false;
 }
@@ -96,9 +96,14 @@ void FReactions::UpdateOwnReactions(const FString& OwnUserId)
     }
 }
 
-bool UReactionsBlueprintLibrary::HasOwnReaction(const FReactions& Reactions, const FName& ReactionType)
+bool UReactionsBlueprintLibrary::HasOwnReaction_Reactions(const FReactions& Reactions, const FName& ReactionType)
 {
     return Reactions.HasOwnReaction(ReactionType);
+}
+
+bool UReactionsBlueprintLibrary::HasOwnReaction_ReactionGroup(const FReactionGroup& ReactionGroup)
+{
+    return ReactionGroup.HasOwnReaction();
 }
 
 bool UReactionsBlueprintLibrary::IsEmpty(const FReactions& Reactions)

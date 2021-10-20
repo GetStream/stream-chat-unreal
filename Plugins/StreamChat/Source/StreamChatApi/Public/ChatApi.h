@@ -65,7 +65,8 @@ public:
         bool bSkipPush = false,
         TCallback<FReactionResponseDto> Callback = {}) const;
 
-    void DeleteReaction(const FString& MessageId, const FName& Type, TCallback<FReactionResponseDto> Callback = {}) const;
+    void DeleteReaction(const FString& MessageId, const FName& Type, TCallback<FReactionResponseDto> Callback = {})
+        const;
 
     /**
      * Query channels with filter query

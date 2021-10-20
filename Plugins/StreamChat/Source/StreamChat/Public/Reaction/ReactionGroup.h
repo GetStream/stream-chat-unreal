@@ -13,6 +13,8 @@ struct FReactionGroup
 {
     GENERATED_BODY()
 
+    bool HasOwnReaction() const;
+
     /// The type of reaction (e.g. 'like', 'laugh', 'wow')
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Reaction")
     FName Type;
