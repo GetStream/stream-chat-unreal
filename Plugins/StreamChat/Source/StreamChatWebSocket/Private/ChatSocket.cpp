@@ -2,6 +2,7 @@
 
 #include "Containers/Ticker.h"
 #include "Event/Client/HealthCheckEvent.h"
+#include "Events/ConnectionChangedEvent.h"
 #include "IWebSocket.h"
 #include "LogChatSocket.h"
 #include "Request/ConnectRequest.h"
@@ -48,7 +49,7 @@ void FChatSocket::Connect(const TFunction<void()> Callback)
     }
 
     UE_LOG(LogChatSocket, Log, TEXT("Initiating WebSocket connection"));
-    ConnectionState = EConnectionState::Connecting;
+    SetConnectionState(EConnectionState::Connecting);
 
     PendingOnConnectCallback.BindLambda(Callback);
 
@@ -58,7 +59,7 @@ void FChatSocket::Connect(const TFunction<void()> Callback)
 void FChatSocket::Disconnect()
 {
     UE_LOG(LogChatSocket, Log, TEXT("Closing WebSocket connection"));
-    ConnectionState = EConnectionState::Disconnecting;
+    SetConnectionState(EConnectionState::Disconnecting);
 
     CloseWebSocket();
     StopMonitoring();
@@ -142,13 +143,13 @@ void FChatSocket::UnbindEventHandlers()
 
 void FChatSocket::HandleWebSocketConnected()
 {
-    ConnectionState = EConnectionState::Connected;
+    SetConnectionState(EConnectionState::Connected);
     UE_LOG(LogChatSocket, Log, TEXT("WebSocket connected"));
 }
 
 void FChatSocket::HandleWebSocketConnectionError(const FString& Error)
 {
-    ConnectionState = EConnectionState::NotConnected;
+    SetConnectionState(EConnectionState::NotConnected);
     UE_LOG(LogChatSocket, Error, TEXT("Failed to connect to WebSocket [Error=%s]"), *Error);
 
     Reconnect();
@@ -156,7 +157,7 @@ void FChatSocket::HandleWebSocketConnectionError(const FString& Error)
 
 void FChatSocket::HandleWebSocketConnectionClosed(const int32 Status, const FString& Reason, const bool bWasClean)
 {
-    ConnectionState = EConnectionState::NotConnected;
+    SetConnectionState(EConnectionState::NotConnected);
 
     const TCHAR* Code = WebSocketCloseCode::ToString(Status);
     if (bWasClean)
@@ -279,7 +280,8 @@ void FChatSocket::Reconnect()
     {
         return;
     }
-    ConnectionState = EConnectionState::Reconnecting;
+
+    SetConnectionState(EConnectionState::Reconnecting);
 
     CloseWebSocket();
     StopMonitoring();
@@ -306,4 +308,18 @@ void FChatSocket::Reconnect()
                 return false;
             }),
         Delay);
+}
+
+void FChatSocket::SetConnectionState(const EConnectionState NewState)
+{
+    const bool bWasOnline = ConnectionState == EConnectionState::Connected;
+    const bool bOnline = NewState == EConnectionState::Connected;
+    if (bWasOnline != bOnline)
+    {
+        Events().Broadcast(FConnectionChangedEvent{FConnectionChangedEvent::StaticType, bOnline});
+    }
+
+    ConnectionState = NewState;
+
+    // TODO offline support: recovered connection
 }

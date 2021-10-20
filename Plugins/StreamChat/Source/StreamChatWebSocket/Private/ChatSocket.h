@@ -52,6 +52,8 @@ private:
     bool CheckNeedToReconnect(float DeltaTime);
     void Reconnect();
 
+    void SetConnectionState(EConnectionState);
+
     static FString BuildUrl(const FString& ApiKey, const FString& Token, const FString& Host, const FUserDto& User);
     TUniquePtr<FChatSocketEvents> ChatSocketEvents;
 

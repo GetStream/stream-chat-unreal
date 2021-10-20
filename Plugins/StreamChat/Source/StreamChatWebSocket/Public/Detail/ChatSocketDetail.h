@@ -1,24 +1,24 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
-#include "EventSubscription.h"
+#include "JsonEventSubscription.h"
 
 namespace Detail
 {
 template <class TEvent>
-TEventSubscription<TEvent>& GetSubscription(TMap<FName, FEventSubscriptionPtr>& Subscriptions)
+TJsonEventSubscription<TEvent>& GetSubscription(TMap<FName, FEventSubscriptionPtr>& Subscriptions)
 {
     const FName& EventType = TEvent::StaticType;
     const FEventSubscriptionPtr* Existing = Subscriptions.Find(EventType);
     const FEventSubscriptionPtr& Subscription =
-        Existing ? *Existing : Subscriptions.Emplace(EventType, MakeShared<TEventSubscription<TEvent>>());
-    return StaticCast<TEventSubscription<TEvent>&>(*Subscription);
+        Existing ? *Existing : Subscriptions.Emplace(EventType, MakeShared<TJsonEventSubscription<TEvent>>());
+    return StaticCast<TJsonEventSubscription<TEvent>&>(*Subscription);
 }
 
 template <class TEvent>
 FDelegateHandle SubscribeToEvent(
     TMap<FName, FEventSubscriptionPtr>& Subscriptions,
-    TEventReceivedDelegate<TEvent> Callback)
+    TEventDelegate<TEvent> Callback)
 {
     return Detail::GetSubscription<TEvent>(Subscriptions).Delegate.Add(MoveTemp(Callback));
 }
@@ -27,9 +27,9 @@ template <class TEvent, class UserClass>
 FDelegateHandle SubscribeToUObjectEvent(
     TMap<FName, FEventSubscriptionPtr>& Subscriptions,
     UserClass* InObj,
-    TEventReceivedDelegateUObjectMethodPtr<TEvent, UserClass> InMethod)
+    TEventDelegateUObjectMethodPtr<TEvent, UserClass> InMethod)
 {
-    const TEventReceivedDelegate<TEvent> Delegate = TEventReceivedDelegate<TEvent>::CreateUObject(InObj, InMethod);
+    const TEventDelegate<TEvent> Delegate = TEventDelegate<TEvent>::CreateUObject(InObj, InMethod);
     return Detail::SubscribeToEvent<TEvent>(Subscriptions, Delegate);
 }
 
@@ -37,9 +37,9 @@ template <class TEvent, class UserClass>
 FDelegateHandle SubscribeToSpEvent(
     TMap<FName, FEventSubscriptionPtr>& Subscriptions,
     UserClass* InObj,
-    TEventReceivedDelegateSpMethodPtr<TEvent, UserClass> InMethod)
+    TEventDelegateSpMethodPtr<TEvent, UserClass> InMethod)
 {
-    const TEventReceivedDelegate<TEvent> Delegate = TEventReceivedDelegate<TEvent>::CreateSP(InObj, InMethod);
+    const TEventDelegate<TEvent> Delegate = TEventDelegate<TEvent>::CreateSP(InObj, InMethod);
     return Detail::SubscribeToEvent<TEvent>(Subscriptions, Delegate);
 }
 
@@ -47,8 +47,8 @@ template <class TEvent, typename FunctorType, typename... VarTypes>
 FDelegateHandle
 SubscribeToLambdaEvent(TMap<FName, FEventSubscriptionPtr>& Subscriptions, FunctorType&& InFunctor, VarTypes... Vars)
 {
-    const TEventReceivedDelegate<TEvent> Delegate =
-        TEventReceivedDelegate<TEvent>::CreateLambda(Forward<FunctorType>(InFunctor), Vars...);
+    const TEventDelegate<TEvent> Delegate =
+        TEventDelegate<TEvent>::CreateLambda(Forward<FunctorType>(InFunctor), Vars...);
     return Detail::SubscribeToEvent<TEvent>(Subscriptions, Delegate);
 }
 

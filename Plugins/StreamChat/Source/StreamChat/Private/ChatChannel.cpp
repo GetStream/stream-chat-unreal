@@ -9,7 +9,6 @@
 #include "Event/Channel/ReactionDeletedEvent.h"
 #include "Event/Channel/ReactionNewEvent.h"
 #include "Event/Channel/ReactionUpdatedEvent.h"
-#include "IChatSocket.h"
 #include "Reaction/Reaction.h"
 #include "Request/Message/MessageRequestDto.h"
 #include "Request/Reaction/ReactionRequestDto.h"

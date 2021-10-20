@@ -5,7 +5,6 @@
 #include "Channel/Message.h"
 #include "ChatSocketEvents.h"
 #include "CoreMinimal.h"
-#include "IChatSocket.h"
 #include "UObject/NoExportTypes.h"
 
 #include "ChatChannel.generated.h"
@@ -56,20 +55,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel")
     void DeleteReaction(const FMessage& Message, const FReaction& Reaction);
 
-    template <class TEvent>
-    using TEventReceivedMulticastDelegate = TMulticastDelegate<void(const TEvent& Event)>;
-    template <class TEvent>
-    using TEventReceivedDelegate = typename TEventReceivedMulticastDelegate<TEvent>::FDelegate;
-    template <class TEvent, class UserClass>
-    using TEventReceivedDelegateUObjectMethodPtr =
-        typename TEventReceivedDelegate<TEvent>::template TUObjectMethodDelegate<UserClass>::FMethodPtr;
-    template <class TEvent, class UserClass>
-    using TEventReceivedDelegateSpMethodPtr =
-        typename TEventReceivedDelegate<TEvent>::template TSPMethodDelegate<UserClass>::FMethodPtr;
-
     /// Subscribe to a channel event using your own delegate object
     template <class TEvent>
-    FDelegateHandle On(TEventReceivedDelegate<TEvent> Callback);
+    FDelegateHandle On(TEventDelegate<TEvent> Callback);
 
     /**
      * Subscribe to a channel event using a UObject-based member function delegate.
@@ -81,7 +69,7 @@ public:
     template <class TEvent, class UserClass>
     typename TEnableIf<TIsDerivedFrom<UserClass, UObject>::IsDerived, FDelegateHandle>::Type On(
         UserClass* Obj,
-        TEventReceivedDelegateUObjectMethodPtr<TEvent, UserClass> Method);
+        TEventDelegateUObjectMethodPtr<TEvent, UserClass> Method);
 
     /**
      * Subscribe to a channel event using a shared pointer-based (fast, not thread-safe) member function delegate.
@@ -93,7 +81,7 @@ public:
     template <class TEvent, class UserClass>
     typename TEnableIf<!TIsDerivedFrom<UserClass, UObject>::IsDerived, FDelegateHandle>::Type On(
         UserClass* Obj,
-        TEventReceivedDelegateSpMethodPtr<TEvent, UserClass> Method);
+        TEventDelegateSpMethodPtr<TEvent, UserClass> Method);
 
     /**
      * Subscribe to a channel event using a C++ lambda
@@ -149,7 +137,7 @@ private:
 };
 
 template <class TEvent>
-FDelegateHandle UChatChannel::On(TEventReceivedDelegate<TEvent> Callback)
+FDelegateHandle UChatChannel::On(TEventDelegate<TEvent> Callback)
 {
     return Socket->Events().SubscribeLambda<TEvent>(
         [this, Callback](const TEvent& Event)
@@ -166,26 +154,26 @@ FDelegateHandle UChatChannel::On(TEventReceivedDelegate<TEvent> Callback)
 template <class TEvent, class UserClass>
 typename TEnableIf<TIsDerivedFrom<UserClass, UObject>::IsDerived, FDelegateHandle>::Type UChatChannel::On(
     UserClass* Obj,
-    TEventReceivedDelegateUObjectMethodPtr<TEvent, UserClass> Method)
+    TEventDelegateUObjectMethodPtr<TEvent, UserClass> Method)
 {
-    const TEventReceivedDelegate<TEvent> Delegate = TEventReceivedDelegate<TEvent>::CreateUObject(Obj, Method);
+    const TEventDelegate<TEvent> Delegate = TEventDelegate<TEvent>::CreateUObject(Obj, Method);
     return On<TEvent>(Delegate);
 }
 
 template <class TEvent, class UserClass>
 typename TEnableIf<!TIsDerivedFrom<UserClass, UObject>::IsDerived, FDelegateHandle>::Type UChatChannel::On(
     UserClass* Obj,
-    TEventReceivedDelegateSpMethodPtr<TEvent, UserClass> Method)
+    TEventDelegateSpMethodPtr<TEvent, UserClass> Method)
 {
-    const TEventReceivedDelegate<TEvent> Delegate = TEventReceivedDelegate<TEvent>::CreateSP(Obj, Method);
+    const TEventDelegate<TEvent> Delegate = TEventDelegate<TEvent>::CreateSP(Obj, Method);
     return On<TEvent>(Delegate);
 }
 
 template <class TEvent, typename FunctorType, typename... VarTypes>
 FDelegateHandle UChatChannel::On(FunctorType&& Functor, VarTypes... Vars)
 {
-    const TEventReceivedDelegate<TEvent> Delegate =
-        TEventReceivedDelegate<TEvent>::CreateLambda(Forward<FunctorType>(Functor), Vars...);
+    const TEventDelegate<TEvent> Delegate =
+        TEventDelegate<TEvent>::CreateLambda(Forward<FunctorType>(Functor), Vars...);
     return On<TEvent>(Delegate);
 }
 
