@@ -21,6 +21,10 @@ public:
     FORCEINLINE FDelegateHandle
     SubscribeSp(UserClass* Obj, TEventReceivedDelegateSpMethodPtr<TEvent, UserClass> Method);
 
+    /// Subscribe to a WebSocket event using a UObject-based member function delegate.
+    template <class TEvent, typename FunctorType, typename... VarTypes>
+    FORCEINLINE FDelegateHandle SubscribeLambda(FunctorType&& InFunctor, VarTypes... Vars);
+
     template <class TEvent>
     bool Unsubscribe(FDelegateHandle);
 
@@ -51,6 +55,13 @@ FDelegateHandle FChatSocketEvents::SubscribeSp(
     TEventReceivedDelegateSpMethodPtr<TEvent, UserClass> Method)
 {
     return Detail::SubscribeToSpEvent<TEvent, UserClass>(Subscriptions, Obj, Method);
+}
+
+template <class TEvent, typename FunctorType, typename... VarTypes>
+FDelegateHandle FChatSocketEvents::SubscribeLambda(FunctorType&& InFunctor, VarTypes... Vars)
+{
+    return Detail::SubscribeToLambdaEvent<TEvent, FunctorType, VarTypes...>(
+        Subscriptions, Forward<FunctorType>(InFunctor), Vars...);
 }
 
 template <class TEvent>

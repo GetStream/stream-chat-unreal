@@ -43,6 +43,15 @@ FDelegateHandle SubscribeToSpEvent(
     return Detail::SubscribeToEvent<TEvent>(Subscriptions, Delegate);
 }
 
+template <class TEvent, typename FunctorType, typename... VarTypes>
+FDelegateHandle
+SubscribeToLambdaEvent(TMap<FName, FEventSubscriptionPtr>& Subscriptions, FunctorType&& InFunctor, VarTypes... Vars)
+{
+    const TEventReceivedDelegate<TEvent> Delegate =
+        TEventReceivedDelegate<TEvent>::CreateLambda(Forward<FunctorType>(InFunctor), Vars...);
+    return Detail::SubscribeToEvent<TEvent>(Subscriptions, Delegate);
+}
+
 template <class TEvent>
 bool UnsubscribeFromEvent(TMap<FName, FEventSubscriptionPtr>& Subscriptions, FDelegateHandle DelegateHandle)
 {

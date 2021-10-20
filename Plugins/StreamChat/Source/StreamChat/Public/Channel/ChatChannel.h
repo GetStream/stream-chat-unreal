@@ -51,6 +51,8 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel")
     void SendReaction(const FMessage& Message, const FName& ReactionType, bool bEnforceUnique = true);
 
+    const FString& GetCid() const;
+
     UPROPERTY(BlueprintAssignable, Category = "Stream Chat Channel")
     FMessagesUpdatedDelegate MessagesUpdated;
 

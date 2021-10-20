@@ -19,6 +19,25 @@
 #include "StreamChatClientComponent.h"
 #include "Util.h"
 
+namespace
+{
+template <class TEvent>
+FDelegateHandle SubscribeToChannelEvent(
+    const UStreamChatClientComponent& Client,
+    UChatChannel* Channel,
+    TEventReceivedDelegateUObjectMethodPtr<TEvent, UChatChannel> Method)
+{
+    return Client.GetSocket()->Events().SubscribeLambda<TEvent>(
+        [Channel, Method](const TEvent& Event)
+        {
+            if (Event.Cid == Channel->GetCid())
+            {
+                Invoke(Method, Channel, Event);
+            }
+        });
+}
+}    // namespace
+
 UChatChannel* UChatChannel::Create(const UStreamChatClientComponent& Client, const FString& Type, const FString& Id)
 {
     UChatChannel* Channel = NewObject<UChatChannel>();
@@ -27,12 +46,12 @@ UChatChannel* UChatChannel::Create(const UStreamChatClientComponent& Client, con
     Channel->Type = Type;
     Channel->Id = Id;
     Channel->User = Client.GetCurrentUser();
-    Client.GetSocket()->Events().SubscribeUObject<FMessageNewEvent>(Channel, &UChatChannel::OnMessageNew);
-    Client.GetSocket()->Events().SubscribeUObject<FMessageUpdatedEvent>(Channel, &UChatChannel::OnMessageUpdated);
-    Client.GetSocket()->Events().SubscribeUObject<FMessageDeletedEvent>(Channel, &UChatChannel::OnMessageDeleted);
-    Client.GetSocket()->Events().SubscribeUObject<FReactionNewEvent>(Channel, &UChatChannel::OnReactionNew);
-    Client.GetSocket()->Events().SubscribeUObject<FReactionUpdatedEvent>(Channel, &UChatChannel::OnReactionUpdated);
-    Client.GetSocket()->Events().SubscribeUObject<FReactionDeletedEvent>(Channel, &UChatChannel::OnReactionDeleted);
+    SubscribeToChannelEvent<FMessageNewEvent>(Client, Channel, &UChatChannel::OnMessageNew);
+    SubscribeToChannelEvent<FMessageUpdatedEvent>(Client, Channel, &UChatChannel::OnMessageUpdated);
+    SubscribeToChannelEvent<FMessageDeletedEvent>(Client, Channel, &UChatChannel::OnMessageDeleted);
+    SubscribeToChannelEvent<FReactionNewEvent>(Client, Channel, &UChatChannel::OnReactionNew);
+    SubscribeToChannelEvent<FReactionUpdatedEvent>(Client, Channel, &UChatChannel::OnReactionUpdated);
+    SubscribeToChannelEvent<FReactionDeletedEvent>(Client, Channel, &UChatChannel::OnReactionDeleted);
 
     check(!Channel->ConnectionId.IsEmpty());
 
@@ -178,6 +197,11 @@ void UChatChannel::SendReaction(const FMessage& Message, const FName& ReactionTy
     AddMessage(NewMessage);
 
     Api->SendReaction(Message.Id, {Message.Id, 1, ReactionType}, bEnforceUnique, false);
+}
+
+const FString& UChatChannel::GetCid() const
+{
+    return Cid;
 }
 
 void UChatChannel::InitializeState(const FChannelStateResponseFieldsDto& State)

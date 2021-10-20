@@ -63,7 +63,7 @@ public:
         const FReactionRequestDto& ReactionRequest,
         bool bEnforceUnique = true,
         bool bSkipPush = false,
-        TCallback <FReactionResponseDto> Callback = {});
+        TCallback<FReactionResponseDto> Callback = {});
 
     /**
      * Query channels with filter query
