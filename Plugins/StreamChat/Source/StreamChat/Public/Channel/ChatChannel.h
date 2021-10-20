@@ -5,12 +5,12 @@
 #include "Channel/Message.h"
 #include "ChatSocketEvents.h"
 #include "CoreMinimal.h"
+#include "IChatSocket.h"
 #include "UObject/NoExportTypes.h"
 
 #include "ChatChannel.generated.h"
 
 class FChatApi;
-class IChatSocket;
 class UStreamChatClientComponent;
 struct FChannelStateResponseDto;
 struct FChannelStateResponseFieldsDto;
