@@ -4,6 +4,7 @@
 
 #include "Channel/Filter.h"
 #include "Channel/SortOption.h"
+#include "ChatSocketEvents.h"
 #include "Components/ActorComponent.h"
 #include "CoreMinimal.h"
 #include "IChatSocket.h"

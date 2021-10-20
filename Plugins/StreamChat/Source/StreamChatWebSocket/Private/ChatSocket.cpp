@@ -3,6 +3,7 @@
 #include "Containers/Ticker.h"
 #include "Event/Client/HealthCheckEvent.h"
 #include "Events/ConnectionChangedEvent.h"
+#include "Events/ConnectionRecoveredEvent.h"
 #include "IWebSocket.h"
 #include "LogChatSocket.h"
 #include "Request/ConnectRequest.h"
@@ -317,9 +318,13 @@ void FChatSocket::SetConnectionState(const EConnectionState NewState)
     if (bWasOnline != bOnline)
     {
         Events().Broadcast(FConnectionChangedEvent{FConnectionChangedEvent::StaticType, bOnline});
+
+        if (bOnline)
+        {
+            // TODO offline support: recovered connection
+            Events().Broadcast(FConnectionRecoveredEvent{FConnectionRecoveredEvent::StaticType});
+        }
     }
 
     ConnectionState = NewState;
-
-    // TODO offline support: recovered connection
 }

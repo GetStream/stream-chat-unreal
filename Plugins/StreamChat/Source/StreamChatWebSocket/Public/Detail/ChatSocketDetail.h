@@ -16,9 +16,7 @@ TJsonEventSubscription<TEvent>& GetSubscription(TMap<FName, FEventSubscriptionPt
 }
 
 template <class TEvent>
-FDelegateHandle SubscribeToEvent(
-    TMap<FName, FEventSubscriptionPtr>& Subscriptions,
-    TEventDelegate<TEvent> Callback)
+FDelegateHandle SubscribeToEvent(TMap<FName, FEventSubscriptionPtr>& Subscriptions, TEventDelegate<TEvent> Callback)
 {
     return Detail::GetSubscription<TEvent>(Subscriptions).Delegate.Add(MoveTemp(Callback));
 }
