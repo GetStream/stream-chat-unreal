@@ -1,12 +1,10 @@
 #include "Detail/JsonObjectSerialization.h"
 
-#include "Detail/ExtraFields.h"
 #include "Dom/JsonObject.h"
 #include "JsonObjectConverter.h"
 #include "JsonObjectWrapper.h"
 #include "NamingConvention.h"
 #include "NamingConventionConversion.h"
-#include "Policies/CondensedJsonPrintPolicy.h"
 
 namespace
 {

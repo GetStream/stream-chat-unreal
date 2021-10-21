@@ -4,18 +4,20 @@
 #include "JsonObjectWrapper.h"
 #include "PaginationOptions.h"
 #include "Request/Channel/SortOptionDto.h"
+#include "Response/Event/EventResponseDto.h"
 #include "Response/Reaction/ReactionResponseDto.h"
 
-struct FReactionRequestDto;
 class FHttpClient;
 class FRequestBuilder;
 class FTokenManager;
+struct FChannelEvent;
 struct FChannelResponseDto;
 struct FChannelStateResponseDto;
 struct FChannelsResponseDto;
 struct FHttpResponse;
 struct FMessageRequestDto;
 struct FMessageResponseDto;
+struct FReactionRequestDto;
 struct FSortOption;
 
 template <class T>
@@ -68,6 +70,13 @@ public:
     void DeleteReaction(const FString& MessageId, const FName& Type, TCallback<FReactionResponseDto> Callback = {})
         const;
 
+    template <class TEvent>
+    void SendChannelEvent(
+        const FString& ChannelType,
+        const FString& ChannelId,
+        const TEvent&,
+        TCallback<FEventResponseDto> Callback = {});
+
     /**
      * Query channels with filter query
      * @param ConnectionId
@@ -90,6 +99,13 @@ public:
         FPaginationOptions PaginationOptions = {}) const;
 
 private:
+    void SendChannelEvent(
+        const FString& ChannelType,
+        const FString& ChannelId,
+        const UStruct* EventStructDefinition,
+        const void* EventStruct,
+        TCallback<FEventResponseDto> Callback = {}) const;
+
     FString BuildUrl(const FString& Path) const;
 
     void AddAuth(FRequestBuilder&) const;
@@ -102,3 +118,13 @@ private:
     FString Scheme;
     FString Host;
 };
+
+template <class TEvent>
+void FChatApi::SendChannelEvent(
+    const FString& ChannelType,
+    const FString& ChannelId,
+    const TEvent& Event,
+    TCallback<FEventResponseDto> Callback)
+{
+    SendChannelEvent(ChannelType, ChannelId, TEvent::StaticStruct(), &Event, Callback);
+}

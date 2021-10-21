@@ -3,6 +3,7 @@
 #include "HttpClient.h"
 #include "Request/Channel/ChannelGetOrCreateRequestDto.h"
 #include "Request/Channel/QueryChannelsRequestDto.h"
+#include "Request/Event/SendEventRequest.h"
 #include "Request/Message/SendMessageRequestDto.h"
 #include "Request/Message/UpdateMessageRequestDto.h"
 #include "Request/Reaction/SendReactionRequestDto.h"
@@ -125,6 +126,22 @@ void FChatApi::QueryChannels(
         EnumHasAnyFlags(Flags, EChannelFlags::State),
         EnumHasAnyFlags(Flags, EChannelFlags::Watch),
     };
+    Client->Post(Url).Json(Body).Send(Callback);
+}
+
+void FChatApi::SendChannelEvent(
+    const FString& ChannelType,
+    const FString& ChannelId,
+    const UStruct* EventStructDefinition,
+    const void* EventStruct,
+    const TCallback<FEventResponseDto> Callback) const
+{
+    const FString Path = FString::Printf(TEXT("channels/%s/%s/event"), *ChannelType, *ChannelId);
+    const FString Url = BuildUrl(Path);
+    FJsonObjectWrapper Event;
+    Event.JsonObject = JsonObjectSerialization::UStructToJsonObject(EventStructDefinition, EventStruct);
+    const FSendEventRequestDto Body{Event};
+
     Client->Post(Url).Json(Body).Send(Callback);
 }
 

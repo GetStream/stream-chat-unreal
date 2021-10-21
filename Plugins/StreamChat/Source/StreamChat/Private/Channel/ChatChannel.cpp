@@ -9,6 +9,8 @@
 #include "Event/Channel/ReactionDeletedEvent.h"
 #include "Event/Channel/ReactionNewEvent.h"
 #include "Event/Channel/ReactionUpdatedEvent.h"
+#include "Event/Channel/TypingStartEvent.h"
+#include "Event/Channel/TypingStopEvent.h"
 #include "Reaction/Reaction.h"
 #include "Request/Message/MessageRequestDto.h"
 #include "Request/Reaction/ReactionRequestDto.h"
@@ -17,9 +19,9 @@
 #include "StreamChatClientComponent.h"
 #include "Util.h"
 
-UChatChannel* UChatChannel::Create(const UStreamChatClientComponent& Client, const FString& Type, const FString& Id)
+UChatChannel* UChatChannel::Create(UStreamChatClientComponent& Client, const FString& Type, const FString& Id)
 {
-    UChatChannel* Channel = NewObject<UChatChannel>();
+    UChatChannel* Channel = NewObject<UChatChannel>(&Client);
     Channel->Api = Client.GetApi();
     Channel->Socket = Client.GetSocket();
     Channel->Type = Type;
@@ -37,9 +39,7 @@ UChatChannel* UChatChannel::Create(const UStreamChatClientComponent& Client, con
     return Channel;
 }
 
-UChatChannel* UChatChannel::Create(
-    const UStreamChatClientComponent& Client,
-    const FChannelStateResponseFieldsDto& Fields)
+UChatChannel* UChatChannel::Create(UStreamChatClientComponent& Client, const FChannelStateResponseFieldsDto& Fields)
 {
     UChatChannel* Channel = Create(Client, Fields.Channel.Type, Fields.Channel.Id);
     Channel->InitializeState(Fields);
@@ -194,6 +194,35 @@ void UChatChannel::DeleteReaction(const FMessage& Message, const FReaction& Reac
 
 void UChatChannel::KeyStroke(const FString& ParentMessageId)
 {
+    if (!Config.bTypingEvents)
+    {
+        return;
+    }
+
+    constexpr float TypingTimeout = 2.f;
+    const FDateTime Now = FDateTime::Now();
+    if (!LastKeystrokeAt.IsSet() || (Now - LastKeystrokeAt.GetValue()).GetTotalSeconds() >= TypingTimeout)
+    {
+        UE_LOG(LogTemp, Log, TEXT("Start typing"));
+        SendEvent(FTypingStartEvent{{{FTypingStartEvent::StaticType, Now}, Id, Type, Cid}, ParentMessageId, User.Id});
+    }
+    LastKeystrokeAt.Emplace(Now);
+
+    FTimerHandle TimerHandle;
+    GetWorld()->GetTimerManager().SetTimer(
+        TimerHandle,
+        [this, ParentMessageId, TypingTimeout]()
+        {
+            const FDateTime Now = FDateTime::Now();
+            if (!LastKeystrokeAt.IsSet() || (Now - LastKeystrokeAt.GetValue()).GetTotalSeconds() >= TypingTimeout)
+            {
+                UE_LOG(LogTemp, Log, TEXT("Stop typing"));
+                SendEvent(
+                    FTypingStopEvent{{{FTypingStopEvent::StaticType, Now}, Id, Type, Cid}, ParentMessageId, User.Id});
+            }
+        },
+        2.f,
+        false);
 }
 
 const FString& UChatChannel::GetCid() const

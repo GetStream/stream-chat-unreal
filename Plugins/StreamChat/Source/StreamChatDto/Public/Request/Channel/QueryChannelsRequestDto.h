@@ -21,7 +21,8 @@ struct FQueryChannelsRequestDto
     STREAMCHATDTO_API static void SerializeExtra(const FQueryChannelsRequestDto& Self, FJsonObject& JsonObject);
 
     /// WebSocket connection ID to interact with
-    UPROPERTY() FString ConnectionId;
+    UPROPERTY()
+    FString ConnectionId;
 
     UPROPERTY()
     FJsonObjectWrapper FilterConditions;

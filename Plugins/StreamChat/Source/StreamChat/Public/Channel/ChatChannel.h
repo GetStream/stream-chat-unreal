@@ -6,12 +6,13 @@
 #include "Channel/Message.h"
 #include "ChatSocketEvents.h"
 #include "CoreMinimal.h"
+#include "ChatApi.h"
 #include "IChatSocket.h"
 #include "UObject/NoExportTypes.h"
 
 #include "ChatChannel.generated.h"
 
-class FChatApi;
+struct FChannelEvent;
 class UStreamChatClientComponent;
 struct FChannelStateResponseDto;
 struct FChannelStateResponseFieldsDto;
@@ -33,8 +34,8 @@ class STREAMCHAT_API UChatChannel final : public UObject
     GENERATED_BODY()
 
 public:
-    static UChatChannel* Create(const UStreamChatClientComponent&, const FString& Type, const FString& Id);
-    static UChatChannel* Create(const UStreamChatClientComponent&, const FChannelStateResponseFieldsDto&);
+    static UChatChannel* Create(UStreamChatClientComponent&, const FString& Type, const FString& Id);
+    static UChatChannel* Create(UStreamChatClientComponent&, const FChannelStateResponseFieldsDto&);
 
     void Watch(TFunction<void()> Callback = {});
 
@@ -55,6 +56,9 @@ public:
 
     UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Reaction")
     void DeleteReaction(const FMessage& Message, const FReaction& Reaction);
+
+    template <class TEvent>
+    void SendEvent(const TEvent&);
 
     /**
      * Should be called on every keystroke. Sends typing.start and typing.stop events accordingly.
@@ -139,11 +143,18 @@ private:
 
     TArray<FMessage> Messages;
     FChannelConfig Config;
-
     FUser User;
     TSharedPtr<FChatApi> Api;
     TSharedPtr<IChatSocket> Socket;
+
+    TOptional<FDateTime> LastKeystrokeAt;
 };
+
+template <class TEvent>
+void UChatChannel::SendEvent(const TEvent& Event)
+{
+    Api->SendChannelEvent(Type, Id, Event);
+}
 
 template <class TEvent>
 FDelegateHandle UChatChannel::On(TEventDelegate<TEvent> Callback)

@@ -14,8 +14,6 @@ public class StreamChat : ModuleRules
 			"Json", // Filter
 			"JsonUtilities", // Filter
 			"StreamJson",
-			"StreamChatDto",
-			"StreamChatApi",
 		});
 
 		PublicDependencyModuleNames.AddRange(new[]
@@ -24,6 +22,8 @@ public class StreamChat : ModuleRules
 			"CoreUObject",
 			"Engine",
 			"StreamChatWebSocket",
+			"StreamChatApi", // Send event template
+			"StreamChatDto", // Send event template
 		});
 	}
 }
