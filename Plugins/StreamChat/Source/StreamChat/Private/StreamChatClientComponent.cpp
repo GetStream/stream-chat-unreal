@@ -5,7 +5,7 @@
 #include "Algo/Transform.h"
 #include "Channel/ChatChannel.h"
 #include "ChatApi.h"
-#include "Events/ConnectionChangedEvent.h"
+#include "Event/Client/ConnectionChangedEvent.h"
 #include "IChatSocket.h"
 #include "Request/Message/MessageRequestDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"

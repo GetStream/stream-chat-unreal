@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "LocalEvent.h"
+#include "Event/Abstract/LocalEvent.h"
 
 #include "ConnectionRecoveredEvent.generated.h"
 
