@@ -4,9 +4,9 @@
 
 #include "Channel/ChannelConfig.h"
 #include "Channel/Message.h"
+#include "ChatApi.h"
 #include "ChatSocketEvents.h"
 #include "CoreMinimal.h"
-#include "ChatApi.h"
 #include "IChatSocket.h"
 #include "UObject/NoExportTypes.h"
 

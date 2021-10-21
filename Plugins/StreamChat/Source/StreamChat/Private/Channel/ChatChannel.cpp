@@ -3,6 +3,7 @@
 #include "Channel/ChatChannel.h"
 
 #include "ChatApi.h"
+#include "Engine/World.h"
 #include "Event/Channel/MessageDeletedEvent.h"
 #include "Event/Channel/MessageNewEvent.h"
 #include "Event/Channel/MessageUpdatedEvent.h"
@@ -204,7 +205,11 @@ void UChatChannel::KeyStroke(const FString& ParentMessageId)
     if (!LastKeystrokeAt.IsSet() || (Now - LastKeystrokeAt.GetValue()).GetTotalSeconds() >= TypingTimeout)
     {
         UE_LOG(LogTemp, Log, TEXT("Start typing"));
-        SendEvent(FTypingStartEvent{{{FTypingStartEvent::StaticType, Now}, Id, Type, Cid}, ParentMessageId, User.Id});
+        SendEvent(FTypingStartEvent{
+            {{FTypingStartEvent::StaticType, Now}, Id, Type, Cid},
+            ParentMessageId,
+            Util::Convert<FUserObjectDto>(User),
+        });
     }
     LastKeystrokeAt.Emplace(Now);
 
