@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "ChannelConfigDto.h"
+#include "ChannelConfigWithInfoDto.h"
 #include "ChannelMemberDto.h"
 #include "CoreMinimal.h"
 #include "UserObjectDto.h"
@@ -32,7 +32,7 @@ struct FChannelResponseDto
 
     /// The channel configuration data
     UPROPERTY()
-    FChannelConfigDto Config;
+    FChannelConfigWithInfoDto Config;
 
     /// Cooldown period after sending each message
     UPROPERTY()

@@ -59,6 +59,7 @@ void FRequestBuilder::Send(TFunction<void(const FHttpResponse&)> Callback)
                     TEXT("HTTP request succeeded [StatusCode=%d, Url=%s]"),
                     HttpResponse.StatusCode,
                     *OriginalRequest->GetURL());
+                UE_LOG(LogHttpClient, Verbose, TEXT("HTTP response [Body=%s]"), *HttpResponse.Text);
                 Client->OnResponseDelegate.Broadcast(HttpResponse);
                 if (Callback)
                 {

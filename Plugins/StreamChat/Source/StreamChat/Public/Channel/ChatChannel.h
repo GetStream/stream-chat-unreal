@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "Channel/ChannelConfig.h"
 #include "Channel/Message.h"
 #include "ChatSocketEvents.h"
 #include "CoreMinimal.h"
@@ -37,23 +38,30 @@ public:
 
     void Watch(TFunction<void()> Callback = {});
 
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel")
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Message")
     void SendMessage(const FString& Text, const FUser& FromUser);
 
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel")
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Message")
     void UpdateMessage(const FMessage& Message);
 
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel")
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Message")
     void DeleteMessage(const FMessage& Message);
 
-    UFUNCTION(BlueprintPure, Category = "Stream Chat Channel")
+    UFUNCTION(BlueprintPure, Category = "Stream Chat Channel|Message")
     const TArray<FMessage>& GetMessages() const;
 
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel")
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Reaction")
     void SendReaction(const FMessage& Message, const FName& ReactionType, bool bEnforceUnique = true);
 
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel")
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Reaction")
     void DeleteReaction(const FMessage& Message, const FReaction& Reaction);
+
+    /**
+     * Should be called on every keystroke. Sends typing.start and typing.stop events accordingly.
+     * @param ParentMessageId In the case of a thread, the ID of the parent message (optional)
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Typing", meta = (AdvancedDisplay = ParentMessageId))
+    void KeyStroke(const FString& ParentMessageId = TEXT(""));
 
     /// Subscribe to a channel event using your own delegate object
     template <class TEvent>
@@ -130,6 +138,7 @@ private:
     FString Cid;
 
     TArray<FMessage> Messages;
+    FChannelConfig Config;
 
     FUser User;
     TSharedPtr<FChatApi> Api;

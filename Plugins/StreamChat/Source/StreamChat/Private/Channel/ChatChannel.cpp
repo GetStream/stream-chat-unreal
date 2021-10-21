@@ -192,6 +192,10 @@ void UChatChannel::DeleteReaction(const FMessage& Message, const FReaction& Reac
     Api->DeleteReaction(Message.Id, Reaction.Type);
 }
 
+void UChatChannel::KeyStroke(const FString& ParentMessageId)
+{
+}
+
 const FString& UChatChannel::GetCid() const
 {
     return Cid;
@@ -204,6 +208,7 @@ void UChatChannel::InitializeState(const FChannelStateResponseFieldsDto& State)
     Name = State.Channel.Name;
     ImageUrl = State.Channel.Image;
     Messages = Util::Convert<FMessage>(State.Messages);
+    Config = Util::Convert<FChannelConfig>(State.Channel.Config);
     MessagesUpdated.Broadcast(Messages);
 }
 
