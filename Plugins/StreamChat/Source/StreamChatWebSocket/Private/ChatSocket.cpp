@@ -66,8 +66,11 @@ void FChatSocket::Disconnect()
     StopMonitoring();
 }
 
-FString
-FChatSocket::BuildUrl(const FString& ApiKey, const FString& Token, const FString& Host, const FUserObjectDto& User)
+FString FChatSocket::BuildUrl(
+    const FString& ApiKey,
+    const FString& Token,
+    const FString& Host,
+    const FUserObjectDto& User)
 {
     const FConnectRequestDto Request = {
         true,

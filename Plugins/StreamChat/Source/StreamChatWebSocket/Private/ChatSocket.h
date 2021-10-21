@@ -54,8 +54,11 @@ private:
 
     void SetConnectionState(EConnectionState);
 
-    static FString
-    BuildUrl(const FString& ApiKey, const FString& Token, const FString& Host, const FUserObjectDto& User);
+    static FString BuildUrl(
+        const FString& ApiKey,
+        const FString& Token,
+        const FString& Host,
+        const FUserObjectDto& User);
     TUniquePtr<FChatSocketEvents> ChatSocketEvents;
 
     /// Provided by the server when the websocket connection is established

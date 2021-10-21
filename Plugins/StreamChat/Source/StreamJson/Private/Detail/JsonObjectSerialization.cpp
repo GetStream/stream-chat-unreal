@@ -10,8 +10,10 @@
 
 namespace
 {
-TSharedPtr<FJsonValue>
-ApplyNamingConventionToValue(FProperty* Property, const void* Value, const ENamingConvention NamingConvention)
+TSharedPtr<FJsonValue> ApplyNamingConventionToValue(
+    FProperty* Property,
+    const void* Value,
+    const ENamingConvention NamingConvention)
 {
     if (const FEnumProperty* EnumProperty = CastField<FEnumProperty>(Property))
     {

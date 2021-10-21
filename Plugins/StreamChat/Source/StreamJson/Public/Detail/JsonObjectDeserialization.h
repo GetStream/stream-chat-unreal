@@ -18,8 +18,10 @@ namespace JsonObjectDeserialization
  *
  * @return False if any properties matched but failed to deserialize
  */
-STREAMJSON_API bool
-JsonObjectToUStruct(const TSharedRef<FJsonObject>& JsonObject, const UStruct* StructDefinition, void* OutStruct);
+STREAMJSON_API bool JsonObjectToUStruct(
+    const TSharedRef<FJsonObject>& JsonObject,
+    const UStruct* StructDefinition,
+    void* OutStruct);
 
 /**
  * Templated version of JsonObjectToUStruct

@@ -42,8 +42,10 @@ FDelegateHandle SubscribeToSpEvent(
 }
 
 template <class TEvent, typename FunctorType, typename... VarTypes>
-FDelegateHandle
-SubscribeToLambdaEvent(TMap<FName, FEventSubscriptionPtr>& Subscriptions, FunctorType&& InFunctor, VarTypes... Vars)
+FDelegateHandle SubscribeToLambdaEvent(
+    TMap<FName, FEventSubscriptionPtr>& Subscriptions,
+    FunctorType&& InFunctor,
+    VarTypes... Vars)
 {
     const TEventDelegate<TEvent> Delegate =
         TEventDelegate<TEvent>::CreateLambda(Forward<FunctorType>(InFunctor), Vars...);
