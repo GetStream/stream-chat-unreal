@@ -18,6 +18,7 @@
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
 #include "StreamChatClientComponent.h"
+#include "TimerManager.h"
 #include "Util.h"
 
 UChatChannel* UChatChannel::Create(UStreamChatClientComponent& Client, const FString& Type, const FString& Id)
