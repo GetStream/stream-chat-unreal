@@ -4,16 +4,18 @@
 
 #include "CoreMinimal.h"
 
-#include "UserDto.generated.h"
+#include "UserObjectDto.generated.h"
 
 /**
  * #/components/schemas/UserObject
  */
 USTRUCT(BlueprintType)
-struct STREAMCHATDTO_API FUserDto
+struct STREAMCHATDTO_API FUserObjectDto
 {
     GENERATED_BODY()
 
     UPROPERTY()
     FString Id;
+
+    // TODO rest of the fields
 };

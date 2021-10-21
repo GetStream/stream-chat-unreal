@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UserDto.h"
+#include "UserObjectDto.h"
 
 #include "ReactionDto.generated.h"
 
@@ -37,7 +37,7 @@ struct FReactionDto
     FDateTime UpdatedAt;
 
     UPROPERTY()
-    FUserDto User;
+    FUserObjectDto User;
 
     UPROPERTY()
     FString UserId;

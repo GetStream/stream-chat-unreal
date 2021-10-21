@@ -5,7 +5,7 @@
 #include "ChannelConfigDto.h"
 #include "ChannelMemberDto.h"
 #include "CoreMinimal.h"
-#include "UserDto.h"
+#include "UserObjectDto.h"
 
 #include "ChannelResponseDto.generated.h"
 
@@ -45,7 +45,7 @@ struct FChannelResponseDto
     /// The user that created this channel
     // TODO: Optional
     UPROPERTY()
-    FUserDto CreatedBy;
+    FUserObjectDto CreatedBy;
 
     /// The date of channel deletion
     // TODO: Optional

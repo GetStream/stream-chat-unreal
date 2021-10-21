@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UserDto.h"
+#include "UserObjectDto.h"
 
 #include "ChannelMemberDto.generated.h"
 
@@ -55,7 +55,7 @@ struct STREAMCHATDTO_API FChannelMemberDto
     FDateTime UpdatedAt;
 
     UPROPERTY()
-    FUserDto User;
+    FUserObjectDto User;
 
     UPROPERTY()
     FString UserId;

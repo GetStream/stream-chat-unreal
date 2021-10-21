@@ -4,7 +4,7 @@
 #include "CoreMinimal.h"
 #include "IChatSocket.h"
 
-struct FUserDto;
+struct FUserObjectDto;
 struct FHealthCheckEvent;
 class IWebSocket;
 
@@ -12,7 +12,7 @@ class FChatSocket final : public IChatSocket
 {
 public:
     FChatSocket() = delete;
-    explicit FChatSocket(const FString& ApiKey, const FString& Token, const FString& Host, const FUserDto& User);
+    explicit FChatSocket(const FString& ApiKey, const FString& Token, const FString& Host, const FUserObjectDto& User);
     virtual ~FChatSocket() override;
 
     virtual void Connect(TFunction<void()> Callback) override;
@@ -54,7 +54,8 @@ private:
 
     void SetConnectionState(EConnectionState);
 
-    static FString BuildUrl(const FString& ApiKey, const FString& Token, const FString& Host, const FUserDto& User);
+    static FString
+    BuildUrl(const FString& ApiKey, const FString& Token, const FString& Host, const FUserObjectDto& User);
     TUniquePtr<FChatSocketEvents> ChatSocketEvents;
 
     /// Provided by the server when the websocket connection is established

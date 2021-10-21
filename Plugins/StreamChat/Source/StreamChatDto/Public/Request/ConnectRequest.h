@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "DeviceFields.h"
-#include "UserDto.h"
+#include "UserObjectDto.h"
 
 #include "ConnectRequest.generated.h"
 
@@ -23,7 +23,7 @@ struct FConnectRequestDto
     FString ClientId;
 
     UPROPERTY()
-    FUserDto UserDetails;
+    FUserObjectDto UserDetails;
 
     UPROPERTY()
     FDeviceFields Device;

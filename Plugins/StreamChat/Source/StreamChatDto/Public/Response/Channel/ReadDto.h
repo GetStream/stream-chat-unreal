@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UserDto.h"
+#include "UserObjectDto.h"
 
 #include "ReadDto.generated.h"
 
@@ -22,5 +22,5 @@ struct STREAMCHATDTO_API FReadDto
     uint32 UnreadMessages;
 
     UPROPERTY()
-    FUserDto User;
+    FUserObjectDto User;
 };

@@ -1,12 +1,12 @@
 ﻿#include "User.h"
 
-#include "UserDto.h"
+#include "UserObjectDto.h"
 
-FUser::FUser(const FUserDto& Dto) : Id(Dto.Id)
+FUser::FUser(const FUserObjectDto& Dto) : Id(Dto.Id)
 {
 }
 
-FUser::operator FUserDto() const
+FUser::operator FUserObjectDto() const
 {
     return {Id};
 }

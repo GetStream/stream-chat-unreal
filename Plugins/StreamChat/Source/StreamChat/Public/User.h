@@ -6,7 +6,7 @@
 
 #include "User.generated.h"
 
-struct FUserDto;
+struct FUserObjectDto;
 
 /**
  * A Stream Chat user
@@ -19,8 +19,8 @@ struct STREAMCHAT_API FUser
     FUser() = default;
     explicit FUser(const FString& InId);
 
-    explicit FUser(const FUserDto&);
-    explicit operator FUserDto() const;
+    explicit FUser(const FUserObjectDto&);
+    explicit operator FUserObjectDto() const;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat User")
     FString Id;

@@ -35,7 +35,7 @@ void UStreamChatClientComponent::ConnectUser(const FUser& User, const FString& T
     // needed?
     TokenManager->SetTokenProvider(MakeUnique<FConstantTokenProvider>(Token));
     Socket = IChatSocket::Create(
-        ApiKey, TokenManager->LoadToken(), GetDefault<UStreamChatSettings>()->Host, static_cast<FUserDto>(User));
+        ApiKey, TokenManager->LoadToken(), GetDefault<UStreamChatSettings>()->Host, static_cast<FUserObjectDto>(User));
     Socket->Connect(Callback);
 }
 

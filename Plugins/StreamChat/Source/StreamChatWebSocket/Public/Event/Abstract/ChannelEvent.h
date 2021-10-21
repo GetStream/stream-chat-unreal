@@ -14,7 +14,13 @@ struct FChannelEvent : public FChatEvent
 {
     GENERATED_BODY()
 
-    /// Channel ID
+    UPROPERTY()
+    FString ChannelId;
+
+    UPROPERTY()
+    FString ChannelType;
+
+    /// Channel CID (<type>:<id>)
     UPROPERTY()
     FString Cid;
 };

@@ -55,5 +55,5 @@ struct FChannelStateResponseFieldsDto
 
     /// A list of users watching the channel
     UPROPERTY()
-    TArray<FUserDto> Watchers;
+    TArray<FUserObjectDto> Watchers;
 };

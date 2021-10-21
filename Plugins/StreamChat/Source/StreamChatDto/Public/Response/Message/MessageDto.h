@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "MessageTypeDto.h"
 #include "Response/Reaction/ReactionDto.h"
-#include "UserDto.h"
+#include "UserObjectDto.h"
 
 #include "MessageDto.generated.h"
 
@@ -62,7 +62,7 @@ struct FMessageDto
 
     /// The list of user mentioned in the message
     UPROPERTY()
-    TArray<FUserDto> MentionedUsers;
+    TArray<FUserObjectDto> MentionedUsers;
 
     /// Messaging Markup Language
     /// Should be empty if `text` is provided
@@ -96,7 +96,7 @@ struct FMessageDto
     /// Reserved field indicating who pinned the message
     // TODO Optional
     UPROPERTY()
-    FUserDto PinnedBy;
+    FUserObjectDto PinnedBy;
 
     /// A quoted reply message
     // TODO Optional
@@ -138,7 +138,7 @@ struct FMessageDto
 
     /// Reserved field indicating the thread participants for this message.
     UPROPERTY()
-    TArray<FUserDto> ThreadParticipants;
+    TArray<FUserObjectDto> ThreadParticipants;
 
     /// The message type
     UPROPERTY()
@@ -151,7 +151,7 @@ struct FMessageDto
     /// User who sent the message
     // TODO Optional
     UPROPERTY()
-    FUserDto User;
+    FUserObjectDto User;
 
     // TODO extraData
 };

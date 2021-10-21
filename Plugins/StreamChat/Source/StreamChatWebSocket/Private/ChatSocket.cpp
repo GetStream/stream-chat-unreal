@@ -27,7 +27,7 @@ float GetReconnectDelay(const uint32 Attempt)
 }
 }    // namespace
 
-FChatSocket::FChatSocket(const FString& ApiKey, const FString& Token, const FString& Host, const FUserDto& User)
+FChatSocket::FChatSocket(const FString& ApiKey, const FString& Token, const FString& Host, const FUserObjectDto& User)
     : ChatSocketEvents(MakeUnique<FChatSocketEvents>())
 {
     const FString Url = BuildUrl(ApiKey, Token, Host, User);
@@ -66,7 +66,8 @@ void FChatSocket::Disconnect()
     StopMonitoring();
 }
 
-FString FChatSocket::BuildUrl(const FString& ApiKey, const FString& Token, const FString& Host, const FUserDto& User)
+FString
+FChatSocket::BuildUrl(const FString& ApiKey, const FString& Token, const FString& Host, const FUserObjectDto& User)
 {
     const FConnectRequestDto Request = {
         true,
