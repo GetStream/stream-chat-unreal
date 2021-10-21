@@ -4,14 +4,14 @@
 #include "Event/Abstract/ChannelEvent.h"
 #include "UserObjectDto.h"
 
-#include "TypingStartEvent.generated.h"
+#include "TypingStopEvent.generated.h"
 
 USTRUCT()
-struct FTypingStartEvent : public FChannelEvent
+struct FTypingStopEvent : public FChannelEvent
 {
     GENERATED_BODY()
 
-    inline static FName StaticType = TEXT("typing.start");
+    inline static FName StaticType = TEXT("typing.stop");
 
     UPROPERTY()
     FString ParentId;
