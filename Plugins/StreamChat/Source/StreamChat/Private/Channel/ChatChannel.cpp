@@ -223,8 +223,11 @@ void UChatChannel::KeyStroke(const FString& ParentMessageId)
             if (!LastKeystrokeAt.IsSet() || (Now - LastKeystrokeAt.GetValue()).GetTotalSeconds() >= TypingTimeout)
             {
                 UE_LOG(LogTemp, Log, TEXT("Stop typing"));
-                SendEvent(
-                    FTypingStopEvent{{{FTypingStopEvent::StaticType, Now}, Id, Type, Cid}, ParentMessageId, User.Id});
+                SendEvent(FTypingStopEvent{
+                    {{FTypingStopEvent::StaticType, Now}, Id, Type, Cid},
+                    ParentMessageId,
+                    Util::Convert<FUserObjectDto>(User),
+                });
             }
         },
         2.f,
