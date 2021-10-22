@@ -2,13 +2,13 @@
 
 #pragma once
 
-#include "Channel/ChannelConfig.h"
-#include "Channel/Message.h"
+#include "ChannelState.h"
 #include "ChatApi.h"
 #include "ChatSocketEvents.h"
 #include "CoreMinimal.h"
 #include "IChatSocket.h"
-#include "UObject/NoExportTypes.h"
+#include "Message.h"
+#include "User.h"
 
 #include "ChatChannel.generated.h"
 
@@ -48,30 +48,15 @@ public:
 
     void Watch(TFunction<void()> Callback = {});
 
-    const FString& GetCid() const;
+    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
+    FChannelState State;
+
+    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
+    FUser CurrentUser;
 
 private:
     void InitializeState(const FChannelStateResponseFieldsDto&);
 
-    UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess), Category = "Stream Chat Channel")
-    FString Type;
-
-    UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess), Category = "Stream Chat Channel")
-    FString Id;
-
-    // Not in spec so might not be set
-    UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess), Category = "Stream Chat Channel")
-    FString Name;
-
-    // Not in spec so might not be set
-    UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess), Category = "Stream Chat Channel")
-    FString ImageUrl;
-
-    /// The cid of this channel
-    FString Cid;
-
-    FChannelConfig Config;
-    FUser User;
     TSharedPtr<FChatApi> Api;
     TSharedPtr<IChatSocket> Socket;
 
@@ -129,19 +114,19 @@ public:
 #pragma region Message
 
 public:
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Message")
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message")
     void SendMessage(const FString& Text, const FUser& FromUser);
 
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Message")
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message")
     void UpdateMessage(const FMessage& Message);
 
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Message")
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message")
     void DeleteMessage(const FMessage& Message);
 
-    UFUNCTION(BlueprintPure, Category = "Stream Chat Channel|Message")
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Channel|Message")
     const TArray<FMessage>& GetMessages() const;
 
-    UPROPERTY(BlueprintAssignable, Category = "Stream Chat Channel")
+    UPROPERTY(BlueprintAssignable, Category = "Stream Chat|Channel")
     FMessagesUpdatedDelegate MessagesUpdated;
 
 private:
@@ -151,17 +136,15 @@ private:
     void OnMessageUpdated(const FMessageUpdatedEvent&);
     void OnMessageDeleted(const FMessageDeletedEvent&);
 
-    TArray<FMessage> Messages;
-
 #pragma endregion Message
 
 #pragma region Reaction
 
 public:
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Reaction")
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Reaction")
     void SendReaction(const FMessage& Message, const FName& ReactionType, bool bEnforceUnique = true);
 
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Reaction")
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Reaction")
     void DeleteReaction(const FMessage& Message, const FReaction& Reaction);
 
 private:
@@ -178,10 +161,10 @@ public:
      * Should be called on every keystroke. Sends typing.start and typing.stop events accordingly.
      * @param ParentMessageId In the case of a thread, the ID of the parent message (optional)
      */
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Typing", meta = (AdvancedDisplay = ParentMessageId))
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Typing", meta = (AdvancedDisplay = ParentMessageId))
     void KeyStroke(const FString& ParentMessageId = TEXT(""));
 
-    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTypingIndicatorDelegate, ETypingIndicatorState, State, FUser, User);
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTypingIndicatorDelegate, ETypingIndicatorState, TypingState, FUser, User);
     UPROPERTY(BlueprintAssignable)
     FTypingIndicatorDelegate OnTypingIndicator;
 
@@ -197,7 +180,7 @@ private:
 template <class TEvent>
 void UChatChannel::SendEvent(const TEvent& Event)
 {
-    Api->SendChannelEvent(Type, Id, Event);
+    Api->SendChannelEvent(State.Type, State.Id, Event);
 }
 
 template <class TEvent>
@@ -208,7 +191,7 @@ FDelegateHandle UChatChannel::On(TEventDelegate<TEvent> Callback)
         {
             // TODO static assert with nice error message
             // https://stackoverflow.com/questions/1005476/how-to-detect-whether-there-is-a-specific-member-variable-in-class
-            if (Event.Cid == Cid)
+            if (Event.Cid == State.Cid)
             {
                 Callback.ExecuteIfBound(Event);
             }

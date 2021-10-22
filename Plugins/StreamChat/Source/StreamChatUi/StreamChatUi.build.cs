@@ -18,6 +18,7 @@ public class StreamChatUi : ModuleRules
             "Engine",
             "UMG",
             "SlateCore",
+            "StreamChat"
         });
     }
 }

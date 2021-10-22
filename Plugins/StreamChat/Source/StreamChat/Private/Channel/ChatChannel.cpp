@@ -26,9 +26,9 @@ UChatChannel* UChatChannel::Create(UStreamChatClientComponent& Client, const FSt
     UChatChannel* Channel = NewObject<UChatChannel>(&Client);
     Channel->Api = Client.GetApi();
     Channel->Socket = Client.GetSocket();
-    Channel->Type = Type;
-    Channel->Id = Id;
-    Channel->User = Client.GetCurrentUser();
+    Channel->State.Type = Type;
+    Channel->State.Id = Id;
+    Channel->CurrentUser = Client.GetCurrentUser();
     Channel->On<FMessageNewEvent>(Channel, &UChatChannel::OnMessageNew);
     Channel->On<FMessageUpdatedEvent>(Channel, &UChatChannel::OnMessageUpdated);
     Channel->On<FMessageDeletedEvent>(Channel, &UChatChannel::OnMessageDeleted);
@@ -70,9 +70,9 @@ void UChatChannel::Watch(const TFunction<void()> Callback)
                 Callback();
             }
         },
-        Type,
+        State.Type,
         Socket->GetConnectionId(),
-        Id,
+        State.Id,
         EChannelFlags::State | EChannelFlags::Watch);
 }
 
@@ -81,7 +81,7 @@ void UChatChannel::SendMessage(const FString& Text, const FUser& FromUser)
     // TODO Wait for attachments to upload
 
     const FMessageRequestDto Request{
-        Cid,
+        State.Cid,
         {},
         FGuid::NewGuid().ToString(EGuidFormats::DigitsWithHyphens),
         {},
@@ -91,8 +91,8 @@ void UChatChannel::SendMessage(const FString& Text, const FUser& FromUser)
     };
     AddMessage(FMessage{Request, FromUser});
     Api->SendNewMessage(
-        Type,
-        Id,
+        State.Type,
+        State.Id,
         Request,
         false,
         [this](const FMessageResponseDto& Response)
@@ -160,7 +160,7 @@ void UChatChannel::DeleteMessage(const FMessage& Message)
 
 const TArray<FMessage>& UChatChannel::GetMessages() const
 {
-    return Messages;
+    return State.Messages;
 }
 
 void UChatChannel::SendReaction(const FMessage& Message, const FName& ReactionType, const bool bEnforceUnique)
@@ -169,13 +169,13 @@ void UChatChannel::SendReaction(const FMessage& Message, const FName& ReactionTy
     // Remove all previous reactions current user did
     if (bEnforceUnique)
     {
-        NewMessage.Reactions.RemoveReactionWhere([this](const FReaction& R) { return R.User.Id == User.Id; });
+        NewMessage.Reactions.RemoveReactionWhere([this](const FReaction& R) { return R.User.Id == CurrentUser.Id; });
     }
 
-    const FReaction NewReaction{ReactionType, User, Message.Id};
+    const FReaction NewReaction{ReactionType, CurrentUser, Message.Id};
     NewMessage.Reactions.AddReaction(NewReaction);
 
-    NewMessage.Reactions.UpdateOwnReactions(User.Id);
+    NewMessage.Reactions.UpdateOwnReactions(CurrentUser.Id);
 
     AddMessage(NewMessage);
 
@@ -189,7 +189,7 @@ void UChatChannel::DeleteReaction(const FMessage& Message, const FReaction& Reac
         [&Reaction](const FReaction& R)
         { return R.User.Id == Reaction.User.Id && R.Type == Reaction.Type && R.MessageId == Reaction.MessageId; });
 
-    NewMessage.Reactions.UpdateOwnReactions(User.Id);
+    NewMessage.Reactions.UpdateOwnReactions(CurrentUser.Id);
 
     AddMessage(NewMessage);
 
@@ -198,7 +198,7 @@ void UChatChannel::DeleteReaction(const FMessage& Message, const FReaction& Reac
 
 void UChatChannel::KeyStroke(const FString& ParentMessageId)
 {
-    if (!Config.bTypingEvents)
+    if (!State.Config.bTypingEvents)
     {
         return;
     }
@@ -209,9 +209,9 @@ void UChatChannel::KeyStroke(const FString& ParentMessageId)
     {
         UE_LOG(LogTemp, Log, TEXT("Start typing"));
         SendEvent(FTypingStartEvent{
-            {{FTypingStartEvent::StaticType, Now}, Id, Type, Cid},
+            {{FTypingStartEvent::StaticType, Now}, State.Id, State.Type, State.Cid},
             ParentMessageId,
-            Util::Convert<FUserObjectDto>(User),
+            Util::Convert<FUserObjectDto>(CurrentUser),
         });
     }
     LastKeystrokeAt.Emplace(Now);
@@ -226,9 +226,9 @@ void UChatChannel::KeyStroke(const FString& ParentMessageId)
             {
                 UE_LOG(LogTemp, Log, TEXT("Stop typing"));
                 SendEvent(FTypingStopEvent{
-                    {{FTypingStopEvent::StaticType, Now}, Id, Type, Cid},
+                    {{FTypingStopEvent::StaticType, Now}, State.Id, State.Type, State.Cid},
                     ParentMessageId,
-                    Util::Convert<FUserObjectDto>(User),
+                    Util::Convert<FUserObjectDto>(CurrentUser),
                 });
             }
         },
@@ -246,38 +246,17 @@ void UChatChannel::OnTypingStop(const FTypingStopEvent& Event)
     OnTypingIndicator.Broadcast(ETypingIndicatorState::StopTyping, Util::Convert<FUser>(Event.User));
 }
 
-const FString& UChatChannel::GetCid() const
+void UChatChannel::InitializeState(const FChannelStateResponseFieldsDto& StateDto)
 {
-    return Cid;
-}
-
-void UChatChannel::InitializeState(const FChannelStateResponseFieldsDto& State)
-{
-    Id = State.Channel.Id;
-    Cid = State.Channel.Cid;
-    Name = State.Channel.Name;
-    ImageUrl = State.Channel.Image;
-    Messages = Util::Convert<FMessage>(State.Messages);
-    Config = Util::Convert<FChannelConfig>(State.Channel.Config);
-    MessagesUpdated.Broadcast(Messages);
+    State = Util::Convert<FChannelState>(StateDto);
+    MessagesUpdated.Broadcast(State.Messages);
 }
 
 void UChatChannel::AddMessage(const FMessage& Message)
 {
-    // TODO Threads
-    // TODO Quoting
+    State.AddMessage(Message);
 
-    if (const int32 Index = Messages.FindLastByPredicate([&](const FMessage& M) { return M.Id == Message.Id; });
-        Index != INDEX_NONE)
-    {
-        Messages[Index] = Message;
-    }
-    else
-    {
-        Messages.Add(Message);
-    }
-
-    MessagesUpdated.Broadcast(Messages);
+    MessagesUpdated.Broadcast(State.Messages);
 }
 
 void UChatChannel::OnMessageNew(const FMessageNewEvent& Event)
@@ -298,20 +277,20 @@ void UChatChannel::OnMessageDeleted(const FMessageDeletedEvent& Event)
 void UChatChannel::OnReactionNew(const FReactionNewEvent& Event)
 {
     FMessage Message{Event.Message};
-    Message.Reactions.UpdateOwnReactions(User.Id);
+    Message.Reactions.UpdateOwnReactions(CurrentUser.Id);
     AddMessage(Message);
 }
 
 void UChatChannel::OnReactionUpdated(const FReactionUpdatedEvent& Event)
 {
     FMessage Message{Event.Message};
-    Message.Reactions.UpdateOwnReactions(User.Id);
+    Message.Reactions.UpdateOwnReactions(CurrentUser.Id);
     AddMessage(Message);
 }
 
 void UChatChannel::OnReactionDeleted(const FReactionDeletedEvent& Event)
 {
     FMessage Message{Event.Message};
-    Message.Reactions.UpdateOwnReactions(User.Id);
+    Message.Reactions.UpdateOwnReactions(CurrentUser.Id);
     AddMessage(Message);
 }
