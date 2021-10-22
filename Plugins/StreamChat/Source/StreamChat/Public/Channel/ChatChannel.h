@@ -39,33 +39,38 @@ public:
 
     void Watch(TFunction<void()> Callback = {});
 
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Message")
-    void SendMessage(const FString& Text, const FUser& FromUser);
+    const FString& GetCid() const;
 
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Message")
-    void UpdateMessage(const FMessage& Message);
+private:
+    void InitializeState(const FChannelStateResponseFieldsDto&);
 
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Message")
-    void DeleteMessage(const FMessage& Message);
+    UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess), Category = "Stream Chat Channel")
+    FString Type;
 
-    UFUNCTION(BlueprintPure, Category = "Stream Chat Channel|Message")
-    const TArray<FMessage>& GetMessages() const;
+    UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess), Category = "Stream Chat Channel")
+    FString Id;
 
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Reaction")
-    void SendReaction(const FMessage& Message, const FName& ReactionType, bool bEnforceUnique = true);
+    // Not in spec so might not be set
+    UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess), Category = "Stream Chat Channel")
+    FString Name;
 
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Reaction")
-    void DeleteReaction(const FMessage& Message, const FReaction& Reaction);
+    // Not in spec so might not be set
+    UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess), Category = "Stream Chat Channel")
+    FString ImageUrl;
 
+    /// The cid of this channel
+    FString Cid;
+
+    FChannelConfig Config;
+    FUser User;
+    TSharedPtr<FChatApi> Api;
+    TSharedPtr<IChatSocket> Socket;
+
+#pragma region Event
+
+public:
     template <class TEvent>
     void SendEvent(const TEvent&);
-
-    /**
-     * Should be called on every keystroke. Sends typing.start and typing.stop events accordingly.
-     * @param ParentMessageId In the case of a thread, the ID of the parent message (optional)
-     */
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Typing", meta = (AdvancedDisplay = ParentMessageId))
-    void KeyStroke(const FString& ParentMessageId = TEXT(""));
 
     /// Subscribe to a channel event using your own delegate object
     template <class TEvent>
@@ -108,46 +113,63 @@ public:
     template <class TEvent>
     bool Unsubscribe(FDelegateHandle) const;
 
-    const FString& GetCid() const;
+#pragma endregion Event
+
+#pragma region Message
+
+public:
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Message")
+    void SendMessage(const FString& Text, const FUser& FromUser);
+
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Message")
+    void UpdateMessage(const FMessage& Message);
+
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Message")
+    void DeleteMessage(const FMessage& Message);
+
+    UFUNCTION(BlueprintPure, Category = "Stream Chat Channel|Message")
+    const TArray<FMessage>& GetMessages() const;
 
     UPROPERTY(BlueprintAssignable, Category = "Stream Chat Channel")
     FMessagesUpdatedDelegate MessagesUpdated;
 
 private:
-    void InitializeState(const FChannelStateResponseFieldsDto&);
     void AddMessage(const FMessage&);
 
     void OnMessageNew(const FMessageNewEvent&);
     void OnMessageUpdated(const FMessageUpdatedEvent&);
     void OnMessageDeleted(const FMessageDeletedEvent&);
+
+    TArray<FMessage> Messages;
+
+#pragma endregion Message
+
+#pragma region Reaction
+
+public:
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Reaction")
+    void SendReaction(const FMessage& Message, const FName& ReactionType, bool bEnforceUnique = true);
+
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Reaction")
+    void DeleteReaction(const FMessage& Message, const FReaction& Reaction);
+
+private:
     void OnReactionNew(const FReactionNewEvent&);
     void OnReactionUpdated(const FReactionUpdatedEvent&);
     void OnReactionDeleted(const FReactionDeletedEvent&);
 
-    UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess), Category = "Stream Chat Channel")
-    FString Type;
+public:
+    /**
+     * Should be called on every keystroke. Sends typing.start and typing.stop events accordingly.
+     * @param ParentMessageId In the case of a thread, the ID of the parent message (optional)
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Typing", meta = (AdvancedDisplay = ParentMessageId))
+    void KeyStroke(const FString& ParentMessageId = TEXT(""));
 
-    UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess), Category = "Stream Chat Channel")
-    FString Id;
-
-    // Not in spec so might not be set
-    UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess), Category = "Stream Chat Channel")
-    FString Name;
-
-    // Not in spec so might not be set
-    UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess), Category = "Stream Chat Channel")
-    FString ImageUrl;
-
-    /// The cid of this channel
-    FString Cid;
-
-    TArray<FMessage> Messages;
-    FChannelConfig Config;
-    FUser User;
-    TSharedPtr<FChatApi> Api;
-    TSharedPtr<IChatSocket> Socket;
-
+private:
     TOptional<FDateTime> LastKeystrokeAt;
+
+#pragma endregion Reaction
 };
 
 template <class TEvent>
