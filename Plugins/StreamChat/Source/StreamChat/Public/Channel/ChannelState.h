@@ -3,10 +3,10 @@
 #include "ChannelConfig.h"
 #include "CoreMinimal.h"
 #include "Member.h"
+#include "Message.h"
 
 #include "ChannelState.generated.h"
 
-struct FMessage;
 struct FChannelStateResponseFieldsDto;
 
 USTRUCT(BlueprintType)
