@@ -35,6 +35,8 @@ UChatChannel* UChatChannel::Create(UStreamChatClientComponent& Client, const FSt
     Channel->On<FReactionNewEvent>(Channel, &UChatChannel::OnReactionNew);
     Channel->On<FReactionUpdatedEvent>(Channel, &UChatChannel::OnReactionUpdated);
     Channel->On<FReactionDeletedEvent>(Channel, &UChatChannel::OnReactionDeleted);
+    Channel->On<FTypingStartEvent>(Channel, &UChatChannel::OnTypingStart);
+    Channel->On<FTypingStopEvent>(Channel, &UChatChannel::OnTypingStop);
 
     check(!Channel->Socket->GetConnectionId().IsEmpty());
 
@@ -232,6 +234,16 @@ void UChatChannel::KeyStroke(const FString& ParentMessageId)
         },
         2.f,
         false);
+}
+
+void UChatChannel::OnTypingStart(const FTypingStartEvent& Event)
+{
+    OnTypingIndicator.Broadcast(ETypingIndicatorState::StartTyping, Util::Convert<FUser>(Event.User));
+}
+
+void UChatChannel::OnTypingStop(const FTypingStopEvent& Event)
+{
+    OnTypingIndicator.Broadcast(ETypingIndicatorState::StopTyping, Util::Convert<FUser>(Event.User));
 }
 
 const FString& UChatChannel::GetCid() const

@@ -22,6 +22,15 @@ struct FMessageUpdatedEvent;
 struct FReactionDeletedEvent;
 struct FReactionNewEvent;
 struct FReactionUpdatedEvent;
+struct FTypingStartEvent;
+struct FTypingStopEvent;
+
+UENUM(BlueprintType)
+enum class ETypingIndicatorState : uint8
+{
+    StartTyping,
+    StopTyping
+};
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessagesUpdatedDelegate, const TArray<FMessage>&, Messages);
 
@@ -108,7 +117,9 @@ public:
      * @return A handle which can be used to unsubscribe from the event
      */
     template <class TEvent, typename FunctorType, typename... VarTypes>
-    FORCEINLINE FDelegateHandle On(FunctorType&& Functor, VarTypes... Vars);
+    typename TEnableIf<TIsInvocable<FunctorType, const TEvent&, VarTypes...>::Value, FDelegateHandle>::Type On(
+        FunctorType&& Functor,
+        VarTypes... Vars);
 
     template <class TEvent>
     bool Unsubscribe(FDelegateHandle) const;
@@ -158,6 +169,10 @@ private:
     void OnReactionUpdated(const FReactionUpdatedEvent&);
     void OnReactionDeleted(const FReactionDeletedEvent&);
 
+#pragma endregion Reaction
+
+#pragma region Typing
+
 public:
     /**
      * Should be called on every keystroke. Sends typing.start and typing.stop events accordingly.
@@ -166,10 +181,17 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat Channel|Typing", meta = (AdvancedDisplay = ParentMessageId))
     void KeyStroke(const FString& ParentMessageId = TEXT(""));
 
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTypingIndicatorDelegate, ETypingIndicatorState, State, FUser, User);
+    UPROPERTY(BlueprintAssignable)
+    FTypingIndicatorDelegate OnTypingIndicator;
+
 private:
+    void OnTypingStart(const FTypingStartEvent&);
+    void OnTypingStop(const FTypingStopEvent&);
+
     TOptional<FDateTime> LastKeystrokeAt;
 
-#pragma endregion Reaction
+#pragma endregion Typing
 };
 
 template <class TEvent>
@@ -212,7 +234,8 @@ typename TEnableIf<!TIsDerivedFrom<UserClass, UObject>::IsDerived, FDelegateHand
 }
 
 template <class TEvent, typename FunctorType, typename... VarTypes>
-FDelegateHandle UChatChannel::On(FunctorType&& Functor, VarTypes... Vars)
+typename TEnableIf<TIsInvocable<FunctorType, const TEvent&, VarTypes...>::Value, FDelegateHandle>::Type
+UChatChannel::On(FunctorType&& Functor, VarTypes... Vars)
 {
     const TEventDelegate<TEvent> Delegate =
         TEventDelegate<TEvent>::CreateLambda(Forward<FunctorType>(Functor), Vars...);

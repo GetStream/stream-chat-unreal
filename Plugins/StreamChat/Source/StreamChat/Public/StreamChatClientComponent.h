@@ -94,7 +94,9 @@ public:
      * @return A handle which can be used to unsubscribe from the event
      */
     template <class TEvent, typename FunctorType, typename... VarTypes>
-    FORCEINLINE FDelegateHandle On(FunctorType&& Functor, VarTypes... Vars);
+    typename TEnableIf<TIsInvocable<FunctorType, const TEvent&, VarTypes...>::Value, FDelegateHandle>::Type On(
+        FunctorType&& Functor,
+        VarTypes... Vars);
 
     template <class TEvent>
     bool Unsubscribe(FDelegateHandle) const;
@@ -145,7 +147,8 @@ UStreamChatClientComponent::On(UserClass* Obj, TEventDelegateSpMethodPtr<TEvent,
 }
 
 template <class TEvent, typename FunctorType, typename... VarTypes>
-FDelegateHandle UStreamChatClientComponent::On(FunctorType&& Functor, VarTypes... Vars)
+typename TEnableIf<TIsInvocable<FunctorType, const TEvent&, VarTypes...>::Value, FDelegateHandle>::Type
+UStreamChatClientComponent::On(FunctorType&& Functor, VarTypes... Vars)
 {
     const TEventDelegate<TEvent> Delegate =
         TEventDelegate<TEvent>::CreateLambda(Forward<FunctorType>(Functor), Vars...);
