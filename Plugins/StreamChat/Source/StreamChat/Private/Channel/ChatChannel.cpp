@@ -56,14 +56,14 @@ void UChatChannel::Watch(const TFunction<void()> Callback)
     check(!Socket->GetConnectionId().IsEmpty());
 
     Api->GetOrCreateChannel(
-        [this, Callback](const FChannelStateResponseDto& State)
+        [this, Callback](const FChannelStateResponseDto& Dto)
         {
             if (!IsValid(this))
             {
                 return;
             }
 
-            InitializeState(State);
+            InitializeState(Dto);
 
             if (Callback)
             {
