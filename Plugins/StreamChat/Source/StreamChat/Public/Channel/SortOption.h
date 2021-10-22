@@ -6,7 +6,7 @@
 
 struct FSortOptionDto;
 
-USTRUCT()
+USTRUCT(BlueprintType)
 struct FSortOption
 {
     GENERATED_BODY()

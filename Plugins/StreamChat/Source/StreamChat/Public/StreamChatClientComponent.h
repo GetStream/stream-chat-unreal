@@ -38,10 +38,10 @@ public:
     void UpdateMessage(const FString& Id, const FString& Text) const;
     void DeleteMessage(const FString& Id) const;
 
-    UFUNCTION(BlueprintPure, Category = "Stream Chat Client")
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Client")
     FUser GetCurrentUser() const;
 
-    UFUNCTION(BlueprintPure, Category = "Stream Chat Client")
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Client")
     const TArray<UChatChannel*>& GetChannels() const;
 
     TSharedRef<FChatApi> GetApi() const;
@@ -101,7 +101,7 @@ public:
     template <class TEvent>
     bool Unsubscribe(FDelegateHandle) const;
 
-    UPROPERTY(EditAnywhere, Config, Category = "Stream Chat Client", meta = (DisplayName = "API Key"))
+    UPROPERTY(EditAnywhere, Config, Category = "Stream Chat|Client", meta = (DisplayName = "API Key"))
     FString ApiKey;
 
 private:

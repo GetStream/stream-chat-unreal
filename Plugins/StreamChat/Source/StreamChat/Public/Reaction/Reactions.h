@@ -32,7 +32,7 @@ struct FReactions
     void UpdateOwnReactions(const FString& OwnUserId);
 
     /// All reactions of this message, grouped by their type
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
     TMap<FName, FReactionGroup> ReactionGroups;
 };
 
@@ -42,12 +42,12 @@ class STREAMCHAT_API UReactionsBlueprintLibrary final : public UBlueprintFunctio
     GENERATED_BODY()
 
 public:
-    UFUNCTION(BlueprintPure, Category = "Stream Chat Reactions", meta = (DisplayName = HasOwnReaction))
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Reactions", meta = (DisplayName = HasOwnReaction))
     static bool HasOwnReaction_Reactions(const FReactions& Reactions, const FName& ReactionType);
 
-    UFUNCTION(BlueprintPure, Category = "Stream Chat Reactions", meta = (DisplayName = HasOwnReaction))
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Reactions", meta = (DisplayName = HasOwnReaction))
     static bool HasOwnReaction_ReactionGroup(const FReactionGroup& ReactionGroup);
 
-    UFUNCTION(BlueprintPure, Category = "Stream Chat Reactions")
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Reactions")
     static bool IsEmpty(const FReactions& Reactions);
 };

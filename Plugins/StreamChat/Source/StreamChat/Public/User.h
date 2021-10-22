@@ -22,6 +22,6 @@ struct STREAMCHAT_API FUser
     explicit FUser(const FUserObjectDto&);
     explicit operator FUserObjectDto() const;
 
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat User")
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|User")
     FString Id;
 };

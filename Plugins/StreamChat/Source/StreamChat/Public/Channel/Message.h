@@ -54,20 +54,20 @@ struct FMessage
     FString Id;
 
     /// The text of this message
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
     FString Text;
 
     /// Sending state of the message
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
     EMessageSendState State;
 
     /// User who sent the message
     // TODO Optional
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
     FUser User;
 
     /// The message type
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
     EMessageType Type;
 
     /// The list of user mentioned in the message
@@ -75,14 +75,14 @@ struct FMessage
     TArray<FUser> MentionedUsers;
 
     /// Reserved field indicating when the message was updated last time.
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
     FDateTime UpdatedAt;
 
     /// Reserved field indicating when the message was deleted.
     TOptional<FDateTime> DeletedAt;
 
     /// All reactions of this message, grouped by their type
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat Message")
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
     FReactions Reactions;
 
     // TODO rest of fields
