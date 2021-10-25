@@ -3,6 +3,8 @@
 #include "CoreMinimal.h"
 #include "JsonObjectWrapper.h"
 #include "PaginationOptions.h"
+#include "Request/Channel/MessagePaginationParamsRequestDto.h"
+#include "Request/Channel/PaginationParamsRequestDto.h"
 #include "Request/Channel/SortOptionDto.h"
 #include "Response/Event/EventResponseDto.h"
 #include "Response/Reaction/ReactionResponseDto.h"
@@ -43,12 +45,24 @@ class STREAMCHATAPI_API FChatApi
 public:
     explicit FChatApi(const FString& InApiKey, const FString& InHost, const TSharedRef<FTokenManager>&);
 
-    void GetOrCreateChannel(
+    /**
+     * Get messages, members or other channel fields.
+     * Creates the channel if not yet created.
+     * @param Callback Called when response is received.
+     * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
+     * @param ConnectionId Websocket connection ID to interact with.
+     * @param ChannelId A unique identifier for the channel.
+     * @param Flags Additional actions to perform, like watch, or fetch presence. @see EChannelFlags
+     */
+    void QueryChannel(
         TCallback<FChannelStateResponseDto> Callback,
         const FString& ChannelType,
         const FString& ConnectionId,
         const FString& ChannelId = {},
-        EChannelFlags Flags = EChannelFlags::Watch) const;
+        EChannelFlags Flags = EChannelFlags::Watch,
+        const TOptional<FMessagePaginationParamsRequestDto> MessagePagination = {},
+        const TOptional<FPaginationParamsRequestDto> MemberPagination = {},
+        const TOptional<FPaginationParamsRequestDto> WatcherPagination = {}) const;
 
     void SendNewMessage(
         const FString& ChannelType,

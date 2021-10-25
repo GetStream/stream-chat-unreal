@@ -25,12 +25,15 @@ FChatApi::FChatApi(const FString& InApiKey, const FString& InHost, const TShared
     Client->OnErrorDelegate.AddStatic(&FChatApi::OnError);
 }
 
-void FChatApi::GetOrCreateChannel(
+void FChatApi::QueryChannel(
     const TCallback<FChannelStateResponseDto> Callback,
     const FString& ChannelType,
     const FString& ConnectionId,
     const FString& ChannelId,
-    const EChannelFlags Flags) const
+    const EChannelFlags Flags,
+    const TOptional<FMessagePaginationParamsRequestDto> MessagePagination,
+    const TOptional<FPaginationParamsRequestDto> MemberPagination,
+    const TOptional<FPaginationParamsRequestDto> WatcherPagination) const
 {
     const FString ChannelPath =
         ChannelId.IsEmpty() ? ChannelType : FString::Printf(TEXT("%s/%s"), *ChannelType, *ChannelId);
@@ -40,7 +43,11 @@ void FChatApi::GetOrCreateChannel(
         ConnectionId,
         EnumHasAnyFlags(Flags, EChannelFlags::Watch),
         EnumHasAnyFlags(Flags, EChannelFlags::State),
-        EnumHasAnyFlags(Flags, EChannelFlags::Presence)};
+        EnumHasAnyFlags(Flags, EChannelFlags::Presence),
+        MemberPagination,
+        MessagePagination,
+        WatcherPagination,
+    };
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
@@ -139,7 +146,7 @@ void FChatApi::SendChannelEvent(
     const FString Path = FString::Printf(TEXT("channels/%s/%s/event"), *ChannelType, *ChannelId);
     const FString Url = BuildUrl(Path);
     FJsonObjectWrapper Event;
-    Event.JsonObject = JsonObjectSerialization::UStructToJsonObject(EventStructDefinition, EventStruct);
+    Event.JsonObject = Json::UStructToJsonObject(EventStructDefinition, EventStruct);
     const FSendEventRequestDto Body{Event};
 
     Client->Post(Url).Json(Body).Send(Callback);

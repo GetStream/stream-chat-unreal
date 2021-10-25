@@ -1,13 +1,31 @@
 ﻿#include "StreamJson.h"
 
+#include "Policies/CondensedJsonPrintPolicy.h"
 #include "Serialization/JsonSerializer.h"
 
-FString Json::Serialize(const TSharedRef<FJsonObject>& JsonObject)
+TSharedRef<FJsonObject> Json::UStructToJsonObject(
+    const UStruct* StructDefinition,
+    const void* Struct,
+    const ENamingConvention NamingConvention)
 {
-    return Detail::SerializeJsonObject(JsonObject);
+    const TSharedRef<FJsonObject> OutJsonObject = MakeShared<FJsonObject>();
+    JsonObjectSerialization::UStructToJsonAttributes(StructDefinition, Struct, OutJsonObject->Values, NamingConvention);
+    return OutJsonObject;
 }
 
-void Json::SerializeField(const TOptional<uint32>& Field, const FString& FieldName, FJsonObject& JsonObject)
+FString Json::JsonObjectToString(const TSharedRef<FJsonObject>& JsonObject)
+{
+    FString OutJsonString;
+    const TSharedRef<TJsonWriter<TCHAR, TCondensedJsonPrintPolicy<TCHAR>>> JsonWriter =
+        TJsonWriterFactory<TCHAR, TCondensedJsonPrintPolicy<TCHAR>>::Create(&OutJsonString);
+    const bool bSuccess = FJsonSerializer::Serialize(JsonObject, JsonWriter);
+    ensure(bSuccess);
+    JsonWriter->Close();
+    return OutJsonString;
+}
+
+template <>
+void Json::SerializeField<uint32>(const TOptional<uint32>& Field, const FString& FieldName, FJsonObject& JsonObject)
 {
     if (Field.IsSet())
     {

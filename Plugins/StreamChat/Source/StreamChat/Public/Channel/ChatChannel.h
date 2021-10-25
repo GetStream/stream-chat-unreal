@@ -32,6 +32,25 @@ enum class ETypingIndicatorState : uint8
     StopTyping
 };
 
+UENUM(BlueprintType, meta = (BitFlags))
+enum class EPaginationDirection : uint8
+{
+    None UMETA(Hidden),
+
+    // Query earlier messages
+    Top = 1 << 0,
+    // Query later messages
+    Bottom = 1 << 1,
+};
+ENUM_CLASS_FLAGS(EPaginationDirection);
+
+UENUM(BlueprintType)
+enum class EHttpRequestState : uint8
+{
+    Started,
+    Ended
+};
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessagesUpdatedDelegate, const TArray<FMessage>&, Messages);
 
 /**
@@ -123,11 +142,26 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message")
     void DeleteMessage(const FMessage& Message);
 
+    /**
+     * Fetch more messages from the server.
+     *
+     * @attention Some messages must already have been fetched for this to do anything.
+     * @param Direction Top if the user is scrolling up, Bottom if the user is scrolling down
+     * @param Limit Number of messages returned is limited by this value. Maximum 200.
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message")
+    void QueryAdditionalMessages(EPaginationDirection Direction = EPaginationDirection::Top, int32 Limit = 20);
+
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Channel|Message")
     const TArray<FMessage>& GetMessages() const;
 
+    // TODO this isn't the correct way to do this
     UPROPERTY(BlueprintAssignable, Category = "Stream Chat|Channel")
     FMessagesUpdatedDelegate MessagesUpdated;
+
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPaginatingMessagesDelegate, EPaginationDirection, Direction, EHttpRequestState, RequestState);
+    UPROPERTY(BlueprintAssignable)
+    FPaginatingMessagesDelegate OnPaginatingMessages;
 
 private:
     void AddMessage(const FMessage&);
@@ -136,13 +170,19 @@ private:
     void OnMessageUpdated(const FMessageUpdatedEvent&);
     void OnMessageDeleted(const FMessageDeletedEvent&);
 
+    void SetPaginationRequestState(EHttpRequestState, EPaginationDirection);
+    EPaginationDirection EndedPaginationDirections = EPaginationDirection::None;
+    EHttpRequestState PaginationRequestState = EHttpRequestState::Ended;
+
 #pragma endregion Message
 
 #pragma region Reaction
 
 public:
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Reaction")
-    void SendReaction(const FMessage& Message, const FName& ReactionType, bool bEnforceUnique = true);
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Reaction") void SendReaction(
+        const FMessage& Message,
+        const FName& ReactionType,
+        bool bEnforceUnique = true);
 
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Reaction")
     void DeleteReaction(const FMessage& Message, const FReaction& Reaction);

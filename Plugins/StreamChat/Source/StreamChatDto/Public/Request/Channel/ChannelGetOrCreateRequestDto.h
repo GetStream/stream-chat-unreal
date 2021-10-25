@@ -3,8 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MessagePaginationParamsRequestDto.h"
+#include "PaginationParamsRequestDto.h"
 
 #include "ChannelGetOrCreateRequestDto.generated.h"
+
+class FJsonObject;
 
 /**
  *
@@ -13,6 +17,8 @@ USTRUCT()
 struct FChannelGetOrCreateRequestDto
 {
     GENERATED_BODY()
+
+    STREAMCHATDTO_API static void SerializeExtra(const FChannelGetOrCreateRequestDto& Self, FJsonObject& JsonObject);
 
     UPROPERTY()
     FString ConnectionId;
@@ -33,5 +39,9 @@ struct FChannelGetOrCreateRequestDto
     UPROPERTY()
     bool bPresence;
 
-    // TODO Messages, members, watchers
+    TOptional<FPaginationParamsRequestDto> Members;
+
+    TOptional<FMessagePaginationParamsRequestDto> Messages;
+
+    TOptional<FPaginationParamsRequestDto> Watchers;
 };

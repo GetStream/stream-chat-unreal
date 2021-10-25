@@ -55,7 +55,7 @@ void UChatChannel::Watch(const TFunction<void()> Callback)
 {
     check(!Socket->GetConnectionId().IsEmpty());
 
-    Api->GetOrCreateChannel(
+    Api->QueryChannel(
         [this, Callback](const FChannelStateResponseDto& Dto)
         {
             if (!IsValid(this))
@@ -156,6 +156,54 @@ void UChatChannel::DeleteMessage(const FMessage& Message)
         });
 
     // TODO retry?
+}
+
+void UChatChannel::QueryAdditionalMessages(const EPaginationDirection Direction, int32 Limit)
+{
+    const bool bPaginationEnded = EnumHasAnyFlags(EndedPaginationDirections, Direction);
+    if (bPaginationEnded)
+    {
+        return;
+    }
+    if (PaginationRequestState == EHttpRequestState::Started)
+    {
+        return;
+    }
+    const bool bChannelEmpty = State.Messages.Num() == 0;
+    if (bChannelEmpty)
+    {
+        return;
+    }
+
+    SetPaginationRequestState(EHttpRequestState::Started, Direction);
+
+    const FMessage& BoundaryMessage =
+        Direction == EPaginationDirection::Top ? State.Messages[0] : State.Messages.Last();
+
+    Api->QueryChannel(
+        [this, Direction](const FChannelStateResponseDto& Dto)
+        {
+            if (!IsValid(this))
+            {
+                return;
+            }
+
+            // InitializeState(Dto);
+
+            SetPaginationRequestState(EHttpRequestState::Ended, Direction);
+        },
+        State.Type,
+        Socket->GetConnectionId(),
+        State.Id,
+        EChannelFlags::State | EChannelFlags::Watch);
+}
+
+inline void UChatChannel::SetPaginationRequestState(
+    const EHttpRequestState RequestState,
+    const EPaginationDirection Direction)
+{
+    PaginationRequestState = RequestState;
+    OnPaginatingMessages.Broadcast(Direction, RequestState);
 }
 
 const TArray<FMessage>& UChatChannel::GetMessages() const

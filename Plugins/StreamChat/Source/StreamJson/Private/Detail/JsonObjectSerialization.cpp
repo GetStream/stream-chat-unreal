@@ -5,6 +5,7 @@
 #include "JsonObjectWrapper.h"
 #include "NamingConvention.h"
 #include "NamingConventionConversion.h"
+#include "StreamJson.h"
 
 namespace
 {
@@ -39,8 +40,7 @@ TSharedPtr<FJsonValue> ApplyNamingConventionToValue(
             return MakeShared<FJsonValueString>(OutValueStr);
         }
 
-        TSharedRef<FJsonObject> Out =
-            JsonObjectSerialization::UStructToJsonObject(StructProperty->Struct, Value, NamingConvention);
+        TSharedRef<FJsonObject> Out = Json::UStructToJsonObject(StructProperty->Struct, Value, NamingConvention);
         return MakeShared<FJsonValueObject>(Out);
     }
     return nullptr;
@@ -55,16 +55,6 @@ bool UStructToJsonObjectStringInternal(const TSharedRef<FJsonObject>& JsonObject
     const bool bSuccess = FJsonSerializer::Serialize(JsonObject, JsonWriter);
     JsonWriter->Close();
     return bSuccess;
-}
-
-TSharedRef<FJsonObject> JsonObjectSerialization::UStructToJsonObject(
-    const UStruct* StructDefinition,
-    const void* Struct,
-    const ENamingConvention NamingConvention)
-{
-    const TSharedRef<FJsonObject> OutJsonObject = MakeShared<FJsonObject>();
-    UStructToJsonAttributes(StructDefinition, Struct, OutJsonObject->Values, NamingConvention);
-    return OutJsonObject;
 }
 
 bool JsonObjectSerialization::UStructToJsonAttributes(
@@ -129,4 +119,12 @@ bool JsonObjectSerialization::UStructToJsonAttributes(
     }
 
     return true;
+}
+
+void JsonObjectSerialization::SetObjectField(
+    FJsonObject& TargetJsonObject,
+    const FString& FieldName,
+    const TSharedPtr<FJsonObject>& FieldJsonObject)
+{
+    TargetJsonObject.SetObjectField(FieldName, FieldJsonObject);
 }
