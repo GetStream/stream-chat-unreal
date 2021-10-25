@@ -59,7 +59,7 @@ public:
         const FString& ChannelType,
         const FString& ConnectionId,
         const FString& ChannelId = {},
-        EChannelFlags Flags = EChannelFlags::Watch,
+        EChannelFlags Flags = EChannelFlags::State,
         const TOptional<FMessagePaginationParamsRequestDto> MessagePagination = {},
         const TOptional<FPaginationParamsRequestDto> MemberPagination = {},
         const TOptional<FPaginationParamsRequestDto> WatcherPagination = {}) const;

@@ -46,7 +46,7 @@ UChatChannel* UChatChannel::Create(UStreamChatClientComponent& Client, const FSt
 UChatChannel* UChatChannel::Create(UStreamChatClientComponent& Client, const FChannelStateResponseFieldsDto& Fields)
 {
     UChatChannel* Channel = Create(Client, Fields.Channel.Type, Fields.Channel.Id);
-    Channel->InitializeState(Fields);
+    Channel->MergeState(Fields);
 
     return Channel;
 }
@@ -63,7 +63,7 @@ void UChatChannel::Watch(const TFunction<void()> Callback)
                 return;
             }
 
-            InitializeState(Dto);
+            MergeState(Dto);
 
             if (Callback)
             {
@@ -177,25 +177,44 @@ void UChatChannel::QueryAdditionalMessages(const EPaginationDirection Direction,
 
     SetPaginationRequestState(EHttpRequestState::Started, Direction);
 
-    const FMessage& BoundaryMessage =
-        Direction == EPaginationDirection::Top ? State.Messages[0] : State.Messages.Last();
+    const FMessagePaginationParamsRequestDto MessagePagination = [&]
+    {
+        FMessagePaginationParamsRequestDto Dto;
+        Dto.Limit = Limit;
+        if (Direction == EPaginationDirection::Top)
+        {
+            Dto.IdLt = State.Messages[0].Id;
+        }
+        else
+        {
+            Dto.IdGte = State.Messages.Last().Id;
+        }
+        return Dto;
+    }();
 
     Api->QueryChannel(
-        [this, Direction](const FChannelStateResponseDto& Dto)
+        [this, Direction, Limit](const FChannelStateResponseDto& Dto)
         {
             if (!IsValid(this))
             {
                 return;
             }
 
-            // InitializeState(Dto);
+            if (Dto.Messages.Num() == 0 || Dto.Messages.Num() < Limit)
+            {
+                // Don't need to paginate again in this direction in the future
+                EndedPaginationDirections |= Direction;
+            }
+
+            MergeState(Dto);
 
             SetPaginationRequestState(EHttpRequestState::Ended, Direction);
         },
         State.Type,
         Socket->GetConnectionId(),
         State.Id,
-        EChannelFlags::State | EChannelFlags::Watch);
+        EChannelFlags::Watch,
+        MessagePagination);
 }
 
 inline void UChatChannel::SetPaginationRequestState(
@@ -294,9 +313,17 @@ void UChatChannel::OnTypingStop(const FTypingStopEvent& Event)
     OnTypingIndicator.Broadcast(ETypingIndicatorState::StopTyping, Util::Convert<FUser>(Event.User));
 }
 
-void UChatChannel::InitializeState(const FChannelStateResponseFieldsDto& StateDto)
+void UChatChannel::MergeState(const FChannelStateResponseFieldsDto& Dto)
 {
-    State = Util::Convert<FChannelState>(StateDto);
+    // TODO This could be nicer: IsStateInitialized?
+    if (State.Cid.IsEmpty())
+    {
+        State = Util::Convert<FChannelState>(Dto);
+    }
+    else
+    {
+        State.Merge(Dto);
+    }
     MessagesUpdated.Broadcast(State.Messages);
 }
 

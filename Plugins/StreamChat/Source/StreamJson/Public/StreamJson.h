@@ -52,6 +52,10 @@ void SerializeField(const TOptional<T>& Field, const FString& FieldName, FJsonOb
 
 template <>
 void STREAMJSON_API SerializeField(const TOptional<uint32>& Field, const FString& FieldName, FJsonObject&);
+template <>
+void STREAMJSON_API SerializeField(const TOptional<FString>& Field, const FString& FieldName, FJsonObject&);
+template <>
+void STREAMJSON_API SerializeField(const TOptional<FDateTime>& Field, const FString& FieldName, FJsonObject&);
 
 void STREAMJSON_API DeserializeField(const FJsonObject&, const FString& FieldName, TOptional<uint32>& Field);
 }    // namespace Json

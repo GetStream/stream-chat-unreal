@@ -33,6 +33,27 @@ void Json::SerializeField<uint32>(const TOptional<uint32>& Field, const FString&
     }
 }
 
+template <>
+void Json::SerializeField<FString>(const TOptional<FString>& Field, const FString& FieldName, FJsonObject& JsonObject)
+{
+    if (Field.IsSet())
+    {
+        JsonObject.SetStringField(FieldName, Field.GetValue());
+    }
+}
+
+template <>
+void Json::SerializeField<FDateTime>(
+    const TOptional<FDateTime>& Field,
+    const FString& FieldName,
+    FJsonObject& JsonObject)
+{
+    if (Field.IsSet())
+    {
+        JsonObject.SetStringField(FieldName, Field.GetValue().ToIso8601());
+    }
+}
+
 void Json::DeserializeField(const FJsonObject& JsonObject, const FString& FieldName, TOptional<uint32>& Field)
 {
     if (uint32 Number; JsonObject.TryGetNumberField(FieldName, Number))

@@ -8,7 +8,6 @@ class FJsonValue;
 
 namespace JsonObjectSerialization
 {
-
 /**
  * Converts from a UStruct to a set of json attributes (possibly from within a JsonObject)
  *

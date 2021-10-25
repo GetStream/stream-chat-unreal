@@ -74,7 +74,7 @@ public:
     FUser CurrentUser;
 
 private:
-    void InitializeState(const FChannelStateResponseFieldsDto&);
+    void MergeState(const FChannelStateResponseFieldsDto&);
 
     TSharedPtr<FChatApi> Api;
     TSharedPtr<IChatSocket> Socket;

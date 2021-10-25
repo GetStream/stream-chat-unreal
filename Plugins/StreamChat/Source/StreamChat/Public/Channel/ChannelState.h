@@ -17,6 +17,7 @@ struct FChannelState
     FChannelState() = default;
     explicit FChannelState(const FChannelStateResponseFieldsDto&);
 
+    void Merge(const FChannelStateResponseFieldsDto&);
     void AddMessage(const FMessage&);
 
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")

@@ -18,7 +18,7 @@ struct FChannelGetOrCreateRequestDto
 {
     GENERATED_BODY()
 
-    STREAMCHATDTO_API static void SerializeExtra(const FChannelGetOrCreateRequestDto& Self, FJsonObject& JsonObject);
+    STREAMCHATDTO_API static void SerializeExtra(const FChannelGetOrCreateRequestDto&, FJsonObject&);
 
     UPROPERTY()
     FString ConnectionId;

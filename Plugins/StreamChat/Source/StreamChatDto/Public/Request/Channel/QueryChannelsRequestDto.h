@@ -18,7 +18,7 @@ struct FQueryChannelsRequestDto
 {
     GENERATED_BODY()
 
-    STREAMCHATDTO_API static void SerializeExtra(const FQueryChannelsRequestDto& Self, FJsonObject& JsonObject);
+    STREAMCHATDTO_API static void SerializeExtra(const FQueryChannelsRequestDto&, FJsonObject&);
 
     /// WebSocket connection ID to interact with
     UPROPERTY()

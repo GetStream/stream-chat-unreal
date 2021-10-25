@@ -4,38 +4,34 @@
 
 #include "MessagePaginationParamsRequestDto.generated.h"
 
+class FJsonObject;
+
 USTRUCT()
-struct STREAMCHATDTO_API FMessagePaginationParamsRequestDto
+struct FMessagePaginationParamsRequestDto
 {
     GENERATED_BODY()
 
-    UPROPERTY()
-    FDateTime CreatedAtAfter;
+    STREAMCHATDTO_API static void SerializeExtra(const FMessagePaginationParamsRequestDto&, FJsonObject&);
+
+    TOptional<FDateTime> CreatedAtAfter;
+
+    TOptional<FDateTime> CreatedAtAfterOrEqual;
+
+    TOptional<FDateTime> CreatedAtBefore;
+
+    TOptional<FDateTime> CreatedAtBeforeOrEqual;
+
+    TOptional<FString> IdGt;
+
+    TOptional<FString> IdGte;
+
+    TOptional<FString> IdLt;
+
+    TOptional<FString> IdLte;
 
     UPROPERTY()
-    FDateTime CreatedAtAfterOrEqual;
+    uint32 Limit = 20;
 
     UPROPERTY()
-    FDateTime CreatedAtBefore;
-
-    UPROPERTY()
-    FDateTime CreatedAtBeforeOrEqual;
-
-    UPROPERTY()
-    FString IdGt;
-
-    UPROPERTY()
-    FString IdGte;
-
-    UPROPERTY()
-    FString IdLt;
-
-    UPROPERTY()
-    FString IdLte;
-
-    UPROPERTY()
-    uint32 Limit;
-
-    UPROPERTY()
-    int32 Offset;
+    int32 Offset = 0;
 };
