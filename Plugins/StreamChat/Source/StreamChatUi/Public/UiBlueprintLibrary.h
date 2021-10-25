@@ -7,6 +7,7 @@
 
 #include "UiBlueprintLibrary.generated.h"
 
+class UScrollBox;
 class UWidget;
 
 UCLASS()
@@ -23,4 +24,7 @@ public:
 
     UFUNCTION(BlueprintPure, Category = "Stream Chat|UI")
     static FText GetChannelTitle(const UChatChannel* Channel);
+
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|UI")
+    static int32 GetFirstVisibleChildOfScrollBox(UScrollBox* ScrollBox);
 };

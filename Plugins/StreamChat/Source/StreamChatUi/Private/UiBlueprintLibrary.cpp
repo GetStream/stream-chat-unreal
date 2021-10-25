@@ -1,6 +1,7 @@
 ﻿#include "UiBlueprintLibrary.h"
 
 #include "Algo/ForEach.h"
+#include "Components/ScrollBox.h"
 #include "Components/Widget.h"
 #include "Framework/Application/IMenu.h"
 #include "Framework/Application/MenuStack.h"
@@ -71,4 +72,25 @@ FText UUiBlueprintLibrary::GetChannelTitle(const UChatChannel* Channel)
     }
 
     return FText::GetEmpty();
+}
+
+int32 UUiBlueprintLibrary::GetFirstVisibleChildOfScrollBox(UScrollBox* ScrollBox)
+{
+    const FGeometry Geo = ScrollBox->GetCachedGeometry();
+    FArrangedChildren ArrangedChildren(EVisibility::Visible);
+    const TSharedRef<SScrollBox> ScrollBoxWidget = StaticCastSharedRef<SScrollBox>(ScrollBox->TakeWidget());
+    ScrollBoxWidget->GetChildren()
+        ->GetChildAt(0)    // HorizontalBox
+        ->GetChildren()
+        ->GetChildAt(0)    // Overlay
+        ->GetChildren()
+        ->GetChildAt(0)    // ScrollPanel
+        ->ArrangeChildren(Geo, ArrangedChildren);
+    return ArrangedChildren.IndexOfByPredicate(
+        [&](const FArrangedWidget& ArrangedWidget)
+        {
+            const float Local = Geo.AbsoluteToLocal(ArrangedWidget.Geometry.GetAbsolutePosition()).Y;
+            UE_LOG(LogTemp, Log, TEXT("%.g"), Local);
+            return Local > 0.f;
+        });
 }

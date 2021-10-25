@@ -213,7 +213,7 @@ void UChatChannel::QueryAdditionalMessages(const EPaginationDirection Direction,
         State.Type,
         Socket->GetConnectionId(),
         State.Id,
-        EChannelFlags::Watch,
+        EChannelFlags::State,
         MessagePagination);
 }
 

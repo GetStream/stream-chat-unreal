@@ -46,6 +46,7 @@ void SerializeField(const TOptional<T>& Field, const FString& FieldName, FJsonOb
     if (Field.IsSet())
     {
         const TSharedRef<FJsonObject> InnerJsonObject = Json::UStructToJsonObject(T::StaticStruct(), &Field.GetValue());
+        ExtraFields::InvokeSerializeExtra<T>(Field.GetValue(), *InnerJsonObject);
         JsonObjectSerialization::SetObjectField(JsonObject, FieldName, InnerJsonObject);
     }
 }
