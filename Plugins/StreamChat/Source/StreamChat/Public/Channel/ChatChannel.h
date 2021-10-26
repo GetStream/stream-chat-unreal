@@ -12,8 +12,8 @@
 
 #include "ChatChannel.generated.h"
 
-struct FChannelEvent;
 class UStreamChatClientComponent;
+struct FChannelEvent;
 struct FChannelStateResponseDto;
 struct FChannelStateResponseFieldsDto;
 struct FMessageDeletedEvent;
@@ -50,8 +50,6 @@ enum class EHttpRequestState : uint8
     Started,
     Ended
 };
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessagesUpdatedDelegate, const TArray<FMessage>&, Messages);
 
 /**
  * The client-side representation of a Stream Chat channel
@@ -157,7 +155,7 @@ public:
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Channel|Message")
     const TArray<FMessage>& GetMessages() const;
 
-    // TODO this isn't the correct way to do this
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessagesUpdatedDelegate, const TArray<FMessage>&, Messages);
     UPROPERTY(BlueprintAssignable, Category = "Stream Chat|Channel")
     FMessagesUpdatedDelegate MessagesUpdated;
 
