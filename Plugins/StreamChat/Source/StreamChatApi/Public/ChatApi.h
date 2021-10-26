@@ -39,6 +39,10 @@ public:
      * @param ConnectionId Websocket connection ID to interact with.
      * @param ChannelId A unique identifier for the channel.
      * @param Flags Additional actions to perform, like watch, or fetch presence. @see EChannelFlags
+     * @param MessagePagination Pagination details for returned messages.
+     * @see https://getstream.io/chat/docs/other-rest/channel_pagination/
+     * @param MemberPagination Pagination details for returned members.
+     * @param WatcherPagination Pagination details for returned watchers/
      */
     void QueryChannel(
         TCallback<FChannelStateResponseDto> Callback,
