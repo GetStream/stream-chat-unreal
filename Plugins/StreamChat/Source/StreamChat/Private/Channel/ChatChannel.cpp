@@ -268,7 +268,7 @@ void UChatChannel::OnTypingStop(const FTypingStopEvent& Event)
 
 void UChatChannel::Init(const UStreamChatClientComponent& Client, const FChannelStateResponseFieldsDto& Dto)
 {
-    check(!Socket->GetConnectionId().IsEmpty());
+    check(!Client.GetSocket()->GetConnectionId().IsEmpty());
 
     Api = Client.GetApi();
     Socket = Client.GetSocket();
