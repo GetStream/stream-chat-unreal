@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include "ChannelFlags.h"
 #include "CoreMinimal.h"
 #include "JsonObjectWrapper.h"
 #include "PaginationOptions.h"
@@ -25,21 +26,6 @@ struct FSortOption;
 template <class T>
 using TCallback = TFunction<void(const T&)>;
 
-enum class EChannelFlags : uint8
-{
-    None = 0,
-
-    // Refresh channel state
-    State = 1 << 0,
-
-    // Start watching the channel
-    Watch = 1 << 1,
-
-    // Fetch user presence info
-    Presence = 1 << 2,
-};
-ENUM_CLASS_FLAGS(EChannelFlags);
-
 class STREAMCHATAPI_API FChatApi
 {
 public:
@@ -64,6 +50,14 @@ public:
         const TOptional<FPaginationParamsRequestDto> MemberPagination = {},
         const TOptional<FPaginationParamsRequestDto> WatcherPagination = {}) const;
 
+    /**
+     * Send a message to the given ChannelId of give ChannelType.
+     * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
+     * @param ChannelId A unique identifier for the channel
+     * @param MessageRequest Details of the message to be sent
+     * @param bSkipPush Do not send a mobile push notification
+     * @param Callback Called when response is received
+     */
     void SendNewMessage(
         const FString& ChannelType,
         const FString& ChannelId,
@@ -71,9 +65,29 @@ public:
         bool bSkipPush = false,
         TCallback<FMessageResponseDto> Callback = {}) const;
 
+    /**
+     * Update the given message.
+     * @param MessageRequest Details of the message to update
+     * @param Callback Called when response is received
+     */
     void UpdateMessage(const FMessageRequestDto& MessageRequest, TCallback<FMessageResponseDto> Callback = {}) const;
+
+    /**
+     * Delete the message with the given Id
+     * @param Id ID of the message to be deleted
+     * @param bHard Message is removed from the channel, all replies and all reactions are recursively deleted
+     * @param Callback Called when response is received
+     */
     void DeleteMessage(const FString& Id, bool bHard = false, TCallback<FMessageResponseDto> Callback = {}) const;
 
+    /**
+     * Send a reaction for the given MessageId
+     * @param MessageId ID of the message to react to
+     * @param ReactionRequest Details of the reaction to be sent
+     * @param bEnforceUnique If true, new reaction will replace all reactions the user has (if any) on this message
+     * @param bSkipPush Do not send a mobile push notification
+     * @param Callback Called when response is received
+     */
     void SendReaction(
         const FString& MessageId,
         const FReactionRequestDto& ReactionRequest,
@@ -81,9 +95,22 @@ public:
         bool bSkipPush = false,
         TCallback<FReactionResponseDto> Callback = {}) const;
 
+    /**
+     * Delete a reaction with the given Type from the message with the given MessageId
+     * @param MessageId ID of the message which has been reacted to
+     * @param Type Type of reaction to remove
+     * @param Callback Called when response is received
+     */
     void DeleteReaction(const FString& MessageId, const FName& Type, TCallback<FReactionResponseDto> Callback = {})
         const;
 
+    /**
+     * Send a custom or built-in event on this channel
+     * @tparam TEvent The event to send
+     * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
+     * @param ChannelId The unique identifier of the channel
+     * @param Callback Called when response is received
+     */
     template <class TEvent>
     void SendChannelEvent(
         const FString& ChannelType,
@@ -93,14 +120,17 @@ public:
 
     /**
      * Query channels with filter query
-     * @param ConnectionId
-     * @param Filter
-     * @param SortOptions
-     * @param MemberLimit
-     * @param MessageLimit
-     * @param Flags
-     * @param PaginationOptions
-     * @param Callback
+     * @param ConnectionId Websocket connection ID to interact with.
+     * @param Filter The query filters to use. You can query on any of the custom fields you've defined on the Channel.
+     * You can also filter other built-in channel fields, see
+     * https://getstream.io/chat/docs/other-rest/query_channels/#channel-queryable-built-in-fields
+     * @param SortOptions The sorting used for the channels matching the filters.
+     * Sorting is based on field and direction, multiple sorting options can be provided.
+     * @param MemberLimit How many members should be included for each channel (Max 100)
+     * @param MessageLimit How many messages should be included to each channel (Max 300)
+     * @param Flags Additional actions to perform, like watch, or fetch presence. @see EChannelFlags
+     * @param PaginationOptions Limit and offset
+     * @param Callback Called when response is received
      */
     void QueryChannels(
         TCallback<FChannelsResponseDto> Callback,
