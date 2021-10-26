@@ -4,6 +4,7 @@
 #include "Detail/JsonObjectDeserialization.h"
 #include "Detail/JsonObjectSerialization.h"
 #include "NamingConvention.h"
+#include "UObject/ReflectedTypeAccessors.h"
 
 namespace Json
 {
