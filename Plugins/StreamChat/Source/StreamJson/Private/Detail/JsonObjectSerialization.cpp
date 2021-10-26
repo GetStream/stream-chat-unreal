@@ -25,6 +25,13 @@ TSharedPtr<FJsonValue> ApplyNamingConventionToValue(
     }
     if (const FStructProperty* StructProperty = CastField<FStructProperty>(Property))
     {
+        static const FName NAME_DateTime(TEXT("DateTime"));
+
+        if (StructProperty->Struct->GetFName() == NAME_DateTime)
+        {
+            const FDateTime* DateTime = static_cast<const FDateTime*>(Value);
+            return MakeShared<FJsonValueString>(DateTime->ToIso8601());
+        }
         // Intentionally exclude the JSON Object wrapper, which specifically needs to export JSON in an object
         // representation instead of a string
         if (UScriptStruct::ICppStructOps* TheCppStructOps = StructProperty->Struct->GetCppStructOps();
