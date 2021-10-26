@@ -21,59 +21,12 @@
 #include "TimerManager.h"
 #include "Util.h"
 
-UChatChannel* UChatChannel::Create(UStreamChatClientComponent& Client, const FString& Type, const FString& Id)
+UChatChannel* UChatChannel::Create(UStreamChatClientComponent& Client, const FChannelStateResponseFieldsDto& Dto)
 {
     UChatChannel* Channel = NewObject<UChatChannel>(&Client);
-    Channel->Api = Client.GetApi();
-    Channel->Socket = Client.GetSocket();
-    Channel->State.Type = Type;
-    Channel->State.Id = Id;
-    Channel->CurrentUser = Client.GetCurrentUser();
-    Channel->On<FMessageNewEvent>(Channel, &UChatChannel::OnMessageNew);
-    Channel->On<FMessageUpdatedEvent>(Channel, &UChatChannel::OnMessageUpdated);
-    Channel->On<FMessageDeletedEvent>(Channel, &UChatChannel::OnMessageDeleted);
-    Channel->On<FReactionNewEvent>(Channel, &UChatChannel::OnReactionNew);
-    Channel->On<FReactionUpdatedEvent>(Channel, &UChatChannel::OnReactionUpdated);
-    Channel->On<FReactionDeletedEvent>(Channel, &UChatChannel::OnReactionDeleted);
-    Channel->On<FTypingStartEvent>(Channel, &UChatChannel::OnTypingStart);
-    Channel->On<FTypingStopEvent>(Channel, &UChatChannel::OnTypingStop);
-
-    check(!Channel->Socket->GetConnectionId().IsEmpty());
+    Channel->Init(Client, Dto);
 
     return Channel;
-}
-
-UChatChannel* UChatChannel::Create(UStreamChatClientComponent& Client, const FChannelStateResponseFieldsDto& Fields)
-{
-    UChatChannel* Channel = Create(Client, Fields.Channel.Type, Fields.Channel.Id);
-    Channel->MergeState(Fields);
-
-    return Channel;
-}
-
-void UChatChannel::Watch(const TFunction<void()> Callback)
-{
-    check(!Socket->GetConnectionId().IsEmpty());
-
-    Api->QueryChannel(
-        [this, Callback](const FChannelStateResponseDto& Dto)
-        {
-            if (!IsValid(this))
-            {
-                return;
-            }
-
-            MergeState(Dto);
-
-            if (Callback)
-            {
-                Callback();
-            }
-        },
-        State.Type,
-        Socket->GetConnectionId(),
-        State.Id,
-        EChannelFlags::State | EChannelFlags::Watch);
 }
 
 void UChatChannel::SendMessage(const FString& Text, const FUser& FromUser)
@@ -313,17 +266,30 @@ void UChatChannel::OnTypingStop(const FTypingStopEvent& Event)
     OnTypingIndicator.Broadcast(ETypingIndicatorState::StopTyping, Util::Convert<FUser>(Event.User));
 }
 
+void UChatChannel::Init(const UStreamChatClientComponent& Client, const FChannelStateResponseFieldsDto& Dto)
+{
+    check(!Socket->GetConnectionId().IsEmpty());
+
+    Api = Client.GetApi();
+    Socket = Client.GetSocket();
+    CurrentUser = Client.GetCurrentUser();
+    State = Util::Convert<FChannelState>(Dto);
+    On<FMessageNewEvent>(this, &UChatChannel::OnMessageNew);
+    On<FMessageUpdatedEvent>(this, &UChatChannel::OnMessageUpdated);
+    On<FMessageDeletedEvent>(this, &UChatChannel::OnMessageDeleted);
+    On<FReactionNewEvent>(this, &UChatChannel::OnReactionNew);
+    On<FReactionUpdatedEvent>(this, &UChatChannel::OnReactionUpdated);
+    On<FReactionDeletedEvent>(this, &UChatChannel::OnReactionDeleted);
+    On<FTypingStartEvent>(this, &UChatChannel::OnTypingStart);
+    On<FTypingStopEvent>(this, &UChatChannel::OnTypingStop);
+
+    MessagesUpdated.Broadcast(State.Messages);
+}
+
 void UChatChannel::MergeState(const FChannelStateResponseFieldsDto& Dto)
 {
-    // TODO This could be nicer: IsStateInitialized?
-    if (State.Cid.IsEmpty())
-    {
-        State = Util::Convert<FChannelState>(Dto);
-    }
-    else
-    {
-        State.Merge(Dto);
-    }
+    check(!State.Cid.IsEmpty());
+    State.Merge(Dto);
     MessagesUpdated.Broadcast(State.Messages);
 }
 

@@ -5,9 +5,9 @@
 #include "Algo/Transform.h"
 #include "Channel/ChatChannel.h"
 #include "ChatApi.h"
-#include "Event/Client/ConnectionChangedEvent.h"
 #include "IChatSocket.h"
 #include "Request/Message/MessageRequestDto.h"
+#include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "StreamChatSettings.h"
 #include "Token/ConstantTokenProvider.h"
@@ -75,15 +75,30 @@ void UStreamChatClientComponent::QueryChannels(
         Util::Convert<FSortParamRequestDto>(SortOptions));
 }
 
-UChatChannel* UStreamChatClientComponent::Channel(const FString& Type, const FString& Id)
+void UStreamChatClientComponent::WatchChannel(
+    TFunction<void(UChatChannel*)> Callback,
+    const FString& Type,
+    const FString& Id)
 {
     // TODO Can we return something from ConnectUser() that is required for this function to prevent ordering ambiguity?
     check(Socket->IsConnected());
+    check(!Socket->GetConnectionId().IsEmpty());
 
-    UChatChannel* Channel = UChatChannel::Create(*this, Type, Id);
+    Api->QueryChannel(
+        [this, Callback](const FChannelStateResponseDto& Dto)
+        {
+            UChatChannel* Channel = UChatChannel::Create(*this, Dto);
 
-    Channels.Add(Channel);
-    return Channel;
+            Channels.Add(Channel);
+            if (Callback)
+            {
+                Callback(Channel);
+            }
+        },
+        Type,
+        Socket->GetConnectionId(),
+        Id,
+        EChannelFlags::State | EChannelFlags::Watch);
 }
 
 void UStreamChatClientComponent::UpdateMessage(const FString& Id, const FString& Text) const
