@@ -24,6 +24,11 @@ bool UStructToJsonAttributes(
     TMap<FString, TSharedPtr<FJsonValue> >& OutJsonAttributes,
     ENamingConvention NamingConvention = ENamingConvention::SnakeCase);
 
+FString STREAMJSON_API UEnumToString(
+    const UEnum* EnumDefinition,
+    int64 Value,
+    ENamingConvention NamingConvention = ENamingConvention::SnakeCase);
+
 void STREAMJSON_API
 SetObjectField(FJsonObject& TargetJsonObject, const FString& FieldName, const TSharedPtr<FJsonObject>& FieldJsonObject);
 }    // namespace JsonObjectSerialization

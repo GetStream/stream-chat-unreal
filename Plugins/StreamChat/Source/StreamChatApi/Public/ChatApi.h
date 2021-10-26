@@ -5,7 +5,7 @@
 #include "PaginationOptions.h"
 #include "Request/Channel/MessagePaginationParamsRequestDto.h"
 #include "Request/Channel/PaginationParamsRequestDto.h"
-#include "Request/Channel/SortOptionDto.h"
+#include "Request/Channel/SortParamRequestDto.h"
 #include "Response/Event/EventResponseDto.h"
 #include "Response/Reaction/ReactionResponseDto.h"
 
@@ -107,7 +107,7 @@ public:
         const FString& ConnectionId,
         EChannelFlags Flags = EChannelFlags::State | EChannelFlags::Watch,
         const TOptional<FJsonObjectWrapper>& Filter = {},
-        const TArray<FSortOptionDto>& SortOptions = {},
+        const TArray<FSortParamRequestDto>& SortOptions = {},
         TOptional<uint32> MemberLimit = {},
         TOptional<uint32> MessageLimit = {},
         FPaginationOptions PaginationOptions = {}) const;

@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Dom/JsonObject.h"
 #include "JsonObjectWrapper.h"
-#include "SortOptionDto.h"
+#include "SortParamRequestDto.h"
 
 #include "QueryChannelsRequestDto.generated.h"
 
@@ -45,7 +45,7 @@ struct FQueryChannelsRequestDto
 
     /// List of sort parameters
     UPROPERTY()
-    TArray<FSortOptionDto> Sort;
+    TArray<FSortParamRequestDto> Sort;
 
     /// Refresh channel state
     UPROPERTY()

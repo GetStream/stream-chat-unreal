@@ -18,12 +18,8 @@ TSharedPtr<FJsonValue> ApplyNamingConventionToValue(
     {
         // export enums as strings
         const UEnum* EnumDef = EnumProperty->GetEnum();
-        FString StringValue =
-            EnumDef->GetNameStringByValue(EnumProperty->GetUnderlyingProperty()->GetSignedIntPropertyValue(Value));
-        if (NamingConvention == ENamingConvention::SnakeCase)
-        {
-            StringValue = NamingConventionConversion::ConvertNameToSnakeCase(StringValue);
-        }
+        const FString StringValue = JsonObjectSerialization::UEnumToString(
+            EnumDef, EnumProperty->GetUnderlyingProperty()->GetSignedIntPropertyValue(Value), NamingConvention);
 
         return MakeShared<FJsonValueString>(StringValue);
     }
@@ -119,6 +115,19 @@ bool JsonObjectSerialization::UStructToJsonAttributes(
     }
 
     return true;
+}
+
+FString JsonObjectSerialization::UEnumToString(
+    const UEnum* EnumDefinition,
+    const int64 Value,
+    const ENamingConvention NamingConvention)
+{
+    FString StringValue = EnumDefinition->GetNameStringByValue(Value);
+    if (NamingConvention == ENamingConvention::SnakeCase)
+    {
+        StringValue = NamingConventionConversion::ConvertNameToSnakeCase(StringValue);
+    }
+    return StringValue;
 }
 
 void JsonObjectSerialization::SetObjectField(

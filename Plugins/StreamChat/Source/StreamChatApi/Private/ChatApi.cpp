@@ -113,7 +113,7 @@ void FChatApi::QueryChannels(
     const FString& ConnectionId,
     const EChannelFlags Flags,
     const TOptional<FJsonObjectWrapper>& Filter,
-    const TArray<FSortOptionDto>& SortOptions,
+    const TArray<FSortParamRequestDto>& SortOptions,
     const TOptional<uint32> MemberLimit,
     const TOptional<uint32> MessageLimit,
     const FPaginationOptions PaginationOptions) const

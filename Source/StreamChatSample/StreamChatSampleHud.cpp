@@ -30,7 +30,8 @@ void AStreamChatSampleHud::BeginPlay()
                     Channels = ReceivedChannels;
                     OnConnect();
                 },
-                Filter);
+                Filter,
+                {{ESortField::LastMessageAt, ESortDirection::Descending}});
         });
 }
 

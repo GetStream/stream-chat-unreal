@@ -1,8 +1,12 @@
 #include "Channel/SortOption.h"
 
-#include "Request/Channel/SortOptionDto.h"
+#include "Request/Channel/SortParamRequestDto.h"
+#include "StreamJson.h"
 
-FSortOption::operator FSortOptionDto() const
+FSortOption::operator FSortParamRequestDto() const
 {
-    return {};
+    return {
+        Json::Serialize(Field),
+        Direction == ESortDirection::Ascending ? 1 : -1,
+    };
 }

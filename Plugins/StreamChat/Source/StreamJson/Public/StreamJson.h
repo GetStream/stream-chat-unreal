@@ -23,13 +23,23 @@ STREAMJSON_API TSharedRef<FJsonObject> UStructToJsonObject(
 FString STREAMJSON_API JsonObjectToString(const TSharedRef<FJsonObject>& JsonObject);
 
 template <class T>
-FString Serialize(const T& Struct, ENamingConvention NamingConvention = ENamingConvention::SnakeCase)
+typename TEnableIf<TIsClass<T>::Value, FString>::Type Serialize(
+    const T& Struct,
+    const ENamingConvention NamingConvention = ENamingConvention::SnakeCase)
 {
     const TSharedRef<FJsonObject> JsonObject = Json::UStructToJsonObject(T::StaticStruct(), &Struct, NamingConvention);
 
     ExtraFields::InvokeSerializeExtra<T>(Struct, *JsonObject);
 
     return JsonObjectToString(JsonObject);
+}
+
+template <class T>
+typename TEnableIf<TIsEnumClass<T>::Value, FString>::Type Serialize(
+    const T& Enum,
+    const ENamingConvention NamingConvention = ENamingConvention::SnakeCase)
+{
+    return JsonObjectSerialization::UEnumToString(StaticEnum<T>(), static_cast<int64>(Enum), NamingConvention);
 }
 
 template <class T>
