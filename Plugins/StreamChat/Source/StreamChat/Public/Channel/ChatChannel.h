@@ -62,7 +62,12 @@ class STREAMCHAT_API UChatChannel final : public UObject
     GENERATED_BODY()
 
 public:
-    static UChatChannel* Create(UStreamChatClientComponent&, const FChannelStateResponseFieldsDto&);
+    static UChatChannel* Create(
+        UObject* Outer,
+        const TSharedRef<FChatApi>,
+        const TSharedRef<IChatSocket>,
+        const FUser& CurrentUser,
+        const FChannelStateResponseFieldsDto&);
 
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
     FChannelState State;
@@ -71,7 +76,6 @@ public:
     FUser CurrentUser;
 
 private:
-    void Init(const UStreamChatClientComponent&, const FChannelStateResponseFieldsDto&);
     void MergeState(const FChannelStateResponseFieldsDto&);
 
     TSharedPtr<FChatApi> Api;
@@ -132,7 +136,7 @@ public:
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message")
-    void SendMessage(const FString& Text, const FUser& FromUser);
+    void SendMessage(const FString& Text);
 
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message")
     void UpdateMessage(const FMessage& Message);

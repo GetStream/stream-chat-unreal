@@ -21,15 +21,35 @@
 #include "TimerManager.h"
 #include "Util.h"
 
-UChatChannel* UChatChannel::Create(UStreamChatClientComponent& Client, const FChannelStateResponseFieldsDto& Dto)
+UChatChannel* UChatChannel::Create(
+    UObject* Outer,
+    const TSharedRef<FChatApi> Api,
+    const TSharedRef<IChatSocket> Socket,
+    const FUser& CurrentUser,
+    const FChannelStateResponseFieldsDto& Dto)
 {
-    UChatChannel* Channel = NewObject<UChatChannel>(&Client);
-    Channel->Init(Client, Dto);
+    UChatChannel* Channel = NewObject<UChatChannel>(Outer);
+    check(Socket->IsConnected());
+
+    Channel->Api = Api;
+    Channel->Socket = Socket;
+    Channel->CurrentUser = CurrentUser;
+    Channel->State = Util::Convert<FChannelState>(Dto);
+    Channel->On<FMessageNewEvent>(Channel, &UChatChannel::OnMessageNew);
+    Channel->On<FMessageUpdatedEvent>(Channel, &UChatChannel::OnMessageUpdated);
+    Channel->On<FMessageDeletedEvent>(Channel, &UChatChannel::OnMessageDeleted);
+    Channel->On<FReactionNewEvent>(Channel, &UChatChannel::OnReactionNew);
+    Channel->On<FReactionUpdatedEvent>(Channel, &UChatChannel::OnReactionUpdated);
+    Channel->On<FReactionDeletedEvent>(Channel, &UChatChannel::OnReactionDeleted);
+    Channel->On<FTypingStartEvent>(Channel, &UChatChannel::OnTypingStart);
+    Channel->On<FTypingStopEvent>(Channel, &UChatChannel::OnTypingStop);
+
+    Channel->MessagesUpdated.Broadcast(Channel->State.Messages);
 
     return Channel;
 }
 
-void UChatChannel::SendMessage(const FString& Text, const FUser& FromUser)
+void UChatChannel::SendMessage(const FString& Text)
 {
     // TODO Wait for attachments to upload
 
@@ -42,7 +62,7 @@ void UChatChannel::SendMessage(const FString& Text, const FUser& FromUser)
         false,
         Text,
     };
-    AddMessage(FMessage{Request, FromUser});
+    AddMessage(FMessage{Request, CurrentUser});
     Api->SendNewMessage(
         State.Type,
         State.Id,
@@ -265,26 +285,6 @@ void UChatChannel::OnTypingStart(const FTypingStartEvent& Event)
 void UChatChannel::OnTypingStop(const FTypingStopEvent& Event)
 {
     OnTypingIndicator.Broadcast(ETypingIndicatorState::StopTyping, Util::Convert<FUser>(Event.User));
-}
-
-void UChatChannel::Init(const UStreamChatClientComponent& Client, const FChannelStateResponseFieldsDto& Dto)
-{
-    check(!Client.GetSocket()->GetConnectionId().IsEmpty());
-
-    Api = Client.GetApi();
-    Socket = Client.GetSocket();
-    CurrentUser = Client.GetCurrentUser();
-    State = Util::Convert<FChannelState>(Dto);
-    On<FMessageNewEvent>(this, &UChatChannel::OnMessageNew);
-    On<FMessageUpdatedEvent>(this, &UChatChannel::OnMessageUpdated);
-    On<FMessageDeletedEvent>(this, &UChatChannel::OnMessageDeleted);
-    On<FReactionNewEvent>(this, &UChatChannel::OnReactionNew);
-    On<FReactionUpdatedEvent>(this, &UChatChannel::OnReactionUpdated);
-    On<FReactionDeletedEvent>(this, &UChatChannel::OnReactionDeleted);
-    On<FTypingStartEvent>(this, &UChatChannel::OnTypingStart);
-    On<FTypingStopEvent>(this, &UChatChannel::OnTypingStop);
-
-    MessagesUpdated.Broadcast(State.Messages);
 }
 
 void UChatChannel::MergeState(const FChannelStateResponseFieldsDto& Dto)

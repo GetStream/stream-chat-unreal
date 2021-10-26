@@ -12,6 +12,7 @@
 
 #include "StreamChatClientComponent.generated.h"
 
+struct FChannelStateResponseFieldsDto;
 class FChatApi;
 class FTokenManager;
 class UChatChannel;
@@ -43,13 +44,7 @@ public:
     void DeleteMessage(const FString& Id) const;
 
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Client")
-    FUser GetCurrentUser() const;
-
-    UFUNCTION(BlueprintPure, Category = "Stream Chat|Client")
     const TArray<UChatChannel*>& GetChannels() const;
-
-    TSharedRef<FChatApi> GetApi() const;
-    TSharedRef<IChatSocket> GetSocket() const;
 
     template <class TEvent>
     using TEventMulticastDelegate = TMulticastDelegate<void(const TEvent& Event)>;
@@ -111,6 +106,8 @@ public:
 private:
     // Called when the game starts
     virtual void BeginPlay() override;
+
+    UChatChannel* CreateChannelObject(const FChannelStateResponseFieldsDto&);
 
     TSharedPtr<FTokenManager> TokenManager;
     TSharedPtr<FChatApi> Api;

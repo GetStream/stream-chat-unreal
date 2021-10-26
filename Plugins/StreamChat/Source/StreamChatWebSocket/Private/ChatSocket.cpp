@@ -88,7 +88,7 @@ FString FChatSocket::BuildUrl(
 
 bool FChatSocket::IsConnected() const
 {
-    return WebSocket->IsConnected() && ConnectionState == EConnectionState::Connected;
+    return WebSocket->IsConnected() && ConnectionState == EConnectionState::Connected && !ConnectionId.IsEmpty();
 }
 
 const FString& FChatSocket::GetConnectionId() const

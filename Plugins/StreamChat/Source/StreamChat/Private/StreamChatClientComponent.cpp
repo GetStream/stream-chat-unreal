@@ -28,6 +28,11 @@ void UStreamChatClientComponent::BeginPlay()
     Api = MakeShared<FChatApi>(ApiKey, GetDefault<UStreamChatSettings>()->Host, TokenManager.ToSharedRef());
 }
 
+UChatChannel* UStreamChatClientComponent::CreateChannelObject(const FChannelStateResponseFieldsDto& Dto)
+{
+    return UChatChannel::Create(this, Api.ToSharedRef(), Socket.ToSharedRef(), CurrentUser.GetValue(), Dto);
+}
+
 void UStreamChatClientComponent::ConnectUser(const FUser& User, const FString& Token, const TFunction<void()> Callback)
 {
     CurrentUser = User;
@@ -65,7 +70,7 @@ void UStreamChatClientComponent::QueryChannels(
                 Response.Channels,
                 NewChannels,
                 [this](const FChannelStateResponseFieldsDto& ResponseChannel)
-                { return UChatChannel::Create(*this, ResponseChannel); });
+                { return CreateChannelObject(ResponseChannel); });
             Channels = NewChannels;
             Callback(NewChannels);
         },
@@ -83,12 +88,11 @@ void UStreamChatClientComponent::WatchChannel(
 {
     // TODO Can we return something from ConnectUser() that is required for this function to prevent ordering ambiguity?
     check(Socket->IsConnected());
-    check(!Socket->GetConnectionId().IsEmpty());
 
     Api->QueryChannel(
         [this, Callback](const FChannelStateResponseDto& Dto)
         {
-            UChatChannel* Channel = UChatChannel::Create(*this, Dto);
+            UChatChannel* Channel = CreateChannelObject(Dto);
 
             Channels.Add(Channel);
             if (Callback)
@@ -119,23 +123,7 @@ void UStreamChatClientComponent::DeleteMessage(const FString& Id) const
     Api->DeleteMessage(Id);
 }
 
-FUser UStreamChatClientComponent::GetCurrentUser() const
-{
-    // TODO Better optional support
-    return CurrentUser.Get(FUser{TEXT("ERROR")});
-}
-
 const TArray<UChatChannel*>& UStreamChatClientComponent::GetChannels() const
 {
     return Channels;
-}
-
-TSharedRef<FChatApi> UStreamChatClientComponent::GetApi() const
-{
-    return Api.ToSharedRef();
-}
-
-TSharedRef<IChatSocket> UStreamChatClientComponent::GetSocket() const
-{
-    return Socket.ToSharedRef();
 }
