@@ -28,8 +28,7 @@ struct FQueryChannelsRequestDto
     FJsonObjectWrapper FilterConditions;
 
     /// Number of channels to limit
-    UPROPERTY()
-    uint32 Limit;
+    TOptional<uint32> Limit;
 
     /// Number of members to limit
     TOptional<uint32> MemberLimit;
@@ -38,8 +37,7 @@ struct FQueryChannelsRequestDto
     TOptional<uint32> MessageLimit;
 
     /// Channel pagination offset
-    UPROPERTY()
-    uint32 Offset;
+    TOptional<uint32> Offset;
 
     /// Fetch user presence info
     UPROPERTY()

@@ -111,11 +111,11 @@ void FChatApi::DeleteReaction(
 void FChatApi::QueryChannels(
     const TCallback<FChannelsResponseDto> Callback,
     const FString& ConnectionId,
+    const EChannelFlags Flags,
     const TOptional<FJsonObjectWrapper>& Filter,
     const TArray<FSortOptionDto>& SortOptions,
     const TOptional<uint32> MemberLimit,
     const TOptional<uint32> MessageLimit,
-    const EChannelFlags Flags,
     const FPaginationOptions PaginationOptions) const
 {
     const FString Url = BuildUrl(TEXT("channels"));
@@ -127,7 +127,7 @@ void FChatApi::QueryChannels(
         PaginationOptions.Limit,
         MemberLimit,
         MessageLimit,
-        PaginationOptions.Offset.Get(0),
+        PaginationOptions.Offset,
         EnumHasAnyFlags(Flags, EChannelFlags::Presence),
         SortOptions,
         EnumHasAnyFlags(Flags, EChannelFlags::State),

@@ -70,6 +70,7 @@ void UStreamChatClientComponent::QueryChannels(
             Callback(NewChannels);
         },
         Socket->GetConnectionId(),
+        EChannelFlags::State | EChannelFlags::Watch,
         Filter->ToJsonObjectWrapper(),
         Util::Convert<FSortOptionDto>(SortOptions));
 }

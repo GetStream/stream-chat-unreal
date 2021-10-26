@@ -105,11 +105,11 @@ public:
     void QueryChannels(
         TCallback<FChannelsResponseDto> Callback,
         const FString& ConnectionId,
+        EChannelFlags Flags = EChannelFlags::State | EChannelFlags::Watch,
         const TOptional<FJsonObjectWrapper>& Filter = {},
         const TArray<FSortOptionDto>& SortOptions = {},
         TOptional<uint32> MemberLimit = {},
         TOptional<uint32> MessageLimit = {},
-        EChannelFlags Flags = EChannelFlags::State | EChannelFlags::Watch,
         FPaginationOptions PaginationOptions = {}) const;
 
 private:
