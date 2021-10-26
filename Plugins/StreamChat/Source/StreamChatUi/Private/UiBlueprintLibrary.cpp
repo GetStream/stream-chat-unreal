@@ -74,7 +74,7 @@ FText UUiBlueprintLibrary::GetChannelTitle(const UChatChannel* Channel)
     return FText::GetEmpty();
 }
 
-int32 UUiBlueprintLibrary::GetFirstVisibleChildOfScrollBox(UScrollBox* ScrollBox)
+void UUiBlueprintLibrary::GetFirstVisibleChildOfScrollBox(UScrollBox* ScrollBox, int32& OutIndex, float& OutLeadingEdge)
 {
     const FGeometry Geo = ScrollBox->GetCachedGeometry();
     FArrangedChildren ArrangedChildren(EVisibility::Visible);
@@ -86,11 +86,14 @@ int32 UUiBlueprintLibrary::GetFirstVisibleChildOfScrollBox(UScrollBox* ScrollBox
         ->GetChildren()
         ->GetChildAt(0)    // ScrollPanel
         ->ArrangeChildren(Geo, ArrangedChildren);
-    return ArrangedChildren.IndexOfByPredicate(
-        [&](const FArrangedWidget& ArrangedWidget)
+    for (int32 Index = 0; Index < ArrangedChildren.Num(); ++Index)
+    {
+        if (const float Local = Geo.AbsoluteToLocal(ArrangedChildren[Index].Geometry.GetAbsolutePosition()).Y;
+            Local > 0.f)
         {
-            const float Local = Geo.AbsoluteToLocal(ArrangedWidget.Geometry.GetAbsolutePosition()).Y;
-            UE_LOG(LogTemp, Log, TEXT("%.g"), Local);
-            return Local > 0.f;
-        });
+            OutIndex = Index;
+            OutLeadingEdge = Local;
+            return;
+        }
+    }
 }

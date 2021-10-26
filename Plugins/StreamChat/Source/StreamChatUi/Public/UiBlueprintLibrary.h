@@ -25,6 +25,6 @@ public:
     UFUNCTION(BlueprintPure, Category = "Stream Chat|UI")
     static FText GetChannelTitle(const UChatChannel* Channel);
 
-    UFUNCTION(BlueprintPure, Category = "Stream Chat|UI")
-    static int32 GetFirstVisibleChildOfScrollBox(UScrollBox* ScrollBox);
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|UI")
+    static void GetFirstVisibleChildOfScrollBox(UScrollBox* ScrollBox, int32& OutIndex, float& OutLeadingEdge);
 };
