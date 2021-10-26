@@ -32,7 +32,11 @@ public:
         TOptional<FFilter> Filter = {},
         const TArray<FSortOption>& SortOptions = {});
 
-    void WatchChannel(TFunction<void(UChatChannel*)> Callback, const FString& Type, const FString& Id = {});
+    void WatchChannel(
+        TFunction<void(UChatChannel*)> Callback,
+        const FString& Type,
+        const TOptional<FString>& Id = {},
+        const TOptional<TArray<FString>> Members = {});
 
     // TODO does this need to be exposed?
     void UpdateMessage(const FString& Id, const FString& Text) const;

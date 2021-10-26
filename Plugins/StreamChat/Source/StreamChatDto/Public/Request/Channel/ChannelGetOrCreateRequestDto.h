@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "ChannelRequestDto.h"
 #include "CoreMinimal.h"
 #include "MessagePaginationParamsRequestDto.h"
 #include "PaginationParamsRequestDto.h"
@@ -11,7 +12,7 @@
 class FJsonObject;
 
 /**
- *
+ * #/components/schemas/ChannelGetOrCreateRequest
  */
 USTRUCT()
 struct FChannelGetOrCreateRequestDto
@@ -23,9 +24,8 @@ struct FChannelGetOrCreateRequestDto
     UPROPERTY()
     FString ConnectionId;
 
-    // TODO uncomment
-    // UPROPERTY()
-    // FChannelRequest Data;
+    UPROPERTY()
+    FChannelRequestDto Data;
 
     /// Start watching the channel
     UPROPERTY()

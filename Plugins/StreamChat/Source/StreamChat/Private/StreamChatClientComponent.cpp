@@ -78,7 +78,8 @@ void UStreamChatClientComponent::QueryChannels(
 void UStreamChatClientComponent::WatchChannel(
     TFunction<void(UChatChannel*)> Callback,
     const FString& Type,
-    const FString& Id)
+    const TOptional<FString>& Id,
+    const TOptional<TArray<FString>> Members)
 {
     // TODO Can we return something from ConnectUser() that is required for this function to prevent ordering ambiguity?
     check(Socket->IsConnected());
@@ -97,8 +98,9 @@ void UStreamChatClientComponent::WatchChannel(
         },
         Type,
         Socket->GetConnectionId(),
-        Id,
-        EChannelFlags::State | EChannelFlags::Watch);
+        EChannelFlags::State | EChannelFlags::Watch,
+        {Members.Get({})},
+        Id);
 }
 
 void UStreamChatClientComponent::UpdateMessage(const FString& Id, const FString& Text) const

@@ -29,18 +29,20 @@ void FChatApi::QueryChannel(
     const TCallback<FChannelStateResponseDto> Callback,
     const FString& ChannelType,
     const FString& ConnectionId,
-    const FString& ChannelId,
     const EChannelFlags Flags,
+    const FChannelRequestDto& Data,
+    const TOptional<FString>& ChannelId,
     const TOptional<FMessagePaginationParamsRequestDto> MessagePagination,
     const TOptional<FPaginationParamsRequestDto> MemberPagination,
     const TOptional<FPaginationParamsRequestDto> WatcherPagination) const
 {
     const FString ChannelPath =
-        ChannelId.IsEmpty() ? ChannelType : FString::Printf(TEXT("%s/%s"), *ChannelType, *ChannelId);
+        !ChannelId.IsSet() ? ChannelType : FString::Printf(TEXT("%s/%s"), *ChannelType, *ChannelId.GetValue());
     const FString Path = FString::Printf(TEXT("channels/%s/query"), *ChannelPath);
     const FString Url = BuildUrl(Path);
     const FChannelGetOrCreateRequestDto Body{
         ConnectionId,
+        Data,
         EnumHasAnyFlags(Flags, EChannelFlags::Watch),
         EnumHasAnyFlags(Flags, EChannelFlags::State),
         EnumHasAnyFlags(Flags, EChannelFlags::Presence),

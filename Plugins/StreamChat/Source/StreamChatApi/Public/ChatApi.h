@@ -4,6 +4,7 @@
 #include "CoreMinimal.h"
 #include "JsonObjectWrapper.h"
 #include "PaginationOptions.h"
+#include "Request/Channel/ChannelRequestDto.h"
 #include "Request/Channel/MessagePaginationParamsRequestDto.h"
 #include "Request/Channel/PaginationParamsRequestDto.h"
 #include "Request/Channel/SortParamRequestDto.h"
@@ -48,8 +49,9 @@ public:
         TCallback<FChannelStateResponseDto> Callback,
         const FString& ChannelType,
         const FString& ConnectionId,
-        const FString& ChannelId = {},
         EChannelFlags Flags = EChannelFlags::State,
+        const FChannelRequestDto& Data = {},
+        const TOptional<FString>& ChannelId = {},
         const TOptional<FMessagePaginationParamsRequestDto> MessagePagination = {},
         const TOptional<FPaginationParamsRequestDto> MemberPagination = {},
         const TOptional<FPaginationParamsRequestDto> WatcherPagination = {}) const;
