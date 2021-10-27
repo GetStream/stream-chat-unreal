@@ -6,11 +6,11 @@
 class STREAMCHATAPI_API FTokenManager
 {
 public:
-    explicit FTokenManager(const FString& UserId, TUniquePtr<ITokenProvider>&& TokenProvider);
-
+    void SetTokenProvider(TUniquePtr<ITokenProvider> InTokenProvider, const FString& InUserId);
+    void Reset();
     FString LoadToken(bool bRefresh = false) const;
 
 private:
-    FString UserId;
     TUniquePtr<ITokenProvider> TokenProvider;
+    FString UserId;
 };

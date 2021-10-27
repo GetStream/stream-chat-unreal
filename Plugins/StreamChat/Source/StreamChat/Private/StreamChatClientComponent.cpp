@@ -14,7 +14,7 @@
 #include "Token/TokenManager.h"
 #include "Util.h"
 
-UStreamChatClientComponent::UStreamChatClientComponent()
+UStreamChatClientComponent::UStreamChatClientComponent() : TokenManager(MakeShared<FTokenManager>())
 {
     PrimaryComponentTick.bCanEverTick = false;
 }
@@ -25,7 +25,7 @@ void UStreamChatClientComponent::BeginPlay()
     Super::BeginPlay();
 
     // Initialize in BeginPlay to ensure properties like ApiKey are loaded from BP, TODO I don't like this
-    Api = MakeShared<FChatApi>(ApiKey, GetDefault<UStreamChatSettings>()->Host, TokenManager.ToSharedRef());
+    Api = FChatApi::Create(ApiKey, GetDefault<UStreamChatSettings>()->Host, TokenManager);
 }
 
 void UStreamChatClientComponent::ConnectUserInternal(const FUser& User, TFunction<void()> Callback)
@@ -46,13 +46,13 @@ void UStreamChatClientComponent::ConnectUser(
     TUniquePtr<ITokenProvider> TokenProvider,
     const TFunction<void()> Callback)
 {
-    TokenManager = MakeShared<FTokenManager>(User.Id, MoveTemp(TokenProvider));
+    TokenManager->SetTokenProvider(MoveTemp(TokenProvider), User.Id);
     ConnectUserInternal(User, Callback);
 }
 
 void UStreamChatClientComponent::ConnectUser(const FUser& User, const FString& Token, const TFunction<void()> Callback)
 {
-    TokenManager = MakeShared<FTokenManager>(User.Id, MakeUnique<FConstantTokenProvider>(Token));
+    TokenManager->SetTokenProvider(MakeUnique<FConstantTokenProvider>(Token), User.Id);
     ConnectUserInternal(User, Callback);
 }
 
@@ -62,7 +62,7 @@ void UStreamChatClientComponent::DisconnectUser()
     {
         Socket->Disconnect();
     }
-    TokenManager.Reset();
+    TokenManager->Reset();
     CurrentUser.Reset();
 }
 

@@ -27,10 +27,13 @@ struct FSortOption;
 template <class T>
 using TCallback = TFunction<void(const T&)>;
 
-class STREAMCHATAPI_API FChatApi
+class STREAMCHATAPI_API FChatApi : public TSharedFromThis<FChatApi>
 {
 public:
-    explicit FChatApi(const FString& InApiKey, const FString& InHost, const TSharedRef<FTokenManager>&);
+    static TSharedRef<FChatApi> Create(
+        const FString& InApiKey,
+        const FString& InHost,
+        const TSharedPtr<FTokenManager>&);
 
     /**
      * Get messages, members or other channel fields.
@@ -149,6 +152,7 @@ public:
         FPaginationOptions PaginationOptions = {}) const;
 
 private:
+    explicit FChatApi(const FString& InApiKey, const FString& InHost, const TSharedPtr<FTokenManager>&);
     void SendChannelEvent(
         const FString& ChannelType,
         const FString& ChannelId,

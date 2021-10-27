@@ -1,11 +1,17 @@
 ﻿#include "Token/TokenManager.h"
 
-FTokenManager::FTokenManager(const FString& UserId, TUniquePtr<ITokenProvider>&& TokenProvider)
-    : UserId(UserId), TokenProvider(MoveTemp(TokenProvider))
+void FTokenManager::SetTokenProvider(TUniquePtr<ITokenProvider> InTokenProvider, const FString& InUserId)
 {
+    TokenProvider = MoveTemp(InTokenProvider);
+    UserId = InUserId;
+}
+
+void FTokenManager::Reset()
+{
+    TokenProvider.Reset();
 }
 
 FString FTokenManager::LoadToken(const bool bRefresh) const
 {
-    return TokenProvider->LoadToken(bRefresh);
+    return TokenProvider->LoadToken(UserId, bRefresh);
 }

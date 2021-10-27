@@ -14,15 +14,24 @@
 #include "Response/Reaction/ReactionResponseDto.h"
 #include "Token/TokenManager.h"
 
-FChatApi::FChatApi(const FString& InApiKey, const FString& InHost, const TSharedRef<FTokenManager>& InTokenManager)
+TSharedRef<FChatApi> FChatApi::Create(
+    const FString& InApiKey,
+    const FString& InHost,
+    const TSharedPtr<FTokenManager>& InTokenManager)
+{
+    TSharedRef<FChatApi> Api = MakeShareable(new FChatApi{InApiKey, InHost, InTokenManager});
+    Api->Client->OnRequestDelegate.AddSP(Api, &FChatApi::AddAuth);
+    Api->Client->OnErrorDelegate.AddSP(Api, &FChatApi::OnError);
+    return Api;
+}
+
+FChatApi::FChatApi(const FString& InApiKey, const FString& InHost, const TSharedPtr<FTokenManager>& InTokenManager)
     : TokenManager(InTokenManager)
     , ApiKey(InApiKey)
     , Client(MakeShared<FHttpClient>())
     , Scheme(TEXT("https"))
     , Host(InHost)
 {
-    Client->OnRequestDelegate.AddRaw(this, &FChatApi::AddAuth);
-    Client->OnErrorDelegate.AddRaw(this, &FChatApi::OnError);
 }
 
 void FChatApi::QueryChannel(
