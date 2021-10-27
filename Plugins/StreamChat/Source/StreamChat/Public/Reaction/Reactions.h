@@ -23,7 +23,7 @@ struct FReactions
     TMap<FName, int32> GetScores() const;
 
     void AddReaction(const FReaction&);
-    void RemoveReactionWhere(TFunction<bool(const FReaction&)> Predicate);
+    void RemoveReactionWhere(TFunctionRef<bool(const FReaction&)> Predicate);
 
     bool IsEmpty() const;
     bool HasOwnReaction(const FName& ReactionType) const;

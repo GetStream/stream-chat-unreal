@@ -22,7 +22,7 @@ FChatApi::FChatApi(const FString& InApiKey, const FString& InHost, const TShared
     , Host(InHost)
 {
     Client->OnRequestDelegate.AddRaw(this, &FChatApi::AddAuth);
-    Client->OnErrorDelegate.AddStatic(&FChatApi::OnError);
+    Client->OnErrorDelegate.AddRaw(this, &FChatApi::OnError);
 }
 
 void FChatApi::QueryChannel(
@@ -174,5 +174,10 @@ void FChatApi::AddAuth(FRequestBuilder& Request) const
 void FChatApi::OnError(const FHttpResponse& Response)
 {
     const auto [StatusCode, Code, Duration, Message, MoreInfo] = Response.Json<FErrorResponseDto>();
+    if (Code == 40)
+    {
+        const FString NewToken = TokenManager->LoadToken(true);
+        // TODO Refresh token
+    }
     UE_LOG(LogTemp, Error, TEXT("API error response [Code=%d, Message=%s]"), Code, *Message);
 }

@@ -6,5 +6,5 @@ class STREAMCHATAPI_API ITokenProvider
 {
 public:
     virtual ~ITokenProvider() = default;
-    virtual FString LoadToken() const = 0;
+    virtual FString LoadToken(bool bRefresh = false) const = 0;
 };

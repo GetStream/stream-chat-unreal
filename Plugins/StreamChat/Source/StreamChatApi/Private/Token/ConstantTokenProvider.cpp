@@ -4,7 +4,7 @@ FConstantTokenProvider::FConstantTokenProvider(const FString& InToken) : Token(I
 {
 }
 
-FString FConstantTokenProvider::LoadToken() const
+FString FConstantTokenProvider::LoadToken(bool) const
 {
     return Token;
 }

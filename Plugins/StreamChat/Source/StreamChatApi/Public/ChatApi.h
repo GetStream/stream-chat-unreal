@@ -159,7 +159,7 @@ private:
     FString BuildUrl(const FString& Path) const;
 
     void AddAuth(FRequestBuilder&) const;
-    static void OnError(const FHttpResponse&);
+    void OnError(const FHttpResponse&);
 
     TSharedPtr<FTokenManager> TokenManager;
     FString ApiKey;

@@ -55,7 +55,7 @@ void FReactions::AddReaction(const FReaction& Reaction)
     }
 }
 
-void FReactions::RemoveReactionWhere(const TFunction<bool(const FReaction&)> Predicate)
+void FReactions::RemoveReactionWhere(const TFunctionRef<bool(const FReaction&)> Predicate)
 {
     // Use iterator for removal during iteration
     for (TMap<FName, FReactionGroup>::TIterator It(ReactionGroups); It; ++It)

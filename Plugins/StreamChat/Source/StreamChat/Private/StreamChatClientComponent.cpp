@@ -14,7 +14,7 @@
 #include "Token/TokenManager.h"
 #include "Util.h"
 
-UStreamChatClientComponent::UStreamChatClientComponent() : TokenManager(MakeShared<FTokenManager>())
+UStreamChatClientComponent::UStreamChatClientComponent()
 {
     PrimaryComponentTick.bCanEverTick = false;
 }
@@ -28,20 +28,32 @@ void UStreamChatClientComponent::BeginPlay()
     Api = MakeShared<FChatApi>(ApiKey, GetDefault<UStreamChatSettings>()->Host, TokenManager.ToSharedRef());
 }
 
+void UStreamChatClientComponent::ConnectUserInternal(const FUser& User, TFunction<void()> Callback)
+{
+    CurrentUser = User;
+    Socket = IChatSocket::Create(
+        ApiKey, TokenManager->LoadToken(), GetDefault<UStreamChatSettings>()->Host, static_cast<FUserObjectDto>(User));
+    Socket->Connect(Callback);
+}
+
 UChatChannel* UStreamChatClientComponent::CreateChannelObject(const FChannelStateResponseFieldsDto& Dto)
 {
     return UChatChannel::Create(this, Api.ToSharedRef(), Socket.ToSharedRef(), CurrentUser.GetValue(), Dto);
 }
 
+void UStreamChatClientComponent::ConnectUser(
+    const FUser& User,
+    TUniquePtr<ITokenProvider> TokenProvider,
+    const TFunction<void()> Callback)
+{
+    TokenManager = MakeShared<FTokenManager>(User.Id, MoveTemp(TokenProvider));
+    ConnectUserInternal(User, Callback);
+}
+
 void UStreamChatClientComponent::ConnectUser(const FUser& User, const FString& Token, const TFunction<void()> Callback)
 {
-    CurrentUser = User;
-    // TODO: I don't like that the TokenManager is stateful. Maybe instantiate a token provider each time one is
-    // needed?
-    TokenManager->SetTokenProvider(MakeUnique<FConstantTokenProvider>(Token));
-    Socket = IChatSocket::Create(
-        ApiKey, TokenManager->LoadToken(), GetDefault<UStreamChatSettings>()->Host, static_cast<FUserObjectDto>(User));
-    Socket->Connect(Callback);
+    TokenManager = MakeShared<FTokenManager>(User.Id, MakeUnique<FConstantTokenProvider>(Token));
+    ConnectUserInternal(User, Callback);
 }
 
 void UStreamChatClientComponent::DisconnectUser()
@@ -50,7 +62,7 @@ void UStreamChatClientComponent::DisconnectUser()
     {
         Socket->Disconnect();
     }
-    TokenManager->Reset();
+    TokenManager.Reset();
     CurrentUser.Reset();
 }
 
