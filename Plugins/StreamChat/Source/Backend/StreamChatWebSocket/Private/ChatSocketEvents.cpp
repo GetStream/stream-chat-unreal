@@ -3,6 +3,16 @@
 #include "LogChatSocket.h"
 #include "Response/ErrorResponseDto.h"
 
+int32 FChatSocketEvents::UnsubscribeAll(UObject* Object)
+{
+    int32 Total = 0;
+    for (auto& [EventName, Subscription] : Subscriptions)
+    {
+        Total += Subscription->Unsubscribe(Object);
+    }
+    return Total;
+}
+
 void FChatSocketEvents::ProcessEvent(const FName& Type, const TSharedRef<FJsonObject> JsonObject)
 {
     const FEventSubscriptionPtr* Subscription = Subscriptions.Find(Type);

@@ -13,19 +13,19 @@ public:
 
     /// Subscribe to a WebSocket event using a UObject-based member function delegate.
     template <class TEvent, class UserClass>
-    FORCEINLINE FDelegateHandle
-    SubscribeUObject(UserClass* Obj, TEventDelegateUObjectMethodPtr<TEvent, UserClass> Method);
+    FDelegateHandle SubscribeUObject(UserClass* Obj, TEventDelegateUObjectMethodPtr<TEvent, UserClass> Method);
 
     /// Subscribe to a WebSocket event using a shared pointer-based (fast, not thread-safe) member function delegate.
     template <class TEvent, class UserClass>
-    FORCEINLINE FDelegateHandle SubscribeSp(UserClass* Obj, TEventDelegateSpMethodPtr<TEvent, UserClass> Method);
+    FDelegateHandle SubscribeSp(UserClass* Obj, TEventDelegateSpMethodPtr<TEvent, UserClass> Method);
 
     /// Subscribe to a WebSocket event using a UObject-based member function delegate.
     template <class TEvent, typename FunctorType, typename... VarTypes>
-    FORCEINLINE FDelegateHandle SubscribeLambda(FunctorType&& InFunctor, VarTypes... Vars);
+    FDelegateHandle SubscribeLambda(FunctorType&& InFunctor, VarTypes... Vars);
 
     template <class TEvent>
     bool Unsubscribe(FDelegateHandle);
+    STREAMCHATWEBSOCKET_API int32 UnsubscribeAll(UObject* Object);
 
 private:
     friend class FChatSocket;

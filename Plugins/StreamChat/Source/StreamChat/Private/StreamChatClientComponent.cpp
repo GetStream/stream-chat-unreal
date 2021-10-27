@@ -6,6 +6,7 @@
 #include "Channel/ChatChannel.h"
 #include "ChatApi.h"
 #include "ConstantTokenProvider.h"
+#include "Event/Client/ConnectionRecoveredEvent.h"
 #include "IChatSocket.h"
 #include "Request/Message/MessageRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
@@ -34,11 +35,21 @@ void UStreamChatClientComponent::ConnectUserInternal(const FUser& User, TFunctio
     Socket = IChatSocket::Create(
         TokenManager.ToSharedRef(), ApiKey, GetDefault<UStreamChatSettings>()->Host, static_cast<FUserObjectDto>(User));
     Socket->Connect(Callback);
+
+    On<FConnectionRecoveredEvent>(this, &UStreamChatClientComponent::OnConnectionRecovered);
 }
 
 UChatChannel* UStreamChatClientComponent::CreateChannelObject(const FChannelStateResponseFieldsDto& Dto)
 {
     return UChatChannel::Create(this, Api.ToSharedRef(), Socket.ToSharedRef(), CurrentUser.GetValue(), Dto);
+}
+
+void UStreamChatClientComponent::OnConnectionRecovered(const FConnectionRecoveredEvent&)
+{
+    // Fetch data for known channels
+    TArray<FString> Cids;
+    Algo::Transform(Channels, Cids, [](const UChatChannel* Channel) { return Channel->State.Cid; });
+    QueryChannels({}, FFilter::In(TEXT("cid"), Cids));
 }
 
 void UStreamChatClientComponent::ConnectUser(
@@ -60,6 +71,7 @@ void UStreamChatClientComponent::DisconnectUser()
 {
     if (Socket)
     {
+        Socket->Events().UnsubscribeAll(this);
         Socket->Disconnect();
     }
     TokenManager->Reset();
@@ -84,7 +96,10 @@ void UStreamChatClientComponent::QueryChannels(
                 [this](const FChannelStateResponseFieldsDto& ResponseChannel)
                 { return CreateChannelObject(ResponseChannel); });
             Channels = NewChannels;
-            Callback(NewChannels);
+            if (Callback)
+            {
+                Callback(NewChannels);
+            }
         },
         Socket->GetConnectionId(),
         EChannelFlags::State | EChannelFlags::Watch,

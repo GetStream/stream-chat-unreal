@@ -12,6 +12,7 @@
 
 #include "StreamChatClientComponent.generated.h"
 
+struct FConnectionRecoveredEvent;
 struct FChannelStateResponseFieldsDto;
 class FChatApi;
 class FTokenManager;
@@ -111,6 +112,8 @@ private:
 
     void ConnectUserInternal(const FUser& User, TFunction<void()> Callback);
     UChatChannel* CreateChannelObject(const FChannelStateResponseFieldsDto&);
+
+    void OnConnectionRecovered(const FConnectionRecoveredEvent&);
 
     TSharedPtr<FTokenManager> TokenManager;
     TSharedPtr<FChatApi> Api;

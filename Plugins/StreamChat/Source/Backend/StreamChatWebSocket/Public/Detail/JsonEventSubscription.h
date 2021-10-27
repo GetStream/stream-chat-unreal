@@ -19,6 +19,7 @@ class IJsonEventSubscription
 public:
     virtual ~IJsonEventSubscription() = 0;
     virtual bool OnMessage(const TSharedRef<FJsonObject>&) = 0;
+    virtual int32 Unsubscribe(UObject* Object) = 0;
 };
 
 inline IJsonEventSubscription::~IJsonEventSubscription() = default;
@@ -28,6 +29,7 @@ class TJsonEventSubscription final : public IJsonEventSubscription
 {
 public:
     virtual bool OnMessage(const TSharedRef<FJsonObject>&) override;
+    virtual int32 Unsubscribe(UObject* Object) override;
 
     TEventMulticastDelegate<T> Delegate;
 };
@@ -46,4 +48,10 @@ bool TJsonEventSubscription<T>::OnMessage(const TSharedRef<FJsonObject>& JsonObj
 
     Delegate.Broadcast(OutStruct);
     return true;
+}
+
+template <class T>
+int32 TJsonEventSubscription<T>::Unsubscribe(UObject* Object)
+{
+    return Delegate.RemoveAll(Object);
 }

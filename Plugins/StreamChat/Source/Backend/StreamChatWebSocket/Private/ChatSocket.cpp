@@ -381,16 +381,17 @@ void FChatSocket::SetConnectionState(const EConnectionState NewState)
 {
     const bool bWasOnline = ConnectionState == EConnectionState::Connected;
     const bool bOnline = NewState == EConnectionState::Connected;
+
+    ConnectionState = NewState;
+
     if (bWasOnline != bOnline)
     {
         Events().Broadcast(FConnectionChangedEvent{{{FConnectionChangedEvent::StaticType, bOnline}}});
 
-        if (bOnline)
+        if (bOnline && IsConnected())
         {
-            // TODO offline support: recovered connection
+            UE_LOG(LogChatSocket, Log, TEXT("Connection recovered"));
             Events().Broadcast(FConnectionRecoveredEvent{{{FConnectionRecoveredEvent::StaticType}}});
         }
     }
-
-    ConnectionState = NewState;
 }
