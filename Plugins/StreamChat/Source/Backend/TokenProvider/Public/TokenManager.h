@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "ITokenProvider.h"
 
-class STREAMCHATAPI_API FTokenManager
+class TOKENPROVIDER_API FTokenManager
 {
 public:
     void SetTokenProvider(TUniquePtr<ITokenProvider> InTokenProvider, const FString& InUserId);

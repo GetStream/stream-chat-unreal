@@ -5,13 +5,13 @@
 #include "Algo/Transform.h"
 #include "Channel/ChatChannel.h"
 #include "ChatApi.h"
+#include "ConstantTokenProvider.h"
 #include "IChatSocket.h"
 #include "Request/Message/MessageRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "StreamChatSettings.h"
-#include "Token/ConstantTokenProvider.h"
-#include "Token/TokenManager.h"
+#include "TokenManager.h"
 #include "Util.h"
 
 UStreamChatClientComponent::UStreamChatClientComponent() : TokenManager(MakeShared<FTokenManager>())

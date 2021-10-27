@@ -14,6 +14,7 @@ public class StreamChat : ModuleRules
 			"Json", // Filter
 			"JsonUtilities", // Filter
 			"StreamJson",
+			"TokenProvider"
 		});
 
 		PublicDependencyModuleNames.AddRange(new[]

@@ -12,6 +12,7 @@ public class StreamChatApi : ModuleRules
             "CoreUObject",
             "HttpRequests",
             "StreamJson",
+            "TokenProvider"
         });
 
         PublicDependencyModuleNames.AddRange(new[]

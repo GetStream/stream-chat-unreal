@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include "Token/ITokenProvider.h"
+#include "ITokenProvider.h"
 
-class STREAMCHATAPI_API FConstantTokenProvider final : public ITokenProvider
+class TOKENPROVIDER_API FConstantTokenProvider final : public ITokenProvider
 {
 public:
     explicit FConstantTokenProvider(const FString& InToken);

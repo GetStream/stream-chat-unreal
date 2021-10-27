@@ -36,6 +36,11 @@
 			"LoadingPhase": "Default"
 		},
 		{
+			"Name": "TokenProvider",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
 			"Name": "StreamChatDto",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"

@@ -12,7 +12,7 @@
 #include "Response/ErrorResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Reaction/ReactionResponseDto.h"
-#include "Token/TokenManager.h"
+#include "TokenManager.h"
 
 TSharedRef<FChatApi> FChatApi::Create(
     const FString& InApiKey,
