@@ -14,6 +14,8 @@ struct STREAMCHATDTO_API FErrorResponseDto
 {
     GENERATED_BODY()
 
+    bool IsTokenExpired() const;
+
     /// Response HTTP status code
     UPROPERTY()
     int32 StatusCode;

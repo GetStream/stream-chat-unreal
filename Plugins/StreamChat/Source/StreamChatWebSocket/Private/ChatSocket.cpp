@@ -232,6 +232,11 @@ void FChatSocket::HandleWebSocketMessage(const FString& JsonString)
 
 void FChatSocket::HandleChatError(const FErrorResponseDto& Error)
 {
+    if (Error.IsTokenExpired())
+    {
+        UE_LOG(LogChatSocket, Warning, TEXT("WebSocket token expired [Message=%s]"), Error.Code, *Error.Message);
+        return;
+    }
     UE_LOG(
         LogChatSocket, Error, TEXT("WebSocket responded with error [Code=%d, Message=%s]"), Error.Code, *Error.Message);
 }

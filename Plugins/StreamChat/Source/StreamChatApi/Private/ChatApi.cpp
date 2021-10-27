@@ -187,12 +187,12 @@ void FChatApi::OnRequest(FRequestBuilder& Request) const
 
 void FChatApi::OnError(const FHttpResponse& Response, FRequestBuilder& Request)
 {
-    const auto [StatusCode, Code, Duration, Message, MoreInfo] = Response.Json<FErrorResponseDto>();
-    if (Code == 40)
+    const FErrorResponseDto Error = Response.Json<FErrorResponseDto>();
+    if (Error.IsTokenExpired())
     {
         const FString NewToken = TokenManager->LoadToken(true);
         AddAuth(Request, NewToken);
         Request.Resend();
     }
-    UE_LOG(LogTemp, Error, TEXT("API error response [Code=%d, Message=%s]"), Code, *Message);
+    UE_LOG(LogTemp, Error, TEXT("API error response [Code=%d, Message=%s]"), Error.Code, *Error.Message);
 }
