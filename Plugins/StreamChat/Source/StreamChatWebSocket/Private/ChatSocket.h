@@ -41,7 +41,7 @@ private:
     void HandleWebSocketConnected();
     void HandleWebSocketConnectionError(const FString& Error);
     void HandleWebSocketConnectionClosed(int32 Status, const FString& Reason, bool bWasClean);
-    void HandleWebSocketMessage(const FString& Message);
+    void HandleWebSocketMessage(const FString& JsonString);
 
     void OnHealthCheckEvent(const FHealthCheckEvent&);
     void OnHealthyConnect();

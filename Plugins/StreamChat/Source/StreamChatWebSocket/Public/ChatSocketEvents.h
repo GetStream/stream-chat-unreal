@@ -33,7 +33,7 @@ private:
     template <class TEvent>
     void Broadcast(const TEvent&);
 
-    void ProcessEvent(const FString& JsonString);
+    void ProcessEvent(const FName& Type, const TSharedRef<FJsonObject>);
 
     TMap<FName, FEventSubscriptionPtr> Subscriptions;
 };

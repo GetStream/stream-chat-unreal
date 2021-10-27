@@ -7,6 +7,7 @@
 #include "IWebSocket.h"
 #include "LogChatSocket.h"
 #include "Request/ConnectRequest.h"
+#include "Response/ErrorResponseDto.h"
 #include "StreamChatWebSocketSettings.h"
 #include "StreamJson.h"
 #include "WebSocketCloseCodes.h"
@@ -183,12 +184,55 @@ void FChatSocket::HandleWebSocketConnectionClosed(const int32 Status, const FStr
     }
 }
 
-void FChatSocket::HandleWebSocketMessage(const FString& Message)
+void FChatSocket::HandleWebSocketMessage(const FString& JsonString)
 {
     LastEventTime = FDateTime::Now();
-    UE_LOG(LogChatSocket, Verbose, TEXT("Websocket received message: %s"), *Message);
+    UE_LOG(LogChatSocket, Verbose, TEXT("Websocket received message: %s"), *JsonString);
 
-    Events().ProcessEvent(Message);
+    TSharedPtr<FJsonObject> JsonObject;
+    if (!JsonObjectDeserialization::JsonObjectStringToJsonObject(JsonString, JsonObject))
+    {
+        UE_LOG(LogChatSocket, Warning, TEXT("Unable to parse JSON [Json=%s]"), *JsonString);
+        return;
+    }
+
+    FString Type;
+    if (!JsonObject->TryGetStringField(TEXT("type"), Type))
+    {
+        if (const TSharedPtr<FJsonObject>* ErrorJsonObject;
+            JsonObject->TryGetObjectField(TEXT("error"), ErrorJsonObject))
+        {
+            FErrorResponseDto ErrorResponse;
+            if (JsonObjectDeserialization::JsonObjectToUStruct(ErrorJsonObject->ToSharedRef(), &ErrorResponse))
+            {
+                UE_LOG(
+                    LogChatSocket,
+                    Error,
+                    TEXT("WebSocket responded with error [Code=%d, Message=%s]"),
+                    ErrorResponse.Code,
+                    *ErrorResponse.Message);
+            }
+            else
+            {
+                UE_LOG(
+                    LogChatSocket,
+                    Error,
+                    TEXT("Unable to deserialize WebSocket error event [Message=%s]"),
+                    *JsonString);
+            }
+        }
+        else
+        {
+            UE_LOG(
+                LogChatSocket,
+                Error,
+                TEXT("Trying to deserialize a WebSocket event with no type [JSON=%s]"),
+                *JsonString);
+        }
+        return;
+    }
+
+    Events().ProcessEvent(FName{Type}, JsonObject.ToSharedRef());
 }
 
 void FChatSocket::OnHealthCheckEvent(const FHealthCheckEvent& HealthCheckEvent)
