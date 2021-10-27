@@ -4,6 +4,7 @@
 #include "CoreMinimal.h"
 #include "IChatSocket.h"
 
+struct FErrorResponseDto;
 struct FUserObjectDto;
 struct FHealthCheckEvent;
 class IWebSocket;
@@ -42,6 +43,7 @@ private:
     void HandleWebSocketConnectionError(const FString& Error);
     void HandleWebSocketConnectionClosed(int32 Status, const FString& Reason, bool bWasClean);
     void HandleWebSocketMessage(const FString& JsonString);
+    void HandleChatError(const FErrorResponseDto& Error);
 
     void OnHealthCheckEvent(const FHealthCheckEvent&);
     void OnHealthyConnect();

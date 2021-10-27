@@ -205,12 +205,7 @@ void FChatSocket::HandleWebSocketMessage(const FString& JsonString)
             FErrorResponseDto ErrorResponse;
             if (JsonObjectDeserialization::JsonObjectToUStruct(ErrorJsonObject->ToSharedRef(), &ErrorResponse))
             {
-                UE_LOG(
-                    LogChatSocket,
-                    Error,
-                    TEXT("WebSocket responded with error [Code=%d, Message=%s]"),
-                    ErrorResponse.Code,
-                    *ErrorResponse.Message);
+                HandleChatError(ErrorResponse);
             }
             else
             {
@@ -233,6 +228,12 @@ void FChatSocket::HandleWebSocketMessage(const FString& JsonString)
     }
 
     Events().ProcessEvent(FName{Type}, JsonObject.ToSharedRef());
+}
+
+void FChatSocket::HandleChatError(const FErrorResponseDto& Error)
+{
+    UE_LOG(
+        LogChatSocket, Error, TEXT("WebSocket responded with error [Code=%d, Message=%s]"), Error.Code, *Error.Message);
 }
 
 void FChatSocket::OnHealthCheckEvent(const FHealthCheckEvent& HealthCheckEvent)
