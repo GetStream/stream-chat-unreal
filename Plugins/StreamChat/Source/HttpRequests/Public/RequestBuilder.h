@@ -13,8 +13,6 @@ class HTTPREQUESTS_API FRequestBuilder
 {
 public:
     FRequestBuilder() = delete;
-    FRequestBuilder(const FRequestBuilder&) = delete;
-    void operator=(const FRequestBuilder&) = delete;
 
     explicit FRequestBuilder(const TSharedRef<const FHttpClient>&, const FString& Verb, const FString& Url);
 
@@ -57,11 +55,15 @@ public:
     template <class T>
     void Send(TFunction<void(const T&)> Callback);
 
+    void Resend();
+
 private:
     FRequestBuilder& Json(const FString& Json);
+    void SendInternal();
 
     TSharedPtr<const FHttpClient> Client;
     FHttpRequestPtr Request;
+    TFunction<void(const FHttpResponse&)> RetainedCallback;
 };
 
 template <class T>

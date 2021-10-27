@@ -20,7 +20,7 @@ TSharedRef<FChatApi> FChatApi::Create(
     const TSharedPtr<FTokenManager>& InTokenManager)
 {
     TSharedRef<FChatApi> Api = MakeShareable(new FChatApi{InApiKey, InHost, InTokenManager});
-    Api->Client->OnRequestDelegate.AddSP(Api, &FChatApi::AddAuth);
+    Api->Client->OnRequestDelegate.AddSP(Api, &FChatApi::OnRequest);
     Api->Client->OnErrorDelegate.AddSP(Api, &FChatApi::OnError);
     return Api;
 }
@@ -169,9 +169,8 @@ FString FChatApi::BuildUrl(const FString& Path) const
     return FString::Printf(TEXT("%s://%s/%s"), *Scheme, *Host, *Path);
 }
 
-void FChatApi::AddAuth(FRequestBuilder& Request) const
+void FChatApi::AddAuth(FRequestBuilder& Request, const FString& Token) const
 {
-    const FString Token = TokenManager->LoadToken();
     Request
         .Header({
             {TEXT("stream-auth-type"), TEXT("jwt")},
@@ -180,13 +179,20 @@ void FChatApi::AddAuth(FRequestBuilder& Request) const
         .Query({{TEXT("api_key"), ApiKey}});
 }
 
-void FChatApi::OnError(const FHttpResponse& Response)
+void FChatApi::OnRequest(FRequestBuilder& Request) const
+{
+    const FString Token = TokenManager->LoadToken();
+    AddAuth(Request, Token);
+}
+
+void FChatApi::OnError(const FHttpResponse& Response, FRequestBuilder& Request)
 {
     const auto [StatusCode, Code, Duration, Message, MoreInfo] = Response.Json<FErrorResponseDto>();
     if (Code == 40)
     {
         const FString NewToken = TokenManager->LoadToken(true);
-        // TODO Refresh token
+        AddAuth(Request, NewToken);
+        Request.Resend();
     }
     UE_LOG(LogTemp, Error, TEXT("API error response [Code=%d, Message=%s]"), Code, *Message);
 }

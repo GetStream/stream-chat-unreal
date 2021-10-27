@@ -45,10 +45,32 @@ FRequestBuilder& FRequestBuilder::Query(const FQueryParameters& Query)
 
 void FRequestBuilder::Send(TFunction<void(const FHttpResponse&)> Callback)
 {
+    RetainedCallback = Callback;
     Client->OnRequestDelegate.Broadcast(*this);
+    SendInternal();
+    UE_LOG(LogHttpClient, Log, TEXT("Sent HTTP request [Url=%s]"), *Request->GetURL());
+}
+
+void FRequestBuilder::Resend()
+{
+    SendInternal();
+    UE_LOG(LogHttpClient, Log, TEXT("Resent HTTP request [Url=%s]"), *Request->GetURL());
+}
+
+FRequestBuilder& FRequestBuilder::Json(const FString& Json)
+{
+    Request->SetContentAsString(Json);
+    Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
+
+    UE_LOG(LogHttpClient, Log, TEXT("Set request body [Json=%s]"), *Json);
+    return *this;
+}
+
+void FRequestBuilder::SendInternal()
+{
     Request->OnProcessRequestComplete().BindLambda(
-        [Client = Client, Callback](
-            const FHttpRequestPtr OriginalRequest, const FHttpResponsePtr Response, bool bConnectedSuccessfully)
+        [RequestBuilder = *this](
+            const FHttpRequestPtr OriginalRequest, const FHttpResponsePtr Response, bool bConnectedSuccessfully) mutable
         {
             if (const FHttpResponse HttpResponse{Response};
                 HttpResponse.StatusCode >= 200 && HttpResponse.StatusCode < 300)
@@ -60,10 +82,10 @@ void FRequestBuilder::Send(TFunction<void(const FHttpResponse&)> Callback)
                     HttpResponse.StatusCode,
                     *OriginalRequest->GetURL());
                 UE_LOG(LogHttpClient, VeryVerbose, TEXT("HTTP response [Body=%s]"), *HttpResponse.Text);
-                Client->OnResponseDelegate.Broadcast(HttpResponse);
-                if (Callback)
+                RequestBuilder.Client->OnResponseDelegate.Broadcast(HttpResponse);
+                if (RequestBuilder.RetainedCallback)
                 {
-                    Callback(HttpResponse);
+                    RequestBuilder.RetainedCallback(HttpResponse);
                 }
             }
             else
@@ -74,18 +96,8 @@ void FRequestBuilder::Send(TFunction<void(const FHttpResponse&)> Callback)
                     TEXT("HTTP request returned an error [StatusCode=%d, Url=%s]"),
                     HttpResponse.StatusCode,
                     *OriginalRequest->GetURL());
-                Client->OnErrorDelegate.Broadcast(HttpResponse);
+                RequestBuilder.Client->OnErrorDelegate.Broadcast(HttpResponse, RequestBuilder);
             }
         });
     Request->ProcessRequest();
-    UE_LOG(LogHttpClient, Log, TEXT("Sent HTTP request [Url=%s]"), *Request->GetURL());
-}
-
-FRequestBuilder& FRequestBuilder::Json(const FString& Json)
-{
-    Request->SetContentAsString(Json);
-    Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
-
-    UE_LOG(LogHttpClient, Log, TEXT("Set request body [Json=%s]"), *Json);
-    return *this;
 }

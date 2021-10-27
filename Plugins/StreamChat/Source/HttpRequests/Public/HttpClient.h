@@ -5,6 +5,7 @@
 
 DECLARE_MULTICAST_DELEGATE_OneParam(FOnRequestDelegate, FRequestBuilder&);
 DECLARE_MULTICAST_DELEGATE_OneParam(FOnResponseDelegate, const FHttpResponse&);
+DECLARE_MULTICAST_DELEGATE_TwoParams(FOnErrorDelegate, const FHttpResponse&, FRequestBuilder&);
 
 class HTTPREQUESTS_API FHttpClient : public TSharedFromThis<FHttpClient>
 {
@@ -28,5 +29,5 @@ public:
     /**
      * Delegate which will be executed on each request failure.
      */
-    FOnResponseDelegate OnErrorDelegate;
+    FOnErrorDelegate OnErrorDelegate;
 };

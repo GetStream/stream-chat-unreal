@@ -162,8 +162,9 @@ private:
 
     FString BuildUrl(const FString& Path) const;
 
-    void AddAuth(FRequestBuilder&) const;
-    void OnError(const FHttpResponse&);
+    void AddAuth(FRequestBuilder&, const FString& Token) const;
+    void OnRequest(FRequestBuilder&) const;
+    void OnError(const FHttpResponse&, FRequestBuilder&);
 
     TSharedPtr<FTokenManager> TokenManager;
     FString ApiKey;
