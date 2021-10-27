@@ -2,15 +2,16 @@
 
 #include "CoreMinimal.h"
 
-struct FUserObjectDto;
 class FChatSocketEvents;
+class FTokenManager;
+struct FUserObjectDto;
 
 class STREAMCHATWEBSOCKET_API IChatSocket : public TSharedFromThis<IChatSocket>
 {
 public:
     static TSharedRef<IChatSocket> Create(
+        const TSharedRef<FTokenManager>&,
         const FString& ApiKey,
-        const FString& Token,
         const FString& Host,
         const FUserObjectDto& User);
     virtual ~IChatSocket() = default;

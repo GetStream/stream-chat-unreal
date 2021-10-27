@@ -10,6 +10,7 @@
 #include "Response/ErrorResponseDto.h"
 #include "StreamChatWebSocketSettings.h"
 #include "StreamJson.h"
+#include "TokenManager.h"
 #include "WebSocketCloseCodes.h"
 #include "WebSocketsModule.h"
 
@@ -28,12 +29,17 @@ float GetReconnectDelay(const uint32 Attempt)
 }
 }    // namespace
 
-FChatSocket::FChatSocket(const FString& ApiKey, const FString& Token, const FString& Host, const FUserObjectDto& User)
-    : ChatSocketEvents(MakeUnique<FChatSocketEvents>())
+FChatSocket::FChatSocket(
+    const TSharedRef<FTokenManager>& TokenManager,
+    const FString& ApiKey,
+    const FString& Host,
+    const FUserObjectDto& User)
+    : ChatSocketEvents(MakeUnique<FChatSocketEvents>()), TokenManager(TokenManager), ApiKey(ApiKey), Host(Host)
 {
-    const FString Url = BuildUrl(ApiKey, Token, Host, User);
-    WebSocket = FWebSocketsModule::Get().CreateWebSocket(Url, TEXT("wss"));
-    UE_LOG(LogChatSocket, Log, TEXT("WebSocket configured with URL: %s"), *Url);
+    const FConnectRequestDto Request = {true, User.Id, User};
+    ConnectionRequestJson = Json::Serialize(Request);
+
+    CreateUnderlyingWebSocket(false);
 }
 
 FChatSocket::~FChatSocket()
@@ -55,7 +61,7 @@ void FChatSocket::Connect(const TFunction<void()> Callback)
 
     PendingOnConnectCallback.BindLambda(Callback);
 
-    InitWebSocket();
+    ConnectUnderlyingWebSocket();
 }
 
 void FChatSocket::Disconnect()
@@ -63,26 +69,17 @@ void FChatSocket::Disconnect()
     UE_LOG(LogChatSocket, Log, TEXT("Closing WebSocket connection"));
     SetConnectionState(EConnectionState::Disconnecting);
 
-    CloseWebSocket();
+    CloseUnderlyingWebSocket();
     StopMonitoring();
 }
 
-FString FChatSocket::BuildUrl(
-    const FString& ApiKey,
-    const FString& Token,
-    const FString& Host,
-    const FUserObjectDto& User)
+FString FChatSocket::BuildUrl(const bool bRefreshToken) const
 {
-    const FConnectRequestDto Request = {
-        true,
-        User.Id,
-        User,
-    };
-    const FString Json = Json::Serialize(Request);
+    const FString Token = TokenManager->LoadToken(bRefreshToken);
     return FString::Printf(
         TEXT("wss://%s/connect?json=%s&api_key=%s&authorization=%s&stream-auth-type=jwt"),
         *Host,
-        *Json,
+        *ConnectionRequestJson,
         *ApiKey,
         *Token);
 }
@@ -102,7 +99,14 @@ FChatSocketEvents& FChatSocket::Events()
     return *ChatSocketEvents;
 }
 
-void FChatSocket::InitWebSocket()
+void FChatSocket::CreateUnderlyingWebSocket(const bool bRefreshToken)
+{
+    const FString Url = BuildUrl(bRefreshToken);
+    WebSocket = FWebSocketsModule::Get().CreateWebSocket(Url, TEXT("wss"));
+    UE_LOG(LogChatSocket, Log, TEXT("WebSocket configured with URL: %s"), *Url);
+}
+
+void FChatSocket::ConnectUnderlyingWebSocket()
 {
     if (IsConnected())
     {
@@ -114,7 +118,7 @@ void FChatSocket::InitWebSocket()
     WebSocket->Connect();
 }
 
-void FChatSocket::CloseWebSocket()
+void FChatSocket::CloseUnderlyingWebSocket()
 {
     UnbindEventHandlers();
     if (!WebSocket->IsConnected())
@@ -158,7 +162,7 @@ void FChatSocket::HandleWebSocketConnectionError(const FString& Error)
     SetConnectionState(EConnectionState::NotConnected);
     UE_LOG(LogChatSocket, Error, TEXT("Failed to connect to WebSocket [Error=%s]"), *Error);
 
-    Reconnect();
+    Reconnect(false);
 }
 
 void FChatSocket::HandleWebSocketConnectionClosed(const int32 Status, const FString& Reason, const bool bWasClean)
@@ -180,7 +184,7 @@ void FChatSocket::HandleWebSocketConnectionClosed(const int32 Status, const FStr
             Status,
             Code,
             *Reason);
-        Reconnect();
+        Reconnect(false);
     }
 }
 
@@ -235,10 +239,12 @@ void FChatSocket::HandleChatError(const FErrorResponseDto& Error)
     if (Error.IsTokenExpired())
     {
         UE_LOG(LogChatSocket, Warning, TEXT("WebSocket token expired [Message=%s]"), Error.Code, *Error.Message);
+        Reconnect(true);
         return;
     }
     UE_LOG(
         LogChatSocket, Error, TEXT("WebSocket responded with error [Code=%d, Message=%s]"), Error.Code, *Error.Message);
+    Reconnect(false);
 }
 
 void FChatSocket::OnHealthCheckEvent(const FHealthCheckEvent& HealthCheckEvent)
@@ -323,13 +329,13 @@ bool FChatSocket::CheckNeedToReconnect(float)
     }();
     if (bShouldReconnect)
     {
-        Reconnect();
+        Reconnect(false);
     }
     // Loop the ticker
     return true;
 }
 
-void FChatSocket::Reconnect()
+void FChatSocket::Reconnect(const bool bRefreshToken)
 {
     if (ConnectionState == EConnectionState::Reconnecting)
     {
@@ -338,7 +344,13 @@ void FChatSocket::Reconnect()
 
     SetConnectionState(EConnectionState::Reconnecting);
 
-    CloseWebSocket();
+    CloseUnderlyingWebSocket();
+    if (bRefreshToken)
+    {
+        WebSocket.Reset();
+        CreateUnderlyingWebSocket(true);
+    }
+
     StopMonitoring();
 
     ++ReconnectAttempt;
@@ -356,7 +368,7 @@ void FChatSocket::Reconnect()
                 if (const TSharedPtr<FChatSocket> Pinned = StaticCastSharedPtr<FChatSocket>(WeakThis.Pin()))
                 {
                     UE_LOG(LogChatSocket, Log, TEXT("Retrying connection [Attempt=%d]"), Pinned->ReconnectAttempt);
-                    Pinned->InitWebSocket();
+                    Pinned->ConnectUnderlyingWebSocket();
                 }
 
                 // Don't loop the ticker

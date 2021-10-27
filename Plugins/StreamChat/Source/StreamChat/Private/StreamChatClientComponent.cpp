@@ -32,7 +32,7 @@ void UStreamChatClientComponent::ConnectUserInternal(const FUser& User, TFunctio
 {
     CurrentUser = User;
     Socket = IChatSocket::Create(
-        ApiKey, TokenManager->LoadToken(), GetDefault<UStreamChatSettings>()->Host, static_cast<FUserObjectDto>(User));
+        TokenManager.ToSharedRef(), ApiKey, GetDefault<UStreamChatSettings>()->Host, static_cast<FUserObjectDto>(User));
     Socket->Connect(Callback);
 }
 

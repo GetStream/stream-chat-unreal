@@ -11,6 +11,7 @@ public class StreamChatWebSocket : ModuleRules
             "CoreUObject",
             "WebSockets",
             "StreamChatDto",
+            "TokenProvider"
         });
 
         PublicDependencyModuleNames.AddRange(new[]

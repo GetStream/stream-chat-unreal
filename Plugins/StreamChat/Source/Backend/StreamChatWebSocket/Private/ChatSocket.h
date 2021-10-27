@@ -4,6 +4,7 @@
 #include "CoreMinimal.h"
 #include "IChatSocket.h"
 
+class FTokenManager;
 struct FErrorResponseDto;
 struct FUserObjectDto;
 struct FHealthCheckEvent;
@@ -13,7 +14,11 @@ class FChatSocket final : public IChatSocket
 {
 public:
     FChatSocket() = delete;
-    explicit FChatSocket(const FString& ApiKey, const FString& Token, const FString& Host, const FUserObjectDto& User);
+    explicit FChatSocket(
+        const TSharedRef<FTokenManager>&,
+        const FString& ApiKey,
+        const FString& Host,
+        const FUserObjectDto& User);
     virtual ~FChatSocket() override;
 
     virtual void Connect(TFunction<void()> Callback) override;
@@ -33,8 +38,9 @@ private:
         Reconnecting,
     };
 
-    void InitWebSocket();
-    void CloseWebSocket();
+    void CreateUnderlyingWebSocket(bool bRefreshToken);
+    void ConnectUnderlyingWebSocket();
+    void CloseUnderlyingWebSocket();
 
     // WS event handlers
     void BindEventHandlers();
@@ -52,16 +58,17 @@ private:
     void StopMonitoring();
     bool KeepAlive(float DeltaTime) const;
     bool CheckNeedToReconnect(float DeltaTime);
-    void Reconnect();
+    void Reconnect(bool bRefreshToken);
 
     void SetConnectionState(EConnectionState);
 
-    static FString BuildUrl(
-        const FString& ApiKey,
-        const FString& Token,
-        const FString& Host,
-        const FUserObjectDto& User);
+    FString BuildUrl(bool bRefreshToken) const;
+
     TUniquePtr<FChatSocketEvents> ChatSocketEvents;
+    TSharedPtr<FTokenManager> TokenManager;
+    FString ApiKey;
+    FString Host;
+    FString ConnectionRequestJson;
 
     /// Provided by the server when the websocket connection is established
     FString ConnectionId;
