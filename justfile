@@ -17,5 +17,5 @@ test:
     -ue4 test StreamChat
 
 # Convert svg assets to pngs
-asset-pipeline:
-    for f in SourceArt/*.svg; do echo "$f"; inkscape "$f" -o "${f%.svg}.png"; done
+convert-svg:
+    for f in $(find Content -name '*.svg'); do echo "$f"; inkscape "$f" -o "${f%.svg}.png"; done
