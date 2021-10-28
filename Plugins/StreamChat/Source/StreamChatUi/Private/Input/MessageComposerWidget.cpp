@@ -3,6 +3,7 @@
 #include "Input/MessageComposerWidget.h"
 
 #include "Brushes/SlateImageBrush.h"
+#include "ChannelContextWidget.h"
 #include "Components/ButtonSlot.h"
 
 void UMessageComposerWidget::NativeOnInitialized()
@@ -40,7 +41,7 @@ void UMessageComposerWidget::EditMessage(const FMessage& Message)
 
 void UMessageComposerWidget::OnInputTextChanged(const FText& Text)
 {
-    if (ensure(Channel))
+    if (UChatChannel* Channel = UChannelContextWidget::GetChannel(this); ensure(Channel))
     {
         Channel->KeyStroke();
     }
@@ -74,6 +75,7 @@ void UMessageComposerWidget::SendMessage()
     {
         return;
     }
+    UChatChannel* Channel = UChannelContextWidget::GetChannel(this);
     if (!ensure(Channel))
     {
         return;

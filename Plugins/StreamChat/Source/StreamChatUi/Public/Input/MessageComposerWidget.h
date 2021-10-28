@@ -28,9 +28,6 @@ public:
     UFUNCTION(BlueprintCallable)
     void EditMessage(const FMessage& Message);
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ExposeOnSpawn = true))
-    UChatChannel* Channel;
-
     UPROPERTY(EditAnywhere, Category = "Button")
     UTexture2D* ButtonTextureNormal;
 
