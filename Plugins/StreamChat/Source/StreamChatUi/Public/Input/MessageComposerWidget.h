@@ -25,7 +25,7 @@ public:
     virtual void NativePreConstruct() override;
     virtual void NativeConstruct() override;
 
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void EditMessage(const FMessage& Message);
 
     UPROPERTY(EditAnywhere, Category = "Button")

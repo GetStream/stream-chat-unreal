@@ -20,16 +20,16 @@ class STREAMCHATUI_API UMessageStackWidget final : public UUserWidget
 public:
     virtual void NativePreConstruct() override;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ExposeOnSpawn = true))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat", meta = (ExposeOnSpawn = true))
     TArray<FMessage> Messages;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ExposeOnSpawn = true))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat", meta = (ExposeOnSpawn = true))
     FUser CurrentUser;
 
 protected:
     UPROPERTY(meta = (BindWidget))
     UPanelWidget* TextBubblePanel;
 
-    UPROPERTY(EditDefaultsOnly, NoClear)
+    UPROPERTY(EditDefaultsOnly, NoClear, Category = "Text Bubble")
     TSubclassOf<UTextBubbleWidget> TextBubbleWidgetClass = UTextBubbleWidget::StaticClass();
 };

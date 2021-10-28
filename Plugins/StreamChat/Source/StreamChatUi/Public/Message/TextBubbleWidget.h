@@ -37,11 +37,11 @@ class STREAMCHATUI_API UTextBubbleWidget final : public UUserWidget
 public:
     virtual void NativePreConstruct() override;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ExposeOnSpawn = true))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat", meta = (ExposeOnSpawn = true))
     FMessage Message;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ExposeOnSpawn = true))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat", meta = (ExposeOnSpawn = true))
     EBubbleStackPosition Position;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ExposeOnSpawn = true))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat", meta = (ExposeOnSpawn = true))
     EBubbleStackSide Side;
 
 protected:
@@ -50,13 +50,13 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UBorder* Border;
 
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = Texture)
     UTexture2D* MeOpeningTexture;
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = Texture)
     UTexture2D* YouOpeningTexture;
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = Texture)
     UTexture2D* MeEndTexture;
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = Texture)
     UTexture2D* YouEndTexture;
 
 private:

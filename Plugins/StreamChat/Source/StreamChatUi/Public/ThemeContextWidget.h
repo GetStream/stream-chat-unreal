@@ -17,6 +17,6 @@ class STREAMCHATUI_API UThemeContextWidget final : public UContextWidget
 
 public:
     static FLinearColor GetTheme(UWidget* Widget);
-    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat")
     FLinearColor Theme;
 };
