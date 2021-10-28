@@ -5,6 +5,8 @@
 #include "Brushes/SlateImageBrush.h"
 #include "ChannelContextWidget.h"
 #include "Components/ButtonSlot.h"
+#include "Engine/Texture2D.h"
+#include "TimerManager.h"
 
 void UMessageComposerWidget::NativeOnInitialized()
 {
