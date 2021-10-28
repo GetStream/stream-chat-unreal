@@ -1,6 +1,6 @@
 // Copyright Stream.IO, Inc. All Rights Reserved.
 
-#include "MessageComposerWidget.h"
+#include "Input/MessageComposerWidget.h"
 
 #include "Brushes/SlateImageBrush.h"
 #include "Components/ButtonSlot.h"
