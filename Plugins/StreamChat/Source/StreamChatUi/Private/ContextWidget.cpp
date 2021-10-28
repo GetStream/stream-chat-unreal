@@ -34,8 +34,7 @@ TSharedRef<SWidget> UContextWidget::RebuildWidget()
     // Add any existing content to the new slate box
     if (GetChildrenCount() > 0)
     {
-        const UPanelSlot* ContentSlot = GetContentSlot();
-        if (ContentSlot->Content)
+        if (const UPanelSlot* ContentSlot = GetContentSlot(); ContentSlot->Content)
         {
             MyBox->SetContent(ContentSlot->Content->TakeWidget());
         }
@@ -82,11 +81,6 @@ void UContextWidget::OnSlotRemoved(UPanelSlot* InSlot)
 const FText UContextWidget::GetPaletteCategory()
 {
     return FText::FromString(TEXT("Common"));
-}
-
-UContextWidget* UContextWidget::GetContext(UWidget* Widget, const TSubclassOf<UContextWidget> Type)
-{
-    return static_cast<UContextWidget*>(WidgetUtil::GetTypedParentWidget(Widget, Type));
 }
 
 #endif

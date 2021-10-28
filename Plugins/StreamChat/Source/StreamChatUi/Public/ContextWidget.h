@@ -18,8 +18,8 @@ class STREAMCHATUI_API UContextWidget : public UContentWidget
 public:
     UContextWidget();
     // UPanelWidget interface
-    virtual void OnSlotAdded(UPanelSlot* Slot) override;
-    virtual void OnSlotRemoved(UPanelSlot* Slot) override;
+    virtual void OnSlotAdded(UPanelSlot*) override;
+    virtual void OnSlotRemoved(UPanelSlot*) override;
     // End of UPanelWidget interface
 
     // UVisual interface
@@ -31,9 +31,6 @@ public:
     virtual const FText GetPaletteCategory() override;
     // End of UWidget interface
 #endif
-
-    UFUNCTION(BlueprintPure, Category = "Stream Chat", meta = (DefaultToSelf = Widget, HidePin = Widget, DeterminesOutputType = Type))
-    static UContextWidget* GetContext(UWidget* Widget, TSubclassOf<UContextWidget> Type);
 
 protected:
     // UWidget interface
