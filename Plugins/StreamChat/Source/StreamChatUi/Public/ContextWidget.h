@@ -32,7 +32,7 @@ public:
     // End of UWidget interface
 #endif
 
-    UFUNCTION(BlueprintPure, meta = (DefaultToSelf = Widget, HidePin = Widget, DeterminesOutputType = Type))
+    UFUNCTION(BlueprintPure, Category = "Stream Chat", meta = (DefaultToSelf = Widget, HidePin = Widget, DeterminesOutputType = Type))
     static UContextWidget* GetContext(UWidget* Widget, TSubclassOf<UContextWidget> Type);
 
 protected:

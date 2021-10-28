@@ -18,6 +18,6 @@ class STREAMCHATUI_API UChannelContextWidget final : public UContextWidget
 
 public:
     static UChatChannel* GetChannel(UWidget* Widget);
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat")
     UChatChannel* Channel;
 };
