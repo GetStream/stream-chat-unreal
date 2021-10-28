@@ -18,13 +18,15 @@ void UMessageComposerWidget::NativePreConstruct()
 {
     SendMessageButton->WidgetStyle.NormalPadding = {};
     SendMessageButton->WidgetStyle.PressedPadding = {};
+    CancelEditingButton->WidgetStyle.NormalPadding = {};
+    CancelEditingButton->WidgetStyle.PressedPadding = {};
     UpdateSendButtonAppearance(false);
-    UpdateEditMessageAppearance(ESendButtonIconAppearance::Send);
     Super::NativePreConstruct();
 }
 
 void UMessageComposerWidget::NativeConstruct()
 {
+    UpdateEditMessageAppearance(ESendButtonIconAppearance::Send);
     MessageInput->SetKeyboardFocus();
     Super::NativeConstruct();
 }
@@ -86,8 +88,8 @@ void UMessageComposerWidget::SendMessage()
     else
     {
         Channel->SendMessage(Text);
+        MessageInput->SetText(FText::GetEmpty());
     }
-    MessageInput->SetText(FText::GetEmpty());
 }
 
 void UMessageComposerWidget::UpdateSendButtonAppearance(const bool bEnabled)
@@ -104,12 +106,13 @@ void UMessageComposerWidget::StopEditMessage()
     EditedMessage.Reset();
 
     UpdateEditMessageAppearance(ESendButtonIconAppearance::Send);
+    MessageInput->SetText(FText::GetEmpty());
 }
 
 void UMessageComposerWidget::UpdateEditMessageAppearance(const ESendButtonIconAppearance Appearance)
 {
     UTexture2D* Texture = Appearance == ESendButtonIconAppearance::Send ? IconTextureSend : IconTextureConfirm;
-    SendMessageIcon->SetBrushFromTexture(Texture);
+    SendMessageIcon->SetBrushFromTexture(Texture, true);
     if (UButtonSlot* ButtonSlot = Cast<UButtonSlot>(SendMessageIcon->Slot))
     {
         const FMargin IconPadding =
