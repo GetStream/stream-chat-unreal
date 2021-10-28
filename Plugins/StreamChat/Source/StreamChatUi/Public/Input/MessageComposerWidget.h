@@ -6,9 +6,9 @@
 #include "Channel/ChatChannel.h"
 #include "Components/Button.h"
 #include "Components/Image.h"
-#include "Types/SlateEnums.h"
 #include "CoreMinimal.h"
 #include "MessageInputWidget.h"
+#include "Types/SlateEnums.h"
 
 #include "MessageComposerWidget.generated.h"
 
@@ -27,21 +27,6 @@ public:
 
     UFUNCTION(BlueprintCallable)
     void EditMessage(const FMessage& Message);
-
-    UPROPERTY(meta = (BindWidget))
-    UMessageInputWidget* MessageInput;
-
-    UPROPERTY(meta = (BindWidget))
-    UButton* SendMessageButton;
-
-    UPROPERTY(meta = (BindWidget))
-    UImage* SendMessageIcon;
-
-    UPROPERTY(meta = (BindWidget))
-    UButton* CancelEditingButton;
-
-    UPROPERTY(meta = (BindWidget))
-    UPanelWidget* CancelEditingHeaderPanel;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (ExposeOnSpawn = true))
     UChatChannel* Channel;
@@ -63,6 +48,22 @@ public:
 
     UPROPERTY(EditAnywhere, Category = "Icon")
     FMargin IconPaddingConfirm;
+
+protected:
+    UPROPERTY(meta = (BindWidget))
+    UMessageInputWidget* MessageInput;
+
+    UPROPERTY(meta = (BindWidget))
+    UButton* SendMessageButton;
+
+    UPROPERTY(meta = (BindWidget))
+    UImage* SendMessageIcon;
+
+    UPROPERTY(meta = (BindWidget))
+    UButton* CancelEditingButton;
+
+    UPROPERTY(meta = (BindWidget))
+    UPanelWidget* CancelEditingHeaderPanel;
 
 private:
     UFUNCTION()
