@@ -2,8 +2,25 @@
 
 #include "Components/PanelWidget.h"
 
+bool UMessageStackWidget::Initialize()
+{
+    if (Super::Initialize())
+    {
+        // Init timestamp widget
+        if (Messages.Num() > 0)
+        {
+            Timestamp->Message = Messages.Last();
+            Timestamp->Side = Side;
+        }
+        return true;
+    }
+
+    return false;
+}
+
 void UMessageStackWidget::NativePreConstruct()
 {
+    // Spawn bubbles
     TextBubblePanel->ClearChildren();
 
     const int32 LastIndex = Messages.Num() - 1;
@@ -12,9 +29,10 @@ void UMessageStackWidget::NativePreConstruct()
         const FMessage& Message = Messages[Index];
         UTextBubbleWidget* Widget = CreateWidget<UTextBubbleWidget>(this, TextBubbleWidgetClass);
         Widget->Message = Message;
+        Widget->Side = Side;
         Widget->Position = Index == LastIndex ? EBubbleStackPosition::End : EBubbleStackPosition::Opening;
-        Widget->Side = Message.User.Id == CurrentUser.Id ? EBubbleStackSide::Me : EBubbleStackSide::You;
         TextBubblePanel->AddChild(Widget);
     }
+
     Super::NativePreConstruct();
 }
