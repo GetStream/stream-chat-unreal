@@ -17,8 +17,8 @@ void UMessageListWidget::CreateMessageStackWidgets(const TArray<FMessage> Messag
     for (int32 Index = 0; Index < Messages.Num(); ++Index)
     {
         if (Index == Last ||
-            Index != 0 && (Messages[Index].CreatedAt - Messages[Index - 1].CreatedAt > FTimespan::FromMinutes(1.) ||
-                           Messages[Index].User.Id != Messages[Index - 1].User.Id))
+            (Index != 0 && (Messages[Index].CreatedAt - Messages[Index - 1].CreatedAt > FTimespan::FromMinutes(1.) ||
+                            Messages[Index].User.Id != Messages[Index - 1].User.Id)))
         {
             const int32 Count = Index - StartIndex;
 
