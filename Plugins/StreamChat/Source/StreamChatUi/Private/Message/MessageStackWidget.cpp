@@ -44,9 +44,7 @@ void UMessageStackWidget::NativePreConstruct()
     {
         const FMessage& Message = Messages[Index];
         UTextBubbleWidget* Widget = CreateWidget<UTextBubbleWidget>(this, TextBubbleWidgetClass);
-        Widget->Message = Message;
-        Widget->Side = Side;
-        Widget->Position = Index == LastIndex ? EBubbleStackPosition::End : EBubbleStackPosition::Opening;
+        Widget->Setup(Message, Side, Index == LastIndex ? EBubbleStackPosition::End : EBubbleStackPosition::Opening);
         TextBubblePanel->AddChild(Widget);
     }
 

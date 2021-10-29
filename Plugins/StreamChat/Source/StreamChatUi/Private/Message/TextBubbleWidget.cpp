@@ -1,5 +1,12 @@
 ﻿#include "Message/TextBubbleWidget.h"
 
+void UTextBubbleWidget::Setup(const FMessage& InMessage, EBubbleStackSide InSide, EBubbleStackPosition InPosition)
+{
+    Message = InMessage;
+    Side = InSide;
+    Position = InPosition;
+}
+
 void UTextBubbleWidget::NativePreConstruct()
 {
     Super::NativePreConstruct();

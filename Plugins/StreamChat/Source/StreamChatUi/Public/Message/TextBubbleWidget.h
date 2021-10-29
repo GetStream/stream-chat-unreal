@@ -35,14 +35,9 @@ class STREAMCHATUI_API UTextBubbleWidget final : public UUserWidget
     GENERATED_BODY()
 
 public:
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat")
+    void Setup(const FMessage& InMessage, EBubbleStackSide InSide, EBubbleStackPosition InPosition);
     virtual void NativePreConstruct() override;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat", meta = (ExposeOnSpawn = true))
-    FMessage Message;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat", meta = (ExposeOnSpawn = true))
-    EBubbleStackPosition Position;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat", meta = (ExposeOnSpawn = true))
-    EBubbleStackSide Side;
 
 protected:
     UPROPERTY(meta = (BindWidget))
@@ -72,4 +67,12 @@ private:
     const FLinearColor& GetBubbleColor() const;
     const FLinearColor& GetTextColor() const;
     FText GetText() const;
+
+    UPROPERTY(EditAnywhere, Category = Defaults)
+    FMessage Message;
+    UPROPERTY(EditAnywhere, Category = Defaults)
+    EBubbleStackPosition Position;
+    UPROPERTY(EditAnywhere, Category = Defaults)
+    EBubbleStackSide Side;
+
 };
