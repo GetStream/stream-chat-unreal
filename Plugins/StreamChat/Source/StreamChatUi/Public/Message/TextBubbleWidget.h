@@ -74,5 +74,4 @@ private:
     EBubbleStackPosition Position;
     UPROPERTY(EditAnywhere, Category = Defaults)
     EBubbleStackSide Side;
-
 };
