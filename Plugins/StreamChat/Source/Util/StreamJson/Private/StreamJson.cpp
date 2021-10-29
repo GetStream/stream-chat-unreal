@@ -54,10 +54,26 @@ void Json::SerializeField<FDateTime>(
     }
 }
 
-void Json::DeserializeField(const FJsonObject& JsonObject, const FString& FieldName, TOptional<uint32>& Field)
+template <>
+void Json::DeserializeField<uint32>(const FJsonObject& JsonObject, const FString& FieldName, TOptional<uint32>& Field)
 {
     if (uint32 Number; JsonObject.TryGetNumberField(FieldName, Number))
     {
         Field.Emplace(Number);
+    }
+}
+
+template <>
+void Json::DeserializeField<FDateTime>(
+    const FJsonObject& JsonObject,
+    const FString& FieldName,
+    TOptional<FDateTime>& Field)
+{
+    if (FString DateString; JsonObject.TryGetStringField(FieldName, DateString))
+    {
+        if (FDateTime Date; FDateTime::ParseIso8601(*DateString, Date))
+        {
+            Field.Emplace(Date);
+        }
     }
 }

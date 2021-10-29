@@ -144,3 +144,11 @@ void JsonObjectSerialization::SetObjectField(
 {
     TargetJsonObject.SetObjectField(FieldName, FieldJsonObject);
 }
+
+bool JsonObjectSerialization::TryGetObjectField(
+    const FJsonObject& TargetJsonObject,
+    const FString& FieldName,
+    const TSharedPtr<FJsonObject>*& FieldJsonObject)
+{
+    return TargetJsonObject.TryGetObjectField(FieldName, FieldJsonObject);
+}

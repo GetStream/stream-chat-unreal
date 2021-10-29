@@ -31,4 +31,8 @@ FString STREAMJSON_API UEnumToString(
 
 void STREAMJSON_API
 SetObjectField(FJsonObject& TargetJsonObject, const FString& FieldName, const TSharedPtr<FJsonObject>& FieldJsonObject);
+bool STREAMJSON_API TryGetObjectField(
+    const FJsonObject& TargetJsonObject,
+    const FString& FieldName,
+    const TSharedPtr<FJsonObject>*& FieldJsonObject);
 }    // namespace JsonObjectSerialization

@@ -69,5 +69,23 @@ void STREAMJSON_API SerializeField(const TOptional<FString>& Field, const FStrin
 template <>
 void STREAMJSON_API SerializeField(const TOptional<FDateTime>& Field, const FString& FieldName, FJsonObject&);
 
-void STREAMJSON_API DeserializeField(const FJsonObject&, const FString& FieldName, TOptional<uint32>& Field);
+template <class T>
+void DeserializeField(const FJsonObject& JsonObject, const FString& FieldName, TOptional<T>& Field)
+{
+    if (const TSharedPtr<FJsonObject>* InnerJsonObject;
+        JsonObjectSerialization::TryGetObjectField(JsonObject, FieldName, InnerJsonObject))
+    {
+        if (T OutStruct; JsonObjectDeserialization::JsonObjectToUStruct(JsonObject, OutStruct))
+        {
+            ExtraFields::InvokeDeserializeExtra(*InnerJsonObject, OutStruct);
+            Field.Emplace(OutStruct);
+        }
+    }
+}
+template <>
+void STREAMJSON_API
+DeserializeField<uint32>(const FJsonObject& JsonObject, const FString& FieldName, TOptional<uint32>& Field);
+template <>
+void STREAMJSON_API
+DeserializeField<FDateTime>(const FJsonObject& JsonObject, const FString& FieldName, TOptional<FDateTime>& Field);
 }    // namespace Json
