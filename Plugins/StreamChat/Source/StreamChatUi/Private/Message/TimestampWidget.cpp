@@ -39,7 +39,10 @@ void UTimestampWidget::NativePreConstruct()
         UserTextBlock->SetVisibility(ESlateVisibility::Collapsed);
         MessageStateIconImage->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
 
-        HoverGroup->ShiftChild(0, OptionsButton);
+        // TODO This doesn't work
+        HoverGroup->ReplaceChildAt(0, OptionsButton);
+        HoverGroup->ReplaceChildAt(1, ReactionButton);
+
         if (UOverlaySlot* HoverGroupSlot = Cast<UOverlaySlot>(HoverGroup->Slot))
         {
             HoverGroupSlot->SetHorizontalAlignment(HAlign_Left);
@@ -56,7 +59,10 @@ void UTimestampWidget::NativePreConstruct()
         UserTextBlock->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
         MessageStateIconImage->SetVisibility(ESlateVisibility::Collapsed);
 
-        HoverGroup->ShiftChild(0, ReactionButton);
+        // TODO This doesn't work
+        HoverGroup->ReplaceChildAt(0, ReactionButton);
+        HoverGroup->ReplaceChildAt(1, OptionsButton);
+
         if (UOverlaySlot* HoverGroupSlot = Cast<UOverlaySlot>(HoverGroup->Slot))
         {
             HoverGroupSlot->SetHorizontalAlignment(HAlign_Right);

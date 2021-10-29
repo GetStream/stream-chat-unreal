@@ -11,7 +11,7 @@ void UMessageListWidget::CreateMessageStackWidgets(const TArray<FMessage> Messag
     // A new stack is formed when:
     // 1. A minute is passed between 2 messages sent from the same user.
     // 2. Another users sends a message.
-    // 3. A date stamp appears. (TODO)
+    // TODO 3. A date stamp appears.
     int32 StartIndex = 0;
     const int32 Last = Messages.Num() - 1;
     for (int32 Index = 0; Index < Messages.Num(); ++Index)

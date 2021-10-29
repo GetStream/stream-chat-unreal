@@ -30,6 +30,7 @@ public:
     void Setup(const FMessage& InMessage, EBubbleStackSide InSide);
     virtual void NativeOnInitialized() override;
     virtual void NativePreConstruct() override;
+    virtual void NativeConstruct() override;
 
 protected:
     UPROPERTY(meta = (BindWidget))

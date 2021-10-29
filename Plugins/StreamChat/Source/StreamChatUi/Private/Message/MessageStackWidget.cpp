@@ -2,7 +2,6 @@
 
 #include "Components/OverlaySlot.h"
 #include "Components/PanelWidget.h"
-#include "Components/SizeBoxSlot.h"
 
 void UMessageStackWidget::Setup(const TArray<FMessage>& InMessages, EBubbleStackSide InSide)
 {
