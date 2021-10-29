@@ -76,6 +76,7 @@ FText UUiBlueprintLibrary::GetChannelTitle(const UChatChannel* Channel)
 
 void UUiBlueprintLibrary::GetFirstVisibleChildOfScrollBox(UScrollBox* ScrollBox, int32& OutIndex, float& OutLeadingEdge)
 {
+    OutIndex = INDEX_NONE;
     const FGeometry Geo = ScrollBox->GetCachedGeometry();
     FArrangedChildren ArrangedChildren(EVisibility::Visible);
     const TSharedRef<SScrollBox> ScrollBoxWidget = StaticCastSharedRef<SScrollBox>(ScrollBox->TakeWidget());
