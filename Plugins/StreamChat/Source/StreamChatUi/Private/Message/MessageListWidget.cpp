@@ -16,11 +16,10 @@ void UMessageListWidget::CreateMessageStackWidgets(const TArray<FMessage> Messag
     const int32 Last = Messages.Num() - 1;
     for (int32 Index = 0; Index < Messages.Num(); ++Index)
     {
-        if (Index == Last ||
-            (Index != 0 && (Messages[Index].CreatedAt - Messages[Index - 1].CreatedAt > FTimespan::FromMinutes(1.) ||
-                            Messages[Index].User.Id != Messages[Index - 1].User.Id)))
+        if (Index == Last || (Messages[Index + 1].CreatedAt - Messages[Index].CreatedAt > FTimespan::FromMinutes(1.) ||
+                              Messages[Index + 1].User.Id != Messages[Index].User.Id))
         {
-            const int32 Count = Index - StartIndex;
+            const int32 Count = Index + 1 - StartIndex;
 
             UMessageStackWidget* Widget = CreateWidget<UMessageStackWidget>(this, MessageStackWidgetClass);
             TArray<FMessage> StackMessages;
@@ -31,7 +30,7 @@ void UMessageListWidget::CreateMessageStackWidgets(const TArray<FMessage> Messag
 
             ScrollBox->AddChild(Widget);
 
-            StartIndex = Index;
+            StartIndex = Index + 1;
         }
     }
 }

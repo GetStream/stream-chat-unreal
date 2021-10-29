@@ -2,6 +2,8 @@
 
 #include "Components/OverlaySlot.h"
 #include "Components/PanelWidget.h"
+#include "Framework/Application/MenuStack.h"
+#include "Framework/Application/SlateApplication.h"
 
 UTimestampWidget::UTimestampWidget(const FObjectInitializer& ObjectInitializer) : UUserWidget(ObjectInitializer)
 {

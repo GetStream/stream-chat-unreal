@@ -1,5 +1,6 @@
 ﻿#include "Message/MessageStackWidget.h"
 
+#include "Components/OverlaySlot.h"
 #include "Components/PanelWidget.h"
 #include "Components/SizeBoxSlot.h"
 
@@ -48,14 +49,14 @@ void UMessageStackWidget::NativePreConstruct()
         TextBubblePanel->AddChild(Widget);
     }
 
-    USizeBoxSlot* SizeBoxSlot = Cast<USizeBoxSlot>(SizeBox->GetContentSlot());
+    UOverlaySlot* OverlaySlot = Cast<UOverlaySlot>(SizeBox->Slot);
     switch (Side)
     {
         case EBubbleStackSide::You:
-            SizeBoxSlot->SetHorizontalAlignment(HAlign_Left);
+            OverlaySlot->SetHorizontalAlignment(HAlign_Left);
             break;
         case EBubbleStackSide::Me:
-            SizeBoxSlot->SetHorizontalAlignment(HAlign_Right);
+            OverlaySlot->SetHorizontalAlignment(HAlign_Right);
             break;
     }
 
