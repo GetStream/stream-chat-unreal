@@ -29,7 +29,7 @@ void UStreamChatClientComponent::BeginPlay()
     Api = FChatApi::Create(ApiKey, GetDefault<UStreamChatSettings>()->Host, TokenManager);
 }
 
-void UStreamChatClientComponent::ConnectUserInternal(const FUser& User, TFunction<void()> Callback)
+void UStreamChatClientComponent::ConnectUserInternal(const FUser& User, const TFunction<void()> Callback)
 {
     CurrentUser = User;
     Socket = IChatSocket::Create(

@@ -12,8 +12,12 @@ FMessage::FMessage(const FMessageDto& Dto)
     , MentionedUsers{Dto.MentionedUsers}
     , UpdatedAt{Dto.UpdatedAt}
     , DeletedAt{Dto.DeletedAt}
-    , Reactions{
-          FReactions::CollectReactions(Dto.ReactionCounts, Dto.ReactionScores, Dto.LatestReactions, Dto.OwnReactions)}
+    , Reactions{FReactions::CollectReactions(
+          Dto.ReactionCounts,
+          Dto.ReactionScores,
+          Dto.LatestReactions,
+          Dto.OwnReactions)}
+    , bIsRead(false)
 {
 }
 
@@ -23,6 +27,7 @@ FMessage::FMessage(const FMessageRequestDto& Dto, const FUser& SendingUser)
     , State{EMessageSendState::Sending}    // Assume request dto => sending
     , User{SendingUser}
     , Type(EMessageType::Regular)
+    , bIsRead(false)
 {
 }
 

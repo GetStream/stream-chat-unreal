@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Reaction/Reactions.h"
+#include "Response/Channel/ChannelStateResponseFieldsDto.h"
 #include "User.h"
 
 #include "Message.generated.h"
@@ -74,6 +75,10 @@ struct FMessage
     UPROPERTY()
     TArray<FUser> MentionedUsers;
 
+    /// Date of first message creation
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
+    FDateTime CreatedAt;
+
     /// Reserved field indicating when the message was updated last time.
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
     FDateTime UpdatedAt;
@@ -84,6 +89,9 @@ struct FMessage
     /// All reactions of this message, grouped by their type
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
     FReactions Reactions;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
+    bool bIsRead;
 
     // TODO rest of fields
 };

@@ -34,7 +34,7 @@ UChatChannel* UChatChannel::Create(
     Channel->Api = Api;
     Channel->Socket = Socket;
     Channel->CurrentUser = CurrentUser;
-    Channel->State = Util::Convert<FChannelState>(Dto);
+    Channel->State = FChannelState{Dto, CurrentUser.Id};
     Channel->On<FMessageNewEvent>(Channel, &UChatChannel::OnMessageNew);
     Channel->On<FMessageUpdatedEvent>(Channel, &UChatChannel::OnMessageUpdated);
     Channel->On<FMessageDeletedEvent>(Channel, &UChatChannel::OnMessageDeleted);
@@ -290,7 +290,7 @@ void UChatChannel::OnTypingStop(const FTypingStopEvent& Event)
 void UChatChannel::MergeState(const FChannelStateResponseFieldsDto& Dto)
 {
     check(!State.Cid.IsEmpty());
-    State.Merge(Dto);
+    State.Merge(Dto, CurrentUser.Id);
     MessagesUpdated.Broadcast(State.Messages);
 }
 

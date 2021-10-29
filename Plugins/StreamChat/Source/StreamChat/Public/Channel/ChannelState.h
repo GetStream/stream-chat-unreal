@@ -15,9 +15,9 @@ struct FChannelState
     GENERATED_BODY()
 
     FChannelState() = default;
-    explicit FChannelState(const FChannelStateResponseFieldsDto&);
+    explicit FChannelState(const FChannelStateResponseFieldsDto&, const FString& CurrentUserId);
 
-    void Merge(const FChannelStateResponseFieldsDto&);
+    void Merge(const FChannelStateResponseFieldsDto&, const FString& CurrentUserId);
     void AddMessage(const FMessage&);
 
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
@@ -43,4 +43,7 @@ struct FChannelState
     FChannelConfig Config;
 
     TArray<FMessage> Messages;
+
+private:
+    static TArray<FMessage> Convert(const FChannelStateResponseFieldsDto&, const FString& CurrentUserId);
 };

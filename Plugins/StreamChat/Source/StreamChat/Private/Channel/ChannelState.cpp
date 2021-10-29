@@ -4,7 +4,7 @@
 #include "Response/Channel/ChannelStateResponseFieldsDto.h"
 #include "Util.h"
 
-FChannelState::FChannelState(const FChannelStateResponseFieldsDto& Dto)
+FChannelState::FChannelState(const FChannelStateResponseFieldsDto& Dto, const FString& CurrentUserId)
     : Type{Dto.Channel.Type}
     , Id{Dto.Channel.Id}
     , Members{Dto.Members}
@@ -12,15 +12,16 @@ FChannelState::FChannelState(const FChannelStateResponseFieldsDto& Dto)
     , ImageUrl{Dto.Channel.Image}
     , Cid{Dto.Channel.Cid}
     , Config{Dto.Channel.Config}
-    , Messages{Dto.Messages}
+    , Messages{Convert(Dto, CurrentUserId)}
 {
 }
 
-void FChannelState::Merge(const FChannelStateResponseFieldsDto& UpdatedState)
+void FChannelState::Merge(const FChannelStateResponseFieldsDto& Dto, const FString& CurrentUserId)
 {
-    Messages.Insert(Util::Convert<FMessage>(UpdatedState.Messages), 0);
+    const TArray<FMessage> NewMessages = Convert(Dto, CurrentUserId);
+    Messages.Insert(NewMessages, 0);
     // TODO Watchers
-    Members = Util::Convert<FMember>(UpdatedState.Members);
+    Members = Util::Convert<FMember>(Dto.Members);
     // TODO Read
     // TODO Attachment
     // TODO Pinned messages
@@ -40,4 +41,16 @@ void FChannelState::AddMessage(const FMessage& Message)
     {
         Messages.Add(Message);
     }
+}
+
+TArray<FMessage> FChannelState::Convert(const FChannelStateResponseFieldsDto& Dto, const FString& CurrentUserId)
+{
+    TArray<FMessage> NewMessages = Util::Convert<FMessage>(Dto.Messages);
+    for (FMessage& Message : NewMessages)
+    {
+        Message.bIsRead = Dto.Read.ContainsByPredicate(
+            [&Message, &CurrentUserId](const FReadDto& Read)
+            { return Read.User.Id != CurrentUserId && Read.LastRead > Message.CreatedAt; });
+    }
+    return NewMessages;
 }
