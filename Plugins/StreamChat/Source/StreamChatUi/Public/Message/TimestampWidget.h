@@ -26,14 +26,10 @@ private:
     GENERATED_BODY()
 
 public:
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat")
+    void Setup(const FMessage& InMessage, EBubbleStackSide InSide);
     virtual void NativeOnInitialized() override;
     virtual void NativePreConstruct() override;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat", meta = (ExposeOnSpawn = true))
-    FMessage Message;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat", meta = (ExposeOnSpawn = true))
-    EBubbleStackSide Side;
 
 protected:
     UPROPERTY(meta = (BindWidget))
@@ -84,4 +80,10 @@ private:
     UTexture2D* GetStatusIcon() const;
     FText GetTimestampText() const;
     static FText GetDayOfWeek(const FDateTime&);
+
+    UPROPERTY(EditAnywhere, Category = Defaults)
+    FMessage Message;
+
+    UPROPERTY(EditAnywhere, Category = Defaults)
+    EBubbleStackSide Side;
 };

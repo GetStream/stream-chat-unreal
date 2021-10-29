@@ -9,6 +9,12 @@ UTimestampWidget::UTimestampWidget(const FObjectInitializer& ObjectInitializer) 
     UUserWidget::SetVisibility(ESlateVisibility::Visible);
 }
 
+void UTimestampWidget::Setup(const FMessage& InMessage, const EBubbleStackSide InSide)
+{
+    Message = InMessage;
+    Side = InSide;
+}
+
 void UTimestampWidget::NativeOnInitialized()
 {
     OptionsButton->OnClicked.AddDynamic(this, &UTimestampWidget::OnOptionsButtonClicked);

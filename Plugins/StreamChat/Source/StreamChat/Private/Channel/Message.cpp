@@ -28,6 +28,8 @@ FMessage::FMessage(const FMessageRequestDto& Dto, const FUser& SendingUser)
     , State{EMessageSendState::Sending}    // Assume request dto => sending
     , User{SendingUser}
     , Type(EMessageType::Regular)
+    , CreatedAt{FDateTime::UtcNow()}
+    , UpdatedAt{FDateTime::UtcNow()}
     , bIsRead(false)
 {
 }

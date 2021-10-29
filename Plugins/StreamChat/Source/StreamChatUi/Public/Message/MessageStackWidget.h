@@ -21,7 +21,7 @@ class STREAMCHATUI_API UMessageStackWidget final : public UUserWidget
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void Setup(const TArray<FMessage> InMessages, EBubbleStackSide InSide);
+    void Setup(const TArray<FMessage>& InMessages, EBubbleStackSide InSide);
     virtual bool Initialize() override;
     virtual void NativePreConstruct() override;
 

@@ -3,7 +3,7 @@
 #include "Components/PanelWidget.h"
 #include "Components/SizeBoxSlot.h"
 
-void UMessageStackWidget::Setup(const TArray<FMessage> InMessages, EBubbleStackSide InSide)
+void UMessageStackWidget::Setup(const TArray<FMessage>& InMessages, EBubbleStackSide InSide)
 {
     Messages = InMessages;
     Side = InSide;
@@ -30,8 +30,7 @@ void UMessageStackWidget::SetupChildren()
     // Init timestamp widget
     if (Messages.Num() > 0)
     {
-        Timestamp->Message = Messages.Last();
-        Timestamp->Side = Side;
+        Timestamp->Setup(Messages.Last(), Side);
     }
 }
 
