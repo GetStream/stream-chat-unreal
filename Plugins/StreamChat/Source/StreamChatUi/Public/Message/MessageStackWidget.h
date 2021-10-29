@@ -4,6 +4,7 @@
 
 #include "Blueprint/UserWidget.h"
 #include "Channel/Message.h"
+#include "Components/SizeBox.h"
 #include "CoreMinimal.h"
 #include "TextBubbleWidget.h"
 #include "TimestampWidget.h"
@@ -19,14 +20,10 @@ class STREAMCHATUI_API UMessageStackWidget final : public UUserWidget
     GENERATED_BODY()
 
 public:
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat")
+    void Setup(const TArray<FMessage> InMessages, EBubbleStackSide InSide);
     virtual bool Initialize() override;
     virtual void NativePreConstruct() override;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat", meta = (ExposeOnSpawn = true))
-    TArray<FMessage> Messages;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat", meta = (ExposeOnSpawn = true))
-    EBubbleStackSide Side;
 
 protected:
     UPROPERTY(meta = (BindWidget))
@@ -35,6 +32,18 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UTimestampWidget* Timestamp;
 
+    UPROPERTY(meta = (BindWidget))
+    USizeBox* SizeBox;
+
     UPROPERTY(EditDefaultsOnly, NoClear, Category = "Text Bubble")
     TSubclassOf<UTextBubbleWidget> TextBubbleWidgetClass = UTextBubbleWidget::StaticClass();
+
+private:
+    void SetupChildren();
+
+    UPROPERTY(EditAnywhere, Category = Defaults)
+    TArray<FMessage> Messages;
+
+    UPROPERTY(EditAnywhere, Category = Defaults)
+    EBubbleStackSide Side;
 };

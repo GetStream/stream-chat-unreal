@@ -190,7 +190,7 @@ void FChatSocket::HandleWebSocketConnectionClosed(const int32 Status, const FStr
 
 void FChatSocket::HandleWebSocketMessage(const FString& JsonString)
 {
-    LastEventTime = FDateTime::Now();
+    LastEventTime = FDateTime::UtcNow();
     UE_LOG(LogChatSocket, Verbose, TEXT("Websocket received message: %s"), *JsonString);
 
     TSharedPtr<FJsonObject> JsonObject;
@@ -324,7 +324,7 @@ bool FChatSocket::CheckNeedToReconnect(float)
             return false;
         }
 
-        const float Delta = (FDateTime::Now() - LastEventTime.GetValue()).GetTotalSeconds();
+        const float Delta = (FDateTime::UtcNow() - LastEventTime.GetValue()).GetTotalSeconds();
         return Delta > GetDefault<UStreamChatWebSocketSettings>()->ReconnectionTimeout;
     }();
     if (bShouldReconnect)

@@ -1,21 +1,38 @@
 ﻿#include "Message/MessageStackWidget.h"
 
 #include "Components/PanelWidget.h"
+#include "Components/SizeBoxSlot.h"
+
+void UMessageStackWidget::Setup(const TArray<FMessage> InMessages, EBubbleStackSide InSide)
+{
+    Messages = InMessages;
+    Side = InSide;
+
+    SetupChildren();
+}
 
 bool UMessageStackWidget::Initialize()
 {
     if (Super::Initialize())
     {
-        // Init timestamp widget
-        if (Messages.Num() > 0)
+        if (IsDesignTime())
         {
-            Timestamp->Message = Messages.Last();
-            Timestamp->Side = Side;
+            SetupChildren();
         }
         return true;
     }
 
     return false;
+}
+
+void UMessageStackWidget::SetupChildren()
+{
+    // Init timestamp widget
+    if (Messages.Num() > 0)
+    {
+        Timestamp->Message = Messages.Last();
+        Timestamp->Side = Side;
+    }
 }
 
 void UMessageStackWidget::NativePreConstruct()
@@ -32,6 +49,17 @@ void UMessageStackWidget::NativePreConstruct()
         Widget->Side = Side;
         Widget->Position = Index == LastIndex ? EBubbleStackPosition::End : EBubbleStackPosition::Opening;
         TextBubblePanel->AddChild(Widget);
+    }
+
+    USizeBoxSlot* SizeBoxSlot = Cast<USizeBoxSlot>(SizeBox->GetContentSlot());
+    switch (Side)
+    {
+        case EBubbleStackSide::You:
+            SizeBoxSlot->SetHorizontalAlignment(HAlign_Left);
+            break;
+        case EBubbleStackSide::Me:
+            SizeBoxSlot->SetHorizontalAlignment(HAlign_Right);
+            break;
     }
 
     Super::NativePreConstruct();

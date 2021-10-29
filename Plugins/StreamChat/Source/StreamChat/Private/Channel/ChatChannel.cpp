@@ -115,7 +115,7 @@ void UChatChannel::DeleteMessage(const FMessage& Message)
     DeletedMessage.State = EMessageSendState::Deleting;
     if (!DeletedMessage.DeletedAt)
     {
-        DeletedMessage.DeletedAt.Emplace(FDateTime::Now());
+        DeletedMessage.DeletedAt.Emplace(FDateTime::UtcNow());
     }
     AddMessage(DeletedMessage);
 
@@ -245,7 +245,7 @@ void UChatChannel::KeyStroke(const FString& ParentMessageId)
     }
 
     constexpr float TypingTimeout = 2.f;
-    const FDateTime Now = FDateTime::Now();
+    const FDateTime Now = FDateTime::UtcNow();
     if (!LastKeystrokeAt.IsSet() || (Now - LastKeystrokeAt.GetValue()).GetTotalSeconds() >= TypingTimeout)
     {
         UE_LOG(LogTemp, Log, TEXT("Start typing"));
@@ -262,7 +262,7 @@ void UChatChannel::KeyStroke(const FString& ParentMessageId)
         TimerHandle,
         [this, ParentMessageId, TypingTimeout]()
         {
-            const FDateTime Now = FDateTime::Now();
+            const FDateTime Now = FDateTime::UtcNow();
             if (!LastKeystrokeAt.IsSet() || (Now - LastKeystrokeAt.GetValue()).GetTotalSeconds() >= TypingTimeout)
             {
                 UE_LOG(LogTemp, Log, TEXT("Stop typing"));

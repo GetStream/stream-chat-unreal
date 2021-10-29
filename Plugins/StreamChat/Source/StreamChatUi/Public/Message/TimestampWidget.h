@@ -26,6 +26,7 @@ private:
     GENERATED_BODY()
 
 public:
+    virtual void NativeOnInitialized() override;
     virtual void NativePreConstruct() override;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat", meta = (ExposeOnSpawn = true))
@@ -72,6 +73,11 @@ protected:
     TSubclassOf<UContextMenuWidget> ContextMenuWidgetClass = UContextMenuWidget::StaticClass();
 
 private:
+    UFUNCTION()
+    void OnOptionsButtonClicked();
+    UFUNCTION()
+    void OnReactionButtonClicked();
+
     virtual void NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
     virtual void NativeOnMouseLeave(const FPointerEvent& InMouseEvent) override;
 

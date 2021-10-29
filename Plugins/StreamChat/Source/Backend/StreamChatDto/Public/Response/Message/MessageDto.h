@@ -9,6 +9,8 @@
 
 #include "MessageDto.generated.h"
 
+class FJsonObject;
+
 /**
  * Represents any chat message.
  * Used in responses only
@@ -18,6 +20,8 @@ USTRUCT()
 struct FMessageDto
 {
     GENERATED_BODY()
+
+    STREAMCHATDTO_API static void DeserializeExtra(const FJsonObject&, FMessageDto&);
 
     /// The list of attachments, either provided by the user or generated from a
     /// command or as a result of URL scraping.
@@ -38,8 +42,7 @@ struct FMessageDto
     FDateTime CreatedAt;
 
     /// Date/time of deletion
-    UPROPERTY()
-    FDateTime DeletedAt;
+    TOptional<FDateTime> DeletedAt;
 
     /// Contains HTML markup of the message
     UPROPERTY()

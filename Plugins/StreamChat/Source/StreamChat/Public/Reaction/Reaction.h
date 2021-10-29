@@ -32,8 +32,8 @@ struct FReaction
     FString MessageId;
 
     /// Date/time of creation
-    FDateTime CreatedAt = FDateTime::Now();
+    FDateTime CreatedAt = FDateTime::UtcNow();
 
     /// Date/time of the last update
-    FDateTime UpdatedAt = FDateTime::Now();
+    FDateTime UpdatedAt = FDateTime::UtcNow();
 };

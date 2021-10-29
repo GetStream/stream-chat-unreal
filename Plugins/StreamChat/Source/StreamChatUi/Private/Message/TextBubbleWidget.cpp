@@ -4,7 +4,7 @@ void UTextBubbleWidget::NativePreConstruct()
 {
     Super::NativePreConstruct();
 
-    TextBlock->SetText(FText::FromString(Message.Text));
+    TextBlock->SetText(GetText());
     TextBlock->SetColorAndOpacity(GetTextColor());
 
     Border->Background.Margin = {0.5f};
@@ -41,7 +41,7 @@ UTexture2D* UTextBubbleWidget::GetBubbleTexture() const
     return nullptr;
 }
 
-FLinearColor UTextBubbleWidget::GetBubbleColor() const
+const FLinearColor& UTextBubbleWidget::GetBubbleColor() const
 {
     if (Message.DeletedAt.IsSet())
     {
@@ -54,11 +54,20 @@ FLinearColor UTextBubbleWidget::GetBubbleColor() const
     return FLinearColor::White;
 }
 
-FLinearColor UTextBubbleWidget::GetTextColor() const
+const FLinearColor& UTextBubbleWidget::GetTextColor() const
 {
-    if (Message.DeletedAt.IsSet())
+    if (Message.Type == EMessageType::Deleted)
     {
         return DeletedTextColor;
     }
     return NormalTextColor;
+}
+
+FText UTextBubbleWidget::GetText() const
+{
+    if (Message.Type == EMessageType::Deleted)
+    {
+        return FText::FromString(TEXT("Message deleted"));
+    }
+    return FText::FromString(Message.Text);
 }

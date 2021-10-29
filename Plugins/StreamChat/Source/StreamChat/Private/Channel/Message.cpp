@@ -10,6 +10,7 @@ FMessage::FMessage(const FMessageDto& Dto)
     , User{Dto.User}
     , Type{static_cast<EMessageType>(Dto.Type)}
     , MentionedUsers{Dto.MentionedUsers}
+    , CreatedAt{Dto.CreatedAt}
     , UpdatedAt{Dto.UpdatedAt}
     , DeletedAt{Dto.DeletedAt}
     , Reactions{FReactions::CollectReactions(

@@ -69,6 +69,7 @@ protected:
 
 private:
     UTexture2D* GetBubbleTexture() const;
-    FLinearColor GetBubbleColor() const;
-    FLinearColor GetTextColor() const;
+    const FLinearColor& GetBubbleColor() const;
+    const FLinearColor& GetTextColor() const;
+    FText GetText() const;
 };

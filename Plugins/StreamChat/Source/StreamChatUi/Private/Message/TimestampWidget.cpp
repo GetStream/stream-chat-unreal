@@ -9,12 +9,23 @@ UTimestampWidget::UTimestampWidget(const FObjectInitializer& ObjectInitializer) 
     UUserWidget::SetVisibility(ESlateVisibility::Visible);
 }
 
+void UTimestampWidget::NativeOnInitialized()
+{
+    OptionsButton->OnClicked.AddDynamic(this, &UTimestampWidget::OnOptionsButtonClicked);
+    ReactionButton->OnClicked.AddDynamic(this, &UTimestampWidget::OnReactionButtonClicked);
+
+    Super::NativeOnInitialized();
+}
+
 void UTimestampWidget::NativePreConstruct()
 {
+    HoverGroup->SetVisibility(ESlateVisibility::Collapsed);
+
     OptionsButton->WidgetStyle.NormalPadding = {};
     OptionsButton->WidgetStyle.PressedPadding = {};
     ReactionButton->WidgetStyle.NormalPadding = {};
     ReactionButton->WidgetStyle.PressedPadding = {};
+
     if (Side == EBubbleStackSide::Me)
     {
         UserTextBlock->SetVisibility(ESlateVisibility::Collapsed);
@@ -53,6 +64,32 @@ void UTimestampWidget::NativePreConstruct()
     DateTimeTextBlock->SetText(GetTimestampText());
 
     Super::NativePreConstruct();
+}
+
+void UTimestampWidget::OnOptionsButtonClicked()
+{
+    UWidget* Widget = CreateWidget(this, ContextMenuWidgetClass);
+    static constexpr bool bFocusImmediately = true;
+    TSharedPtr<IMenu> ContextMenu = FSlateApplication::Get().PushMenu(
+        TakeWidget(),
+        {},
+        Widget->TakeWidget(),
+        OptionsButton->GetCachedGeometry().GetAbsolutePosition(),
+        FPopupTransitionEffect(FPopupTransitionEffect::ContextMenu),
+        bFocusImmediately);
+}
+
+void UTimestampWidget::OnReactionButtonClicked()
+{
+    UWidget* Widget = CreateWidget(this, ReactionPickerWidgetClass);
+    static constexpr bool bFocusImmediately = true;
+    TSharedPtr<IMenu> ContextMenu = FSlateApplication::Get().PushMenu(
+        TakeWidget(),
+        {},
+        Widget->TakeWidget(),
+        ReactionButton->GetCachedGeometry().GetAbsolutePosition(),
+        FPopupTransitionEffect(FPopupTransitionEffect::ContextMenu),
+        bFocusImmediately);
 }
 
 void UTimestampWidget::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
@@ -99,7 +136,7 @@ FText UTimestampWidget::GetTimestampText() const
     // Messages from last week show the week day (eg. Thursday).
     // Messages from before that, show the date with the system format (so either dd/mm/yy or mm/dd/yy).
     // In general we should use the system format for date and time.
-    const FDateTime Now = FDateTime::Now();
+    const FDateTime Now = FDateTime::UtcNow();
     const FDateTime Today = Now.GetDate();
     const FDateTime Date = Message.CreatedAt.GetDate();
     const FCultureRef Culture = FInternationalization::Get().GetCurrentLocale();
