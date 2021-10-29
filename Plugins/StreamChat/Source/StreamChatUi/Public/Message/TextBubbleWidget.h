@@ -50,15 +50,25 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UBorder* Border;
 
-    UPROPERTY(EditAnywhere, Category = Texture)
-    UTexture2D* MeOpeningTexture;
-    UPROPERTY(EditAnywhere, Category = Texture)
+    UPROPERTY(EditAnywhere, Category = Bubble)
+    UTexture2D* MaskOpeningTexture;
+    UPROPERTY(EditAnywhere, Category = Bubble)
+    UTexture2D* MaskEndTexture;
+    UPROPERTY(EditAnywhere, Category = Bubble)
     UTexture2D* YouOpeningTexture;
-    UPROPERTY(EditAnywhere, Category = Texture)
-    UTexture2D* MeEndTexture;
-    UPROPERTY(EditAnywhere, Category = Texture)
+    UPROPERTY(EditAnywhere, Category = Bubble)
     UTexture2D* YouEndTexture;
+    UPROPERTY(EditAnywhere, Category = Bubble)
+    FLinearColor MeBubbleColor;
+    UPROPERTY(EditAnywhere, Category = Bubble)
+    FLinearColor DeletedBubbleColor;
+    UPROPERTY(EditAnywhere, Category = Text)
+    FLinearColor NormalTextColor;
+    UPROPERTY(EditAnywhere, Category = Text)
+    FLinearColor DeletedTextColor;
 
 private:
-    UTexture2D* GetBorderTexture() const;
+    UTexture2D* GetBubbleTexture() const;
+    FLinearColor GetBubbleColor() const;
+    FLinearColor GetTextColor() const;
 };

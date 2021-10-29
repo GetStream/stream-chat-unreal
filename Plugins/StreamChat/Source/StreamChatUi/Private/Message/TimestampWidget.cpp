@@ -1,6 +1,7 @@
 ﻿#include "Message/TimestampWidget.h"
 
 #include "Components/OverlaySlot.h"
+#include "Components/PanelWidget.h"
 
 UTimestampWidget::UTimestampWidget(const FObjectInitializer& ObjectInitializer) : UUserWidget(ObjectInitializer)
 {
