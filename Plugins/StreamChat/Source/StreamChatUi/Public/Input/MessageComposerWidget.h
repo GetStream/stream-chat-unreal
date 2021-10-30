@@ -22,7 +22,6 @@ class STREAMCHATUI_API UMessageComposerWidget final : public UUserWidget
 
 public:
     virtual void NativeOnInitialized() override;
-    virtual void NativePreConstruct() override;
     virtual void NativeConstruct() override;
 
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")

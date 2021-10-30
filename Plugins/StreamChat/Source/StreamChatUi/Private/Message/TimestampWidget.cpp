@@ -16,6 +16,13 @@ void UTimestampWidget::NativeOnInitialized()
     OptionsButton->OnClicked.AddDynamic(this, &UTimestampWidget::OnOptionsButtonClicked);
     ReactionButton->OnClicked.AddDynamic(this, &UTimestampWidget::OnReactionButtonClicked);
 
+    HoverGroup->SetVisibility(ESlateVisibility::Collapsed);
+
+    OptionsButton->WidgetStyle.NormalPadding = {};
+    OptionsButton->WidgetStyle.PressedPadding = {};
+    ReactionButton->WidgetStyle.NormalPadding = {};
+    ReactionButton->WidgetStyle.PressedPadding = {};
+
     Super::NativeOnInitialized();
 }
 
@@ -39,13 +46,6 @@ void UTimestampWidget::Setup(const FMessage& InMessage, const EBubbleStackSide I
 
 void UTimestampWidget::NativePreConstruct()
 {
-    HoverGroup->SetVisibility(ESlateVisibility::Collapsed);
-
-    OptionsButton->WidgetStyle.NormalPadding = {};
-    OptionsButton->WidgetStyle.PressedPadding = {};
-    ReactionButton->WidgetStyle.NormalPadding = {};
-    ReactionButton->WidgetStyle.PressedPadding = {};
-
     if (Side == EBubbleStackSide::Me)
     {
         UserTextBlock->SetVisibility(ESlateVisibility::Collapsed);

@@ -14,22 +14,20 @@ void UMessageComposerWidget::NativeOnInitialized()
     MessageInput->OnTextCommitted.AddDynamic(this, &UMessageComposerWidget::OnInputTextCommit);
     CancelEditingButton->OnClicked.AddDynamic(this, &UMessageComposerWidget::OnCancelEditingButtonClicked);
     SendMessageButton->OnClicked.AddDynamic(this, &UMessageComposerWidget::OnSendButtonClicked);
-    Super::NativeOnInitialized();
-}
 
-void UMessageComposerWidget::NativePreConstruct()
-{
     SendMessageButton->WidgetStyle.NormalPadding = {};
     SendMessageButton->WidgetStyle.PressedPadding = {};
     CancelEditingButton->WidgetStyle.NormalPadding = {};
     CancelEditingButton->WidgetStyle.PressedPadding = {};
+
     UpdateSendButtonAppearance(false);
-    Super::NativePreConstruct();
+    UpdateEditMessageAppearance(ESendButtonIconAppearance::Send);
+
+    Super::NativeOnInitialized();
 }
 
 void UMessageComposerWidget::NativeConstruct()
 {
-    UpdateEditMessageAppearance(ESendButtonIconAppearance::Send);
     MessageInput->SetKeyboardFocus();
     Super::NativeConstruct();
 }
