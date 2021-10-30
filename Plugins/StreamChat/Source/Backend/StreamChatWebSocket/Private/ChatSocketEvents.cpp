@@ -19,10 +19,7 @@ void FChatSocketEvents::ProcessEvent(const FName& Type, const TSharedRef<FJsonOb
     if (!Subscription)
     {
         UE_LOG(
-            LogChatSocket,
-            Warning,
-            TEXT("No subscriptions to WebSocket event. Discarding. [type=%s]"),
-            *Type.ToString());
+            LogChatSocket, Log, TEXT("No subscriptions to WebSocket event. Discarding. [type=%s]"), *Type.ToString());
         return;
     }
 

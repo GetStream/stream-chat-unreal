@@ -11,18 +11,30 @@ UTimestampWidget::UTimestampWidget(const FObjectInitializer& ObjectInitializer) 
     UUserWidget::SetVisibility(ESlateVisibility::Visible);
 }
 
-void UTimestampWidget::Setup(const FMessage& InMessage, const EBubbleStackSide InSide)
-{
-    Message = InMessage;
-    Side = InSide;
-}
-
 void UTimestampWidget::NativeOnInitialized()
 {
     OptionsButton->OnClicked.AddDynamic(this, &UTimestampWidget::OnOptionsButtonClicked);
     ReactionButton->OnClicked.AddDynamic(this, &UTimestampWidget::OnReactionButtonClicked);
 
     Super::NativeOnInitialized();
+}
+
+void UTimestampWidget::Setup(const FMessage& InMessage, const EBubbleStackSide InSide)
+{
+    Message = InMessage;
+    Side = InSide;
+
+    // Changing the order of elements in a panel doesn't seem to work in PreConstruct.
+    if (Side == EBubbleStackSide::Me)
+    {
+        HoverGroup->ReplaceChildAt(0, OptionsButton);
+        HoverGroup->ReplaceChildAt(1, ReactionButton);
+    }
+    else if (Side == EBubbleStackSide::You)
+    {
+        HoverGroup->ReplaceChildAt(0, ReactionButton);
+        HoverGroup->ReplaceChildAt(1, OptionsButton);
+    }
 }
 
 void UTimestampWidget::NativePreConstruct()
@@ -39,10 +51,6 @@ void UTimestampWidget::NativePreConstruct()
         UserTextBlock->SetVisibility(ESlateVisibility::Collapsed);
         MessageStateIconImage->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
 
-        // TODO This doesn't work
-        HoverGroup->ReplaceChildAt(0, OptionsButton);
-        HoverGroup->ReplaceChildAt(1, ReactionButton);
-
         if (UOverlaySlot* HoverGroupSlot = Cast<UOverlaySlot>(HoverGroup->Slot))
         {
             HoverGroupSlot->SetHorizontalAlignment(HAlign_Left);
@@ -58,10 +66,6 @@ void UTimestampWidget::NativePreConstruct()
     {
         UserTextBlock->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
         MessageStateIconImage->SetVisibility(ESlateVisibility::Collapsed);
-
-        // TODO This doesn't work
-        HoverGroup->ReplaceChildAt(0, ReactionButton);
-        HoverGroup->ReplaceChildAt(1, OptionsButton);
 
         if (UOverlaySlot* HoverGroupSlot = Cast<UOverlaySlot>(HoverGroup->Slot))
         {
