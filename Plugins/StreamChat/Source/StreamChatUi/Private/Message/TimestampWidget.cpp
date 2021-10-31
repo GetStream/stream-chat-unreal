@@ -1,47 +1,11 @@
 ﻿#include "Message/TimestampWidget.h"
 
 #include "Components/OverlaySlot.h"
-#include "Components/PanelWidget.h"
-#include "Framework/Application/MenuStack.h"
-#include "Framework/Application/SlateApplication.h"
-
-UTimestampWidget::UTimestampWidget(const FObjectInitializer& ObjectInitializer) : UUserWidget(ObjectInitializer)
-{
-    // Ensure hovering events are fired
-    UUserWidget::SetVisibility(ESlateVisibility::Visible);
-}
-
-void UTimestampWidget::NativeOnInitialized()
-{
-    OptionsButton->OnClicked.AddDynamic(this, &UTimestampWidget::OnOptionsButtonClicked);
-    ReactionButton->OnClicked.AddDynamic(this, &UTimestampWidget::OnReactionButtonClicked);
-
-    HoverGroup->SetVisibility(ESlateVisibility::Collapsed);
-
-    OptionsButton->WidgetStyle.NormalPadding = {};
-    OptionsButton->WidgetStyle.PressedPadding = {};
-    ReactionButton->WidgetStyle.NormalPadding = {};
-    ReactionButton->WidgetStyle.PressedPadding = {};
-
-    Super::NativeOnInitialized();
-}
 
 void UTimestampWidget::Setup(const FMessage& InMessage, const EBubbleStackSide InSide)
 {
     Message = InMessage;
     Side = InSide;
-
-    // Changing the order of elements in a panel doesn't seem to work in PreConstruct.
-    if (Side == EBubbleStackSide::Me)
-    {
-        HoverGroup->ReplaceChildAt(0, OptionsButton);
-        HoverGroup->ReplaceChildAt(1, ReactionButton);
-    }
-    else if (Side == EBubbleStackSide::You)
-    {
-        HoverGroup->ReplaceChildAt(0, ReactionButton);
-        HoverGroup->ReplaceChildAt(1, OptionsButton);
-    }
 }
 
 void UTimestampWidget::NativePreConstruct()
@@ -51,15 +15,6 @@ void UTimestampWidget::NativePreConstruct()
         UserTextBlock->SetVisibility(ESlateVisibility::Collapsed);
         MessageStateIconImage->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
 
-        if (UOverlaySlot* HoverGroupSlot = Cast<UOverlaySlot>(HoverGroup->Slot))
-        {
-            HoverGroupSlot->SetHorizontalAlignment(HAlign_Left);
-        }
-        if (UOverlaySlot* InfoGroupSlot = Cast<UOverlaySlot>(InfoGroup->Slot))
-        {
-            InfoGroupSlot->SetHorizontalAlignment(HAlign_Right);
-        }
-
         MessageStateIconImage->SetBrushFromTexture(GetStatusIcon(), true);
     }
     else if (Side == EBubbleStackSide::You)
@@ -67,59 +22,25 @@ void UTimestampWidget::NativePreConstruct()
         UserTextBlock->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
         MessageStateIconImage->SetVisibility(ESlateVisibility::Collapsed);
 
-        if (UOverlaySlot* HoverGroupSlot = Cast<UOverlaySlot>(HoverGroup->Slot))
-        {
-            HoverGroupSlot->SetHorizontalAlignment(HAlign_Right);
-        }
-        if (UOverlaySlot* InfoGroupSlot = Cast<UOverlaySlot>(InfoGroup->Slot))
-        {
-            InfoGroupSlot->SetHorizontalAlignment(HAlign_Left);
-        }
-
         UserTextBlock->SetText(FText::FromString(Message.User.Id));
+    }
+
+    for (UPanelSlot* PanelSlot : OuterOverlay->GetSlots())
+    {
+        UOverlaySlot* OverlaySlot = CastChecked<UOverlaySlot>(PanelSlot);
+        if (Side == EBubbleStackSide::Me)
+        {
+            OverlaySlot->SetHorizontalAlignment(HAlign_Right);
+        }
+        else if (Side == EBubbleStackSide::You)
+        {
+            OverlaySlot->SetHorizontalAlignment(HAlign_Left);
+        }
     }
 
     DateTimeTextBlock->SetText(GetTimestampText());
 
     Super::NativePreConstruct();
-}
-
-void UTimestampWidget::OnOptionsButtonClicked()
-{
-    UWidget* Widget = CreateWidget(this, ContextMenuWidgetClass);
-    static constexpr bool bFocusImmediately = true;
-    TSharedPtr<IMenu> ContextMenu = FSlateApplication::Get().PushMenu(
-        TakeWidget(),
-        {},
-        Widget->TakeWidget(),
-        OptionsButton->GetCachedGeometry().GetAbsolutePosition(),
-        FPopupTransitionEffect(FPopupTransitionEffect::ContextMenu),
-        bFocusImmediately);
-}
-
-void UTimestampWidget::OnReactionButtonClicked()
-{
-    UWidget* Widget = CreateWidget(this, ReactionPickerWidgetClass);
-    static constexpr bool bFocusImmediately = true;
-    TSharedPtr<IMenu> ContextMenu = FSlateApplication::Get().PushMenu(
-        TakeWidget(),
-        {},
-        Widget->TakeWidget(),
-        ReactionButton->GetCachedGeometry().GetAbsolutePosition(),
-        FPopupTransitionEffect(FPopupTransitionEffect::ContextMenu),
-        bFocusImmediately);
-}
-
-void UTimestampWidget::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
-{
-    HoverGroup->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
-    Super::NativeOnMouseEnter(InGeometry, InMouseEvent);
-}
-
-void UTimestampWidget::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
-{
-    HoverGroup->SetVisibility(ESlateVisibility::Collapsed);
-    Super::NativeOnMouseLeave(InMouseEvent);
 }
 
 UTexture2D* UTimestampWidget::GetStatusIcon() const

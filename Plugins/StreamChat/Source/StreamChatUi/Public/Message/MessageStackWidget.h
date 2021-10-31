@@ -4,8 +4,9 @@
 
 #include "Blueprint/UserWidget.h"
 #include "Channel/Message.h"
-#include "Components/SizeBox.h"
+#include "Components/VerticalBox.h"
 #include "CoreMinimal.h"
+#include "MessageWidget.h"
 #include "TextBubbleWidget.h"
 #include "TimestampWidget.h"
 
@@ -20,23 +21,20 @@ class STREAMCHATUI_API UMessageStackWidget final : public UUserWidget
     GENERATED_BODY()
 
 public:
+    virtual bool Initialize() override;
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(const TArray<FMessage>& InMessages, EBubbleStackSide InSide);
-    virtual bool Initialize() override;
     virtual void NativePreConstruct() override;
 
 protected:
     UPROPERTY(meta = (BindWidget))
-    UPanelWidget* TextBubblePanel;
+    UVerticalBox* MessagesPanel;
 
     UPROPERTY(meta = (BindWidget))
     UTimestampWidget* Timestamp;
 
-    UPROPERTY(meta = (BindWidget))
-    USizeBox* SizeBox;
-
-    UPROPERTY(EditDefaultsOnly, NoClear, Category = "Text Bubble")
-    TSubclassOf<UTextBubbleWidget> TextBubbleWidgetClass = UTextBubbleWidget::StaticClass();
+    UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
+    TSubclassOf<UMessageWidget> MessageWidgetClass = UMessageWidget::StaticClass();
 
 private:
     void SetupChildren();

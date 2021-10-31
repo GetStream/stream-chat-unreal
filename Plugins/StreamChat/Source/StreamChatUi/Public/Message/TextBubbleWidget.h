@@ -3,28 +3,14 @@
 #pragma once
 
 #include "Blueprint/UserWidget.h"
+#include "BubbleStackPosition.h"
+#include "BubbleStackSide.h"
 #include "Channel/Message.h"
 #include "Components/Border.h"
 #include "Components/TextBlock.h"
 #include "CoreMinimal.h"
 
 #include "TextBubbleWidget.generated.h"
-
-UENUM(BlueprintType)
-enum class EBubbleStackPosition : uint8
-{
-    Opening,
-    End
-};
-
-UENUM(BlueprintType)
-enum class EBubbleStackSide : uint8
-{
-    // Left
-    You,
-    // Right
-    Me
-};
 
 /**
  *
@@ -68,10 +54,10 @@ private:
     const FLinearColor& GetTextColor() const;
     FText GetText() const;
 
-    UPROPERTY(EditAnywhere, Category = Defaults)
+    UPROPERTY(EditAnywhere, Category = Setup)
     FMessage Message;
-    UPROPERTY(EditAnywhere, Category = Defaults)
+    UPROPERTY(EditAnywhere, Category = Setup)
     EBubbleStackPosition Position;
-    UPROPERTY(EditAnywhere, Category = Defaults)
+    UPROPERTY(EditAnywhere, Category = Setup)
     EBubbleStackSide Side;
 };

@@ -1,15 +1,7 @@
 ﻿#include "Message/MessageStackWidget.h"
 
-#include "Components/OverlaySlot.h"
 #include "Components/PanelWidget.h"
-
-void UMessageStackWidget::Setup(const TArray<FMessage>& InMessages, EBubbleStackSide InSide)
-{
-    Messages = InMessages;
-    Side = InSide;
-
-    SetupChildren();
-}
+#include "Message/MessageWidget.h"
 
 bool UMessageStackWidget::Initialize()
 {
@@ -25,6 +17,14 @@ bool UMessageStackWidget::Initialize()
     return false;
 }
 
+void UMessageStackWidget::Setup(const TArray<FMessage>& InMessages, const EBubbleStackSide InSide)
+{
+    Messages = InMessages;
+    Side = InSide;
+
+    SetupChildren();
+}
+
 void UMessageStackWidget::SetupChildren()
 {
     // Init timestamp widget
@@ -37,26 +37,15 @@ void UMessageStackWidget::SetupChildren()
 void UMessageStackWidget::NativePreConstruct()
 {
     // Spawn bubbles
-    TextBubblePanel->ClearChildren();
+    MessagesPanel->ClearChildren();
 
     const int32 LastIndex = Messages.Num() - 1;
     for (int32 Index = 0; Index < Messages.Num(); ++Index)
     {
         const FMessage& Message = Messages[Index];
-        UTextBubbleWidget* Widget = CreateWidget<UTextBubbleWidget>(this, TextBubbleWidgetClass);
+        UMessageWidget* Widget = CreateWidget<UMessageWidget>(this, MessageWidgetClass);
         Widget->Setup(Message, Side, Index == LastIndex ? EBubbleStackPosition::End : EBubbleStackPosition::Opening);
-        TextBubblePanel->AddChild(Widget);
-    }
-
-    UOverlaySlot* OverlaySlot = Cast<UOverlaySlot>(SizeBox->Slot);
-    switch (Side)
-    {
-        case EBubbleStackSide::You:
-            OverlaySlot->SetHorizontalAlignment(HAlign_Left);
-            break;
-        case EBubbleStackSide::Me:
-            OverlaySlot->SetHorizontalAlignment(HAlign_Right);
-            break;
+       MessagesPanel->AddChildToVerticalBox(Widget);
     }
 
     Super::NativePreConstruct();
