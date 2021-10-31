@@ -8,26 +8,11 @@ void UMessageHoverMenuWidget::Setup(const FMessage& InMessage, const EBubbleStac
     Message = InMessage;
     Side = InSide;
 
-    SetupChildren();
+    OnSetup();
 }
 
-bool UMessageHoverMenuWidget::Initialize()
+void UMessageHoverMenuWidget::OnSetup()
 {
-    if (Super::Initialize())
-    {
-        if (IsDesignTime())
-        {
-            SetupChildren();
-        }
-        return true;
-    }
-
-    return false;
-}
-
-void UMessageHoverMenuWidget::SetupChildren() const
-{
-    // Changing the order of elements in a panel doesn't seem to work in PreConstruct.
     if (Side == EBubbleStackSide::Me)
     {
         ButtonGroup->ReplaceChildAt(0, OptionsButton);
@@ -38,10 +23,7 @@ void UMessageHoverMenuWidget::SetupChildren() const
         ButtonGroup->ReplaceChildAt(0, ReactionButton);
         ButtonGroup->ReplaceChildAt(1, OptionsButton);
     }
-}
 
-void UMessageHoverMenuWidget::NativeOnInitialized()
-{
     OptionsButton->OnClicked.AddDynamic(this, &UMessageHoverMenuWidget::OnOptionsButtonClicked);
     ReactionButton->OnClicked.AddDynamic(this, &UMessageHoverMenuWidget::OnReactionButtonClicked);
 
@@ -49,8 +31,6 @@ void UMessageHoverMenuWidget::NativeOnInitialized()
     OptionsButton->WidgetStyle.PressedPadding = {};
     ReactionButton->WidgetStyle.NormalPadding = {};
     ReactionButton->WidgetStyle.PressedPadding = {};
-
-    Super::NativeOnInitialized();
 }
 
 void UMessageHoverMenuWidget::OnOptionsButtonClicked()

@@ -5,12 +5,12 @@ void UTextBubbleWidget::Setup(const FMessage& InMessage, EBubbleStackSide InSide
     Message = InMessage;
     Side = InSide;
     Position = InPosition;
+
+    OnSetup();
 }
 
-void UTextBubbleWidget::NativePreConstruct()
+void UTextBubbleWidget::OnSetup()
 {
-    Super::NativePreConstruct();
-
     TextBlock->SetText(GetText());
     TextBlock->SetColorAndOpacity(GetTextColor());
 

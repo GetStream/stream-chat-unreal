@@ -4,9 +4,7 @@
 
 #include "Blueprint/UserWidget.h"
 #include "Channel/Message.h"
-#include "Components/Button.h"
 #include "CoreMinimal.h"
-#include "TextBubbleWidget.h"
 
 #include "ContextMenuWidget.generated.h"
 

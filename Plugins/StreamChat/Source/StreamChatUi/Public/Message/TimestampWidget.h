@@ -2,11 +2,11 @@
 
 #pragma once
 
-#include "Blueprint/UserWidget.h"
 #include "Channel/Message.h"
 #include "Components/Image.h"
 #include "Components/Overlay.h"
 #include "CoreMinimal.h"
+#include "StreamUserWidget.h"
 #include "TextBubbleWidget.h"
 
 #include "TimestampWidget.generated.h"
@@ -15,16 +15,17 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UTimestampWidget final : public UUserWidget
+class STREAMCHATUI_API UTimestampWidget final : public UStreamUserWidget
 {
     GENERATED_BODY()
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(const FMessage& InMessage, EBubbleStackSide InSide);
-    virtual void NativePreConstruct() override;
 
 protected:
+    virtual void OnSetup() override;
+
     UPROPERTY(meta = (BindWidget))
     UOverlay* OuterOverlay;
 
@@ -37,13 +38,13 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UTextBlock* DateTimeTextBlock;
 
-    UPROPERTY(EditAnywhere, Category = "Icon")
+    UPROPERTY(EditAnywhere, Category = Defaults)
     UTexture2D* IconClock;
 
-    UPROPERTY(EditAnywhere, Category = "Icon")
+    UPROPERTY(EditAnywhere, Category = Defaults)
     UTexture2D* IconCheck;
 
-    UPROPERTY(EditAnywhere, Category = "Icon")
+    UPROPERTY(EditAnywhere, Category = Defaults)
     UTexture2D* IconCheckAll;
 
 private:
@@ -51,9 +52,9 @@ private:
     FText GetTimestampText() const;
     static FText GetDayOfWeek(const FDateTime&);
 
-    UPROPERTY(EditAnywhere, Category = Defaults)
+    UPROPERTY(EditAnywhere, Category = Setup)
     FMessage Message;
 
-    UPROPERTY(EditAnywhere, Category = Defaults)
+    UPROPERTY(EditAnywhere, Category = Setup)
     EBubbleStackSide Side;
 };

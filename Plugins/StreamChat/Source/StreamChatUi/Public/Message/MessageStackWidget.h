@@ -2,11 +2,11 @@
 
 #pragma once
 
-#include "Blueprint/UserWidget.h"
 #include "Channel/Message.h"
 #include "Components/VerticalBox.h"
 #include "CoreMinimal.h"
 #include "MessageWidget.h"
+#include "StreamUserWidget.h"
 #include "TextBubbleWidget.h"
 #include "TimestampWidget.h"
 
@@ -16,17 +16,17 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UMessageStackWidget final : public UUserWidget
+class STREAMCHATUI_API UMessageStackWidget final : public UStreamUserWidget
 {
     GENERATED_BODY()
 
 public:
-    virtual bool Initialize() override;
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(const TArray<FMessage>& InMessages, EBubbleStackSide InSide);
-    virtual void NativePreConstruct() override;
 
 protected:
+    virtual void OnSetup() override;
+
     UPROPERTY(meta = (BindWidget))
     UVerticalBox* MessagesPanel;
 
@@ -37,8 +37,6 @@ protected:
     TSubclassOf<UMessageWidget> MessageWidgetClass = UMessageWidget::StaticClass();
 
 private:
-    void SetupChildren();
-
     UPROPERTY(EditAnywhere, Category = Defaults)
     TArray<FMessage> Messages;
 

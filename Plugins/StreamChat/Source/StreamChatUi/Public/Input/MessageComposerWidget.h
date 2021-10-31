@@ -27,6 +27,22 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void EditMessage(const FMessage& Message);
 
+protected:
+    UPROPERTY(meta = (BindWidget))
+    UMessageInputWidget* MessageInput;
+
+    UPROPERTY(meta = (BindWidget))
+    UButton* SendMessageButton;
+
+    UPROPERTY(meta = (BindWidget))
+    UImage* SendMessageIcon;
+
+    UPROPERTY(meta = (BindWidget))
+    UButton* CancelEditingButton;
+
+    UPROPERTY(meta = (BindWidget))
+    UPanelWidget* CancelEditingHeaderPanel;
+
     UPROPERTY(EditAnywhere, Category = "Button")
     UTexture2D* ButtonTextureNormal;
 
@@ -44,22 +60,6 @@ public:
 
     UPROPERTY(EditAnywhere, Category = "Icon")
     FMargin IconPaddingConfirm;
-
-protected:
-    UPROPERTY(meta = (BindWidget))
-    UMessageInputWidget* MessageInput;
-
-    UPROPERTY(meta = (BindWidget))
-    UButton* SendMessageButton;
-
-    UPROPERTY(meta = (BindWidget))
-    UImage* SendMessageIcon;
-
-    UPROPERTY(meta = (BindWidget))
-    UButton* CancelEditingButton;
-
-    UPROPERTY(meta = (BindWidget))
-    UPanelWidget* CancelEditingHeaderPanel;
 
 private:
     UFUNCTION()

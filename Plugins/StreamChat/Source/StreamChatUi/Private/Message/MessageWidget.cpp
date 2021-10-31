@@ -3,24 +3,10 @@
 #include "Components/HorizontalBoxSlot.h"
 #include "Components/OverlaySlot.h"
 
-UMessageWidget::UMessageWidget(const FObjectInitializer& ObjectInitializer) : UUserWidget(ObjectInitializer)
+UMessageWidget::UMessageWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
     // Ensure hovering events are fired
     UUserWidget::SetVisibility(ESlateVisibility::Visible);
-}
-
-bool UMessageWidget::Initialize()
-{
-    if (Super::Initialize())
-    {
-        if (IsDesignTime())
-        {
-            SetupChildren();
-        }
-        return true;
-    }
-
-    return false;
 }
 
 void UMessageWidget::Setup(
@@ -32,10 +18,10 @@ void UMessageWidget::Setup(
     Side = InSide;
     Position = InPosition;
 
-    SetupChildren();
+    OnSetup();
 }
 
-void UMessageWidget::SetupChildren() const
+void UMessageWidget::OnSetup()
 {
     // Changing the order of elements in a panel doesn't seem to work in PreConstruct.
     if (UPanelWidget* HoverMenuParent = Cast<UPanelWidget>(HoverMenuTargetPanel->GetParent()))

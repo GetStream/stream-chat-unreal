@@ -3,39 +3,22 @@
 #include "Components/PanelWidget.h"
 #include "Message/MessageWidget.h"
 
-bool UMessageStackWidget::Initialize()
-{
-    if (Super::Initialize())
-    {
-        if (IsDesignTime())
-        {
-            SetupChildren();
-        }
-        return true;
-    }
-
-    return false;
-}
-
 void UMessageStackWidget::Setup(const TArray<FMessage>& InMessages, const EBubbleStackSide InSide)
 {
     Messages = InMessages;
     Side = InSide;
 
-    SetupChildren();
+    OnSetup();
 }
 
-void UMessageStackWidget::SetupChildren()
+void UMessageStackWidget::OnSetup()
 {
     // Init timestamp widget
     if (Messages.Num() > 0)
     {
         Timestamp->Setup(Messages.Last(), Side);
     }
-}
 
-void UMessageStackWidget::NativePreConstruct()
-{
     // Spawn bubbles
     MessagesPanel->ClearChildren();
 
@@ -47,6 +30,4 @@ void UMessageStackWidget::NativePreConstruct()
         Widget->Setup(Message, Side, Index == LastIndex ? EBubbleStackPosition::End : EBubbleStackPosition::Opening);
         MessagesPanel->AddChildToVerticalBox(Widget);
     }
-
-    Super::NativePreConstruct();
 }

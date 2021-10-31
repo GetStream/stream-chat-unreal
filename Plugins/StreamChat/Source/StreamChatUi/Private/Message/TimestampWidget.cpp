@@ -6,9 +6,11 @@ void UTimestampWidget::Setup(const FMessage& InMessage, const EBubbleStackSide I
 {
     Message = InMessage;
     Side = InSide;
+
+    OnSetup();
 }
 
-void UTimestampWidget::NativePreConstruct()
+void UTimestampWidget::OnSetup()
 {
     if (Side == EBubbleStackSide::Me)
     {
@@ -39,8 +41,6 @@ void UTimestampWidget::NativePreConstruct()
     }
 
     DateTimeTextBlock->SetText(GetTimestampText());
-
-    Super::NativePreConstruct();
 }
 
 UTexture2D* UTimestampWidget::GetStatusIcon() const

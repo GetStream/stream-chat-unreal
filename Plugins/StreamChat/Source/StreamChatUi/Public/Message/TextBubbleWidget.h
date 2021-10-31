@@ -2,13 +2,13 @@
 
 #pragma once
 
-#include "Blueprint/UserWidget.h"
 #include "BubbleStackPosition.h"
 #include "BubbleStackSide.h"
 #include "Channel/Message.h"
 #include "Components/Border.h"
 #include "Components/TextBlock.h"
 #include "CoreMinimal.h"
+#include "StreamUserWidget.h"
 
 #include "TextBubbleWidget.generated.h"
 
@@ -16,16 +16,17 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UTextBubbleWidget final : public UUserWidget
+class STREAMCHATUI_API UTextBubbleWidget final : public UStreamUserWidget
 {
     GENERATED_BODY()
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(const FMessage& InMessage, EBubbleStackSide InSide, EBubbleStackPosition InPosition);
-    virtual void NativePreConstruct() override;
 
 protected:
+    virtual void OnSetup() override;
+
     UPROPERTY(meta = (BindWidget))
     UTextBlock* TextBlock;
     UPROPERTY(meta = (BindWidget))

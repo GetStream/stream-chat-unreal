@@ -2,11 +2,11 @@
 
 #pragma once
 
-#include "Blueprint/UserWidget.h"
 #include "Channel/Message.h"
 #include "Components/Overlay.h"
 #include "CoreMinimal.h"
 #include "MessageHoverMenuWidget.h"
+#include "StreamUserWidget.h"
 #include "TextBubbleWidget.h"
 
 #include "MessageWidget.generated.h"
@@ -15,17 +15,18 @@
  * Encapsulates a text bubble, reactions and the mouse hover menu for a message
  */
 UCLASS()
-class STREAMCHATUI_API UMessageWidget final : public UUserWidget
+class STREAMCHATUI_API UMessageWidget final : public UStreamUserWidget
 {
     GENERATED_BODY()
 
 public:
     explicit UMessageWidget(const FObjectInitializer& ObjectInitializer);
-    virtual bool Initialize() override;
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(const FMessage& InMessage, EBubbleStackSide InSide, EBubbleStackPosition InPosition);
 
 protected:
+    virtual void OnSetup() override;
+
     // Should contain whatever needs to be horizontally aligned
     UPROPERTY(meta = (BindWidget))
     UOverlay* OuterOverlay;
@@ -43,8 +44,6 @@ protected:
     TSubclassOf<UMessageHoverMenuWidget> MouseHoverMenuWidgetClass = UMessageHoverMenuWidget::StaticClass();
 
 private:
-    void SetupChildren() const;
-
     virtual void NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
     virtual void NativeOnMouseLeave(const FPointerEvent& InMouseEvent) override;
 
