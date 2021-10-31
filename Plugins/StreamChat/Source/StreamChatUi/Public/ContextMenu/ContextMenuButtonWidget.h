@@ -2,9 +2,10 @@
 
 #pragma once
 
-#include "Blueprint/UserWidget.h"
 #include "Components/Button.h"
+#include "Components/Image.h"
 #include "CoreMinimal.h"
+#include "StreamUserWidget.h"
 
 #include "ContextMenuButtonWidget.generated.h"
 
@@ -20,12 +21,11 @@ enum class EContextMenuButtonPosition : uint8
  *
  */
 UCLASS()
-class STREAMCHATUI_API UContextMenuButtonWidget final : public UUserWidget
+class STREAMCHATUI_API UContextMenuButtonWidget final : public UStreamUserWidget
 {
     GENERATED_BODY()
 
 public:
-    virtual void NativeOnInitialized() override;
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(EContextMenuButtonPosition InPosition);
 
@@ -33,8 +33,12 @@ public:
     FContextMenuButtonClicked OnContextMenuButtonClicked;
 
 protected:
+    virtual void OnSetup() override;
+
     UPROPERTY(meta = (BindWidget))
     UButton* Button;
+    UPROPERTY(meta = (BindWidget))
+    UImage* TopBorderImage;
 
     UPROPERTY(EditAnywhere, Category = Bubble)
     UTexture2D* TopButtonTexture;
@@ -52,6 +56,8 @@ private:
     void OnButtonClicked();
 
     UTexture2D* GetButtonTexture() const;
+    FMargin GetButtonMargin() const;
 
+    UPROPERTY(EditAnywhere, Category = Setup)
     EContextMenuButtonPosition Position;
 };

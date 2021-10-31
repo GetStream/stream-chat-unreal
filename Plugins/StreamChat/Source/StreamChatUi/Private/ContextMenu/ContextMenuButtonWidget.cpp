@@ -1,27 +1,37 @@
 ﻿#include "ContextMenu/ContextMenuButtonWidget.h"
 
-#include "Brushes/SlateImageBrush.h"
+#include "Brushes/SlateBoxBrush.h"
+#include "Engine/Texture2D.h"
 
-void UContextMenuButtonWidget::NativeOnInitialized()
-{
-    Button->OnClicked.AddDynamic(this, &UContextMenuButtonWidget::OnButtonClicked);
-
-    Super::NativeOnInitialized();
-}
-
-void UContextMenuButtonWidget::Setup(EContextMenuButtonPosition InPosition)
+void UContextMenuButtonWidget::Setup(const EContextMenuButtonPosition InPosition)
 {
     Position = InPosition;
 
-    UTexture2D* Texture = GetButtonTexture();
-    const FSlateImageBrush Brush = FSlateImageBrush(Texture, Texture->GetImportedSize());
-    Button->WidgetStyle.SetNormal(Brush);
-    Button->WidgetStyle.SetHovered(Brush);
-    Button->WidgetStyle.SetPressed(Brush);
+    OnSetup();
+}
 
-    Button->WidgetStyle.Normal.TintColor = DefaultButtonColor;
-    Button->WidgetStyle.Hovered.TintColor = DefaultButtonColor;
-    Button->WidgetStyle.Pressed.TintColor = SelectedButtonColor;
+void UContextMenuButtonWidget::OnSetup()
+{
+    if (Position == EContextMenuButtonPosition::Top)
+    {
+        TopBorderImage->SetVisibility(ESlateVisibility::Collapsed);
+    }
+    else
+    {
+        TopBorderImage->SetVisibility(ESlateVisibility::Visible);
+    }
+
+    UTexture2D* Texture = GetButtonTexture();
+    const FMargin Margin = GetButtonMargin();
+    const FSlateBoxBrush NormalBrush = FSlateBoxBrush(Texture, Margin, DefaultButtonColor);
+    const FSlateBoxBrush SelectedBrush = FSlateBoxBrush(Texture, Margin, SelectedButtonColor);
+    Button->WidgetStyle.SetNormal(NormalBrush);
+    Button->WidgetStyle.SetHovered(NormalBrush);
+    Button->WidgetStyle.SetPressed(SelectedBrush);
+    Button->WidgetStyle.NormalPadding = {};
+    Button->WidgetStyle.PressedPadding = {};
+
+    Button->OnClicked.AddDynamic(this, &UContextMenuButtonWidget::OnButtonClicked);
 }
 
 void UContextMenuButtonWidget::OnButtonClicked()
@@ -41,4 +51,18 @@ UTexture2D* UContextMenuButtonWidget::GetButtonTexture() const
             return BottomButtonTexture;
     }
     return nullptr;
+}
+
+FMargin UContextMenuButtonWidget::GetButtonMargin() const
+{
+    switch (Position)
+    {
+        case EContextMenuButtonPosition::Top:
+            return {0.5f, 1.f, 0.5, 0.f};
+        case EContextMenuButtonPosition::Mid:
+            return {0.5f};
+        case EContextMenuButtonPosition::Bottom:
+            return {0.5f, 0.f, 0.5, 1.f};
+    }
+    return {};
 }
