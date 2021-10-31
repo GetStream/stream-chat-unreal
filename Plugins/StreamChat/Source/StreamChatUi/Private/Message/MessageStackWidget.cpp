@@ -45,7 +45,7 @@ void UMessageStackWidget::NativePreConstruct()
         const FMessage& Message = Messages[Index];
         UMessageWidget* Widget = CreateWidget<UMessageWidget>(this, MessageWidgetClass);
         Widget->Setup(Message, Side, Index == LastIndex ? EBubbleStackPosition::End : EBubbleStackPosition::Opening);
-       MessagesPanel->AddChildToVerticalBox(Widget);
+        MessagesPanel->AddChildToVerticalBox(Widget);
     }
 
     Super::NativePreConstruct();

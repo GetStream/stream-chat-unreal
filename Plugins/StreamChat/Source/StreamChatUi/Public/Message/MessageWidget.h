@@ -4,10 +4,10 @@
 
 #include "Blueprint/UserWidget.h"
 #include "Channel/Message.h"
+#include "Components/Overlay.h"
 #include "CoreMinimal.h"
 #include "MessageHoverMenuWidget.h"
 #include "TextBubbleWidget.h"
-#include "Components/Overlay.h"
 
 #include "MessageWidget.generated.h"
 

@@ -5,6 +5,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Channel/Message.h"
 #include "Components/Image.h"
+#include "Components/Overlay.h"
 #include "CoreMinimal.h"
 #include "TextBubbleWidget.h"
 
