@@ -3,9 +3,16 @@
 #include "Brushes/SlateBoxBrush.h"
 #include "Engine/Texture2D.h"
 
-void UContextMenuButtonWidget::Setup(const EContextMenuButtonPosition InPosition)
+void UContextMenuButtonWidget::Setup(
+    const EContextMenuButtonPosition InPosition,
+    const EContextMenuButtonStyle InStyle,
+    UTexture2D* InIconTexture,
+    const FText& InText)
 {
     Position = InPosition;
+    Style = InStyle;
+    IconTexture = InIconTexture;
+    Text = InText;
 
     OnSetup();
 }
@@ -30,6 +37,12 @@ void UContextMenuButtonWidget::OnSetup()
     Button->WidgetStyle.SetPressed(SelectedBrush);
     Button->WidgetStyle.NormalPadding = {};
     Button->WidgetStyle.PressedPadding = {};
+
+    IconImage->SetBrushFromTexture(IconTexture, true);
+    IconImage->SetColorAndOpacity(GetIconColor());
+
+    TextBlock->SetText(Text);
+    TextBlock->SetColorAndOpacity(GetTextColor());
 
     Button->OnClicked.AddDynamic(this, &UContextMenuButtonWidget::OnButtonClicked);
 }
@@ -65,4 +78,28 @@ FMargin UContextMenuButtonWidget::GetButtonMargin() const
             return {0.5f, 0.f, 0.5, 1.f};
     }
     return {};
+}
+
+FLinearColor UContextMenuButtonWidget::GetIconColor() const
+{
+    switch (Style)
+    {
+        case EContextMenuButtonStyle::Standard:
+            return DefaultIconColor;
+        case EContextMenuButtonStyle::Negative:
+            return NegativeIconColor;
+    }
+    return FLinearColor::White;
+}
+
+FLinearColor UContextMenuButtonWidget::GetTextColor() const
+{
+    switch (Style)
+    {
+        case EContextMenuButtonStyle::Standard:
+            return DefaultTextColor;
+        case EContextMenuButtonStyle::Negative:
+            return NegativeTextColor;
+    }
+    return FLinearColor::White;
 }
