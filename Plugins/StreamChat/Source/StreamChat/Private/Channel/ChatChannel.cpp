@@ -62,7 +62,8 @@ void UChatChannel::SendMessage(const FString& Text)
         false,
         Text,
     };
-    AddMessage(FMessage{Request, CurrentUser});
+    const FMessage LocalMessage{Request, CurrentUser};
+    AddMessage(LocalMessage);
     Api->SendNewMessage(
         State.Type,
         State.Id,
@@ -70,9 +71,10 @@ void UChatChannel::SendMessage(const FString& Text)
         false,
         [this](const FMessageResponseDto& Response)
         {
-            AddMessage(Util::Convert<FMessage>(Response.Message));
+            // No need to add message here as the backend will send a websocket message
             UE_LOG(LogTemp, Log, TEXT("Sent message [Id=%s]"), *Response.Message.Id);
         });
+    MessageSent.Broadcast(LocalMessage);
 
     // TODO Cooldown?
     // TODO Retry logic

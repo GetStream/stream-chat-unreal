@@ -159,6 +159,11 @@ public:
     UPROPERTY(BlueprintAssignable, Category = "Stream Chat|Channel")
     FMessagesUpdatedDelegate MessagesUpdated;
 
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessageSentDelegate, const FMessage&, Messages);
+    // Called when a message is first sent client-side
+    UPROPERTY(BlueprintAssignable, Category = "Stream Chat|Channel")
+    FMessageSentDelegate MessageSent;
+
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPaginatingMessagesDelegate, EPaginationDirection, Direction, EHttpRequestState, RequestState);
     UPROPERTY(BlueprintAssignable)
     FPaginatingMessagesDelegate OnPaginatingMessages;
