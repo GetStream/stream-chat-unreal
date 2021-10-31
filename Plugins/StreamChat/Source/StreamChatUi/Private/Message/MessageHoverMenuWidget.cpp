@@ -1,5 +1,8 @@
 ﻿#include "Message/MessageHoverMenuWidget.h"
 
+#include "Framework/Application/MenuStack.h"
+#include "Framework/Application/SlateApplication.h"
+
 void UMessageHoverMenuWidget::Setup(const FMessage& InMessage, const EBubbleStackSide InSide)
 {
     Message = InMessage;
@@ -27,11 +30,13 @@ void UMessageHoverMenuWidget::SetupChildren() const
     // Changing the order of elements in a panel doesn't seem to work in PreConstruct.
     if (Side == EBubbleStackSide::Me)
     {
-        ButtonGroup->InsertChildAt(0, OptionsButton);
+        ButtonGroup->ReplaceChildAt(0, OptionsButton);
+        ButtonGroup->ReplaceChildAt(1, ReactionButton);
     }
     else if (Side == EBubbleStackSide::You)
     {
-        ButtonGroup->InsertChildAt(0, ReactionButton);
+        ButtonGroup->ReplaceChildAt(0, ReactionButton);
+        ButtonGroup->ReplaceChildAt(1, OptionsButton);
     }
 }
 
