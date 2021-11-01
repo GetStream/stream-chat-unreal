@@ -4,6 +4,7 @@
 
 #include "Channel/Message.h"
 #include "CoreMinimal.h"
+#include "Engine/Texture2D.h"
 #include "UObject/NoExportTypes.h"
 
 #include "ContextMenuAction.generated.h"
