@@ -24,11 +24,11 @@ class STREAMCHATUI_API UContextMenuAction : public UObject
     GENERATED_BODY()
 
 public:
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = Visuals)
     FText Text;
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = Visuals)
     UTexture2D* IconTexture;
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, Category = Visuals)
     EContextMenuButtonStyle Style;
 
     void Perform(const FMessage&);
