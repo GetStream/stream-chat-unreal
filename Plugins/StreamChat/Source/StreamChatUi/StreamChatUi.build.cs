@@ -9,7 +9,8 @@ public class StreamChatUi : ModuleRules
 
         PrivateDependencyModuleNames.AddRange(new[] {
             "Slate",
-            "InputCore"
+            "InputCore",
+            "ApplicationCore"
         });
 
         PublicDependencyModuleNames.AddRange(new[] {

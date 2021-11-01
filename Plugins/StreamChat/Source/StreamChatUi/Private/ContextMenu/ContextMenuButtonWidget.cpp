@@ -4,52 +4,76 @@
 #include "Engine/Texture2D.h"
 
 void UContextMenuButtonWidget::Setup(
+    const FMessage& InMessage,
     const EContextMenuButtonPosition InPosition,
-    const EContextMenuButtonStyle InStyle,
-    UTexture2D* InIconTexture,
-    const FText& InText)
+    const TSubclassOf<UContextMenuAction> InActionClass)
 {
+    Message = InMessage;
     Position = InPosition;
-    Style = InStyle;
-    IconTexture = InIconTexture;
-    Text = InText;
+    ActionClass = InActionClass;
 
     OnSetup();
 }
 
 void UContextMenuButtonWidget::OnSetup()
 {
-    if (Position == EContextMenuButtonPosition::Top)
+    if (!Action && ActionClass)
     {
-        TopBorderImage->SetVisibility(ESlateVisibility::Collapsed);
-    }
-    else
-    {
-        TopBorderImage->SetVisibility(ESlateVisibility::Visible);
+        Action = NewObject<UContextMenuAction>(this, ActionClass);
     }
 
-    UTexture2D* Texture = GetButtonTexture();
-    const FMargin Margin = GetButtonMargin();
-    const FSlateBoxBrush NormalBrush = FSlateBoxBrush(Texture, Margin, DefaultButtonColor);
-    const FSlateBoxBrush SelectedBrush = FSlateBoxBrush(Texture, Margin, SelectedButtonColor);
-    Button->WidgetStyle.SetNormal(NormalBrush);
-    Button->WidgetStyle.SetHovered(NormalBrush);
-    Button->WidgetStyle.SetPressed(SelectedBrush);
-    Button->WidgetStyle.NormalPadding = {};
-    Button->WidgetStyle.PressedPadding = {};
+    if (TopBorderImage)
+    {
+        if (Position == EContextMenuButtonPosition::Top)
+        {
+            TopBorderImage->SetVisibility(ESlateVisibility::Collapsed);
+        }
+        else
+        {
+            TopBorderImage->SetVisibility(ESlateVisibility::Visible);
+        }
+    }
 
-    IconImage->SetBrushFromTexture(IconTexture, true);
-    IconImage->SetColorAndOpacity(GetIconColor());
+    if (Button)
+    {
+        UTexture2D* Texture = GetButtonTexture();
+        const FMargin Margin = GetButtonMargin();
+        const FSlateBoxBrush NormalBrush = FSlateBoxBrush(Texture, Margin, DefaultButtonColor);
+        const FSlateBoxBrush SelectedBrush = FSlateBoxBrush(Texture, Margin, SelectedButtonColor);
+        Button->WidgetStyle.SetNormal(NormalBrush);
+        Button->WidgetStyle.SetHovered(NormalBrush);
+        Button->WidgetStyle.SetPressed(SelectedBrush);
+        Button->WidgetStyle.NormalPadding = {};
+        Button->WidgetStyle.PressedPadding = {};
 
-    TextBlock->SetText(Text);
-    TextBlock->SetColorAndOpacity(GetTextColor());
+        Button->OnClicked.AddUniqueDynamic(this, &UContextMenuButtonWidget::OnButtonClicked);
+    }
 
-    Button->OnClicked.AddDynamic(this, &UContextMenuButtonWidget::OnButtonClicked);
+    if (IconImage)
+    {
+        if (Action)
+        {
+            IconImage->SetBrushFromTexture(Action->IconTexture, true);
+        }
+        IconImage->SetColorAndOpacity(GetIconColor());
+    }
+
+    if (TextBlock)
+    {
+        if (Action)
+        {
+            TextBlock->SetText(Action->Text);
+        }
+        TextBlock->SetColorAndOpacity(GetTextColor());
+    }
 }
 
 void UContextMenuButtonWidget::OnButtonClicked()
 {
-    OnContextMenuButtonClicked.Broadcast();
+    if (Action)
+    {
+        Action->Perform(Message);
+    }
 }
 
 UTexture2D* UContextMenuButtonWidget::GetButtonTexture() const
@@ -82,24 +106,30 @@ FMargin UContextMenuButtonWidget::GetButtonMargin() const
 
 FLinearColor UContextMenuButtonWidget::GetIconColor() const
 {
-    switch (Style)
+    if (Action)
     {
-        case EContextMenuButtonStyle::Standard:
-            return DefaultIconColor;
-        case EContextMenuButtonStyle::Negative:
-            return NegativeIconColor;
+        switch (Action->Style)
+        {
+            case EContextMenuButtonStyle::Standard:
+                return DefaultIconColor;
+            case EContextMenuButtonStyle::Negative:
+                return NegativeIconColor;
+        }
     }
     return FLinearColor::White;
 }
 
 FLinearColor UContextMenuButtonWidget::GetTextColor() const
 {
-    switch (Style)
+    if (Action)
     {
-        case EContextMenuButtonStyle::Standard:
-            return DefaultTextColor;
-        case EContextMenuButtonStyle::Negative:
-            return NegativeTextColor;
+        switch (Action->Style)
+        {
+            case EContextMenuButtonStyle::Standard:
+                return DefaultTextColor;
+            case EContextMenuButtonStyle::Negative:
+                return NegativeTextColor;
+        }
     }
     return FLinearColor::White;
 }

@@ -4,11 +4,14 @@
 
 #include "Components/Button.h"
 #include "Components/Image.h"
+#include "Components/TextBlock.h"
+#include "ContextMenuAction.h"
 #include "CoreMinimal.h"
 #include "StreamUserWidget.h"
-#include "Components/TextBlock.h"
 
 #include "ContextMenuButtonWidget.generated.h"
+
+DECLARE_MULTICAST_DELEGATE(FContextMenuButtonClicked);
 
 UENUM()
 enum class EContextMenuButtonPosition : uint8
@@ -16,13 +19,6 @@ enum class EContextMenuButtonPosition : uint8
     Top,
     Mid,
     Bottom
-};
-
-UENUM()
-enum class EContextMenuButtonStyle : uint8
-{
-    Standard,
-    Negative,
 };
 
 /**
@@ -35,10 +31,10 @@ class STREAMCHATUI_API UContextMenuButtonWidget final : public UStreamUserWidget
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void Setup(EContextMenuButtonPosition InPosition, EContextMenuButtonStyle InStyle, UTexture2D* InIconTexture, const FText& InText);
-
-    DECLARE_MULTICAST_DELEGATE(FContextMenuButtonClicked);
-    FContextMenuButtonClicked OnContextMenuButtonClicked;
+    void Setup(
+        const FMessage& InMessage,
+        EContextMenuButtonPosition InPosition,
+        TSubclassOf<UContextMenuAction> InAction);
 
 protected:
     virtual void OnSetup() override;
@@ -81,11 +77,12 @@ private:
     FLinearColor GetTextColor() const;
 
     UPROPERTY(EditAnywhere, Category = Setup)
+    FMessage Message;
+    UPROPERTY(EditAnywhere, Category = Setup)
     EContextMenuButtonPosition Position;
     UPROPERTY(EditAnywhere, Category = Setup)
-    EContextMenuButtonStyle Style;
-    UPROPERTY(EditAnywhere, Category = Setup)
-    UTexture2D* IconTexture;
-    UPROPERTY(EditAnywhere, Category = Setup)
-    FText Text;
+    TSubclassOf<UContextMenuAction> ActionClass;
+
+    UPROPERTY(Transient)
+    UContextMenuAction* Action;
 };
