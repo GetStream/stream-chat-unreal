@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "MessageUpdatedEvent.h"
+#include "Event/Abstract/MessageEvent.h"
 
 #include "MessageDeletedEvent.generated.h"
 
@@ -9,7 +9,7 @@
  * #/components/schemas/MessageDeletedEvent
  */
 USTRUCT()
-struct FMessageDeletedEvent : public FMessageUpdatedEvent
+struct FMessageDeletedEvent : public FMessageEvent
 {
     GENERATED_BODY()
 

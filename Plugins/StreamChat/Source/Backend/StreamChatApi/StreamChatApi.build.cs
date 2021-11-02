@@ -11,7 +11,6 @@ public class StreamChatApi : ModuleRules
         {
             "CoreUObject",
             "HttpRequests",
-            "StreamJson",
             "TokenProvider"
         });
 
@@ -19,6 +18,7 @@ public class StreamChatApi : ModuleRules
         {
             "Core",
             "JsonUtilities",
+            "StreamJson",
             "StreamChatDto",
         });
     }

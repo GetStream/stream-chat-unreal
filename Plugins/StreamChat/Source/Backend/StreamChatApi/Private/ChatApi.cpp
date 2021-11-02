@@ -147,17 +147,14 @@ void FChatApi::QueryChannels(
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
-void FChatApi::SendChannelEvent(
+void FChatApi::SendChannelEventInternal(
     const FString& ChannelType,
     const FString& ChannelId,
-    const UStruct* EventStructDefinition,
-    const void* EventStruct,
+    const FJsonObjectWrapper& Event,
     const TCallback<FEventResponseDto> Callback) const
 {
     const FString Path = FString::Printf(TEXT("channels/%s/%s/event"), *ChannelType, *ChannelId);
     const FString Url = BuildUrl(Path);
-    FJsonObjectWrapper Event;
-    Event.JsonObject = Json::UStructToJsonObject(EventStructDefinition, EventStruct);
     const FSendEventRequestDto Body{Event};
 
     Client->Post(Url).Json(Body).Send(Callback);

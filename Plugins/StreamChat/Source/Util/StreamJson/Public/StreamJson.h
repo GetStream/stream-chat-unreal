@@ -11,6 +11,23 @@ namespace Json
 /**
  * Converts from a UStruct to a Json Object
  *
+ * @param Struct The UStruct instance to copy out of
+ * @param NamingConvention JSON keys and values will be formatted according to this naming convention
+ * @return A newly created JSON Object
+ */
+template <class T>
+TSharedRef<FJsonObject> UStructToJsonObject(
+    const T& Struct,
+    ENamingConvention NamingConvention = ENamingConvention::SnakeCase)
+{
+    const TSharedRef<FJsonObject> JsonObject = Json::UStructToJsonObject(T::StaticStruct(), &Struct, NamingConvention);
+    ExtraFields::InvokeSerializeExtra<T>(Struct, *JsonObject);
+    return JsonObject;
+}
+
+/**
+ * Converts from a UStruct to a Json Object
+ *
  * @param StructDefinition UStruct definition that is looked over for properties
  * @param Struct The UStruct instance to copy out of
  * @param NamingConvention JSON keys and values will be formatted according to this naming convention
@@ -28,9 +45,7 @@ typename TEnableIf<TIsClass<T>::Value, FString>::Type Serialize(
     const T& Struct,
     const ENamingConvention NamingConvention = ENamingConvention::SnakeCase)
 {
-    const TSharedRef<FJsonObject> JsonObject = Json::UStructToJsonObject(T::StaticStruct(), &Struct, NamingConvention);
-
-    ExtraFields::InvokeSerializeExtra<T>(Struct, *JsonObject);
+    const TSharedRef<FJsonObject> JsonObject = Json::UStructToJsonObject<T>(Struct, NamingConvention);
 
     return JsonObjectToString(JsonObject);
 }
@@ -56,8 +71,7 @@ void SerializeField(const TOptional<T>& Field, const FString& FieldName, FJsonOb
 {
     if (Field.IsSet())
     {
-        const TSharedRef<FJsonObject> InnerJsonObject = Json::UStructToJsonObject(T::StaticStruct(), &Field.GetValue());
-        ExtraFields::InvokeSerializeExtra<T>(Field.GetValue(), *InnerJsonObject);
+        const TSharedRef<FJsonObject> InnerJsonObject = Json::UStructToJsonObject<T>(Field.GetValue());
         JsonObjectSerialization::SetObjectField(JsonObject, FieldName, InnerJsonObject);
     }
 }
@@ -77,7 +91,6 @@ void DeserializeField(const FJsonObject& JsonObject, const FString& FieldName, T
     {
         if (T OutStruct; JsonObjectDeserialization::JsonObjectToUStruct(JsonObject, OutStruct))
         {
-            ExtraFields::InvokeDeserializeExtra(*InnerJsonObject, OutStruct);
             Field.Emplace(OutStruct);
         }
     }

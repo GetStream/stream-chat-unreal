@@ -50,7 +50,7 @@ UTexture2D* UTextBubbleWidget::GetBubbleTexture() const
 
 const FLinearColor& UTextBubbleWidget::GetBubbleColor() const
 {
-    if (Message.DeletedAt.IsSet())
+    if (Message.Type == EMessageType::Deleted)
     {
         return DeletedBubbleColor;
     }

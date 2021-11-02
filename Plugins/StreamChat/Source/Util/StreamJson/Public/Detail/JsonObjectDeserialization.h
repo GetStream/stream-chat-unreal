@@ -34,7 +34,9 @@ STREAMJSON_API bool JsonObjectToUStruct(
 template <typename OutStructType>
 bool JsonObjectToUStruct(const TSharedRef<FJsonObject>& JsonObject, OutStructType* OutStruct)
 {
-    return JsonObjectToUStruct(JsonObject, OutStructType::StaticStruct(), OutStruct);
+    const bool bSuccess = JsonObjectToUStruct(JsonObject, OutStructType::StaticStruct(), OutStruct);
+    ExtraFields::InvokeDeserializeExtra<OutStructType>(*JsonObject, *OutStruct);
+    return bSuccess;
 }
 
 /**
@@ -83,7 +85,6 @@ bool JsonObjectStringToUStruct(const FString& JsonString, OutStructType* OutStru
         UE_LOG(LogTemp, Warning, TEXT("JsonObjectStringToUStruct - Unable to deserialize. json=[%s]"), *JsonString);
         return false;
     }
-    ExtraFields::InvokeDeserializeExtra(*JsonObject, *OutStruct);
     return true;
 }
 };    // namespace JsonObjectDeserialization

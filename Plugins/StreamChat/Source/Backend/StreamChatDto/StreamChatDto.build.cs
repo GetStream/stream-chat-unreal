@@ -9,6 +9,7 @@ public class StreamChatDto : ModuleRules
 
         PrivateDependencyModuleNames.AddRange(new[] {
             "CoreUObject",
+            "Json",
             "StreamJson",
         });
 

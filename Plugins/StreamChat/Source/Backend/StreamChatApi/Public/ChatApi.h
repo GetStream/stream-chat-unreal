@@ -10,6 +10,7 @@
 #include "Request/Channel/SortParamRequestDto.h"
 #include "Response/Event/EventResponseDto.h"
 #include "Response/Reaction/ReactionResponseDto.h"
+#include "StreamJson.h"
 
 class FHttpClient;
 class FRequestBuilder;
@@ -153,11 +154,10 @@ public:
 
 private:
     explicit FChatApi(const FString& InApiKey, const FString& InHost, const TSharedPtr<FTokenManager>&);
-    void SendChannelEvent(
+    void SendChannelEventInternal(
         const FString& ChannelType,
         const FString& ChannelId,
-        const UStruct* EventStructDefinition,
-        const void* EventStruct,
+        const FJsonObjectWrapper& Event,
         TCallback<FEventResponseDto> Callback = {}) const;
 
     FString BuildUrl(const FString& Path) const;
@@ -179,7 +179,9 @@ void FChatApi::SendChannelEvent(
     const FString& ChannelType,
     const FString& ChannelId,
     const TEvent& Event,
-    TCallback<FEventResponseDto> Callback)
+    const TCallback<FEventResponseDto> Callback)
 {
-    SendChannelEvent(ChannelType, ChannelId, TEvent::StaticStruct(), &Event, Callback);
+    FJsonObjectWrapper JsonObjectWrapper;
+    JsonObjectWrapper.JsonObject = Json::UStructToJsonObject<TEvent>(Event);
+    SendChannelEventInternal(ChannelType, ChannelId, JsonObjectWrapper, Callback);
 }
