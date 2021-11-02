@@ -6,22 +6,17 @@
 void UContextMenuButtonWidget::Setup(
     const FMessage& InMessage,
     const EContextMenuButtonPosition InPosition,
-    const TSubclassOf<UContextMenuAction> InActionClass)
+    UContextMenuAction* InAction)
 {
     Message = InMessage;
     Position = InPosition;
-    ActionClass = InActionClass;
+    Action = InAction;
 
     OnSetup();
 }
 
 void UContextMenuButtonWidget::OnSetup()
 {
-    if (!Action && ActionClass)
-    {
-        Action = NewObject<UContextMenuAction>(this, ActionClass);
-    }
-
     if (TopBorderImage)
     {
         if (Position == EContextMenuButtonPosition::Top)
@@ -62,7 +57,7 @@ void UContextMenuButtonWidget::OnSetup()
     {
         if (Action)
         {
-            TextBlock->SetText(Action->Text);
+            TextBlock->SetText(Action->Label);
         }
         TextBlock->SetColorAndOpacity(GetTextColor());
     }

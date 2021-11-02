@@ -10,7 +10,7 @@
 /**
  *
  */
-UCLASS(Blueprintable, HideDropdown)
+UCLASS()
 class STREAMCHATUI_API UCopyMessageContextMenuAction final : public UContextMenuAction
 {
     GENERATED_BODY()

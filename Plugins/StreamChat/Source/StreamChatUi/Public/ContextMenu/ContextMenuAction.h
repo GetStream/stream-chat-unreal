@@ -19,14 +19,14 @@ enum class EContextMenuButtonStyle : uint8
 /**
  *
  */
-UCLASS(Abstract)
+UCLASS(Abstract, Blueprintable, EditInlineNew)
 class STREAMCHATUI_API UContextMenuAction : public UObject
 {
     GENERATED_BODY()
 
 public:
     UPROPERTY(EditAnywhere, Category = Visuals)
-    FText Text;
+    FText Label;
     UPROPERTY(EditAnywhere, Category = Visuals)
     UTexture2D* IconTexture;
     UPROPERTY(EditAnywhere, Category = Visuals)

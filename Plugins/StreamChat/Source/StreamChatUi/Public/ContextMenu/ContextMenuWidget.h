@@ -30,14 +30,14 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UVerticalBox* ButtonsPanel;
 
-    UPROPERTY(EditAnywhere, Category = Defaults)
-    TArray<TSubclassOf<UContextMenuAction>> Actions;
+    UPROPERTY(EditAnywhere, Instanced, Category = Defaults, meta = (TitleProperty = Label))
+    TArray<UContextMenuAction*> Actions;
 
     UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
     TSubclassOf<UContextMenuButtonWidget> ContextMenuButtonWidgetClass = UContextMenuButtonWidget::StaticClass();
 
 private:
-    void AddButton(TSubclassOf<UContextMenuAction> ActionClass, EContextMenuButtonPosition Position);
+    void AddButton(UContextMenuAction* Action, EContextMenuButtonPosition Position);
 
     UPROPERTY(EditAnywhere, Category = Defaults)
     FMessage Message;

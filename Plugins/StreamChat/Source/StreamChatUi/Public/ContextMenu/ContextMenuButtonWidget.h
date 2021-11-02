@@ -34,7 +34,7 @@ public:
     void Setup(
         const FMessage& InMessage,
         EContextMenuButtonPosition InPosition,
-        TSubclassOf<UContextMenuAction> InAction);
+        UContextMenuAction* InAction);
 
 protected:
     virtual void OnSetup() override;
@@ -80,9 +80,6 @@ private:
     FMessage Message;
     UPROPERTY(EditAnywhere, Category = Setup)
     EContextMenuButtonPosition Position;
-    UPROPERTY(EditAnywhere, Category = Setup)
-    TSubclassOf<UContextMenuAction> ActionClass;
-
-    UPROPERTY(Transient)
+    UPROPERTY(EditAnywhere, Instanced, Category = Setup)
     UContextMenuAction* Action;
 };
