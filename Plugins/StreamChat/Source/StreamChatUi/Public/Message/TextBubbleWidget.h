@@ -3,11 +3,11 @@
 #pragma once
 
 #include "BubbleStackPosition.h"
-#include "MessageSide.h"
 #include "Channel/Message.h"
 #include "Components/Border.h"
 #include "Components/TextBlock.h"
 #include "CoreMinimal.h"
+#include "MessageSide.h"
 #include "StreamUserWidget.h"
 
 #include "TextBubbleWidget.generated.h"
