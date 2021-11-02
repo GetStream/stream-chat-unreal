@@ -23,6 +23,7 @@ void UContextMenuWidget::OnSetup()
     // Spawn buttons
     ButtonsPanel->ClearChildren();
 
+    const TArray<UContextMenuAction*>& Actions = MenuActions.FindOrAdd(Side).Actions;
     const int32 LastIndex = Actions.Num() - 1;
     for (int32 Index = 0; Index < Actions.Num(); ++Index)
     {

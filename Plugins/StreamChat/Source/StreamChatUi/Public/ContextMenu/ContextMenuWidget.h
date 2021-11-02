@@ -12,6 +12,15 @@
 
 #include "ContextMenuWidget.generated.h"
 
+USTRUCT(BlueprintType)
+struct FContextMenuActions
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, Instanced, meta = (TitleProperty = Label))
+    TArray<UContextMenuAction*> Actions;
+};
+
 /**
  *
  */
@@ -30,8 +39,8 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UVerticalBox* ButtonsPanel;
 
-    UPROPERTY(EditAnywhere, Instanced, Category = Defaults, meta = (TitleProperty = Label))
-    TArray<UContextMenuAction*> Actions;
+    UPROPERTY(EditAnywhere, Category = Defaults, meta = (ShowOnlyInnerProperties))
+    TMap<EBubbleStackSide, FContextMenuActions> MenuActions;
 
     UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
     TSubclassOf<UContextMenuButtonWidget> ContextMenuButtonWidgetClass = UContextMenuButtonWidget::StaticClass();

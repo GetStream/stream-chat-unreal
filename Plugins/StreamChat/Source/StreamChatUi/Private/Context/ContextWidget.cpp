@@ -1,6 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "ContextWidget.h"
+#include "Context/ContextWidget.h"
 
 #include "WidgetUtil.h"
 #include "Widgets/DeclarativeSyntaxSupport.h"

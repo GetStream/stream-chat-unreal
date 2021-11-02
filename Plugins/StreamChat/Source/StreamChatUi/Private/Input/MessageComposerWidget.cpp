@@ -3,8 +3,8 @@
 #include "Input/MessageComposerWidget.h"
 
 #include "Brushes/SlateImageBrush.h"
-#include "ChannelContextWidget.h"
 #include "Components/ButtonSlot.h"
+#include "Context/ChannelContextWidget.h"
 #include "Engine/Texture2D.h"
 #include "TimerManager.h"
 
@@ -76,7 +76,7 @@ void UMessageComposerWidget::SendMessage()
         return;
     }
     UChatChannel* Channel = UChannelContextWidget::GetChannel(this);
-    if (!ensure(Channel))
+    if (!Channel)
     {
         return;
     }
