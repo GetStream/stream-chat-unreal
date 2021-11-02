@@ -11,6 +11,19 @@ namespace Json
 /**
  * Converts from a UStruct to a Json Object
  *
+ * @param StructDefinition UStruct definition that is looked over for properties
+ * @param Struct The UStruct instance to copy out of
+ * @param NamingConvention JSON keys and values will be formatted according to this naming convention
+ * @return A newly created JSON Object
+ */
+STREAMJSON_API TSharedRef<FJsonObject> UStructToJsonObject(
+    const UStruct* StructDefinition,
+    const void* Struct,
+    ENamingConvention NamingConvention = ENamingConvention::SnakeCase);
+
+/**
+ * Converts from a UStruct to a Json Object
+ *
  * @param Struct The UStruct instance to copy out of
  * @param NamingConvention JSON keys and values will be formatted according to this naming convention
  * @return A newly created JSON Object
@@ -24,19 +37,6 @@ TSharedRef<FJsonObject> UStructToJsonObject(
     ExtraFields::InvokeSerializeExtra<T>(Struct, *JsonObject);
     return JsonObject;
 }
-
-/**
- * Converts from a UStruct to a Json Object
- *
- * @param StructDefinition UStruct definition that is looked over for properties
- * @param Struct The UStruct instance to copy out of
- * @param NamingConvention JSON keys and values will be formatted according to this naming convention
- * @return A newly created JSON Object
- */
-STREAMJSON_API TSharedRef<FJsonObject> UStructToJsonObject(
-    const UStruct* StructDefinition,
-    const void* Struct,
-    ENamingConvention NamingConvention = ENamingConvention::SnakeCase);
 
 FString STREAMJSON_API JsonObjectToString(const TSharedRef<FJsonObject>& JsonObject);
 
