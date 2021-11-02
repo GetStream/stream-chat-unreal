@@ -7,19 +7,10 @@
 #include "ContextMenuAction.h"
 #include "ContextMenuButtonWidget.h"
 #include "CoreMinimal.h"
-#include "Message/BubbleStackSide.h"
+#include "Message/MessageSide.h"
 #include "StreamUserWidget.h"
 
 #include "ContextMenuWidget.generated.h"
-
-USTRUCT(BlueprintType)
-struct FContextMenuActions
-{
-    GENERATED_BODY()
-
-    UPROPERTY(EditAnywhere, Instanced, Category = Defaults, meta = (TitleProperty = Label))
-    TArray<UContextMenuAction*> Actions;
-};
 
 /**
  *
@@ -31,14 +22,14 @@ class STREAMCHATUI_API UContextMenuWidget final : public UStreamUserWidget
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void Setup(const FMessage& InMessage, EBubbleStackSide InSide);
+    void Setup(const FMessage& InMessage, EMessageSide InSide);
 
 protected:
     UPROPERTY(meta = (BindWidget))
     UVerticalBox* ButtonsPanel;
 
-    UPROPERTY(EditAnywhere, Category = Defaults, meta = (ShowOnlyInnerProperties))
-    TMap<EBubbleStackSide, FContextMenuActions> MenuActions;
+    UPROPERTY(EditAnywhere, Instanced, Category = Defaults, meta = (TitleProperty = Label))
+    TArray<UContextMenuAction*> Actions;
 
     UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
     TSubclassOf<UContextMenuButtonWidget> ContextMenuButtonWidgetClass = UContextMenuButtonWidget::StaticClass();
@@ -51,5 +42,5 @@ private:
     FMessage Message;
 
     UPROPERTY(EditAnywhere, Category = Setup)
-    EBubbleStackSide Side;
+    EMessageSide Side;
 };

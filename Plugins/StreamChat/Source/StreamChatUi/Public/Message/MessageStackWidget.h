@@ -22,7 +22,7 @@ class STREAMCHATUI_API UMessageStackWidget final : public UStreamUserWidget
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void Setup(const TArray<FMessage>& InMessages, EBubbleStackSide InSide);
+    void Setup(const TArray<FMessage>& InMessages, EMessageSide InSide);
 
 protected:
     UPROPERTY(meta = (BindWidget))
@@ -41,5 +41,5 @@ private:
     TArray<FMessage> Messages;
 
     UPROPERTY(EditAnywhere, Category = Defaults)
-    EBubbleStackSide Side;
+    EMessageSide Side;
 };

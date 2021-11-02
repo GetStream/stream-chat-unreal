@@ -12,6 +12,16 @@ void UContextMenuAction::Perform(const FMessage& Message, UWidget* OwningWidget)
     FSlateApplication::Get().DismissMenuByWidget(OwningWidget->TakeWidget());
 }
 
+bool UContextMenuAction::ShouldDisplay(const EMessageSide Side, const FMessage& Message) const
+{
+    return OnShouldDisplay(Side, Message);
+}
+
 void UContextMenuAction::OnPerform(const FMessage&, UWidget*)
 {
+}
+
+bool UContextMenuAction::OnShouldDisplay(EMessageSide, const FMessage&) const
+{
+    return true;
 }

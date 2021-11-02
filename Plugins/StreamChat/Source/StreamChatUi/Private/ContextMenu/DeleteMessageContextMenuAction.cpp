@@ -12,3 +12,13 @@ void UDeleteMessageContextMenuAction::OnPerform(const FMessage& Message, UWidget
         Channel->DeleteMessage(Message);
     }
 }
+
+bool UDeleteMessageContextMenuAction::OnShouldDisplay(const EMessageSide Side, const FMessage& Message) const
+{
+    if (Side == EMessageSide::You)
+    {
+        return false;
+    }
+
+    return Message.Type != EMessageType::Deleted;
+}

@@ -12,3 +12,13 @@ void UEditMessageContextMenuAction::OnPerform(const FMessage& Message, UWidget* 
         Context->OnStartEditMessage.Broadcast(Message);
     }
 }
+
+bool UEditMessageContextMenuAction::OnShouldDisplay(EMessageSide Side, const FMessage& Message) const
+{
+    if (Side == EMessageSide::You)
+    {
+        return false;
+    }
+
+    return Message.Type != EMessageType::Deleted;
+}

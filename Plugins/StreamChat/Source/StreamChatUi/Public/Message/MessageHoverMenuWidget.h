@@ -21,7 +21,7 @@ class STREAMCHATUI_API UMessageHoverMenuWidget final : public UStreamUserWidget
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void Setup(const FMessage& InMessage, EBubbleStackSide InSide);
+    void Setup(const FMessage& InMessage, EMessageSide InSide);
 
 protected:
     UPROPERTY(meta = (BindWidget))
@@ -52,5 +52,5 @@ private:
     FMessage Message;
 
     UPROPERTY(EditAnywhere, Category = Setup)
-    EBubbleStackSide Side;
+    EMessageSide Side;
 };

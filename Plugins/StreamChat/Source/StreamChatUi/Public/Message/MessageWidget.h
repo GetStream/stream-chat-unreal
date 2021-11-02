@@ -22,7 +22,7 @@ class STREAMCHATUI_API UMessageWidget final : public UStreamUserWidget
 public:
     explicit UMessageWidget(const FObjectInitializer& ObjectInitializer);
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void Setup(const FMessage& InMessage, EBubbleStackSide InSide, EBubbleStackPosition InPosition);
+    void Setup(const FMessage& InMessage, EMessageSide InSide, EBubbleStackPosition InPosition);
 
 protected:
     // Should contain whatever needs to be horizontally aligned
@@ -47,12 +47,14 @@ private:
     virtual void NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
     virtual void NativeOnMouseLeave(const FPointerEvent& InMouseEvent) override;
 
+    bool ShouldDisplayHoverMenu() const;
+
     UPROPERTY(EditAnywhere, Category = Setup)
     FMessage Message;
     UPROPERTY(EditAnywhere, Category = Setup)
     EBubbleStackPosition Position;
     UPROPERTY(EditAnywhere, Category = Setup)
-    EBubbleStackSide Side;
+    EMessageSide Side;
 
     // Only valid while hovered
     UPROPERTY(Transient)

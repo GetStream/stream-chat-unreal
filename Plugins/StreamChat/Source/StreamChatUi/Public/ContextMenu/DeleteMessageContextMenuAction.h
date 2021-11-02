@@ -17,4 +17,5 @@ class STREAMCHATUI_API UDeleteMessageContextMenuAction final : public UContextMe
 
 protected:
     virtual void OnPerform(const FMessage&, UWidget* OwningWidget) override;
+    virtual bool OnShouldDisplay(EMessageSide, const FMessage&) const override;
 };

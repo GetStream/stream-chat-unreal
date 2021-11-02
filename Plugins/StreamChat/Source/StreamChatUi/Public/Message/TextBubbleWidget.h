@@ -3,7 +3,7 @@
 #pragma once
 
 #include "BubbleStackPosition.h"
-#include "BubbleStackSide.h"
+#include "MessageSide.h"
 #include "Channel/Message.h"
 #include "Components/Border.h"
 #include "Components/TextBlock.h"
@@ -22,7 +22,7 @@ class STREAMCHATUI_API UTextBubbleWidget final : public UStreamUserWidget
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void Setup(const FMessage& InMessage, EBubbleStackSide InSide, EBubbleStackPosition InPosition);
+    void Setup(const FMessage& InMessage, EMessageSide InSide, EBubbleStackPosition InPosition);
 
 protected:
     UPROPERTY(meta = (BindWidget))
@@ -60,5 +60,5 @@ private:
     UPROPERTY(EditAnywhere, Category = Setup)
     EBubbleStackPosition Position;
     UPROPERTY(EditAnywhere, Category = Setup)
-    EBubbleStackSide Side;
+    EMessageSide Side;
 };

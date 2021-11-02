@@ -3,7 +3,7 @@
 #include "Components/PanelWidget.h"
 #include "Message/MessageWidget.h"
 
-void UMessageStackWidget::Setup(const TArray<FMessage>& InMessages, const EBubbleStackSide InSide)
+void UMessageStackWidget::Setup(const TArray<FMessage>& InMessages, const EMessageSide InSide)
 {
     Messages = InMessages;
     Side = InSide;

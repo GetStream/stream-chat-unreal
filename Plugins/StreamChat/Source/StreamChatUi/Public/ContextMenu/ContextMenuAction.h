@@ -6,6 +6,7 @@
 #include "Components/Widget.h"
 #include "CoreMinimal.h"
 #include "Engine/Texture2D.h"
+#include "Message/MessageSide.h"
 #include "UObject/NoExportTypes.h"
 
 #include "ContextMenuAction.generated.h"
@@ -34,10 +35,14 @@ public:
     EContextMenuButtonStyle Style;
 
     void Perform(const FMessage&, UWidget* OwningWidget);
+    bool ShouldDisplay(EMessageSide, const FMessage&) const;
 
 protected:
     virtual void OnPerform(const FMessage&, UWidget* OwningWidget);
+    virtual bool OnShouldDisplay(EMessageSide, const FMessage&) const;
 
     UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Perform"))
     void OnPerformBlueprint(const FMessage& Message, UWidget* OwningWidget);
+    UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "Should Display"))
+    bool OnShouldDisplayBlueprint(EMessageSide Side, const FMessage& Message) const;
 };

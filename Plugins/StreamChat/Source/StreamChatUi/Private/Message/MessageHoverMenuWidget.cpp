@@ -3,7 +3,7 @@
 #include "Framework/Application/MenuStack.h"
 #include "Framework/Application/SlateApplication.h"
 
-void UMessageHoverMenuWidget::Setup(const FMessage& InMessage, const EBubbleStackSide InSide)
+void UMessageHoverMenuWidget::Setup(const FMessage& InMessage, const EMessageSide InSide)
 {
     Message = InMessage;
     Side = InSide;
@@ -13,12 +13,12 @@ void UMessageHoverMenuWidget::Setup(const FMessage& InMessage, const EBubbleStac
 
 void UMessageHoverMenuWidget::OnSetup()
 {
-    if (Side == EBubbleStackSide::Me)
+    if (Side == EMessageSide::Me)
     {
         ButtonGroup->ReplaceChildAt(0, OptionsButton);
         ButtonGroup->ReplaceChildAt(1, ReactionButton);
     }
-    else if (Side == EBubbleStackSide::You)
+    else if (Side == EMessageSide::You)
     {
         ButtonGroup->ReplaceChildAt(0, ReactionButton);
         ButtonGroup->ReplaceChildAt(1, OptionsButton);

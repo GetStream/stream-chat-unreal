@@ -26,7 +26,7 @@ void UMessageListWidget::CreateMessageStackWidgets(const TArray<FMessage> Messag
             StackMessages.Reserve(Count);
             StackMessages.Append(&Messages[StartIndex], Count);
             Widget->Setup(
-                StackMessages, Messages[Index].User.Id == CurrentUserId ? EBubbleStackSide::Me : EBubbleStackSide::You);
+                StackMessages, Messages[Index].User.Id == CurrentUserId ? EMessageSide::Me : EMessageSide::You);
 
             ScrollBox->AddChild(Widget);
 

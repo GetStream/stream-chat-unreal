@@ -2,7 +2,7 @@
 
 #include "Components/OverlaySlot.h"
 
-void UTimestampWidget::Setup(const FMessage& InMessage, const EBubbleStackSide InSide)
+void UTimestampWidget::Setup(const FMessage& InMessage, const EMessageSide InSide)
 {
     Message = InMessage;
     Side = InSide;
@@ -12,14 +12,14 @@ void UTimestampWidget::Setup(const FMessage& InMessage, const EBubbleStackSide I
 
 void UTimestampWidget::OnSetup()
 {
-    if (Side == EBubbleStackSide::Me)
+    if (Side == EMessageSide::Me)
     {
         UserTextBlock->SetVisibility(ESlateVisibility::Collapsed);
         MessageStateIconImage->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
 
         MessageStateIconImage->SetBrushFromTexture(GetStatusIcon(), true);
     }
-    else if (Side == EBubbleStackSide::You)
+    else if (Side == EMessageSide::You)
     {
         UserTextBlock->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
         MessageStateIconImage->SetVisibility(ESlateVisibility::Collapsed);
@@ -30,11 +30,11 @@ void UTimestampWidget::OnSetup()
     for (UPanelSlot* PanelSlot : OuterOverlay->GetSlots())
     {
         UOverlaySlot* OverlaySlot = CastChecked<UOverlaySlot>(PanelSlot);
-        if (Side == EBubbleStackSide::Me)
+        if (Side == EMessageSide::Me)
         {
             OverlaySlot->SetHorizontalAlignment(HAlign_Right);
         }
-        else if (Side == EBubbleStackSide::You)
+        else if (Side == EMessageSide::You)
         {
             OverlaySlot->SetHorizontalAlignment(HAlign_Left);
         }

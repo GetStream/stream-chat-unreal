@@ -9,10 +9,7 @@ UMessageWidget::UMessageWidget(const FObjectInitializer& ObjectInitializer) : Su
     UUserWidget::SetVisibility(ESlateVisibility::Visible);
 }
 
-void UMessageWidget::Setup(
-    const FMessage& InMessage,
-    const EBubbleStackSide InSide,
-    const EBubbleStackPosition InPosition)
+void UMessageWidget::Setup(const FMessage& InMessage, const EMessageSide InSide, const EBubbleStackPosition InPosition)
 {
     Message = InMessage;
     Side = InSide;
@@ -26,12 +23,12 @@ void UMessageWidget::OnSetup()
     // Changing the order of elements in a panel doesn't seem to work in PreConstruct.
     if (UPanelWidget* HoverMenuParent = Cast<UPanelWidget>(HoverMenuTargetPanel->GetParent()))
     {
-        if (Side == EBubbleStackSide::Me)
+        if (Side == EMessageSide::Me)
         {
             HoverMenuParent->ReplaceChildAt(0, HoverMenuTargetPanel);
             HoverMenuParent->ReplaceChildAt(1, TextBubble);
         }
-        else if (Side == EBubbleStackSide::You)
+        else if (Side == EMessageSide::You)
         {
             HoverMenuParent->ReplaceChildAt(0, TextBubble);
             HoverMenuParent->ReplaceChildAt(1, HoverMenuTargetPanel);
@@ -41,11 +38,11 @@ void UMessageWidget::OnSetup()
     for (UPanelSlot* PanelSlot : OuterOverlay->GetSlots())
     {
         UOverlaySlot* OverlaySlot = CastChecked<UOverlaySlot>(PanelSlot);
-        if (Side == EBubbleStackSide::Me)
+        if (Side == EMessageSide::Me)
         {
             OverlaySlot->SetHorizontalAlignment(HAlign_Right);
         }
-        else if (Side == EBubbleStackSide::You)
+        else if (Side == EMessageSide::You)
         {
             OverlaySlot->SetHorizontalAlignment(HAlign_Left);
         }
@@ -59,15 +56,26 @@ void UMessageWidget::OnSetup()
 
 void UMessageWidget::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
-    MouseHoverMenu = CreateWidget<UMessageHoverMenuWidget>(this, MouseHoverMenuWidgetClass);
-    MouseHoverMenu->Setup(Message, Side);
-    HoverMenuTargetPanel->SetContent(MouseHoverMenu);
+    if (ShouldDisplayHoverMenu())
+    {
+        MouseHoverMenu = CreateWidget<UMessageHoverMenuWidget>(this, MouseHoverMenuWidgetClass);
+        MouseHoverMenu->Setup(Message, Side);
+        HoverMenuTargetPanel->SetContent(MouseHoverMenu);
+    }
     Super::NativeOnMouseEnter(InGeometry, InMouseEvent);
 }
 
 void UMessageWidget::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 {
-    MouseHoverMenu->RemoveFromParent();
-    MouseHoverMenu = nullptr;
+    if (MouseHoverMenu)
+    {
+        MouseHoverMenu->RemoveFromParent();
+        MouseHoverMenu = nullptr;
+    }
     Super::NativeOnMouseLeave(InMouseEvent);
+}
+
+bool UMessageWidget::ShouldDisplayHoverMenu() const
+{
+    return Message.Type != EMessageType::Deleted;
 }

@@ -1,6 +1,6 @@
 ﻿#include "Message/TextBubbleWidget.h"
 
-void UTextBubbleWidget::Setup(const FMessage& InMessage, EBubbleStackSide InSide, EBubbleStackPosition InPosition)
+void UTextBubbleWidget::Setup(const FMessage& InMessage, EMessageSide InSide, EBubbleStackPosition InPosition)
 {
     Message = InMessage;
     Side = InSide;
@@ -28,9 +28,9 @@ UTexture2D* UTextBubbleWidget::GetBubbleTexture() const
         {
             switch (Side)
             {
-                case EBubbleStackSide::You:
+                case EMessageSide::You:
                     return YouOpeningTexture;
-                case EBubbleStackSide::Me:
+                case EMessageSide::Me:
                     return MaskOpeningTexture;
             }
         }
@@ -38,9 +38,9 @@ UTexture2D* UTextBubbleWidget::GetBubbleTexture() const
         {
             switch (Side)
             {
-                case EBubbleStackSide::You:
+                case EMessageSide::You:
                     return YouEndTexture;
-                case EBubbleStackSide::Me:
+                case EMessageSide::Me:
                     return MaskEndTexture;
             }
         }
@@ -54,7 +54,7 @@ const FLinearColor& UTextBubbleWidget::GetBubbleColor() const
     {
         return DeletedBubbleColor;
     }
-    if (Side == EBubbleStackSide::Me)
+    if (Side == EMessageSide::Me)
     {
         return MeBubbleColor;
     }

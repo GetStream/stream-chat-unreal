@@ -2,11 +2,11 @@
 
 #include "CoreMinimal.h"
 
-#include "BubbleStackSide.generated.h"
+#include "MessageSide.generated.h"
 
 UENUM(BlueprintType)
 
-enum class EBubbleStackSide : uint8
+enum class EMessageSide : uint8
 {
     // Left
     You,

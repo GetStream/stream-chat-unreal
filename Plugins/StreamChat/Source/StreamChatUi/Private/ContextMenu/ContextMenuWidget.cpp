@@ -1,6 +1,6 @@
 ﻿#include "ContextMenu/ContextMenuWidget.h"
 
-void UContextMenuWidget::Setup(const FMessage& InMessage, const EBubbleStackSide InSide)
+void UContextMenuWidget::Setup(const FMessage& InMessage, const EMessageSide InSide)
 {
     Message = InMessage;
     Side = InSide;
@@ -25,13 +25,15 @@ void UContextMenuWidget::OnSetup()
     // Spawn buttons
     ButtonsPanel->ClearChildren();
 
-    const TArray<UContextMenuAction*>& Actions = MenuActions.FindOrAdd(Side).Actions;
-    const int32 LastIndex = Actions.Num() - 1;
-    for (int32 Index = 0; Index < Actions.Num(); ++Index)
+    TArray<UContextMenuAction*> DisplayedActions = Actions.FilterByPredicate(
+        [&](const UContextMenuAction* Action) { return Action->ShouldDisplay(Side, Message); });
+
+    const int32 LastIndex = DisplayedActions.Num() - 1;
+    for (int32 Index = 0; Index < DisplayedActions.Num(); ++Index)
     {
         const EContextMenuButtonPosition Position = Index == 0           ? EContextMenuButtonPosition::Top
                                                     : Index == LastIndex ? EContextMenuButtonPosition::Bottom
                                                                          : EContextMenuButtonPosition::Mid;
-        AddButton(Actions[Index], Position);
+        AddButton(DisplayedActions[Index], Position);
     }
 }
