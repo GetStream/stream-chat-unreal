@@ -39,7 +39,7 @@ void UMessageHoverMenuWidget::OnOptionsButtonClicked()
     UContextMenuWidget* Widget = CreateWidget<UContextMenuWidget>(this, ContextMenuWidgetClass);
     Widget->Setup(Message, Side);
     static constexpr bool bFocusImmediately = true;
-    TSharedPtr<IMenu> ContextMenu = FSlateApplication::Get().PushMenu(
+    const TSharedPtr<IMenu> ContextMenu = FSlateApplication::Get().PushMenu(
         TakeWidget(),
         {},
         Widget->TakeWidget(),

@@ -2,9 +2,9 @@
 
 #pragma once
 
-#include "StreamChatClientComponent.h"
 #include "ContextWidget.h"
 #include "CoreMinimal.h"
+#include "StreamChatClientComponent.h"
 
 #include "ClientContextWidget.generated.h"
 
