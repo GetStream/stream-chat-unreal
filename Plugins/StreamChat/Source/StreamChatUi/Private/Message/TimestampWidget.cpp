@@ -7,7 +7,7 @@ void UTimestampWidget::Setup(const FMessage& InMessage, const EBubbleStackSide I
     Message = InMessage;
     Side = InSide;
 
-    OnSetup();
+    Super::Setup();
 }
 
 void UTimestampWidget::OnSetup()

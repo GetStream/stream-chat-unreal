@@ -24,8 +24,6 @@ public:
     void Setup(const FMessage& InMessage, EBubbleStackSide InSide);
 
 protected:
-    virtual void OnSetup() override;
-
     UPROPERTY(meta = (BindWidget))
     UPanelWidget* ButtonGroup;
 
@@ -42,6 +40,8 @@ protected:
     TSubclassOf<UContextMenuWidget> ContextMenuWidgetClass = UContextMenuWidget::StaticClass();
 
 private:
+    virtual void OnSetup() override;
+
     UFUNCTION()
     void OnOptionsButtonClicked();
     UFUNCTION()

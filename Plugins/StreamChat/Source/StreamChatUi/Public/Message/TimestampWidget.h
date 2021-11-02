@@ -24,8 +24,6 @@ public:
     void Setup(const FMessage& InMessage, EBubbleStackSide InSide);
 
 protected:
-    virtual void OnSetup() override;
-
     UPROPERTY(meta = (BindWidget))
     UOverlay* OuterOverlay;
 
@@ -48,6 +46,8 @@ protected:
     UTexture2D* IconCheckAll;
 
 private:
+    virtual void OnSetup() override;
+
     UTexture2D* GetStatusIcon() const;
     FText GetTimestampText() const;
     static FText GetDayOfWeek(const FDateTime&);

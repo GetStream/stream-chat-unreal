@@ -25,8 +25,6 @@ public:
     void Setup(const TArray<FMessage>& InMessages, EBubbleStackSide InSide);
 
 protected:
-    virtual void OnSetup() override;
-
     UPROPERTY(meta = (BindWidget))
     UVerticalBox* MessagesPanel;
 
@@ -37,6 +35,8 @@ protected:
     TSubclassOf<UMessageWidget> MessageWidgetClass = UMessageWidget::StaticClass();
 
 private:
+    virtual void OnSetup() override;
+
     UPROPERTY(EditAnywhere, Category = Defaults)
     TArray<FMessage> Messages;
 

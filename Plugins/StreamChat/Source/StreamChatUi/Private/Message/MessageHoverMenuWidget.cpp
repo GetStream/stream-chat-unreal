@@ -8,7 +8,7 @@ void UMessageHoverMenuWidget::Setup(const FMessage& InMessage, const EBubbleStac
     Message = InMessage;
     Side = InSide;
 
-    OnSetup();
+    Super::Setup();
 }
 
 void UMessageHoverMenuWidget::OnSetup()
@@ -35,15 +35,18 @@ void UMessageHoverMenuWidget::OnSetup()
 
 void UMessageHoverMenuWidget::OnOptionsButtonClicked()
 {
-    UWidget* Widget = CreateWidget(this, ContextMenuWidgetClass);
+    const FVector2D Location = FSlateApplication::Get().GetCursorPos();
+    UContextMenuWidget* Widget = CreateWidget<UContextMenuWidget>(this, ContextMenuWidgetClass);
+    Widget->Setup(Message, Side);
     static constexpr bool bFocusImmediately = true;
     TSharedPtr<IMenu> ContextMenu = FSlateApplication::Get().PushMenu(
         TakeWidget(),
         {},
         Widget->TakeWidget(),
-        OptionsButton->GetCachedGeometry().GetAbsolutePosition(),
+        Location,
         FPopupTransitionEffect(FPopupTransitionEffect::ContextMenu),
         bFocusImmediately);
+    ensure(ContextMenu.IsValid());
 }
 
 void UMessageHoverMenuWidget::OnReactionButtonClicked()

@@ -17,7 +17,7 @@ struct FContextMenuActions
 {
     GENERATED_BODY()
 
-    UPROPERTY(EditAnywhere, Instanced, meta = (TitleProperty = Label))
+    UPROPERTY(EditAnywhere, Instanced, Category = Defaults, meta = (TitleProperty = Label))
     TArray<UContextMenuAction*> Actions;
 };
 
@@ -31,11 +31,9 @@ class STREAMCHATUI_API UContextMenuWidget final : public UStreamUserWidget
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void Setup(const FMessage& InMessage, EBubbleStackSide Side);
+    void Setup(const FMessage& InMessage, EBubbleStackSide InSide);
 
 protected:
-    virtual void OnSetup() override;
-
     UPROPERTY(meta = (BindWidget))
     UVerticalBox* ButtonsPanel;
 
@@ -46,6 +44,7 @@ protected:
     TSubclassOf<UContextMenuButtonWidget> ContextMenuButtonWidgetClass = UContextMenuButtonWidget::StaticClass();
 
 private:
+    virtual void OnSetup() override;
     void AddButton(UContextMenuAction* Action, EContextMenuButtonPosition Position);
 
     UPROPERTY(EditAnywhere, Category = Defaults)

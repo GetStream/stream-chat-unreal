@@ -8,7 +8,7 @@ void UMessageStackWidget::Setup(const TArray<FMessage>& InMessages, const EBubbl
     Messages = InMessages;
     Side = InSide;
 
-    OnSetup();
+    Super::Setup();
 }
 
 void UMessageStackWidget::OnSetup()

@@ -25,8 +25,6 @@ public:
     void Setup(const FMessage& InMessage, EBubbleStackSide InSide, EBubbleStackPosition InPosition);
 
 protected:
-    virtual void OnSetup() override;
-
     UPROPERTY(meta = (BindWidget))
     UTextBlock* TextBlock;
     UPROPERTY(meta = (BindWidget))
@@ -50,6 +48,8 @@ protected:
     FLinearColor DeletedTextColor;
 
 private:
+    virtual void OnSetup() override;
+
     UTexture2D* GetBubbleTexture() const;
     const FLinearColor& GetBubbleColor() const;
     const FLinearColor& GetTextColor() const;

@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "Channel/Message.h"
 #include "Components/Button.h"
 #include "Components/Image.h"
 #include "Components/TextBlock.h"
@@ -31,14 +32,9 @@ class STREAMCHATUI_API UContextMenuButtonWidget final : public UStreamUserWidget
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void Setup(
-        const FMessage& InMessage,
-        EContextMenuButtonPosition InPosition,
-        UContextMenuAction* InAction);
+    void Setup(const FMessage& InMessage, EContextMenuButtonPosition InPosition, UContextMenuAction* InAction);
 
 protected:
-    virtual void OnSetup() override;
-
     UPROPERTY(meta = (BindWidget))
     UButton* Button;
     UPROPERTY(meta = (BindWidget))
@@ -68,6 +64,8 @@ protected:
     FLinearColor NegativeIconColor;
 
 private:
+    virtual void OnSetup() override;
+
     UFUNCTION()
     void OnButtonClicked();
 

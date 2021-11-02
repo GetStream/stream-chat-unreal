@@ -2,9 +2,10 @@
 
 #include "ContextMenu/CopyMessageContextMenuAction.h"
 
+#include "ContextMenu/ContextMenuWidget.h"
 #include "HAL/PlatformApplicationMisc.h"
 
-void UCopyMessageContextMenuAction::OnPerform(const FMessage& Message)
+void UCopyMessageContextMenuAction::OnPerform(const FMessage& Message, UWidget* OwningWidget)
 {
     FPlatformApplicationMisc::ClipboardCopy(*Message.Text);
 }

@@ -25,8 +25,6 @@ public:
     void Setup(const FMessage& InMessage, EBubbleStackSide InSide, EBubbleStackPosition InPosition);
 
 protected:
-    virtual void OnSetup() override;
-
     // Should contain whatever needs to be horizontally aligned
     UPROPERTY(meta = (BindWidget))
     UOverlay* OuterOverlay;
@@ -44,6 +42,8 @@ protected:
     TSubclassOf<UMessageHoverMenuWidget> MouseHoverMenuWidgetClass = UMessageHoverMenuWidget::StaticClass();
 
 private:
+    virtual void OnSetup() override;
+
     virtual void NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
     virtual void NativeOnMouseLeave(const FPointerEvent& InMouseEvent) override;
 

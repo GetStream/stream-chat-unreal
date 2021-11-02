@@ -2,12 +2,16 @@
 
 #include "ContextMenu/ContextMenuAction.h"
 
-void UContextMenuAction::Perform(const FMessage& Message)
+#include "Framework/Application/SlateApplication.h"
+
+void UContextMenuAction::Perform(const FMessage& Message, UWidget* OwningWidget)
 {
-    OnPerform(Message);
-    OnPerformBlueprint(Message);
+    OnPerform(Message, OwningWidget);
+    OnPerformBlueprint(Message, OwningWidget);
+
+    FSlateApplication::Get().DismissMenuByWidget(OwningWidget->TakeWidget());
 }
 
-void UContextMenuAction::OnPerform(const FMessage&)
+void UContextMenuAction::OnPerform(const FMessage&, UWidget*)
 {
 }

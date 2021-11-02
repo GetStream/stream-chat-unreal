@@ -4,10 +4,24 @@
 
 #include "WidgetUtil.h"
 
-UChatChannel* UChannelContextWidget::GetChannel(UWidget* Widget)
+void UChannelContextWidget::Setup(UChatChannel* InChannel)
+{
+    Channel = InChannel;
+}
+
+UChannelContextWidget* UChannelContextWidget::Get(UWidget* Widget)
 {
     if (UChannelContextWidget* ContextWidget = WidgetUtil::GetTypedParentWidget<UChannelContextWidget>(Widget);
         ensureAlwaysMsgf(ContextWidget, TEXT("Need to wrap the channel UI with a ChannelContextWidget")))
+    {
+        return ContextWidget;
+    }
+    return nullptr;
+}
+
+UChatChannel* UChannelContextWidget::GetChannel(UWidget* Widget)
+{
+    if (const UChannelContextWidget* ContextWidget = Get(Widget))
     {
         if (ensureAlwaysMsgf(
                 ContextWidget->Channel, TEXT("ChannelContextWidget needs to be initialized with a ChatChannel")))

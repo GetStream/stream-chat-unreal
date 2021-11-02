@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Channel/Message.h"
+#include "Components/Widget.h"
 #include "CoreMinimal.h"
 #include "Engine/Texture2D.h"
 #include "UObject/NoExportTypes.h"
@@ -32,11 +33,11 @@ public:
     UPROPERTY(EditAnywhere, Category = Visuals)
     EContextMenuButtonStyle Style;
 
-    void Perform(const FMessage&);
+    void Perform(const FMessage&, UWidget* OwningWidget);
 
 protected:
-    virtual void OnPerform(const FMessage&);
+    virtual void OnPerform(const FMessage&, UWidget* OwningWidget);
 
     UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Perform"))
-    void OnPerformBlueprint(const FMessage& Message);
+    void OnPerformBlueprint(const FMessage& Message, UWidget* OwningWidget);
 };

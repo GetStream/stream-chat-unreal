@@ -6,7 +6,7 @@ void UTextBubbleWidget::Setup(const FMessage& InMessage, EBubbleStackSide InSide
     Side = InSide;
     Position = InPosition;
 
-    OnSetup();
+    Super::Setup();
 }
 
 void UTextBubbleWidget::OnSetup()

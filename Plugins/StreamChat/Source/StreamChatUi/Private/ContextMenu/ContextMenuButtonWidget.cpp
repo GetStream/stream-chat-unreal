@@ -12,7 +12,7 @@ void UContextMenuButtonWidget::Setup(
     Position = InPosition;
     Action = InAction;
 
-    OnSetup();
+    Super::Setup();
 }
 
 void UContextMenuButtonWidget::OnSetup()
@@ -67,7 +67,7 @@ void UContextMenuButtonWidget::OnButtonClicked()
 {
     if (Action)
     {
-        Action->Perform(Message);
+        Action->Perform(Message, this);
     }
 }
 

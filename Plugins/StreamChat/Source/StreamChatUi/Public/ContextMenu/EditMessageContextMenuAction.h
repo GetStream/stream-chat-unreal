@@ -16,5 +16,5 @@ class STREAMCHATUI_API UEditMessageContextMenuAction final : public UContextMenu
     GENERATED_BODY()
 
 protected:
-    virtual void OnPerform(const FMessage&) override;
+    virtual void OnPerform(const FMessage&, UWidget* OwningWidget) override;
 };

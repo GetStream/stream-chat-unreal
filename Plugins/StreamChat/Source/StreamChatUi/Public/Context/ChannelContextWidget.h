@@ -8,6 +8,8 @@
 
 #include "ChannelContextWidget.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FStartEditMessageDelegate, const FMessage&, Message);
+
 /**
  *
  */
@@ -17,7 +19,16 @@ class STREAMCHATUI_API UChannelContextWidget final : public UContextWidget
     GENERATED_BODY()
 
 public:
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat")
+    void Setup(UChatChannel* InChannel);
+
+    static UChannelContextWidget* Get(UWidget* Widget);
     static UChatChannel* GetChannel(UWidget* Widget);
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat")
+
+    UPROPERTY(BlueprintAssignable)
+    FStartEditMessageDelegate OnStartEditMessage;
+
+private:
+    UPROPERTY(Transient)
     UChatChannel* Channel;
 };

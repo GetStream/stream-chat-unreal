@@ -18,7 +18,7 @@ void UMessageWidget::Setup(
     Side = InSide;
     Position = InPosition;
 
-    OnSetup();
+    Super::Setup();
 }
 
 void UMessageWidget::OnSetup()

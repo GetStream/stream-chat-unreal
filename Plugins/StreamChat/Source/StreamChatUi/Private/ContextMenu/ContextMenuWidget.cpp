@@ -4,6 +4,8 @@ void UContextMenuWidget::Setup(const FMessage& InMessage, const EBubbleStackSide
 {
     Message = InMessage;
     Side = InSide;
+
+    Super::Setup();
 }
 
 void UContextMenuWidget::AddButton(UContextMenuAction* Action, const EContextMenuButtonPosition Position)

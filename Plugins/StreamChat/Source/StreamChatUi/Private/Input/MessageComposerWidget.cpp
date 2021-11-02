@@ -28,8 +28,17 @@ void UMessageComposerWidget::NativeOnInitialized()
 
 void UMessageComposerWidget::NativeConstruct()
 {
+    // Can only find the ChannelContextWidget once this widget is added to the UI hierarchy (Construct)
+    UChannelContextWidget::Get(this)->OnStartEditMessage.AddDynamic(this, &UMessageComposerWidget::EditMessage);
+
     MessageInput->SetKeyboardFocus();
     Super::NativeConstruct();
+}
+
+void UMessageComposerWidget::NativeDestruct()
+{
+    UChannelContextWidget::Get(this)->OnStartEditMessage.RemoveDynamic(this, &UMessageComposerWidget::EditMessage);
+    Super::NativeDestruct();
 }
 
 void UMessageComposerWidget::EditMessage(const FMessage& Message)
