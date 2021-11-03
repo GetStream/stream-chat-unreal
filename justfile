@@ -18,4 +18,4 @@ test:
 
 # Convert svg assets to pngs
 convert-svg:
-    for f in $(find Content -name '*.svg'); do echo "$f"; inkscape "$f" -o "${f%.svg}.png" & done
+    for f in $(find Plugins/StreamChat -name '*.svg'); do echo "$f"; inkscape "$f" -o "${f%.svg}.png" & done
