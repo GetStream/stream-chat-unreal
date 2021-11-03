@@ -1,0 +1,8 @@
+<svg width="34" height="40">
+	<circle cx="17" cy="17" r="17" fill="#DBDDE1" />
+	<circle cx="7" cy="31" r="5" fill="#DBDDE1" />
+	<circle cx="3" cy="37" r="3" fill="#DBDDE1" />
+	<circle cx="17" cy="17" r="16" fill="#fff" />
+	<circle cx="7" cy="31" r="4" fill="#fff" />
+	<circle cx="3" cy="37" r="2" fill="#fff" />
+</svg>
