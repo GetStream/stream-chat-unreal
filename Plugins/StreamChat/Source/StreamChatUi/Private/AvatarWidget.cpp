@@ -3,6 +3,7 @@
 #include "AvatarWidget.h"
 
 #include "Engine/Texture2DDynamic.h"
+#include "Materials/MaterialInstanceDynamic.h"
 #include "WidgetUtil.h"
 
 namespace

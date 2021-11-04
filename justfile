@@ -9,7 +9,7 @@ build-project:
     ue4 build --NoPCH -NoSharedPCH -DisableUnity
 
 # Build the StreamChat plugin
-build-plugin:
+build:
     cd Plugins/StreamChat && ue4 build --NoPCH -NoSharedPCH -DisableUnity
 
 # Run unit tests

@@ -6,6 +6,7 @@
 #include "IImageWrapperModule.h"
 #include "Interfaces/IHttpRequest.h"
 #include "Interfaces/IHttpResponse.h"
+#include "Modules/ModuleManager.h"
 
 UWidget* WidgetUtil::GetTypedParentWidget(UWidget* Widget, const TSubclassOf<UWidget> Type)
 
