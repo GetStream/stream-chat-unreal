@@ -32,6 +32,8 @@ protected:
 private:
     virtual void OnSetup() override;
 
+    static FLinearColor ChooseColorForString(const FString&);
+
     UPROPERTY(EditAnywhere, Category = Setup)
     FUser User;
 

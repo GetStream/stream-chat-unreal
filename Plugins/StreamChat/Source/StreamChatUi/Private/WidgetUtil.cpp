@@ -135,3 +135,11 @@ void WidgetUtil::DownloadImage(const FString& Url, TFunction<void(UTexture2DDyna
     HttpRequest->SetVerb(TEXT("GET"));
     HttpRequest->ProcessRequest();
 }
+
+uint32 WidgetUtil::HashStringWithMax(const FString& String, const uint32 Max)
+{
+    const uint32 Hash = GetTypeHash(String);
+    const uint32 Reduced = Hash & (Max - 1);
+    check(Reduced < Max);
+    return Reduced;
+}
