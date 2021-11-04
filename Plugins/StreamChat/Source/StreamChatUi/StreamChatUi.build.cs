@@ -10,7 +10,10 @@ public class StreamChatUi : ModuleRules
         PrivateDependencyModuleNames.AddRange(new[] {
             "Slate",
             "InputCore",
-            "ApplicationCore"
+            "ApplicationCore",
+            "RHI",
+            "RenderCore",
+            "Http"
         });
 
         PublicDependencyModuleNames.AddRange(new[] {

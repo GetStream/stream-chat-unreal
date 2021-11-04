@@ -17,5 +17,13 @@ struct STREAMCHATDTO_API FUserObjectDto
     UPROPERTY()
     FString Id;
 
+    // Not in the API spec, but common
+    UPROPERTY()
+    FString Name;
+
+    // Not in the API spec, but common
+    UPROPERTY()
+    FString Image;
+
     // TODO rest of the fields
 };

@@ -13,4 +13,6 @@ T* GetTypedParentWidget(UWidget* Widget)
     static_assert(TIsDerivedFrom<T, UWidget>::IsDerived, "T must be derived from UWidget");
     return static_cast<T*>(GetTypedParentWidget(Widget, T::StaticClass()));
 }
+
+void DownloadImage(const FString& Url, TFunction<void(UTexture2DDynamic*)>);
 }    // namespace WidgetUtil

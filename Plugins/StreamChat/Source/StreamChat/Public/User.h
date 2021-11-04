@@ -22,6 +22,16 @@ struct STREAMCHAT_API FUser
     explicit FUser(const FUserObjectDto&);
     explicit operator FUserObjectDto() const;
 
+    FString GetInitials(int32 Limit = 2) const;
+
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|User")
     FString Id;
+
+    // Not in the API spec, but common
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|User")
+    FString Name;
+
+    // Not in the API spec, but common
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|User")
+    FString Image;
 };
