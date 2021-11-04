@@ -61,14 +61,14 @@ FText UUiBlueprintLibrary::GetChannelTitle(const UChatChannel* Channel)
                 {
                     Result += TEXT(", ");
                 }
-                Result += M.User.Id;
+                Result += M.User.Name;
             });
         return FText::FromString(Result);
     }
 
     if (const FMember* Member = Channel->State.Members.FindByPredicate(OthersPredicate))
     {
-        return FText::FromString(Member->User.Id);
+        return FText::FromString(Member->User.Name);
     }
 
     return FText::GetEmpty();

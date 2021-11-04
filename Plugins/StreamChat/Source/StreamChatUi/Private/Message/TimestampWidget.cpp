@@ -107,7 +107,7 @@ FText UTimestampWidget::GetDayOfWeek(const FDateTime& DateTime)
         case EDayOfWeek::Wednesday:
             return FText::FromString(TEXT("Wednesday"));
         case EDayOfWeek::Thursday:
-            return FText::FromString(TEXT("Thurday"));
+            return FText::FromString(TEXT("Thursday"));
         case EDayOfWeek::Friday:
             return FText::FromString(TEXT("Friday"));
         case EDayOfWeek::Saturday:

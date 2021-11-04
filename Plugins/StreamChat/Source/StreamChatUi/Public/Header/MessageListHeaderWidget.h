@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "AvatarWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "CoreMinimal.h"
 #include "HeaderWidget.h"
@@ -20,9 +21,13 @@ class STREAMCHATUI_API UMessageListHeaderWidget final : public UUserWidget
     GENERATED_BODY()
 
 public:
+    virtual void NativeOnInitialized() override;
     virtual void NativeConstruct() override;
 
 protected:
     UPROPERTY(meta = (BindWidget))
     UHeaderWidget* Header;
+
+    UPROPERTY(meta = (BindWidget))
+    UAvatarWidget* Avatar;
 };

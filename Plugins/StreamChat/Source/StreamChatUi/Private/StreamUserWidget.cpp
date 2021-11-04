@@ -3,7 +3,6 @@
 void UStreamUserWidget::Setup()
 {
     OnSetup();
-    bSetupCalled = true;
 }
 
 bool UStreamUserWidget::Initialize()
@@ -18,13 +17,4 @@ bool UStreamUserWidget::Initialize()
     }
 
     return false;
-}
-
-void UStreamUserWidget::NativeConstruct()
-{
-    Super::NativeConstruct();
-    ensureMsgf(
-        bSetupCalled,
-        TEXT(
-            "You either forgot to call USuper::Setup() in your Setup(...) method, or you forgot to call Setup(...) after CreateWidget()"));
 }
