@@ -2,11 +2,11 @@
 
 #pragma once
 
+#include "Channel/Message.h"
 #include "CoreMinimal.h"
+#include "Message/MessageSide.h"
 #include "ReactionsBubbleWidget.h"
 #include "StreamUserWidget.h"
-#include "Channel/Message.h"
-#include "Message/MessageSide.h"
 
 #include "MessageReactionsWidget.generated.h"
 
@@ -38,7 +38,7 @@ protected:
 private:
     virtual void OnSetup() override;
 
-     TSubclassOf<UReactionsBubbleWidget> GetReactionsBubbleWidgetClass() const;
+    TSubclassOf<UReactionsBubbleWidget> GetReactionsBubbleWidgetClass() const;
 
     UPROPERTY(EditAnywhere, Category = Setup)
     FMessage Message;

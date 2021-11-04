@@ -2,9 +2,10 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "CoreMinimal.h"
 #include "HeaderWidget.h"
+
 #include "MessageListHeaderWidget.generated.h"
 
 class UChatChannel;
@@ -16,7 +17,7 @@ class UChatChannel;
 UCLASS()
 class STREAMCHATUI_API UMessageListHeaderWidget final : public UUserWidget
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:
     virtual void NativeConstruct() override;

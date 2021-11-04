@@ -18,5 +18,4 @@ class STREAMCHATUI_API UReactionsBubbleWidget final : public UUserWidget
 protected:
     UPROPERTY(meta = (BindWidget))
     UNamedSlot* ReactionsSlot;
-
 };

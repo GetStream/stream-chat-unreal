@@ -2,10 +2,11 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "StreamUserWidget.h"
 #include "Channel/ChatChannel.h"
 #include "Context/ChannelContextWidget.h"
+#include "CoreMinimal.h"
+#include "StreamUserWidget.h"
+
 #include "ChannelWidget.generated.h"
 
 /**
@@ -14,7 +15,7 @@
 UCLASS()
 class STREAMCHATUI_API UChannelWidget : public UStreamUserWidget
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
