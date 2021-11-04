@@ -42,7 +42,4 @@ private:
 
     UPROPERTY(EditAnywhere, Category = Setup)
     FName MaterialTextureParameterName = TEXT("Texture");
-
-    UPROPERTY(Transient)
-    UTexture2D* Texture;
 };
