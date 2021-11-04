@@ -1,9 +1,11 @@
 ﻿#include "Message/MessageListWidget.h"
 
+#include "Channel/ChatChannel.h"
 #include "Context/ChannelContextWidget.h"
 
 void UMessageListWidget::CreateMessageStackWidgets(const TArray<FMessage> Messages)
 {
+    const UChatChannel* Channel = UChannelContextWidget::GetChannel(this);
     ScrollBox->ClearChildren();
 
     const FString CurrentUserId = Channel->CurrentUser.Id;

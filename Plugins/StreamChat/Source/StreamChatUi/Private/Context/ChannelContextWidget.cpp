@@ -21,6 +21,11 @@ UChannelContextWidget* UChannelContextWidget::Get(UWidget* Widget)
 
 UChatChannel* UChannelContextWidget::GetChannel(UWidget* Widget)
 {
+    if (!Widget || Widget->IsDesignTime())
+    {
+        return nullptr;
+    }
+
     if (const UChannelContextWidget* ContextWidget = Get(Widget))
     {
         if (ensureAlwaysMsgf(

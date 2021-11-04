@@ -2,9 +2,10 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/TextBlock.h"
+#include "CoreMinimal.h"
+
 #include "HeaderWidget.generated.h"
 
 /**
@@ -14,15 +15,13 @@
 UCLASS()
 class STREAMCHATUI_API UHeaderWidget : public UUserWidget
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
+
 public:
     virtual void NativeOnInitialized() override;
 
-    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FGetTitleDelegate, FText&, Title);
-    UPROPERTY(BlueprintAssignable)
-    FGetTitleDelegate OnGetTitle;
-    DECLARE_DELEGATE_RetVal(FText, FNativeGetTitleDelegate);
-    FNativeGetTitleDelegate OnNativeGetTitle;
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat")
+    void SetTitle(const FText& InTitle);
 
 protected:
     UPROPERTY(meta = (BindWidget))
@@ -38,8 +37,5 @@ protected:
     UNamedSlot* RightSlot;
 
     UPROPERTY(EditAnywhere, Category = Defaults)
-    FText DefaultTitle;
-
-private:
-    FText GetTitleText() const;
+    FText Title;
 };

@@ -2,7 +2,7 @@
 
 #include "Reaction/MessageReactionsWidget.h"
 
-void UMessageReactionsWidget::Setup(const FMessage& InMessage, EMessageSide InSide)
+void UMessageReactionsWidget::Setup(const FMessage& InMessage, const EMessageSide InSide)
 {
     ensureMsgf(InMessage.Reactions.IsEmpty(), TEXT("Creating ReactionsWidget from message with no reactions"));
 
@@ -12,7 +12,9 @@ void UMessageReactionsWidget::Setup(const FMessage& InMessage, EMessageSide InSi
     Super::Setup();
 }
 
-void UMessageReactionsWidget::OnSetup(){CreateWidget<UReactionsBubbleWidget>(this, )}
+void UMessageReactionsWidget::OnSetup()
+{
+}
 
 TSubclassOf<UReactionsBubbleWidget> UMessageReactionsWidget::GetReactionsBubbleWidgetClass() const
 {
@@ -25,4 +27,5 @@ TSubclassOf<UReactionsBubbleWidget> UMessageReactionsWidget::GetReactionsBubbleW
     else if (Side == EMessageSide::You)
     {
     }
+    return nullptr;
 }

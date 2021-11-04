@@ -3,7 +3,6 @@
 #pragma once
 
 #include "Blueprint/UserWidget.h"
-#include "Channel/ChatChannel.h"
 #include "Channel/Message.h"
 #include "Components/ScrollBox.h"
 #include "CoreMinimal.h"
@@ -22,10 +21,6 @@ class STREAMCHATUI_API UMessageListWidget final : public UUserWidget
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void CreateMessageStackWidgets(const TArray<FMessage> Messages);
-
-    // TODO this shouldn't be here
-    UPROPERTY(BlueprintReadWrite, Category = "Stream Chat", meta = (ExposeOnSpawn = true))
-    UChatChannel* Channel;
 
 protected:
     UPROPERTY(meta = (BindWidget))

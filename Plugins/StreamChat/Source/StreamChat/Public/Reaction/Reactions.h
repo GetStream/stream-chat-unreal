@@ -10,7 +10,7 @@ struct FReaction;
 struct FReactionDto;
 
 USTRUCT(BlueprintType)
-struct FReactions
+struct STREAMCHAT_API FReactions
 {
     GENERATED_BODY()
 

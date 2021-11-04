@@ -1,6 +1,15 @@
 #include "Header/MessageListHeaderWidget.h"
 
-void UMessageListHeaderWidget::NativeOnInitialized()
+#include "Context/ChannelContextWidget.h"
+#include "UiBlueprintLibrary.h"
+
+void UMessageListHeaderWidget::NativeConstruct()
 {
-    Super::NativeOnInitialized();
+    if (const UChatChannel* Channel = UChannelContextWidget::GetChannel(this))
+    {
+        const FText Title = UUiBlueprintLibrary::GetChannelTitle(Channel);
+        Header->SetTitle(Title);
+    }
+
+    Super::NativeConstruct();
 }

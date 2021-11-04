@@ -1,6 +1,5 @@
 // Copyright Stream.IO, Inc. All Rights Reserved.
 
-
 #include "Header/HeaderWidget.h"
 
 #include "Components/NamedSlot.h"
@@ -12,23 +11,13 @@ void UHeaderWidget::NativeOnInitialized()
         SubtitleSlot->SetVisibility(ESlateVisibility::Collapsed);
     }
 
-    HeaderTitleTextBlock->SetText(GetTitleText());
+    HeaderTitleTextBlock->SetText(Title);
 
     Super::NativeOnInitialized();
 }
 
-FText UHeaderWidget::GetTitleText() const
+void UHeaderWidget::SetTitle(const FText& InTitle)
 {
-    if (OnNativeGetTitle.IsBound())
-    {
-        return OnNativeGetTitle.Execute();
-    }
-    if (OnGetTitle.IsBound())
-    {
-        FText TitleText;
-        OnGetTitle.Broadcast(TitleText);
-        return TitleText;
-    }
-
-    return DefaultTitle;
+    Title = InTitle;
+    HeaderTitleTextBlock->SetText(Title);
 }
