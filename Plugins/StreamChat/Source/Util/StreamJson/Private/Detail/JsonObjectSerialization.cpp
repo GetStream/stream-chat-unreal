@@ -43,7 +43,7 @@ TSharedPtr<FJsonValue> ApplyNamingConventionToValue(
             return MakeShared<FJsonValueString>(OutValueStr);
         }
 
-        TSharedRef<FJsonObject> Out = Json::UStructToJsonObject(StructProperty->Struct, Value, NamingConvention);
+        TSharedRef<FJsonObject> Out = JsonObject::UStructToJsonObject(StructProperty->Struct, Value, NamingConvention);
         return MakeShared<FJsonValueObject>(Out);
     }
     return nullptr;

@@ -182,6 +182,6 @@ void FChatApi::SendChannelEvent(
     const TCallback<FEventResponseDto> Callback)
 {
     FJsonObjectWrapper JsonObjectWrapper;
-    JsonObjectWrapper.JsonObject = Json::UStructToJsonObject<TEvent>(Event);
+    JsonObjectWrapper.JsonObject = JsonObject::UStructToJsonObject<TEvent>(Event);
     SendChannelEventInternal(ChannelType, ChannelId, JsonObjectWrapper, Callback);
 }

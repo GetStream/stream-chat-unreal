@@ -1,11 +1,11 @@
 ﻿#include "Request/Channel/QueryChannelsRequestDto.h"
 
-#include "StreamJson.h"
+#include "StreamJsonField.h"
 
 void FQueryChannelsRequestDto::SerializeExtra(const FQueryChannelsRequestDto& Self, FJsonObject& JsonObject)
 {
-    Json::SerializeField(Self.MemberLimit, TEXT("member_limit"), JsonObject);
-    Json::SerializeField(Self.MessageLimit, TEXT("message_limit"), JsonObject);
-    Json::SerializeField(Self.Limit, TEXT("limit"), JsonObject);
-    Json::SerializeField(Self.Offset, TEXT("offset"), JsonObject);
+    JsonField::Serialize(Self.MemberLimit, TEXT("member_limit"), JsonObject);
+    JsonField::Serialize(Self.MessageLimit, TEXT("message_limit"), JsonObject);
+    JsonField::Serialize(Self.Limit, TEXT("limit"), JsonObject);
+    JsonField::Serialize(Self.Offset, TEXT("offset"), JsonObject);
 }

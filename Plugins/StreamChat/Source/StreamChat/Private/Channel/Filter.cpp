@@ -78,7 +78,7 @@ FJsonObjectWrapper FFilter::ToJsonObjectWrapper() const
 
 FString FFilter::ToJson() const
 {
-    return Json::JsonObjectToString(ToJsonObject().ToSharedRef());
+    return JsonObject::JsonObjectToString(ToJsonObject().ToSharedRef());
 }
 
 FFilter FFilter::And(const TArray<FFilter>& Filters)

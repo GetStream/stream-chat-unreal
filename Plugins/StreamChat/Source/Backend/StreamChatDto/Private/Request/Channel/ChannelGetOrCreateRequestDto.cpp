@@ -1,10 +1,10 @@
 ﻿#include "Request/Channel/ChannelGetOrCreateRequestDto.h"
 
-#include "StreamJson.h"
+#include "StreamJsonField.h"
 
 void FChannelGetOrCreateRequestDto::SerializeExtra(const FChannelGetOrCreateRequestDto& Self, FJsonObject& JsonObject)
 {
-    Json::SerializeField(Self.Members, TEXT("members"), JsonObject);
-    Json::SerializeField(Self.Messages, TEXT("messages"), JsonObject);
-    Json::SerializeField(Self.Watchers, TEXT("watchers"), JsonObject);
+    JsonField::Serialize(Self.Members, TEXT("members"), JsonObject);
+    JsonField::Serialize(Self.Messages, TEXT("messages"), JsonObject);
+    JsonField::Serialize(Self.Watchers, TEXT("watchers"), JsonObject);
 }
