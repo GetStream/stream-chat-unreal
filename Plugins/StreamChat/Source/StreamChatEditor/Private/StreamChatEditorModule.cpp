@@ -52,8 +52,8 @@ void FStreamChatEditorModule::RegisterSettings()
             "Project",
             SettingsCategoryName,
             WebSocketSectionName,
-            LOCTEXT("GeneralSettingsSectionName", "WebSocket"),
-            LOCTEXT("GeneralSettingsSectionDescription", "WebSocket settings for the Stream Chat plugin"),
+            LOCTEXT("WebSocketSettingsSectionName", "WebSocket"),
+            LOCTEXT("WebSocketSettingsSectionDescription", "WebSocket settings for the Stream Chat plugin"),
             GetMutableDefault<UStreamChatWebSocketSettings>());
     }
 }
