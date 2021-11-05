@@ -26,6 +26,6 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UScrollBox* ScrollBox;
 
-    UPROPERTY(EditDefaultsOnly, NoClear, Category = "Timestamp")
+    UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
     TSubclassOf<UMessageStackWidget> MessageStackWidgetClass = UMessageStackWidget::StaticClass();
 };
