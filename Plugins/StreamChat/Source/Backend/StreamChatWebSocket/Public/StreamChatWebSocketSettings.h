@@ -17,14 +17,14 @@ class STREAMCHATWEBSOCKET_API UStreamChatWebSocketSettings final : public UObjec
 
 public:
     /// How frequently the backend is pinged to keep the WebSocket connection alive in seconds
-    UPROPERTY(EditAnywhere, Category = "Stream Chat|Settings|WebSocket")
+    UPROPERTY(EditAnywhere, Category = "WebSocket")
     float KeepAliveInterval = 20.f;
 
     /// How frequently the WebSocket connection is verified and reconnected if necessary
-    UPROPERTY(EditAnywhere, Category = "Stream Chat|Settings|WebSocket")
+    UPROPERTY(EditAnywhere, Category = "WebSocket")
     float CheckReconnectInterval = 10.f;
 
     /// If nothing has been received in the WebSocket for this duration, a reconnection is necessary
-    UPROPERTY(EditAnywhere, Category = "Stream Chat|Settings|WebSocket")
+    UPROPERTY(EditAnywhere, Category = "WebSocket")
     float ReconnectionTimeout = 40.f;
 };

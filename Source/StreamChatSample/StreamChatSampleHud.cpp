@@ -8,16 +8,16 @@
 AStreamChatSampleHud::AStreamChatSampleHud()
 {
     Client = CreateDefaultSubobject<UStreamChatClientComponent>(TEXT("Client"));
-    Client->ApiKey = TEXT("kmajgxb2rk4p");
+    Client->ApiKey = TEXT("qx5us2v6xvmh");
 }
 
 void AStreamChatSampleHud::BeginPlay()
 {
     Super::BeginPlay();
 
-    const FUser User{TEXT("tutorial-unreal")};
+    const FUser User{TEXT("tommaso")};
     const FString Token{TEXT(
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidHV0b3JpYWwtdW5yZWFsIn0.EBRZ81XroGtR4boK7BF1UzHxhuuHPqvy0e7noNx5fj4")};
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidG9tbWFzbyJ9.lNaWC2Opyq6gmV50a2BGxK-5gm5mwCpefnUA30_k9YA")};
     Client->ConnectUser(
         User,
         Token,

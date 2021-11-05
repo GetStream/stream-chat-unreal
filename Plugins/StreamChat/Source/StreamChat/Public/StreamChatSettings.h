@@ -16,6 +16,6 @@ class STREAMCHAT_API UStreamChatSettings final : public UObject
     GENERATED_BODY()
 
 public:
-    UPROPERTY(EditAnywhere, Category = "Stream Chat|Settings")
+    UPROPERTY(EditAnywhere, Category = "General")
     FString Host = TEXT("chat.stream-io-api.com");
 };
