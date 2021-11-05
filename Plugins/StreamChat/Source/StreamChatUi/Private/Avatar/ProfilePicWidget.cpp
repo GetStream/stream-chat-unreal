@@ -1,9 +1,7 @@
 // Copyright Stream.IO, Inc. All Rights Reserved.
 
-#include "AvatarWidget.h"
+#include "Avatar/ProfilePicWidget.h"
 
-#include "Engine/Texture2DDynamic.h"
-#include "Materials/MaterialInstanceDynamic.h"
 #include "WidgetUtil.h"
 
 namespace
@@ -27,28 +25,27 @@ FLinearColor Colors[16] = {
     FColor::FromHex(TEXT("#926D73")),
     FColor::FromHex(TEXT("#6E8B91")),
 };
-
 }    // namespace
 
-void UAvatarWidget::Setup(const FUser& InUser)
+void UProfilePicWidget::Setup(const FUser& InUser)
 {
     User = InUser;
 
     Super::Setup();
 }
 
-void UAvatarWidget::OnSetup()
+void UProfilePicWidget::OnSetup()
 {
     const FString Initials = User.GetInitials();
     if (InitialsTextBlock)
     {
         // Always initialize avatar with initials, until real image downloads
+        // TODO: Cache images
         InitialsTextBlock->SetText(FText::FromString(Initials));
     }
 
     if (Image)
     {
-        Image->SetBrushFromMaterial(Material);
         Image->SetColorAndOpacity(ChooseColorForString(Initials));
 
         if (!User.Image.IsEmpty())
@@ -57,10 +54,7 @@ void UAvatarWidget::OnSetup()
                 User.Image,
                 [this](UTexture2DDynamic* Texture)
                 {
-                    if (UMaterialInstanceDynamic* DynamicMaterialInstance = Image->GetDynamicMaterial())
-                    {
-                        DynamicMaterialInstance->SetTextureParameterValue(MaterialTextureParameterName, Texture);
-                    }
+                    Image->SetBrushFromTextureDynamic(Texture, true);
                     Image->SetColorAndOpacity(FLinearColor::White);
                     if (InitialsTextBlock)
                     {
@@ -71,7 +65,7 @@ void UAvatarWidget::OnSetup()
     }
 }
 
-FLinearColor UAvatarWidget::ChooseColorForString(const FString& String)
+FLinearColor UProfilePicWidget::ChooseColorForString(const FString& String)
 {
     return Colors[WidgetUtil::HashStringWithMax(String, 16)];
 }

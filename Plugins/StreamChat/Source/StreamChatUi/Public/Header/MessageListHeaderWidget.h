@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "AvatarWidget.h"
+#include "Avatar/AvatarWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "Channel/ChatChannel.h"
 #include "CoreMinimal.h"

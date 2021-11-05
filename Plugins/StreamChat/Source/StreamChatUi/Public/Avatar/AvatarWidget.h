@@ -2,9 +2,10 @@
 
 #pragma once
 
+#include "Components/GridPanel.h"
 #include "Components/Image.h"
-#include "Components/TextBlock.h"
 #include "CoreMinimal.h"
+#include "ProfilePicWidget.h"
 #include "StreamUserWidget.h"
 #include "User.h"
 
@@ -20,26 +21,20 @@ class STREAMCHATUI_API UAvatarWidget : public UStreamUserWidget
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void Setup(const FUser& InUser);
+    void Setup(const TArray<FUser>& InUsers);
 
 protected:
     UPROPERTY(meta = (BindWidget))
-    UImage* Image;
+    UGridPanel* Grid;
 
-    UPROPERTY(meta = (BindWidget))
-    UTextBlock* InitialsTextBlock;
+    UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
+    TSubclassOf<UProfilePicWidget> ProfilePicWidgetClass = UProfilePicWidget::StaticClass();
 
 private:
     virtual void OnSetup() override;
-
-    static FLinearColor ChooseColorForString(const FString&);
-
-    UPROPERTY(EditAnywhere, Category = Setup)
-    FUser User;
+    void CreateProfilePics();
+    UProfilePicWidget* CreateProfilePic(const FUser&);
 
     UPROPERTY(EditAnywhere, Category = Setup)
-    UMaterialInterface* Material;
-
-    UPROPERTY(EditAnywhere, Category = Setup)
-    FName MaterialTextureParameterName = TEXT("Texture");
+    TArray<FUser> Users;
 };
