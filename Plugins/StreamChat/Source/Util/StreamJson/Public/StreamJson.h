@@ -6,6 +6,10 @@
 #include "NamingConvention.h"
 #include "UObject/ReflectedTypeAccessors.h"
 
+/**
+ * NOTES:
+ * You can use the Transient UPROPERTY-specifier to skip Serialization while still performing Deserialization.
+ */
 namespace Json
 {
 /**

@@ -24,6 +24,7 @@ struct STREAMCHATDTO_API FChannelMemberDto
     bool bBanned;
 
     /// Role of the member in the channel
+    UPROPERTY()
     FString ChannelRole;
 
     /// Date/time of creation
