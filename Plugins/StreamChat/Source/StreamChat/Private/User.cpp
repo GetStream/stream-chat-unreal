@@ -2,16 +2,23 @@
 
 #include "UserObjectDto.h"
 
-FUser::FUser(const FUserObjectDto& Dto) : Id{Dto.Id}, Name{Dto.Name}, Image{Dto.Image}
+FUser::FUser(const FUserObjectDto& Dto)
+    : Id{Dto.Id}
+    , bOnline{Dto.bOnline}
+    , CreatedAt(Dto.CreatedAt)
+    , UpdatedAt{Dto.UpdatedAt}
+    , LastActive{Dto.LastActive}
+    , Name{Dto.Name}
+    , Image{Dto.Image}
 {
 }
 
 FUser::operator FUserObjectDto() const
 {
-    return {Id, Name, Image};
+    return {Id, bOnline, CreatedAt, UpdatedAt, LastActive, Name, Image};
 }
 
-FUser::FUser(const FString& InId) : Id(InId)
+FUser::FUser(const FString& InId) : Id(InId), bOnline(false)
 {
 }
 

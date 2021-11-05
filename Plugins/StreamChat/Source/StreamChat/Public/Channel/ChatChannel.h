@@ -209,7 +209,7 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Typing", meta = (AdvancedDisplay = ParentMessageId))
     void KeyStroke(const FString& ParentMessageId = TEXT(""));
 
-    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTypingIndicatorDelegate, ETypingIndicatorState, TypingState, FUser, User);
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTypingIndicatorDelegate, ETypingIndicatorState, TypingState, const FUser&, User);
     UPROPERTY(BlueprintAssignable)
     FTypingIndicatorDelegate OnTypingIndicator;
 
