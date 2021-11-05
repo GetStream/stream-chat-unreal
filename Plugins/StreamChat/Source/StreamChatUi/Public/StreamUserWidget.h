@@ -7,7 +7,7 @@
 
 #include "StreamUserWidget.generated.h"
 
-UCLASS(Abstract)
+UCLASS(Abstract, meta = (DisableNativeTick))
 class STREAMCHATUI_API UStreamUserWidget : public UUserWidget
 {
     GENERATED_BODY()

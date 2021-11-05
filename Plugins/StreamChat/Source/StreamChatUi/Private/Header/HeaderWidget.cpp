@@ -21,3 +21,14 @@ void UHeaderWidget::SetTitle(const FText& InTitle)
     Title = InTitle;
     HeaderTitleTextBlock->SetText(Title);
 }
+
+void UHeaderWidget::SetSubtitleContent(UWidget* Content) const
+{
+    SubtitleSlot->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+    SubtitleSlot->SetContent(Content);
+}
+
+void UHeaderWidget::SetRightContent(UWidget* Content) const
+{
+    RightSlot->SetContent(Content);
+}

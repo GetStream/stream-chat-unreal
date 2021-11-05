@@ -4,8 +4,11 @@
 
 #include "AvatarWidget.h"
 #include "Blueprint/UserWidget.h"
+#include "Channel/ChatChannel.h"
 #include "CoreMinimal.h"
 #include "HeaderWidget.h"
+#include "OnlineStatusSubheaderWidget.h"
+#include "TypingIndicatorWidget.h"
 
 #include "MessageListHeaderWidget.generated.h"
 
@@ -21,8 +24,8 @@ class STREAMCHATUI_API UMessageListHeaderWidget final : public UUserWidget
     GENERATED_BODY()
 
 public:
-    virtual void NativeOnInitialized() override;
     virtual void NativeConstruct() override;
+    virtual void NativeDestruct() override;
 
 protected:
     UPROPERTY(meta = (BindWidget))
@@ -30,4 +33,21 @@ protected:
 
     UPROPERTY(meta = (BindWidget))
     UAvatarWidget* Avatar;
+
+    UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
+    TSubclassOf<UTypingIndicatorWidget> TypingIndicatorWidgetClass = UTypingIndicatorWidget::StaticClass();
+    UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
+    TSubclassOf<UOnlineStatusSubheaderWidget> StatusWidgetClass = UOnlineStatusSubheaderWidget::StaticClass();
+
+private:
+    UFUNCTION()
+    void OnTypingIndicator(ETypingIndicatorState TypingState, const FUser& User);
+
+    void ShowOnlineStatusSubheader();
+
+    UPROPERTY(Transient)
+    UChatChannel* Channel;
+
+    UPROPERTY(Transient)
+    UTypingIndicatorWidget* TypingIndicator;
 };
