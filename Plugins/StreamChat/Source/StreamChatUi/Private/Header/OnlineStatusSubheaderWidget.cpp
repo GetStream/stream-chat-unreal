@@ -2,6 +2,7 @@
 
 #include "Algo/Count.h"
 #include "Context/ChannelContextWidget.h"
+#include "TimerManager.h"
 
 void UOnlineStatusSubheaderWidget::NativeConstruct()
 {
