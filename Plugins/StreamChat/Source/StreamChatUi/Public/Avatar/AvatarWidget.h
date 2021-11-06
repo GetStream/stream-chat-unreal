@@ -4,6 +4,7 @@
 
 #include "Components/GridPanel.h"
 #include "Components/Image.h"
+#include "Components/SizeBox.h"
 #include "CoreMinimal.h"
 #include "ProfilePicWidget.h"
 #include "StreamUserWidget.h"
@@ -21,11 +22,14 @@ class STREAMCHATUI_API UAvatarWidget : public UStreamUserWidget
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void Setup(const TArray<FUser>& InUsers);
+    void Setup(const TArray<FUser>& InUsers, int32 InSize = 40);
 
 protected:
     UPROPERTY(meta = (BindWidget))
     UGridPanel* Grid;
+
+    UPROPERTY(meta = (BindWidget))
+    USizeBox* SizeBox;
 
     UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
     TSubclassOf<UProfilePicWidget> ProfilePicWidgetClass = UProfilePicWidget::StaticClass();
@@ -37,4 +41,7 @@ private:
 
     UPROPERTY(EditAnywhere, Category = Setup)
     TArray<FUser> Users;
+
+    UPROPERTY(EditAnywhere, Category = Setup)
+    int32 Size = 40;
 };

@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "Avatar/AvatarWidget.h"
 #include "Channel/Message.h"
 #include "Components/VerticalBox.h"
 #include "CoreMinimal.h"
@@ -31,15 +32,24 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UTimestampWidget* Timestamp;
 
+    UPROPERTY(meta = (BindWidget))
+    UPanelWidget* AvatarSlot;
+
+    UPROPERTY(EditDefaultsOnly, Category = Defaults)
+    int32 AvatarSize = 36;
+
     UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
     TSubclassOf<UMessageWidget> MessageWidgetClass = UMessageWidget::StaticClass();
+
+    UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
+    TSubclassOf<UAvatarWidget> AvatarWidgetClass = UAvatarWidget::StaticClass();
 
 private:
     virtual void OnSetup() override;
 
-    UPROPERTY(EditAnywhere, Category = Defaults)
+    UPROPERTY(EditAnywhere, Category = Setup)
     TArray<FMessage> Messages;
 
-    UPROPERTY(EditAnywhere, Category = Defaults)
+    UPROPERTY(EditAnywhere, Category = Setup)
     EMessageSide Side;
 };
