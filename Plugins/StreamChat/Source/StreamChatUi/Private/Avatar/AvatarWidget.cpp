@@ -6,15 +6,21 @@
 #include "Components/GridSlot.h"
 #include "WidgetUtil.h"
 
-void UAvatarWidget::Setup(const TArray<FUser>& InUsers)
+void UAvatarWidget::Setup(const TArray<FUser>& InUsers, const int32 InSize)
 {
     Users = InUsers;
+    Size = InSize;
 
     Super::Setup();
 }
 
 void UAvatarWidget::OnSetup()
 {
+    if (SizeBox)
+    {
+        SizeBox->SetHeightOverride(Size);
+        SizeBox->SetWidthOverride(Size);
+    }
     CreateProfilePics();
 }
 

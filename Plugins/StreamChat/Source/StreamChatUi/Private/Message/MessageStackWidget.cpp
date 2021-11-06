@@ -14,20 +14,37 @@ void UMessageStackWidget::Setup(const TArray<FMessage>& InMessages, const EMessa
 void UMessageStackWidget::OnSetup()
 {
     // Init timestamp widget
-    if (Messages.Num() > 0)
+    if (Timestamp)
     {
-        Timestamp->Setup(Messages.Last(), Side);
+        if (Messages.Num() > 0)
+        {
+            Timestamp->Setup(Messages.Last(), Side);
+        }
+    }
+
+    if (AvatarSlot)
+    {
+        if (Messages.Num() > 0 && Side == EMessageSide::You)
+        {
+            UAvatarWidget* Widget = CreateWidget<UAvatarWidget>(this, AvatarWidgetClass);
+            Widget->Setup({Messages[0].User}, AvatarSize);
+            AvatarSlot->AddChild(Widget);
+        }
     }
 
     // Spawn bubbles
-    MessagesPanel->ClearChildren();
-
-    const int32 LastIndex = Messages.Num() - 1;
-    for (int32 Index = 0; Index < Messages.Num(); ++Index)
+    if (MessagesPanel)
     {
-        const FMessage& Message = Messages[Index];
-        UMessageWidget* Widget = CreateWidget<UMessageWidget>(this, MessageWidgetClass);
-        Widget->Setup(Message, Side, Index == LastIndex ? EBubbleStackPosition::End : EBubbleStackPosition::Opening);
-        MessagesPanel->AddChildToVerticalBox(Widget);
+        MessagesPanel->ClearChildren();
+
+        const int32 LastIndex = Messages.Num() - 1;
+        for (int32 Index = 0; Index < Messages.Num(); ++Index)
+        {
+            const FMessage& Message = Messages[Index];
+            UMessageWidget* Widget = CreateWidget<UMessageWidget>(this, MessageWidgetClass);
+            Widget->Setup(
+                Message, Side, Index == LastIndex ? EBubbleStackPosition::End : EBubbleStackPosition::Opening);
+            MessagesPanel->AddChildToVerticalBox(Widget);
+        }
     }
 }
