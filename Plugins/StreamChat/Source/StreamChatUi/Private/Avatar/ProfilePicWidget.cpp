@@ -60,6 +60,8 @@ void UProfilePicWidget::OnSetup()
                     {
                         InitialsTextBlock->SetVisibility(ESlateVisibility::Collapsed);
                     }
+                    // Ensure retainer widget re-renders (if present)
+                    Invalidate(EInvalidateWidgetReason::ChildOrder);
                 });
         }
     }
