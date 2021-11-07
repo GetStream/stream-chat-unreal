@@ -27,7 +27,7 @@ void UMessageStackWidget::OnSetup()
         if (Messages.Num() > 0 && Side == EMessageSide::You)
         {
             UAvatarWidget* Widget = CreateWidget<UAvatarWidget>(this, AvatarWidgetClass);
-            Widget->Setup({Messages[0].User}, AvatarSize);
+            Widget->Setup({Messages[0].User.Id}, AvatarSize);
             AvatarSlot->AddChild(Widget);
         }
     }
