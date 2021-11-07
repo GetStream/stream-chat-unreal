@@ -52,16 +52,20 @@ void UAvatarWidget::OnSetup()
     }
 }
 
-void UAvatarWidget::UpdateOnlineStatus(const bool bOnline) const
+void UAvatarWidget::UpdateOnlineStatus(const bool bOnline)
 {
-    if (!RetainerBox)
+    if (!RetainerBox || !EffectMaterial)
     {
         return;
     }
-    if (UMaterialInstanceDynamic* Mat = RetainerBox->GetEffectMaterial())
+
+    if (!EffectMaterialDynamic)
     {
-        Mat->SetScalarParameterValue(OnlineStatusMaterialParameterName, bOnline ? 1.f : 0.f);
+        EffectMaterialDynamic = UMaterialInstanceDynamic::Create(EffectMaterial, this);
+        RetainerBox->SetEffectMaterial(EffectMaterialDynamic);
     }
+
+    EffectMaterialDynamic->SetScalarParameterValue(OnlineStatusMaterialParameterName, bOnline ? 1.f : 0.f);
 }
 
 void UAvatarWidget::CreateProfilePics(const TArray<FUser>& Users)

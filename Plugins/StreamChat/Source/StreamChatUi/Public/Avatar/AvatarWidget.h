@@ -39,11 +39,14 @@ protected:
     TSubclassOf<UProfilePicWidget> ProfilePicWidgetClass = UProfilePicWidget::StaticClass();
 
     UPROPERTY(EditDefaultsOnly, Category = Defaults)
+    UMaterialInterface* EffectMaterial;
+
+    UPROPERTY(EditDefaultsOnly, Category = Defaults)
     FName OnlineStatusMaterialParameterName = TEXT("bOnline");
 
 private:
     virtual void OnSetup() override;
-    void UpdateOnlineStatus(bool bOnline) const;
+    void UpdateOnlineStatus(bool bOnline);
     void CreateProfilePics(const TArray<FUser>&);
     UProfilePicWidget* CreateProfilePic(const FUser&);
 
@@ -52,4 +55,7 @@ private:
 
     UPROPERTY(EditAnywhere, Category = Setup)
     int32 Size = 40;
+
+    UPROPERTY(Transient)
+    UMaterialInstanceDynamic* EffectMaterialDynamic;
 };
