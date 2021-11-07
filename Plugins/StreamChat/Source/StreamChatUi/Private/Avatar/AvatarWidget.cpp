@@ -6,6 +6,7 @@
 #include "Avatar/ProfilePicWidget.h"
 #include "Components/GridSlot.h"
 #include "Context/ChannelContextWidget.h"
+#include "Materials/MaterialInstanceDynamic.h"
 #include "WidgetUtil.h"
 
 void UAvatarWidget::Setup(const TArray<FString>& InUserIds, const int32 InSize)
