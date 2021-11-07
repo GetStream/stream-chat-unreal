@@ -23,15 +23,13 @@ void UMessageListHeaderWidget::NativeConstruct()
         {
             return M.User.Id != Channel->CurrentUser.Id;
         };
-        constexpr auto ToUser = [](const FMember& M)
+        constexpr auto ToUserId = [](const FMember& M)
         {
-            return M.User;
+            return M.User.Id;
         };
-        TArray<FUser> Others;
-        Algo::TransformIf(Channel->State.Members, Others, NotCurrentUser, ToUser);
-        {
-            Avatar->Setup(Others);
-        }
+        TArray<FString> OtherUserIds;
+        Algo::TransformIf(Channel->State.Members, OtherUserIds, NotCurrentUser, ToUserId);
+        Avatar->Setup(OtherUserIds);
     }
 
     Super::NativeConstruct();
