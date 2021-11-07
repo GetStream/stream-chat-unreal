@@ -52,7 +52,7 @@ void UAvatarWidget::OnSetup()
     }
 }
 
-void UAvatarWidget::UpdateOnlineStatus(bool bOnline) const
+void UAvatarWidget::UpdateOnlineStatus(const bool bOnline) const
 {
     if (!RetainerBox)
     {
