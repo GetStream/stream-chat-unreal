@@ -46,9 +46,13 @@ protected:
 
 private:
     virtual void OnSetup() override;
+    TArray<FUser*> GetUsers() const;
     void UpdateOnlineStatus(bool bOnline);
-    void CreateProfilePics(const TArray<FUser>&);
+    void CreateProfilePics(const TArray<FUser*>&);
     UProfilePicWidget* CreateProfilePic(const FUser&);
+
+    UFUNCTION()
+    void OnUserUpdated();
 
     UPROPERTY(EditAnywhere, Category = Setup)
     TArray<FString> UserIds;

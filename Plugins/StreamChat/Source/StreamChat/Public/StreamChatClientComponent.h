@@ -14,6 +14,7 @@
 
 struct FConnectionRecoveredEvent;
 struct FChannelStateResponseFieldsDto;
+struct FUserPresenceChangedEvent;
 class FChatApi;
 class FTokenManager;
 class ITokenProvider;
@@ -114,6 +115,7 @@ private:
     UChatChannel* CreateChannelObject(const FChannelStateResponseFieldsDto&);
 
     void OnConnectionRecovered(const FConnectionRecoveredEvent&);
+    void OnUserPresenceChanged(const FUserPresenceChangedEvent&);
 
     TSharedPtr<FTokenManager> TokenManager;
     TSharedPtr<FChatApi> Api;

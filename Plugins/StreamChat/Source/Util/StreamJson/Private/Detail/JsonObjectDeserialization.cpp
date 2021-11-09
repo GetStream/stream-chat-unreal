@@ -434,8 +434,9 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
                 UE_LOG(
                     LogJson,
                     Error,
-                    TEXT("JsonValueToUProperty - Unable to import FDateTime for property %s"),
-                    *Property->GetNameCPP());
+                    TEXT("JsonValueToUProperty - Unable to import FDateTime [Property=%s, Value=%s]"),
+                    *Property->GetNameCPP(),
+                    *DateString);
                 return false;
             }
         }
