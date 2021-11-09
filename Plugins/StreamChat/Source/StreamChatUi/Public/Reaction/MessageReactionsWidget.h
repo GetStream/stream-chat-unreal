@@ -3,9 +3,10 @@
 #pragma once
 
 #include "Channel/Message.h"
+#include "Components/PanelWidget.h"
 #include "CoreMinimal.h"
 #include "Message/MessageSide.h"
-#include "ReactionWidget.h"
+#include "ReactionIconWidget.h"
 #include "StreamUserWidget.h"
 
 #include "MessageReactionsWidget.generated.h"
@@ -24,10 +25,10 @@ public:
 
 protected:
     UPROPERTY(meta = (BindWidget))
-    UPanelSlot* ReactionsPanel;
+    UPanelWidget* ReactionsPanel;
 
     UPROPERTY(EditAnywhere, Category = Defaults)
-    TSubclassOf<UReactionWidget> ReactionWidgetClass;
+    TSubclassOf<UReactionIconWidget> ReactionWidgetClass;
 
 private:
     virtual void OnSetup() override;
