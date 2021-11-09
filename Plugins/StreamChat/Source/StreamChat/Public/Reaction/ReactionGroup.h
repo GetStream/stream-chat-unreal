@@ -9,7 +9,7 @@
  * An abstraction to group reactions by their type.
  */
 USTRUCT(BlueprintType)
-struct FReactionGroup
+struct STREAMCHAT_API FReactionGroup
 {
     GENERATED_BODY()
 
