@@ -99,3 +99,13 @@ void UUiBlueprintLibrary::GetFirstVisibleChildOfScrollBox(UScrollBox* ScrollBox,
         }
     }
 }
+
+const FUser& UUiBlueprintLibrary::DerefUserRef(const FUserRef& User)
+{
+    return User.GetUser();
+}
+
+bool UUiBlueprintLibrary::IsCurrent(const FUserRef& User)
+{
+    return User.IsCurrent();
+}

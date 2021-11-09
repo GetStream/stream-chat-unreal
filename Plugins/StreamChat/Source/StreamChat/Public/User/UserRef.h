@@ -19,8 +19,8 @@ public:
 
     const FUser& GetUser() const;
     const FUser& operator*() const;
-
     const FUser* operator->() const;
+
     bool operator==(const FUserRef&) const;
     bool operator!=(const FUserRef&) const;
 
