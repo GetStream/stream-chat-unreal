@@ -41,7 +41,7 @@ protected:
 
 private:
     UFUNCTION()
-    void OnTypingIndicator(ETypingIndicatorState TypingState, const FUser& User);
+    void OnTypingIndicator(ETypingIndicatorState TypingState, const FUserRef& User);
 
     void ShowOnlineStatusSubheader();
 

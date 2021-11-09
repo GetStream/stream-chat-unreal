@@ -8,7 +8,7 @@
 #include "CoreMinimal.h"
 #include "IChatSocket.h"
 #include "Message.h"
-#include "User.h"
+#include "User/UserRef.h"
 
 #include "ChatChannel.generated.h"
 
@@ -64,20 +64,18 @@ public:
         UObject* Outer,
         const TSharedRef<FChatApi>,
         const TSharedRef<IChatSocket>,
-        const FUser& CurrentUser,
+        const TSharedRef<FUserManager>,
         const FChannelStateResponseFieldsDto&);
 
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
     FChannelState State;
-
-    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
-    FUser CurrentUser;
 
 private:
     void MergeState(const FChannelStateResponseFieldsDto&);
 
     TSharedPtr<FChatApi> Api;
     TSharedPtr<IChatSocket> Socket;
+    TSharedPtr<FUserManager> UserManager;
 
 #pragma region Event
 
@@ -209,7 +207,7 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Typing", meta = (AdvancedDisplay = ParentMessageId))
     void KeyStroke(const FString& ParentMessageId = TEXT(""));
 
-    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTypingIndicatorDelegate, ETypingIndicatorState, TypingState, const FUser&, User);
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTypingIndicatorDelegate, ETypingIndicatorState, TypingState, const FUserRef&, User);
     UPROPERTY(BlueprintAssignable)
     FTypingIndicatorDelegate OnTypingIndicator;
 

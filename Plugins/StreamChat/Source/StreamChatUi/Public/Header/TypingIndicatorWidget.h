@@ -5,7 +5,8 @@
 #include "Blueprint/UserWidget.h"
 #include "Components/TextBlock.h"
 #include "CoreMinimal.h"
-#include "User.h"
+#include "User/User.h"
+#include "User/UserRef.h"
 
 #include "TypingIndicatorWidget.generated.h"
 
@@ -22,10 +23,10 @@ class STREAMCHATUI_API UTypingIndicatorWidget final : public UUserWidget
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void AddUser(const FUser& User);
+    void AddUser(const FUserRef& User);
     /// Returns true if no more users exist after removing user
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    bool RemoveUser(const FUser& User);
+    bool RemoveUser(const FUserRef& User);
 
 protected:
     UPROPERTY(meta = (BindWidget))
@@ -36,5 +37,5 @@ private:
     FText GetLabel() const;
 
     UPROPERTY(EditAnywhere, Category = Setup)
-    TArray<FUser> Users;
+    TArray<FUserRef> Users;
 };

@@ -1,4 +1,4 @@
-﻿#include "User.h"
+﻿#include "User/User.h"
 
 #include "UserObjectDto.h"
 
@@ -16,12 +16,6 @@ FUser::FUser(const FUserObjectDto& Dto)
 FUser::operator FUserObjectDto() const
 {
     return {Id, bOnline, CreatedAt, UpdatedAt, LastActive, Name, Image};
-}
-
-void FUser::Update(const FUser& User)
-{
-    *this = User;
-    OnUserUpdated.Broadcast();
 }
 
 FUser::FUser(const FString& InId) : Id(InId), bOnline(false)

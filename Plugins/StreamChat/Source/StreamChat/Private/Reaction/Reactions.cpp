@@ -3,9 +3,10 @@
 #include "Reaction/Reaction.h"
 #include "Reaction/ReactionGroup.h"
 #include "Response/Reaction/ReactionDto.h"
-#include "Util.h"
+#include "User/UserRef.h"
 
 FReactions FReactions::CollectReactions(
+    FUserManager& UserManager,
     const TMap<FName, int32>& ReactionCounts,
     const TMap<FName, int32>& ReactionScores,
     const TArray<FReactionDto>& LatestReactions,
@@ -21,11 +22,11 @@ FReactions FReactions::CollectReactions(
 
     for (const FReactionDto& Latest : LatestReactions)
     {
-        Result.ReactionGroups.FindOrAdd(Latest.Type).LatestReactions.Add(Util::Convert<FReaction>(Latest));
+        Result.ReactionGroups.FindOrAdd(Latest.Type).LatestReactions.Add(FReaction{UserManager, Latest});
     }
     for (const FReactionDto& Own : OwnReactions)
     {
-        Result.ReactionGroups.FindOrAdd(Own.Type).OwnReactions.Add(Util::Convert<FReaction>(Own));
+        Result.ReactionGroups.FindOrAdd(Own.Type).OwnReactions.Add(FReaction{UserManager, Own});
     }
     return Result;
 }
@@ -87,12 +88,12 @@ bool FReactions::IsEmpty() const
     return ReactionGroups.Num() == 0;
 }
 
-void FReactions::UpdateOwnReactions(const FString& OwnUserId)
+void FReactions::UpdateOwnReactions()
 {
     for (auto& [Type, Group] : ReactionGroups)
     {
-        Group.OwnReactions = Group.LatestReactions.FilterByPredicate([&OwnUserId](const FReaction& R)
-                                                                     { return R.User.Id == OwnUserId; });
+        Group.OwnReactions =
+            Group.LatestReactions.FilterByPredicate([](const FReaction& R) { return R.User.IsCurrent(); });
     }
 }
 
