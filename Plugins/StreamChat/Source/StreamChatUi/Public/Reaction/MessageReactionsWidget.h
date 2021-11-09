@@ -5,7 +5,7 @@
 #include "Channel/Message.h"
 #include "CoreMinimal.h"
 #include "Message/MessageSide.h"
-#include "ReactionsBubbleWidget.h"
+#include "ReactionWidget.h"
 #include "StreamUserWidget.h"
 
 #include "MessageReactionsWidget.generated.h"
@@ -14,7 +14,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UMessageReactionsWidget : public UStreamUserWidget
+class STREAMCHATUI_API UMessageReactionsWidget final : public UStreamUserWidget
 {
     GENERATED_BODY()
 
@@ -24,21 +24,13 @@ public:
 
 protected:
     UPROPERTY(meta = (BindWidget))
-    UPanelSlot* BubbleWidgetPanel;
+    UPanelSlot* ReactionsPanel;
 
     UPROPERTY(EditAnywhere, Category = Defaults)
-    TSubclassOf<UReactionsBubbleWidget> MeSingleReactionBubbleWidgetClass;
-    UPROPERTY(EditAnywhere, Category = Defaults)
-    TSubclassOf<UReactionsBubbleWidget> MeMultipleReactionsBubbleWidgetClass;
-    UPROPERTY(EditAnywhere, Category = Defaults)
-    TSubclassOf<UReactionsBubbleWidget> YouSingleReactionBubbleWidgetClass;
-    UPROPERTY(EditAnywhere, Category = Defaults)
-    TSubclassOf<UReactionsBubbleWidget> YouMultipleReactionsBubbleWidgetClass;
+    TSubclassOf<UReactionWidget> ReactionWidgetClass;
 
 private:
     virtual void OnSetup() override;
-
-    TSubclassOf<UReactionsBubbleWidget> GetReactionsBubbleWidgetClass() const;
 
     UPROPERTY(EditAnywhere, Category = Setup)
     FMessage Message;

@@ -15,17 +15,3 @@ void UMessageReactionsWidget::Setup(const FMessage& InMessage, const EMessageSid
 void UMessageReactionsWidget::OnSetup()
 {
 }
-
-TSubclassOf<UReactionsBubbleWidget> UMessageReactionsWidget::GetReactionsBubbleWidgetClass() const
-{
-    if (Side == EMessageSide::Me)
-    {
-        if (Message.Reactions.ReactionGroups.Num())
-        {
-        }
-    }
-    else if (Side == EMessageSide::You)
-    {
-    }
-    return nullptr;
-}
