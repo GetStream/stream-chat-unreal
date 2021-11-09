@@ -8,14 +8,17 @@
 #include "Components/ActorComponent.h"
 #include "CoreMinimal.h"
 #include "IChatSocket.h"
-#include "User.h"
+#include "User/UserRef.h"
 
 #include "StreamChatClientComponent.generated.h"
 
+struct FUser;
 struct FConnectionRecoveredEvent;
 struct FChannelStateResponseFieldsDto;
+struct FUserPresenceChangedEvent;
 class FChatApi;
 class FTokenManager;
+class FUserManager;
 class ITokenProvider;
 class UChatChannel;
 
@@ -114,12 +117,12 @@ private:
     UChatChannel* CreateChannelObject(const FChannelStateResponseFieldsDto&);
 
     void OnConnectionRecovered(const FConnectionRecoveredEvent&);
+    void OnUserPresenceChanged(const FUserPresenceChangedEvent&);
 
     TSharedPtr<FTokenManager> TokenManager;
     TSharedPtr<FChatApi> Api;
     TSharedPtr<IChatSocket> Socket;
-
-    TOptional<FUser> CurrentUser;
+    TSharedPtr<FUserManager> UserManager;
 
     UPROPERTY(Transient)
     TArray<UChatChannel*> Channels;

@@ -4,11 +4,13 @@
 
 #include "Components/GridPanel.h"
 #include "Components/Image.h"
+#include "Components/RetainerBox.h"
 #include "Components/SizeBox.h"
 #include "CoreMinimal.h"
 #include "ProfilePicWidget.h"
 #include "StreamUserWidget.h"
-#include "User.h"
+#include "User/User.h"
+#include "User/UserRef.h"
 
 #include "AvatarWidget.generated.h"
 
@@ -22,7 +24,7 @@ class STREAMCHATUI_API UAvatarWidget : public UStreamUserWidget
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void Setup(const TArray<FUser>& InUsers, int32 InSize = 40);
+    void Setup(const TArray<FUserRef>& InUsers, int32 InSize = 40);
 
 protected:
     UPROPERTY(meta = (BindWidget))
@@ -31,17 +33,33 @@ protected:
     UPROPERTY(meta = (BindWidget))
     USizeBox* SizeBox;
 
+    UPROPERTY(meta = (BindWidget))
+    URetainerBox* RetainerBox;
+
     UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
     TSubclassOf<UProfilePicWidget> ProfilePicWidgetClass = UProfilePicWidget::StaticClass();
 
+    UPROPERTY(EditDefaultsOnly, Category = Defaults)
+    UMaterialInterface* EffectMaterial;
+
+    UPROPERTY(EditDefaultsOnly, Category = Defaults)
+    FName OnlineStatusMaterialParameterName = TEXT("bOnline");
+
 private:
     virtual void OnSetup() override;
+    void UpdateOnlineStatus(bool bOnline);
     void CreateProfilePics();
-    UProfilePicWidget* CreateProfilePic(const FUser&);
+    UProfilePicWidget* CreateProfilePic(const FUserRef&);
+
+    UFUNCTION()
+    void OnUserUpdated();
 
     UPROPERTY(EditAnywhere, Category = Setup)
-    TArray<FUser> Users;
+    TArray<FUserRef> Users;
 
     UPROPERTY(EditAnywhere, Category = Setup)
     int32 Size = 40;
+
+    UPROPERTY(Transient)
+    UMaterialInstanceDynamic* EffectMaterialDynamic;
 };

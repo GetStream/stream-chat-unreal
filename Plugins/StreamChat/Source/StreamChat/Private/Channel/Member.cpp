@@ -1,7 +1,8 @@
 ﻿#include "Channel/Member.h"
 
 #include "Response/Channel/ChannelMemberDto.h"
+#include "User/UserManager.h"
 
-FMember::FMember(const FChannelMemberDto& Dto) : User(Dto.User)
+FMember::FMember(FUserManager& UserManager, const FChannelMemberDto& Dto) : User{UserManager.UpsertUser(Dto.User)}
 {
 }

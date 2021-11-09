@@ -4,6 +4,7 @@
 #include "CoreMinimal.h"
 #include "Input/Events.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "User/User.h"
 
 #include "UiBlueprintLibrary.generated.h"
 
@@ -27,4 +28,10 @@ public:
 
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|UI")
     static void GetFirstVisibleChildOfScrollBox(UScrollBox* ScrollBox, int32& OutIndex, float& OutLeadingEdge);
+
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|User", meta = (DisplayName = "Deference User Ref", CompactNodeTitle = "->", BlueprintAutocast))
+    static const FUser& DerefUserRef(const FUserRef& User);
+
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|User")
+    static bool IsCurrent(const FUserRef& User);
 };

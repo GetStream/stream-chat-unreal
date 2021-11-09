@@ -34,8 +34,8 @@ FText UOnlineStatusSubheaderWidget::GetLabel() const
 {
     if (Channel->State.Members.Num() <= 2)
     {
-        if (const FMember* Member = Channel->State.Members.FindByPredicate(
-                [this](const FMember& M) { return M.User.Id != Channel->CurrentUser.Id; }))
+        if (const FMember* Member =
+                Channel->State.Members.FindByPredicate([this](const FMember& M) { return !M.User.IsCurrent(); }))
         {
             return GetSingleUserLabel(Member->User);
         }
@@ -43,9 +43,14 @@ FText UOnlineStatusSubheaderWidget::GetLabel() const
     return GetMultiUserLabel();
 }
 
-FText UOnlineStatusSubheaderWidget::GetSingleUserLabel(const FUser& User) const
+FText UOnlineStatusSubheaderWidget::GetSingleUserLabel(const FUserRef& User) const
 {
-    if (User.bOnline)
+    if (!User.IsValid())
+    {
+        return FText::GetEmpty();
+    }
+
+    if (User->bOnline)
     {
         return FText::FromString(TEXT("Online"));
     }
@@ -84,7 +89,7 @@ FText UOnlineStatusSubheaderWidget::GetSingleUserLabel(const FUser& User) const
 FText UOnlineStatusSubheaderWidget::GetMultiUserLabel() const
 {
     const uint32 TotalCount = Channel->State.Members.Num();
-    const uint32 OnlineCount = Algo::CountIf(Channel->State.Members, [](const FMember& M) { return M.User.bOnline; });
+    const uint32 OnlineCount = Algo::CountIf(Channel->State.Members, [](const FMember& M) { return M.User->bOnline; });
 
     FFormatNamedArguments Args;
     Args.Add(TEXT("TotalCount"), TotalCount);
@@ -92,15 +97,21 @@ FText UOnlineStatusSubheaderWidget::GetMultiUserLabel() const
     return FText::Format(FText::FromString(TEXT("{TotalCount} Members, {OnlineCount} Online")), Args);
 }
 
-const FDateTime& UOnlineStatusSubheaderWidget::GetLastActive(const FUser& User)
+const FDateTime& UOnlineStatusSubheaderWidget::GetLastActive(const FUserRef& User)
 {
-    if (User.LastActive.GetTicks() > 0)
+    static FDateTime None{0};
+    if (!User.IsValid())
     {
-        return User.LastActive;
+        return None;
     }
-    if (User.UpdatedAt.GetTicks() > 0)
+
+    if (User->LastActive.GetTicks() > 0)
     {
-        return User.LastActive;
+        return User->LastActive;
     }
-    return User.CreatedAt;
+    if (User->UpdatedAt.GetTicks() > 0)
+    {
+        return User->LastActive;
+    }
+    return User->CreatedAt;
 }

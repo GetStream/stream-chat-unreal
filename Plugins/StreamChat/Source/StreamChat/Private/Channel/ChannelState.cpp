@@ -1,27 +1,28 @@
 ﻿#include "Channel/ChannelState.h"
 
+#include "Algo/Transform.h"
 #include "Channel/Message.h"
 #include "Response/Channel/ChannelStateResponseFieldsDto.h"
-#include "Util.h"
+#include "User/UserManager.h"
 
-FChannelState::FChannelState(const FChannelStateResponseFieldsDto& Dto, const FString& CurrentUserId)
+FChannelState::FChannelState(const FChannelStateResponseFieldsDto& Dto, FUserManager& UserManager)
     : Type{Dto.Channel.Type}
     , Id{Dto.Channel.Id}
-    , Members{Dto.Members}
     , Name{Dto.Channel.Name}
     , ImageUrl{Dto.Channel.Image}
     , Cid{Dto.Channel.Cid}
     , Config{Dto.Channel.Config}
-    , Messages{Convert(Dto, CurrentUserId)}
+    , Messages{Convert(Dto, UserManager)}
 {
+    SetMembers(UserManager, Dto.Members);
 }
 
-void FChannelState::Merge(const FChannelStateResponseFieldsDto& Dto, const FString& CurrentUserId)
+void FChannelState::Merge(const FChannelStateResponseFieldsDto& Dto, FUserManager& UserManager)
 {
-    const TArray<FMessage> NewMessages = Convert(Dto, CurrentUserId);
+    const TArray<FMessage> NewMessages = Convert(Dto, UserManager);
     Messages.Insert(NewMessages, 0);
+    SetMembers(UserManager, Dto.Members);
     // TODO Watchers
-    Members = Util::Convert<FMember>(Dto.Members);
     // TODO Read
     // TODO Attachment
     // TODO Pinned messages
@@ -43,14 +44,25 @@ void FChannelState::AddMessage(const FMessage& Message)
     }
 }
 
-TArray<FMessage> FChannelState::Convert(const FChannelStateResponseFieldsDto& Dto, const FString& CurrentUserId)
+void FChannelState::SetMembers(FUserManager& UserManager, const TArray<FChannelMemberDto>& Dto)
 {
-    TArray<FMessage> NewMessages = Util::Convert<FMessage>(Dto.Messages);
+    Algo::Transform(Dto, Members, [&](const FChannelMemberDto& MemberDto) { return FMember{UserManager, MemberDto}; });
+}
+
+TArray<FMessage> FChannelState::Convert(const FChannelStateResponseFieldsDto& Dto, FUserManager& UserManager)
+{
+    TArray<FMessage> NewMessages;
+    Algo::Transform(
+        Dto.Messages,
+        NewMessages,
+        [&](const FMessageDto& MessageDto) {
+            return FMessage{UserManager, MessageDto};
+        });
     for (FMessage& Message : NewMessages)
     {
         Message.bIsRead = Dto.Read.ContainsByPredicate(
-            [&Message, &CurrentUserId](const FReadDto& Read)
-            { return Read.User.Id != CurrentUserId && Read.LastRead > Message.CreatedAt; });
+            [&Message, &UserManager](const FReadDto& Read)
+            { return Read.User.Id != UserManager.GetCurrentUser().UserId && Read.LastRead > Message.CreatedAt; });
     }
     return NewMessages;
 }

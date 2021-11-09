@@ -2,6 +2,7 @@
 
 #include "Avatar/ProfilePicWidget.h"
 
+#include "User/User.h"
 #include "WidgetUtil.h"
 
 namespace
@@ -27,7 +28,7 @@ FLinearColor Colors[16] = {
 };
 }    // namespace
 
-void UProfilePicWidget::Setup(const FUser& InUser)
+void UProfilePicWidget::Setup(const FUserRef& InUser)
 {
     User = InUser;
 
@@ -36,7 +37,7 @@ void UProfilePicWidget::Setup(const FUser& InUser)
 
 void UProfilePicWidget::OnSetup()
 {
-    const FString Initials = User.GetInitials();
+    const FString Initials = User->GetInitials();
     if (InitialsTextBlock)
     {
         // Always initialize avatar with initials, until real image downloads
@@ -48,10 +49,10 @@ void UProfilePicWidget::OnSetup()
     {
         Image->SetColorAndOpacity(ChooseColorForString(Initials));
 
-        if (!User.Image.IsEmpty())
+        if (!User->Image.IsEmpty())
         {
             WidgetUtil::DownloadImage(
-                User.Image,
+                User->Image,
                 [this](UTexture2DDynamic* Texture)
                 {
                     Image->SetBrushFromTextureDynamic(Texture, true);
@@ -60,6 +61,8 @@ void UProfilePicWidget::OnSetup()
                     {
                         InitialsTextBlock->SetVisibility(ESlateVisibility::Collapsed);
                     }
+                    // Ensure retainer widget re-renders (if present)
+                    Invalidate(EInvalidateWidgetReason::ChildOrder);
                 });
         }
     }

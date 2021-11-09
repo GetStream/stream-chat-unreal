@@ -7,12 +7,14 @@
 #include "ChatApi.h"
 #include "ConstantTokenProvider.h"
 #include "Event/Client/ConnectionRecoveredEvent.h"
+#include "Event/User/UserPresenceChangedEvent.h"
 #include "IChatSocket.h"
 #include "Request/Message/MessageRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "StreamChatSettings.h"
 #include "TokenManager.h"
+#include "User/UserManager.h"
 #include "Util.h"
 
 UStreamChatClientComponent::UStreamChatClientComponent() : TokenManager(MakeShared<FTokenManager>())
@@ -31,17 +33,18 @@ void UStreamChatClientComponent::BeginPlay()
 
 void UStreamChatClientComponent::ConnectUserInternal(const FUser& User, const TFunction<void()> Callback)
 {
-    CurrentUser = User;
+    UserManager = FUserManager::Create(User);
     Socket = IChatSocket::Create(
         TokenManager.ToSharedRef(), ApiKey, GetDefault<UStreamChatSettings>()->Host, static_cast<FUserObjectDto>(User));
     Socket->Connect(Callback);
 
     On<FConnectionRecoveredEvent>(this, &UStreamChatClientComponent::OnConnectionRecovered);
+    On<FUserPresenceChangedEvent>(this, &UStreamChatClientComponent::OnUserPresenceChanged);
 }
 
 UChatChannel* UStreamChatClientComponent::CreateChannelObject(const FChannelStateResponseFieldsDto& Dto)
 {
-    return UChatChannel::Create(this, Api.ToSharedRef(), Socket.ToSharedRef(), CurrentUser.GetValue(), Dto);
+    return UChatChannel::Create(this, Api.ToSharedRef(), Socket.ToSharedRef(), UserManager.ToSharedRef(), Dto);
 }
 
 void UStreamChatClientComponent::OnConnectionRecovered(const FConnectionRecoveredEvent&)
@@ -50,6 +53,11 @@ void UStreamChatClientComponent::OnConnectionRecovered(const FConnectionRecovere
     TArray<FString> Cids;
     Algo::Transform(Channels, Cids, [](const UChatChannel* Channel) { return Channel->State.Cid; });
     QueryChannels({}, FFilter::In(TEXT("cid"), Cids));
+}
+
+void UStreamChatClientComponent::OnUserPresenceChanged(const FUserPresenceChangedEvent& Event)
+{
+    UserManager->UpsertUser(Event.User);
 }
 
 void UStreamChatClientComponent::ConnectUser(
@@ -75,7 +83,7 @@ void UStreamChatClientComponent::DisconnectUser()
         Socket->Disconnect();
     }
     TokenManager->Reset();
-    CurrentUser.Reset();
+    UserManager.Reset();
 }
 
 void UStreamChatClientComponent::QueryChannels(
@@ -102,7 +110,7 @@ void UStreamChatClientComponent::QueryChannels(
             }
         },
         Socket->GetConnectionId(),
-        EChannelFlags::State | EChannelFlags::Watch,
+        EChannelFlags::State | EChannelFlags::Watch | EChannelFlags::Presence,
         Filter->ToJsonObjectWrapper(),
         Util::Convert<FSortParamRequestDto>(SortOptions));
 }

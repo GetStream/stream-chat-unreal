@@ -19,19 +19,17 @@ void UMessageListHeaderWidget::NativeConstruct()
     if (Avatar)
     {
         // TODO Group chat
-        const auto NotCurrentUser = [&](const FMember& M)
+        constexpr auto NotCurrentUser = [](const FMember& M)
         {
-            return M.User.Id != Channel->CurrentUser.Id;
+            return !M.User.IsCurrent();
         };
         constexpr auto ToUser = [](const FMember& M)
         {
             return M.User;
         };
-        TArray<FUser> Others;
-        Algo::TransformIf(Channel->State.Members, Others, NotCurrentUser, ToUser);
-        {
-            Avatar->Setup(Others);
-        }
+        TArray<FUserRef> OtherUsers;
+        Algo::TransformIf(Channel->State.Members, OtherUsers, NotCurrentUser, ToUser);
+        Avatar->Setup(OtherUsers);
     }
 
     Super::NativeConstruct();
@@ -43,9 +41,9 @@ void UMessageListHeaderWidget::NativeDestruct()
     Super::NativeDestruct();
 }
 
-void UMessageListHeaderWidget::OnTypingIndicator(const ETypingIndicatorState TypingState, const FUser& User)
+void UMessageListHeaderWidget::OnTypingIndicator(const ETypingIndicatorState TypingState, const FUserRef& User)
 {
-    if (User.Id == Channel->CurrentUser.Id)
+    if (User.IsCurrent())
     {
         return;
     }

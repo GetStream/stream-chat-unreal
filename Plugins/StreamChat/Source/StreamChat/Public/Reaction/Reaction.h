@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
-#include "User.h"
+#include "User/UserRef.h"
 
 #include "Reaction.generated.h"
 
@@ -13,8 +13,8 @@ struct FReaction
     GENERATED_BODY()
 
     FReaction() = default;
-    explicit FReaction(const FReactionDto&);
-    explicit FReaction(const FName& Type, const FUser&, const FString& MessageId);
+    explicit FReaction(FUserManager&, const FReactionDto&);
+    explicit FReaction(const FName& Type, const FUserRef&, const FString& MessageId);
 
     /// The type of reaction (e.g. 'like', 'laugh', 'wow')
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Reaction")
@@ -26,7 +26,7 @@ struct FReaction
 
     /// Reacting user
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Reaction")
-    FUser User;
+    FUserRef User;
 
     /// ID of a message user reacted to
     FString MessageId;
