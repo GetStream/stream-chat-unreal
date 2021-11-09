@@ -254,7 +254,7 @@ void UChatChannel::KeyStroke(const FString& ParentMessageId)
         SendEvent(FTypingStartEvent{
             {{FTypingStartEvent::StaticType, Now}, State.Id, State.Type, State.Cid},
             ParentMessageId,
-            Util::Convert<FUserObjectDto>(**UserManager->GetCurrentUser()),
+            Util::Convert<FUserObjectDto>(*UserManager->GetCurrentUser()),
         });
     }
     LastKeystrokeAt.Emplace(Now);
@@ -271,7 +271,7 @@ void UChatChannel::KeyStroke(const FString& ParentMessageId)
                 SendEvent(FTypingStopEvent{
                     {{FTypingStopEvent::StaticType, Now}, State.Id, State.Type, State.Cid},
                     ParentMessageId,
-                    Util::Convert<FUserObjectDto>(**UserManager->GetCurrentUser()),
+                    Util::Convert<FUserObjectDto>(*UserManager->GetCurrentUser()),
                 });
             }
         },

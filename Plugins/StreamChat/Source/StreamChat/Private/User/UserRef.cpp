@@ -6,23 +6,24 @@ FUserRef::FUserRef(const FString& UserId, const TSharedRef<FUserManager>& Manage
 {
 }
 
-const FUser* FUserRef::GetUser() const
+const FUser& FUserRef::GetUser() const
 {
-    if (Manager)
+    // Only really for editor designer support
+    if (!Manager)
     {
-        return Manager->GetUser(*this);
+        Manager = MakeShared<FUserManager>();
     }
-    return nullptr;
+    return Manager->GetUser(*this);
 }
 
-const FUser* FUserRef::operator*() const
+const FUser& FUserRef::operator*() const
 {
     return GetUser();
 }
 
 const FUser* FUserRef::operator->() const
 {
-    return GetUser();
+    return &GetUser();
 }
 
 bool FUserRef::operator==(const FUserRef& Other) const

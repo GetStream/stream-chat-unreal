@@ -10,9 +10,9 @@ TSharedRef<FUserManager> FUserManager::Create(const FUser& InCurrentUser)
     return Manager;
 }
 
-const FUser* FUserManager::GetUser(const FUserRef& Ref) const
+const FUser& FUserManager::GetUser(const FUserRef& Ref)
 {
-    return Users.Find(Ref.UserId);
+    return Users.FindOrAdd(Ref.UserId);
 }
 
 bool FUserManager::HasUser(const FUserRef& Ref) const

@@ -17,8 +17,9 @@ struct STREAMCHAT_API FUserRef
 public:
     FUserRef() = default;
 
-    const FUser* GetUser() const;
-    const FUser* operator*() const;
+    const FUser& GetUser() const;
+    const FUser& operator*() const;
+
     const FUser* operator->() const;
     bool operator==(const FUserRef&) const;
     bool operator!=(const FUserRef&) const;
@@ -36,5 +37,5 @@ public:
 private:
     friend FUserManager;
     FUserRef(const FString& UserId, const TSharedRef<FUserManager>&);
-    TSharedPtr<FUserManager> Manager;
+    mutable TSharedPtr<FUserManager> Manager;
 };
