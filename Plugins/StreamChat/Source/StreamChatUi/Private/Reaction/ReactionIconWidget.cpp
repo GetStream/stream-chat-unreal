@@ -1,8 +1,8 @@
 // Copyright Stream.IO, Inc. All Rights Reserved.
 
-#include "Reaction/ReactionWidget.h"
+#include "Reaction/ReactionIconWidget.h"
 
-void UReactionWidget::Setup(const FName& InReactionType, EMessageSide InSide)
+void UReactionIconWidget::Setup(const FName& InReactionType, EMessageSide InSide)
 {
     ReactionType = InReactionType;
     Side = InSide;
@@ -10,7 +10,7 @@ void UReactionWidget::Setup(const FName& InReactionType, EMessageSide InSide)
     Super::Setup();
 }
 
-void UReactionWidget::OnSetup()
+void UReactionIconWidget::OnSetup()
 {
     if (Image)
     {

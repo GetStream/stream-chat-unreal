@@ -6,7 +6,7 @@
 #include "CoreMinimal.h"
 #include "Message/MessageSide.h"
 #include "Reaction/ReactionGroup.h"
-#include "ReactionWidget.h"
+#include "ReactionIconWidget.h"
 #include "StreamUserWidget.h"
 
 #include "BottomReactionWidget.generated.h"
@@ -25,7 +25,7 @@ public:
 
 protected:
     UPROPERTY(meta = (BindWidget))
-    UReactionWidget* ReactionIcon;
+    UReactionIconWidget* ReactionIcon;
 
     UPROPERTY(meta = (BindWidget))
     UTextBlock* ReactionCountTextBlock;
