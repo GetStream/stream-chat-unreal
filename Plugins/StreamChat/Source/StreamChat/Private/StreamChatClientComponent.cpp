@@ -14,6 +14,7 @@
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "StreamChatSettings.h"
 #include "TokenManager.h"
+#include "User/UserManager.h"
 #include "Util.h"
 
 UStreamChatClientComponent::UStreamChatClientComponent() : TokenManager(MakeShared<FTokenManager>())
@@ -32,7 +33,7 @@ void UStreamChatClientComponent::BeginPlay()
 
 void UStreamChatClientComponent::ConnectUserInternal(const FUser& User, const TFunction<void()> Callback)
 {
-    CurrentUser = User;
+    UserManager = FUserManager::Create(User);
     Socket = IChatSocket::Create(
         TokenManager.ToSharedRef(), ApiKey, GetDefault<UStreamChatSettings>()->Host, static_cast<FUserObjectDto>(User));
     Socket->Connect(Callback);
@@ -43,7 +44,7 @@ void UStreamChatClientComponent::ConnectUserInternal(const FUser& User, const TF
 
 UChatChannel* UStreamChatClientComponent::CreateChannelObject(const FChannelStateResponseFieldsDto& Dto)
 {
-    return UChatChannel::Create(this, Api.ToSharedRef(), Socket.ToSharedRef(), CurrentUser.GetValue(), Dto);
+    return UChatChannel::Create(this, Api.ToSharedRef(), Socket.ToSharedRef(), UserManager.ToSharedRef(), Dto);
 }
 
 void UStreamChatClientComponent::OnConnectionRecovered(const FConnectionRecoveredEvent&)
@@ -56,23 +57,7 @@ void UStreamChatClientComponent::OnConnectionRecovered(const FConnectionRecovere
 
 void UStreamChatClientComponent::OnUserPresenceChanged(const FUserPresenceChangedEvent& Event)
 {
-    // TODO This seems fragile and easy to get out of sync
-    // Do we need a user manager + user reference system which maintains a single source of truth for users?
-    // User references would be passed around everywhere instead of FUser.
-    //  A user reference would contain a pointer to the manager and and index into its list of users.
-
-    const FUser UpdatedUser = Util::Convert<FUser>(Event.User);
-    // Update members in all channels
-    for (UChatChannel* Channel : Channels)
-    {
-        for (FMember& Member : Channel->State.Members)
-        {
-            if (Member.User.Id == UpdatedUser.Id)
-            {
-                Member.User.Update(UpdatedUser);
-            }
-        }
-    }
+    UserManager->UpsertUser(Event.User);
 }
 
 void UStreamChatClientComponent::ConnectUser(
@@ -98,7 +83,7 @@ void UStreamChatClientComponent::DisconnectUser()
         Socket->Disconnect();
     }
     TokenManager->Reset();
-    CurrentUser.Reset();
+    UserManager.Reset();
 }
 
 void UStreamChatClientComponent::QueryChannels(

@@ -3,7 +3,7 @@
 #include "StreamChatSampleHud.h"
 
 #include "Channel/ChatChannel.h"
-#include "User.h"
+#include "User/User.h"
 
 AStreamChatSampleHud::AStreamChatSampleHud()
 {

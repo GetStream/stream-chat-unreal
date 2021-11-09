@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Reaction/Reactions.h"
 #include "Response/Channel/ChannelStateResponseFieldsDto.h"
-#include "User.h"
+#include "User/UserRef.h"
 
 #include "Message.generated.h"
 
@@ -43,11 +43,11 @@ struct FMessage
 
     FMessage() = default;
     // From server responses
-    explicit FMessage(const FMessageDto&);
+    explicit FMessage(FUserManager&, const FMessageDto&);
     // Updating
     explicit operator FMessageRequestDto() const;
     // Sending
-    explicit FMessage(const FMessageRequestDto&, const FUser& SendingUser);
+    explicit FMessage(const FMessageRequestDto&, const FUserRef& SendingUser);
 
     /// The message ID. This is either created by Stream or set client side when
     /// the message is added.
@@ -65,7 +65,7 @@ struct FMessage
     /// User who sent the message
     // TODO Optional
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
-    FUser User;
+    FUserRef User;
 
     /// The message type
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
@@ -73,7 +73,7 @@ struct FMessage
 
     /// The list of user mentioned in the message
     UPROPERTY()
-    TArray<FUser> MentionedUsers;
+    TArray<FUserRef> MentionedUsers;
 
     /// Date of first message creation
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")

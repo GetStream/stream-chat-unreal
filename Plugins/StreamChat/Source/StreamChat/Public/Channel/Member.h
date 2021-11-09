@@ -1,10 +1,11 @@
 ﻿#pragma once
 
 #include "CoreMinimal.h"
-#include "User.h"
+#include "User/UserRef.h"
 
 #include "Member.generated.h"
 
+class FUserManager;
 struct FChannelMemberDto;
 
 /**
@@ -16,10 +17,10 @@ struct FMember
     GENERATED_BODY()
 
     FMember() = default;
-    explicit FMember(const FChannelMemberDto&);
+    explicit FMember(FUserManager&, const FChannelMemberDto&);
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Member")
-    FUser User;
+    FUserRef User;
 
     // TODO rest of the fields
 };

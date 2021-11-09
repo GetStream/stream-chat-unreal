@@ -6,6 +6,7 @@
 
 #include "Reactions.generated.h"
 
+struct FUserRef;
 struct FReaction;
 struct FReactionDto;
 
@@ -15,6 +16,7 @@ struct STREAMCHAT_API FReactions
     GENERATED_BODY()
 
     static FReactions CollectReactions(
+        FUserManager& UserManager,
         const TMap<FName, int32>& ReactionCounts,
         const TMap<FName, int32>& ReactionScores,
         const TArray<FReactionDto>& LatestReactions,
@@ -29,7 +31,7 @@ struct STREAMCHAT_API FReactions
     bool HasOwnReaction(const FName& ReactionType) const;
 
     /// Remove OwnReactions which are NOT the given user ID
-    void UpdateOwnReactions(const FString& OwnUserId);
+    void UpdateOwnReactions();
 
     /// All reactions of this message, grouped by their type
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")

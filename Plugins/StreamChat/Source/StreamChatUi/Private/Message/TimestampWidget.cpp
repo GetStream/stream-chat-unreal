@@ -1,6 +1,7 @@
 ﻿#include "Message/TimestampWidget.h"
 
 #include "Components/OverlaySlot.h"
+#include "User/User.h"
 
 void UTimestampWidget::Setup(const FMessage& InMessage, const EMessageSide InSide)
 {
@@ -24,7 +25,7 @@ void UTimestampWidget::OnSetup()
         UserTextBlock->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
         MessageStateIconImage->SetVisibility(ESlateVisibility::Collapsed);
 
-        UserTextBlock->SetText(FText::FromString(Message.User.Id));
+        UserTextBlock->SetText(FText::FromString(Message.User->Name));
     }
 
     for (UPanelSlot* PanelSlot : OuterOverlay->GetSlots())

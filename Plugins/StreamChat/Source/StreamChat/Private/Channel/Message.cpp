@@ -2,18 +2,20 @@
 
 #include "Request/Message/MessageRequestDto.h"
 #include "Response/Message/MessageDto.h"
+#include "User/UserManager.h"
 
-FMessage::FMessage(const FMessageDto& Dto)
+FMessage::FMessage(FUserManager& UserManager, const FMessageDto& Dto)
     : Id{Dto.Id}
     , Text{Dto.Text}
     , State{EMessageSendState::Sent}    // Assume response dto => sent
-    , User{Dto.User}
+    , User{UserManager.UpsertUser(Dto.User)}
     , Type{static_cast<EMessageType>(Dto.Type)}
-    , MentionedUsers{Dto.MentionedUsers}
+    , MentionedUsers{UserManager.UpsertUsers(Dto.MentionedUsers)}
     , CreatedAt{Dto.CreatedAt}
     , UpdatedAt{Dto.UpdatedAt}
     , DeletedAt{Dto.DeletedAt}
     , Reactions{FReactions::CollectReactions(
+          UserManager,
           Dto.ReactionCounts,
           Dto.ReactionScores,
           Dto.LatestReactions,
@@ -22,7 +24,7 @@ FMessage::FMessage(const FMessageDto& Dto)
 {
 }
 
-FMessage::FMessage(const FMessageRequestDto& Dto, const FUser& SendingUser)
+FMessage::FMessage(const FMessageRequestDto& Dto, const FUserRef& SendingUser)
     : Id{Dto.Id}
     , Text{Dto.Text}
     , State{EMessageSendState::Sending}    // Assume request dto => sending

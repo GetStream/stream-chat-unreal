@@ -7,6 +7,7 @@
 #include "Framework/Application/MenuStack.h"
 #include "Framework/Application/SlateApplication.h"
 #include "Layout/WidgetPath.h"
+#include "User/User.h"
 
 void UUiBlueprintLibrary::AddContextMenu(UWidget* Widget, const FPointerEvent& InMouseEvent)
 {
@@ -41,7 +42,7 @@ FText UUiBlueprintLibrary::GetChannelTitle(const UChatChannel* Channel)
 
     const auto OthersPredicate = [&](const FMember& M)
     {
-        return M.User.Id != Channel->CurrentUser.Id;
+        return !M.User.IsCurrent();
     };
 
     if (Channel->State.Members.Num() > 2)
@@ -61,14 +62,14 @@ FText UUiBlueprintLibrary::GetChannelTitle(const UChatChannel* Channel)
                 {
                     Result += TEXT(", ");
                 }
-                Result += M.User.Name;
+                Result += M.User->Name;
             });
         return FText::FromString(Result);
     }
 
     if (const FMember* Member = Channel->State.Members.FindByPredicate(OthersPredicate))
     {
-        return FText::FromString(Member->User.Name);
+        return FText::FromString(Member->User->Name);
     }
 
     return FText::GetEmpty();

@@ -8,8 +8,6 @@ void UMessageListWidget::CreateMessageStackWidgets(const TArray<FMessage> Messag
     const UChatChannel* Channel = UChannelContextWidget::GetChannel(this);
     ScrollBox->ClearChildren();
 
-    const FString CurrentUserId = Channel->CurrentUser.Id;
-
     // A new stack is formed when:
     // 1. A minute is passed between 2 messages sent from the same user.
     // 2. Another users sends a message.
@@ -19,7 +17,7 @@ void UMessageListWidget::CreateMessageStackWidgets(const TArray<FMessage> Messag
     for (int32 Index = 0; Index < Messages.Num(); ++Index)
     {
         if (Index == Last || (Messages[Index + 1].CreatedAt - Messages[Index].CreatedAt > FTimespan::FromMinutes(1.) ||
-                              Messages[Index + 1].User.Id != Messages[Index].User.Id))
+                              Messages[Index + 1].User != Messages[Index].User))
         {
             const int32 Count = Index + 1 - StartIndex;
 
@@ -27,8 +25,7 @@ void UMessageListWidget::CreateMessageStackWidgets(const TArray<FMessage> Messag
             TArray<FMessage> StackMessages;
             StackMessages.Reserve(Count);
             StackMessages.Append(&Messages[StartIndex], Count);
-            Widget->Setup(
-                StackMessages, Messages[Index].User.Id == CurrentUserId ? EMessageSide::Me : EMessageSide::You);
+            Widget->Setup(StackMessages, Messages[Index].User.IsCurrent() ? EMessageSide::Me : EMessageSide::You);
 
             ScrollBox->AddChild(Widget);
 

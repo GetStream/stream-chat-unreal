@@ -8,8 +8,6 @@
 
 struct FUserObjectDto;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUserUpdatedDelegate);
-
 /**
  * A Stream Chat user
  */
@@ -24,13 +22,7 @@ struct STREAMCHAT_API FUser
     explicit FUser(const FUserObjectDto&);
     explicit operator FUserObjectDto() const;
 
-    void Update(const FUser&);
-
     FString GetInitials(int32 Limit = 2) const;
-
-    // TODO: Think more deeply about whether this is a good idea
-    UPROPERTY(BlueprintAssignable)
-    FUserUpdatedDelegate OnUserUpdated;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
     FString Id;

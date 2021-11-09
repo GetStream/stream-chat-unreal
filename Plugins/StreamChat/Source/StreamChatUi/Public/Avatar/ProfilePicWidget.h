@@ -6,7 +6,7 @@
 #include "Components/TextBlock.h"
 #include "CoreMinimal.h"
 #include "StreamUserWidget.h"
-#include "User.h"
+#include "User/UserRef.h"
 
 #include "ProfilePicWidget.generated.h"
 
@@ -20,7 +20,7 @@ class STREAMCHATUI_API UProfilePicWidget : public UStreamUserWidget
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void Setup(const FUser& InUser);
+    void Setup(const FUserRef& InUser);
 
 protected:
     UPROPERTY(meta = (BindWidget))
@@ -35,5 +35,5 @@ private:
     static FLinearColor ChooseColorForString(const FString&);
 
     UPROPERTY(EditAnywhere, Category = Setup)
-    FUser User;
+    FUserRef User;
 };
