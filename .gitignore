@@ -73,6 +73,9 @@ Plugins/*/Intermediate/*
 # Cache files for the editor to use
 DerivedDataCache/*
 
+# MacOS
+.DS_Store
+
 # ue4cli package output
 dist/*
 Plugins/*/dist/*
