@@ -24,9 +24,9 @@ public:
     void Setup(UChatChannel* InChannel);
 
     UFUNCTION(BlueprintPure, Category = "Stream Chat")
-    static UChannelContextWidget* Get(UWidget* Widget);
+    static UChannelContextWidget* Get(const UWidget* Widget);
     UFUNCTION(BlueprintPure, Category = "Stream Chat")
-    static UChatChannel* GetChannel(UWidget* Widget);
+    static UChatChannel* GetChannel(const UWidget* Widget);
 
     UPROPERTY(BlueprintAssignable)
     FStartEditMessageDelegate OnStartEditMessage;

@@ -17,7 +17,6 @@
 #include "Request/Reaction/ReactionRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
-#include "StreamChatClientComponent.h"
 #include "TimerManager.h"
 #include "Util.h"
 

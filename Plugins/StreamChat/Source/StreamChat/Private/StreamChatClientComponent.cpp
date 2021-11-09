@@ -7,6 +7,7 @@
 #include "ChatApi.h"
 #include "ConstantTokenProvider.h"
 #include "Event/Client/ConnectionRecoveredEvent.h"
+#include "Event/User/UserPresenceChangedEvent.h"
 #include "IChatSocket.h"
 #include "Request/Message/MessageRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
@@ -37,6 +38,7 @@ void UStreamChatClientComponent::ConnectUserInternal(const FUser& User, const TF
     Socket->Connect(Callback);
 
     On<FConnectionRecoveredEvent>(this, &UStreamChatClientComponent::OnConnectionRecovered);
+    On<FUserPresenceChangedEvent>(this, &UStreamChatClientComponent::OnUserPresenceChanged);
 }
 
 UChatChannel* UStreamChatClientComponent::CreateChannelObject(const FChannelStateResponseFieldsDto& Dto)
@@ -50,6 +52,27 @@ void UStreamChatClientComponent::OnConnectionRecovered(const FConnectionRecovere
     TArray<FString> Cids;
     Algo::Transform(Channels, Cids, [](const UChatChannel* Channel) { return Channel->State.Cid; });
     QueryChannels({}, FFilter::In(TEXT("cid"), Cids));
+}
+
+void UStreamChatClientComponent::OnUserPresenceChanged(const FUserPresenceChangedEvent& Event)
+{
+    // TODO This seems fragile and easy to get out of sync
+    // Do we need a user manager + user reference system which maintains a single source of truth for users?
+    // User references would be passed around everywhere instead of FUser.
+    //  A user reference would contain a pointer to the manager and and index into its list of users.
+
+    const FUser UpdatedUser = Util::Convert<FUser>(Event.User);
+    // Update members in all channels
+    for (UChatChannel* Channel : Channels)
+    {
+        for (FMember& Member : Channel->State.Members)
+        {
+            if (Member.User.Id == UpdatedUser.Id)
+            {
+                Member.User.Update(UpdatedUser);
+            }
+        }
+    }
 }
 
 void UStreamChatClientComponent::ConnectUser(
@@ -102,7 +125,7 @@ void UStreamChatClientComponent::QueryChannels(
             }
         },
         Socket->GetConnectionId(),
-        EChannelFlags::State | EChannelFlags::Watch,
+        EChannelFlags::State | EChannelFlags::Watch | EChannelFlags::Presence,
         Filter->ToJsonObjectWrapper(),
         Util::Convert<FSortParamRequestDto>(SortOptions));
 }

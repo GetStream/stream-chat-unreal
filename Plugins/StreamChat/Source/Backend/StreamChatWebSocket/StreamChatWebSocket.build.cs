@@ -10,7 +10,6 @@ public class StreamChatWebSocket : ModuleRules
         PrivateDependencyModuleNames.AddRange(new[] {
             "CoreUObject",
             "WebSockets",
-            "StreamChatDto",
             "TokenProvider"
         });
 
@@ -19,6 +18,7 @@ public class StreamChatWebSocket : ModuleRules
             "Core",
             "Json",
             "StreamJson",
+            "StreamChatDto",
         });
     }
 }

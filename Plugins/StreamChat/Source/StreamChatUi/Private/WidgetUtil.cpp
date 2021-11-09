@@ -8,10 +8,10 @@
 #include "Interfaces/IHttpResponse.h"
 #include "Modules/ModuleManager.h"
 
-UWidget* WidgetUtil::GetTypedParentWidget(UWidget* Widget, const TSubclassOf<UWidget> Type)
+UWidget* WidgetUtil::GetTypedParentWidget(const UWidget* Widget, const TSubclassOf<UWidget> Type)
 
 {
-    UWidget* NextOuter = Widget;
+    UWidget* NextOuter = const_cast<UWidget*>(Widget);
     while (NextOuter)
     {
         if (NextOuter->IsA(Type))
