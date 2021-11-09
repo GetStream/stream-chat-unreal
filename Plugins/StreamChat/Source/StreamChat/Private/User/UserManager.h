@@ -9,7 +9,7 @@ class FUserManager : public TSharedFromThis<FUserManager>
 {
 public:
     static TSharedRef<FUserManager> Create(const FUser& InCurrentUser);
-    const FUser* GetUser(const FUserRef&) const;
+    const FUser& GetUser(const FUserRef&);
     bool HasUser(const FUserRef&) const;
     const FUserRef& GetCurrentUser() const;
     FUserRef UpsertUser(const FUser&);
