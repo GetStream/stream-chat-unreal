@@ -31,7 +31,7 @@ public:
 
     FUserUpdatedMultiDelegate& OnUpdate() const;
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Defaults)
     FString UserId;
 
 private:
