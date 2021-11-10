@@ -6,6 +6,7 @@
 #include "Components/Overlay.h"
 #include "CoreMinimal.h"
 #include "MessageHoverMenuWidget.h"
+#include "Reaction/MessageReactionsWidget.h"
 #include "StreamUserWidget.h"
 #include "TextBubbleWidget.h"
 
@@ -27,7 +28,7 @@ public:
 protected:
     // Should contain whatever needs to be horizontally aligned
     UPROPERTY(meta = (BindWidget))
-    UOverlay* OuterOverlay;
+    UVerticalBox* OuterPanel;
 
     UPROPERTY(meta = (BindWidget))
     UTextBubbleWidget* TextBubble;
@@ -36,10 +37,17 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UContentWidget* HoverMenuTargetPanel;
 
+    // Where the reactions will be spawned
+    UPROPERTY(meta = (BindWidget))
+    UContentWidget* ReactionsTargetPanel;
+
     // TODO Reactions
 
     UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
     TSubclassOf<UMessageHoverMenuWidget> MouseHoverMenuWidgetClass = UMessageHoverMenuWidget::StaticClass();
+
+    UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
+    TSubclassOf<UMessageReactionsWidget> ReactionsWidgetClass = UMessageReactionsWidget::StaticClass();
 
 private:
     virtual void OnSetup() override;
@@ -59,4 +67,8 @@ private:
     // Only valid while hovered
     UPROPERTY(Transient)
     UMessageHoverMenuWidget* MouseHoverMenu;
+
+    // Only valid if message has reactions
+    UPROPERTY(Transient)
+    UMessageReactionsWidget* Reactions;
 };
