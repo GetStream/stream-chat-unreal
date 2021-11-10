@@ -2,13 +2,13 @@
 
 #pragma once
 
+#include "Components/Border.h"
 #include "Components/TextBlock.h"
 #include "CoreMinimal.h"
 #include "Message/MessageSide.h"
 #include "Reaction/ReactionGroup.h"
 #include "ReactionIconWidget.h"
 #include "StreamUserWidget.h"
-#include "Components/Border.h"
 
 #include "BottomReactionWidget.generated.h"
 

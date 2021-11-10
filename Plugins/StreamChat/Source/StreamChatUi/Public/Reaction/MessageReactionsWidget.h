@@ -4,11 +4,11 @@
 
 #include "BottomReactionWidget.h"
 #include "Channel/Message.h"
+#include "Components/HorizontalBox.h"
 #include "Components/PanelWidget.h"
 #include "CoreMinimal.h"
 #include "Message/MessageSide.h"
 #include "StreamUserWidget.h"
-#include "Components/HorizontalBox.h"
 
 #include "MessageReactionsWidget.generated.h"
 
