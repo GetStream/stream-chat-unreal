@@ -1,7 +1,7 @@
 ﻿#include "Message/MessageWidget.h"
 
 #include "Components/HorizontalBoxSlot.h"
-#include "Components/OverlaySlot.h"
+#include "Components/VerticalBoxSlot.h"
 
 UMessageWidget::UMessageWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
@@ -20,31 +20,54 @@ void UMessageWidget::Setup(const FMessage& InMessage, const EMessageSide InSide,
 
 void UMessageWidget::OnSetup()
 {
-    // Changing the order of elements in a panel doesn't seem to work in PreConstruct.
-    if (UPanelWidget* HoverMenuParent = Cast<UPanelWidget>(HoverMenuTargetPanel->GetParent()))
+    if (HoverMenuTargetPanel)
     {
-        if (Side == EMessageSide::Me)
+        if (UPanelWidget* HoverMenuParent = Cast<UPanelWidget>(HoverMenuTargetPanel->GetParent()))
         {
-            HoverMenuParent->ReplaceChildAt(0, HoverMenuTargetPanel);
-            HoverMenuParent->ReplaceChildAt(1, TextBubble);
-        }
-        else if (Side == EMessageSide::You)
-        {
-            HoverMenuParent->ReplaceChildAt(0, TextBubble);
-            HoverMenuParent->ReplaceChildAt(1, HoverMenuTargetPanel);
+            if (Side == EMessageSide::Me)
+            {
+                HoverMenuParent->ReplaceChildAt(0, HoverMenuTargetPanel);
+                HoverMenuParent->ReplaceChildAt(1, TextBubble);
+            }
+            else if (Side == EMessageSide::You)
+            {
+                HoverMenuParent->ReplaceChildAt(0, TextBubble);
+                HoverMenuParent->ReplaceChildAt(1, HoverMenuTargetPanel);
+            }
         }
     }
 
-    for (UPanelSlot* PanelSlot : OuterOverlay->GetSlots())
+    if (ReactionsTargetPanel)
     {
-        UOverlaySlot* OverlaySlot = CastChecked<UOverlaySlot>(PanelSlot);
-        if (Side == EMessageSide::Me)
+        if (Message.Reactions.IsEmpty())
         {
-            OverlaySlot->SetHorizontalAlignment(HAlign_Right);
+            // In case the reactions target panel has some padding that needs to be removed
+            ReactionsTargetPanel->SetVisibility(ESlateVisibility::Collapsed);
         }
-        else if (Side == EMessageSide::You)
+        else
         {
-            OverlaySlot->SetHorizontalAlignment(HAlign_Left);
+            ReactionsTargetPanel->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+            Reactions = CreateWidget<UMessageReactionsWidget>(this, ReactionsWidgetClass);
+            Reactions->Setup(Message, Side);
+            ReactionsTargetPanel->SetContent(Reactions);
+        }
+    }
+
+    if (OuterPanel)
+    {
+        for (UPanelSlot* PanelSlot : OuterPanel->GetSlots())
+        {
+            if (UVerticalBoxSlot* BoxSlot = Cast<UVerticalBoxSlot>(PanelSlot))
+            {
+                if (Side == EMessageSide::Me)
+                {
+                    BoxSlot->SetHorizontalAlignment(HAlign_Right);
+                }
+                else if (Side == EMessageSide::You)
+                {
+                    BoxSlot->SetHorizontalAlignment(HAlign_Left);
+                }
+            }
         }
     }
 
