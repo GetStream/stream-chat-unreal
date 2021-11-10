@@ -8,6 +8,7 @@
 #include "Reaction/ReactionGroup.h"
 #include "ReactionIconWidget.h"
 #include "StreamUserWidget.h"
+#include "Components/Border.h"
 
 #include "BottomReactionWidget.generated.h"
 
@@ -29,6 +30,12 @@ protected:
 
     UPROPERTY(meta = (BindWidget))
     UTextBlock* ReactionCountTextBlock;
+
+    UPROPERTY(meta = (BindWidget))
+    UBorder* Border;
+
+    UPROPERTY(EditAnywhere, Category = Defaults)
+    TMap<EMessageSide, FSlateBrush> Brushes;
 
 private:
     virtual void OnSetup() override;

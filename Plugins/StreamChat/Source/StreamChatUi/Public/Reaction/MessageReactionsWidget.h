@@ -2,12 +2,13 @@
 
 #pragma once
 
+#include "BottomReactionWidget.h"
 #include "Channel/Message.h"
 #include "Components/PanelWidget.h"
 #include "CoreMinimal.h"
 #include "Message/MessageSide.h"
-#include "ReactionIconWidget.h"
 #include "StreamUserWidget.h"
+#include "Components/HorizontalBox.h"
 
 #include "MessageReactionsWidget.generated.h"
 
@@ -25,13 +26,18 @@ public:
 
 protected:
     UPROPERTY(meta = (BindWidget))
-    UPanelWidget* ReactionsPanel;
+    UHorizontalBox* ReactionsPanel;
+
+    UPROPERTY(EditAnywhere, NoClear, Category = Defaults)
+    TSubclassOf<UBottomReactionWidget> BottomReactionWidgetClass = UBottomReactionWidget::StaticClass();
 
     UPROPERTY(EditAnywhere, Category = Defaults)
-    TSubclassOf<UReactionIconWidget> ReactionWidgetClass;
+    float Spacing = 8.f;
 
 private:
     virtual void OnSetup() override;
+
+    FMargin GetPadding() const;
 
     UPROPERTY(EditAnywhere, Category = Setup)
     FMessage Message;
