@@ -4,10 +4,12 @@
 
 #include "Channel/Message.h"
 #include "Components/Button.h"
+#include "Components/MenuAnchor.h"
 #include "ContextMenu/ContextMenuWidget.h"
 #include "CoreMinimal.h"
 #include "Reaction/ReactionPickerWidget.h"
 #include "StreamUserWidget.h"
+#include "Components/GridPanel.h"
 
 #include "MessageHoverMenuWidget.generated.h"
 
@@ -25,13 +27,19 @@ public:
 
 protected:
     UPROPERTY(meta = (BindWidget))
-    UPanelWidget* ButtonGroup;
+    UGridPanel* ButtonGroup;
 
     UPROPERTY(meta = (BindWidget))
     UButton* ReactionButton;
 
     UPROPERTY(meta = (BindWidget))
     UButton* OptionsButton;
+
+    UPROPERTY(meta = (BindWidget))
+    UMenuAnchor* ReactionMenuAnchor;
+
+    UPROPERTY(meta = (BindWidget))
+    UMenuAnchor* OptionsMenuAnchor;
 
     UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
     TSubclassOf<UReactionPickerWidget> ReactionPickerWidgetClass = UReactionPickerWidget::StaticClass();
@@ -46,6 +54,10 @@ private:
     void OnOptionsButtonClicked();
     UFUNCTION()
     void OnReactionButtonClicked();
+    UFUNCTION()
+    UUserWidget* CreateOptionsMenu();
+    UFUNCTION()
+    UUserWidget* CreateReactionsMenu();
 
     // TODO Just ID?
     UPROPERTY(EditAnywhere, Category = Setup)
@@ -53,4 +65,13 @@ private:
 
     UPROPERTY(EditAnywhere, Category = Setup)
     EMessageSide Side;
+
+#if WITH_EDITOR
+    static void ValidateChild(const FName& Parent, const FName& Child,
+        const UWidgetTree& BlueprintWidgetTree,
+        IWidgetCompilerLog& CompileLog);
+    virtual void ValidateCompiledWidgetTree(
+        const UWidgetTree& BlueprintWidgetTree,
+        IWidgetCompilerLog& CompileLog) const override;
+#endif
 };

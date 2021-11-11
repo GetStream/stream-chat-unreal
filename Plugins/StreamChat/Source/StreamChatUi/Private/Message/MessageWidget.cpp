@@ -79,6 +79,11 @@ void UMessageWidget::OnSetup()
 
 void UMessageWidget::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
+    if (FSlateApplication::Get().AnyMenusVisible())
+    {
+        return;
+    }
+
     if (ShouldDisplayHoverMenu())
     {
         MouseHoverMenu = CreateWidget<UMessageHoverMenuWidget>(this, MouseHoverMenuWidgetClass);
@@ -90,6 +95,11 @@ void UMessageWidget::NativeOnMouseEnter(const FGeometry& InGeometry, const FPoin
 
 void UMessageWidget::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 {
+    if (FSlateApplication::Get().AnyMenusVisible())
+    {
+        return;
+    }
+
     if (MouseHoverMenu)
     {
         MouseHoverMenu->RemoveFromParent();

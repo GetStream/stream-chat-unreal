@@ -1,7 +1,8 @@
 ﻿#include "Message/MessageHoverMenuWidget.h"
 
-#include "Framework/Application/MenuStack.h"
-#include "Framework/Application/SlateApplication.h"
+#include "Blueprint/WidgetTree.h"
+#include "Components/GridSlot.h"
+#include "Editor/WidgetCompilerLog.h"
 
 void UMessageHoverMenuWidget::Setup(const FMessage& InMessage, const EMessageSide InSide)
 {
@@ -13,65 +14,127 @@ void UMessageHoverMenuWidget::Setup(const FMessage& InMessage, const EMessageSid
 
 void UMessageHoverMenuWidget::OnSetup()
 {
-    if (Side == EMessageSide::Me)
+    if (OptionsMenuAnchor)
     {
-        ButtonGroup->ReplaceChildAt(0, OptionsButton);
-        ButtonGroup->ReplaceChildAt(1, ReactionButton);
-    }
-    else if (Side == EMessageSide::You)
-    {
-        ButtonGroup->ReplaceChildAt(0, ReactionButton);
-        ButtonGroup->ReplaceChildAt(1, OptionsButton);
+        if (UGridSlot* GridSlot = Cast<UGridSlot>(OptionsMenuAnchor->Slot))
+        {
+            if (Side == EMessageSide::Me)
+            {
+                GridSlot->SetColumn(0);
+            }
+            else if (Side == EMessageSide::You)
+            {
+                GridSlot->SetColumn(1);
+            }
+        }
     }
 
-    OptionsButton->OnClicked.AddDynamic(this, &UMessageHoverMenuWidget::OnOptionsButtonClicked);
-    ReactionButton->OnClicked.AddDynamic(this, &UMessageHoverMenuWidget::OnReactionButtonClicked);
+    if (ReactionMenuAnchor)
+    {
+        if (UGridSlot* GridSlot = Cast<UGridSlot>(ReactionMenuAnchor->Slot))
+        {
+            if (Side == EMessageSide::Me)
+            {
+                GridSlot->SetColumn(1);
+            }
+            else if (Side == EMessageSide::You)
+            {
+                GridSlot->SetColumn(0);
+            }
+        }
+    }
 
-    OptionsButton->WidgetStyle.NormalPadding = {};
-    OptionsButton->WidgetStyle.PressedPadding = {};
-    ReactionButton->WidgetStyle.NormalPadding = {};
-    ReactionButton->WidgetStyle.PressedPadding = {};
+    if (OptionsButton)
+    {
+        OptionsButton->OnClicked.AddDynamic(this, &UMessageHoverMenuWidget::OnOptionsButtonClicked);
+
+        OptionsButton->WidgetStyle.NormalPadding = {};
+        OptionsButton->WidgetStyle.PressedPadding = {};
+    }
+    if (ReactionButton)
+    {
+        ReactionButton->OnClicked.AddDynamic(this, &UMessageHoverMenuWidget::OnReactionButtonClicked);
+
+        ReactionButton->WidgetStyle.NormalPadding = {};
+        ReactionButton->WidgetStyle.PressedPadding = {};
+    }
+
+    if (OptionsMenuAnchor)
+    {
+        OptionsMenuAnchor->OnGetUserMenuContentEvent.BindDynamic(this, &UMessageHoverMenuWidget::CreateOptionsMenu);
+    }
+    if (ReactionMenuAnchor)
+    {
+        ReactionMenuAnchor->OnGetUserMenuContentEvent.BindDynamic(this, &UMessageHoverMenuWidget::CreateReactionsMenu);
+        ReactionMenuAnchor->SetPlacement(MenuPlacement_CenteredBelowAnchor);
+    }
 }
 
 void UMessageHoverMenuWidget::OnOptionsButtonClicked()
 {
-    const FVector2D Location = FSlateApplication::Get().GetCursorPos();
-    UContextMenuWidget* Widget = CreateWidget<UContextMenuWidget>(this, ContextMenuWidgetClass);
-    Widget->Setup(Message, Side);
-    static constexpr bool bFocusImmediately = true;
-    const TSharedPtr<IMenu> ContextMenu = FSlateApplication::Get().PushMenu(
-        TakeWidget(),
-        {},
-        Widget->TakeWidget(),
-        Location,
-        FPopupTransitionEffect(FPopupTransitionEffect::ContextMenu),
-        bFocusImmediately);
-    ensure(ContextMenu.IsValid());
+    if (OptionsMenuAnchor)
+    {
+        OptionsMenuAnchor->Open(true);
+    }
 }
 
 void UMessageHoverMenuWidget::OnReactionButtonClicked()
 {
+    if (ReactionMenuAnchor)
+    {
+        ReactionMenuAnchor->Open(true);
+    }
+}
+
+UUserWidget* UMessageHoverMenuWidget::CreateOptionsMenu()
+{
+    UContextMenuWidget* Widget = CreateWidget<UContextMenuWidget>(this, ContextMenuWidgetClass);
+    Widget->Setup(Message, Side);
+    return Widget;
+}
+
+UUserWidget* UMessageHoverMenuWidget::CreateReactionsMenu()
+{
     UReactionPickerWidget* Widget = CreateWidget<UReactionPickerWidget>(this, ReactionPickerWidgetClass);
     Widget->Setup(Message);
-    static constexpr bool bFocusImmediately = true;
-
-    // Position centered below button
-    const TSharedRef<SWidget> SlateWidget = Widget->TakeWidget();
-    const FGeometry AllottedGeometry = ReactionButton->GetCachedGeometry();
-    const FSlateLayoutTransform Transform = AllottedGeometry.GetAccumulatedLayoutTransform();
-    SlateWidget->SlatePrepass(Transform.GetScale());
-    const FVector2D PopupSizeLocalSpace = SlateWidget->GetDesiredSize();
-    const FVector2D LocalPopupOffset{
-        -(PopupSizeLocalSpace.X / 2 - AllottedGeometry.GetLocalSize().X / 2), AllottedGeometry.GetLocalSize().Y};
-    const FVector2D SummonLocation = TransformPoint(Transform, LocalPopupOffset);
-
-    TSharedPtr<IMenu> ContextMenu = FSlateApplication::Get().PushMenu(
-        TakeWidget(),
-        {},
-        SlateWidget,
-        SummonLocation,
-        FPopupTransitionEffect(FPopupTransitionEffect::ContextMenu),
-        bFocusImmediately);
-    ContextMenu->GetContent()->SetRenderTransform(FTransform2D{0.5f * Transform.GetScale()});
-    ContextMenu->GetContent()->
+    return Widget;
 }
+
+#if WITH_EDITOR
+void UMessageHoverMenuWidget::ValidateChild(
+    const FName& Parent,
+    const FName& Child,
+    const UWidgetTree& BlueprintWidgetTree,
+    IWidgetCompilerLog& CompileLog)
+{
+    if (UPanelWidget* ParentWidget = BlueprintWidgetTree.FindWidget<UPanelWidget>(Parent))
+    {
+        int32 ChildIdx;
+        UWidgetTree::FindWidgetChild(ParentWidget, Child, ChildIdx);
+
+        if (ChildIdx == INDEX_NONE)
+        {
+            const FText MissingChildError =
+                FText::FromString(TEXT("Bound widget \"{0}\" is expected to be a child of widget \"{1}\""));
+            CompileLog.Error(FText::Format(MissingChildError, FText::FromName(Child), FText::FromName(Parent)));
+        }
+    }
+}
+
+void UMessageHoverMenuWidget::ValidateCompiledWidgetTree(
+    const UWidgetTree& BlueprintWidgetTree,
+    IWidgetCompilerLog& CompileLog) const
+{
+    {
+        const FName Parent = GET_MEMBER_NAME_CHECKED(UMessageHoverMenuWidget, ReactionMenuAnchor);
+        const FName Child = GET_MEMBER_NAME_CHECKED(UMessageHoverMenuWidget, ReactionButton);
+        ValidateChild(Parent, Child, BlueprintWidgetTree, CompileLog);
+    }
+    {
+        const FName Parent = GET_MEMBER_NAME_CHECKED(UMessageHoverMenuWidget, OptionsMenuAnchor);
+        const FName Child = GET_MEMBER_NAME_CHECKED(UMessageHoverMenuWidget, OptionsButton);
+        ValidateChild(Parent, Child, BlueprintWidgetTree, CompileLog);
+    }
+    Super::ValidateCompiledWidgetTree(BlueprintWidgetTree, CompileLog);
+}
+#endif
