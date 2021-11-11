@@ -4,12 +4,12 @@
 
 #include "Channel/Message.h"
 #include "Components/Button.h"
+#include "Components/GridPanel.h"
 #include "Components/MenuAnchor.h"
 #include "ContextMenu/ContextMenuWidget.h"
 #include "CoreMinimal.h"
 #include "Reaction/ReactionPickerWidget.h"
 #include "StreamUserWidget.h"
-#include "Components/GridPanel.h"
 
 #include "MessageHoverMenuWidget.generated.h"
 
@@ -67,11 +67,12 @@ private:
     EMessageSide Side;
 
 #if WITH_EDITOR
-    static void ValidateChild(const FName& Parent, const FName& Child,
+    static void ValidateChild(
+        const FName& Parent,
+        const FName& Child,
         const UWidgetTree& BlueprintWidgetTree,
         IWidgetCompilerLog& CompileLog);
-    virtual void ValidateCompiledWidgetTree(
-        const UWidgetTree& BlueprintWidgetTree,
-        IWidgetCompilerLog& CompileLog) const override;
+    virtual void ValidateCompiledWidgetTree(const UWidgetTree& BlueprintWidgetTree, IWidgetCompilerLog& CompileLog)
+        const override;
 #endif
 };
