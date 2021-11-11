@@ -53,16 +53,20 @@ void UProfilePicWidget::OnSetup()
         {
             WidgetUtil::DownloadImage(
                 User->Image,
-                [this](UTexture2DDynamic* Texture)
+                [WeakThis = TWeakObjectPtr<UProfilePicWidget>(this)](UTexture2DDynamic* Texture)
                 {
-                    Image->SetBrushFromTextureDynamic(Texture, true);
-                    Image->SetColorAndOpacity(FLinearColor::White);
-                    if (InitialsTextBlock)
+                    if (!WeakThis.IsValid())
                     {
-                        InitialsTextBlock->SetVisibility(ESlateVisibility::Collapsed);
+                        return;
+                    }
+                    WeakThis->Image->SetBrushFromTextureDynamic(Texture, true);
+                    WeakThis->Image->SetColorAndOpacity(FLinearColor::White);
+                    if (WeakThis->InitialsTextBlock)
+                    {
+                        WeakThis->InitialsTextBlock->SetVisibility(ESlateVisibility::Collapsed);
                     }
                     // Ensure retainer widget re-renders (if present)
-                    Invalidate(EInvalidateWidgetReason::ChildOrder);
+                    WeakThis->Invalidate(EInvalidateWidgetReason::ChildOrder);
                 });
         }
     }

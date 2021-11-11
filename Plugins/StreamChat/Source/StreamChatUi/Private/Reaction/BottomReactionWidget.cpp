@@ -21,20 +21,28 @@ void UBottomReactionWidget::OnSetup()
         ReactionCountTextBlock->SetText(FText::AsNumber(ReactionGroup.Count));
     }
 
-    if (Border)
+    if (Button)
     {
-        if (const FSlateBrush* Brush = Brushes.Find(Side))
+        if (const FButtonStyle* Style = ButtonStyles.Find(Side))
         {
-            Border->SetBrush(*Brush);
+            Button->SetStyle(*Style);
         }
+
+        Button->OnClicked.AddUniqueDynamic(this, &UBottomReactionWidget::OnButtonClicked);
     }
 }
 
 EMessageSide UBottomReactionWidget::GetSide() const
 {
-    if (ReactionGroup.HasOwnReaction())
+    if (ReactionGroup.OwnReaction.IsSet())
     {
         return EMessageSide::Me;
     }
     return EMessageSide::You;
+}
+
+void UBottomReactionWidget::OnButtonClicked()
+{
+    OnBottomReactionClickedNative.Broadcast(ReactionGroup);
+    OnBottomReactionClicked.Broadcast(ReactionGroup);
 }

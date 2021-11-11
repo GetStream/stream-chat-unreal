@@ -13,8 +13,6 @@ struct STREAMCHAT_API FReactionGroup
 {
     GENERATED_BODY()
 
-    bool HasOwnReaction() const;
-
     /// The type of reaction (e.g. 'like', 'laugh', 'wow')
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Reaction")
     FName Type;
@@ -32,7 +30,19 @@ struct STREAMCHAT_API FReactionGroup
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
     TArray<FReaction> LatestReactions;
 
-    /// The reactions of this type added to the message by the current user.
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
-    TArray<FReaction> OwnReactions;
+    /// The reaction of this type added to the message by the current user.
+    TOptional<FReaction> OwnReaction;
+};
+
+UCLASS()
+class STREAMCHAT_API UReactionGroupBlueprintLibrary final : public UBlueprintFunctionLibrary
+{
+    GENERATED_BODY()
+
+public:
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Reaction")
+    static bool HasOwnReaction(const FReactionGroup& ReactionGroup);
+
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Reaction")
+    static void GetOwnReaction(const FReactionGroup& ReactionGroup, bool& bIsSet, FReaction& Reaction);
 };

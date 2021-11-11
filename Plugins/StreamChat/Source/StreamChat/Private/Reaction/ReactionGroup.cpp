@@ -1,6 +1,18 @@
 ﻿#include "Reaction/ReactionGroup.h"
 
-bool FReactionGroup::HasOwnReaction() const
+bool UReactionGroupBlueprintLibrary::HasOwnReaction(const FReactionGroup& ReactionGroup)
 {
-    return OwnReactions.Num() > 0;
+    return ReactionGroup.OwnReaction.IsSet();
+}
+
+void UReactionGroupBlueprintLibrary::GetOwnReaction(
+    const FReactionGroup& ReactionGroup,
+    bool& bIsSet,
+    FReaction& Reaction)
+{
+    bIsSet = ReactionGroup.OwnReaction.IsSet();
+    if (bIsSet)
+    {
+        Reaction = ReactionGroup.OwnReaction.GetValue();
+    }
 }

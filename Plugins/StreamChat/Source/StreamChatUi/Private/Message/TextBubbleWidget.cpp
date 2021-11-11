@@ -11,13 +11,19 @@ void UTextBubbleWidget::Setup(const FMessage& InMessage, EMessageSide InSide, EB
 
 void UTextBubbleWidget::OnSetup()
 {
-    TextBlock->SetText(GetText());
-    TextBlock->SetColorAndOpacity(GetTextColor());
+    if (TextBlock)
+    {
+        TextBlock->SetText(GetText());
+        TextBlock->SetColorAndOpacity(GetTextColor());
+    }
 
-    Border->Background.Margin = {0.5f};
-    Border->Background.DrawAs = ESlateBrushDrawType::Box;
-    Border->SetBrushFromTexture(GetBubbleTexture());
-    Border->SetBrushColor(GetBubbleColor());
+    if (Border)
+    {
+        Border->Background.Margin = {0.5f};
+        Border->Background.DrawAs = ESlateBrushDrawType::Box;
+        Border->SetBrushFromTexture(GetBubbleTexture());
+        Border->SetBrushColor(GetBubbleColor());
+    }
 }
 
 UTexture2D* UTextBubbleWidget::GetBubbleTexture() const

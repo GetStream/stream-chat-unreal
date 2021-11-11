@@ -3,6 +3,7 @@
 #include "Reaction/MessageReactionsWidget.h"
 
 #include "Components/HorizontalBoxSlot.h"
+#include "Context/ChannelContextWidget.h"
 #include "Reaction/BottomReactionWidget.h"
 
 void UMessageReactionsWidget::Setup(const FMessage& InMessage, const EMessageSide InSide)
@@ -24,6 +25,21 @@ void UMessageReactionsWidget::OnSetup()
         {
             UBottomReactionWidget* Widget = CreateWidget<UBottomReactionWidget>(this, BottomReactionWidgetClass);
             Widget->Setup(Group);
+            Widget->OnBottomReactionClickedNative.AddLambda(
+                [this](const FReactionGroup& Reaction)
+                {
+                    if (UChatChannel* Channel = UChannelContextWidget::GetChannel(this))
+                    {
+                        if (Reaction.OwnReaction.IsSet())
+                        {
+                            Channel->DeleteReaction(Message, Reaction.OwnReaction.GetValue());
+                        }
+                        else
+                        {
+                            Channel->SendReaction(Message, Reaction.Type, false);
+                        }
+                    }
+                });
             ReactionsPanel->AddChildToHorizontalBox(Widget)->SetPadding(GetPadding());
         }
     }
