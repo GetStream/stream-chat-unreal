@@ -6,7 +6,7 @@
 #include "Components/Button.h"
 #include "ContextMenu/ContextMenuWidget.h"
 #include "CoreMinimal.h"
-#include "ReactionPickerWidget.h"
+#include "Reaction/ReactionPickerWidget.h"
 #include "StreamUserWidget.h"
 
 #include "MessageHoverMenuWidget.generated.h"

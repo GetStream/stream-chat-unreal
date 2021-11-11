@@ -51,6 +51,10 @@ bool FUserRef::IsValid() const
 
 bool FUserRef::IsCurrent() const
 {
+    if (!Manager.IsValid())
+    {
+        return false;
+    }
     return Manager->GetCurrentUser() == *this;
 }
 
