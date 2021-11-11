@@ -4,7 +4,7 @@
     <defs>
         <filter id="f1" x="-0.5" y="-0.5" width="200%" height="200%">
             <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
-            <feGaussianBlur result="blurOut" in="offOut" stdDeviation="3.33" />
+            <feGaussianBlur result="blurOut" in="offOut" stdDeviation="3.3614" />
         </filter>
     </defs>
 </svg>
