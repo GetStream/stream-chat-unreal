@@ -32,6 +32,8 @@ protected:
 private:
     virtual void OnSetup() override;
 
+    void OnReactionButtonClicked(const FName& ReactionType);
+
     UPROPERTY(EditAnywhere, Category = Setup)
     FMessage Message;
 };

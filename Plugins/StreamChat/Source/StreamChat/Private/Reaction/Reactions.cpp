@@ -74,13 +74,13 @@ void FReactions::RemoveReactionWhere(const TFunctionRef<bool(const FReaction&)> 
     }
 }
 
-bool FReactions::HasOwnReaction(const FName& ReactionType) const
+TOptional<FReaction> FReactions::GetOwnReaction(const FName& ReactionType) const
 {
     if (const FReactionGroup* Group = ReactionGroups.Find(ReactionType))
     {
-        return Group->OwnReaction.IsSet();
+        return Group->OwnReaction;
     }
-    return false;
+    return {};
 }
 
 bool FReactions::IsEmpty() const
@@ -106,7 +106,7 @@ void FReactions::UpdateOwnReactions()
 
 bool UReactionsBlueprintLibrary::HasOwnReaction_Reactions(const FReactions& Reactions, const FName& ReactionType)
 {
-    return Reactions.HasOwnReaction(ReactionType);
+    return Reactions.GetOwnReaction(ReactionType).IsSet();
 }
 
 bool UReactionsBlueprintLibrary::HasOwnReaction_ReactionGroup(const FReactionGroup& ReactionGroup)
