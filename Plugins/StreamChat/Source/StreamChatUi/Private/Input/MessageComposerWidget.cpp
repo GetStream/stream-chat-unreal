@@ -15,11 +15,6 @@ void UMessageComposerWidget::NativeOnInitialized()
     CancelEditingButton->OnClicked.AddDynamic(this, &UMessageComposerWidget::OnCancelEditingButtonClicked);
     SendMessageButton->OnClicked.AddDynamic(this, &UMessageComposerWidget::OnSendButtonClicked);
 
-    SendMessageButton->WidgetStyle.NormalPadding = {};
-    SendMessageButton->WidgetStyle.PressedPadding = {};
-    CancelEditingButton->WidgetStyle.NormalPadding = {};
-    CancelEditingButton->WidgetStyle.PressedPadding = {};
-
     UpdateSendButtonAppearance(false);
     UpdateEditMessageAppearance(ESendButtonIconAppearance::Send);
 
@@ -105,11 +100,8 @@ void UMessageComposerWidget::SendMessage()
 
 void UMessageComposerWidget::UpdateSendButtonAppearance(const bool bEnabled)
 {
-    UTexture2D* Texture = bEnabled ? ButtonTextureNormal : ButtonTextureDisabled;
-    const FSlateImageBrush Brush = FSlateImageBrush(Texture, Texture->GetImportedSize());
-    SendMessageButton->WidgetStyle.SetNormal(Brush);
-    SendMessageButton->WidgetStyle.SetHovered(Brush);
-    SendMessageButton->WidgetStyle.SetPressed(Brush);
+    const FButtonStyle& ButtonStyle = bEnabled ? ButtonStyleNormal : ButtonStyleDisabled;
+    SendMessageButton->SetStyle(ButtonStyle);
 }
 
 void UMessageComposerWidget::StopEditMessage()
