@@ -45,10 +45,10 @@ protected:
     UPanelWidget* CancelEditingHeaderPanel;
 
     UPROPERTY(EditAnywhere, Category = "Button")
-    UTexture2D* ButtonTextureNormal;
+    FButtonStyle ButtonStyleNormal;
 
     UPROPERTY(EditAnywhere, Category = "Button")
-    UTexture2D* ButtonTextureDisabled;
+    FButtonStyle ButtonStyleDisabled;
 
     UPROPERTY(EditAnywhere, Category = "Icon")
     UTexture2D* IconTextureSend;
