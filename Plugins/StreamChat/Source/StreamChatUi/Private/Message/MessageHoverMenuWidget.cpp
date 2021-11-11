@@ -51,13 +51,25 @@ void UMessageHoverMenuWidget::OnOptionsButtonClicked()
 
 void UMessageHoverMenuWidget::OnReactionButtonClicked()
 {
-    UWidget* Widget = CreateWidget(this, ReactionPickerWidgetClass);
+    UReactionPickerWidget* Widget = CreateWidget<UReactionPickerWidget>(this, ReactionPickerWidgetClass);
+    Widget->Setup(Message);
     static constexpr bool bFocusImmediately = true;
+
+    // Position centered below button
+    const TSharedRef<SWidget> SlateWidget = Widget->TakeWidget();
+    const FGeometry AllottedGeometry = ReactionButton->GetCachedGeometry();
+    const FSlateLayoutTransform Transform = AllottedGeometry.GetAccumulatedLayoutTransform();
+    SlateWidget->SlatePrepass(Transform.GetScale());
+    const FVector2D PopupSizeLocalSpace = SlateWidget->GetDesiredSize();
+    const FVector2D LocalPopupOffset{
+        -(PopupSizeLocalSpace.X / 2 - AllottedGeometry.GetLocalSize().X / 2), AllottedGeometry.GetLocalSize().Y};
+    const FVector2D SummonLocation = TransformPoint(Transform, LocalPopupOffset);
+
     TSharedPtr<IMenu> ContextMenu = FSlateApplication::Get().PushMenu(
         TakeWidget(),
         {},
-        Widget->TakeWidget(),
-        ReactionButton->GetCachedGeometry().GetAbsolutePosition(),
+        SlateWidget,
+        SummonLocation,
         FPopupTransitionEffect(FPopupTransitionEffect::ContextMenu),
         bFocusImmediately);
 }

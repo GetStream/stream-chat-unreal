@@ -28,7 +28,7 @@ struct STREAMCHAT_API FReactions
     void RemoveReactionWhere(TFunctionRef<bool(const FReaction&)> Predicate);
 
     bool IsEmpty() const;
-    bool HasOwnReaction(const FName& ReactionType) const;
+    TOptional<FReaction> GetOwnReaction(const FName& ReactionType) const;
 
     /// Remove OwnReactions which are NOT the given user ID
     void UpdateOwnReactions();
