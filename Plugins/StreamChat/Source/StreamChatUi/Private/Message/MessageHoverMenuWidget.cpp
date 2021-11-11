@@ -72,4 +72,6 @@ void UMessageHoverMenuWidget::OnReactionButtonClicked()
         SummonLocation,
         FPopupTransitionEffect(FPopupTransitionEffect::ContextMenu),
         bFocusImmediately);
+    ContextMenu->GetContent()->SetRenderTransform(FTransform2D{0.5f * Transform.GetScale()});
+    ContextMenu->GetContent()->
 }

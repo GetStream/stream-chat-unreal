@@ -24,7 +24,7 @@ class STREAMCHATUI_API UAvatarWidget : public UStreamUserWidget
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void Setup(const TArray<FUserRef>& InUsers, int32 InSize = 40);
+    void Setup(const TArray<FUserRef>& InUsers, int32 InSize = 80);
 
 protected:
     UPROPERTY(meta = (BindWidget))
@@ -58,7 +58,7 @@ private:
     TArray<FUserRef> Users;
 
     UPROPERTY(EditAnywhere, Category = Setup)
-    int32 Size = 40;
+    int32 Size = 80;
 
     UPROPERTY(Transient)
     UMaterialInstanceDynamic* EffectMaterialDynamic;
