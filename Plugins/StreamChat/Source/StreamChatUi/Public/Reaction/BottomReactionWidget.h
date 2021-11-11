@@ -2,13 +2,14 @@
 
 #pragma once
 
-#include "Components/Border.h"
+#include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "CoreMinimal.h"
 #include "Message/MessageSide.h"
 #include "Reaction/ReactionGroup.h"
 #include "ReactionIconWidget.h"
 #include "StreamUserWidget.h"
+#include "Styling/SlateTypes.h"
 
 #include "BottomReactionWidget.generated.h"
 
@@ -24,6 +25,13 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(const FReactionGroup& InReactionGroup);
 
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FBottomReactionClicked, const FReactionGroup&, Reaction);
+    UPROPERTY(BlueprintAssignable)
+    FBottomReactionClicked OnBottomReactionClicked;
+
+    DECLARE_MULTICAST_DELEGATE_OneParam(FBottomReactionClickedNative, const FReactionGroup&);
+    FBottomReactionClickedNative OnBottomReactionClickedNative;
+
 protected:
     UPROPERTY(meta = (BindWidget))
     UReactionIconWidget* ReactionIcon;
@@ -32,15 +40,18 @@ protected:
     UTextBlock* ReactionCountTextBlock;
 
     UPROPERTY(meta = (BindWidget))
-    UBorder* Border;
+    UButton* Button;
 
     UPROPERTY(EditAnywhere, Category = Defaults)
-    TMap<EMessageSide, FSlateBrush> Brushes;
+    TMap<EMessageSide, FButtonStyle> ButtonStyles;
 
 private:
     virtual void OnSetup() override;
 
     EMessageSide GetSide() const;
+
+    UFUNCTION()
+    void OnButtonClicked();
 
     UPROPERTY(EditAnywhere, Category = Setup)
     FReactionGroup ReactionGroup;

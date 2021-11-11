@@ -95,15 +95,21 @@ void UStreamChatClientComponent::QueryChannels(
     check(Socket->IsConnected());
 
     Api->QueryChannels(
-        [this, Callback](const FChannelsResponseDto& Response)
+        [WeakThis = TWeakObjectPtr<UStreamChatClientComponent>(this), Callback](const FChannelsResponseDto& Response)
         {
+            if (!WeakThis.IsValid())
+            {
+                return;
+            }
+
             TArray<UChatChannel*> NewChannels;
             Algo::Transform(
                 Response.Channels,
                 NewChannels,
-                [this](const FChannelStateResponseFieldsDto& ResponseChannel)
-                { return CreateChannelObject(ResponseChannel); });
-            Channels = NewChannels;
+                [&WeakThis](const FChannelStateResponseFieldsDto& ResponseChannel)
+                { return WeakThis->CreateChannelObject(ResponseChannel); });
+            WeakThis->Channels = NewChannels;
+
             if (Callback)
             {
                 Callback(NewChannels);

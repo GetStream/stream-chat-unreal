@@ -26,7 +26,7 @@ FReactions FReactions::CollectReactions(
     }
     for (const FReactionDto& Own : OwnReactions)
     {
-        Result.ReactionGroups.FindOrAdd(Own.Type).OwnReactions.Add(FReaction{UserManager, Own});
+        Result.ReactionGroups.FindOrAdd(Own.Type).OwnReaction.Emplace(FReaction{UserManager, Own});
     }
     return Result;
 }
@@ -78,7 +78,7 @@ bool FReactions::HasOwnReaction(const FName& ReactionType) const
 {
     if (const FReactionGroup* Group = ReactionGroups.Find(ReactionType))
     {
-        return Group->HasOwnReaction();
+        return Group->OwnReaction.IsSet();
     }
     return false;
 }
@@ -92,8 +92,15 @@ void FReactions::UpdateOwnReactions()
 {
     for (auto& [Type, Group] : ReactionGroups)
     {
-        Group.OwnReactions =
-            Group.LatestReactions.FilterByPredicate([](const FReaction& R) { return R.User.IsCurrent(); });
+        if (const FReaction* OwnReaction =
+                Group.LatestReactions.FindByPredicate([](const FReaction& R) { return R.User.IsCurrent(); }))
+        {
+            Group.OwnReaction.Emplace(*OwnReaction);
+        }
+        else
+        {
+            Group.OwnReaction.Reset();
+        }
     }
 }
 
@@ -104,7 +111,7 @@ bool UReactionsBlueprintLibrary::HasOwnReaction_Reactions(const FReactions& Reac
 
 bool UReactionsBlueprintLibrary::HasOwnReaction_ReactionGroup(const FReactionGroup& ReactionGroup)
 {
-    return ReactionGroup.HasOwnReaction();
+    return ReactionGroup.OwnReaction.IsSet();
 }
 
 bool UReactionsBlueprintLibrary::IsEmpty(const FReactions& Reactions)

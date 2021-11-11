@@ -11,6 +11,15 @@ void UMessageStackWidget::Setup(const TArray<FMessage>& InMessages, const EMessa
     Super::Setup();
 }
 
+FString UMessageStackWidget::Describe() const
+{
+    return FString::Printf(
+        TEXT("MessageStack [Side=%s, MessageCount=%d, Message[0]=%s]"),
+        *StaticEnum<EMessageSide>()->GetNameStringByValue(static_cast<int64>(Side)),
+        Messages.Num(),
+        *(Messages.Num() > 0 ? Messages[0].Text : TEXT("")));
+}
+
 void UMessageStackWidget::OnSetup()
 {
     // Init timestamp widget

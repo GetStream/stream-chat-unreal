@@ -25,6 +25,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(const TArray<FMessage>& InMessages, EMessageSide InSide);
 
+    UFUNCTION(BlueprintPure, meta = (DevelopmentOnly))
+    FString Describe() const ;
+
 protected:
     UPROPERTY(meta = (BindWidget))
     UVerticalBox* MessagesPanel;
