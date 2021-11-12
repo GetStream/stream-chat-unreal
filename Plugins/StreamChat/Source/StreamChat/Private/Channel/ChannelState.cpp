@@ -44,6 +44,21 @@ void FChannelState::AddMessage(const FMessage& Message)
     }
 }
 
+TArray<FUserRef> FChannelState::GetOtherMemberUsers() const
+{
+    constexpr auto NotCurrentUser = [](const FMember& M)
+    {
+        return !M.User.IsCurrent();
+    };
+    constexpr auto ToUser = [](const FMember& M)
+    {
+        return M.User;
+    };
+    TArray<FUserRef> OtherUsers;
+    Algo::TransformIf(Members, OtherUsers, NotCurrentUser, ToUser);
+    return OtherUsers;
+}
+
 void FChannelState::SetMembers(FUserManager& UserManager, const TArray<FChannelMemberDto>& Dto)
 {
     Algo::Transform(Dto, Members, [&](const FChannelMemberDto& MemberDto) { return FMember{UserManager, MemberDto}; });

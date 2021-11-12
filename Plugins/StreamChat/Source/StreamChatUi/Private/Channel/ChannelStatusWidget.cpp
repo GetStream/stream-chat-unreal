@@ -51,9 +51,7 @@ void UChannelStatusWidget::OnSetup()
 
     if (Avatar)
     {
-        TArray<FUserRef> Users;
-        Algo::Transform(Channel->State.Members, Users, [](const FMember& M) { return M.User; });
-        Avatar->Setup(Users);
+        Avatar->Setup(Channel->State.GetOtherMemberUsers());
     }
 
     UpdateDynamic();
