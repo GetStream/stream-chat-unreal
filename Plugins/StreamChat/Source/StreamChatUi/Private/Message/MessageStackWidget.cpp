@@ -1,6 +1,7 @@
 ﻿#include "Message/MessageStackWidget.h"
 
 #include "Components/PanelWidget.h"
+#include "Components/VerticalBoxSlot.h"
 #include "Message/MessageWidget.h"
 
 void UMessageStackWidget::Setup(const TArray<FMessage>& InMessages, const EMessageSide InSide)
@@ -27,7 +28,20 @@ void UMessageStackWidget::OnSetup()
     {
         if (Messages.Num() > 0)
         {
-            Timestamp->Setup(Messages.Last(), Side);
+            const bool bShowUserName = Side == EMessageSide::You;
+            const bool bShowMessageState = Side == EMessageSide::Me;
+            Timestamp->Setup(Messages.Last(), bShowUserName, bShowMessageState);
+            if (UVerticalBoxSlot* VerticalBoxSlot = Cast<UVerticalBoxSlot>(Timestamp->Slot))
+            {
+                if (Side == EMessageSide::Me)
+                {
+                    VerticalBoxSlot->SetHorizontalAlignment(HAlign_Right);
+                }
+                else if (Side == EMessageSide::You)
+                {
+                    VerticalBoxSlot->SetHorizontalAlignment(HAlign_Left);
+                }
+            }
         }
     }
 

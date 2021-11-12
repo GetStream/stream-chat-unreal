@@ -21,12 +21,9 @@ class STREAMCHATUI_API UTimestampWidget final : public UStreamUserWidget
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void Setup(const FMessage& InMessage, EMessageSide InSide);
+    void Setup(const FMessage& InMessage, bool bInShowUserName, bool bInShowMessageState);
 
 protected:
-    UPROPERTY(meta = (BindWidget))
-    UOverlay* OuterOverlay;
-
     UPROPERTY(meta = (BindWidget))
     UTextBlock* UserTextBlock;
 
@@ -56,5 +53,8 @@ private:
     FMessage Message;
 
     UPROPERTY(EditAnywhere, Category = Setup)
-    EMessageSide Side;
+    bool bShowUserName;
+
+    UPROPERTY(EditAnywhere, Category = Setup)
+    bool bShowMessageState;
 };

@@ -3,45 +3,47 @@
 #include "Components/OverlaySlot.h"
 #include "User/User.h"
 
-void UTimestampWidget::Setup(const FMessage& InMessage, const EMessageSide InSide)
+void UTimestampWidget::Setup(const FMessage& InMessage, const bool bInShowUserName, const bool bInShowMessageState)
 {
     Message = InMessage;
-    Side = InSide;
+    bShowUserName = bInShowUserName;
+    bShowMessageState = bInShowMessageState;
 
     Super::Setup();
 }
 
 void UTimestampWidget::OnSetup()
 {
-    if (Side == EMessageSide::Me)
+    if (UserTextBlock)
     {
-        UserTextBlock->SetVisibility(ESlateVisibility::Collapsed);
-        MessageStateIconImage->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
-
-        MessageStateIconImage->SetBrushFromTexture(GetStatusIcon(), true);
-    }
-    else if (Side == EMessageSide::You)
-    {
-        UserTextBlock->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
-        MessageStateIconImage->SetVisibility(ESlateVisibility::Collapsed);
-
-        UserTextBlock->SetText(FText::FromString(Message.User->Name));
-    }
-
-    for (UPanelSlot* PanelSlot : OuterOverlay->GetSlots())
-    {
-        UOverlaySlot* OverlaySlot = CastChecked<UOverlaySlot>(PanelSlot);
-        if (Side == EMessageSide::Me)
+        if (bShowUserName)
         {
-            OverlaySlot->SetHorizontalAlignment(HAlign_Right);
+            UserTextBlock->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+            UserTextBlock->SetText(FText::FromString(Message.User->Name));
         }
-        else if (Side == EMessageSide::You)
+        else
         {
-            OverlaySlot->SetHorizontalAlignment(HAlign_Left);
+            UserTextBlock->SetVisibility(ESlateVisibility::Collapsed);
         }
     }
 
-    DateTimeTextBlock->SetText(GetTimestampText());
+    if (MessageStateIconImage)
+    {
+        if (bShowMessageState)
+        {
+            MessageStateIconImage->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+            MessageStateIconImage->SetBrushFromTexture(GetStatusIcon(), true);
+        }
+        else
+        {
+            MessageStateIconImage->SetVisibility(ESlateVisibility::Collapsed);
+        }
+    }
+
+    if (DateTimeTextBlock)
+    {
+        DateTimeTextBlock->SetText(GetTimestampText());
+    }
 }
 
 UTexture2D* UTimestampWidget::GetStatusIcon() const
