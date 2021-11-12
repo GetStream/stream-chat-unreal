@@ -19,17 +19,7 @@ void UMessageListHeaderWidget::NativeConstruct()
     if (Avatar)
     {
         // TODO Group chat
-        constexpr auto NotCurrentUser = [](const FMember& M)
-        {
-            return !M.User.IsCurrent();
-        };
-        constexpr auto ToUser = [](const FMember& M)
-        {
-            return M.User;
-        };
-        TArray<FUserRef> OtherUsers;
-        Algo::TransformIf(Channel->State.Members, OtherUsers, NotCurrentUser, ToUser);
-        Avatar->Setup(OtherUsers);
+        Avatar->Setup(Channel->State.GetOtherMemberUsers());
     }
 
     Super::NativeConstruct();

@@ -10,7 +10,7 @@
 struct FChannelStateResponseFieldsDto;
 
 USTRUCT(BlueprintType)
-struct FChannelState
+struct STREAMCHAT_API FChannelState
 {
     GENERATED_BODY()
 
@@ -19,6 +19,8 @@ struct FChannelState
 
     void Merge(const FChannelStateResponseFieldsDto&, FUserManager&);
     void AddMessage(const FMessage&);
+
+    TArray<FUserRef> GetOtherMemberUsers() const;
 
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
     FString Type;
