@@ -11,7 +11,10 @@
 void UAvatarWidget::Setup(const TArray<FUserRef>& InUsers, const int32 InSize)
 {
     Users = InUsers;
-    Size = InSize;
+    if (InSize > 0)
+    {
+        Size = InSize;
+    }
 
     Super::Setup();
 }

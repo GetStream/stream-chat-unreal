@@ -13,7 +13,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UChannelWidget : public UStreamUserWidget
+class STREAMCHATUI_API UChannelWidget final : public UStreamUserWidget
 {
     GENERATED_BODY()
 

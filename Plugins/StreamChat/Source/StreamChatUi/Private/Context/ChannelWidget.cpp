@@ -1,6 +1,6 @@
 // Copyright Stream.IO, Inc. All Rights Reserved.
 
-#include "ChannelWidget.h"
+#include "Channel/ChannelWidget.h"
 
 void UChannelWidget::Setup(UChatChannel* InChannel)
 {
