@@ -19,7 +19,7 @@ class STREAMCHATUI_API UReactionIconWidget : public UStreamUserWidget
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void Setup(const FName& InReactionType, EMessageSide InSide);
+    void Setup(const FName& InReactionType, EMessageSide InSide = EMessageSide::Me);
 
 protected:
     UPROPERTY(meta = (BindWidget))
