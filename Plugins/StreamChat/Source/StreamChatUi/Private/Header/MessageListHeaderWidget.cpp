@@ -9,7 +9,7 @@ void UMessageListHeaderWidget::NativeConstruct()
     Channel = UChannelContextWidget::GetChannel(this);
     Channel->OnTypingIndicator.AddDynamic(this, &UMessageListHeaderWidget::OnTypingIndicator);
 
-    const FText Title = UUiBlueprintLibrary::GetChannelTitle(Channel);
+    const FText Title = FText::FromString(UUiBlueprintLibrary::GetChannelTitle(Channel));
     if (Header)
     {
         Header->SetTitle(Title);

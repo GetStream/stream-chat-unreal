@@ -43,18 +43,41 @@ void UChannelStatusWidget::OnSetup()
         Button->OnClicked.AddDynamic(this, &UChannelStatusWidget::OnButtonClicked);
     }
 
-    if (TitleTextBlock)
-    {
-        const FText Title = UUiBlueprintLibrary::GetChannelTitle(Channel);
-        TitleTextBlock->SetText(Title);
-    }
-
     if (Avatar)
     {
         Avatar->Setup(Channel->State.GetOtherMemberUsers());
     }
 
+    // Force update channel title
+    ChannelTitleAvailableSpace = -1.f;
     UpdateDynamic();
+}
+
+int32 UChannelStatusWidget::NativePaint(
+    const FPaintArgs& Args,
+    const FGeometry& AllottedGeometry,
+    const FSlateRect& MyCullingRect,
+    FSlateWindowElementList& OutDrawElements,
+    const int32 LayerId,
+    const FWidgetStyle& InWidgetStyle,
+    const bool bParentEnabled) const
+{
+    if (const float AvailableSpace = RecentMessageTextBlock->GetTickSpaceGeometry().GetLocalSize().X;
+        AvailableSpace != RecentMessageAvailableSpace)
+    {
+        RecentMessageAvailableSpace = AvailableSpace;
+        UpdateRecentMessageText();
+    }
+
+    if (const float AvailableSpace = TitleTextBlock->GetTickSpaceGeometry().GetLocalSize().X;
+        AvailableSpace != ChannelTitleAvailableSpace)
+    {
+        ChannelTitleAvailableSpace = AvailableSpace;
+        UpdateChannelTitleText();
+    }
+
+    return Super::NativePaint(
+        Args, AllottedGeometry, MyCullingRect, OutDrawElements, LayerId, InWidgetStyle, bParentEnabled);
 }
 
 void UChannelStatusWidget::UpdateDynamic() const
@@ -64,15 +87,35 @@ void UChannelStatusWidget::UpdateDynamic() const
         return;
     }
 
-    if (RecentMessageTextBlock)
-    {
-        const FText Text = FText::FromString(Channel->State.Messages.Last().Text);
-        RecentMessageTextBlock->SetText(Text);
-    }
-
     if (Timestamp)
     {
         Timestamp->Setup(Channel->State.Messages.Last(), false, true);
+    }
+
+    // Force update recent message text
+    RecentMessageAvailableSpace = -1.f;
+}
+
+void UChannelStatusWidget::UpdateChannelTitleText() const
+{
+    if (TitleTextBlock)
+    {
+        const FString Title = UUiBlueprintLibrary::GetChannelTitle(Channel);
+        const FString Shortened =
+            WidgetUtil::TruncateWithEllipsis(Title, ChannelTitleAvailableSpace, TitleTextBlock->Font);
+        const FText Text = FText::FromString(Shortened);
+        TitleTextBlock->SetText(Text);
+    }
+}
+
+void UChannelStatusWidget::UpdateRecentMessageText() const
+{
+    if (RecentMessageTextBlock)
+    {
+        const FString Shortened = WidgetUtil::TruncateWithEllipsis(
+            Channel->State.Messages.Last().Text, RecentMessageAvailableSpace, RecentMessageTextBlock->Font);
+        const FText Text = FText::FromString(Shortened);
+        RecentMessageTextBlock->SetText(Text);
     }
 }
 

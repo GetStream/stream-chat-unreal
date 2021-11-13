@@ -33,11 +33,11 @@ void UUiBlueprintLibrary::DismissContextMenu(UWidget* Widget)
     FSlateApplication::Get().DismissMenuByWidget(Widget->TakeWidget());
 }
 
-FText UUiBlueprintLibrary::GetChannelTitle(const UChatChannel* Channel)
+FString UUiBlueprintLibrary::GetChannelTitle(const UChatChannel* Channel)
 {
     if (!Channel->State.Name.IsEmpty())
     {
-        return FText::FromString(Channel->State.Name);
+        return Channel->State.Name;
     }
 
     const auto OthersPredicate = [&](const FMember& M)
@@ -64,15 +64,15 @@ FText UUiBlueprintLibrary::GetChannelTitle(const UChatChannel* Channel)
                 }
                 Result += M.User->Name;
             });
-        return FText::FromString(Result);
+        return Result;
     }
 
     if (const FMember* Member = Channel->State.Members.FindByPredicate(OthersPredicate))
     {
-        return FText::FromString(Member->User->Name);
+        return Member->User->Name;
     }
 
-    return FText::GetEmpty();
+    return TEXT("");
 }
 
 void UUiBlueprintLibrary::GetFirstVisibleChildOfScrollBox(UScrollBox* ScrollBox, int32& OutIndex, float& OutLeadingEdge)

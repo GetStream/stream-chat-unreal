@@ -24,7 +24,7 @@ public:
     static void DismissContextMenu(UWidget* Widget);
 
     UFUNCTION(BlueprintPure, Category = "Stream Chat|UI")
-    static FText GetChannelTitle(const UChatChannel* Channel);
+    static FString GetChannelTitle(const UChatChannel* Channel);
 
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|UI")
     static void GetFirstVisibleChildOfScrollBox(UScrollBox* ScrollBox, int32& OutIndex, float& OutLeadingEdge);
