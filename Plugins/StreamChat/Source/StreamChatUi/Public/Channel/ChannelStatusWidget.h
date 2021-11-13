@@ -15,7 +15,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UChannelStatusWidget : public UStreamUserWidget
+class STREAMCHATUI_API UChannelStatusWidget final : public UStreamUserWidget
 {
     GENERATED_BODY()
 
@@ -56,14 +56,27 @@ protected:
 
 private:
     virtual void OnSetup() override;
-    void UpdateDynamic() const;
 
-    UFUNCTION()
-    void OnMessagesUpdated(const TArray<FMessage>& Messages);
+    virtual int32 NativePaint(
+        const FPaintArgs& Args,
+        const FGeometry& AllottedGeometry,
+        const FSlateRect& MyCullingRect,
+        FSlateWindowElementList& OutDrawElements,
+        int32 LayerId,
+        const FWidgetStyle& InWidgetStyle,
+        bool bParentEnabled) const override;
+
+    void UpdateDynamic() const;
+    void UpdateChannelTitleText() const;
+    void UpdateRecentMessageText() const;
+
+    UFUNCTION() void OnMessagesUpdated(const TArray<FMessage>& Messages);
 
     UFUNCTION()
     void OnButtonClicked();
-
     UPROPERTY(Transient)
     UChatChannel* Channel;
+
+    mutable float RecentMessageAvailableSpace;
+    mutable float ChannelTitleAvailableSpace;
 };
