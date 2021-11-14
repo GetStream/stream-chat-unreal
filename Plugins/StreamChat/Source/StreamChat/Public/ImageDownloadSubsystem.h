@@ -7,6 +7,9 @@
 
 #include "ImageDownloadSubsystem.generated.h"
 
+class UTexture2DDynamic;
+enum class EImageFormat : int8;
+
 /**
  *
  */
@@ -18,5 +21,12 @@ class STREAMCHAT_API UImageDownloadSubsystem final : public UGameInstanceSubsyst
 public:
     virtual bool ShouldCreateSubsystem(UObject* Outer) const override;
 
-    static void DownloadImage(const FString& Url, TFunction<void(UTexture2DDynamic*)>);
+    void DownloadImage(const FString& Url, TFunction<void(UTexture2DDynamic*)>);
+
+private:
+    /// Add image with given url to in-memory cache
+    void Cache(const FString& Url, UTexture2DDynamic* Texture);
+
+    UPROPERTY(Transient)
+    TMap<FString, UTexture2DDynamic*> MemoryCache;
 };

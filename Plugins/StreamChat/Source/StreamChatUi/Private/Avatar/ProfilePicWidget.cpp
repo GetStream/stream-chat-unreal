@@ -64,7 +64,7 @@ FLinearColor UProfilePicWidget::ChooseColorForString(const FString& String)
 
 void UProfilePicWidget::FetchRemoteImage()
 {
-    const UImageDownloadSubsystem* Subsystem = UGameInstance::GetSubsystem<UImageDownloadSubsystem>(GetGameInstance());
+    UImageDownloadSubsystem* Subsystem = UGameInstance::GetSubsystem<UImageDownloadSubsystem>(GetGameInstance());
     if (!Subsystem)
     {
         return;
