@@ -167,7 +167,7 @@ void UImageDownloadSubsystem::DownloadImage(const FString& Url, TFunction<void(U
         if (WeakThis.IsValid())
         {
             WeakThis->CacheToMemory(Url, Texture);
-            WeakThis->CacheToDisk(Url, HttpResponse->GetContent().GetData(), HttpResponse->GetContentLength());
+            WeakThis->CacheToDisk(HttpResponse);
         }
 
         Callback(Texture);
@@ -193,14 +193,14 @@ UTexture2DDynamic* UImageDownloadSubsystem::QueryMemoryCache(const FString& Url)
     return nullptr;
 }
 
-void UImageDownloadSubsystem::CacheToDisk(const FString& Url, const void* Data, const int64 Size) const
+void UImageDownloadSubsystem::CacheToDisk(const FHttpResponsePtr Response) const
 {
     if (!FPaths::HasProjectPersistentDownloadDir())
     {
         return;
     }
 
-    const FString AbsolutePath = GetDiskPathForUrl(Url);
+    const FString AbsolutePath = GetDiskPathForUrl(Response->GetURL());
 
     const TUniquePtr<FArchive> FileWriter(IFileManager::Get().CreateFileWriter(*AbsolutePath));
     if (!FileWriter)
@@ -208,7 +208,8 @@ void UImageDownloadSubsystem::CacheToDisk(const FString& Url, const void* Data, 
         return;
     }
 
-    FileWriter->Serialize(const_cast<void*>(Data), Size);
+    void* Data = const_cast<void*>(static_cast<const void*>(Response->GetContent().GetData()));
+    FileWriter->Serialize(Data, Response->GetContentLength());
     FileWriter->Close();
 }
 

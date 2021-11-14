@@ -8,6 +8,7 @@
 #include "ImageDownloadSubsystem.generated.h"
 
 class UTexture2DDynamic;
+using FHttpResponsePtr = TSharedPtr<class IHttpResponse, ESPMode::ThreadSafe>;
 enum class EImageFormat : int8;
 
 /**
@@ -30,7 +31,7 @@ private:
     UTexture2DDynamic* QueryMemoryCache(const FString& Url) const;
 
     /// Add image with given url to on-disk cache
-    void CacheToDisk(const FString& Url, const void* Data, int64 Size) const;
+    void CacheToDisk(const FHttpResponsePtr) const;
     UTexture2DDynamic* QueryDiskCache(const FString& Url);
 
     FString GetDiskPathForUrl(const FString& Url) const;
