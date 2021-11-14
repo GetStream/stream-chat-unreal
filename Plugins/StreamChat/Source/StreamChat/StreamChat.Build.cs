@@ -14,7 +14,9 @@ public class StreamChat : ModuleRules
 			"Json", // Filter
 			"JsonUtilities", // Filter
 			"StreamJson",
-			"TokenProvider"
+			"TokenProvider",
+            "RenderCore",
+            "HTTP",
 		});
 
 		PublicDependencyModuleNames.AddRange(new[]
@@ -25,6 +27,7 @@ public class StreamChat : ModuleRules
 			"StreamChatWebSocket",
 			"StreamChatApi", // Send event template
 			"StreamChatDto", // Send event template
+            "RHI",
 		});
 	}
 }

@@ -11,8 +11,6 @@ public class StreamChatUi : ModuleRules
             "Slate",
             "InputCore",
             "ApplicationCore",
-            "RHI",
-            "RenderCore",
             "Http"
         });
 

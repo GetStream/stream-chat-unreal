@@ -16,6 +16,5 @@ T* GetTypedParentWidget(const UWidget* Widget)
 
 FString TruncateWithEllipsis(const FString&, uint32 MaxWidth, const FSlateFontInfo& FontInfo);
 
-void DownloadImage(const FString& Url, TFunction<void(UTexture2DDynamic*)>);
 uint32 HashStringWithMax(const FString&, uint32 Max = 16);
 }    // namespace WidgetUtil

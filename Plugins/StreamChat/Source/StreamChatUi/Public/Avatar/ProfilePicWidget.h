@@ -34,6 +34,8 @@ private:
 
     static FLinearColor ChooseColorForString(const FString&);
 
+    void FetchRemoteImage();
+
     UPROPERTY(EditAnywhere, Category = Setup)
     FUserRef User;
 };

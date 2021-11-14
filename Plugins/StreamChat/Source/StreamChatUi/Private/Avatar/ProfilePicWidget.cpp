@@ -2,6 +2,7 @@
 
 #include "Avatar/ProfilePicWidget.h"
 
+#include "ImageDownloadSubsystem.h"
 #include "User/User.h"
 #include "WidgetUtil.h"
 
@@ -51,23 +52,7 @@ void UProfilePicWidget::OnSetup()
 
         if (!User->Image.IsEmpty())
         {
-            WidgetUtil::DownloadImage(
-                User->Image,
-                [WeakThis = TWeakObjectPtr<UProfilePicWidget>(this)](UTexture2DDynamic* Texture)
-                {
-                    if (!WeakThis.IsValid())
-                    {
-                        return;
-                    }
-                    WeakThis->Image->SetBrushFromTextureDynamic(Texture, true);
-                    WeakThis->Image->SetColorAndOpacity(FLinearColor::White);
-                    if (WeakThis->InitialsTextBlock)
-                    {
-                        WeakThis->InitialsTextBlock->SetVisibility(ESlateVisibility::Collapsed);
-                    }
-                    // Ensure retainer widget re-renders (if present)
-                    WeakThis->Invalidate(EInvalidateWidgetReason::ChildOrder);
-                });
+            FetchRemoteImage();
         }
     }
 }
@@ -75,4 +60,32 @@ void UProfilePicWidget::OnSetup()
 FLinearColor UProfilePicWidget::ChooseColorForString(const FString& String)
 {
     return Colors[WidgetUtil::HashStringWithMax(String, 16)];
+}
+
+void UProfilePicWidget::FetchRemoteImage()
+{
+    const UImageDownloadSubsystem* Subsystem = UGameInstance::GetSubsystem<UImageDownloadSubsystem>(GetGameInstance());
+    if (!Subsystem)
+    {
+        return;
+    }
+
+    Subsystem->DownloadImage(
+        User->Image,
+        [WeakThis = TWeakObjectPtr<UProfilePicWidget>(this)](UTexture2DDynamic* Texture)
+        {
+            if (!WeakThis.IsValid())
+            {
+                return;
+            }
+
+            WeakThis->Image->SetBrushFromTextureDynamic(Texture, true);
+            WeakThis->Image->SetColorAndOpacity(FLinearColor::White);
+            if (WeakThis->InitialsTextBlock)
+            {
+                WeakThis->InitialsTextBlock->SetVisibility(ESlateVisibility::Collapsed);
+            }
+            // Ensure retainer widget re-renders (if present)
+            WeakThis->Invalidate(EInvalidateWidgetReason::ChildOrder);
+        });
 }
