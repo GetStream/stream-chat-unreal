@@ -1,5 +1,6 @@
 #include "User/UserRef.h"
 
+#include "User/User.h"
 #include "UserManager.h"
 
 FUserRef::FUserRef(const FString& UserId, const TSharedRef<FUserManager>& Manager) : UserId{UserId}, Manager{Manager}

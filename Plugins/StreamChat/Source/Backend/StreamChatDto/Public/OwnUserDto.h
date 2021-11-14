@@ -16,4 +16,28 @@ struct STREAMCHATDTO_API FOwnUserDto
 
     UPROPERTY()
     FString Id;
+
+    /// Whether a user online or not
+    UPROPERTY(Transient)
+    bool bOnline;
+
+    /// Date/time of creation
+    UPROPERTY(Transient)
+    FDateTime CreatedAt;
+
+    /// Date/time of the last update
+    UPROPERTY(Transient)
+    FDateTime UpdatedAt;
+
+    /// Date of last activity
+    UPROPERTY(Transient)
+    FDateTime LastActive;
+
+    // Not in the API spec, but common
+    UPROPERTY(Transient)
+    FString Name;
+
+    // Not in the API spec, but common
+    UPROPERTY(Transient)
+    FString Image;
 };

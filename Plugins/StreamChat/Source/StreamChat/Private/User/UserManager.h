@@ -3,7 +3,9 @@
 #include "CoreMinimal.h"
 #include "User/User.h"
 #include "User/UserRef.h"
-#include "UserObjectDto.h"
+
+struct FUserObjectDto;
+struct FOwnUserDto;
 
 class FUserManager : public TSharedFromThis<FUserManager>
 {
@@ -13,6 +15,7 @@ public:
     bool HasUser(const FUserRef&) const;
     const FUserRef& GetCurrentUser() const;
     FUserRef UpsertUser(const FUser&);
+    FUserRef UpsertUser(const FOwnUserDto&);
     FUserRef UpsertUser(const FUserObjectDto&);
     TArray<FUserRef> UpsertUsers(const TArray<FUser>&);
     TArray<FUserRef> UpsertUsers(const TArray<FUserObjectDto>&);

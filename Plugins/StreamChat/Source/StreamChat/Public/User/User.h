@@ -6,6 +6,7 @@
 
 #include "User.generated.h"
 
+struct FOwnUserDto;
 struct FUserObjectDto;
 
 /**
@@ -20,6 +21,7 @@ struct STREAMCHAT_API FUser
     explicit FUser(const FString& InId);
 
     explicit FUser(const FUserObjectDto&);
+    explicit FUser(const FOwnUserDto&);
     explicit operator FUserObjectDto() const;
 
     FString GetInitials(int32 Limit = 2) const;

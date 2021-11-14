@@ -1,8 +1,20 @@
 ﻿#include "User/User.h"
 
+#include "OwnUserDto.h"
 #include "UserObjectDto.h"
 
 FUser::FUser(const FUserObjectDto& Dto)
+    : Id{Dto.Id}
+    , bOnline{Dto.bOnline}
+    , CreatedAt(Dto.CreatedAt)
+    , UpdatedAt{Dto.UpdatedAt}
+    , LastActive{Dto.LastActive}
+    , Name{Dto.Name}
+    , Image{Dto.Image}
+{
+}
+
+FUser::FUser(const FOwnUserDto& Dto)
     : Id{Dto.Id}
     , bOnline{Dto.bOnline}
     , CreatedAt(Dto.CreatedAt)

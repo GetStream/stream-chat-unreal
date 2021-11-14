@@ -4,6 +4,7 @@
 
 class FChatSocketEvents;
 class FTokenManager;
+struct FOwnUserDto;
 struct FUserObjectDto;
 
 class STREAMCHATWEBSOCKET_API IChatSocket : public TSharedFromThis<IChatSocket>
@@ -16,7 +17,7 @@ public:
         const FUserObjectDto& User);
     virtual ~IChatSocket() = default;
 
-    virtual void Connect(TFunction<void()> Callback) = 0;
+    virtual void Connect(TFunction<void(const FOwnUserDto&)> Callback) = 0;
     virtual void Disconnect() = 0;
     virtual bool IsConnected() const = 0;
     virtual const FString& GetConnectionId() const = 0;

@@ -7,6 +7,7 @@
 class FTokenManager;
 struct FErrorResponseDto;
 struct FUserObjectDto;
+struct FOwnUserDto;
 struct FHealthCheckEvent;
 class IWebSocket;
 
@@ -21,7 +22,7 @@ public:
         const FUserObjectDto& User);
     virtual ~FChatSocket() override;
 
-    virtual void Connect(TFunction<void()> Callback) override;
+    virtual void Connect(TFunction<void(const FOwnUserDto&)> Callback) override;
     virtual void Disconnect() override;
     virtual bool IsConnected() const override;
     virtual const FString& GetConnectionId() const override;
@@ -52,7 +53,7 @@ private:
     void HandleChatError(const FErrorResponseDto& Error);
 
     void OnHealthCheckEvent(const FHealthCheckEvent&);
-    void OnHealthyConnect();
+    void OnHealthyConnect(const FOwnUserDto&);
 
     void StartMonitoring();
     void StopMonitoring();
@@ -75,7 +76,8 @@ private:
 
     TSharedPtr<IWebSocket> WebSocket;
 
-    FSimpleDelegate PendingOnConnectCallback;
+    DECLARE_DELEGATE_OneParam(FOnConnectDelegate, const FOwnUserDto&);
+    FOnConnectDelegate PendingOnConnectCallback;
     EConnectionState ConnectionState = EConnectionState::NotConnected;
     FDelegateHandle HealthCheckEventDelegateHandle;
     FDelegateHandle KeepAliveTickerHandle;

@@ -31,12 +31,27 @@ void UStreamChatClientComponent::BeginPlay()
     Api = FChatApi::Create(ApiKey, GetDefault<UStreamChatSettings>()->Host, TokenManager);
 }
 
-void UStreamChatClientComponent::ConnectUserInternal(const FUser& User, const TFunction<void()> Callback)
+void UStreamChatClientComponent::ConnectUserInternal(const FUser& User, const TFunction<void(const FUserRef&)> Callback)
 {
     UserManager = FUserManager::Create(User);
     Socket = IChatSocket::Create(
-        TokenManager.ToSharedRef(), ApiKey, GetDefault<UStreamChatSettings>()->Host, static_cast<FUserObjectDto>(User));
-    Socket->Connect(Callback);
+        TokenManager.ToSharedRef(),
+        ApiKey,
+        GetDefault<UStreamChatSettings>()->Host,
+        Util::Convert<FUserObjectDto>(User));
+    Socket->Connect(
+        [WeakThis = TWeakObjectPtr<UStreamChatClientComponent>(this), Callback](const FOwnUserDto& OwnUser)
+        {
+            if (!WeakThis.IsValid())
+            {
+                return;
+            }
+            const FUserRef Ref = WeakThis->UserManager->UpsertUser(OwnUser);
+            if (Callback)
+            {
+                Callback(Ref);
+            }
+        });
 
     On<FConnectionRecoveredEvent>(this, &UStreamChatClientComponent::OnConnectionRecovered);
     On<FUserPresenceChangedEvent>(this, &UStreamChatClientComponent::OnUserPresenceChanged);
@@ -63,13 +78,16 @@ void UStreamChatClientComponent::OnUserPresenceChanged(const FUserPresenceChange
 void UStreamChatClientComponent::ConnectUser(
     const FUser& User,
     TUniquePtr<ITokenProvider> TokenProvider,
-    const TFunction<void()> Callback)
+    const TFunction<void(const FUserRef&)> Callback)
 {
     TokenManager->SetTokenProvider(MoveTemp(TokenProvider), User.Id);
     ConnectUserInternal(User, Callback);
 }
 
-void UStreamChatClientComponent::ConnectUser(const FUser& User, const FString& Token, const TFunction<void()> Callback)
+void UStreamChatClientComponent::ConnectUser(
+    const FUser& User,
+    const FString& Token,
+    const TFunction<void(const FUserRef&)> Callback)
 {
     TokenManager->SetTokenProvider(MakeUnique<FConstantTokenProvider>(Token), User.Id);
     ConnectUserInternal(User, Callback);
@@ -106,7 +124,7 @@ void UStreamChatClientComponent::QueryChannels(
             Algo::Transform(
                 Response.Channels,
                 NewChannels,
-                [&WeakThis](const FChannelStateResponseFieldsDto& ResponseChannel)
+                [WeakThis](const FChannelStateResponseFieldsDto& ResponseChannel)
                 { return WeakThis->CreateChannelObject(ResponseChannel); });
             WeakThis->Channels = NewChannels;
 
