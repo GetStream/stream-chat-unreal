@@ -30,8 +30,11 @@ class STREAMCHAT_API UStreamChatClientComponent final : public UActorComponent
 public:
     UStreamChatClientComponent();
 
-    void ConnectUser(const FUser& User, TUniquePtr<ITokenProvider> TokenProvider, TFunction<void()> Callback = {});
-    void ConnectUser(const FUser& User, const FString& Token, TFunction<void()> Callback = {});
+    void ConnectUser(
+        const FUser& User,
+        TUniquePtr<ITokenProvider> TokenProvider,
+        TFunction<void(const FUserRef&)> Callback = {});
+    void ConnectUser(const FUser& User, const FString& Token, TFunction<void(const FUserRef&)> Callback = {});
     void DisconnectUser();
 
     void QueryChannels(
@@ -113,7 +116,7 @@ private:
     // Called when the game starts
     virtual void BeginPlay() override;
 
-    void ConnectUserInternal(const FUser& User, TFunction<void()> Callback);
+    void ConnectUserInternal(const FUser& User, TFunction<void(const FUserRef&)> Callback);
     UChatChannel* CreateChannelObject(const FChannelStateResponseFieldsDto&);
 
     void OnConnectionRecovered(const FConnectionRecoveredEvent&);

@@ -48,7 +48,7 @@ FChatSocket::~FChatSocket()
     UnbindEventHandlers();
 }
 
-void FChatSocket::Connect(const TFunction<void()> Callback)
+void FChatSocket::Connect(const TFunction<void(const FOwnUserDto&)> Callback)
 {
     if (ConnectionState == EConnectionState::Connecting)
     {
@@ -256,17 +256,17 @@ void FChatSocket::OnHealthCheckEvent(const FHealthCheckEvent& HealthCheckEvent)
     const bool bIsConnectionEvent = !HealthCheckEvent.Me.Id.IsEmpty();
     if (bIsConnectionEvent)
     {
-        OnHealthyConnect();
+        OnHealthyConnect(HealthCheckEvent.Me);
     }
 }
 
-void FChatSocket::OnHealthyConnect()
+void FChatSocket::OnHealthyConnect(const FOwnUserDto& OwnUser)
 {
     UE_LOG(LogChatSocket, Log, TEXT("Connection successful [ConnectionId=%s]"), *ConnectionId);
 
     if (PendingOnConnectCallback.IsBound())
     {
-        PendingOnConnectCallback.Execute();
+        PendingOnConnectCallback.Execute(OwnUser);
         PendingOnConnectCallback.Unbind();
     }
 

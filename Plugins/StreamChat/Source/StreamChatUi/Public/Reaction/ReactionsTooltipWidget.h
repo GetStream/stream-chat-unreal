@@ -2,12 +2,12 @@
 
 #pragma once
 
+#include "Avatar/NamedAvatarWidget.h"
+#include "Components/PanelWidget.h"
 #include "CoreMinimal.h"
 #include "Reaction/ReactionGroup.h"
 #include "ReactionIconWidget.h"
-#include "Components/PanelWidget.h"
 #include "StreamUserWidget.h"
-#include "Avatar/NamedAvatarWidget.h"
 
 #include "ReactionsTooltipWidget.generated.h"
 

@@ -3,11 +3,13 @@
 #pragma once
 
 #include "Components/Button.h"
+#include "Components/MenuAnchor.h"
 #include "Components/TextBlock.h"
 #include "CoreMinimal.h"
 #include "Message/MessageSide.h"
 #include "Reaction/ReactionGroup.h"
 #include "ReactionIconWidget.h"
+#include "ReactionsTooltipWidget.h"
 #include "StreamUserWidget.h"
 #include "Styling/SlateTypes.h"
 
@@ -42,17 +44,31 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UButton* Button;
 
+    UPROPERTY(meta = (BindWidget))
+    UMenuAnchor* Anchor;
+
     UPROPERTY(EditAnywhere, Category = Defaults)
     TMap<EMessageSide, FButtonStyle> ButtonStyles;
 
+    UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
+    TSubclassOf<UReactionsTooltipWidget> ReactionsTooltipWidgetClass = UReactionsTooltipWidget::StaticClass();
+
 private:
     virtual void OnSetup() override;
+
+    virtual void NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+    virtual void NativeOnMouseLeave(const FPointerEvent& InMouseEvent) override;
 
     EMessageSide GetSide() const;
 
     UFUNCTION()
     void OnButtonClicked();
 
+    UFUNCTION()
+    UUserWidget* CreateReactionsMenu();
+
     UPROPERTY(EditAnywhere, Category = Setup)
     FReactionGroup ReactionGroup;
+
+    FTimerHandle HoverTimerHandle;
 };

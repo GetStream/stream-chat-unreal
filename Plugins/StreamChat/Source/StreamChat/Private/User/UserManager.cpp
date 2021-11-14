@@ -1,6 +1,8 @@
 #include "User/UserManager.h"
 
+#include "OwnUserDto.h"
 #include "User/UserRef.h"
+#include "UserObjectDto.h"
 #include "Util.h"
 
 TSharedRef<FUserManager> FUserManager::Create(const FUser& InCurrentUser)
@@ -27,10 +29,18 @@ const FUserRef& FUserManager::GetCurrentUser() const
 
 FUserRef FUserManager::UpsertUser(const FUser& User)
 {
-    Users.Add(User.Id, User);
     const FUserRef Ref = FUserRef{User.Id, AsShared()};
-    OnUserUpdated(Ref).Broadcast();
+    if (FUser* FoundUser = Users.Find(User.Id); !FoundUser || FoundUser->UpdatedAt < User.UpdatedAt)
+    {
+        Users.Add(User.Id, User);
+        OnUserUpdated(Ref).Broadcast();
+    }
     return Ref;
+}
+
+FUserRef FUserManager::UpsertUser(const FOwnUserDto& Dto)
+{
+    return UpsertUser(Util::Convert<FUser>(Dto));
 }
 
 FUserRef FUserManager::UpsertUser(const FUserObjectDto& Dto)

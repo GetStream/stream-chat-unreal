@@ -20,6 +20,16 @@ void UReactionsTooltipWidget::OnSetup()
     {
         AvatarPanel->ClearChildren();
 
+        if (ReactionGroup.Count > ReactionGroup.LatestReactions.Num())
+        {
+            // TODO fetch more reactions if needed
+            UE_LOG(
+                LogTemp,
+                Warning,
+                TEXT("TODO: Implement fetching more reactions when many [Remote=%d, Local=%d]"),
+                ReactionGroup.Count,
+                ReactionGroup.LatestReactions.Num());
+        }
         for (const FReaction& Reaction : ReactionGroup.LatestReactions)
         {
             UNamedAvatarWidget* Widget = CreateWidget<UNamedAvatarWidget>(this, NamedAvatarWidgetClass);
