@@ -3,6 +3,7 @@
 #include "ImageDownloadSubsystem.h"
 
 #include "Engine/Texture2DDynamic.h"
+#include "HAL/FileManager.h"
 #include "HttpModule.h"
 #include "IImageWrapper.h"
 #include "IImageWrapperModule.h"
@@ -13,49 +14,43 @@
 
 namespace
 {
-void RenderRawData(FTexture2DDynamicResource* TextureResource, const TSharedRef<TArray64<uint8>>& RawData)
+void RenderRawData_RenderThread(FTexture2DDynamicResource* TextureResource, const TSharedRef<TArray64<uint8>>& RawData)
 {
-    ENQUEUE_RENDER_COMMAND(FWriteRawDataToTexture)
-    (
-        [TextureResource, RawData](FRHICommandListImmediate&)
+    check(IsInRenderingThread());
+
+    if (!TextureResource)
+    {
+        return;
+    }
+
+    FRHITexture2D* TextureRHI = TextureResource->GetTexture2DRHI();
+
+    const int32 Width = TextureRHI->GetSizeX();
+    const int32 Height = TextureRHI->GetSizeY();
+
+    uint32 DestStride = 0;
+    uint8* DestData = static_cast<uint8*>(RHILockTexture2D(TextureRHI, 0, RLM_WriteOnly, DestStride, false, false));
+
+    for (int32 Y = 0; Y < Height; Y++)
+    {
+        const int64 InvY = static_cast<int64>(Height) - 1 - Y;
+        uint8* DestPtr = &DestData[InvY * DestStride];
+
+        const FColor* SrcPtr = &reinterpret_cast<FColor*>(RawData->GetData())[InvY * Width];
+        for (int32 X = 0; X < Width; X++)
         {
-            check(IsInRenderingThread());
+            *DestPtr++ = SrcPtr->B;
+            *DestPtr++ = SrcPtr->G;
+            *DestPtr++ = SrcPtr->R;
+            *DestPtr++ = SrcPtr->A;
+            SrcPtr++;
+        }
+    }
 
-            if (!TextureResource)
-            {
-                return;
-            }
-
-            FRHITexture2D* TextureRHI = TextureResource->GetTexture2DRHI();
-
-            const int32 Width = TextureRHI->GetSizeX();
-            const int32 Height = TextureRHI->GetSizeY();
-
-            uint32 DestStride = 0;
-            uint8* DestData =
-                static_cast<uint8*>(RHILockTexture2D(TextureRHI, 0, RLM_WriteOnly, DestStride, false, false));
-
-            for (int32 Y = 0; Y < Height; Y++)
-            {
-                const int64 InvY = static_cast<int64>(Height) - 1 - Y;
-                uint8* DestPtr = &DestData[InvY * DestStride];
-
-                const FColor* SrcPtr = &reinterpret_cast<FColor*>(RawData->GetData())[InvY * Width];
-                for (int32 X = 0; X < Width; X++)
-                {
-                    *DestPtr++ = SrcPtr->B;
-                    *DestPtr++ = SrcPtr->G;
-                    *DestPtr++ = SrcPtr->R;
-                    *DestPtr++ = SrcPtr->A;
-                    SrcPtr++;
-                }
-            }
-
-            RHIUnlockTexture2D(TextureRHI, 0, false, false);
-        });
+    RHIUnlockTexture2D(TextureRHI, 0, false, false);
 }
 
-UTexture2DDynamic* TryCreateTexture(const FHttpResponsePtr HttpResponse, const EImageFormat Format)
+UTexture2DDynamic* TryCreateTexture(const void* Data, const int64 Size, const EImageFormat Format)
 {
     IImageWrapperModule& ImageWrapperModule =
         FModuleManager::LoadModuleChecked<IImageWrapperModule>(FName("ImageWrapper"));
@@ -66,7 +61,7 @@ UTexture2DDynamic* TryCreateTexture(const FHttpResponsePtr HttpResponse, const E
         return nullptr;
     }
 
-    if (!ImageWrapper->SetCompressed(HttpResponse->GetContent().GetData(), HttpResponse->GetContentLength()))
+    if (!ImageWrapper->SetCompressed(Data, Size))
     {
         return nullptr;
     }
@@ -92,10 +87,41 @@ UTexture2DDynamic* TryCreateTexture(const FHttpResponsePtr HttpResponse, const E
         return nullptr;
     }
 
-    RenderRawData(TextureResource, RawData);
+    ENQUEUE_RENDER_COMMAND(FWriteRawDataToTexture)
+    ([TextureResource, RawData](FRHICommandListImmediate&) { RenderRawData_RenderThread(TextureResource, RawData); });
+
     return Texture;
 }
+
+UTexture2DDynamic* TryCreateTexture(const void* Data, const int64 Size)
+{
+    for (const EImageFormat Format : {EImageFormat::PNG, EImageFormat::JPEG, EImageFormat::BMP})
+    {
+        if (UTexture2DDynamic* Texture = TryCreateTexture(Data, Size, Format))
+        {
+            return Texture;
+        }
+    }
+    return nullptr;
+}
+
 }    // namespace
+
+void UImageDownloadSubsystem::Initialize(FSubsystemCollectionBase& Collection)
+{
+    if (FPaths::HasProjectPersistentDownloadDir())
+    {
+        CacheFolder = FPaths::ProjectPersistentDownloadDir() / TEXT("ImgCache/");
+
+        // make sure the cache folder exists
+        if (!IFileManager::Get().MakeDirectory(*CacheFolder, true))
+        {
+            UE_LOG(LogTemp, Error, TEXT("Unable to create cache folder at '%s'"), *CacheFolder);
+        }
+    }
+
+    Super::Initialize(Collection);
+}
 
 bool UImageDownloadSubsystem::ShouldCreateSubsystem(UObject* Outer) const
 {
@@ -104,9 +130,17 @@ bool UImageDownloadSubsystem::ShouldCreateSubsystem(UObject* Outer) const
 
 void UImageDownloadSubsystem::DownloadImage(const FString& Url, TFunction<void(UTexture2DDynamic*)> Callback)
 {
-    if (UTexture2DDynamic** Cached = MemoryCache.Find(Url))
+    if (UTexture2DDynamic* Cached = QueryMemoryCache(Url))
     {
-        Callback(*Cached);
+        UE_LOG(LogTemp, Log, TEXT("Serving image from in-memory cache [url=%s]"), *Url);
+        Callback(Cached);
+        return;
+    }
+
+    if (UTexture2DDynamic* Cached = QueryDiskCache(Url))
+    {
+        UE_LOG(LogTemp, Log, TEXT("Serving image from on-disk cache [url=%s]"), *Url);
+        Callback(Cached);
         return;
     }
 
@@ -122,24 +156,21 @@ void UImageDownloadSubsystem::DownloadImage(const FString& Url, TFunction<void(U
             return;
         }
 
-        for (const EImageFormat Format : {EImageFormat::PNG, EImageFormat::JPEG, EImageFormat::BMP})
+        UTexture2DDynamic* Texture =
+            TryCreateTexture(HttpResponse->GetContent().GetData(), HttpResponse->GetContentLength());
+        if (!Texture)
         {
-            UTexture2DDynamic* Texture = TryCreateTexture(HttpResponse, Format);
-            if (!Texture)
-            {
-                continue;
-            }
-
-            if (WeakThis.IsValid())
-            {
-                WeakThis->Cache(Url, Texture);
-            }
-
-            Callback(Texture);
+            Callback(nullptr);
             return;
         }
 
-        Callback(nullptr);
+        if (WeakThis.IsValid())
+        {
+            WeakThis->CacheToMemory(Url, Texture);
+            WeakThis->CacheToDisk(Url, HttpResponse->GetContent().GetData(), HttpResponse->GetContentLength());
+        }
+
+        Callback(Texture);
     };
 
     HttpRequest->OnProcessRequestComplete().BindLambda(OnRequest);
@@ -148,7 +179,79 @@ void UImageDownloadSubsystem::DownloadImage(const FString& Url, TFunction<void(U
     HttpRequest->ProcessRequest();
 }
 
-void UImageDownloadSubsystem::Cache(const FString& Url, UTexture2DDynamic* Texture)
+void UImageDownloadSubsystem::CacheToMemory(const FString& Url, UTexture2DDynamic* Texture)
 {
     MemoryCache.Add(Url, Texture);
+}
+
+UTexture2DDynamic* UImageDownloadSubsystem::QueryMemoryCache(const FString& Url) const
+{
+    if (UTexture2DDynamic* const* Cached = MemoryCache.Find(Url))
+    {
+        return *Cached;
+    }
+    return nullptr;
+}
+
+void UImageDownloadSubsystem::CacheToDisk(const FString& Url, const void* Data, const int64 Size) const
+{
+    if (!FPaths::HasProjectPersistentDownloadDir())
+    {
+        return;
+    }
+
+    const FString AbsolutePath = GetDiskPathForUrl(Url);
+
+    const TUniquePtr<FArchive> FileWriter(IFileManager::Get().CreateFileWriter(*AbsolutePath));
+    if (!FileWriter)
+    {
+        return;
+    }
+
+    FileWriter->Serialize(const_cast<void*>(Data), Size);
+    FileWriter->Close();
+}
+
+UTexture2DDynamic* UImageDownloadSubsystem::QueryDiskCache(const FString& Url)
+{
+    if (!FPaths::HasProjectPersistentDownloadDir())
+    {
+        return nullptr;
+    }
+
+    const FString AbsolutePath = GetDiskPathForUrl(Url);
+    IFileManager& FileManager = IFileManager::Get();
+    if (!FileManager.FileExists(*AbsolutePath))
+    {
+        return nullptr;
+    }
+
+    const TUniquePtr<FArchive> FileReader(FileManager.CreateFileReader(*AbsolutePath));
+    if (!FileReader)
+    {
+        return nullptr;
+    }
+
+    const int64 FileSize = FileReader->TotalSize();
+    uint8* NewBuffer = static_cast<uint8*>(FMemory::Malloc(FileSize));
+    FileReader->Serialize(NewBuffer, FileSize);
+    FileReader->Close();
+
+    UTexture2DDynamic* Texture = TryCreateTexture(NewBuffer, FileSize);
+    if (Texture)
+    {
+        CacheToMemory(Url, Texture);
+    }
+
+    FMemory::Free(NewBuffer);
+    return Texture;
+}
+
+FString UImageDownloadSubsystem::GetDiskPathForUrl(const FString& Url) const
+{
+    uint32 Hash = GetTypeHash(Url);
+    FString HashAsString = FString::Printf(TEXT("%08x"), Hash);
+
+    const FString AbsolutePath = FPaths::ConvertRelativePathToFull(CacheFolder / HashAsString);
+    return AbsolutePath;
 }
