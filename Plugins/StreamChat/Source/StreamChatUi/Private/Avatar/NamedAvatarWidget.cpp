@@ -18,6 +18,13 @@ void UNamedAvatarWidget::OnSetup()
 
     if (TextBlock)
     {
-        TextBlock->SetText(FText::FromString(User->Name));
+        if (User.IsCurrent())
+        {
+            TextBlock->SetText(FText::FromString(TEXT("You")));
+        }
+        else
+        {
+            TextBlock->SetText(FText::FromString(User->Name));
+        }
     }
 }

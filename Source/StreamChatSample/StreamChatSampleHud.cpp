@@ -15,20 +15,20 @@ void AStreamChatSampleHud::BeginPlay()
 {
     Super::BeginPlay();
 
-    const FUser User{TEXT("tommaso")};
+    const FUser User{TEXT("jc")};
     const FString Token{TEXT(
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidG9tbWFzbyJ9.lNaWC2Opyq6gmV50a2BGxK-5gm5mwCpefnUA30_k9YA")};
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiamMifQ.2_5Hae3LKjVSfA0gQxXlZn54Bq6xDlhjPx2J7azUNB4")};
     Client->ConnectUser(
         User,
         Token,
-        [this, UserId = User.Id]
+        [WeakThis = TWeakObjectPtr<AStreamChatSampleHud>(this)](const FUserRef& UserRef)
         {
-            const FFilter Filter = FFilter::In(TEXT("members"), {UserId});
-            Client->QueryChannels(
-                [this](const TArray<UChatChannel*> ReceivedChannels)
+            const FFilter Filter = FFilter::In(TEXT("members"), {UserRef.UserId});
+            WeakThis->Client->QueryChannels(
+                [WeakThis](const TArray<UChatChannel*> ReceivedChannels)
                 {
-                    Channels = ReceivedChannels;
-                    OnConnect();
+                    WeakThis->Channels = ReceivedChannels;
+                    WeakThis->OnConnect();
                 },
                 Filter,
                 {{ESortField::LastMessageAt, ESortDirection::Descending}});

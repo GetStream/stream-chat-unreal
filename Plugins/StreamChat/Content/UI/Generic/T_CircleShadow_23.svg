@@ -1,0 +1,9 @@
+<svg width="62" height="62" xmlns="http://www.w3.org/2000/svg">
+	<circle cx="31" cy="31" r="23" fill="#000" filter="url(#f1)"/>
+    <defs>
+        <filter id="f1" x="-0.5" y="-0.5" width="200%" height="200%">
+            <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+            <feGaussianBlur result="blurOut" in="offOut" stdDeviation="3.3614" />
+        </filter>
+    </defs>
+</svg>
