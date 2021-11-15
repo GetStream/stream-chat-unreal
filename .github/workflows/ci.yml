@@ -1,4 +1,4 @@
-jname: CI
+name: CI
 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
@@ -59,11 +59,11 @@ jobs:
           cd Plugins/StreamChat
           runuser -u ue4 -- ue4 build -NoPCH -NoSharedPCH -DisableUnity
 
-      - name: 🔨 Build sample project
-        run: runuser -u ue4 -- ue4 build -NoPCH -NoSharedPCH -DisableUnity
-
       - name: 🧪 Run tests
         run: runuser -u ue4 -- /home/ue4/Engine/Build/BatchFiles/RunUAT.sh StreamChatSampleEditor Linux Development -project=$PWD/StreamChatSample.uproject -buildmachine -stdout -fullstdoutlogoutput -forcelogflush -unattended -nopause -nosplash -nullrhi -ExecCmds="automation RunTests Now StreamChat;quit" -game -ReportExportPath=$PWD/Saved/Automation/Reports
+
+      - name: 🔨 Build sample project
+        run: runuser -u ue4 -- ue4 build -NoPCH -NoSharedPCH -DisableUnity
 
       - name: 🏭 Generate JUnit report
         shell: python3 {0}
