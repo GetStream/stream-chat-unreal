@@ -11,7 +11,9 @@ public class StreamChatUi : ModuleRules
             "Slate",
             "InputCore",
             "ApplicationCore",
-            "Http"
+            "Http",
+            "RenderCore",
+            "RHI",
         });
 
         PublicDependencyModuleNames.AddRange(new[] {
