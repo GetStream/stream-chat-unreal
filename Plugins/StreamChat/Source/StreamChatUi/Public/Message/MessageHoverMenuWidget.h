@@ -27,9 +27,6 @@ public:
 
 protected:
     UPROPERTY(meta = (BindWidget))
-    UGridPanel* ButtonGroup;
-
-    UPROPERTY(meta = (BindWidget))
     UButton* ReactionButton;
 
     UPROPERTY(meta = (BindWidget))

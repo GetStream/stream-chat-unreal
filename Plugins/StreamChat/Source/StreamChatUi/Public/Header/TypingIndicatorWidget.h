@@ -5,7 +5,6 @@
 #include "Blueprint/UserWidget.h"
 #include "Components/TextBlock.h"
 #include "CoreMinimal.h"
-#include "User/User.h"
 #include "User/UserRef.h"
 
 #include "TypingIndicatorWidget.generated.h"

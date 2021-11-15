@@ -10,6 +10,11 @@ void UContextMenuWidget::Setup(const FMessage& InMessage, const EMessageSide InS
 
 void UContextMenuWidget::AddButton(UContextMenuAction* Action, const EContextMenuButtonPosition Position)
 {
+    if (!ButtonsPanel)
+    {
+        return;
+    }
+
     UContextMenuButtonWidget* Widget = CreateWidget<UContextMenuButtonWidget>(this, ContextMenuButtonWidgetClass);
     Widget->Setup(Message, Position, Action);
     ButtonsPanel->AddChildToVerticalBox(Widget);

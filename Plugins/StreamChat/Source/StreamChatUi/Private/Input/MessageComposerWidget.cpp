@@ -10,10 +10,19 @@
 
 void UMessageComposerWidget::NativeOnInitialized()
 {
-    MessageInput->OnTextChanged.AddDynamic(this, &UMessageComposerWidget::OnInputTextChanged);
-    MessageInput->OnTextCommitted.AddDynamic(this, &UMessageComposerWidget::OnInputTextCommit);
-    CancelEditingButton->OnClicked.AddDynamic(this, &UMessageComposerWidget::OnCancelEditingButtonClicked);
-    SendMessageButton->OnClicked.AddDynamic(this, &UMessageComposerWidget::OnSendButtonClicked);
+    if (MessageInput)
+    {
+        MessageInput->OnTextChanged.AddDynamic(this, &UMessageComposerWidget::OnInputTextChanged);
+        MessageInput->OnTextCommitted.AddDynamic(this, &UMessageComposerWidget::OnInputTextCommit);
+    }
+    if (CancelEditingButton)
+    {
+        CancelEditingButton->OnClicked.AddDynamic(this, &UMessageComposerWidget::OnCancelEditingButtonClicked);
+    }
+    if (SendMessageButton)
+    {
+        SendMessageButton->OnClicked.AddDynamic(this, &UMessageComposerWidget::OnSendButtonClicked);
+    }
 
     UpdateSendButtonAppearance(false);
     UpdateEditMessageAppearance(ESendButtonIconAppearance::Send);
@@ -26,7 +35,11 @@ void UMessageComposerWidget::NativeConstruct()
     // Can only find the ChannelContextWidget once this widget is added to the UI hierarchy (Construct)
     UChannelContextWidget::Get(this)->OnStartEditMessage.AddDynamic(this, &UMessageComposerWidget::EditMessage);
 
-    MessageInput->SetKeyboardFocus();
+    if (MessageInput)
+    {
+        MessageInput->SetKeyboardFocus();
+    }
+
     Super::NativeConstruct();
 }
 
@@ -39,7 +52,10 @@ void UMessageComposerWidget::NativeDestruct()
 void UMessageComposerWidget::EditMessage(const FMessage& Message)
 {
     EditedMessage = Message;
-    MessageInput->SetText(FText::FromString(Message.Text));
+    if (MessageInput)
+    {
+        MessageInput->SetText(FText::FromString(Message.Text));
+    }
     UpdateEditMessageAppearance(ESendButtonIconAppearance::Confirm);
 }
 
@@ -58,7 +74,11 @@ void UMessageComposerWidget::OnInputTextCommit(const FText&, ETextCommit::Type C
     if (CommitMethod == ETextCommit::OnEnter)
     {
         SendMessage();
-        GetWorld()->GetTimerManager().SetTimerForNextTick([&] { MessageInput->SetKeyboardFocus(); });
+
+        if (MessageInput)
+        {
+            GetWorld()->GetTimerManager().SetTimerForNextTick([&] { MessageInput->SetKeyboardFocus(); });
+        }
     }
 }
 
@@ -74,6 +94,11 @@ void UMessageComposerWidget::OnSendButtonClicked()
 
 void UMessageComposerWidget::SendMessage()
 {
+    if (!MessageInput)
+    {
+        return;
+    }
+
     const FString Text = MessageInput->GetText().ToString();
     if (Text.IsEmpty())
     {
@@ -109,22 +134,32 @@ void UMessageComposerWidget::StopEditMessage()
     EditedMessage.Reset();
 
     UpdateEditMessageAppearance(ESendButtonIconAppearance::Send);
-    MessageInput->SetText(FText::GetEmpty());
+
+    if (MessageInput)
+    {
+        MessageInput->SetText(FText::GetEmpty());
+    }
 }
 
 void UMessageComposerWidget::UpdateEditMessageAppearance(const ESendButtonIconAppearance Appearance)
 {
-    UTexture2D* Texture = Appearance == ESendButtonIconAppearance::Send ? IconTextureSend : IconTextureConfirm;
-    SendMessageIcon->SetBrushFromTexture(Texture, true);
-    if (UButtonSlot* ButtonSlot = Cast<UButtonSlot>(SendMessageIcon->Slot))
+    if (SendMessageIcon)
     {
-        const FMargin IconPadding =
-            Appearance == ESendButtonIconAppearance::Send ? IconPaddingSend : IconPaddingConfirm;
-        ButtonSlot->SetPadding(IconPadding);
+        UTexture2D* Texture = Appearance == ESendButtonIconAppearance::Send ? IconTextureSend : IconTextureConfirm;
+        SendMessageIcon->SetBrushFromTexture(Texture, true);
+        if (UButtonSlot* ButtonSlot = Cast<UButtonSlot>(SendMessageIcon->Slot))
+        {
+            const FMargin IconPadding =
+                Appearance == ESendButtonIconAppearance::Send ? IconPaddingSend : IconPaddingConfirm;
+            ButtonSlot->SetPadding(IconPadding);
+        }
     }
 
-    const ESlateVisibility PanelVisibility = Appearance == ESendButtonIconAppearance::Send
-                                                 ? ESlateVisibility::Collapsed
-                                                 : ESlateVisibility::SelfHitTestInvisible;
-    CancelEditingHeaderPanel->SetVisibility(PanelVisibility);
+    if (CancelEditingHeaderPanel)
+    {
+        const ESlateVisibility PanelVisibility = Appearance == ESendButtonIconAppearance::Send
+                                                     ? ESlateVisibility::Collapsed
+                                                     : ESlateVisibility::SelfHitTestInvisible;
+        CancelEditingHeaderPanel->SetVisibility(PanelVisibility);
+    }
 }
