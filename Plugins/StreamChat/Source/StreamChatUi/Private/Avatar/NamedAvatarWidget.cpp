@@ -2,6 +2,8 @@
 
 #include "Avatar/NamedAvatarWidget.h"
 
+#include "User/User.h"
+
 void UNamedAvatarWidget::Setup(const FUserRef& InUser)
 {
     User = InUser;
