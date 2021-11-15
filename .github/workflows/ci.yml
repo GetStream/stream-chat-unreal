@@ -60,7 +60,7 @@ jobs:
           runuser -u ue4 -- ue4 build -NoPCH -NoSharedPCH -DisableUnity
 
       - name: 🧪 Run tests
-        run: runuser -u ue4 -- /home/ue4/UnrealEngine/Engine/Build/BatchFiles/RunUAT.sh StreamChatSampleEditor Linux Development -project=$PWD/StreamChatSample.uproject -buildmachine -stdout -fullstdoutlogoutput -forcelogflush -unattended -nopause -nosplash -nullrhi -ExecCmds="automation RunTests Now StreamChat;quit" -game -ReportExportPath=$PWD/Saved/Automation/Reports
+        run: runuser -u ue4 -- /home/ue4/UnrealEngine/Engine/Build/BatchFiles/RunUAT.sh StreamChatSampleEditor Linux Development -project=$PWD/StreamChatSample.uproject -buildmachine -stdout -fullstdoutlogoutput -forcelogflush -unattended -nopause -nosplash -nop4 -nullrhi -ExecCmds="automation RunTests Now StreamChat;quit" -game -ReportExportPath=$PWD/Saved/Automation/Reports
 
       - name: 🔨 Build sample project
         run: runuser -u ue4 -- ue4 build -NoPCH -NoSharedPCH -DisableUnity
