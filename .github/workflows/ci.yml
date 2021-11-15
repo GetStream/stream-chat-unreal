@@ -54,13 +54,13 @@ jobs:
       - name: 🔓 Fix permissions
         run: chown -R ue4:ue4 ${{ github.workspace }}
 
-      - name: 🧪 Run tests
-        run: runuser -u ue4 -- /home/ue4/UnrealEngine/Engine/Binaries/Linux/UE4Editor $PWD/StreamChatSample.uproject /Game/Tests/Maps/Empty -buildmachine -stdout -fullstdoutlogoutput -forcelogflush -unattended -nopause -nosplash -nop4 -nullrhi -ExecCmds="automation RunTests Now StreamChat" -TestExit="Automation Test Queue Empty" -ReportExportPath=$PWD/Saved/Automation/Reports
-
       - name: 🔨 Build plugin
         run: |
           cd Plugins/StreamChat
           runuser -u ue4 -- ue4 build -NoPCH -NoSharedPCH -DisableUnity
+
+      - name: 🧪 Run tests
+        run: runuser -u ue4 -- /home/ue4/UnrealEngine/Engine/Binaries/Linux/UE4Editor $PWD/StreamChatSample.uproject /Game/Tests/Maps/Empty -buildmachine -stdout -fullstdoutlogoutput -forcelogflush -unattended -nopause -nosplash -nop4 -nullrhi -ExecCmds="automation RunTests Now StreamChat" -TestExit="Automation Test Queue Empty" -ReportExportPath=$PWD/Saved/Automation/Reports
 
       - name: 🔨 Build sample project
         run: runuser -u ue4 -- ue4 build -NoPCH -NoSharedPCH -DisableUnity
