@@ -74,17 +74,14 @@ void UProfilePicWidget::FetchRemoteImage()
         User->Image,
         [WeakThis = TWeakObjectPtr<UProfilePicWidget>(this)](UTexture2DDynamic* Texture)
         {
-            if (!WeakThis.IsValid())
+            if (!WeakThis.IsValid() || !WeakThis->Image || !WeakThis->InitialsTextBlock)
             {
                 return;
             }
 
             WeakThis->Image->SetBrushFromTextureDynamic(Texture, true);
             WeakThis->Image->SetColorAndOpacity(FLinearColor::White);
-            if (WeakThis->InitialsTextBlock)
-            {
-                WeakThis->InitialsTextBlock->SetVisibility(ESlateVisibility::Collapsed);
-            }
+            WeakThis->InitialsTextBlock->SetVisibility(ESlateVisibility::Collapsed);
             // Ensure retainer widget re-renders (if present)
             WeakThis->Invalidate(EInvalidateWidgetReason::ChildOrder);
         });

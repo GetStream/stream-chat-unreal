@@ -6,12 +6,15 @@
 
 void UHeaderWidget::NativeOnInitialized()
 {
-    if (!SubtitleSlot->HasAnyChildren())
+    if (SubtitleSlot && !SubtitleSlot->HasAnyChildren())
     {
         SubtitleSlot->SetVisibility(ESlateVisibility::Collapsed);
     }
 
-    HeaderTitleTextBlock->SetText(Title);
+    if (HeaderTitleTextBlock)
+    {
+        HeaderTitleTextBlock->SetText(Title);
+    }
 
     Super::NativeOnInitialized();
 }
@@ -24,11 +27,21 @@ void UHeaderWidget::SetTitle(const FText& InTitle)
 
 void UHeaderWidget::SetSubtitleContent(UWidget* Content) const
 {
+    if (!SubtitleSlot)
+    {
+        return;
+    }
+
     SubtitleSlot->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
     SubtitleSlot->SetContent(Content);
 }
 
 void UHeaderWidget::SetRightContent(UWidget* Content) const
 {
+    if (!RightSlot)
+    {
+        return;
+    }
+
     RightSlot->SetContent(Content);
 }

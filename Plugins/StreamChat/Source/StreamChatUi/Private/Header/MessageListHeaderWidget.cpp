@@ -33,7 +33,7 @@ void UMessageListHeaderWidget::NativeDestruct()
 
 void UMessageListHeaderWidget::OnTypingIndicator(const ETypingIndicatorState TypingState, const FUserRef& User)
 {
-    if (User.IsCurrent())
+    if (User.IsCurrent() || !Header)
     {
         return;
     }
@@ -62,6 +62,11 @@ void UMessageListHeaderWidget::OnTypingIndicator(const ETypingIndicatorState Typ
 
 void UMessageListHeaderWidget::ShowOnlineStatusSubheader()
 {
+    if (!Header)
+    {
+        return;
+    }
+
     UOnlineStatusSubheaderWidget* Widget = CreateWidget<UOnlineStatusSubheaderWidget>(this, StatusWidgetClass);
     Header->SetSubtitleContent(Widget);
     TypingIndicator = nullptr;

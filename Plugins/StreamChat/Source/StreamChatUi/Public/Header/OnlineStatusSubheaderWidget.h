@@ -6,7 +6,6 @@
 #include "Channel/ChatChannel.h"
 #include "Components/TextBlock.h"
 #include "CoreMinimal.h"
-#include "User/User.h"
 
 #include "OnlineStatusSubheaderWidget.generated.h"
 

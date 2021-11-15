@@ -19,6 +19,7 @@ void UChannelStatusWidget::UpdateSelection(UChatChannel* SelectedChannel) const
     {
         return;
     }
+
     if (SelectedChannel->State.Cid == Channel->State.Cid)
     {
         Button->SetStyle(SelectedStyle);
@@ -62,18 +63,24 @@ int32 UChannelStatusWidget::NativePaint(
     const FWidgetStyle& InWidgetStyle,
     const bool bParentEnabled) const
 {
-    if (const float AvailableSpace = RecentMessageTextBlock->GetTickSpaceGeometry().GetLocalSize().X;
-        AvailableSpace != RecentMessageAvailableSpace)
+    if (RecentMessageTextBlock)
     {
-        RecentMessageAvailableSpace = AvailableSpace;
-        UpdateRecentMessageText();
+        if (const float AvailableSpace = RecentMessageTextBlock->GetTickSpaceGeometry().GetLocalSize().X;
+            AvailableSpace != RecentMessageAvailableSpace)
+        {
+            RecentMessageAvailableSpace = AvailableSpace;
+            UpdateRecentMessageText();
+        }
     }
 
-    if (const float AvailableSpace = TitleTextBlock->GetTickSpaceGeometry().GetLocalSize().X;
-        AvailableSpace != ChannelTitleAvailableSpace)
+    if (TitleTextBlock)
     {
-        ChannelTitleAvailableSpace = AvailableSpace;
-        UpdateChannelTitleText();
+        if (const float AvailableSpace = TitleTextBlock->GetTickSpaceGeometry().GetLocalSize().X;
+            AvailableSpace != ChannelTitleAvailableSpace)
+        {
+            ChannelTitleAvailableSpace = AvailableSpace;
+            UpdateChannelTitleText();
+        }
     }
 
     return Super::NativePaint(

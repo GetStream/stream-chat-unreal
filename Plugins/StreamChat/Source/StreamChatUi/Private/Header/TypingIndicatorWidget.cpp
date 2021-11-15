@@ -1,6 +1,7 @@
 ﻿#include "Header/TypingIndicatorWidget.h"
 
 #include "UiBlueprintLibrary.h"
+#include "User/User.h"
 
 void UTypingIndicatorWidget::AddUser(const FUserRef& User)
 {

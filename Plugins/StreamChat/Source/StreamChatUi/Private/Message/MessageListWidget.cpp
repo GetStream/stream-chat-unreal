@@ -5,7 +5,11 @@
 
 void UMessageListWidget::CreateMessageStackWidgets(const TArray<FMessage> Messages)
 {
-    const UChatChannel* Channel = UChannelContextWidget::GetChannel(this);
+    if (!ScrollBox)
+    {
+        return;
+    }
+
     ScrollBox->ClearChildren();
 
     // A new stack is formed when:

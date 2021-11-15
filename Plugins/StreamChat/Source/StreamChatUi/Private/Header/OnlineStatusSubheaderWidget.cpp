@@ -3,6 +3,7 @@
 #include "Algo/Count.h"
 #include "Context/ChannelContextWidget.h"
 #include "TimerManager.h"
+#include "User/User.h"
 
 void UOnlineStatusSubheaderWidget::NativeConstruct()
 {

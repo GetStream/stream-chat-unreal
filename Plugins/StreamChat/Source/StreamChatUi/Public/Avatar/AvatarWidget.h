@@ -9,7 +9,6 @@
 #include "CoreMinimal.h"
 #include "ProfilePicWidget.h"
 #include "StreamUserWidget.h"
-#include "User/User.h"
 #include "User/UserRef.h"
 
 #include "AvatarWidget.generated.h"
