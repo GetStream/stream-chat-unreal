@@ -31,7 +31,7 @@ private:
     UTexture2DDynamic* QueryMemoryCache(const FString& Url) const;
 
     /// Add image with given url to on-disk cache
-    void CacheToDisk(const FHttpResponsePtr) const;
+    void CacheToDisk(const FString& Url, const FHttpResponsePtr) const;
     UTexture2DDynamic* QueryDiskCache(const FString& Url);
 
     FString GetDiskPathForUrl(const FString& Url) const;

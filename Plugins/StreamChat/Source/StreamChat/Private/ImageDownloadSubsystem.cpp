@@ -132,14 +132,14 @@ void UImageDownloadSubsystem::DownloadImage(const FString& Url, TFunction<void(U
 {
     if (UTexture2DDynamic* Cached = QueryMemoryCache(Url))
     {
-        UE_LOG(LogTemp, Log, TEXT("Serving image from in-memory cache [url=%s]"), *Url);
+        UE_LOG(LogTemp, Verbose, TEXT("Serving image from in-memory cache [url=%s]"), *Url);
         Callback(Cached);
         return;
     }
 
     if (UTexture2DDynamic* Cached = QueryDiskCache(Url))
     {
-        UE_LOG(LogTemp, Log, TEXT("Serving image from on-disk cache [url=%s]"), *Url);
+        UE_LOG(LogTemp, Verbose, TEXT("Serving image from on-disk cache [url=%s]"), *Url);
         Callback(Cached);
         return;
     }
@@ -167,7 +167,7 @@ void UImageDownloadSubsystem::DownloadImage(const FString& Url, TFunction<void(U
         if (WeakThis.IsValid())
         {
             WeakThis->CacheToMemory(Url, Texture);
-            WeakThis->CacheToDisk(HttpResponse);
+            WeakThis->CacheToDisk(Url, HttpResponse);
         }
 
         Callback(Texture);
@@ -193,14 +193,14 @@ UTexture2DDynamic* UImageDownloadSubsystem::QueryMemoryCache(const FString& Url)
     return nullptr;
 }
 
-void UImageDownloadSubsystem::CacheToDisk(const FHttpResponsePtr Response) const
+void UImageDownloadSubsystem::CacheToDisk(const FString& Url, const FHttpResponsePtr Response) const
 {
     if (!FPaths::HasProjectPersistentDownloadDir())
     {
         return;
     }
 
-    const FString AbsolutePath = GetDiskPathForUrl(Response->GetURL());
+    const FString AbsolutePath = GetDiskPathForUrl(Url);
 
     const TUniquePtr<FArchive> FileWriter(IFileManager::Get().CreateFileWriter(*AbsolutePath));
     if (!FileWriter)
@@ -250,8 +250,8 @@ UTexture2DDynamic* UImageDownloadSubsystem::QueryDiskCache(const FString& Url)
 
 FString UImageDownloadSubsystem::GetDiskPathForUrl(const FString& Url) const
 {
-    uint32 Hash = GetTypeHash(Url);
-    FString HashAsString = FString::Printf(TEXT("%08x"), Hash);
+    const uint32 Hash = GetTypeHash(Url);
+    const FString HashAsString = FString::Printf(TEXT("%08x"), Hash);
 
     const FString AbsolutePath = FPaths::ConvertRelativePathToFull(CacheFolder / HashAsString);
     return AbsolutePath;
