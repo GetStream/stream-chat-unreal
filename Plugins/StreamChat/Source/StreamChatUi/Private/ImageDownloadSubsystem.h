@@ -15,7 +15,7 @@ enum class EImageFormat : int8;
  *
  */
 UCLASS()
-class STREAMCHAT_API UImageDownloadSubsystem final : public UGameInstanceSubsystem
+class STREAMCHATUI_API UImageDownloadSubsystem final : public UGameInstanceSubsystem
 {
     GENERATED_BODY()
 

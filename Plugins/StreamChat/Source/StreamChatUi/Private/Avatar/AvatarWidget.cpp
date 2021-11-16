@@ -76,8 +76,8 @@ void UAvatarWidget::CreateProfilePics()
     if (Users.Num() == 2)
     {
         Grid->AddChildToGrid(CreateProfilePic(Users[0]));
-        UGridSlot* Slot = Grid->AddChildToGrid(CreateProfilePic(Users[1]));
-        Slot->SetColumn(1);
+        UGridSlot* GridSlot = Grid->AddChildToGrid(CreateProfilePic(Users[1]));
+        GridSlot->SetColumn(1);
         Grid->SetColumnFill(0, 1.f);
         Grid->SetColumnFill(1, 1.f);
         Grid->SetRowFill(0, 1.f);
@@ -87,17 +87,17 @@ void UAvatarWidget::CreateProfilePics()
     if (Users.Num() == 3)
     {
         {
-            UGridSlot* Slot = Grid->AddChildToGrid(CreateProfilePic(Users[0]));
-            Slot->SetRowSpan(2);
+            UGridSlot* GridSlot = Grid->AddChildToGrid(CreateProfilePic(Users[0]));
+            GridSlot->SetRowSpan(2);
         }
         {
-            UGridSlot* Slot = Grid->AddChildToGrid(CreateProfilePic(Users[1]));
-            Slot->SetColumn(1);
+            UGridSlot* GridSlot = Grid->AddChildToGrid(CreateProfilePic(Users[1]));
+            GridSlot->SetColumn(1);
         }
         {
-            UGridSlot* Slot = Grid->AddChildToGrid(CreateProfilePic(Users[2]));
-            Slot->SetRow(1);
-            Slot->SetColumn(1);
+            UGridSlot* GridSlot = Grid->AddChildToGrid(CreateProfilePic(Users[2]));
+            GridSlot->SetRow(1);
+            GridSlot->SetColumn(1);
         }
         Grid->SetColumnFill(0, 1.f);
         Grid->SetColumnFill(1, 1.f);
@@ -108,17 +108,17 @@ void UAvatarWidget::CreateProfilePics()
 
     Grid->AddChildToGrid(CreateProfilePic(Users[0]));
     {
-        UGridSlot* Slot = Grid->AddChildToGrid(CreateProfilePic(Users[1]));
-        Slot->SetColumn(1);
+        UGridSlot* GridSlot = Grid->AddChildToGrid(CreateProfilePic(Users[1]));
+        GridSlot->SetColumn(1);
     }
     {
-        UGridSlot* Slot = Grid->AddChildToGrid(CreateProfilePic(Users[2]));
-        Slot->SetRow(1);
+        UGridSlot* GridSlot = Grid->AddChildToGrid(CreateProfilePic(Users[2]));
+        GridSlot->SetRow(1);
     }
     {
-        UGridSlot* Slot = Grid->AddChildToGrid(CreateProfilePic(Users[3]));
-        Slot->SetRow(1);
-        Slot->SetColumn(1);
+        UGridSlot* GridSlot = Grid->AddChildToGrid(CreateProfilePic(Users[3]));
+        GridSlot->SetRow(1);
+        GridSlot->SetColumn(1);
     }
     Grid->SetColumnFill(0, 1.f);
     Grid->SetColumnFill(1, 1.f);
