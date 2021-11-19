@@ -149,11 +149,15 @@ void UStreamChatClientComponent::WatchChannel(
     check(Socket->IsConnected());
 
     Api->QueryChannel(
-        [this, Callback](const FChannelStateResponseDto& Dto)
+        [WeakThis = TWeakObjectPtr<UStreamChatClientComponent>(this), Callback](const FChannelStateResponseDto& Dto)
         {
-            UChatChannel* Channel = CreateChannelObject(Dto);
+            if (!WeakThis.IsValid())
+            {
+                return;
+            }
+            UChatChannel* Channel = WeakThis->CreateChannelObject(Dto);
 
-            Channels.Add(Channel);
+            WeakThis->Channels.Add(Channel);
             if (Callback)
             {
                 Callback(Channel);

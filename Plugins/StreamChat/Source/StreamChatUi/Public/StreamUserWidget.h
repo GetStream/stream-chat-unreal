@@ -30,5 +30,7 @@ private:
     /// You should override this to perform all child widget initialization.
     /// Widget bindings, defaults and setup properties will be valid here.
     /// Only called once when widget is spawned, NOT when added to parent/viewport
-    virtual void OnSetup() PURE_VIRTUAL(UStreamUserWidget::OnSetup, );
+    virtual void OnSetup()
+    {
+    }
 };

@@ -109,3 +109,8 @@ bool UUiBlueprintLibrary::IsCurrent(const FUserRef& User)
 {
     return User.IsCurrent();
 }
+
+TArray<FMessage> UUiBlueprintLibrary::FilterRecent(const TArray<FMessage>& Messages, const FTimespan& Since)
+{
+    return Messages.FilterByPredicate([&](const FMessage& M) { return FDateTime::UtcNow() - M.CreatedAt < Since; });
+}

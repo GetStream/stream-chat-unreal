@@ -31,7 +31,7 @@ void UAvatarWidget::OnSetup()
     if (Users.Num() == 1)
     {
         UpdateOnlineStatus(Users[0]->bOnline);
-        Users[0].OnUpdate().AddDynamic(this, &UAvatarWidget::OnUserUpdated);
+        Users[0].OnUpdate().AddUniqueDynamic(this, &UAvatarWidget::OnUserUpdated);
     }
     else
     {

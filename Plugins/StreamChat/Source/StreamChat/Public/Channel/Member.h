@@ -17,6 +17,7 @@ struct FMember
     GENERATED_BODY()
 
     FMember() = default;
+    explicit FMember(const FUserRef& User);
     explicit FMember(FUserManager&, const FChannelMemberDto&);
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Member")

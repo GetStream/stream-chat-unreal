@@ -34,4 +34,7 @@ public:
 
     UFUNCTION(BlueprintPure, Category = "Stream Chat|User")
     static bool IsCurrent(const FUserRef& User);
+
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Messages")
+    static TArray<FMessage> FilterRecent(const TArray<FMessage>& Messages, const FTimespan& Since);
 };
