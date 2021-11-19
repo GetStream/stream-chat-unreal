@@ -7,19 +7,23 @@
 void UMessageListHeaderWidget::NativeConstruct()
 {
     Channel = UChannelContextWidget::GetChannel(this);
-    Channel->OnTypingIndicator.AddDynamic(this, &UMessageListHeaderWidget::OnTypingIndicator);
-
-    const FText Title = FText::FromString(UUiBlueprintLibrary::GetChannelTitle(Channel));
-    if (Header)
+    if (Channel)
     {
-        Header->SetTitle(Title);
-        ShowOnlineStatusSubheader();
-    }
+        Channel->OnTypingIndicator.AddDynamic(this, &UMessageListHeaderWidget::OnTypingIndicator);
 
-    if (Avatar)
-    {
-        // TODO Group chat
-        Avatar->Setup(Channel->State.GetOtherMemberUsers());
+        const FText Title = FText::FromString(UUiBlueprintLibrary::GetChannelTitle(Channel));
+
+        if (Header)
+        {
+            Header->SetTitle(Title);
+            ShowOnlineStatusSubheader();
+        }
+
+        if (Avatar)
+        {
+            // TODO Group chat
+            Avatar->Setup(Channel->State.GetOtherMemberUsers());
+        }
     }
 
     Super::NativeConstruct();
@@ -27,7 +31,10 @@ void UMessageListHeaderWidget::NativeConstruct()
 
 void UMessageListHeaderWidget::NativeDestruct()
 {
-    Channel->OnTypingIndicator.RemoveDynamic(this, &UMessageListHeaderWidget::OnTypingIndicator);
+    if (Channel)
+    {
+        Channel->OnTypingIndicator.RemoveDynamic(this, &UMessageListHeaderWidget::OnTypingIndicator);
+    }
     Super::NativeDestruct();
 }
 
