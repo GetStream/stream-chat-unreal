@@ -65,12 +65,22 @@ FFilter UFilterBlueprintLibrary::LessOrEqualInt(FName Key, int32 Value)
     return FFilter::LessOrEqual(Key, Value);
 }
 
-FFilter UFilterBlueprintLibrary::In(FName Key, const TArray<int32>& Values)
+FFilter UFilterBlueprintLibrary::InInt(FName Key, const TArray<int32>& Values)
 {
     return FFilter::In(Key, Values);
 }
 
-FFilter UFilterBlueprintLibrary::NotInt(FName Key, const TArray<int32>& Values)
+FFilter UFilterBlueprintLibrary::InString(FName Key, const TArray<FString>& Values)
+{
+    return FFilter::In(Key, Values);
+}
+
+FFilter UFilterBlueprintLibrary::NotInInt(FName Key, const TArray<int32>& Values)
+{
+    return FFilter::NotIn(Key, Values);
+}
+
+FFilter UFilterBlueprintLibrary::NotInString(FName Key, const TArray<FString>& Values)
 {
     return FFilter::NotIn(Key, Values);
 }

@@ -32,9 +32,9 @@ struct FSortOption
 
     explicit operator FSortParamRequestDto() const;
 
-    UPROPERTY()
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     ESortField Field;
 
-    UPROPERTY()
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     ESortDirection Direction;
 };

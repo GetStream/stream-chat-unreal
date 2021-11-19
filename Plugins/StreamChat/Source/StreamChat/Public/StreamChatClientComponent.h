@@ -8,11 +8,11 @@
 #include "Components/ActorComponent.h"
 #include "CoreMinimal.h"
 #include "IChatSocket.h"
+#include "User/User.h"
 #include "User/UserRef.h"
 
 #include "StreamChatClientComponent.generated.h"
 
-struct FUser;
 struct FConnectionRecoveredEvent;
 struct FChannelStateResponseFieldsDto;
 struct FUserPresenceChangedEvent;
@@ -55,6 +55,49 @@ public:
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Client")
     const TArray<UChatChannel*>& GetChannels() const;
 
+    UPROPERTY(EditAnywhere, Config, Category = "Stream Chat", meta = (DisplayName = "API Key"))
+    FString ApiKey;
+
+private:
+    // Called when the game starts
+    virtual void BeginPlay() override;
+
+    void ConnectUserInternal(const FUser& User, TFunction<void(const FUserRef&)> Callback);
+    UChatChannel* CreateChannelObject(const FChannelStateResponseFieldsDto&);
+
+    void OnConnectionRecovered(const FConnectionRecoveredEvent&);
+    void OnUserPresenceChanged(const FUserPresenceChangedEvent&);
+
+    TSharedPtr<FTokenManager> TokenManager;
+    TSharedPtr<FChatApi> Api;
+    TSharedPtr<FUserManager> UserManager;
+
+    UPROPERTY(Transient)
+    TArray<UChatChannel*> Channels;
+
+#pragma region Blueprint
+
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo))
+    void ConnectUser(
+        const FUser& User,
+        const FString& Token,
+        const UObject* WorldContextObject,
+        FLatentActionInfo LatentInfo,
+        FUserRef& OutUser);
+
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo))
+    void QueryChannels(
+        FFilter Filter,
+        const TArray<FSortOption>& SortOptions,
+        const UObject* WorldContextObject,
+        FLatentActionInfo LatentInfo,
+        TArray<UChatChannel*>& OutChannels);
+
+#pragma endregion Blueprint
+
+#pragma region Events
+
+public:
     template <class TEvent>
     using TEventMulticastDelegate = TMulticastDelegate<void(const TEvent& Event)>;
     template <class TEvent>
@@ -109,27 +152,13 @@ public:
     template <class TEvent>
     bool Unsubscribe(FDelegateHandle) const;
 
-    UPROPERTY(EditAnywhere, Config, Category = "Stream Chat|Client", meta = (DisplayName = "API Key"))
-    FString ApiKey;
-
 private:
-    // Called when the game starts
-    virtual void BeginPlay() override;
-
-    void ConnectUserInternal(const FUser& User, TFunction<void(const FUserRef&)> Callback);
-    UChatChannel* CreateChannelObject(const FChannelStateResponseFieldsDto&);
-
-    void OnConnectionRecovered(const FConnectionRecoveredEvent&);
-    void OnUserPresenceChanged(const FUserPresenceChangedEvent&);
-
-    TSharedPtr<FTokenManager> TokenManager;
-    TSharedPtr<FChatApi> Api;
     TSharedPtr<IChatSocket> Socket;
-    TSharedPtr<FUserManager> UserManager;
 
-    UPROPERTY(Transient)
-    TArray<UChatChannel*> Channels;
+#pragma endregion Events
 };
+
+#pragma region Events
 
 template <class TEvent>
 FDelegateHandle UStreamChatClientComponent::On(TEventDelegate<TEvent> Callback)
@@ -173,3 +202,4 @@ bool UStreamChatClientComponent::Unsubscribe(const FDelegateHandle Handle) const
 {
     return Socket->Events().Unsubscribe<TEvent>(Handle);
 }
+#pragma endregion Events

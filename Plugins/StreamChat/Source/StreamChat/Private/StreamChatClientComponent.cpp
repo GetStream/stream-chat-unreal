@@ -3,6 +3,7 @@
 #include "StreamChatClientComponent.h"
 
 #include "Algo/Transform.h"
+#include "Blueprint/CallbackAction.h"
 #include "Channel/ChatChannel.h"
 #include "ChatApi.h"
 #include "ConstantTokenProvider.h"
@@ -73,6 +74,31 @@ void UStreamChatClientComponent::OnConnectionRecovered(const FConnectionRecovere
 void UStreamChatClientComponent::OnUserPresenceChanged(const FUserPresenceChangedEvent& Event)
 {
     UserManager->UpsertUser(Event.User);
+}
+
+void UStreamChatClientComponent::ConnectUser(
+    const FUser& User,
+    const FString& Token,
+    const UObject* WorldContextObject,
+    const FLatentActionInfo LatentInfo,
+    FUserRef& OutUser)
+{
+    TCallbackAction<FUserRef>::CreateLatentAction(
+        WorldContextObject, LatentInfo, OutUser, [&](auto Callback) { ConnectUser(User, Token, Callback); });
+}
+
+void UStreamChatClientComponent::QueryChannels(
+    FFilter Filter,
+    const TArray<FSortOption>& SortOptions,
+    const UObject* WorldContextObject,
+    const FLatentActionInfo LatentInfo,
+    TArray<UChatChannel*>& OutChannels)
+{
+    TCallbackAction<TArray<UChatChannel*>>::CreateLatentAction(
+        WorldContextObject,
+        LatentInfo,
+        OutChannels,
+        [&](auto Callback) { QueryChannels(Callback, Filter, SortOptions); });
 }
 
 void UStreamChatClientComponent::ConnectUser(

@@ -42,6 +42,7 @@ void UChannelStatusWidget::OnSetup()
     if (Button)
     {
         Button->OnClicked.AddDynamic(this, &UChannelStatusWidget::OnButtonClicked);
+        Button->SetStyle(NormalStyle);
     }
 
     if (Avatar)

@@ -62,9 +62,15 @@ public:
     static FFilter LessOrEqualInt(FName Key, int32 Value);
 
     /// Matches any of the values specified in an array.
-    UFUNCTION(BlueprintPure, Category = "Stream Chat|Filter", meta = (DisplayName = "$in (Filter)"))
-    static FFilter In(FName Key, const TArray<int32>& Values);
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Filter", meta = (DisplayName = "$in (Filter, integer)"))
+    static FFilter InInt(FName Key, const TArray<int32>& Values);
+    /// Matches any of the values specified in an array.
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Filter", meta = (DisplayName = "$in (Filter, string)"))
+    static FFilter InString(FName Key, const TArray<FString>& Values);
     /// Matches none of the values specified in an array.
-    UFUNCTION(BlueprintPure, Category = "Stream Chat|Filter", meta = (DisplayName = "$nin (Filter)", Keywords = "not"))
-    static FFilter NotInt(FName Key, const TArray<int32>& Values);
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Filter", meta = (DisplayName = "$nin (Filter, integer)", Keywords = "not"))
+    static FFilter NotInInt(FName Key, const TArray<int32>& Values);
+    /// Matches none of the values specified in an array.
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Filter", meta = (DisplayName = "$nin (Filter, string)", Keywords = "not"))
+    static FFilter NotInString(FName Key, const TArray<FString>& Values);
 };
