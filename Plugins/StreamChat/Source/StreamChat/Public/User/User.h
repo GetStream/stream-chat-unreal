@@ -26,7 +26,7 @@ struct STREAMCHAT_API FUser
 
     FString GetInitials(int32 Limit = 2) const;
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat|User")
     FString Id;
 
     /// Whether a user online or not
