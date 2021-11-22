@@ -2,6 +2,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Engine/Engine.h"
 #include "Engine/LatentActionManager.h"
 #include "LatentActions.h"
 #include "UObject/WeakObjectPtr.h"
