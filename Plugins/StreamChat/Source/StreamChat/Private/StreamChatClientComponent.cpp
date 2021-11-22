@@ -94,11 +94,29 @@ void UStreamChatClientComponent::QueryChannels(
     const FLatentActionInfo LatentInfo,
     TArray<UChatChannel*>& OutChannels)
 {
+    const TOptional<FFilter> OptionalFilter = Filter.IsValid() ? Filter : TOptional<FFilter>{};
     TCallbackAction<TArray<UChatChannel*>>::CreateLatentAction(
         WorldContextObject,
         LatentInfo,
         OutChannels,
-        [&](auto Callback) { QueryChannels(Callback, Filter, SortOptions); });
+        [&](auto Callback) { QueryChannels(Callback, OptionalFilter, SortOptions); });
+}
+
+void UStreamChatClientComponent::WatchChannel(
+    const FString& Type,
+    const FString& Id,
+    const TArray<FString>& Members,
+    const UObject* WorldContextObject,
+    const FLatentActionInfo LatentInfo,
+    UChatChannel*& OutChannel)
+{
+    const TOptional<FString> OptionalId = Id.IsEmpty() ? TOptional<FString>{} : Id;
+    const TOptional<TArray<FString>> OptionalMembers = Members.Num() == 0 ? TOptional<TArray<FString>>{} : Members;
+    TCallbackAction<UChatChannel*, UChatChannel*>::CreateLatentAction(
+        WorldContextObject,
+        LatentInfo,
+        OutChannel,
+        [&](auto Callback) { WatchChannel(Callback, Type, OptionalId, OptionalMembers); });
 }
 
 void UStreamChatClientComponent::ConnectUser(
@@ -169,7 +187,7 @@ void UStreamChatClientComponent::WatchChannel(
     TFunction<void(UChatChannel*)> Callback,
     const FString& Type,
     const TOptional<FString>& Id,
-    const TOptional<TArray<FString>> Members)
+    const TOptional<TArray<FString>>& Members)
 {
     // TODO Can we return something from ConnectUser() that is required for this function to prevent ordering ambiguity?
     check(Socket->IsConnected());

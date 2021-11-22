@@ -22,7 +22,7 @@ class STREAMCHATUI_API UFadingMessageWidget final : public UStreamUserWidget
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void Setup(const FMessage& InMessage, FTimespan InLifetime);
+    void Setup(const FMessage& InMessage, const FTimespan& InLifetime);
 
 protected:
     UPROPERTY(meta = (BindWidget))

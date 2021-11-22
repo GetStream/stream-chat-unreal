@@ -2,10 +2,10 @@
 
 #include "User/User.h"
 
-void UFadingMessageWidget::Setup(const FMessage& InMessage, FTimespan InLifetime)
+void UFadingMessageWidget::Setup(const FMessage& InMessage, const FTimespan& InLifetime)
 {
     Message = InMessage;
-    if (InLifetime != FTimespan{0})
+    if (InLifetime.GetTicks() != 0)
     {
         Lifetime = InLifetime;
     }
@@ -31,7 +31,21 @@ void UFadingMessageWidget::OnSetup()
     {
         const FTimespan MessageAge = FDateTime::UtcNow() - Message.CreatedAt;
         const FTimespan ShowFor = Lifetime - MessageAge;
-        const double Delay = FMath::Max(0., ShowFor.GetTotalSeconds() - FadeAnimation->GetEndTime());
+        const double ShowForSeconds = ShowFor.GetTotalSeconds();
+        if (!ensureMsgf(ShowForSeconds > 0., TEXT("Trying to show a fading message which is older than its lifetime")))
+        {
+            RemoveFromParent();
+            return;
+        }
+
+        if (ShowForSeconds < FadeAnimation->GetEndTime())
+        {
+            // Only play the remaining fade
+            PlayAnimation(FadeAnimation, FadeAnimation->GetEndTime() - ShowForSeconds);
+            return;
+        }
+
+        const double Delay = FMath::Max(0., ShowForSeconds - FadeAnimation->GetEndTime());
         GetWorld()->GetTimerManager().SetTimer(
             TimerHandle,
             [WeakThis = TWeakObjectPtr<UFadingMessageWidget>(this)]

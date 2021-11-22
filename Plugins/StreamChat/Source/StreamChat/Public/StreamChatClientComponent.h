@@ -35,6 +35,7 @@ public:
         TUniquePtr<ITokenProvider> TokenProvider,
         TFunction<void(const FUserRef&)> Callback = {});
     void ConnectUser(const FUser& User, const FString& Token, TFunction<void(const FUserRef&)> Callback = {});
+
     void DisconnectUser();
 
     void QueryChannels(
@@ -46,7 +47,7 @@ public:
         TFunction<void(UChatChannel*)> Callback,
         const FString& Type,
         const TOptional<FString>& Id = {},
-        const TOptional<TArray<FString>> Members = {});
+        const TOptional<TArray<FString>>& Members = {});
 
     // TODO does this need to be exposed?
     void UpdateMessage(const FString& Id, const FString& Text) const;
@@ -92,6 +93,15 @@ private:
         const UObject* WorldContextObject,
         FLatentActionInfo LatentInfo,
         TArray<UChatChannel*>& OutChannels);
+
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo))
+    void WatchChannel(
+        const FString& Type,
+        const FString& Id,
+        const TArray<FString>& Members,
+        const UObject* WorldContextObject,
+        FLatentActionInfo LatentInfo,
+        UChatChannel*& OutChannel);
 
 #pragma endregion Blueprint
 
@@ -140,7 +150,8 @@ public:
     /**
      * Subscribe to a client event using a C++ lambda
      * @tparam TEvent Event type
-     * @param Functor Lambda to execute when event occurs. Should have signature similar to: [](const TEvent& Event){}
+     * @param Functor Lambda to execute when event occurs. Should have signature similar to: [](const TEvent&
+     * Event){}
      * @param Vars Additional variables to pass to the lambda
      * @return A handle which can be used to unsubscribe from the event
      */
