@@ -104,8 +104,8 @@ void UStreamChatClientComponent::QueryChannels(
 
 void UStreamChatClientComponent::WatchChannel(
     const FString& Type,
-    const FString& Id,
     const TArray<FString>& Members,
+    const FString& Id,
     const UObject* WorldContextObject,
     const FLatentActionInfo LatentInfo,
     UChatChannel*& OutChannel)

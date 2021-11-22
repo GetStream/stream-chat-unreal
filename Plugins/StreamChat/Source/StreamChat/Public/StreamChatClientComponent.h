@@ -31,19 +31,60 @@ class STREAMCHAT_API UStreamChatClientComponent final : public UActorComponent
 public:
     UStreamChatClientComponent();
 
+    /**
+     * Create a connection to the API for the given user and using a custom token provider.
+
+     * @param User Generally only the user id is required
+     * @param TokenProvider Can be used to asynchronously generate tokens from your own backend
+     * @param Callback Called when a response is received from the API
+     * @return Latest info if the logged in user
+     */
     void ConnectUser(
         const FUser& User,
         TUniquePtr<ITokenProvider> TokenProvider,
         TFunction<void(const FUserRef&)> Callback = {});
+
+    /**
+     * Create a connection to the API for the given user and credentials.
+
+     * @param User Generally only the user id is required
+     * @param Token A JWT token for the given user
+     * @param Callback Called when a response is received from the API
+     * @return Latest info if the logged in user
+     */
     void ConnectUser(const FUser& User, const FString& Token, TFunction<void(const FUserRef&)> Callback = {});
 
+    /**
+     * Close the connection to the API and resets any state
+     */
     void DisconnectUser();
 
+    /**
+     * Query the API for all channels which match the given filter. Will also automatically watch all channels.
+     *
+     * @param Callback Called when a response is received from the API
+     * @param Filter The query filters to use. You can query on any of the custom fields you've defined on the Channel.
+     * As a minimum, the filter should be something like: { members: { $in: [userID] } }
+     * @param SortOptions The sorting used for the channels matching the filters. Sorting is based on field and
+     * direction, and multiple sorting options can be provided.
+     * @return An array of channel objects which can be used to interact with the channels
+     */
     void QueryChannels(
         TFunction<void(const TArray<UChatChannel*>&)> Callback,
         TOptional<FFilter> Filter = {},
         const TArray<FSortOption>& SortOptions = {});
 
+    /**
+    * Create a channel if it doesn't exist yet (if this user has the right permissions), get data about the channel
+    (including members, watchers and messages) and subscribe to future updates
+
+     * @param Callback Called when a response is received from the API
+     * @param Type The channel type. Default types are livestream, messaging, team, gaming and commerce. You can also
+    create your own types.
+     * @param Members The members participating in this Channel (optional)
+     * @param Id A unique name for the channel (optional)
+     * @return A channel object which can be used to interact with the channel
+     */
     void WatchChannel(
         TFunction<void(UChatChannel*)> Callback,
         const FString& Type,
@@ -79,6 +120,13 @@ private:
 
 #pragma region Blueprint
 
+    /**
+     * Create a connection to the API for the given user and credentials.
+
+     * @param User Generally only the user id is required
+     * @param Token A JWT token for the given user
+     * @param OutUser Latest info if the logged in user
+     */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo))
     void ConnectUser(
         const FUser& User,
@@ -87,6 +135,15 @@ private:
         FLatentActionInfo LatentInfo,
         FUserRef& OutUser);
 
+    /**
+     * Query the API for all channels which match the given filter. Will also automatically watch all channels.
+     *
+     * @param Filter The query filters to use. You can query on any of the custom fields you've defined on the Channel.
+     * As a minimum, the filter should be something like: { members: { $in: [userID] } }
+     * @param SortOptions The sorting used for the channels matching the filters. Sorting is based on field and
+     * direction, and multiple sorting options can be provided.
+     * @param OutChannels An array of channel objects which can be used to interact with the channels
+     */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo))
     void QueryChannels(
         FFilter Filter,
@@ -95,11 +152,21 @@ private:
         FLatentActionInfo LatentInfo,
         TArray<UChatChannel*>& OutChannels);
 
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo))
+    /**
+    * Create a channel if it doesn't exist yet (if this user has the right permissions), get data about the channel
+    (including members, watchers and messages) and subscribe to future updates
+
+     * @param Type The channel type. Default types are livestream, messaging, team, gaming and commerce. You can also
+    create your own types.
+     * @param Members The members participating in this Channel (optional)
+     * @param Id A unique name for the channel (optional)
+     * @param OutChannel Object which can be used to interact with the channel
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo, AdvancedDisplay = Id))
     void WatchChannel(
         const FString& Type,
-        const FString& Id,
         const TArray<FString>& Members,
+        const FString& Id,
         const UObject* WorldContextObject,
         FLatentActionInfo LatentInfo,
         UChatChannel*& OutChannel);
