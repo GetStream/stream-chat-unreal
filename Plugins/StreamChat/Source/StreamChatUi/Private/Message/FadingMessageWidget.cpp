@@ -1,5 +1,6 @@
 #include "Message/FadingMessageWidget.h"
 
+#include "TimerManager.h"
 #include "User/User.h"
 
 void UFadingMessageWidget::Setup(const FMessage& InMessage, const FTimespan& InLifetime)
