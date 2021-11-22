@@ -32,9 +32,9 @@ struct FSortOption
 
     explicit operator FSortParamRequestDto() const;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat")
     ESortField Field;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat")
     ESortDirection Direction;
 };
