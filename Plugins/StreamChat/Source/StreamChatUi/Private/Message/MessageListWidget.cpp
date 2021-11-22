@@ -1,7 +1,6 @@
 ﻿#include "Message/MessageListWidget.h"
 
 #include "Channel/ChatChannel.h"
-#include "Context/ChannelContextWidget.h"
 
 void UMessageListWidget::CreateMessageStackWidgets(const TArray<FMessage> Messages)
 {

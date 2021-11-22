@@ -111,6 +111,8 @@ struct STREAMCHAT_API FFilter
     static FFilter NotIn(const FName& Key, const TArray<float>& Values);
     static FFilter NotIn(const FName& Key, const TArray<FString>& Values);
 
+    bool IsValid() const;
+
 private:
     template <class T>
     static FFilter MakeComparison(EFilterOperator Operator, const FName& Key, T Value);
@@ -119,8 +121,6 @@ private:
     template <class T>
     static FFilter MakeArrayComparison(EFilterOperator Operator, const FName& Key, const TArray<T>& Values);
     static FFilter MakeArrayComparison(EFilterOperator Operator, const FName& Key, const TArray<FString>& Values);
-
-    bool IsValid() const;
 
     EFilterOperator Operator;
     FName Key;
