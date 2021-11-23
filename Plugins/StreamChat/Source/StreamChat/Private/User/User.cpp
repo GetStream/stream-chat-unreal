@@ -1,4 +1,6 @@
-﻿#include "User/User.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "User/User.h"
 
 #include "OwnUserDto.h"
 #include "UserObjectDto.h"

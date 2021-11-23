@@ -1,3 +1,5 @@
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
 // © Stream.IO, Inc. All Rights Reserved.
 
 #pragma once

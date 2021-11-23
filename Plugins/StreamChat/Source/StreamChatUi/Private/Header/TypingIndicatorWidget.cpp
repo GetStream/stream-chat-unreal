@@ -1,4 +1,6 @@
-﻿#include "Header/TypingIndicatorWidget.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "Header/TypingIndicatorWidget.h"
 
 #include "UiBlueprintLibrary.h"
 #include "User/User.h"

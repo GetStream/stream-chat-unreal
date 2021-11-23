@@ -1,4 +1,6 @@
-﻿#include "ContextMenu/ContextMenuWidget.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "ContextMenu/ContextMenuWidget.h"
 
 void UContextMenuWidget::Setup(const FMessage& InMessage, const EMessageSide InSide)
 {

@@ -1,4 +1,6 @@
-﻿#include "Message/TextBubbleWidget.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "Message/TextBubbleWidget.h"
 
 void UTextBubbleWidget::Setup(const FMessage& InMessage, EMessageSide InSide, EBubbleStackPosition InPosition)
 {

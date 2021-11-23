@@ -1,4 +1,6 @@
-﻿#include "IChatSocket.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "IChatSocket.h"
 
 #include "ChatSocket.h"
 

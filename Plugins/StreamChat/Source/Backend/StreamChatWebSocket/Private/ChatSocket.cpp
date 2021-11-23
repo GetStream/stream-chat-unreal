@@ -1,4 +1,6 @@
-﻿#include "ChatSocket.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "ChatSocket.h"
 
 #include "Containers/Ticker.h"
 #include "Event/Client/ConnectionChangedEvent.h"

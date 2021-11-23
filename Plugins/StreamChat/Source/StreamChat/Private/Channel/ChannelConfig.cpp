@@ -1,4 +1,6 @@
-﻿#include "Channel/ChannelConfig.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "Channel/ChannelConfig.h"
 
 #include "Response/Channel/ChannelConfigWithInfoDto.h"
 

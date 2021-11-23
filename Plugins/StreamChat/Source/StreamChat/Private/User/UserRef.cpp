@@ -1,3 +1,5 @@
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
 #include "User/UserRef.h"
 
 #include "User/User.h"

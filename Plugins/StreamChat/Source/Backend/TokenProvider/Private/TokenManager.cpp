@@ -1,4 +1,6 @@
-﻿#include "TokenManager.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "TokenManager.h"
 
 void FTokenManager::SetTokenProvider(TUniquePtr<ITokenProvider> InTokenProvider, const FString& InUserId)
 {

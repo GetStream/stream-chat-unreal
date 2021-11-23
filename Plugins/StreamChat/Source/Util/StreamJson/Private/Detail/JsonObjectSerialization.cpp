@@ -1,3 +1,5 @@
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
 #include "Detail/JsonObjectSerialization.h"
 
 #include "Dom/JsonObject.h"

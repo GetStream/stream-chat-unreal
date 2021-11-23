@@ -1,4 +1,6 @@
-﻿#include "Containers/UnrealString.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "Containers/UnrealString.h"
 #include "CoreTypes.h"
 #include "Misc/AutomationTest.h"
 #include "QueryUtils.h"

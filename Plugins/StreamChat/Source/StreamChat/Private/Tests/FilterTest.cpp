@@ -1,4 +1,6 @@
-﻿#include "Channel/Filter.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "Channel/Filter.h"
 #include "CoreTypes.h"
 #include "Misc/AutomationTest.h"
 

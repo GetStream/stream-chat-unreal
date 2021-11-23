@@ -1,4 +1,6 @@
-﻿#include "NamingConventionConversion.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "NamingConventionConversion.h"
 
 #include "Misc/AutomationTest.h"
 #include "TestJson.h"

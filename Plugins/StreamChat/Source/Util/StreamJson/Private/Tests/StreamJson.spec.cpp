@@ -1,4 +1,6 @@
-﻿#include "StreamJson.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "StreamJson.h"
 
 #include "Misc/AutomationTest.h"
 #include "TestJson.h"

@@ -1,4 +1,6 @@
-﻿#include "StreamJsonField.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "StreamJsonField.h"
 
 #include "Serialization/JsonSerializer.h"
 

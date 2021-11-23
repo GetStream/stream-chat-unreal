@@ -1,4 +1,6 @@
-﻿#include "Event/Abstract/MessageEvent.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "Event/Abstract/MessageEvent.h"
 
 #include "Detail/ExtraFields.h"
 #include "Dom/JsonObject.h"

@@ -1,4 +1,6 @@
-﻿#include "QueryUtils.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "QueryUtils.h"
 
 #include "GenericPlatform/GenericPlatformHttp.h"
 #include "String/ParseTokens.h"

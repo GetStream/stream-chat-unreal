@@ -1,4 +1,6 @@
-﻿#include "StreamUserWidget.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "StreamUserWidget.h"
 
 void UStreamUserWidget::Setup()
 {

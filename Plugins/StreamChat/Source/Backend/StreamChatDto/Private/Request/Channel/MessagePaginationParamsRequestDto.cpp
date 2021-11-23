@@ -1,4 +1,6 @@
-﻿#include "Request/Channel/MessagePaginationParamsRequestDto.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "Request/Channel/MessagePaginationParamsRequestDto.h"
 
 #include "StreamJsonField.h"
 

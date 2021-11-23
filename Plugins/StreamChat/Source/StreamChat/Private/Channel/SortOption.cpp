@@ -1,3 +1,5 @@
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
 #include "Channel/SortOption.h"
 
 #include "Request/Channel/SortParamRequestDto.h"

@@ -1,4 +1,6 @@
-﻿#include "Message/MessageHoverMenuWidget.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "Message/MessageHoverMenuWidget.h"
 
 #include "Blueprint/WidgetTree.h"
 #include "Components/GridSlot.h"

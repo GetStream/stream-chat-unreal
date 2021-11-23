@@ -1,4 +1,6 @@
-﻿#include "Channel/FilterBlueprintLibrary.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "Channel/FilterBlueprintLibrary.h"
 
 FFilter UFilterBlueprintLibrary::And(const TArray<FFilter>& Filters)
 {

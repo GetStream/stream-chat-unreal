@@ -1,4 +1,6 @@
-﻿#include "Header/OnlineStatusSubheaderWidget.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "Header/OnlineStatusSubheaderWidget.h"
 
 #include "Algo/Count.h"
 #include "Context/ChannelContextWidget.h"

@@ -1,3 +1,5 @@
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
 #include "Channel/Filter.h"
 
 #include "Dom/JsonObject.h"

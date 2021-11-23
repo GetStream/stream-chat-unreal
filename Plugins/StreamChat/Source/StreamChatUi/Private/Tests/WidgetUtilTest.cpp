@@ -1,4 +1,6 @@
-﻿#include "CoreTypes.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "CoreTypes.h"
 #include "Misc/AutomationTest.h"
 #include "WidgetUtil.h"
 

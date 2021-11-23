@@ -1,4 +1,6 @@
-﻿#include "ConstantTokenProvider.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "ConstantTokenProvider.h"
 
 FConstantTokenProvider::FConstantTokenProvider(const FString& InToken) : Token(InToken)
 {

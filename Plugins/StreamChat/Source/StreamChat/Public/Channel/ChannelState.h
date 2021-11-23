@@ -1,4 +1,6 @@
-﻿#pragma once
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#pragma once
 
 #include "ChannelConfig.h"
 #include "CoreMinimal.h"

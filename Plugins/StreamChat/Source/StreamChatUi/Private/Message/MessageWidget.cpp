@@ -1,4 +1,6 @@
-﻿#include "Message/MessageWidget.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "Message/MessageWidget.h"
 
 #include "Components/HorizontalBoxSlot.h"
 #include "Components/VerticalBoxSlot.h"

@@ -1,4 +1,6 @@
-﻿#include "ChatApi.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "ChatApi.h"
 
 #include "HttpClient.h"
 #include "Request/Channel/ChannelGetOrCreateRequestDto.h"

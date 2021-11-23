@@ -1,3 +1,5 @@
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
 #include "Reaction/ReactionPickerButtonWidget.h"
 
 void UReactionPickerButtonWidget::Setup(const FName& InReactionType, const EMessageSide InSide)
