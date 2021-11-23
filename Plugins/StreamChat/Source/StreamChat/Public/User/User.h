@@ -17,13 +17,20 @@ struct STREAMCHAT_API FUser
 {
     GENERATED_BODY()
 
+    /// Needed by USTRUCT system. Shouldn't be used directly.
     FUser();
+
+    /// Create a new sparsely-identified user for local use
     explicit FUser(const FString& InId);
 
+    /// Convert from UserObject
     explicit FUser(const FUserObjectDto&);
+    /// Convert from OwnUser
     explicit FUser(const FOwnUserDto&);
+    /// Convert to UserObject
     explicit operator FUserObjectDto() const;
 
+    /// Generate initials from the user's name
     FString GetInitials(int32 Limit = 2) const;
 
     /// The id of this user

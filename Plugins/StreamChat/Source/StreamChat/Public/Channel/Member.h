@@ -18,7 +18,7 @@ struct FMember
 {
     GENERATED_BODY()
 
-    FMember() = default;
+    FMember();
     explicit FMember(const FUserRef& User);
     explicit FMember(FUserManager&, const FChannelMemberDto&);
 

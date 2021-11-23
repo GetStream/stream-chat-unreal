@@ -61,6 +61,11 @@ TArray<FUserRef> FChannelState::GetOtherMemberUsers() const
     return OtherUsers;
 }
 
+const TArray<FMessage>& FChannelState::GetMessages() const
+{
+    return Messages;
+}
+
 void FChannelState::SetMembers(FUserManager& UserManager, const TArray<FChannelMemberDto>& Dto)
 {
     Algo::Transform(Dto, Members, [&](const FChannelMemberDto& MemberDto) { return FMember{UserManager, MemberDto}; });

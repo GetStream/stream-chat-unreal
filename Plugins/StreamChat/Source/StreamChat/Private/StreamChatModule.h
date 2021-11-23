@@ -2,6 +2,11 @@
 
 #pragma once
 
+/**
+ * @defgroup StreamChat Stream Chat
+ * @brief The main interface to all Stream Chat functionality
+ */
+
 #include "CoreMinimal.h"
 #include "Modules/ModuleInterface.h"
 

@@ -9,7 +9,8 @@
 #include "ReactionGroup.generated.h"
 
 /**
- * An abstraction to group reactions by their type.
+ * @brief An abstraction to group reactions by their type.
+ * @ingroup StreamChat
  */
 USTRUCT(BlueprintType)
 struct STREAMCHAT_API FReactionGroup

@@ -28,7 +28,7 @@ content = file.read()
 
 # Do a regular expression to replace all UE4 macros, include balanced params
 # TODO: Remove C++ comments!
-regex = '^(\s*)((?:UFUNCTION|UCLASS|UPROPERTY|UENUM)\s*\('+paren_matcher(25)+'\))'
+regex = '^(\s*)((?:UFUNCTION|UCLASS|UPROPERTY|UENUM|DECLARE_.*DELEGATE.*)\s*\('+paren_matcher(25)+'\))'
 
 content = re.sub(regex, r'\1/* UE4 Macro: \2 */', content, flags=re.MULTILINE)
 

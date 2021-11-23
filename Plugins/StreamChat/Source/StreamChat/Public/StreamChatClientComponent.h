@@ -23,12 +23,18 @@ class FUserManager;
 class ITokenProvider;
 class UChatChannel;
 
+/**
+ * @brief A component which allows for connecting to the Stream Chat API.
+ * Should be added to a client-side actor, e.g. HUD.
+ * @ingroup StreamChat
+ */
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class STREAMCHAT_API UStreamChatClientComponent final : public UActorComponent
 {
     GENERATED_BODY()
 
 public:
+    /// Initialize the component. Shouldn't be called directly.
     UStreamChatClientComponent();
 
     /**

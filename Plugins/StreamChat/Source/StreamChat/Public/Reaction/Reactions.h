@@ -13,7 +13,8 @@ struct FReaction;
 struct FReactionDto;
 
 /**
- * Encapsulates a collection of reactions for a message
+ * @brief Encapsulates a collection of reactions for a message
+ * @ingroup StreamChat
  */
 USTRUCT(BlueprintType)
 struct STREAMCHAT_API FReactions
