@@ -1,4 +1,6 @@
-﻿#include "RequestBuilder.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "RequestBuilder.h"
 
 #include "HttpClient.h"
 #include "HttpModule.h"

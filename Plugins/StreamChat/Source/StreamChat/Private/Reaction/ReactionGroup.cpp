@@ -1,4 +1,6 @@
-﻿#include "Reaction/ReactionGroup.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "Reaction/ReactionGroup.h"
 
 bool UReactionGroupBlueprintLibrary::HasOwnReaction(const FReactionGroup& ReactionGroup)
 {

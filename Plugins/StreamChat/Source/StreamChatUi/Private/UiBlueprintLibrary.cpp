@@ -1,4 +1,6 @@
-﻿#include "UiBlueprintLibrary.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "UiBlueprintLibrary.h"
 
 #include "Algo/ForEach.h"
 #include "Components/ScrollBox.h"

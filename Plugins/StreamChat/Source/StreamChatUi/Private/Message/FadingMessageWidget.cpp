@@ -1,3 +1,5 @@
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
 #include "Message/FadingMessageWidget.h"
 
 #include "TimerManager.h"

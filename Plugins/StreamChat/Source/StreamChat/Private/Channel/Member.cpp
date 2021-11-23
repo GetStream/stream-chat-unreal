@@ -1,4 +1,6 @@
-﻿#include "Channel/Member.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "Channel/Member.h"
 
 #include "Response/Channel/ChannelMemberDto.h"
 #include "User/UserManager.h"

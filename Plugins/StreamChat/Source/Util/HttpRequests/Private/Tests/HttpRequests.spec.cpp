@@ -1,4 +1,6 @@
-﻿#include "HttpClient.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "HttpClient.h"
 #include "JsonPlaceholderPost.h"
 #include "Misc/AutomationTest.h"
 

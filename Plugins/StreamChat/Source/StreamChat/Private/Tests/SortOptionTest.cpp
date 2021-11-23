@@ -1,4 +1,6 @@
-﻿#include "Channel/SortOption.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "Channel/SortOption.h"
 #include "CoreTypes.h"
 #include "Misc/AutomationTest.h"
 #include "Request/Channel/SortParamRequestDto.h"

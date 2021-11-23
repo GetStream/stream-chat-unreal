@@ -1,4 +1,6 @@
-﻿#include "Request/Channel/ChannelGetOrCreateRequestDto.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "Request/Channel/ChannelGetOrCreateRequestDto.h"
 
 #include "StreamJsonField.h"
 

@@ -1,4 +1,6 @@
-﻿#include "Reaction/Reaction.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "Reaction/Reaction.h"
 
 #include "Response/Reaction/ReactionDto.h"
 #include "User/UserManager.h"

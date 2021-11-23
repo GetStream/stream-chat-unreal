@@ -1,4 +1,6 @@
-﻿#include "Message/MessageListWidget.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "Message/MessageListWidget.h"
 
 #include "Channel/ChatChannel.h"
 

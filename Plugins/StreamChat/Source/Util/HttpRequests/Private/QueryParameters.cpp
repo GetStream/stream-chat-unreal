@@ -1,4 +1,6 @@
-﻿#include "QueryParameters.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "QueryParameters.h"
 
 #include "GenericPlatform/GenericPlatformHttp.h"
 

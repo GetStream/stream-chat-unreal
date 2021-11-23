@@ -1,4 +1,6 @@
-﻿#include "ContextMenu/ContextMenuButtonWidget.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "ContextMenu/ContextMenuButtonWidget.h"
 
 #include "Brushes/SlateBoxBrush.h"
 #include "Engine/Texture2D.h"

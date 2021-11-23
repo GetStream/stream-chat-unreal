@@ -1,3 +1,5 @@
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
 #include "Reaction/ReactionPickerWidget.h"
 
 #include "Channel/ChatChannel.h"

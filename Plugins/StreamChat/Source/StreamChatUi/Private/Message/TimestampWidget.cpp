@@ -1,4 +1,6 @@
-﻿#include "Message/TimestampWidget.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "Message/TimestampWidget.h"
 
 #include "Components/OverlaySlot.h"
 #include "User/User.h"

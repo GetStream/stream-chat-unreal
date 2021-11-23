@@ -1,3 +1,4 @@
+// Copyright Stream.IO, Inc. All Rights Reserved.
 
 #include "NamingConventionConversion.h"
 

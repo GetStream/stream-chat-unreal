@@ -1,3 +1,5 @@
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
 #include "HttpClient.h"
 
 FRequestBuilder FHttpClient::Get(const FString& Url) const

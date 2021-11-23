@@ -1,4 +1,6 @@
-﻿#include "StreamJson.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "StreamJson.h"
 
 #include "Policies/CondensedJsonPrintPolicy.h"
 #include "Serialization/JsonSerializer.h"

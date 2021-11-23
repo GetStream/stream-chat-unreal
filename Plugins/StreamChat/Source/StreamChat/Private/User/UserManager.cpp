@@ -1,3 +1,5 @@
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
 #include "User/UserManager.h"
 
 #include "OwnUserDto.h"

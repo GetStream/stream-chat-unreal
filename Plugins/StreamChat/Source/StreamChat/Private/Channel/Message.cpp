@@ -1,4 +1,6 @@
-﻿#include "Channel/Message.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "Channel/Message.h"
 
 #include "Request/Message/MessageRequestDto.h"
 #include "Response/Message/MessageDto.h"

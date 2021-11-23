@@ -1,4 +1,6 @@
-﻿#include "Reaction/Reactions.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "Reaction/Reactions.h"
 
 #include "Reaction/Reaction.h"
 #include "Reaction/ReactionGroup.h"

@@ -1,4 +1,6 @@
-﻿#include "WidgetUtil.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "WidgetUtil.h"
 
 #include "Engine/Texture2DDynamic.h"
 #include "Fonts/FontMeasure.h"

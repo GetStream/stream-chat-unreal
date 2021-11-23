@@ -1,3 +1,5 @@
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
 #include "Reaction/BottomReactionWidget.h"
 
 #include "Reaction/ReactionsTooltipWidget.h"

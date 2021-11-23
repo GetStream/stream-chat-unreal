@@ -1,4 +1,6 @@
-﻿#include "ChatSocketEvents.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "ChatSocketEvents.h"
 
 #include "LogChatSocket.h"
 #include "Response/ErrorResponseDto.h"

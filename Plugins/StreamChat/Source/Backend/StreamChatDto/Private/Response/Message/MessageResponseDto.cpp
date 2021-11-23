@@ -1,4 +1,6 @@
-﻿#include "Response/Message/MessageResponseDto.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "Response/Message/MessageResponseDto.h"
 
 #include "Detail/ExtraFields.h"
 #include "Dom/JsonObject.h"

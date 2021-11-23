@@ -1,4 +1,6 @@
-﻿#include "Channel/ChannelState.h"
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
+#include "Channel/ChannelState.h"
 
 #include "Algo/Transform.h"
 #include "Channel/Message.h"
