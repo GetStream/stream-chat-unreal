@@ -10,7 +10,8 @@
 #include "StreamChatSettings.generated.h"
 
 /**
- *
+ * @brief Project Settings for Stream Chat
+ * @ingroup StreamChat
  */
 UCLASS(Config = Game, DefaultConfig)
 class STREAMCHAT_API UStreamChatSettings final : public UObject
@@ -18,6 +19,7 @@ class STREAMCHAT_API UStreamChatSettings final : public UObject
     GENERATED_BODY()
 
 public:
+    /// The hostname to connect to via https and WebSockets
     UPROPERTY(EditAnywhere, Category = "General")
     FString Host = TEXT("chat.stream-io-api.com");
 };

@@ -21,23 +21,29 @@ struct STREAMCHAT_API FUserRef
 {
     GENERATED_BODY()
 
+    /// Needed by USTRUCT system. Shouldn't be used directly.
     FUserRef();
 
+    /// Access the underlying user
     const FUser& GetUser() const;
+    /// Access the underlying user
     const FUser& operator*() const;
+    /// Access the underlying user
     const FUser* operator->() const;
 
+    /// Do these reference the same user?
     bool operator==(const FUserRef&) const;
+    /// Do these reference different users?
     bool operator!=(const FUserRef&) const;
 
     /// Will dereferencing this yield a valid user?
     bool IsValid() const;
 
-    /// Is this user the currently logged in local user
+    /// Is this user the currently logged-in local user?
     bool IsCurrent() const;
 
     /// Get a delegate which can be be used to be informed of the user's updates.
-    /// Delegate is guaranteed to be unique to the underlying user.
+    /// The delegate is guaranteed to be unique to the underlying user.
     FUserUpdatedMultiDelegate& OnUpdate() const;
 
 private:

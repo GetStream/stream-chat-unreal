@@ -5,6 +5,8 @@
 #include "Response/Channel/ChannelMemberDto.h"
 #include "User/UserManager.h"
 
+FMember::FMember() = default;
+
 FMember::FMember(const FUserRef& User) : User{User}
 {
 }

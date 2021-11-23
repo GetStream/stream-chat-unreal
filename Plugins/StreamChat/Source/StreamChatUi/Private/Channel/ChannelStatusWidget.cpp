@@ -97,7 +97,7 @@ void UChannelStatusWidget::UpdateDynamic() const
 
     if (Timestamp)
     {
-        Timestamp->Setup(Channel->State.Messages.Last(), false, true);
+        Timestamp->Setup(Channel->State.GetMessages().Last(), false, true);
     }
 
     // Force update recent message text
@@ -121,7 +121,7 @@ void UChannelStatusWidget::UpdateRecentMessageText() const
     if (RecentMessageTextBlock)
     {
         const FString Shortened = WidgetUtil::TruncateWithEllipsis(
-            Channel->State.Messages.Last().Text, RecentMessageAvailableSpace, RecentMessageTextBlock->Font);
+            Channel->State.GetMessages().Last().Text, RecentMessageAvailableSpace, RecentMessageTextBlock->Font);
         const FText Text = FText::FromString(Shortened);
         RecentMessageTextBlock->SetText(Text);
     }

@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Filter.h"
+#include "Channel/Filter.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 
 #include "FilterBlueprintLibrary.generated.h"

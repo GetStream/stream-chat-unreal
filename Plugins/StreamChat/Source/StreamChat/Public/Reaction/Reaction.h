@@ -10,7 +10,8 @@
 struct FReactionDto;
 
 /**
- * An individual reaction to a message.
+ * @brief An individual reaction to a message.
+ * @ingroup StreamChat
  */
 USTRUCT(BlueprintType)
 struct FReaction

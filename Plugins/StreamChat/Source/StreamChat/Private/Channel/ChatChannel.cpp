@@ -44,7 +44,7 @@ UChatChannel* UChatChannel::Create(
     Channel->On<FTypingStartEvent>(Channel, &UChatChannel::OnTypingStart);
     Channel->On<FTypingStopEvent>(Channel, &UChatChannel::OnTypingStop);
 
-    Channel->MessagesUpdated.Broadcast(Channel->State.Messages);
+    Channel->MessagesUpdated.Broadcast(Channel->State.GetMessages());
 
     return Channel;
 }
@@ -144,7 +144,7 @@ void UChatChannel::QueryAdditionalMessages(const EPaginationDirection Direction,
     {
         return;
     }
-    const bool bChannelEmpty = State.Messages.Num() == 0;
+    const bool bChannelEmpty = State.GetMessages().Num() == 0;
     if (bChannelEmpty)
     {
         return;
@@ -158,11 +158,11 @@ void UChatChannel::QueryAdditionalMessages(const EPaginationDirection Direction,
         Dto.Limit = Limit;
         if (Direction == EPaginationDirection::Top)
         {
-            Dto.IdLt = State.Messages[0].Id;
+            Dto.IdLt = State.GetMessages()[0].Id;
         }
         else
         {
-            Dto.IdGte = State.Messages.Last().Id;
+            Dto.IdGte = State.GetMessages().Last().Id;
         }
         return Dto;
     }();
@@ -203,7 +203,7 @@ inline void UChatChannel::SetPaginationRequestState(
 
 const TArray<FMessage>& UChatChannel::GetMessages() const
 {
-    return State.Messages;
+    return State.GetMessages();
 }
 
 void UChatChannel::SendReaction(const FMessage& Message, const FName& ReactionType, const bool bEnforceUnique)
@@ -295,14 +295,14 @@ void UChatChannel::MergeState(const FChannelStateResponseFieldsDto& Dto)
 {
     check(!State.Cid.IsEmpty());
     State.Merge(Dto, *UserManager);
-    MessagesUpdated.Broadcast(State.Messages);
+    MessagesUpdated.Broadcast(State.GetMessages());
 }
 
 void UChatChannel::AddMessage(const FMessage& Message)
 {
     State.AddMessage(Message);
 
-    MessagesUpdated.Broadcast(State.Messages);
+    MessagesUpdated.Broadcast(State.GetMessages());
 }
 
 void UChatChannel::OnMessageNew(const FMessageNewEvent& Event)
