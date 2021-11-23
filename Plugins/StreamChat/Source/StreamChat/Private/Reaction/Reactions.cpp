@@ -85,6 +85,11 @@ TOptional<FReaction> FReactions::GetOwnReaction(const FName& ReactionType) const
     return {};
 }
 
+const TMap<FName, FReactionGroup>& FReactions::GetReactionGroups() const
+{
+    return ReactionGroups;
+}
+
 bool FReactions::IsEmpty() const
 {
     return ReactionGroups.Num() == 0;
@@ -106,14 +111,9 @@ void FReactions::UpdateOwnReactions()
     }
 }
 
-bool UReactionsBlueprintLibrary::HasOwnReaction_Reactions(const FReactions& Reactions, const FName& ReactionType)
+bool UReactionsBlueprintLibrary::HasOwnReaction(const FReactions& Reactions, const FName& ReactionType)
 {
     return Reactions.GetOwnReaction(ReactionType).IsSet();
-}
-
-bool UReactionsBlueprintLibrary::HasOwnReaction_ReactionGroup(const FReactionGroup& ReactionGroup)
-{
-    return ReactionGroup.OwnReaction.IsSet();
 }
 
 bool UReactionsBlueprintLibrary::IsEmpty(const FReactions& Reactions)
