@@ -24,4 +24,7 @@ convert-svg:
 
 # Format .cpp/.h files using clang-format
 format:
-    git ls-files '*.cpp' '*.h' | xargs  clang-format -i
+    git ls-files '*.cpp' '*.h' | xargs clang-format -i
+
+check-copyright:
+    rg -t cpp -t h --files-without-match Copyright

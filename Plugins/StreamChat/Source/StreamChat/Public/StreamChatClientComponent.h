@@ -120,6 +120,7 @@ private:
 
 #pragma region Blueprint
 
+public:
     /**
      * Create a connection to the API for the given user and credentials.
 

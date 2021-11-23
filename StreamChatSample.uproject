@@ -68,6 +68,10 @@
 				"Win64",
 				"Linux"
 			]
+		},
+		{
+			"Name": "KantanDocGen",
+			"Enabled": true
 		}
 	]
 }

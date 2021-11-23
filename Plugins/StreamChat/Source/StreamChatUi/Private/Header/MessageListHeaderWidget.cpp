@@ -1,3 +1,5 @@
+// Copyright Stream.IO, Inc. All Rights Reserved.
+
 #include "Header/MessageListHeaderWidget.h"
 
 #include "Algo/Transform.h"
