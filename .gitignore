@@ -87,3 +87,6 @@ Plugins/*/dist/*
 # Developer plugins and content
 Plugins/Developer/*
 Content/Developers/*
+
+# Generated Docs
+**/html/*
