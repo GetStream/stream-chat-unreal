@@ -17,7 +17,7 @@ struct STREAMCHAT_API FUser
 {
     GENERATED_BODY()
 
-    FUser() = default;
+    FUser();
     explicit FUser(const FString& InId);
 
     explicit FUser(const FUserObjectDto&);
@@ -26,6 +26,7 @@ struct STREAMCHAT_API FUser
 
     FString GetInitials(int32 Limit = 2) const;
 
+    /// The id of this user
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat|User")
     FString Id;
 
@@ -45,10 +46,12 @@ struct STREAMCHAT_API FUser
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
     FDateTime LastActive;
 
+    /// The human-readable name of the user
     // Not in the API spec, but common
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|User")
     FString Name;
 
+    /// The URL of a profile picture of the user
     // Not in the API spec, but common
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|User")
     FString Image;

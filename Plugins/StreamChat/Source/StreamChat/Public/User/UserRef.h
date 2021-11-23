@@ -6,18 +6,22 @@
 
 #include "UserRef.generated.h"
 
-struct FUser;
 class FUserManager;
+struct FUser;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUserUpdatedMultiDelegate);
 
+/**
+ * All users are stored once in a central location (UserManager).
+ * This struct can be copied around freely and then dereferenced when the real user information is required.
+ * This struct also provides access to a delegate which can be used to be informed of underlying user updates.
+ */
 USTRUCT(BlueprintType)
 struct STREAMCHAT_API FUserRef
 {
     GENERATED_BODY()
 
-public:
-    FUserRef() = default;
+    FUserRef();
 
     const FUser& GetUser() const;
     const FUser& operator*() const;
@@ -26,18 +30,23 @@ public:
     bool operator==(const FUserRef&) const;
     bool operator!=(const FUserRef&) const;
 
+    /// Will dereferencing this yield a valid user?
     bool IsValid() const;
 
-    // Is this user the currently logged in local user
+    /// Is this user the currently logged in local user
     bool IsCurrent() const;
 
+    /// Get a delegate which can be be used to be informed of the user's updates.
+    /// Delegate is guaranteed to be unique to the underlying user.
     FUserUpdatedMultiDelegate& OnUpdate() const;
-
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Defaults)
-    FString UserId;
 
 private:
     friend FUserManager;
+
     FUserRef(const FString& UserId, const TSharedRef<FUserManager>&);
+
+    UPROPERTY(EditAnywhere, Category = Defaults)
+    FString UserId;
+
     mutable TSharedPtr<FUserManager> Manager;
 };

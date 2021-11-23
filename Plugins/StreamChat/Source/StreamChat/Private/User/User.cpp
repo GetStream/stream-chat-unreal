@@ -5,6 +5,8 @@
 #include "OwnUserDto.h"
 #include "UserObjectDto.h"
 
+FUser::FUser() = default;
+
 FUser::FUser(const FUserObjectDto& Dto)
     : Id{Dto.Id}
     , bOnline{Dto.bOnline}

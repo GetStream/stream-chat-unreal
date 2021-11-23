@@ -79,7 +79,7 @@ TArray<FMessage> FChannelState::Convert(const FChannelStateResponseFieldsDto& Dt
     {
         Message.bIsRead = Dto.Read.ContainsByPredicate(
             [&Message, &UserManager](const FReadDto& Read)
-            { return Read.User.Id != UserManager.GetCurrentUser().UserId && Read.LastRead > Message.CreatedAt; });
+            { return Read.User.Id != UserManager.GetCurrentUser()->Id && Read.LastRead > Message.CreatedAt; });
     }
     return NewMessages;
 }
