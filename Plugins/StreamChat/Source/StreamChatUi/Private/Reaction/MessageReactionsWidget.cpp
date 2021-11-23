@@ -21,7 +21,7 @@ void UMessageReactionsWidget::OnSetup()
     if (ReactionsPanel)
     {
         ReactionsPanel->ClearChildren();
-        for (const auto& [Type, Group] : Message.Reactions.ReactionGroups)
+        for (const auto& [Type, Group] : Message.Reactions.GetReactionGroups())
         {
             UBottomReactionWidget* Widget = CreateWidget<UBottomReactionWidget>(this, BottomReactionWidgetClass);
             Widget->Setup(Group);

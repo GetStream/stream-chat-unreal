@@ -9,12 +9,15 @@
 
 struct FReactionDto;
 
+/**
+ * An individual reaction to a message.
+ */
 USTRUCT(BlueprintType)
 struct FReaction
 {
     GENERATED_BODY()
 
-    FReaction() = default;
+    FReaction();
     explicit FReaction(FUserManager&, const FReactionDto&);
     explicit FReaction(const FName& Type, const FUserRef&, const FString& MessageId);
 

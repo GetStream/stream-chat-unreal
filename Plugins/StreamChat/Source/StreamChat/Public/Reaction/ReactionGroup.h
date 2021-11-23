@@ -37,15 +37,20 @@ struct STREAMCHAT_API FReactionGroup
     TOptional<FReaction> OwnReaction;
 };
 
+/**
+ * Blueprint functions for the ReactionGroup struct
+ */
 UCLASS()
 class STREAMCHAT_API UReactionGroupBlueprintLibrary final : public UBlueprintFunctionLibrary
 {
     GENERATED_BODY()
 
 public:
+    /// Does this reaction group contain a reaction created by the current user?
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Reaction")
     static bool HasOwnReaction(const FReactionGroup& ReactionGroup);
 
+    /// Get the reaction created by the current user, if it exists
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Reaction")
     static void GetOwnReaction(const FReactionGroup& ReactionGroup, bool& bIsSet, FReaction& Reaction);
 };

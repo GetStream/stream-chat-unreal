@@ -5,6 +5,8 @@
 #include "Response/Reaction/ReactionDto.h"
 #include "User/UserManager.h"
 
+FReaction::FReaction() = default;
+
 FReaction::FReaction(FUserManager& UserManager, const FReactionDto& Dto)
     : Type{Dto.Type}
     , Score{Dto.Score}
