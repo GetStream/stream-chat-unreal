@@ -23,7 +23,7 @@ void AStreamChatSampleHud::BeginPlay()
         Token,
         [WeakThis = TWeakObjectPtr<AStreamChatSampleHud>(this)](const FUserRef& UserRef)
         {
-            const FFilter Filter = FFilter::In(TEXT("members"), {UserRef.UserId});
+            const FFilter Filter = FFilter::In(TEXT("members"), {UserRef->Id});
             WeakThis->Client->QueryChannels(
                 [WeakThis](const TArray<UChatChannel*> ReceivedChannels)
                 {

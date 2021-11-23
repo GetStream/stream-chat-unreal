@@ -9,6 +9,8 @@ FUserRef::FUserRef(const FString& UserId, const TSharedRef<FUserManager>& Manage
 {
 }
 
+FUserRef::FUserRef() = default;
+
 const FUser& FUserRef::GetUser() const
 {
     // Only really for editor designer support
