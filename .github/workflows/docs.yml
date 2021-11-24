@@ -32,4 +32,4 @@ jobs:
         name: 🚀 Deploy to GitHub Pages
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./Docs/html
+          publish_dir: Plugins/StreamCha/Docs/html
