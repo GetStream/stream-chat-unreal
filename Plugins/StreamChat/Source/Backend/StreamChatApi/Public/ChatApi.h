@@ -30,14 +30,18 @@ struct FSortOption;
 template <class T>
 using TCallback = TFunction<void(const T&)>;
 
+/**
+ * @brief All Stream Chat REST API requests can be made via this object
+ * @see https://getstream.io/chat/docs/rest/
+ * @ingroup StreamChatApi
+ */
 class STREAMCHATAPI_API FChatApi : public TSharedFromThis<FChatApi>
 {
 public:
     static TSharedRef<FChatApi> Create(const FString& InApiKey, const FString& InHost, const TSharedPtr<FTokenManager>&);
 
     /**
-     * Get messages, members or other channel fields.
-     * Creates the channel if not yet created.
+     * @brief Get messages, members or other channel fields. Creates the channel if not yet created.
      * @param Callback Called when response is received.
      * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
      * @param ConnectionId Websocket connection ID to interact with.
@@ -60,7 +64,7 @@ public:
         const TOptional<FPaginationParamsRequestDto> WatcherPagination = {}) const;
 
     /**
-     * Send a message to the given ChannelId of give ChannelType.
+     * @brief Send a message to the given @param ChannelId of the given @param ChannelType .
      * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
      * @param ChannelId A unique identifier for the channel
      * @param MessageRequest Details of the message to be sent
@@ -75,14 +79,14 @@ public:
         TCallback<FMessageResponseDto> Callback = {}) const;
 
     /**
-     * Update the given message.
+     * @brief Update the given message.
      * @param MessageRequest Details of the message to update
      * @param Callback Called when response is received
      */
     void UpdateMessage(const FMessageRequestDto& MessageRequest, TCallback<FMessageResponseDto> Callback = {}) const;
 
     /**
-     * Delete the message with the given Id
+     * @brief Delete the message with the given ID
      * @param Id ID of the message to be deleted
      * @param bHard Message is removed from the channel, all replies and all reactions are recursively deleted
      * @param Callback Called when response is received
@@ -90,7 +94,7 @@ public:
     void DeleteMessage(const FString& Id, bool bHard = false, TCallback<FMessageResponseDto> Callback = {}) const;
 
     /**
-     * Send a reaction for the given MessageId
+     * @brief Send a reaction for the given MessageId
      * @param MessageId ID of the message to react to
      * @param ReactionRequest Details of the reaction to be sent
      * @param bEnforceUnique If true, new reaction will replace all reactions the user has (if any) on this message
@@ -105,7 +109,7 @@ public:
         TCallback<FReactionResponseDto> Callback = {}) const;
 
     /**
-     * Delete a reaction with the given Type from the message with the given MessageId
+     * @brief Delete a reaction with the given Type from the message with the given MessageId
      * @param MessageId ID of the message which has been reacted to
      * @param Type Type of reaction to remove
      * @param Callback Called when response is received
@@ -113,7 +117,7 @@ public:
     void DeleteReaction(const FString& MessageId, const FName& Type, TCallback<FReactionResponseDto> Callback = {}) const;
 
     /**
-     * Send a custom or built-in event on this channel
+     * @brief Send a custom or built-in event on this channel
      * @tparam TEvent The event to send
      * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
      * @param ChannelId The unique identifier of the channel
@@ -123,7 +127,7 @@ public:
     void SendChannelEvent(const FString& ChannelType, const FString& ChannelId, const TEvent&, TCallback<FEventResponseDto> Callback = {});
 
     /**
-     * Query channels with filter query
+     * @brief Query channels with filter query
      * @param ConnectionId Websocket connection ID to interact with.
      * @param Filter The query filters to use. You can query on any of the custom fields you've defined on the Channel.
      * You can also filter other built-in channel fields,
