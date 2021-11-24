@@ -12,6 +12,10 @@
 struct FMessageDto;
 struct FMessageRequestDto;
 
+/**
+ * @brief The client-side state of a message
+ * @ingroup StreamChat
+ */
 UENUM(BlueprintType)
 enum class EMessageSendState : uint8
 {
@@ -22,6 +26,11 @@ enum class EMessageSendState : uint8
     Failed
 };
 
+/**
+ * @brief Type of message, as set by the API or chat bots and custom commands.
+ * @see https://getstream.io/chat/docs/other-rest/message_format/#message-types
+ * @ingroup StreamChat
+ */
 UENUM(BlueprintType)
 enum class EMessageType : uint8
 {
@@ -34,19 +43,21 @@ enum class EMessageType : uint8
 };
 
 /**
- * A Stream Chat message
+ * Represents a Stream Chat message
+ * @ingroup StreamChat
  */
 USTRUCT(BlueprintType)
 struct FMessage
 {
     GENERATED_BODY()
 
-    FMessage() = default;
-    // From server responses
+    /// Needed by USTRUCT system. Shouldn't be used directly.
+    FMessage();
+    /// Convert a message given API responses
     explicit FMessage(FUserManager&, const FMessageDto&);
-    // Updating
+    /// Convert a message into a update request for sending to the API
     explicit operator FMessageRequestDto() const;
-    // Sending
+    /// Convert a message from a local request *before* sending it to the API
     explicit FMessage(const FMessageRequestDto&, const FUserRef& SendingUser);
 
     /// The message ID. This is either created by Stream or set client side when
@@ -63,7 +74,6 @@ struct FMessage
     EMessageSendState State;
 
     /// User who sent the message
-    // TODO Optional
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
     FUserRef User;
 

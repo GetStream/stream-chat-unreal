@@ -6,6 +6,8 @@
 #include "Response/Message/MessageDto.h"
 #include "User/UserManager.h"
 
+FMessage::FMessage() = default;
+
 FMessage::FMessage(FUserManager& UserManager, const FMessageDto& Dto)
     : Id{Dto.Id}
     , Text{Dto.Text}

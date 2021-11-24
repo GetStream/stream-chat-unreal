@@ -8,6 +8,10 @@
 
 struct FSortParamRequestDto;
 
+/**
+ * @brief The desired sort direction for Stream Chat API queries
+ * @ingroup StreamChat
+ */
 UENUM(BlueprintType)
 enum class ESortDirection : uint8
 {
@@ -15,6 +19,10 @@ enum class ESortDirection : uint8
     Descending
 };
 
+/**
+ * @brief The desired sort field for Stream Chat API queries
+ * @ingroup StreamChat
+ */
 UENUM(BlueprintType)
 enum class ESortField : uint8
 {
@@ -27,6 +35,10 @@ enum class ESortField : uint8
     HasUnread
 };
 
+/**
+ * @brief The desired sort options for Stream Chat API queries
+ * @ingroup StreamChat
+ */
 USTRUCT(BlueprintType)
 struct FSortOption
 {
