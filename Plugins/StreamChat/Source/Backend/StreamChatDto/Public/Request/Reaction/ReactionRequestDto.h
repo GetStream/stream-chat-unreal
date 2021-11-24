@@ -7,7 +7,9 @@
 #include "ReactionRequestDto.generated.h"
 
 /**
+ * @brief #/components/schemas/ReactionRequest
  * Represents user reaction to a message
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FReactionRequestDto

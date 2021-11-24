@@ -8,7 +8,8 @@
 #include "SendEventRequest.generated.h"
 
 /**
- *
+ * @brief #/components/schemas/SendEventRequest
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FSendEventRequestDto

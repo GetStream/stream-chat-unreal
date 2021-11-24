@@ -7,7 +7,8 @@
 #include "ErrorResponseDto.generated.h"
 
 /**
- * #/components/schemas/APIError
+ * @brief #/components/schemas/APIError
+ * @ingroup StreamChatDto
  */
 USTRUCT(BlueprintType)
 struct STREAMCHATDTO_API FErrorResponseDto

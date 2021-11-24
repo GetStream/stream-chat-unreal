@@ -7,6 +7,8 @@
 #include "Response/Channel/ChannelStateResponseFieldsDto.h"
 #include "User/UserManager.h"
 
+FChannelState::FChannelState() = default;
+
 FChannelState::FChannelState(const FChannelStateResponseFieldsDto& Dto, FUserManager& UserManager)
     : Type{Dto.Channel.Type}
     , Id{Dto.Channel.Id}

@@ -8,8 +8,8 @@
 #include "ChannelsResponseDto.generated.h"
 
 /**
- * Represents channel in chat
- * #/components/schemas/ChannelsResponse
+ * @brief #/components/schemas/ChannelsResponse
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FChannelsResponseDto

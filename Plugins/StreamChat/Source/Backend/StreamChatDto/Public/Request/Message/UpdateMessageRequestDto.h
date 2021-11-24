@@ -8,7 +8,8 @@
 #include "UpdateMessageRequestDto.generated.h"
 
 /**
- * #/components/schemas/UpdateMessageRequest
+ * @brief #/components/schemas/UpdateMessageRequest
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FUpdateMessageRequestDto

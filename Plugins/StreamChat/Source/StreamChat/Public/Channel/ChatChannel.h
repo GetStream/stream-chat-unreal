@@ -37,9 +37,9 @@ enum class EPaginationDirection : uint8
 {
     None UMETA(Hidden),
 
-    // Query earlier messages
+    /// Query earlier messages
     Top = 1 << 0,
-    // Query later messages
+    /// Query later messages
     Bottom = 1 << 1,
 };
 ENUM_CLASS_FLAGS(EPaginationDirection);

@@ -5,13 +5,14 @@
 #include "CoreMinimal.h"
 #include "PushProvider.h"
 
-#include "DeviceFields.generated.h"
+#include "DeviceFieldsDto.generated.h"
 
 /**
- *
+ * @brief #/components/schemas/DeviceFields
+ * @ingroup StreamChatDto
  */
 USTRUCT()
-struct FDeviceFields
+struct FDeviceFieldsDto
 {
     GENERATED_BODY()
 

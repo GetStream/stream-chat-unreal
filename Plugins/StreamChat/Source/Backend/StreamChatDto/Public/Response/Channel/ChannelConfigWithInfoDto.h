@@ -8,7 +8,8 @@
 #include "ChannelConfigWithInfoDto.generated.h"
 
 /**
- * #/components/schemas/ChannelConfigWithInfo
+ * @brief #/components/schemas/ChannelConfigWithInfo
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FChannelConfigWithInfoDto

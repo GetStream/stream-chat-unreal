@@ -8,7 +8,8 @@
 #include "ReadDto.generated.h"
 
 /**
- * #/components/schemas/Read
+ * @brief #/components/schemas/Read
+ * @ingroup StreamChatDto
  */
 USTRUCT(BlueprintType)
 struct STREAMCHATDTO_API FReadDto

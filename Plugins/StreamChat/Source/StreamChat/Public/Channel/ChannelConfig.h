@@ -9,12 +9,20 @@
 
 struct FChannelConfigWithInfoDto;
 
+/**
+ * @brief The configuration, permissions and features of a channel, as defined by the "channel type"
+ * @see https://getstream.io/chat/docs/other-rest/channel_features/?q=commands#channel-types-fields
+ * @ingroup StreamChat
+ */
 USTRUCT(BlueprintType)
 struct FChannelConfig
 {
     GENERATED_BODY()
 
-    FChannelConfig() = default;
+    /// Needed by USTRUCT system. Shouldn't be used directly.
+    FChannelConfig();
+
+    /// Create a channel config from a DTO from the API
     explicit FChannelConfig(const FChannelConfigWithInfoDto&);
 
     /// Moderation configuration

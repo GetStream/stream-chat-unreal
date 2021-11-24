@@ -8,7 +8,8 @@
 #include "ReactionDeletedEvent.generated.h"
 
 /**
- * #/components/schemas/ReactionDeletedEvent
+ * @brief #/components/schemas/ReactionDeletedEvent
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FReactionDeletedEvent : public FReactionEvent

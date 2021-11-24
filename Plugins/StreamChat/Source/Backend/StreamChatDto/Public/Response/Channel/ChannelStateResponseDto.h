@@ -8,7 +8,8 @@
 #include "ChannelStateResponseDto.generated.h"
 
 /**
- * #/components/schemas/ChannelStateResponse
+ * @brief #/components/schemas/ChannelStateResponse
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FChannelStateResponseDto : public FChannelStateResponseFieldsDto

@@ -7,7 +7,8 @@
 #include "ChannelRequestDto.generated.h"
 
 /**
- * #/components/schemas/ChannelRequest
+ * @brief #/components/schemas/ChannelRequest
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FChannelRequestDto

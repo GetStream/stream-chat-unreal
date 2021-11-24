@@ -11,7 +11,8 @@
 
 /**
  * Represents channel in chat
- * #/components/schemas/ChannelResponse
+ * @brief #/components/schemas/ChannelResponse
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FChannelResponseDto

@@ -11,15 +11,19 @@
 
 struct FChannelStateResponseFieldsDto;
 
+/**
+ * @brief Encapsulates the local state of a channel
+ * @ingroup StreamChat
+ */
 USTRUCT(BlueprintType)
 struct STREAMCHAT_API FChannelState
 {
     GENERATED_BODY()
 
     /// Needed by USTRUCT system. Shouldn't be used directly.
-    FChannelState() = default;
+    FChannelState();
 
-    /// Create new channel state from API data
+    /// Create a channel state from a DTO from the API
     explicit FChannelState(const FChannelStateResponseFieldsDto&, FUserManager&);
 
     /// Merge new information from the API into this state
