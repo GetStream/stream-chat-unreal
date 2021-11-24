@@ -23,12 +23,13 @@ jobs:
         name: 🛒 Checkout
 
       - uses: mattnotmitt/doxygen-action@v1
-        name: 🛒 Doxygen
+        name: 🖨️ Doxygen
         with:
+            additional-packages: python3
             working-directory: 'Plugins/StreamChat'
 
       - uses: peaceiris/actions-gh-pages@v3
-        name: 🛒 Deploy to GitHub Pages
+        name: 🚀 Deploy to GitHub Pages
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
