@@ -20,17 +20,12 @@ void FChatSocketEvents::ProcessEvent(const FName& Type, const TSharedRef<FJsonOb
     const FEventSubscriptionPtr* Subscription = Subscriptions.Find(Type);
     if (!Subscription)
     {
-        UE_LOG(
-            LogChatSocket, Log, TEXT("No subscriptions to WebSocket event. Discarding. [type=%s]"), *Type.ToString());
+        UE_LOG(LogChatSocket, Log, TEXT("No subscriptions to WebSocket event. Discarding. [type=%s]"), *Type.ToString());
         return;
     }
 
     if (!Subscription->Get()->OnMessage(JsonObject))
     {
-        UE_LOG(
-            LogChatSocket,
-            Warning,
-            TEXT("Unable to deserialize WebSocket event [type=%s]"),
-            *JsonObject->GetStringField(TEXT("type")));
+        UE_LOG(LogChatSocket, Warning, TEXT("Unable to deserialize WebSocket event [type=%s]"), *JsonObject->GetStringField(TEXT("type")));
     }
 }

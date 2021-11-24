@@ -17,11 +17,7 @@ class FChatSocket final : public IChatSocket
 {
 public:
     FChatSocket() = delete;
-    explicit FChatSocket(
-        const TSharedRef<FTokenManager>&,
-        const FString& ApiKey,
-        const FString& Host,
-        const FUserObjectDto& User);
+    explicit FChatSocket(const TSharedRef<FTokenManager>&, const FString& ApiKey, const FString& Host, const FUserObjectDto& User);
     virtual ~FChatSocket() override;
 
     virtual void Connect(TFunction<void(const FOwnUserDto&)> Callback) override;

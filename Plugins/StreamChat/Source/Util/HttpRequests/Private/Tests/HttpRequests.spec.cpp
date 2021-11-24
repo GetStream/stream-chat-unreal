@@ -4,10 +4,7 @@
 #include "JsonPlaceholderPost.h"
 #include "Misc/AutomationTest.h"
 
-BEGIN_DEFINE_SPEC(
-    FHttpRequestsSpec,
-    "StreamChat.HttpRequests",
-    EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)
+BEGIN_DEFINE_SPEC(FHttpRequestsSpec, "StreamChat.HttpRequests", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)
 TSharedRef<FHttpClient> Client = MakeShared<FHttpClient>();
 const int32 TotalSimultaneousRequests = 20;
 TArray<FHttpResponse> SimultaneousResponses;
@@ -30,10 +27,7 @@ void FHttpRequestsSpec::Define()
                             {
                                 AddInfo(Response.Text);
                                 TestEqual("Response code", Response.StatusCode, 200);
-                                TestTrue(
-                                    "Text",
-                                    Response.Text.Contains(
-                                        "sunt aut facere repellat provident occaecati excepturi optio reprehenderit"));
+                                TestTrue("Text", Response.Text.Contains("sunt aut facere repellat provident occaecati excepturi optio reprehenderit"));
                                 TestDone.Execute();
                             });
                 });
@@ -75,10 +69,7 @@ void FHttpRequestsSpec::Define()
 
                                 TestEqual("UserId", UserId, 1);
                                 TestEqual("Id", Id, 1);
-                                TestEqual(
-                                    "Title",
-                                    Title,
-                                    TEXT("sunt aut facere repellat provident occaecati excepturi optio reprehenderit"));
+                                TestEqual("Title", Title, TEXT("sunt aut facere repellat provident occaecati excepturi optio reprehenderit"));
                                 TestEqual(
                                     "Body",
                                     Body,
@@ -105,9 +96,7 @@ void FHttpRequestsSpec::Define()
                     const FString FakeTitle = TEXT("Foo");
                     const FString FakeBody = TEXT("Bar");
                     Client->Post(TEXT("https://jsonplaceholder.typicode.com/posts"))
-                        .Json(
-                            FJsonPlaceholderPost{FakeUserId, -1, FakeTitle, FakeBody},
-                            ENamingConvention::UpperCamelCase)
+                        .Json(FJsonPlaceholderPost{FakeUserId, -1, FakeTitle, FakeBody}, ENamingConvention::UpperCamelCase)
                         .Send(
                             [=](const FHttpResponse Response)
                             {

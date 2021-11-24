@@ -6,7 +6,7 @@
 #include "DeviceFieldsDto.h"
 #include "UserObjectDto.h"
 
-#include "ConnectRequest.generated.h"
+#include "ConnectRequestDto.generated.h"
 
 /**
  * @brief #/components/schemas/ConnectRequest

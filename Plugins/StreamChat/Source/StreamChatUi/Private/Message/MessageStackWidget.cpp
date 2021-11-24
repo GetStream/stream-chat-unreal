@@ -67,8 +67,7 @@ void UMessageStackWidget::OnSetup()
         {
             const FMessage& Message = Messages[Index];
             UMessageWidget* Widget = CreateWidget<UMessageWidget>(this, MessageWidgetClass);
-            Widget->Setup(
-                Message, Side, Index == LastIndex ? EBubbleStackPosition::End : EBubbleStackPosition::Opening);
+            Widget->Setup(Message, Side, Index == LastIndex ? EBubbleStackPosition::End : EBubbleStackPosition::Opening);
             MessagesPanel->AddChildToVerticalBox(Widget);
         }
     }

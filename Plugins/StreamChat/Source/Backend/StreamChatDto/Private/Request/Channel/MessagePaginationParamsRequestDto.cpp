@@ -4,9 +4,7 @@
 
 #include "StreamJsonField.h"
 
-void FMessagePaginationParamsRequestDto::SerializeExtra(
-    const FMessagePaginationParamsRequestDto& Self,
-    FJsonObject& JsonObject)
+void FMessagePaginationParamsRequestDto::SerializeExtra(const FMessagePaginationParamsRequestDto& Self, FJsonObject& JsonObject)
 {
     JsonField::Serialize(Self.IdLt, TEXT("id_lt"), JsonObject);
     JsonField::Serialize(Self.IdLte, TEXT("id_lte"), JsonObject);

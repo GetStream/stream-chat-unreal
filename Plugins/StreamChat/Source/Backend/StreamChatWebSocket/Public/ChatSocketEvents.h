@@ -47,9 +47,7 @@ FDelegateHandle FChatSocketEvents::Subscribe(TEventDelegate<TEvent> Callback)
 }
 
 template <class TEvent, class UserClass>
-FDelegateHandle FChatSocketEvents::SubscribeUObject(
-    UserClass* Obj,
-    TEventDelegateUObjectMethodPtr<TEvent, UserClass> Method)
+FDelegateHandle FChatSocketEvents::SubscribeUObject(UserClass* Obj, TEventDelegateUObjectMethodPtr<TEvent, UserClass> Method)
 {
     return Detail::SubscribeToUObjectEvent<TEvent, UserClass>(Subscriptions, Obj, Method);
 }
@@ -63,8 +61,7 @@ FDelegateHandle FChatSocketEvents::SubscribeSp(UserClass* Obj, TEventDelegateSpM
 template <class TEvent, typename FunctorType, typename... VarTypes>
 FDelegateHandle FChatSocketEvents::SubscribeLambda(FunctorType&& InFunctor, VarTypes... Vars)
 {
-    return Detail::SubscribeToLambdaEvent<TEvent, FunctorType, VarTypes...>(
-        Subscriptions, Forward<FunctorType>(InFunctor), Vars...);
+    return Detail::SubscribeToLambdaEvent<TEvent, FunctorType, VarTypes...>(Subscriptions, Forward<FunctorType>(InFunctor), Vars...);
 }
 
 template <class TEvent>

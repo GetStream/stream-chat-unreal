@@ -14,8 +14,7 @@
 void UUiBlueprintLibrary::AddContextMenu(UWidget* Widget, const FPointerEvent& InMouseEvent)
 {
     // Right clicked, so summon a context menu if the cursor is within the widget
-    const FWidgetPath WidgetPath =
-        InMouseEvent.GetEventPath() != nullptr ? *InMouseEvent.GetEventPath() : FWidgetPath();
+    const FWidgetPath WidgetPath = InMouseEvent.GetEventPath() != nullptr ? *InMouseEvent.GetEventPath() : FWidgetPath();
 
     if (const TSharedPtr<SWidget> MenuContentWidget = Widget->TakeWidget(); MenuContentWidget.IsValid())
     {
@@ -92,8 +91,7 @@ void UUiBlueprintLibrary::GetFirstVisibleChildOfScrollBox(UScrollBox* ScrollBox,
         ->ArrangeChildren(Geo, ArrangedChildren);
     for (int32 Index = 0; Index < ArrangedChildren.Num(); ++Index)
     {
-        if (const float Local = Geo.AbsoluteToLocal(ArrangedChildren[Index].Geometry.GetAbsolutePosition()).Y;
-            Local > 0.f)
+        if (const float Local = Geo.AbsoluteToLocal(ArrangedChildren[Index].Geometry.GetAbsolutePosition()).Y; Local > 0.f)
         {
             OutIndex = Index;
             OutLeadingEdge = Local;

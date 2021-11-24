@@ -119,8 +119,7 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
         else
         {
             // AsNumber will log an error for completely inappropriate types (then give us a default)
-            EnumProperty->GetUnderlyingProperty()->SetIntPropertyValue(
-                OutValue, static_cast<int64>(JsonValue->AsNumber()));
+            EnumProperty->GetUnderlyingProperty()->SetIntPropertyValue(OutValue, static_cast<int64>(JsonValue->AsNumber()));
         }
     }
     else if (FNumericProperty* NumericProperty = CastField<FNumericProperty>(Property))
@@ -201,8 +200,7 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
                 const TSharedPtr<FJsonValue>& ArrayValueItem = ArrayValue[i];
                 if (ArrayValueItem.IsValid() && !ArrayValueItem->IsNull())
                 {
-                    if (!JsonValueToFPropertyWithContainer(
-                            ArrayValueItem, ArrayProperty->Inner, Helper.GetRawPtr(i), ContainerStruct, Container))
+                    if (!JsonValueToFPropertyWithContainer(ArrayValueItem, ArrayProperty->Inner, Helper.GetRawPtr(i), ContainerStruct, Container))
                     {
                         UE_LOG(
                             LogJson,
@@ -217,11 +215,7 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
         }
         else
         {
-            UE_LOG(
-                LogJson,
-                Error,
-                TEXT("JsonValueToUProperty - Attempted to import TArray from non-array JSON key for property %s"),
-                *Property->GetNameCPP());
+            UE_LOG(LogJson, Error, TEXT("JsonValueToUProperty - Attempted to import TArray from non-array JSON key for property %s"), *Property->GetNameCPP());
             return false;
         }
     }
@@ -247,10 +241,10 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
 
                     TSharedPtr<FJsonValueString> TempKeyValue = MakeShared<FJsonValueString>(Entry.Key);
 
-                    const bool bKeySuccess = JsonValueToFPropertyWithContainer(
-                        TempKeyValue, MapProperty->KeyProp, Helper.GetKeyPtr(NewIndex), ContainerStruct, Container);
-                    const bool bValueSuccess = JsonValueToFPropertyWithContainer(
-                        Entry.Value, MapProperty->ValueProp, Helper.GetValuePtr(NewIndex), ContainerStruct, Container);
+                    const bool bKeySuccess =
+                        JsonValueToFPropertyWithContainer(TempKeyValue, MapProperty->KeyProp, Helper.GetKeyPtr(NewIndex), ContainerStruct, Container);
+                    const bool bValueSuccess =
+                        JsonValueToFPropertyWithContainer(Entry.Value, MapProperty->ValueProp, Helper.GetValuePtr(NewIndex), ContainerStruct, Container);
 
                     if (!(bKeySuccess && bValueSuccess))
                     {
@@ -269,11 +263,7 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
         }
         else
         {
-            UE_LOG(
-                LogJson,
-                Error,
-                TEXT("JsonValueToUProperty - Attempted to import TMap from non-object JSON key for property %s"),
-                *Property->GetNameCPP());
+            UE_LOG(LogJson, Error, TEXT("JsonValueToUProperty - Attempted to import TMap from non-object JSON key for property %s"), *Property->GetNameCPP());
             return false;
         }
     }
@@ -294,18 +284,10 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
                 {
                     int32 NewIndex = Helper.AddDefaultValue_Invalid_NeedsRehash();
                     if (!JsonValueToFPropertyWithContainer(
-                            ArrayValueItem,
-                            SetProperty->ElementProp,
-                            Helper.GetElementPtr(NewIndex),
-                            ContainerStruct,
-                            Container))
+                            ArrayValueItem, SetProperty->ElementProp, Helper.GetElementPtr(NewIndex), ContainerStruct, Container))
                     {
                         UE_LOG(
-                            LogJson,
-                            Error,
-                            TEXT("JsonValueToUProperty - Unable to deserialize set element [%d] for property %s"),
-                            i,
-                            *Property->GetNameCPP());
+                            LogJson, Error, TEXT("JsonValueToUProperty - Unable to deserialize set element [%d] for property %s"), i, *Property->GetNameCPP());
                         return false;
                     }
                 }
@@ -315,11 +297,7 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
         }
         else
         {
-            UE_LOG(
-                LogJson,
-                Error,
-                TEXT("JsonValueToUProperty - Attempted to import TSet from non-array JSON key for property %s"),
-                *Property->GetNameCPP());
+            UE_LOG(LogJson, Error, TEXT("JsonValueToUProperty - Attempted to import TSet from non-array JSON key for property %s"), *Property->GetNameCPP());
             return false;
         }
     }
@@ -370,14 +348,12 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
         {
             TSharedPtr<FJsonObject> Obj = JsonValue->AsObject();
             check(Obj.IsValid());    // should not fail if Type == EJson::Object
-            if (!JsonAttributesToUStructWithContainer(
-                    Obj->Values, StructProperty->Struct, OutValue, ContainerStruct, Container))
+            if (!JsonAttributesToUStructWithContainer(Obj->Values, StructProperty->Struct, OutValue, ContainerStruct, Container))
             {
                 UE_LOG(
                     LogJson,
                     Error,
-                    TEXT(
-                        "JsonValueToUProperty - JsonObjectDeserialization::JsonObjectToUStruct failed for property %s"),
+                    TEXT("JsonValueToUProperty - JsonObjectDeserialization::JsonObjectToUStruct failed for property %s"),
                     *Property->GetNameCPP());
                 return false;
             }
@@ -431,25 +407,18 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
             }
             else
             {
-                UE_LOG(
-                    LogJson,
-                    Error,
-                    TEXT("JsonValueToUProperty - Unable to import FDateTime [Property=%s, Value=%s]"),
-                    *Property->GetNameCPP(),
-                    *DateString);
+                UE_LOG(LogJson, Error, TEXT("JsonValueToUProperty - Unable to import FDateTime [Property=%s, Value=%s]"), *Property->GetNameCPP(), *DateString);
                 return false;
             }
         }
         else if (
-            JsonValue->Type == EJson::String && StructProperty->Struct->GetCppStructOps() &&
-            StructProperty->Struct->GetCppStructOps()->HasImportTextItem())
+            JsonValue->Type == EJson::String && StructProperty->Struct->GetCppStructOps() && StructProperty->Struct->GetCppStructOps()->HasImportTextItem())
         {
             UScriptStruct::ICppStructOps* TheCppStructOps = StructProperty->Struct->GetCppStructOps();
 
             FString ImportTextString = JsonValue->AsString();
             const TCHAR* ImportTextPtr = *ImportTextString;
-            if (!TheCppStructOps->ImportTextItem(
-                    ImportTextPtr, OutValue, PPF_None, nullptr, reinterpret_cast<FOutputDevice*>(GWarn)))
+            if (!TheCppStructOps->ImportTextItem(ImportTextPtr, OutValue, PPF_None, nullptr, reinterpret_cast<FOutputDevice*>(GWarn)))
             {
                 // Fall back to trying the tagged property approach if custom ImportTextItem couldn't get it done
                 Property->ImportText(ImportTextPtr, OutValue, PPF_None, nullptr);
@@ -464,10 +433,7 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
         else
         {
             UE_LOG(
-                LogJson,
-                Error,
-                TEXT("JsonValueToUProperty - Attempted to import UStruct from non-object JSON key for property %s"),
-                *Property->GetNameCPP());
+                LogJson, Error, TEXT("JsonValueToUProperty - Attempted to import UStruct from non-object JSON key for property %s"), *Property->GetNameCPP());
             return false;
         }
     }
@@ -495,22 +461,18 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
                 }
             }
 
-            UObject* CreatedObj = StaticAllocateObject(
-                PropertyClass, Outer, NAME_None, EObjectFlags::RF_NoFlags, EInternalObjectFlags::None, false);
-            (*PropertyClass->ClassConstructor)(
-                FObjectInitializer(CreatedObj, PropertyClass->ClassDefaultObject, false, false));
+            UObject* CreatedObj = StaticAllocateObject(PropertyClass, Outer, NAME_None, EObjectFlags::RF_NoFlags, EInternalObjectFlags::None, false);
+            (*PropertyClass->ClassConstructor)(FObjectInitializer(CreatedObj, PropertyClass->ClassDefaultObject, false, false));
 
             ObjectProperty->SetObjectPropertyValue(OutValue, CreatedObj);
 
             check(Obj.IsValid());    // should not fail if Type == EJson::Object
-            if (!JsonAttributesToUStructWithContainer(
-                    Obj->Values, PropertyClass, CreatedObj, PropertyClass, CreatedObj))
+            if (!JsonAttributesToUStructWithContainer(Obj->Values, PropertyClass, CreatedObj, PropertyClass, CreatedObj))
             {
                 UE_LOG(
                     LogJson,
                     Error,
-                    TEXT(
-                        "JsonValueToUProperty - JsonObjectDeserialization::JsonObjectToUStruct failed for property %s"),
+                    TEXT("JsonValueToUProperty - JsonObjectDeserialization::JsonObjectToUStruct failed for property %s"),
                     *Property->GetNameCPP());
                 return false;
             }
@@ -577,16 +539,14 @@ bool JsonValueToFPropertyWithContainer(
             UE_LOG(LogJson, Warning, TEXT("Ignoring excess properties when deserializing %s"), *Property->GetName());
         }
 
-        return ConvertScalarJsonValueToFPropertyWithContainer(
-            JsonValue, Property, OutValue, ContainerStruct, Container);
+        return ConvertScalarJsonValueToFPropertyWithContainer(JsonValue, Property, OutValue, ContainerStruct, Container);
     }
 
     // In practice, the ArrayDim == 1 check ought to be redundant, since nested arrays of FPropertys are not supported
     if (bArrayOrSetProperty && Property->ArrayDim == 1)
     {
         // Read into TArray
-        return ConvertScalarJsonValueToFPropertyWithContainer(
-            JsonValue, Property, OutValue, ContainerStruct, Container);
+        return ConvertScalarJsonValueToFPropertyWithContainer(JsonValue, Property, OutValue, ContainerStruct, Container);
     }
 
     // We're deserializing a JSON array
@@ -601,11 +561,7 @@ bool JsonValueToFPropertyWithContainer(
     for (int Index = 0; Index != ItemsToRead; ++Index)
     {
         if (!ConvertScalarJsonValueToFPropertyWithContainer(
-                ArrayValue[Index],
-                Property,
-                static_cast<char*>(OutValue) + Index * Property->ElementSize,
-                ContainerStruct,
-                Container))
+                ArrayValue[Index], Property, static_cast<char*>(OutValue) + Index * Property->ElementSize, ContainerStruct, Container))
         {
             return false;
         }
@@ -646,8 +602,7 @@ bool JsonAttributesToUStructWithContainer(
         // Try again stripping things like 'b'
         if (!JsonValue && CastField<FBoolProperty>(Property))
         {
-            JsonValue =
-                JsonAttributes.Find(NamingConventionConversion::ConvertPropertyNameToUpperCamelCase(PropertyName));
+            JsonValue = JsonAttributes.Find(NamingConventionConversion::ConvertPropertyNameToUpperCamelCase(PropertyName));
         }
         // Try again converting from snake_case
         if (!JsonValue)
@@ -666,12 +621,7 @@ bool JsonAttributesToUStructWithContainer(
             void* Value = Property->ContainerPtrToValuePtr<uint8>(OutStruct);
             if (!JsonValueToFPropertyWithContainer(*JsonValue, Property, Value, ContainerStruct, Container))
             {
-                UE_LOG(
-                    LogJson,
-                    Error,
-                    TEXT("JsonObjectToUStruct - Unable to parse %s.%s from JSON"),
-                    *StructDefinition->GetName(),
-                    *Property->GetName());
+                UE_LOG(LogJson, Error, TEXT("JsonObjectToUStruct - Unable to parse %s.%s from JSON"), *StructDefinition->GetName(), *Property->GetName());
                 return false;
             }
         }
@@ -688,10 +638,7 @@ bool JsonAttributesToUStructWithContainer(
 }
 }    // namespace
 
-bool JsonObjectDeserialization::JsonObjectToUStruct(
-    const TSharedRef<FJsonObject>& JsonObject,
-    const UStruct* StructDefinition,
-    void* OutStruct)
+bool JsonObjectDeserialization::JsonObjectToUStruct(const TSharedRef<FJsonObject>& JsonObject, const UStruct* StructDefinition, void* OutStruct)
 {
     return JsonAttributesToUStruct(JsonObject->Values, StructDefinition, OutStruct);
 }
@@ -701,13 +648,10 @@ bool JsonObjectDeserialization::JsonAttributesToUStruct(
     const UStruct* StructDefinition,
     void* OutStruct)
 {
-    return JsonAttributesToUStructWithContainer(
-        JsonAttributes, StructDefinition, OutStruct, StructDefinition, OutStruct);
+    return JsonAttributesToUStructWithContainer(JsonAttributes, StructDefinition, OutStruct, StructDefinition, OutStruct);
 }
 
-bool JsonObjectDeserialization::JsonObjectStringToJsonObject(
-    const FString& JsonString,
-    TSharedPtr<FJsonObject>& OutObject)
+bool JsonObjectDeserialization::JsonObjectStringToJsonObject(const FString& JsonString, TSharedPtr<FJsonObject>& OutObject)
 {
     const TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonString);
     return FJsonSerializer::Deserialize(JsonReader, OutObject) && OutObject.IsValid();

@@ -8,7 +8,7 @@
 
 /**
  * Represents an event that happened in Stream Chat
- * https://getstream.io/chat/docs/other-rest/event_object/#event-object
+ * @see https://getstream.io/chat/docs/other-rest/event_object/#event-object
  */
 USTRUCT()
 struct FChatEvent

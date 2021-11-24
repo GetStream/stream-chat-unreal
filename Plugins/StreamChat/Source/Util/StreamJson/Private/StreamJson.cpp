@@ -5,10 +5,7 @@
 #include "Policies/CondensedJsonPrintPolicy.h"
 #include "Serialization/JsonSerializer.h"
 
-TSharedRef<FJsonObject> JsonObject::UStructToJsonObject(
-    const UStruct* StructDefinition,
-    const void* Struct,
-    const ENamingConvention NamingConvention)
+TSharedRef<FJsonObject> JsonObject::UStructToJsonObject(const UStruct* StructDefinition, const void* Struct, const ENamingConvention NamingConvention)
 {
     const TSharedRef<FJsonObject> OutJsonObject = MakeShared<FJsonObject>();
     JsonObjectSerialization::UStructToJsonAttributes(StructDefinition, Struct, OutJsonObject->Values, NamingConvention);

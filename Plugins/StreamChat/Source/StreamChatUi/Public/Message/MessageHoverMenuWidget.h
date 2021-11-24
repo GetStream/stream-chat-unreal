@@ -64,12 +64,7 @@ private:
     EMessageSide Side;
 
 #if WITH_EDITOR
-    static void ValidateChild(
-        const FName& Parent,
-        const FName& Child,
-        const UWidgetTree& BlueprintWidgetTree,
-        IWidgetCompilerLog& CompileLog);
-    virtual void ValidateCompiledWidgetTree(const UWidgetTree& BlueprintWidgetTree, IWidgetCompilerLog& CompileLog)
-        const override;
+    static void ValidateChild(const FName& Parent, const FName& Child, const UWidgetTree& BlueprintWidgetTree, IWidgetCompilerLog& CompileLog);
+    virtual void ValidateCompiledWidgetTree(const UWidgetTree& BlueprintWidgetTree, IWidgetCompilerLog& CompileLog) const override;
 #endif
 };

@@ -8,7 +8,7 @@
 #include "Event/Client/HealthCheckEvent.h"
 #include "IWebSocket.h"
 #include "LogChatSocket.h"
-#include "Request/ConnectRequest.h"
+#include "Request/ConnectRequestDto.h"
 #include "Response/ErrorResponseDto.h"
 #include "StreamChatWebSocketSettings.h"
 #include "StreamJson.h"
@@ -31,11 +31,7 @@ float GetReconnectDelay(const uint32 Attempt)
 }
 }    // namespace
 
-FChatSocket::FChatSocket(
-    const TSharedRef<FTokenManager>& TokenManager,
-    const FString& ApiKey,
-    const FString& Host,
-    const FUserObjectDto& User)
+FChatSocket::FChatSocket(const TSharedRef<FTokenManager>& TokenManager, const FString& ApiKey, const FString& Host, const FUserObjectDto& User)
     : ChatSocketEvents(MakeUnique<FChatSocketEvents>()), TokenManager(TokenManager), ApiKey(ApiKey), Host(Host)
 {
     const FConnectRequestDto Request = {true, User.Id, User};
@@ -78,12 +74,7 @@ void FChatSocket::Disconnect()
 FString FChatSocket::BuildUrl(const bool bRefreshToken) const
 {
     const FString Token = TokenManager->LoadToken(bRefreshToken);
-    return FString::Printf(
-        TEXT("wss://%s/connect?json=%s&api_key=%s&authorization=%s&stream-auth-type=jwt"),
-        *Host,
-        *ConnectionRequestJson,
-        *ApiKey,
-        *Token);
+    return FString::Printf(TEXT("wss://%s/connect?json=%s&api_key=%s&authorization=%s&stream-auth-type=jwt"), *Host, *ConnectionRequestJson, *ApiKey, *Token);
 }
 
 bool FChatSocket::IsConnected() const
@@ -174,18 +165,11 @@ void FChatSocket::HandleWebSocketConnectionClosed(const int32 Status, const FStr
     const TCHAR* Code = WebSocketCloseCode::ToString(Status);
     if (bWasClean)
     {
-        UE_LOG(
-            LogChatSocket, Log, TEXT("WebSocket connection closed [Status=%d (%s), Reason=%s]"), Status, Code, *Reason);
+        UE_LOG(LogChatSocket, Log, TEXT("WebSocket connection closed [Status=%d (%s), Reason=%s]"), Status, Code, *Reason);
     }
     else
     {
-        UE_LOG(
-            LogChatSocket,
-            Warning,
-            TEXT("WebSocket connection closed unexpectedly [Status=%d (%s), Reason=%s]"),
-            Status,
-            Code,
-            *Reason);
+        UE_LOG(LogChatSocket, Warning, TEXT("WebSocket connection closed unexpectedly [Status=%d (%s), Reason=%s]"), Status, Code, *Reason);
         Reconnect(false);
     }
 }
@@ -205,8 +189,7 @@ void FChatSocket::HandleWebSocketMessage(const FString& JsonString)
     FString Type;
     if (!JsonObject->TryGetStringField(TEXT("type"), Type))
     {
-        if (const TSharedPtr<FJsonObject>* ErrorJsonObject;
-            JsonObject->TryGetObjectField(TEXT("error"), ErrorJsonObject))
+        if (const TSharedPtr<FJsonObject>* ErrorJsonObject; JsonObject->TryGetObjectField(TEXT("error"), ErrorJsonObject))
         {
             FErrorResponseDto ErrorResponse;
             if (JsonObjectDeserialization::JsonObjectToUStruct(ErrorJsonObject->ToSharedRef(), &ErrorResponse))
@@ -215,20 +198,12 @@ void FChatSocket::HandleWebSocketMessage(const FString& JsonString)
             }
             else
             {
-                UE_LOG(
-                    LogChatSocket,
-                    Error,
-                    TEXT("Unable to deserialize WebSocket error event [Message=%s]"),
-                    *JsonString);
+                UE_LOG(LogChatSocket, Error, TEXT("Unable to deserialize WebSocket error event [Message=%s]"), *JsonString);
             }
         }
         else
         {
-            UE_LOG(
-                LogChatSocket,
-                Error,
-                TEXT("Trying to deserialize a WebSocket event with no type [JSON=%s]"),
-                *JsonString);
+            UE_LOG(LogChatSocket, Error, TEXT("Trying to deserialize a WebSocket event with no type [JSON=%s]"), *JsonString);
         }
         return;
     }
@@ -244,8 +219,7 @@ void FChatSocket::HandleChatError(const FErrorResponseDto& Error)
         Reconnect(true);
         return;
     }
-    UE_LOG(
-        LogChatSocket, Error, TEXT("WebSocket responded with error [Code=%d, Message=%s]"), Error.Code, *Error.Message);
+    UE_LOG(LogChatSocket, Error, TEXT("WebSocket responded with error [Code=%d, Message=%s]"), Error.Code, *Error.Message);
     Reconnect(false);
 }
 
@@ -282,12 +256,10 @@ void FChatSocket::StartMonitoring()
     // Reset any existing tickers
     StopMonitoring();
     KeepAliveTickerHandle = FTicker::GetCoreTicker().AddTicker(
-        FTickerDelegate::CreateSP(this, &FChatSocket::KeepAlive),
-        GetDefault<UStreamChatWebSocketSettings>()->KeepAliveInterval);
+        FTickerDelegate::CreateSP(this, &FChatSocket::KeepAlive), GetDefault<UStreamChatWebSocketSettings>()->KeepAliveInterval);
 
     ReconnectTickerHandle = FTicker::GetCoreTicker().AddTicker(
-        FTickerDelegate::CreateSP(this, &FChatSocket::CheckNeedToReconnect),
-        GetDefault<UStreamChatWebSocketSettings>()->CheckReconnectInterval);
+        FTickerDelegate::CreateSP(this, &FChatSocket::CheckNeedToReconnect), GetDefault<UStreamChatWebSocketSettings>()->CheckReconnectInterval);
 }
 
 void FChatSocket::StopMonitoring()
@@ -360,8 +332,7 @@ void FChatSocket::Reconnect(const bool bRefreshToken)
     // Delay the actual reconnection attempt
     const float Delay = GetReconnectDelay(ReconnectAttempt);
 
-    UE_LOG(
-        LogChatSocket, Log, TEXT("Enqueuing a reconnecting attempt [Attempt=%d, Delay=%g]"), ReconnectAttempt, Delay);
+    UE_LOG(LogChatSocket, Log, TEXT("Enqueuing a reconnecting attempt [Attempt=%d, Delay=%g]"), ReconnectAttempt, Delay);
     FTicker::GetCoreTicker().AddTicker(
         FTickerDelegate::CreateLambda(
             // Use a weak pointer to this FChatSocket in case it is destroyed by the time the ticker fires

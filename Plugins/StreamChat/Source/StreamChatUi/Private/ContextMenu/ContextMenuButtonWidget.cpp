@@ -5,10 +5,7 @@
 #include "Brushes/SlateBoxBrush.h"
 #include "Engine/Texture2D.h"
 
-void UContextMenuButtonWidget::Setup(
-    const FMessage& InMessage,
-    const EContextMenuButtonPosition InPosition,
-    UContextMenuAction* InAction)
+void UContextMenuButtonWidget::Setup(const FMessage& InMessage, const EContextMenuButtonPosition InPosition, UContextMenuAction* InAction)
 {
     Message = InMessage;
     Position = InPosition;

@@ -21,8 +21,7 @@ FStringView TrimPropertyNameSuperfluous(const FStringView View)
         }
 
         // Strip the "In" prefix from names
-        if (View.Len() - NameOffset >= 3 && View[NameOffset] == TEXT('I') && View[NameOffset + 1] == TEXT('n') &&
-            FChar::IsUpper(View[NameOffset + 2]))
+        if (View.Len() - NameOffset >= 3 && View[NameOffset] == TEXT('I') && View[NameOffset + 1] == TEXT('n') && FChar::IsUpper(View[NameOffset + 2]))
         {
             NameOffset += 2;
             continue;
@@ -56,8 +55,7 @@ FString NamingConventionConversion::ConvertNameToSnakeCase(const FStringView InN
     }
 
     NameBreakIterator->SetStringRef(InName);
-    for (int32 PrevBreak = 0, NameBreak = NameBreakIterator->MoveToNext(); NameBreak != INDEX_NONE;
-         NameBreak = NameBreakIterator->MoveToNext())
+    for (int32 PrevBreak = 0, NameBreak = NameBreakIterator->MoveToNext(); NameBreak != INDEX_NONE; NameBreak = NameBreakIterator->MoveToNext())
     {
         const int32 OrigSnakeCaseNameLen = SnakeCaseName.Len();
 
@@ -112,8 +110,7 @@ FString NamingConventionConversion::ConvertSnakeCaseToUpperCamelCase(const FStri
     }
 
     GraphemeIterator->SetStringRef(InString);
-    for (int32 PrevBreak = 0, GraphemeBreak = GraphemeIterator->MoveToNext(); GraphemeBreak != INDEX_NONE;
-         GraphemeBreak = GraphemeIterator->MoveToNext())
+    for (int32 PrevBreak = 0, GraphemeBreak = GraphemeIterator->MoveToNext(); GraphemeBreak != INDEX_NONE; GraphemeBreak = GraphemeIterator->MoveToNext())
     {
         if (InString[PrevBreak] != TEXT('_'))
         {

@@ -10,8 +10,7 @@
 
 DEFINE_LOG_CATEGORY(LogHttpClient);
 
-FRequestBuilder::FRequestBuilder(const TSharedRef<const FHttpClient>& InClient, const FString& Verb, const FString& Url)
-    : Client(InClient)
+FRequestBuilder::FRequestBuilder(const TSharedRef<const FHttpClient>& InClient, const FString& Verb, const FString& Url) : Client(InClient)
 {
     Request = FHttpModule::Get().CreateRequest();
     Request->SetURL(Url);
@@ -71,18 +70,11 @@ FRequestBuilder& FRequestBuilder::Json(const FString& Json)
 void FRequestBuilder::SendInternal()
 {
     Request->OnProcessRequestComplete().BindLambda(
-        [RequestBuilder = *this](
-            const FHttpRequestPtr OriginalRequest, const FHttpResponsePtr Response, bool bConnectedSuccessfully) mutable
+        [RequestBuilder = *this](const FHttpRequestPtr OriginalRequest, const FHttpResponsePtr Response, bool bConnectedSuccessfully) mutable
         {
-            if (const FHttpResponse HttpResponse{Response};
-                HttpResponse.StatusCode >= 200 && HttpResponse.StatusCode < 300)
+            if (const FHttpResponse HttpResponse{Response}; HttpResponse.StatusCode >= 200 && HttpResponse.StatusCode < 300)
             {
-                UE_LOG(
-                    LogHttpClient,
-                    Log,
-                    TEXT("HTTP request succeeded [StatusCode=%d, Url=%s]"),
-                    HttpResponse.StatusCode,
-                    *OriginalRequest->GetURL());
+                UE_LOG(LogHttpClient, Log, TEXT("HTTP request succeeded [StatusCode=%d, Url=%s]"), HttpResponse.StatusCode, *OriginalRequest->GetURL());
                 UE_LOG(LogHttpClient, VeryVerbose, TEXT("HTTP response [Body=%s]"), *HttpResponse.Text);
                 RequestBuilder.Client->OnResponseDelegate.Broadcast(HttpResponse);
                 if (RequestBuilder.RetainedCallback)
@@ -93,11 +85,7 @@ void FRequestBuilder::SendInternal()
             else
             {
                 UE_LOG(
-                    LogHttpClient,
-                    Error,
-                    TEXT("HTTP request returned an error [StatusCode=%d, Url=%s]"),
-                    HttpResponse.StatusCode,
-                    *OriginalRequest->GetURL());
+                    LogHttpClient, Error, TEXT("HTTP request returned an error [StatusCode=%d, Url=%s]"), HttpResponse.StatusCode, *OriginalRequest->GetURL());
                 RequestBuilder.Client->OnErrorDelegate.Broadcast(HttpResponse, RequestBuilder);
             }
         });

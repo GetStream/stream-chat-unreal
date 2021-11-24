@@ -7,10 +7,7 @@ bool UReactionGroupBlueprintLibrary::HasOwnReaction(const FReactionGroup& Reacti
     return ReactionGroup.OwnReaction.IsSet();
 }
 
-void UReactionGroupBlueprintLibrary::GetOwnReaction(
-    const FReactionGroup& ReactionGroup,
-    bool& bIsSet,
-    FReaction& Reaction)
+void UReactionGroupBlueprintLibrary::GetOwnReaction(const FReactionGroup& ReactionGroup, bool& bIsSet, FReaction& Reaction)
 {
     bIsSet = ReactionGroup.OwnReaction.IsSet();
     if (bIsSet)

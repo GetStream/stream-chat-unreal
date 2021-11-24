@@ -16,7 +16,7 @@
 #include "BottomReactionWidget.generated.h"
 
 /**
- * https://www.figma.com/file/oeHiSMDoutuVbJ9WiVyhcG/Chat-Design-Kit-1.5-Android---Work-in-Progress?node-id=17089%3A113943
+ * @see https://www.figma.com/file/oeHiSMDoutuVbJ9WiVyhcG/Chat-Design-Kit-1.5-Android---Work-in-Progress?node-id=17089%3A113943
  */
 UCLASS()
 class STREAMCHATUI_API UBottomReactionWidget final : public UStreamUserWidget
