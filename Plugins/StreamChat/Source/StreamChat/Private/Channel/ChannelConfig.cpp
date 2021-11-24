@@ -4,6 +4,8 @@
 
 #include "Response/Channel/ChannelConfigWithInfoDto.h"
 
+FChannelConfig::FChannelConfig() = default;
+
 FChannelConfig::FChannelConfig(const FChannelConfigWithInfoDto& Dto)
     : bConnectEvents(Dto.bConnectEvents)
     , MaxMessageLength(Dto.MaxMessageLength)

@@ -7,7 +7,8 @@
 #include "UserObjectDto.generated.h"
 
 /**
- * #/components/schemas/UserObject
+ * @brief #/components/schemas/UserObject
+ * @ingroup StreamChatDto
  */
 USTRUCT(BlueprintType)
 struct STREAMCHATDTO_API FUserObjectDto

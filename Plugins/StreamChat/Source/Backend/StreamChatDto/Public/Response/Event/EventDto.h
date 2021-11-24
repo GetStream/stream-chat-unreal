@@ -8,8 +8,9 @@
 #include "EventDto.generated.h"
 
 /**
+ * @brief #/components/schemas/Event
  * An event returned in a HTTP response. Distinct from WebSocket events
- * #/components/schemas/Event
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FEventDto

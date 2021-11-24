@@ -14,7 +14,7 @@ class FJsonObject;
 /**
  * Represents any chat message.
  * Used in responses only
- * #/components/schemas/Message
+ * @brief #/components/schemas/Message
  */
 USTRUCT()
 struct FMessageDto

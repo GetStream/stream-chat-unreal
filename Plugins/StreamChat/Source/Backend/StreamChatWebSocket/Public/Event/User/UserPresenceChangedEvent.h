@@ -9,7 +9,8 @@
 #include "UserPresenceChangedEvent.generated.h"
 
 /**
- * #/components/schemas/UserPresenceChangedEvent
+ * @brief #/components/schemas/UserPresenceChangedEvent
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FUserPresenceChangedEvent : public FChatEvent

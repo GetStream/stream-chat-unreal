@@ -8,7 +8,8 @@
 #include "MessageDeletedEvent.generated.h"
 
 /**
- * #/components/schemas/MessageDeletedEvent
+ * @brief #/components/schemas/MessageDeletedEvent
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FMessageDeletedEvent : public FMessageEvent

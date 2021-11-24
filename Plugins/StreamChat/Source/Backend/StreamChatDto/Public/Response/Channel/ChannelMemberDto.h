@@ -8,7 +8,8 @@
 #include "ChannelMemberDto.generated.h"
 
 /**
- * #/components/schemas/ChannelMember
+ * @brief #/components/schemas/ChannelMember
+ * @ingroup StreamChatDto
  */
 USTRUCT(BlueprintType)
 struct STREAMCHATDTO_API FChannelMemberDto

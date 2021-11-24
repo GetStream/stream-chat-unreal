@@ -8,7 +8,8 @@
 #include "EventResponseDto.generated.h"
 
 /**
- * #/components/schemas/EventResponse
+ * @brief #/components/schemas/EventResponse
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FEventResponseDto

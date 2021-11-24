@@ -7,7 +7,8 @@
 #include "SortParamRequestDto.generated.h"
 
 /**
- * #/components/schemas/SortParamRequest
+ * @brief #/components/schemas/SortParamRequest
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct STREAMCHATDTO_API FSortParamRequestDto

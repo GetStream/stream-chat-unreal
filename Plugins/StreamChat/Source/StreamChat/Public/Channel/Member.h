@@ -11,17 +11,22 @@ class FUserManager;
 struct FChannelMemberDto;
 
 /**
- * Contains information about a member of a chat channel
+ * @brief Contains information about a member of a chat channel
+ * @ingroup StreamChat
  */
 USTRUCT(BlueprintType)
 struct FMember
 {
     GENERATED_BODY()
 
+    /// Needed by USTRUCT system. Shouldn't be used directly.
     FMember();
+    /// Create a member from a user
     explicit FMember(const FUserRef& User);
+    /// Create a member from a DTO from the API
     explicit FMember(FUserManager&, const FChannelMemberDto&);
 
+    /// The user information of this member
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Member")
     FUserRef User;
 

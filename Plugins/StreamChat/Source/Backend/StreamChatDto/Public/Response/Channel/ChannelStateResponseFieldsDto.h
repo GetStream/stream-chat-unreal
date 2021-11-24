@@ -11,7 +11,8 @@
 #include "ChannelStateResponseFieldsDto.generated.h"
 
 /**
- *
+ * @brief #/components/schemas/ChannelStateResponseFields
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FChannelStateResponseFieldsDto

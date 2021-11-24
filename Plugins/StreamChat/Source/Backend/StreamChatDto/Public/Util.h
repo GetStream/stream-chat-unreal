@@ -3,9 +3,12 @@
 #pragma once
 
 /**
+ * @brief Helpers for DTO conversion
+ *
  * To use these, define either:
  * a converting constructor (https://en.cppreference.com/w/cpp/language/converting_constructor), or
  * a user-defined conversion function (https://en.cppreference.com/w/cpp/language/cast_operator)
+ * @ingroup StreamChatDto
  */
 namespace Util
 {

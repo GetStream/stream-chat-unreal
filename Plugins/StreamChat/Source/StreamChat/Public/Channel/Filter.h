@@ -10,6 +10,10 @@ class FJsonValue;
 class FJsonObject;
 struct FJsonObjectWrapper;
 
+/**
+ * @brief The type of operator of a filter
+ * @ingroup StreamChat
+ */
 enum class EFilterOperator : uint8
 {
     /// Matches values that are equal to a specified value.
@@ -59,63 +63,102 @@ enum class EFilterOperator : uint8
 };
 
 /**
- * TODO Query, AutoComplete, Exists, Contains
+ * @brief A filter used for querying channels
+ * @see https://getstream.io/chat/docs/other-rest/query_channels
+ * @todo Query, AutoComplete, Exists, Contains
+ * @ingroup StreamChat
  */
 USTRUCT(BlueprintType)
 struct STREAMCHAT_API FFilter
 {
     GENERATED_BODY()
 
-    // USTRUCTs need a default constructor
+    /// Needed by USTRUCT system. Shouldn't be used directly.
     FFilter() = default;
-    // Make logical filter
-    FFilter(EFilterOperator Operator, const TArray<FFilter>& Filters);
-    // Make comparison filter
-    FFilter(EFilterOperator Operator, const FName& Key, const TSharedPtr<FJsonValue>& Value);
-
-    TSharedPtr<FJsonObject> ToJsonObject() const;
+    /// Convert to a JSON object wrapper
     FJsonObjectWrapper ToJsonObjectWrapper() const;
+    /// Convert to a JSON string
     FString ToJson() const;
 
+    /// Construct an $and filter
     static FFilter And(const TArray<FFilter>& Filters);
+    /// Construct an $or filter
     static FFilter Or(const TArray<FFilter>& Filters);
+    /// Construct a $nor filter
     static FFilter Nor(const TArray<FFilter>& Filters);
 
+    /// Construct an $eq filter
     static FFilter Equal(const FName& Key, int32 Value);
+    /// Construct an $eq filter
     static FFilter Equal(const FName& Key, float Value);
+    /// Construct an $eq filter
     static FFilter Equal(const FName& Key, const FString& Value);
+    /// Construct an $eq filter
     static FFilter Equal(const FName& Key, bool bValue);
+    /// Construct a $neq filter
     static FFilter NotEqual(const FName& Key, int32 Value);
+    /// Construct a $neq filter
     static FFilter NotEqual(const FName& Key, float Value);
+    /// Construct a $neq filter
     static FFilter NotEqual(const FName& Key, const FString& Value);
+    /// Construct a $neq filter
     static FFilter NotEqual(const FName& Key, bool bValue);
+    /// Construct a $gt filter
     static FFilter Greater(const FName& Key, int32 Value);
+    /// Construct a $gt filter
     static FFilter Greater(const FName& Key, float Value);
+    /// Construct a $gt filter
     static FFilter Greater(const FName& Key, const FString& Value);
+    /// Construct a $gt filter
     static FFilter Greater(const FName& Key, bool bValue);
+    /// Construct a $gte filter
     static FFilter GreaterOrEqual(const FName& Key, int32 Value);
+    /// Construct a $gte filter
     static FFilter GreaterOrEqual(const FName& Key, float Value);
+    /// Construct a $gte filter
     static FFilter GreaterOrEqual(const FName& Key, const FString& Value);
+    /// Construct a $gte filter
     static FFilter GreaterOrEqual(const FName& Key, bool bValue);
+    /// Construct a $lt filter
     static FFilter Less(const FName& Key, int32 Value);
+    /// Construct a $lt filter
     static FFilter Less(const FName& Key, float Value);
+    /// Construct a $lt filter
     static FFilter Less(const FName& Key, const FString& Value);
+    /// Construct a $lt filter
     static FFilter Less(const FName& Key, bool bValue);
+    /// Construct a $lte filter
     static FFilter LessOrEqual(const FName& Key, int32 Value);
+    /// Construct a $lte filter
     static FFilter LessOrEqual(const FName& Key, float Value);
+    /// Construct a $lte filter
     static FFilter LessOrEqual(const FName& Key, const FString& Value);
+    /// Construct a $lte filter
     static FFilter LessOrEqual(const FName& Key, bool bValue);
 
+    /// Construct an $in filter
     static FFilter In(const FName& Key, const TArray<int32>& Values);
+    /// Construct an $in filter
     static FFilter In(const FName& Key, const TArray<float>& Values);
+    /// Construct an $in filter
     static FFilter In(const FName& Key, const TArray<FString>& Values);
+    /// Construct an $in filter
     static FFilter NotIn(const FName& Key, const TArray<int32>& Values);
+    /// Construct an $nin filter
     static FFilter NotIn(const FName& Key, const TArray<float>& Values);
+    /// Construct an $nin filter
     static FFilter NotIn(const FName& Key, const TArray<FString>& Values);
 
+    /// Check if this filter has been correctly initialized
     bool IsValid() const;
 
 private:
+    /// Make logical filter
+    FFilter(EFilterOperator Operator, const TArray<FFilter>& Filters);
+    /// Make comparison filter
+    FFilter(EFilterOperator Operator, const FName& Key, const TSharedPtr<FJsonValue>& Value);
+
+    TSharedPtr<FJsonObject> ToJsonObject() const;
     template <class T>
     static FFilter MakeComparison(EFilterOperator Operator, const FName& Key, T Value);
     static FFilter MakeComparison(EFilterOperator Operator, const FName& Key, const FString& Value);

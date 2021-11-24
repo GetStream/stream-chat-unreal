@@ -10,8 +10,9 @@
 #include "QueryChannelsRequestDto.generated.h"
 
 /**
- * #/components/schemas/QueryChannelsRequest
+ * @brief #/components/schemas/QueryChannelsRequest
  * @see https://getstream.io/chat/docs/rest/#channels-querychannels-request
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FQueryChannelsRequestDto

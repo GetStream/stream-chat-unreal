@@ -6,6 +6,10 @@
 
 #include "PaginationParamsRequestDto.generated.h"
 
+/**
+ * @brief #/components/schemas/PaginationParamsRequest
+ * @ingroup StreamChatDto
+ */
 USTRUCT()
 struct STREAMCHATDTO_API FPaginationParamsRequestDto
 {

@@ -8,7 +8,8 @@
 #include "ReactionUpdatedEvent.generated.h"
 
 /**
- * #/components/schemas/ReactionUpdatedEvent
+ * @brief #/components/schemas/ReactionUpdatedEvent
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FReactionUpdatedEvent : public FReactionEvent

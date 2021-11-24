@@ -8,7 +8,8 @@
 #include "MessageResponseDto.generated.h"
 
 /**
- * #/components/schemas/MessageResponse
+ * @brief #/components/schemas/MessageResponse
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FMessageResponseDto

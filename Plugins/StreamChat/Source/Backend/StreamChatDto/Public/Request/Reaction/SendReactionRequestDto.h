@@ -8,7 +8,9 @@
 #include "SendReactionRequestDto.generated.h"
 
 /**
- * Contains all information needed to send new message
+ * @brief #/components/schemas/SendReactionRequest
+ * Contains all information needed to send new reaction
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FSendReactionRequestDto

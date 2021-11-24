@@ -8,8 +8,9 @@
 #include "ReactionDto.generated.h"
 
 /**
+ * @brief #/components/schemas/Reaction
  * Represents user reaction to a message
- * #/components/schemas/Reaction
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FReactionDto

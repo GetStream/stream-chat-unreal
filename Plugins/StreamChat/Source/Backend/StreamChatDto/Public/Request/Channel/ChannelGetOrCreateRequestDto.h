@@ -12,7 +12,8 @@
 class FJsonObject;
 
 /**
- * #/components/schemas/ChannelGetOrCreateRequest
+ * @brief #/components/schemas/ChannelGetOrCreateRequest
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FChannelGetOrCreateRequestDto

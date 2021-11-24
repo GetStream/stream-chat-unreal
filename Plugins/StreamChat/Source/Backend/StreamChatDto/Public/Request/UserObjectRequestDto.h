@@ -3,13 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "DeviceFields.h"
+#include "DeviceFieldsDto.h"
 #include "UserObjectDto.h"
 
 #include "UserObjectRequestDto.generated.h"
 
 /**
- *
+ * @brief #/components/schemas/UserObjectRequest
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FUserObjectRequestDto
@@ -26,5 +27,5 @@ struct FUserObjectRequestDto
     FUserObjectDto UserDetails;
 
     UPROPERTY()
-    FDeviceFields Device;
+    FDeviceFieldsDto Device;
 };

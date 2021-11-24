@@ -6,9 +6,6 @@
 
 #include "PushProvider.generated.h"
 
-/**
- *
- */
 UENUM()
 enum class EPushProvider : uint8
 {

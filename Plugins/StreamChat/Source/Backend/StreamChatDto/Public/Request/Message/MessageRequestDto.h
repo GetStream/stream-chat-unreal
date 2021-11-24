@@ -7,7 +7,8 @@
 #include "MessageRequestDto.generated.h"
 
 /**
- * #/components/schemas/MessageRequest
+ * @brief #/components/schemas/MessageRequest
+ * @ingroup StreamChatDto
  * @see https://getstream.io/chat/docs/rest/#messages-sendmessage-request
  */
 USTRUCT()

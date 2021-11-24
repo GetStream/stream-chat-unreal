@@ -8,6 +8,10 @@
 
 class FJsonObject;
 
+/**
+ * @brief #/components/schemas/MessagePaginationParamsRequest
+ * @ingroup StreamChatDto
+ */
 USTRUCT()
 struct FMessagePaginationParamsRequestDto
 {

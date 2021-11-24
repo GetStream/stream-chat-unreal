@@ -7,7 +7,8 @@
 #include "CommandDto.generated.h"
 
 /**
- * #/components/schemas/Command
+ * @brief #/components/schemas/Command
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FCommandDto

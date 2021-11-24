@@ -7,7 +7,9 @@
 #include "MessageTypeDto.generated.h"
 
 /**
- * https://getstream.io/chat/docs/other-rest/message_format/#message-types
+ * @brief DTO for type of message
+ * @see https://getstream.io/chat/docs/other-rest/message_format/#message-types
+ * @ingroup StreamChatDto
  */
 UENUM()
 enum class EMessageTypeDto : uint8

@@ -8,7 +8,8 @@
 #include "MessageUpdatedEvent.generated.h"
 
 /**
- * #/components/schemas/MessageUpdatedEvent
+ * @brief #/components/schemas/MessageUpdatedEvent
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FMessageUpdatedEvent : public FMessageEvent

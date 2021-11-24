@@ -44,11 +44,14 @@ struct FSortOption
 {
     GENERATED_BODY()
 
+    /// Convert into a DTO for sending to the API
     explicit operator FSortParamRequestDto() const;
 
+    /// Which field to sort by
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat")
     ESortField Field;
 
+    /// The direction in which to sort
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat")
     ESortDirection Direction;
 };
