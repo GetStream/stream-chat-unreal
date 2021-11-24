@@ -15,6 +15,7 @@
 class UChatChannel;
 
 /**
+ * @brief Top bar for a message list
  * @see https://www.figma.com/file/ekifwChR9tR7zRJg1QEzSM/Chat-Design-Kit---Current-version?node-id=15271%3A237867
  */
 UCLASS()

@@ -8,10 +8,14 @@
 class FJsonObject;
 class FJsonValue;
 
+/**
+ * @brief Handles converting UStructs to Json objects
+ * @ingroup StreamChatJson
+ */
 namespace JsonObjectSerialization
 {
 /**
- * Converts from a UStruct to a set of json attributes (possibly from within a JsonObject)
+ * @brief Converts from a UStruct to a set of json attributes (possibly from within a JsonObject)
  *
  * @param StructDefinition UStruct definition that is looked over for properties
  * @param Struct The UStruct instance to copy out of

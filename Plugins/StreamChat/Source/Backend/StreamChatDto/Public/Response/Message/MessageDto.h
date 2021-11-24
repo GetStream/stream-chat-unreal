@@ -12,9 +12,10 @@
 class FJsonObject;
 
 /**
+ * @brief #/components/schemas/Message
  * Represents any chat message.
  * Used in responses only
- * @brief #/components/schemas/Message
+ * @ingroup StreamChatDto
  */
 USTRUCT()
 struct FMessageDto

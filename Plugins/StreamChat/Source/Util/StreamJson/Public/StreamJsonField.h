@@ -7,6 +7,10 @@
 #include "Detail/JsonObjectSerialization.h"
 #include "StreamJson.h"
 
+/**
+ * @brief Custom serialization and deserialization for types which aren't supported by UPROPERTY (e.g. TOptional)
+ * @ingroup StreamChatJson
+ */
 namespace JsonField
 {
 template <class T>

@@ -9,7 +9,9 @@
 #include "HealthCheckEvent.generated.h"
 
 /**
- * Represents an event that happened in Stream Chat
+ * @brief Sent periodically from the API to indicate a healthy connection
+ * @see https://getstream.io/chat/docs/events/#health.check
+ * @ingroup StreamChatWebSocket
  */
 USTRUCT()
 struct FHealthCheckEvent : public FChatEvent

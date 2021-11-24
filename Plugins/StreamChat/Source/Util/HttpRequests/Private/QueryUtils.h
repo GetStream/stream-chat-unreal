@@ -10,7 +10,7 @@ namespace QueryUtils
 TMap<FString, FString> ParseQueryFromUrl(const FString& Url);
 
 /**
- * Modify the query string of a URL.
+ * @brief Modify the query string of a URL.
  *
  * Modifies the input URL, adding the parameters provided. Existing parameters in the URL with same keys will be
  * overwritten.

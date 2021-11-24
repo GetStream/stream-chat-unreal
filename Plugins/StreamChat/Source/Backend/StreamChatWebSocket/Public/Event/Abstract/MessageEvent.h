@@ -8,6 +8,10 @@
 
 #include "MessageEvent.generated.h"
 
+/**
+ * @brief A WebSocket event related to a message
+ * @ingroup StreamChatWebSocket
+ */
 USTRUCT()
 struct FMessageEvent : public FChannelEvent
 {

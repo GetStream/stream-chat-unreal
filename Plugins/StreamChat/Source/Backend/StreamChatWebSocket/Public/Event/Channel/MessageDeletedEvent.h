@@ -8,8 +8,9 @@
 #include "MessageDeletedEvent.generated.h"
 
 /**
- * @brief #/components/schemas/MessageDeletedEvent
- * @ingroup StreamChatDto
+ * @brief A message was deleted
+ * @see https://getstream.io/chat/docs/events/#message.deleted
+ * @ingroup StreamChatWebSocket
  */
 USTRUCT()
 struct FMessageDeletedEvent : public FMessageEvent

@@ -57,7 +57,8 @@ private:
 };
 
 /**
- * Blueprint functions for the Reactions struct
+ * @brief Blueprint functions for the Reactions struct
+ * @ingroup StreamChat
  */
 UCLASS()
 class STREAMCHAT_API UReactionsBlueprintLibrary final : public UBlueprintFunctionLibrary

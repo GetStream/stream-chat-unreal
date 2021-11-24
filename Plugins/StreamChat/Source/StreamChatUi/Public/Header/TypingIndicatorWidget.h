@@ -10,7 +10,7 @@
 #include "TypingIndicatorWidget.generated.h"
 
 /**
- * Displays typing status for multiple users.
+ * @brief Displays typing status for multiple users.
  *
  * Does not care about the users you add, so you most likely shouldn't add the currently logged in user.
  * Does not have a "no one typing" state, so you should hide/show/create/destroy this widget when typists are > 0

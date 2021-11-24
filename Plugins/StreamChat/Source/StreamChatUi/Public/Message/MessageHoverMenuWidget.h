@@ -14,7 +14,9 @@
 #include "MessageHoverMenuWidget.generated.h"
 
 /**
- * Shown when mouse hovers over message. Includes Options and Reactions buttons.
+ * @brief Shown when mouse hovers over message.
+ *
+ * Includes Options and Reactions buttons.
  */
 UCLASS()
 class STREAMCHATUI_API UMessageHoverMenuWidget final : public UStreamUserWidget

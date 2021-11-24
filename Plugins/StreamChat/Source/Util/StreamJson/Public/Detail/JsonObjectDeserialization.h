@@ -8,11 +8,14 @@
 class FJsonValue;
 class FJsonObject;
 
-/** Class that handles converting Json objects to UStructs */
+/**
+ * @brief Handles converting Json objects to UStructs
+ * @ingroup StreamChatJson
+ */
 namespace JsonObjectDeserialization
 {
 /**
- * Converts from a Json Object to a UStruct, using importText
+ * @brief Converts from a Json Object to a UStruct, using importText
  *
  * @param JsonObject Json Object to copy data out of
  * @param StructDefinition UStruct definition that is looked over for properties
@@ -23,7 +26,7 @@ namespace JsonObjectDeserialization
 STREAMJSON_API bool JsonObjectToUStruct(const TSharedRef<FJsonObject>& JsonObject, const UStruct* StructDefinition, void* OutStruct);
 
 /**
- * Templated version of JsonObjectToUStruct
+ * @brief Templated version of JsonObjectToUStruct
  *
  * @param JsonObject Json Object to copy data out of
  * @param OutStruct The UStruct instance to copy in to
@@ -39,7 +42,7 @@ bool JsonObjectToUStruct(const TSharedRef<FJsonObject>& JsonObject, OutStructTyp
 }
 
 /**
- * Converts a set of json attributes (possibly from within a JsonObject) to a UStruct, using importText
+ * @brief Converts a set of json attributes (possibly from within a JsonObject) to a UStruct, using importText
  *
  * @param JsonAttributes Json Object to copy data out of
  * @param StructDefinition UStruct definition that is looked over for properties
@@ -50,7 +53,7 @@ bool JsonObjectToUStruct(const TSharedRef<FJsonObject>& JsonObject, OutStructTyp
 bool JsonAttributesToUStruct(const TMap<FString, TSharedPtr<FJsonValue>>& JsonAttributes, const UStruct* StructDefinition, void* OutStruct);
 
 /**
- * Converts from a json string containing an object to a UStruct
+ * @brief Converts from a json string containing an object to a UStruct
  *
  * @param JsonString String containing JSON formatted data.
  * @param OutObject JsonObject to created from parsed JSON text
@@ -60,7 +63,7 @@ bool JsonAttributesToUStruct(const TMap<FString, TSharedPtr<FJsonValue>>& JsonAt
 STREAMJSON_API bool JsonObjectStringToJsonObject(const FString& JsonString, TSharedPtr<FJsonObject>& OutObject);
 
 /**
- * Converts from a json string containing an object to a UStruct
+ * @brief Converts from a json string containing an object to a UStruct
  *
  * @param JsonString String containing JSON formatted data.
  * @param OutStruct The UStruct instance to copy in to

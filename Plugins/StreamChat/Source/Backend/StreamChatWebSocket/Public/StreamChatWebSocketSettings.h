@@ -10,7 +10,8 @@
 #include "StreamChatWebSocketSettings.generated.h"
 
 /**
- *
+ * @brief Project Settings for Stream Chat WebSockets
+ * @ingroup StreamChatWebSocket
  */
 UCLASS(Config = Game, DefaultConfig)
 class STREAMCHATWEBSOCKET_API UStreamChatWebSocketSettings final : public UObject

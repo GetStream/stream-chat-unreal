@@ -8,8 +8,9 @@
 #include "MessageNewEvent.generated.h"
 
 /**
- * @brief #/components/schemas/MessageNewEvent
- * @ingroup StreamChatDto
+ * @brief A new message was created
+ * @see https://getstream.io/chat/docs/events/#message.new
+ * @ingroup StreamChatWebSocket
  */
 USTRUCT()
 struct FMessageNewEvent : public FMessageEvent

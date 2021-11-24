@@ -6,6 +6,10 @@
 #include "Detail/ChatSocketDetail.h"
 #include "Detail/JsonEventSubscription.h"
 
+/**
+ * @brief Encapsulates subscribing and unsubscribing to and from Stream Chat WebSocket events
+ * @ingroup StreamChatWebSocket
+ */
 class FChatSocketEvents final
 {
 public:
