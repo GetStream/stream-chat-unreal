@@ -4,7 +4,7 @@
 
 /**
  * @defgroup StreamChat Stream Chat
- * @brief The main interface to all Stream Chat functionality
+ * @brief This module is the main interface to the Stream Chat low level client functionality
  */
 
 #include "CoreMinimal.h"

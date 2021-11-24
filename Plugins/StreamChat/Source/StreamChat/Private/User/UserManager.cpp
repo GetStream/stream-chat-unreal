@@ -31,6 +31,8 @@ const FUserRef& FUserManager::GetCurrentUser() const
 
 FUserRef FUserManager::UpsertUser(const FUser& User)
 {
+    ensure(!User.Id.IsEmpty());
+
     const FUserRef Ref = FUserRef{User.Id, AsShared()};
     if (FUser* FoundUser = Users.Find(User.Id); !FoundUser || FoundUser->UpdatedAt < User.UpdatedAt)
     {
