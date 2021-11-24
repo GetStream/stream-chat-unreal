@@ -33,10 +33,7 @@ using TCallback = TFunction<void(const T&)>;
 class STREAMCHATAPI_API FChatApi : public TSharedFromThis<FChatApi>
 {
 public:
-    static TSharedRef<FChatApi> Create(
-        const FString& InApiKey,
-        const FString& InHost,
-        const TSharedPtr<FTokenManager>&);
+    static TSharedRef<FChatApi> Create(const FString& InApiKey, const FString& InHost, const TSharedPtr<FTokenManager>&);
 
     /**
      * Get messages, members or other channel fields.
@@ -113,8 +110,7 @@ public:
      * @param Type Type of reaction to remove
      * @param Callback Called when response is received
      */
-    void DeleteReaction(const FString& MessageId, const FName& Type, TCallback<FReactionResponseDto> Callback = {})
-        const;
+    void DeleteReaction(const FString& MessageId, const FName& Type, TCallback<FReactionResponseDto> Callback = {}) const;
 
     /**
      * Send a custom or built-in event on this channel
@@ -124,18 +120,14 @@ public:
      * @param Callback Called when response is received
      */
     template <class TEvent>
-    void SendChannelEvent(
-        const FString& ChannelType,
-        const FString& ChannelId,
-        const TEvent&,
-        TCallback<FEventResponseDto> Callback = {});
+    void SendChannelEvent(const FString& ChannelType, const FString& ChannelId, const TEvent&, TCallback<FEventResponseDto> Callback = {});
 
     /**
      * Query channels with filter query
      * @param ConnectionId Websocket connection ID to interact with.
      * @param Filter The query filters to use. You can query on any of the custom fields you've defined on the Channel.
-     * You can also filter other built-in channel fields, see
-     * https://getstream.io/chat/docs/other-rest/query_channels/#channel-queryable-built-in-fields
+     * You can also filter other built-in channel fields,
+     * @see https://getstream.io/chat/docs/other-rest/query_channels/#channel-queryable-built-in-fields
      * @param SortOptions The sorting used for the channels matching the filters.
      * Sorting is based on field and direction, multiple sorting options can be provided.
      * @param MemberLimit How many members should be included for each channel (Max 100)
@@ -177,11 +169,7 @@ private:
 };
 
 template <class TEvent>
-void FChatApi::SendChannelEvent(
-    const FString& ChannelType,
-    const FString& ChannelId,
-    const TEvent& Event,
-    const TCallback<FEventResponseDto> Callback)
+void FChatApi::SendChannelEvent(const FString& ChannelType, const FString& ChannelId, const TEvent& Event, const TCallback<FEventResponseDto> Callback)
 {
     FJsonObjectWrapper JsonObjectWrapper;
     JsonObjectWrapper.JsonObject = JsonObject::UStructToJsonObject<TEvent>(Event);

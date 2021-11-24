@@ -27,8 +27,7 @@ TSharedRef<SWidget> UContextWidget::RebuildWidget()
 
     if (IsDesignTime())
     {
-        MyBox->SetContent(
-            SNew(SBox).HAlign(HAlign_Center).VAlign(VAlign_Center)[SNew(STextBlock).Text(FText::FromName(GetFName()))]);
+        MyBox->SetContent(SNew(SBox).HAlign(HAlign_Center).VAlign(VAlign_Center)[SNew(STextBlock).Text(FText::FromName(GetFName()))]);
     }
 
     // Add any existing content to the new slate box

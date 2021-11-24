@@ -37,8 +37,7 @@ void FChannelState::AddMessage(const FMessage& Message)
     // TODO Threads
     // TODO Quoting
 
-    if (const int32 Index = Messages.FindLastByPredicate([&](const FMessage& M) { return M.Id == Message.Id; });
-        Index != INDEX_NONE)
+    if (const int32 Index = Messages.FindLastByPredicate([&](const FMessage& M) { return M.Id == Message.Id; }); Index != INDEX_NONE)
     {
         Messages[Index] = Message;
     }
@@ -76,17 +75,11 @@ void FChannelState::SetMembers(FUserManager& UserManager, const TArray<FChannelM
 TArray<FMessage> FChannelState::Convert(const FChannelStateResponseFieldsDto& Dto, FUserManager& UserManager)
 {
     TArray<FMessage> NewMessages;
-    Algo::Transform(
-        Dto.Messages,
-        NewMessages,
-        [&](const FMessageDto& MessageDto) {
-            return FMessage{UserManager, MessageDto};
-        });
+    Algo::Transform(Dto.Messages, NewMessages, [&](const FMessageDto& MessageDto) { return FMessage{UserManager, MessageDto}; });
     for (FMessage& Message : NewMessages)
     {
-        Message.bIsRead = Dto.Read.ContainsByPredicate(
-            [&Message, &UserManager](const FReadDto& Read)
-            { return Read.User.Id != UserManager.GetCurrentUser()->Id && Read.LastRead > Message.CreatedAt; });
+        Message.bIsRead = Dto.Read.ContainsByPredicate([&Message, &UserManager](const FReadDto& Read)
+                                                       { return Read.User.Id != UserManager.GetCurrentUser()->Id && Read.LastRead > Message.CreatedAt; });
     }
     return NewMessages;
 }

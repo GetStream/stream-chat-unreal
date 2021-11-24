@@ -103,11 +103,7 @@ UUserWidget* UMessageHoverMenuWidget::CreateReactionsMenu()
 }
 
 #if WITH_EDITOR
-void UMessageHoverMenuWidget::ValidateChild(
-    const FName& Parent,
-    const FName& Child,
-    const UWidgetTree& BlueprintWidgetTree,
-    IWidgetCompilerLog& CompileLog)
+void UMessageHoverMenuWidget::ValidateChild(const FName& Parent, const FName& Child, const UWidgetTree& BlueprintWidgetTree, IWidgetCompilerLog& CompileLog)
 {
     if (UPanelWidget* ParentWidget = BlueprintWidgetTree.FindWidget<UPanelWidget>(Parent))
     {
@@ -116,16 +112,13 @@ void UMessageHoverMenuWidget::ValidateChild(
 
         if (ChildIdx == INDEX_NONE)
         {
-            const FText MissingChildError =
-                FText::FromString(TEXT("Bound widget \"{0}\" is expected to be a child of widget \"{1}\""));
+            const FText MissingChildError = FText::FromString(TEXT("Bound widget \"{0}\" is expected to be a child of widget \"{1}\""));
             CompileLog.Error(FText::Format(MissingChildError, FText::FromName(Child), FText::FromName(Parent)));
         }
     }
 }
 
-void UMessageHoverMenuWidget::ValidateCompiledWidgetTree(
-    const UWidgetTree& BlueprintWidgetTree,
-    IWidgetCompilerLog& CompileLog) const
+void UMessageHoverMenuWidget::ValidateCompiledWidgetTree(const UWidgetTree& BlueprintWidgetTree, IWidgetCompilerLog& CompileLog) const
 {
     {
         const FName Parent = GET_MEMBER_NAME_CHECKED(UMessageHoverMenuWidget, ReactionMenuAnchor);

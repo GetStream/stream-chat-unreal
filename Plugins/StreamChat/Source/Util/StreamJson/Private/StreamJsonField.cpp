@@ -23,10 +23,7 @@ void JsonField::Serialize<FString>(const TOptional<FString>& Field, const FStrin
 }
 
 template <>
-void JsonField::Serialize<FDateTime>(
-    const TOptional<FDateTime>& Field,
-    const FString& FieldName,
-    FJsonObject& JsonObject)
+void JsonField::Serialize<FDateTime>(const TOptional<FDateTime>& Field, const FString& FieldName, FJsonObject& JsonObject)
 {
     if (Field.IsSet())
     {
@@ -44,10 +41,7 @@ void JsonField::Deserialize<uint32>(const FJsonObject& JsonObject, const FString
 }
 
 template <>
-void JsonField::Deserialize<FDateTime>(
-    const FJsonObject& JsonObject,
-    const FString& FieldName,
-    TOptional<FDateTime>& Field)
+void JsonField::Deserialize<FDateTime>(const FJsonObject& JsonObject, const FString& FieldName, TOptional<FDateTime>& Field)
 {
     if (FString DateString; JsonObject.TryGetStringField(FieldName, DateString))
     {

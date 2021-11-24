@@ -12,8 +12,7 @@ TJsonEventSubscription<TEvent>& GetSubscription(TMap<FName, FEventSubscriptionPt
 {
     const FName& EventType = TEvent::StaticType;
     const FEventSubscriptionPtr* Existing = Subscriptions.Find(EventType);
-    const FEventSubscriptionPtr& Subscription =
-        Existing ? *Existing : Subscriptions.Emplace(EventType, MakeShared<TJsonEventSubscription<TEvent>>());
+    const FEventSubscriptionPtr& Subscription = Existing ? *Existing : Subscriptions.Emplace(EventType, MakeShared<TJsonEventSubscription<TEvent>>());
     return StaticCast<TJsonEventSubscription<TEvent>&>(*Subscription);
 }
 
@@ -34,23 +33,16 @@ FDelegateHandle SubscribeToUObjectEvent(
 }
 
 template <class TEvent, class UserClass>
-FDelegateHandle SubscribeToSpEvent(
-    TMap<FName, FEventSubscriptionPtr>& Subscriptions,
-    UserClass* InObj,
-    TEventDelegateSpMethodPtr<TEvent, UserClass> InMethod)
+FDelegateHandle SubscribeToSpEvent(TMap<FName, FEventSubscriptionPtr>& Subscriptions, UserClass* InObj, TEventDelegateSpMethodPtr<TEvent, UserClass> InMethod)
 {
     const TEventDelegate<TEvent> Delegate = TEventDelegate<TEvent>::CreateSP(InObj, InMethod);
     return Detail::SubscribeToEvent<TEvent>(Subscriptions, Delegate);
 }
 
 template <class TEvent, typename FunctorType, typename... VarTypes>
-FDelegateHandle SubscribeToLambdaEvent(
-    TMap<FName, FEventSubscriptionPtr>& Subscriptions,
-    FunctorType&& InFunctor,
-    VarTypes... Vars)
+FDelegateHandle SubscribeToLambdaEvent(TMap<FName, FEventSubscriptionPtr>& Subscriptions, FunctorType&& InFunctor, VarTypes... Vars)
 {
-    const TEventDelegate<TEvent> Delegate =
-        TEventDelegate<TEvent>::CreateLambda(Forward<FunctorType>(InFunctor), Vars...);
+    const TEventDelegate<TEvent> Delegate = TEventDelegate<TEvent>::CreateLambda(Forward<FunctorType>(InFunctor), Vars...);
     return Detail::SubscribeToEvent<TEvent>(Subscriptions, Delegate);
 }
 

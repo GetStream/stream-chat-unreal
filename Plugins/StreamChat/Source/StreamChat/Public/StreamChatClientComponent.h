@@ -45,10 +45,7 @@ public:
      * @param Callback Called when a response is received from the API
      * @return Latest info if the logged in user
      */
-    void ConnectUser(
-        const FUser& User,
-        TUniquePtr<ITokenProvider> TokenProvider,
-        TFunction<void(const FUserRef&)> Callback = {});
+    void ConnectUser(const FUser& User, TUniquePtr<ITokenProvider> TokenProvider, TFunction<void(const FUserRef&)> Callback = {});
 
     /**
      * Create a connection to the API for the given user and credentials.
@@ -75,10 +72,7 @@ public:
      * direction, and multiple sorting options can be provided.
      * @return An array of channel objects which can be used to interact with the channels
      */
-    void QueryChannels(
-        TFunction<void(const TArray<UChatChannel*>&)> Callback,
-        TOptional<FFilter> Filter = {},
-        const TArray<FSortOption>& SortOptions = {});
+    void QueryChannels(TFunction<void(const TArray<UChatChannel*>&)> Callback, TOptional<FFilter> Filter = {}, const TArray<FSortOption>& SortOptions = {});
 
     /**
     * Create a channel if it doesn't exist yet (if this user has the right permissions), get data about the channel
@@ -135,12 +129,7 @@ public:
      * @param OutUser Latest info if the logged in user
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo))
-    void ConnectUser(
-        const FUser& User,
-        const FString& Token,
-        const UObject* WorldContextObject,
-        FLatentActionInfo LatentInfo,
-        FUserRef& OutUser);
+    void ConnectUser(const FUser& User, const FString& Token, const UObject* WorldContextObject, FLatentActionInfo LatentInfo, FUserRef& OutUser);
 
     /**
      * Query the API for all channels which match the given filter. Will also automatically watch all channels.
@@ -188,11 +177,9 @@ public:
     template <class TEvent>
     using TEventDelegate = typename TEventMulticastDelegate<TEvent>::FDelegate;
     template <class TEvent, class UserClass>
-    using TEventDelegateUObjectMethodPtr =
-        typename TEventDelegate<TEvent>::template TUObjectMethodDelegate<UserClass>::FMethodPtr;
+    using TEventDelegateUObjectMethodPtr = typename TEventDelegate<TEvent>::template TUObjectMethodDelegate<UserClass>::FMethodPtr;
     template <class TEvent, class UserClass>
-    using TEventDelegateSpMethodPtr =
-        typename TEventDelegate<TEvent>::template TSPMethodDelegate<UserClass>::FMethodPtr;
+    using TEventDelegateSpMethodPtr = typename TEventDelegate<TEvent>::template TSPMethodDelegate<UserClass>::FMethodPtr;
 
     /// Subscribe to a client event using your own delegate object
     template <class TEvent>
@@ -231,9 +218,7 @@ public:
      * @return A handle which can be used to unsubscribe from the event
      */
     template <class TEvent, typename FunctorType, typename... VarTypes>
-    typename TEnableIf<TIsInvocable<FunctorType, const TEvent&, VarTypes...>::Value, FDelegateHandle>::Type On(
-        FunctorType&& Functor,
-        VarTypes... Vars);
+    typename TEnableIf<TIsInvocable<FunctorType, const TEvent&, VarTypes...>::Value, FDelegateHandle>::Type On(FunctorType&& Functor, VarTypes... Vars);
 
     template <class TEvent>
     bool Unsubscribe(FDelegateHandle) const;
@@ -267,19 +252,20 @@ typename TEnableIf<TIsDerivedFrom<UserClass, UObject>::IsDerived, FDelegateHandl
 }
 
 template <class TEvent, class UserClass>
-typename TEnableIf<!TIsDerivedFrom<UserClass, UObject>::IsDerived, FDelegateHandle>::Type
-UStreamChatClientComponent::On(UserClass* Obj, TEventDelegateSpMethodPtr<TEvent, UserClass> Method)
+typename TEnableIf<!TIsDerivedFrom<UserClass, UObject>::IsDerived, FDelegateHandle>::Type UStreamChatClientComponent::On(
+    UserClass* Obj,
+    TEventDelegateSpMethodPtr<TEvent, UserClass> Method)
 {
     const TEventDelegate<TEvent> Delegate = TEventDelegate<TEvent>::CreateSP(Obj, Method);
     return On<TEvent>(Delegate);
 }
 
 template <class TEvent, typename FunctorType, typename... VarTypes>
-typename TEnableIf<TIsInvocable<FunctorType, const TEvent&, VarTypes...>::Value, FDelegateHandle>::Type
-UStreamChatClientComponent::On(FunctorType&& Functor, VarTypes... Vars)
+typename TEnableIf<TIsInvocable<FunctorType, const TEvent&, VarTypes...>::Value, FDelegateHandle>::Type UStreamChatClientComponent::On(
+    FunctorType&& Functor,
+    VarTypes... Vars)
 {
-    const TEventDelegate<TEvent> Delegate =
-        TEventDelegate<TEvent>::CreateLambda(Forward<FunctorType>(Functor), Vars...);
+    const TEventDelegate<TEvent> Delegate = TEventDelegate<TEvent>::CreateLambda(Forward<FunctorType>(Functor), Vars...);
     return On<TEvent>(Delegate);
 }
 

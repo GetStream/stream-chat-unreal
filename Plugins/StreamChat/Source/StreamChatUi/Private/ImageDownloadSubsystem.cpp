@@ -52,8 +52,7 @@ void RenderRawData_RenderThread(FTexture2DDynamicResource* TextureResource, cons
 
 UTexture2DDynamic* TryCreateTexture(const void* Data, const int64 Size, const EImageFormat Format)
 {
-    IImageWrapperModule& ImageWrapperModule =
-        FModuleManager::LoadModuleChecked<IImageWrapperModule>(FName("ImageWrapper"));
+    IImageWrapperModule& ImageWrapperModule = FModuleManager::LoadModuleChecked<IImageWrapperModule>(FName("ImageWrapper"));
     const TSharedPtr<IImageWrapper> ImageWrapper = ImageWrapperModule.CreateImageWrapper(Format);
 
     if (!ImageWrapper.IsValid())
@@ -147,8 +146,8 @@ void UImageDownloadSubsystem::DownloadImage(const FString& Url, TFunction<void(U
     // Create the Http request and add to pending request list
     const TSharedRef<IHttpRequest, ESPMode::ThreadSafe> HttpRequest = FHttpModule::Get().CreateRequest();
 
-    const auto OnRequest = [WeakThis = TWeakObjectPtr<UImageDownloadSubsystem>(this), Url, Callback](
-                               FHttpRequestPtr, const FHttpResponsePtr HttpResponse, const bool bSucceeded)
+    const auto OnRequest =
+        [WeakThis = TWeakObjectPtr<UImageDownloadSubsystem>(this), Url, Callback](FHttpRequestPtr, const FHttpResponsePtr HttpResponse, const bool bSucceeded)
     {
         if (!bSucceeded || !HttpResponse.IsValid() || HttpResponse->GetContentLength() <= 0)
         {
@@ -156,8 +155,7 @@ void UImageDownloadSubsystem::DownloadImage(const FString& Url, TFunction<void(U
             return;
         }
 
-        UTexture2DDynamic* Texture =
-            TryCreateTexture(HttpResponse->GetContent().GetData(), HttpResponse->GetContentLength());
+        UTexture2DDynamic* Texture = TryCreateTexture(HttpResponse->GetContent().GetData(), HttpResponse->GetContentLength());
         if (!Texture)
         {
             Callback(nullptr);

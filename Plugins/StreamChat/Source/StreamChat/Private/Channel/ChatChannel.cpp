@@ -193,9 +193,7 @@ void UChatChannel::QueryAdditionalMessages(const EPaginationDirection Direction,
         MessagePagination);
 }
 
-inline void UChatChannel::SetPaginationRequestState(
-    const EHttpRequestState RequestState,
-    const EPaginationDirection Direction)
+inline void UChatChannel::SetPaginationRequestState(const EHttpRequestState RequestState, const EPaginationDirection Direction)
 {
     PaginationRequestState = RequestState;
     OnPaginatingMessages.Broadcast(Direction, RequestState);
@@ -228,9 +226,8 @@ void UChatChannel::SendReaction(const FMessage& Message, const FName& ReactionTy
 void UChatChannel::DeleteReaction(const FMessage& Message, const FReaction& Reaction)
 {
     FMessage NewMessage{Message};
-    NewMessage.Reactions.RemoveReactionWhere(
-        [&Reaction](const FReaction& R)
-        { return R.User == Reaction.User && R.Type == Reaction.Type && R.MessageId == Reaction.MessageId; });
+    NewMessage.Reactions.RemoveReactionWhere([&Reaction](const FReaction& R)
+                                             { return R.User == Reaction.User && R.Type == Reaction.Type && R.MessageId == Reaction.MessageId; });
 
     NewMessage.Reactions.UpdateOwnReactions();
 

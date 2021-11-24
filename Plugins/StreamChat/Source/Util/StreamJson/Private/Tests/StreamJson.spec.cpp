@@ -5,10 +5,7 @@
 #include "Misc/AutomationTest.h"
 #include "TestJson.h"
 
-BEGIN_DEFINE_SPEC(
-    FJsonSpec,
-    "StreamChat.StreamJson",
-    EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)
+BEGIN_DEFINE_SPEC(FJsonSpec, "StreamChat.StreamJson", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)
 END_DEFINE_SPEC(FJsonSpec)
 
 void FJsonSpec::Define()

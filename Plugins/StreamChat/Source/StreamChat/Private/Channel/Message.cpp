@@ -18,12 +18,7 @@ FMessage::FMessage(FUserManager& UserManager, const FMessageDto& Dto)
     , CreatedAt{Dto.CreatedAt}
     , UpdatedAt{Dto.UpdatedAt}
     , DeletedAt{Dto.DeletedAt}
-    , Reactions{FReactions::CollectReactions(
-          UserManager,
-          Dto.ReactionCounts,
-          Dto.ReactionScores,
-          Dto.LatestReactions,
-          Dto.OwnReactions)}
+    , Reactions{FReactions::CollectReactions(UserManager, Dto.ReactionCounts, Dto.ReactionScores, Dto.LatestReactions, Dto.OwnReactions)}
     , bIsRead(false)
 {
 }

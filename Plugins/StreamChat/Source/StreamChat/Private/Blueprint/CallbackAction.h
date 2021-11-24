@@ -12,10 +12,7 @@ class TCallbackAction final : public FPendingLatentAction
 {
 public:
     TCallbackAction(T& Result, const FLatentActionInfo& LatentInfo)
-        : ExecutionFunction(LatentInfo.ExecutionFunction)
-        , OutputLink(LatentInfo.Linkage)
-        , CallbackTarget(LatentInfo.CallbackTarget)
-        , Result(Result)
+        : ExecutionFunction(LatentInfo.ExecutionFunction), OutputLink(LatentInfo.Linkage), CallbackTarget(LatentInfo.CallbackTarget), Result(Result)
     {
     }
     TCallbackAction(const TCallbackAction&) = delete;
@@ -27,12 +24,10 @@ public:
         T& Output,
         TFunctionRef<void(TFunction<void(Arg)> Callback)> Action)
     {
-        if (UWorld* World =
-                GEngine->GetWorldFromContextObject(WorldContextObject, EGetWorldErrorMode::LogAndReturnNull))
+        if (UWorld* World = GEngine->GetWorldFromContextObject(WorldContextObject, EGetWorldErrorMode::LogAndReturnNull))
         {
             FLatentActionManager& LatentActionManager = World->GetLatentActionManager();
-            if (LatentActionManager.FindExistingAction<TCallbackAction<T, Arg>>(
-                    LatentInfo.CallbackTarget, LatentInfo.UUID))
+            if (LatentActionManager.FindExistingAction<TCallbackAction<T, Arg>>(LatentInfo.CallbackTarget, LatentInfo.UUID))
             {
                 return;
             }

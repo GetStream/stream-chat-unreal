@@ -66,8 +66,7 @@ int32 UChannelStatusWidget::NativePaint(
 {
     if (RecentMessageTextBlock)
     {
-        if (const float AvailableSpace = RecentMessageTextBlock->GetTickSpaceGeometry().GetLocalSize().X;
-            AvailableSpace != RecentMessageAvailableSpace)
+        if (const float AvailableSpace = RecentMessageTextBlock->GetTickSpaceGeometry().GetLocalSize().X; AvailableSpace != RecentMessageAvailableSpace)
         {
             RecentMessageAvailableSpace = AvailableSpace;
             UpdateRecentMessageText();
@@ -76,16 +75,14 @@ int32 UChannelStatusWidget::NativePaint(
 
     if (TitleTextBlock)
     {
-        if (const float AvailableSpace = TitleTextBlock->GetTickSpaceGeometry().GetLocalSize().X;
-            AvailableSpace != ChannelTitleAvailableSpace)
+        if (const float AvailableSpace = TitleTextBlock->GetTickSpaceGeometry().GetLocalSize().X; AvailableSpace != ChannelTitleAvailableSpace)
         {
             ChannelTitleAvailableSpace = AvailableSpace;
             UpdateChannelTitleText();
         }
     }
 
-    return Super::NativePaint(
-        Args, AllottedGeometry, MyCullingRect, OutDrawElements, LayerId, InWidgetStyle, bParentEnabled);
+    return Super::NativePaint(Args, AllottedGeometry, MyCullingRect, OutDrawElements, LayerId, InWidgetStyle, bParentEnabled);
 }
 
 void UChannelStatusWidget::UpdateDynamic() const
@@ -109,8 +106,7 @@ void UChannelStatusWidget::UpdateChannelTitleText() const
     if (TitleTextBlock)
     {
         const FString Title = UUiBlueprintLibrary::GetChannelTitle(Channel);
-        const FString Shortened =
-            WidgetUtil::TruncateWithEllipsis(Title, ChannelTitleAvailableSpace, TitleTextBlock->Font);
+        const FString Shortened = WidgetUtil::TruncateWithEllipsis(Title, ChannelTitleAvailableSpace, TitleTextBlock->Font);
         const FText Text = FText::FromString(Shortened);
         TitleTextBlock->SetText(Text);
     }
@@ -120,8 +116,8 @@ void UChannelStatusWidget::UpdateRecentMessageText() const
 {
     if (RecentMessageTextBlock)
     {
-        const FString Shortened = WidgetUtil::TruncateWithEllipsis(
-            Channel->State.GetMessages().Last().Text, RecentMessageAvailableSpace, RecentMessageTextBlock->Font);
+        const FString Shortened =
+            WidgetUtil::TruncateWithEllipsis(Channel->State.GetMessages().Last().Text, RecentMessageAvailableSpace, RecentMessageTextBlock->Font);
         const FText Text = FText::FromString(Shortened);
         RecentMessageTextBlock->SetText(Text);
     }

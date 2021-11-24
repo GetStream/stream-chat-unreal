@@ -149,17 +149,15 @@ void UMessageComposerWidget::UpdateEditMessageAppearance(const ESendButtonIconAp
         SendMessageIcon->SetBrushFromTexture(Texture, true);
         if (UButtonSlot* ButtonSlot = Cast<UButtonSlot>(SendMessageIcon->Slot))
         {
-            const FMargin IconPadding =
-                Appearance == ESendButtonIconAppearance::Send ? IconPaddingSend : IconPaddingConfirm;
+            const FMargin IconPadding = Appearance == ESendButtonIconAppearance::Send ? IconPaddingSend : IconPaddingConfirm;
             ButtonSlot->SetPadding(IconPadding);
         }
     }
 
     if (CancelEditingHeaderPanel)
     {
-        const ESlateVisibility PanelVisibility = Appearance == ESendButtonIconAppearance::Send
-                                                     ? ESlateVisibility::Collapsed
-                                                     : ESlateVisibility::SelfHitTestInvisible;
+        const ESlateVisibility PanelVisibility =
+            Appearance == ESendButtonIconAppearance::Send ? ESlateVisibility::Collapsed : ESlateVisibility::SelfHitTestInvisible;
         CancelEditingHeaderPanel->SetVisibility(PanelVisibility);
     }
 }

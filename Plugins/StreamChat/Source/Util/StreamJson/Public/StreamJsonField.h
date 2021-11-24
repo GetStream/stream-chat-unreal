@@ -29,8 +29,7 @@ void STREAMJSON_API Serialize(const TOptional<FDateTime>& Field, const FString& 
 template <class T>
 void Deserialize(const FJsonObject& JsonObject, const FString& FieldName, TOptional<T>& Field)
 {
-    if (const TSharedPtr<FJsonObject>* InnerJsonObject;
-        JsonObjectSerialization::TryGetObjectField(JsonObject, FieldName, InnerJsonObject))
+    if (const TSharedPtr<FJsonObject>* InnerJsonObject; JsonObjectSerialization::TryGetObjectField(JsonObject, FieldName, InnerJsonObject))
     {
         if (T OutStruct; JsonObjectDeserialization::JsonObjectToUStruct(JsonObject, OutStruct))
         {
@@ -39,9 +38,7 @@ void Deserialize(const FJsonObject& JsonObject, const FString& FieldName, TOptio
     }
 }
 template <>
-void STREAMJSON_API
-Deserialize<uint32>(const FJsonObject& JsonObject, const FString& FieldName, TOptional<uint32>& Field);
+void STREAMJSON_API Deserialize<uint32>(const FJsonObject& JsonObject, const FString& FieldName, TOptional<uint32>& Field);
 template <>
-void STREAMJSON_API
-Deserialize<FDateTime>(const FJsonObject& JsonObject, const FString& FieldName, TOptional<FDateTime>& Field);
+void STREAMJSON_API Deserialize<FDateTime>(const FJsonObject& JsonObject, const FString& FieldName, TOptional<FDateTime>& Field);
 }    // namespace JsonField

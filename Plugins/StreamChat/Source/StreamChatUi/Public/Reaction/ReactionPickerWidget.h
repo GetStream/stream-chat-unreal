@@ -26,8 +26,7 @@ protected:
     UPanelWidget* ButtonsPanel;
 
     UPROPERTY(EditAnywhere, NoClear, Category = Defaults)
-    TSubclassOf<UReactionPickerButtonWidget> ReactionPickerButtonWidgetClass =
-        UReactionPickerButtonWidget::StaticClass();
+    TSubclassOf<UReactionPickerButtonWidget> ReactionPickerButtonWidgetClass = UReactionPickerButtonWidget::StaticClass();
 
 private:
     virtual void OnSetup() override;

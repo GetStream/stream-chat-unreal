@@ -30,8 +30,7 @@ UChatChannel* UChannelContextWidget::GetChannel(const UWidget* Widget)
 
     if (const UChannelContextWidget* ContextWidget = Get(Widget))
     {
-        if (ensureAlwaysMsgf(
-                ContextWidget->Channel, TEXT("ChannelContextWidget needs to be initialized with a ChatChannel")))
+        if (ensureAlwaysMsgf(ContextWidget->Channel, TEXT("ChannelContextWidget needs to be initialized with a ChatChannel")))
         {
             return ContextWidget->Channel;
         }

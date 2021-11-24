@@ -9,8 +9,7 @@ class FJsonObject;
 namespace ExtraFields
 {
 template <typename T>
-auto InvokeDeserializeExtraImpl(const FJsonObject& JsonObject, T& Self, T*)
-    -> decltype(T::DeserializeExtra(JsonObject, Self), void())
+auto InvokeDeserializeExtraImpl(const FJsonObject& JsonObject, T& Self, T*) -> decltype(T::DeserializeExtra(JsonObject, Self), void())
 {
     return T::DeserializeExtra(JsonObject, Self);
 }
@@ -27,8 +26,7 @@ void InvokeDeserializeExtra(const FJsonObject& JsonObject, T& Self)
 }
 
 template <typename T>
-auto InvokeSerializeExtraImpl(const T& Self, FJsonObject& JsonObject, T*)
-    -> decltype(T::SerializeExtra(Self, JsonObject), void())
+auto InvokeSerializeExtraImpl(const T& Self, FJsonObject& JsonObject, T*) -> decltype(T::SerializeExtra(Self, JsonObject), void())
 {
     return T::SerializeExtra(Self, JsonObject);
 }

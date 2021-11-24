@@ -36,12 +36,9 @@ STREAMJSON_API TSharedRef<FJsonObject> UStructToJsonObject(
  * @return A newly created JSON Object
  */
 template <class T>
-TSharedRef<FJsonObject> UStructToJsonObject(
-    const T& Struct,
-    ENamingConvention NamingConvention = ENamingConvention::SnakeCase)
+TSharedRef<FJsonObject> UStructToJsonObject(const T& Struct, ENamingConvention NamingConvention = ENamingConvention::SnakeCase)
 {
-    const TSharedRef<FJsonObject> JsonObject =
-        JsonObject::UStructToJsonObject(T::StaticStruct(), &Struct, NamingConvention);
+    const TSharedRef<FJsonObject> JsonObject = JsonObject::UStructToJsonObject(T::StaticStruct(), &Struct, NamingConvention);
     ExtraFields::InvokeSerializeExtra<T>(Struct, *JsonObject);
     return JsonObject;
 }
@@ -52,9 +49,7 @@ FString STREAMJSON_API JsonObjectToString(const TSharedRef<FJsonObject>& JsonObj
 namespace Json
 {
 template <class T>
-typename TEnableIf<TIsClass<T>::Value, FString>::Type Serialize(
-    const T& Struct,
-    const ENamingConvention NamingConvention = ENamingConvention::SnakeCase)
+typename TEnableIf<TIsClass<T>::Value, FString>::Type Serialize(const T& Struct, const ENamingConvention NamingConvention = ENamingConvention::SnakeCase)
 {
     const TSharedRef<FJsonObject> JsonObject = JsonObject::UStructToJsonObject<T>(Struct, NamingConvention);
 
@@ -62,9 +57,7 @@ typename TEnableIf<TIsClass<T>::Value, FString>::Type Serialize(
 }
 
 template <class T>
-typename TEnableIf<TIsEnumClass<T>::Value, FString>::Type Serialize(
-    const T& Enum,
-    const ENamingConvention NamingConvention = ENamingConvention::SnakeCase)
+typename TEnableIf<TIsEnumClass<T>::Value, FString>::Type Serialize(const T& Enum, const ENamingConvention NamingConvention = ENamingConvention::SnakeCase)
 {
     return JsonObjectSerialization::UEnumToString(StaticEnum<T>(), static_cast<int64>(Enum), NamingConvention);
 }

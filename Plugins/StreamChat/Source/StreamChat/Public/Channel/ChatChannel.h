@@ -128,9 +128,7 @@ public:
      * @return A handle which can be used to unsubscribe from the event
      */
     template <class TEvent, typename FunctorType, typename... VarTypes>
-    typename TEnableIf<TIsInvocable<FunctorType, const TEvent&, VarTypes...>::Value, FDelegateHandle>::Type On(
-        FunctorType&& Functor,
-        VarTypes... Vars);
+    typename TEnableIf<TIsInvocable<FunctorType, const TEvent&, VarTypes...>::Value, FDelegateHandle>::Type On(FunctorType&& Functor, VarTypes... Vars);
 
     /**
      * @brief Unsubscribe from a previously subscribed channel event
@@ -320,11 +318,11 @@ typename TEnableIf<!TIsDerivedFrom<UserClass, UObject>::IsDerived, FDelegateHand
 }
 
 template <class TEvent, typename FunctorType, typename... VarTypes>
-typename TEnableIf<TIsInvocable<FunctorType, const TEvent&, VarTypes...>::Value, FDelegateHandle>::Type
-UChatChannel::On(FunctorType&& Functor, VarTypes... Vars)
+typename TEnableIf<TIsInvocable<FunctorType, const TEvent&, VarTypes...>::Value, FDelegateHandle>::Type UChatChannel::On(
+    FunctorType&& Functor,
+    VarTypes... Vars)
 {
-    const TEventDelegate<TEvent> Delegate =
-        TEventDelegate<TEvent>::CreateLambda(Forward<FunctorType>(Functor), Vars...);
+    const TEventDelegate<TEvent> Delegate = TEventDelegate<TEvent>::CreateLambda(Forward<FunctorType>(Functor), Vars...);
     return On<TEvent>(Delegate);
 }
 

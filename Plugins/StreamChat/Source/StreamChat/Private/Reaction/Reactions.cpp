@@ -99,8 +99,7 @@ void FReactions::UpdateOwnReactions()
 {
     for (auto& [Type, Group] : ReactionGroups)
     {
-        if (const FReaction* OwnReaction =
-                Group.LatestReactions.FindByPredicate([](const FReaction& R) { return R.User.IsCurrent(); }))
+        if (const FReaction* OwnReaction = Group.LatestReactions.FindByPredicate([](const FReaction& R) { return R.User.IsCurrent(); }))
         {
             Group.OwnReaction.Emplace(*OwnReaction);
         }

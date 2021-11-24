@@ -16,10 +16,7 @@
 #include "Response/Reaction/ReactionResponseDto.h"
 #include "TokenManager.h"
 
-TSharedRef<FChatApi> FChatApi::Create(
-    const FString& InApiKey,
-    const FString& InHost,
-    const TSharedPtr<FTokenManager>& InTokenManager)
+TSharedRef<FChatApi> FChatApi::Create(const FString& InApiKey, const FString& InHost, const TSharedPtr<FTokenManager>& InTokenManager)
 {
     TSharedRef<FChatApi> Api = MakeShareable(new FChatApi{InApiKey, InHost, InTokenManager});
     Api->Client->OnRequestDelegate.AddSP(Api, &FChatApi::OnRequest);
@@ -28,11 +25,7 @@ TSharedRef<FChatApi> FChatApi::Create(
 }
 
 FChatApi::FChatApi(const FString& InApiKey, const FString& InHost, const TSharedPtr<FTokenManager>& InTokenManager)
-    : TokenManager(InTokenManager)
-    , ApiKey(InApiKey)
-    , Client(MakeShared<FHttpClient>())
-    , Scheme(TEXT("https"))
-    , Host(InHost)
+    : TokenManager(InTokenManager), ApiKey(InApiKey), Client(MakeShared<FHttpClient>()), Scheme(TEXT("https")), Host(InHost)
 {
 }
 
@@ -47,8 +40,7 @@ void FChatApi::QueryChannel(
     const TOptional<FPaginationParamsRequestDto> MemberPagination,
     const TOptional<FPaginationParamsRequestDto> WatcherPagination) const
 {
-    const FString ChannelPath =
-        !ChannelId.IsSet() ? ChannelType : FString::Printf(TEXT("%s/%s"), *ChannelType, *ChannelId.GetValue());
+    const FString ChannelPath = !ChannelId.IsSet() ? ChannelType : FString::Printf(TEXT("%s/%s"), *ChannelType, *ChannelId.GetValue());
     const FString Path = FString::Printf(TEXT("channels/%s/query"), *ChannelPath);
     const FString Url = BuildUrl(Path);
     const FChannelGetOrCreateRequestDto Body{
@@ -77,8 +69,7 @@ void FChatApi::SendNewMessage(
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
-void FChatApi::UpdateMessage(const FMessageRequestDto& MessageRequest, const TCallback<FMessageResponseDto> Callback)
-    const
+void FChatApi::UpdateMessage(const FMessageRequestDto& MessageRequest, const TCallback<FMessageResponseDto> Callback) const
 {
     const FString Path = FString::Printf(TEXT("messages/%s"), *MessageRequest.Id);
     const FString Url = BuildUrl(Path);
@@ -111,10 +102,7 @@ void FChatApi::SendReaction(
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
-void FChatApi::DeleteReaction(
-    const FString& MessageId,
-    const FName& Type,
-    const TCallback<FReactionResponseDto> Callback) const
+void FChatApi::DeleteReaction(const FString& MessageId, const FName& Type, const TCallback<FReactionResponseDto> Callback) const
 {
     const FString Path = FString::Printf(TEXT("messages/%s/reaction/%s"), *MessageId, *Type.ToString());
     const FString Url = BuildUrl(Path);

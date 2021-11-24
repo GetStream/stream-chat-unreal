@@ -32,8 +32,8 @@ void UContextMenuWidget::OnSetup()
     // Spawn buttons
     ButtonsPanel->ClearChildren();
 
-    TArray<UContextMenuAction*> DisplayedActions = Actions.FilterByPredicate(
-        [&](const UContextMenuAction* Action) { return Action->ShouldDisplay(Side, Message); });
+    TArray<UContextMenuAction*> DisplayedActions =
+        Actions.FilterByPredicate([&](const UContextMenuAction* Action) { return Action->ShouldDisplay(Side, Message); });
 
     const int32 LastIndex = DisplayedActions.Num() - 1;
     for (int32 Index = 0; Index < DisplayedActions.Num(); ++Index)

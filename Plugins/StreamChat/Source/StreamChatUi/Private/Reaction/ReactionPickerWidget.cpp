@@ -24,11 +24,9 @@ void UReactionPickerWidget::OnSetup()
         ButtonsPanel->ClearChildren();
         for (const FName& ReactionType : ReactionTypes)
         {
-            UReactionPickerButtonWidget* Widget =
-                CreateWidget<UReactionPickerButtonWidget>(this, ReactionPickerButtonWidgetClass);
+            UReactionPickerButtonWidget* Widget = CreateWidget<UReactionPickerButtonWidget>(this, ReactionPickerButtonWidgetClass);
             Widget->Setup(ReactionType, Message.User.IsCurrent() ? EMessageSide::Me : EMessageSide::You);
-            Widget->OnReactionPickerButtonClickedNative.AddUObject(
-                this, &UReactionPickerWidget::OnReactionButtonClicked);
+            Widget->OnReactionPickerButtonClickedNative.AddUObject(this, &UReactionPickerWidget::OnReactionButtonClicked);
             ButtonsPanel->AddChild(Widget);
         }
     }
@@ -38,8 +36,7 @@ void UReactionPickerWidget::OnReactionButtonClicked(const FName& ReactionType)
 {
     if (UChatChannel* Channel = UChannelContextWidget::GetChannel(this))
     {
-        if (const TOptional<FReaction> OwnReaction = Message.Reactions.GetOwnReaction(ReactionType);
-            OwnReaction.IsSet())
+        if (const TOptional<FReaction> OwnReaction = Message.Reactions.GetOwnReaction(ReactionType); OwnReaction.IsSet())
         {
             Channel->DeleteReaction(Message, OwnReaction.GetValue());
         }

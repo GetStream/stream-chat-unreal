@@ -37,8 +37,7 @@ FText UOnlineStatusSubheaderWidget::GetLabel() const
 {
     if (Channel->State.Members.Num() <= 2)
     {
-        if (const FMember* Member =
-                Channel->State.Members.FindByPredicate([this](const FMember& M) { return !M.User.IsCurrent(); }))
+        if (const FMember* Member = Channel->State.Members.FindByPredicate([this](const FMember& M) { return !M.User.IsCurrent(); }))
         {
             return GetSingleUserLabel(Member->User);
         }

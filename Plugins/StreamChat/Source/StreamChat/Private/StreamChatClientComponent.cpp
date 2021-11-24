@@ -35,11 +35,7 @@ void UStreamChatClientComponent::BeginPlay()
 void UStreamChatClientComponent::ConnectUserInternal(const FUser& User, const TFunction<void(const FUserRef&)> Callback)
 {
     UserManager = FUserManager::Create(User);
-    Socket = IChatSocket::Create(
-        TokenManager.ToSharedRef(),
-        ApiKey,
-        GetDefault<UStreamChatSettings>()->Host,
-        Util::Convert<FUserObjectDto>(User));
+    Socket = IChatSocket::Create(TokenManager.ToSharedRef(), ApiKey, GetDefault<UStreamChatSettings>()->Host, Util::Convert<FUserObjectDto>(User));
     Socket->Connect(
         [WeakThis = TWeakObjectPtr<UStreamChatClientComponent>(this), Callback](const FOwnUserDto& OwnUser)
         {
@@ -83,8 +79,7 @@ void UStreamChatClientComponent::ConnectUser(
     const FLatentActionInfo LatentInfo,
     FUserRef& OutUser)
 {
-    TCallbackAction<FUserRef>::CreateLatentAction(
-        WorldContextObject, LatentInfo, OutUser, [&](auto Callback) { ConnectUser(User, Token, Callback); });
+    TCallbackAction<FUserRef>::CreateLatentAction(WorldContextObject, LatentInfo, OutUser, [&](auto Callback) { ConnectUser(User, Token, Callback); });
 }
 
 void UStreamChatClientComponent::QueryChannels(
@@ -96,10 +91,7 @@ void UStreamChatClientComponent::QueryChannels(
 {
     const TOptional<FFilter> OptionalFilter = Filter.IsValid() ? Filter : TOptional<FFilter>{};
     TCallbackAction<TArray<UChatChannel*>>::CreateLatentAction(
-        WorldContextObject,
-        LatentInfo,
-        OutChannels,
-        [&](auto Callback) { QueryChannels(Callback, OptionalFilter, SortOptions); });
+        WorldContextObject, LatentInfo, OutChannels, [&](auto Callback) { QueryChannels(Callback, OptionalFilter, SortOptions); });
 }
 
 void UStreamChatClientComponent::WatchChannel(
@@ -113,25 +105,16 @@ void UStreamChatClientComponent::WatchChannel(
     const TOptional<FString> OptionalId = Id.IsEmpty() ? TOptional<FString>{} : Id;
     const TOptional<TArray<FString>> OptionalMembers = Members.Num() == 0 ? TOptional<TArray<FString>>{} : Members;
     TCallbackAction<UChatChannel*, UChatChannel*>::CreateLatentAction(
-        WorldContextObject,
-        LatentInfo,
-        OutChannel,
-        [&](auto Callback) { WatchChannel(Callback, Type, OptionalId, OptionalMembers); });
+        WorldContextObject, LatentInfo, OutChannel, [&](auto Callback) { WatchChannel(Callback, Type, OptionalId, OptionalMembers); });
 }
 
-void UStreamChatClientComponent::ConnectUser(
-    const FUser& User,
-    TUniquePtr<ITokenProvider> TokenProvider,
-    const TFunction<void(const FUserRef&)> Callback)
+void UStreamChatClientComponent::ConnectUser(const FUser& User, TUniquePtr<ITokenProvider> TokenProvider, const TFunction<void(const FUserRef&)> Callback)
 {
     TokenManager->SetTokenProvider(MoveTemp(TokenProvider), User.Id);
     ConnectUserInternal(User, Callback);
 }
 
-void UStreamChatClientComponent::ConnectUser(
-    const FUser& User,
-    const FString& Token,
-    const TFunction<void(const FUserRef&)> Callback)
+void UStreamChatClientComponent::ConnectUser(const FUser& User, const FString& Token, const TFunction<void(const FUserRef&)> Callback)
 {
     TokenManager->SetTokenProvider(MakeUnique<FConstantTokenProvider>(Token), User.Id);
     ConnectUserInternal(User, Callback);
@@ -168,8 +151,7 @@ void UStreamChatClientComponent::QueryChannels(
             Algo::Transform(
                 Response.Channels,
                 NewChannels,
-                [WeakThis](const FChannelStateResponseFieldsDto& ResponseChannel)
-                { return WeakThis->CreateChannelObject(ResponseChannel); });
+                [WeakThis](const FChannelStateResponseFieldsDto& ResponseChannel) { return WeakThis->CreateChannelObject(ResponseChannel); });
             WeakThis->Channels = NewChannels;
 
             if (Callback)

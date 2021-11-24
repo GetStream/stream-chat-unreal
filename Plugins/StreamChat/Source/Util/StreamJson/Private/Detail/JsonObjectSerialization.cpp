@@ -11,17 +11,14 @@
 
 namespace
 {
-TSharedPtr<FJsonValue> ApplyNamingConventionToValue(
-    FProperty* Property,
-    const void* Value,
-    const ENamingConvention NamingConvention)
+TSharedPtr<FJsonValue> ApplyNamingConventionToValue(FProperty* Property, const void* Value, const ENamingConvention NamingConvention)
 {
     if (const FEnumProperty* EnumProperty = CastField<FEnumProperty>(Property))
     {
         // export enums as strings
         const UEnum* EnumDef = EnumProperty->GetEnum();
-        const FString StringValue = JsonObjectSerialization::UEnumToString(
-            EnumDef, EnumProperty->GetUnderlyingProperty()->GetSignedIntPropertyValue(Value), NamingConvention);
+        const FString StringValue =
+            JsonObjectSerialization::UEnumToString(EnumDef, EnumProperty->GetUnderlyingProperty()->GetSignedIntPropertyValue(Value), NamingConvention);
 
         return MakeShared<FJsonValueString>(StringValue);
     }
@@ -37,8 +34,7 @@ TSharedPtr<FJsonValue> ApplyNamingConventionToValue(
         // Intentionally exclude the JSON Object wrapper, which specifically needs to export JSON in an object
         // representation instead of a string
         if (UScriptStruct::ICppStructOps* TheCppStructOps = StructProperty->Struct->GetCppStructOps();
-            StructProperty->Struct != FJsonObjectWrapper::StaticStruct() && TheCppStructOps &&
-            TheCppStructOps->HasExportTextItem())
+            StructProperty->Struct != FJsonObjectWrapper::StaticStruct() && TheCppStructOps && TheCppStructOps->HasExportTextItem())
         {
             FString OutValueStr;
             TheCppStructOps->ExportTextItem(OutValueStr, Value, nullptr, nullptr, PPF_None, nullptr);
@@ -55,8 +51,7 @@ TSharedPtr<FJsonValue> ApplyNamingConventionToValue(
 template <class CharType, class PrintPolicy>
 bool UStructToJsonObjectStringInternal(const TSharedRef<FJsonObject>& JsonObject, FString& OutJsonString)
 {
-    TSharedRef<TJsonWriter<CharType, PrintPolicy> > JsonWriter =
-        TJsonWriterFactory<CharType, PrintPolicy>::Create(&OutJsonString);
+    TSharedRef<TJsonWriter<CharType, PrintPolicy> > JsonWriter = TJsonWriterFactory<CharType, PrintPolicy>::Create(&OutJsonString);
     const bool bSuccess = FJsonSerializer::Serialize(JsonObject, JsonWriter);
     JsonWriter->Close();
     return bSuccess;
@@ -73,8 +68,7 @@ bool JsonObjectSerialization::UStructToJsonAttributes(
 
     if (StructDefinition == FJsonObjectWrapper::StaticStruct())
     {
-        if (const FJsonObjectWrapper* ProxyObject = static_cast<const FJsonObjectWrapper*>(Struct);
-            ProxyObject->JsonObject.IsValid())
+        if (const FJsonObjectWrapper* ProxyObject = static_cast<const FJsonObjectWrapper*>(Struct); ProxyObject->JsonObject.IsValid())
         {
             OutJsonAttributes = ProxyObject->JsonObject->Values;
         }
@@ -105,17 +99,11 @@ bool JsonObjectSerialization::UStructToJsonAttributes(
         // convert the property to a FJsonValue
         FJsonObjectConverter::CustomExportCallback Callback =
             FJsonObjectConverter::CustomExportCallback::CreateStatic(&ApplyNamingConventionToValue, NamingConvention);
-        TSharedPtr<FJsonValue> JsonValue =
-            FJsonObjectConverter::UPropertyToJsonValue(Property, Value, 0, SkipFlags, &Callback);
+        TSharedPtr<FJsonValue> JsonValue = FJsonObjectConverter::UPropertyToJsonValue(Property, Value, 0, SkipFlags, &Callback);
         if (!JsonValue.IsValid())
         {
             const FFieldClass* PropClass = Property->GetClass();
-            UE_LOG(
-                LogJson,
-                Error,
-                TEXT("UStructToJsonObject - Unhandled property type '%s': %s"),
-                *PropClass->GetName(),
-                *Property->GetPathName());
+            UE_LOG(LogJson, Error, TEXT("UStructToJsonObject - Unhandled property type '%s': %s"), *PropClass->GetName(), *Property->GetPathName());
             return false;
         }
 
@@ -126,10 +114,7 @@ bool JsonObjectSerialization::UStructToJsonAttributes(
     return true;
 }
 
-FString JsonObjectSerialization::UEnumToString(
-    const UEnum* EnumDefinition,
-    const int64 Value,
-    const ENamingConvention NamingConvention)
+FString JsonObjectSerialization::UEnumToString(const UEnum* EnumDefinition, const int64 Value, const ENamingConvention NamingConvention)
 {
     FString StringValue = EnumDefinition->GetNameStringByValue(Value);
     if (NamingConvention == ENamingConvention::SnakeCase)
@@ -139,18 +124,12 @@ FString JsonObjectSerialization::UEnumToString(
     return StringValue;
 }
 
-void JsonObjectSerialization::SetObjectField(
-    FJsonObject& TargetJsonObject,
-    const FString& FieldName,
-    const TSharedPtr<FJsonObject>& FieldJsonObject)
+void JsonObjectSerialization::SetObjectField(FJsonObject& TargetJsonObject, const FString& FieldName, const TSharedPtr<FJsonObject>& FieldJsonObject)
 {
     TargetJsonObject.SetObjectField(FieldName, FieldJsonObject);
 }
 
-bool JsonObjectSerialization::TryGetObjectField(
-    const FJsonObject& TargetJsonObject,
-    const FString& FieldName,
-    const TSharedPtr<FJsonObject>*& FieldJsonObject)
+bool JsonObjectSerialization::TryGetObjectField(const FJsonObject& TargetJsonObject, const FString& FieldName, const TSharedPtr<FJsonObject>*& FieldJsonObject)
 {
     return TargetJsonObject.TryGetObjectField(FieldName, FieldJsonObject);
 }

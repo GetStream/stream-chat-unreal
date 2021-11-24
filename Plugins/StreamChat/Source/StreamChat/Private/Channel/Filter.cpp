@@ -29,13 +29,11 @@ const TMap<EFilterOperator, FString> AsString = {
 
 }    // namespace
 
-FFilter::FFilter(const EFilterOperator Operator, const TArray<FFilter>& Filters)
-    : Operator{Operator}, ChildFilters{Filters}
+FFilter::FFilter(const EFilterOperator Operator, const TArray<FFilter>& Filters) : Operator{Operator}, ChildFilters{Filters}
 {
 }
 
-FFilter::FFilter(const EFilterOperator Operator, const FName& Key, const TSharedPtr<FJsonValue>& Value)
-    : Operator{Operator}, Key{Key}, Value{Value}
+FFilter::FFilter(const EFilterOperator Operator, const FName& Key, const TSharedPtr<FJsonValue>& Value) : Operator{Operator}, Key{Key}, Value{Value}
 {
 }
 
