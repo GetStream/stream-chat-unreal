@@ -8,7 +8,9 @@
 #include "ConnectionRecoveredEvent.generated.h"
 
 /**
- * When the state of the connection changed
+ * @brief Sent when the connection is recovered
+ * @note This event is not emitted from the API, but is generated locally
+ * @ingroup StreamChatWebSocket
  */
 USTRUCT()
 struct FConnectionRecoveredEvent : public FLocalEvent

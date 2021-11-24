@@ -13,7 +13,7 @@
 #include "MessageWidget.generated.h"
 
 /**
- * Encapsulates a text bubble, reactions and the mouse hover menu for a message
+ * @brief Encapsulates a text bubble, reactions and the mouse hover menu for a message
  */
 UCLASS()
 class STREAMCHATUI_API UMessageWidget final : public UStreamUserWidget

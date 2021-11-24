@@ -16,6 +16,7 @@
 #include "BottomReactionWidget.generated.h"
 
 /**
+ * @brief A numbered reaction shown below a message (similar to Slack)
  * @see https://www.figma.com/file/oeHiSMDoutuVbJ9WiVyhcG/Chat-Design-Kit-1.5-Android---Work-in-Progress?node-id=17089%3A113943
  */
 UCLASS()

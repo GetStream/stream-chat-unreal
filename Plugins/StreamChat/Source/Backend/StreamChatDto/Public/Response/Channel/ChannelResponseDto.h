@@ -10,8 +10,8 @@
 #include "ChannelResponseDto.generated.h"
 
 /**
- * Represents channel in chat
  * @brief #/components/schemas/ChannelResponse
+ * Represents channel in chat
  * @ingroup StreamChatDto
  */
 USTRUCT()

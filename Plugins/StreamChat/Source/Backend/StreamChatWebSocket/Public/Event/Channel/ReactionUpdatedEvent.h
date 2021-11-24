@@ -8,8 +8,9 @@
 #include "ReactionUpdatedEvent.generated.h"
 
 /**
- * @brief #/components/schemas/ReactionUpdatedEvent
- * @ingroup StreamChatDto
+ * @brief A reaction was updated
+ * @see https://getstream.io/chat/docs/events/#reaction.updated
+ * @ingroup StreamChatWebSocket
  */
 USTRUCT()
 struct FReactionUpdatedEvent : public FReactionEvent

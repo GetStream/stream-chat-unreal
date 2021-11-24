@@ -39,7 +39,8 @@ struct STREAMCHAT_API FReactionGroup
 };
 
 /**
- * Blueprint functions for the ReactionGroup struct
+ * @brief Blueprint functions for the ReactionGroup struct
+ * @ingroup StreamChat
  */
 UCLASS()
 class STREAMCHAT_API UReactionGroupBlueprintLibrary final : public UBlueprintFunctionLibrary

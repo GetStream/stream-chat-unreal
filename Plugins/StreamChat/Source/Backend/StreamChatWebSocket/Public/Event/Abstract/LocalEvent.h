@@ -7,7 +7,8 @@
 #include "LocalEvent.generated.h"
 
 /**
- * Event not originating from WebSocket
+ * @brief Event not originating from the API
+ * @ingroup StreamChatWebSocket
  */
 USTRUCT()
 struct FLocalEvent

@@ -10,7 +10,7 @@ struct FOwnUserDto;
 struct FUserObjectDto;
 
 /**
- * A Stream Chat user
+ * @brief A Stream Chat user
  */
 USTRUCT(BlueprintType)
 struct STREAMCHAT_API FUser

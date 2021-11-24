@@ -8,8 +8,9 @@
 #include "ChannelEvent.generated.h"
 
 /**
- * Represents an event that happened in a Stream channel
+ * @brief Represents an event that happened in a Stream channel
  * @see https://getstream.io/chat/docs/other-rest/event_object/#event-object
+ * @ingroup StreamChatWebSocket
  */
 USTRUCT()
 struct FChannelEvent : public FChatEvent

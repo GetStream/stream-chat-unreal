@@ -9,14 +9,13 @@
 #include "UObject/ReflectedTypeAccessors.h"
 
 /**
- * NOTES:
- * You can use the Transient UPROPERTY-specifier to skip Serialization while still performing Deserialization.
+ * @brief Conversion to and from dynamic JSON objects
+ * @ingroup StreamChatJson
  */
-
 namespace JsonObject
 {
 /**
- * Converts from a UStruct to a Json Object
+ * @brief Converts from a UStruct to a Json Object
  *
  * @param StructDefinition UStruct definition that is looked over for properties
  * @param Struct The UStruct instance to copy out of
@@ -29,7 +28,7 @@ STREAMJSON_API TSharedRef<FJsonObject> UStructToJsonObject(
     ENamingConvention NamingConvention = ENamingConvention::SnakeCase);
 
 /**
- * Converts from a UStruct to a Json Object
+ * @brief Converts from a UStruct to a Json Object
  *
  * @param Struct The UStruct instance to copy out of
  * @param NamingConvention JSON keys and values will be formatted according to this naming convention

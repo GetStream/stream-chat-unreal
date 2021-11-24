@@ -10,7 +10,8 @@
 
 /**
  * @brief #/components/schemas/UserPresenceChangedEvent
- * @ingroup StreamChatDto
+ * @see https://getstream.io/chat/docs/events/#user.presence.changed
+ * @ingroup StreamChatWebSocket
  */
 USTRUCT()
 struct FUserPresenceChangedEvent : public FChatEvent

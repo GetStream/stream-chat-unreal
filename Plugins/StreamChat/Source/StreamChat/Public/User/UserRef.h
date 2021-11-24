@@ -12,6 +12,8 @@ struct FUser;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUserUpdatedMultiDelegate);
 
 /**
+ * @brief A reference to a unique User
+ *
  * All users are stored once in a central location (UserManager).
  * This struct can be copied around freely and then dereferenced when the real user information is required.
  * This struct also provides access to a delegate which can be used to be informed of underlying user updates.

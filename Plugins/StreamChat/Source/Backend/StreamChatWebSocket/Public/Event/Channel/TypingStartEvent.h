@@ -8,6 +8,11 @@
 
 #include "TypingStartEvent.generated.h"
 
+/**
+ * @brief A user started typing
+ * @see https://getstream.io/chat/docs/events/#typing.start
+ * @ingroup StreamChatWebSocket
+ */
 USTRUCT()
 struct FTypingStartEvent : public FChannelEvent
 {

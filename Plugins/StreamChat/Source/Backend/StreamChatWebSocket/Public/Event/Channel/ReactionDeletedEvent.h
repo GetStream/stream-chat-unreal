@@ -8,8 +8,9 @@
 #include "ReactionDeletedEvent.generated.h"
 
 /**
- * @brief #/components/schemas/ReactionDeletedEvent
- * @ingroup StreamChatDto
+ * @brief A reaction was deleted
+ * @see https://getstream.io/chat/docs/events/#reaction.deleted
+ * @ingroup StreamChatWebSocket
  */
 USTRUCT()
 struct FReactionDeletedEvent : public FReactionEvent

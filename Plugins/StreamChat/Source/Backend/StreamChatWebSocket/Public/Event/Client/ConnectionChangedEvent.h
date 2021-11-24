@@ -8,7 +8,9 @@
 #include "ConnectionChangedEvent.generated.h"
 
 /**
- * When the state of the connection changed
+ * @brief Sent when the state of the connection changed
+ * @note This event is not emitted from the API, but is generated locally
+ * @ingroup StreamChatWebSocket
  */
 USTRUCT()
 struct FConnectionChangedEvent : public FLocalEvent

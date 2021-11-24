@@ -9,11 +9,15 @@ class FTokenManager;
 struct FOwnUserDto;
 struct FUserObjectDto;
 
+/**
+ * @brief Interface to a Stream Chat WebSocket connection
+ * @ingroup StreamChatWebSocket
+ */
 class STREAMCHATWEBSOCKET_API IChatSocket : public TSharedFromThis<IChatSocket>
 {
 public:
     static TSharedRef<IChatSocket> Create(const TSharedRef<FTokenManager>&, const FString& ApiKey, const FString& Host, const FUserObjectDto& User);
-    virtual ~IChatSocket() = default;
+    virtual ~IChatSocket();
 
     virtual void Connect(TFunction<void(const FOwnUserDto&)> Callback) = 0;
     virtual void Disconnect() = 0;

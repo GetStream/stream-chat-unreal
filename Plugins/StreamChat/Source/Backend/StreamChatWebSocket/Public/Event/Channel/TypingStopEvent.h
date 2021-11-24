@@ -8,6 +8,11 @@
 
 #include "TypingStopEvent.generated.h"
 
+/**
+ * @brief A user stoped typing
+ * @see https://getstream.io/chat/docs/events/#typing.stop
+ * @ingroup StreamChatWebSocket
+ */
 USTRUCT()
 struct FTypingStopEvent : public FChannelEvent
 {

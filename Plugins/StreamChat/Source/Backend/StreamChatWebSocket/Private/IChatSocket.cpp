@@ -4,6 +4,8 @@
 
 #include "ChatSocket.h"
 
+IChatSocket::~IChatSocket() = default;
+
 TSharedRef<IChatSocket> IChatSocket::Create(
     const TSharedRef<FTokenManager>& TokenManager,
     const FString& ApiKey,
