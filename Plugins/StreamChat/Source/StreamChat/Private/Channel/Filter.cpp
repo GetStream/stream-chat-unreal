@@ -1,4 +1,4 @@
-// Copyright Stream.IO, Inc. All Rights Reserved.
+// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
 
 #include "Channel/Filter.h"
 
