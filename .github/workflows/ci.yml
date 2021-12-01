@@ -101,28 +101,3 @@ jobs:
         uses: EnricoMi/publish-unit-test-result-action@v1
         with:
           files: Saved/Automation/Reports/report.xml
-
-      - name: 📦 Package plugin
-        run: |
-          cd Plugins/StreamChat
-          runuser -u ue4 -- ue4 package -NoPCH -NoSharedPCH -DisableUnity
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: StreamChat
-          path: |
-            Plugins/StreamChat/dist
-            !**/Binaries
-            !**/Intermediate
-        name: 📁 Upload plugin artifact
-
-      - name: 📦 Package sample project
-        run: runuser -u ue4 -- ue4 package Shipping -NoPCH -NoSharedPCH -DisableUnity
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: StreamChatSample-Linux
-          path: |
-            dist/LinuxNoEditor
-            !**/Manifest_NonUFSFiles*.txt
-        name: 📁 Upload sample project artifact
