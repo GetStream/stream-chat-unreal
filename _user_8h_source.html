@@ -118,19 +118,19 @@ $(document).ready(function(){initNavTree('_user_8h_source.html',''); initResizab
 <div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="struct_f_user.html#ac9ebcfe4ceccb6acbbefa3e98216fe9b">   38</a></span>&#160;    FString Id;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    UPROPERTY(BlueprintReadOnly, Category = &quot;Stream Chat|User&quot;)</div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="struct_f_user.html#ac369595516b6f561144f92c50d95ca7a">   42</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="struct_f_user_object_dto.html#a2a6585584e72fea077387e8068eb3a55">bOnline</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="struct_f_user.html#ac369595516b6f561144f92c50d95ca7a">   42</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="struct_f_user_object_dto.html#a2a6585584e72fea077387e8068eb3a55">bOnline</a> = false;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    UPROPERTY(BlueprintReadOnly, Category = &quot;Stream Chat|User&quot;)</div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="struct_f_user.html#afe39d344b0fc2db6e265feb8700424ce">   46</a></span>&#160;    FDateTime <a class="code" href="struct_f_user_object_dto.html#ab13950f5a8cd648a10b3b6df9b84e9b7">CreatedAt</a>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="struct_f_user.html#afe39d344b0fc2db6e265feb8700424ce">   46</a></span>&#160;    FDateTime <a class="code" href="struct_f_user_object_dto.html#ab13950f5a8cd648a10b3b6df9b84e9b7">CreatedAt</a> = FDateTime{0};</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    UPROPERTY(BlueprintReadOnly, Category = &quot;Stream Chat|User&quot;)</div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="struct_f_user.html#a121e1d3c57557c18449da3eb4df549ed">   50</a></span>&#160;    FDateTime <a class="code" href="struct_f_user_object_dto.html#a304111061ebe054e72f5a7db864e22bd">UpdatedAt</a>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    UPROPERTY(BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|User&quot;</span>)</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="struct_f_user.html#a121e1d3c57557c18449da3eb4df549ed">   50</a></span>&#160;    FDateTime <a class="code" href="struct_f_user_object_dto.html#a304111061ebe054e72f5a7db864e22bd">UpdatedAt</a> = FDateTime{0};</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = &quot;Stream Chat|User&quot;)</div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="struct_f_user.html#a434112e6a7a328b26a6937018bde5c34">   54</a></span>&#160;    FDateTime <a class="code" href="struct_f_user_object_dto.html#a48f70bbeae9663fcd229b04e33f8b0d6">LastActive</a>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|User&quot;</span>)</div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="struct_f_user.html#a434112e6a7a328b26a6937018bde5c34">   54</a></span>&#160;    FDateTime <a class="code" href="struct_f_user_object_dto.html#a48f70bbeae9663fcd229b04e33f8b0d6">LastActive</a> = FDateTime{0};</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="comment">// Not in the API spec, but common</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = &quot;Stream Chat|User&quot;)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|User&quot;</span>)</div>
 <div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="struct_f_user.html#a93c3bd7ac953ce1bf092845e7fb43422">   59</a></span>&#160;    FString Name;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="comment">// Not in the API spec, but common</span></div>
