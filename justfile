@@ -27,4 +27,4 @@ format:
     git ls-files '*.cpp' '*.h' | xargs clang-format -i
 
 fix-copyright:
-    for f in $(rg -t cpp -t h --files-without-match -F "Copyright Stream.IO, Inc. All Rights Reserved."); do dos2unix $f; sed -i '1s;^;// Copyright Stream.IO, Inc. All Rights Reserved.\n\n;' $f; done
+    for f in $(rg -t cpp -t h --files-without-match -F "Copyright 2021 Stream.IO, Inc. All Rights Reserved."); do dos2unix $f; sed -i '1s;^;// Copyright 2021 Stream.IO, Inc. All Rights Reserved.\n\n;' $f; done
