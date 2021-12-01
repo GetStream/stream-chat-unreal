@@ -114,6 +114,12 @@ jobs:
           cd Plugins/StreamChat
           runuser -u ue4 -- ue4 package -NoPCH -NoSharedPCH -DisableUnity
 
+      # Satisfy marketplace requirements
+      - name: Move SourceFiles
+        run: |
+          mkdir Plugins/StreamChat/dist/Content/SourceFiles
+          find Plugins/StreamChat/dist -type f -name "*.png" -o -name "*.svg" -print0 | xargs -0 mv -t Plugins/StreamChat/dist/Content/SourceFiles
+
       - uses: actions/upload-artifact@v2
         with:
           name: StreamChat
