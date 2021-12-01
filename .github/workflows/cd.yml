@@ -25,6 +25,12 @@ jobs:
          password: ${{ secrets.CANISTER_PASSWORD }}
 
     steps:
+      - name: 🔪 Prerequisites
+        run: |
+          sudo apt-get update && sudo apt-get install -y software-properties-common
+          sudo add-apt-repository -y ppa:git-core/ppa
+          sudo apt-get update && sudo apt-get -y full-upgrade
+
       - uses: actions/checkout@v2
         name: 🛒 Checkout
         with:
@@ -55,6 +61,11 @@ jobs:
          password: ${{ secrets.CANISTER_PASSWORD }}
 
     steps:
+      - name: 🔪 Prerequisites
+        run: |
+          sudo apt-get update && sudo apt-get install -y software-properties-common
+          sudo add-apt-repository -y ppa:git-core/ppa
+          sudo apt-get update && sudo apt-get -y full-upgrade
       - uses: actions/checkout@v2
         name: 🛒 Checkout
         with:
@@ -85,6 +96,11 @@ jobs:
          password: ${{ secrets.CANISTER_PASSWORD }}
 
     steps:
+      - name: 🔪 Prerequisites
+        run: |
+          sudo apt-get update && sudo apt-get install -y software-properties-common
+          sudo add-apt-repository -y ppa:git-core/ppa
+          sudo apt-get update && sudo apt-get -y full-upgrade
       - uses: actions/checkout@v2
         name: 🛒 Checkout
         with:
