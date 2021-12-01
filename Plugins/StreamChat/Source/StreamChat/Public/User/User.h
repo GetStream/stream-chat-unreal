@@ -39,19 +39,19 @@ struct STREAMCHAT_API FUser
 
     /// Whether a user online or not
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|User")
-    bool bOnline;
+    bool bOnline = false;
 
     /// Date/time of creation
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|User")
-    FDateTime CreatedAt;
+    FDateTime CreatedAt = FDateTime{0};
 
     /// Date/time of the last update
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|User")
-    FDateTime UpdatedAt;
+    FDateTime UpdatedAt = FDateTime{0};
 
     /// Date of last activity
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
-    FDateTime LastActive;
+    FDateTime LastActive = FDateTime{0};
 
     /// The human-readable name of the user
     // Not in the API spec, but common

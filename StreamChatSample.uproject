@@ -16,7 +16,8 @@
 	"Plugins": [
 		{
 			"Name": "StreamChat",
-			"Enabled": true
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/05b76120ba7e4468b01d8fcbed276c3a"
 		},
 		{
 			"Name": "OculusVR",

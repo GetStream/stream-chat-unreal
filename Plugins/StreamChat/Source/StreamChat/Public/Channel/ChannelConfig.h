@@ -35,19 +35,19 @@ struct FChannelConfig
 
     /// True if the channel should send connect events
     UPROPERTY()
-    bool bConnectEvents;
+    bool bConnectEvents = false;
 
     /// Date of channel creation
     UPROPERTY()
-    FDateTime CreatedAt;
+    FDateTime CreatedAt = FDateTime{0};
 
     /// Date of last channel update
     UPROPERTY()
-    FDateTime UpdatedAt;
+    FDateTime UpdatedAt = FDateTime{0};
 
     /// Max channel message length
     UPROPERTY()
-    int32 MaxMessageLength;
+    int32 MaxMessageLength = 0;
 
     /// Duration of message retention
     UPROPERTY()
@@ -55,32 +55,32 @@ struct FChannelConfig
 
     /// True if users can be muted
     UPROPERTY()
-    bool bMutes;
+    bool bMutes = false;
 
     /// True if reaction are active for this channel
     UPROPERTY()
-    bool bReactions;
+    bool bReactions = false;
 
     /// True if readEvents are active for this channel
     UPROPERTY()
-    bool bReadEvents;
+    bool bReadEvents = false;
 
     /// True if reply message are active for this channel
     UPROPERTY()
-    bool bReplies;
+    bool bReplies = false;
 
     /// True if it's possible to perform a search in this channel
     UPROPERTY()
-    bool bSearch;
+    bool bSearch = false;
 
     /// True if typing events should be sent for this channel
-    bool bTypingEvents;
+    bool bTypingEvents = false;
 
     /// True if it's possible to upload files to this channel
     UPROPERTY()
-    bool bUploads;
+    bool bUploads = false;
 
     /// True if urls appears as attachments
     UPROPERTY()
-    bool bUrlEnrichment;
+    bool bUrlEnrichment = false;
 };
