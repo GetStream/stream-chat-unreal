@@ -1,13 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91ad7c8c85bf79bbe1b7188497c32c3b0ca":[0,3,15,4],
-"group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91ae4b0c2b6d59cb4cf3e169a9886008087":[0,3,15,0],
-"group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91affbb410a55bb31f801dea6387e2745ac":[0,3,15,3],
-"group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a25d8df6e580905091a0d5ef5b9e05bf0":[0,3,16,3],
-"group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a446700a09f499c4dd922bfa13b27479d":[0,3,16,1],
-"group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a5fe6005bf6e415c950c011fb65f12b8f":[0,3,16,5],
-"group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a902b0d55fddef6f8d651fe1035b7d4bd":[0,3,16,2],
-"group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7aa45da96d0bf6575970f2d27af22be28a":[0,3,16,4],
 "group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7ad2203cb1237cb6460cbad94564e39345":[0,3,16,0],
 "group___stream_chat_api.html":[0,0],
 "group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898":[0,0,2],
@@ -249,5 +241,13 @@ var NAVTREEINDEX1 =
 "struct_f_message_deleted_event.html":[0,2,6],
 "struct_f_message_deleted_event.html#a54154a8c09d3cb306510fcfbf56a5c08":[0,2,6,0],
 "struct_f_message_dto.html":[0,1,27],
-"struct_f_message_dto.html#a05f05016f6f352963a49153fe427aaad":[0,1,27,24]
+"struct_f_message_dto.html#a05f05016f6f352963a49153fe427aaad":[0,1,27,24],
+"struct_f_message_dto.html#a1bb973eefdd96e99c2280c183beb8283":[0,1,27,0],
+"struct_f_message_dto.html#a1c9a2ceefd25b236244a26d2e2d92a23":[0,1,27,27],
+"struct_f_message_dto.html#a23146a584acafa6e7c0439f4351e209e":[0,1,27,25],
+"struct_f_message_dto.html#a247fc682a7a7a24dd6376ed9d7af9c72":[0,1,27,6],
+"struct_f_message_dto.html#a251e92a998d5ca9a1d8a800781db960b":[0,1,27,9],
+"struct_f_message_dto.html#a3029015ca8796ddc74db3163b1ab1f8b":[0,1,27,12],
+"struct_f_message_dto.html#a38e6cb0b680005a5f3862d28188ce87e":[0,1,27,1],
+"struct_f_message_dto.html#a432e99d415b0b69a45144f1ee08dc467":[0,1,27,20]
 };
