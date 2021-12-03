@@ -10,11 +10,6 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Cancel any in-progress job or run
-concurrency:
-  group: ${{ github.head_ref }}-${{ github.workflow }}
-  cancel-in-progress: true
-
 jobs:
   format:
     name: 🎨 Format
