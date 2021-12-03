@@ -12,7 +12,7 @@ on:
 
 # Cancel any in-progress job or run
 concurrency:
-  group: ${{ github.ref }}${{ github.workflow }}
+  group: '${{ github.ref }}${{ github.workflow }}'
   cancel-in-progress: true
 
 jobs:
