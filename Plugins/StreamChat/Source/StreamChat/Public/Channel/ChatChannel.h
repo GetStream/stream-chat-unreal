@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "AdditionalFields.h"
 #include "ChannelState.h"
 #include "ChatApi.h"
 #include "ChatSocketEvents.h"
@@ -156,6 +157,16 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message")
     void SendMessage(const FString& Text);
+
+    /**
+     * @brief Send a message on this channel as the currently logged-in user.
+     *
+     * This variant allows for setting additional custom fields on the message.
+     *
+     * @param Text The text of the message
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message")
+    void SendMessageWithAdditionalFields(const FString& Text, const FAdditionalFields& AdditionalFields);
 
     /**
      * @brief Update (user might see "Edit") a message which exists on this channel

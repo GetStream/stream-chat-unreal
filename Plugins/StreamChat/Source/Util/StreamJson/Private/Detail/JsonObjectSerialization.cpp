@@ -2,6 +2,7 @@
 
 #include "Detail/JsonObjectSerialization.h"
 
+#include "AdditionalFields.h"
 #include "Dom/JsonObject.h"
 #include "JsonObjectConverter.h"
 #include "JsonObjectWrapper.h"
@@ -75,6 +76,8 @@ bool JsonObjectSerialization::UStructToJsonAttributes(
         return true;
     }
 
+    const auto Callback = FJsonObjectConverter::CustomExportCallback::CreateStatic(&ApplyNamingConventionToValue, NamingConvention);
+
     for (TFieldIterator<FProperty> It(StructDefinition); It; ++It)
     {
         FProperty* Property = *It;
@@ -94,11 +97,21 @@ bool JsonObjectSerialization::UStructToJsonAttributes(
         {
             VariableName = NamingConventionConversion::ConvertPropertyNameToSnakeCase(VariableName);
         }
+
+        // Flatten additional fields into outer struct
+        if (const FStructProperty* StructProperty = CastField<FStructProperty>(Property))
+        {
+            if (StructProperty->Struct->GetFName() == TEXT("AdditionalFields"))
+            {
+                const FAdditionalFields* Fields = StructProperty->ContainerPtrToValuePtr<FAdditionalFields>(Struct);
+                OutJsonAttributes.Append(Fields->GetFields());
+                continue;
+            }
+        }
+
         const void* Value = Property->ContainerPtrToValuePtr<uint8>(Struct);
 
         // convert the property to a FJsonValue
-        FJsonObjectConverter::CustomExportCallback Callback =
-            FJsonObjectConverter::CustomExportCallback::CreateStatic(&ApplyNamingConventionToValue, NamingConvention);
         TSharedPtr<FJsonValue> JsonValue = FJsonObjectConverter::UPropertyToJsonValue(Property, Value, 0, SkipFlags, &Callback);
         if (!JsonValue.IsValid())
         {

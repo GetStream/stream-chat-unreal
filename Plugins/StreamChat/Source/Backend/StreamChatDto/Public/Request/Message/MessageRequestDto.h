@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "AdditionalFields.h"
 #include "CoreMinimal.h"
 
 #include "MessageRequestDto.generated.h"
@@ -52,4 +53,7 @@ struct FMessageRequestDto
     /// Text of the message. Should be empty if `mml` is provided
     UPROPERTY()
     FString Text;
+
+    UPROPERTY()
+    FAdditionalFields AdditionalFields;
 };

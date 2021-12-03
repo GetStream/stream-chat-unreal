@@ -51,6 +51,11 @@ UChatChannel* UChatChannel::Create(
 
 void UChatChannel::SendMessage(const FString& Text)
 {
+    SendMessageWithAdditionalFields(Text, {});
+}
+
+void UChatChannel::SendMessageWithAdditionalFields(const FString& Text, const FAdditionalFields& AdditionalFields)
+{
     // TODO Wait for attachments to upload
 
     const FMessageRequestDto Request{
@@ -61,6 +66,7 @@ void UChatChannel::SendMessage(const FString& Text)
         {},
         false,
         Text,
+        AdditionalFields,
     };
     const FMessage LocalMessage{Request, UserManager->GetCurrentUser()};
     AddMessage(LocalMessage);

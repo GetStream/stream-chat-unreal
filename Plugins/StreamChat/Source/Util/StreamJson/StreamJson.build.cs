@@ -7,10 +7,11 @@ public class StreamJson : ModuleRules
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 		CppStandard = CppStandardVersion.Cpp17;
 
+        PublicDependencyModuleNames.AddRange(new[] { "Json", "Engine" });
+
         PrivateDependencyModuleNames.AddRange(new[] {
             "Core",
             "CoreUObject",
-            "Json",
             "JsonUtilities"
         });
     }
