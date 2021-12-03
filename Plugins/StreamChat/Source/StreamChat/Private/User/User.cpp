@@ -5,6 +5,8 @@
 #include "OwnUserDto.h"
 #include "UserObjectDto.h"
 
+#include <cwctype>
+
 FUser::FUser() = default;
 
 FUser::FUser(const FUserObjectDto& Dto)
@@ -49,4 +51,31 @@ FString FUser::GetInitials(const int32 Limit) const
     }
     Initials.ToUpperInline();
     return Initials;
+}
+
+FString UUserBlueprintLibrary::GenerateUserId(const FString& Name)
+{
+    FString UserId = Name;
+    for (auto Iter = UserId.CreateIterator(); Iter; ++Iter)
+    {
+        if (FChar::IsDigit(*Iter))
+        {
+            continue;
+        }
+        if (FChar::IsLower(*Iter))
+        {
+            continue;
+        }
+        if (*Iter == TEXT('@') || *Iter == TEXT('_') || *Iter == TEXT('-') || *Iter == TEXT('\0'))
+        {
+            continue;
+        }
+        if (FChar::IsUpper(*Iter))
+        {
+            *Iter = FChar::ToLower(*Iter);
+            continue;
+        }
+        *Iter = TEXT('_');
+    }
+    return UserId;
 }

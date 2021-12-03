@@ -8,6 +8,7 @@ public class Jwt : ModuleRules
     {
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
         CppStandard = CppStandardVersion.Cpp17;
+        bEnableExceptions = true;
 
 		var ThirdPartyPath = Path.GetFullPath(Path.Combine(ModuleDirectory, "ThirdParty"));
         PrivateIncludePaths.Add(Path.Combine(ThirdPartyPath, "jwt-cpp-0.5.1", "include"));

@@ -36,6 +36,7 @@ FChatSocket::FChatSocket(const TSharedRef<FTokenManager>& TokenManager, const FS
 {
     const FConnectRequestDto Request = {true, User.Id, User};
     ConnectionRequestJson = Json::Serialize(Request);
+    ConnectionRequestJson.ReplaceInline(TEXT(" "), TEXT("%20"));
 
     CreateUnderlyingWebSocket(false);
 }

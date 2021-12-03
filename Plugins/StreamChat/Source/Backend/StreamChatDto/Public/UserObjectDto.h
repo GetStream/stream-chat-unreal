@@ -35,11 +35,11 @@ struct STREAMCHATDTO_API FUserObjectDto
     FDateTime LastActive;
 
     // Not in the API spec, but common
-    UPROPERTY(Transient)
+    UPROPERTY()
     FString Name;
 
     // Not in the API spec, but common
-    UPROPERTY(Transient)
+    UPROPERTY()
     FString Image;
 
     // TODO rest of the fields

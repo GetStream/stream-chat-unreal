@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Kismet/BlueprintFunctionLibrary.h"
 
 #include "User.generated.h"
 
@@ -55,11 +56,30 @@ struct STREAMCHAT_API FUser
 
     /// The human-readable name of the user
     // Not in the API spec, but common
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|User")
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat|User")
     FString Name;
 
     /// The URL of a profile picture of the user
     // Not in the API spec, but common
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|User")
     FString Image;
+};
+
+/**
+ * @brief Blueprint functions for the User struct
+ * @ingroup StreamChat
+ */
+UCLASS()
+class STREAMCHAT_API UUserBlueprintLibrary final : public UBlueprintFunctionLibrary
+{
+    GENERATED_BODY()
+
+public:
+    /**
+     * @brief Generated a valid user ID from a human-readable name
+     * @param Name User's human-readable name
+     * @return A valid UserId, with all disallowed characters replaced with '_'
+     */
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|User")
+    static FString GenerateUserId(const FString& Name);
 };
