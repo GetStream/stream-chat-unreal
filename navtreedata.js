@@ -30,7 +30,9 @@ var NAVTREE =
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
         [ "All", "namespacemembers.html", null ],
-        [ "Functions", "namespacemembers_func.html", null ]
+        [ "Functions", "namespacemembers_func.html", null ],
+        [ "Typedefs", "namespacemembers_type.html", null ],
+        [ "Enumerations", "namespacemembers_enum.html", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [
@@ -39,7 +41,7 @@ var NAVTREE =
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", "functions_dup" ],
-        [ "Functions", "functions_func.html", null ],
+        [ "Functions", "functions_func.html", "functions_func" ],
         [ "Variables", "functions_vars.html", "functions_vars" ]
       ] ]
     ] ]
@@ -48,9 +50,11 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_chat_socket_detail_8h.html#a88503cc4cb8d427bd0f6aeea70034487",
-"group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7ad2203cb1237cb6460cbad94564e39345",
-"struct_f_message_dto.html#a5120b8310d00c61c30d05b848764b259"
+"",
+"classjwt_1_1builder.html#a4c5ff1d0c5c04ad81aa607a73e87adf3",
+"namespacejwt_1_1error.html#a68a2c3452b1828e30397194b393965f1",
+"struct_f_event_dto.html#af024c3c08ca3978236862a2de841181e",
+"structjwt_1_1algorithm_1_1hs256.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

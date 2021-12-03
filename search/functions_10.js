@@ -1,12 +1,10 @@
 var searchData=
 [
-  ['sendchannelevent_434',['SendChannelEvent',['../class_f_chat_api.html#a2eac1e34b8f4d2b6f1f26eaadc46d9bb',1,'FChatApi']]],
-  ['sendevent_435',['SendEvent',['../class_u_chat_channel.html#aed47eb30b9ab1fde4d67b88caa12d317',1,'UChatChannel']]],
-  ['sendmessage_436',['SendMessage',['../class_u_chat_channel.html#ad6d8661464aeb45ad07a2fbacab90df2',1,'UChatChannel']]],
-  ['sendnewmessage_437',['SendNewMessage',['../class_f_chat_api.html#ad2072ebbcd0e7e18da86600a6c738f4e',1,'FChatApi']]],
-  ['sendreaction_438',['SendReaction',['../class_f_chat_api.html#ae6a3d9125e5ffd0eaf04b644fb638fd1',1,'FChatApi::SendReaction()'],['../class_u_chat_channel.html#a7ebcf7d92e7b0000a4bca8676e06624f',1,'UChatChannel::SendReaction()']]],
-  ['subscribe_439',['Subscribe',['../class_f_chat_socket_events.html#a19f6148ad2cfa053dd0a7aaf06ea1cb8',1,'FChatSocketEvents']]],
-  ['subscribelambda_440',['SubscribeLambda',['../class_f_chat_socket_events.html#aa051431699d2f7750e17e6cc3ee653c2',1,'FChatSocketEvents']]],
-  ['subscribesp_441',['SubscribeSp',['../class_f_chat_socket_events.html#ab60e58f227f3d0326b3571a5aa2071ed',1,'FChatSocketEvents']]],
-  ['subscribeuobject_442',['SubscribeUObject',['../class_f_chat_socket_events.html#a7090ccaf47e842cf065fc9a459ada462',1,'FChatSocketEvents']]]
+  ['removereactionwhere_673',['RemoveReactionWhere',['../struct_f_reactions.html#af88c560c8f7dc9557ed3ef7ffb2e16cd',1,'FReactions']]],
+  ['removeuser_674',['RemoveUser',['../class_u_typing_indicator_widget.html#a742627bb8d570386c50db1d09f681f49',1,'UTypingIndicatorWidget']]],
+  ['rs256_675',['rs256',['../structjwt_1_1algorithm_1_1rs256.html#aa87ccde15aad4ad592fa4ac0a2a5f748',1,'jwt::algorithm::rs256']]],
+  ['rs384_676',['rs384',['../structjwt_1_1algorithm_1_1rs384.html#a3f5bada82c323b97a6b1c5777bc512ef',1,'jwt::algorithm::rs384']]],
+  ['rs512_677',['rs512',['../structjwt_1_1algorithm_1_1rs512.html#aa3331d1fbe994d97ee57ffdabd05eb1b',1,'jwt::algorithm::rs512']]],
+  ['rsa_678',['rsa',['../structjwt_1_1algorithm_1_1rsa.html#a505ccbff5695e94370cc4549c2426bc7',1,'jwt::algorithm::rsa']]],
+  ['rsa_5ferror_5fcategory_679',['rsa_error_category',['../namespacejwt_1_1error.html#a2d99c7a48e24e8720c263dd124447ae0',1,'jwt::error']]]
 ];

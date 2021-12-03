@@ -72,6 +72,7 @@ var group___stream_chat_dto =
       [ "Event", "struct_f_send_event_request_dto.html#a9c94e383ed88693b0a23be6055241f56", null ]
     ] ],
     [ "FMessageRequestDto", "struct_f_message_request_dto.html", [
+      [ "AdditionalFields", "struct_f_message_request_dto.html#abefa5fef6304cb0363bdcaf8e539f3b5", null ],
       [ "bSilent", "struct_f_message_request_dto.html#ae0b0f7beeda13c97104f3fd3498d9425", null ],
       [ "Cid", "struct_f_message_request_dto.html#a05d76c024e8a72951c5c477523dc8f7c", null ],
       [ "Html", "struct_f_message_request_dto.html#a41f6cfe682e1521a72791f8fe00b8855", null ],

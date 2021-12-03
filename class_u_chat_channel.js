@@ -11,6 +11,7 @@ var class_u_chat_channel =
     [ "QueryAdditionalMessages", "class_u_chat_channel.html#a50bf60993814bede80604b684bb4af4d", null ],
     [ "SendEvent", "class_u_chat_channel.html#aed47eb30b9ab1fde4d67b88caa12d317", null ],
     [ "SendMessage", "class_u_chat_channel.html#ad6d8661464aeb45ad07a2fbacab90df2", null ],
+    [ "SendMessageWithAdditionalFields", "class_u_chat_channel.html#ab99d1ca45360ba68b137f1bd30291f95", null ],
     [ "SendReaction", "class_u_chat_channel.html#a7ebcf7d92e7b0000a4bca8676e06624f", null ],
     [ "Unsubscribe", "class_u_chat_channel.html#ad7a707550c3a5b6eb6a6a807ce541a21", null ],
     [ "UpdateMessage", "class_u_chat_channel.html#ab5573d2437ef706d2bd0a4c3baff7cda", null ],

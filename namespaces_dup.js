@@ -56,15 +56,44 @@ var namespaces_dup =
       [ "UEnumToString", "namespace_json_object_serialization.html#ab2314eaf58d04fedeca0de655bb8d965", null ],
       [ "UStructToJsonAttributes", "namespace_json_object_serialization.html#ac6ece5ebd6cb1cada8e3b949cdffbc31", null ]
     ] ],
+    [ "jwt", "namespacejwt.html", "namespacejwt" ],
+    [ "Jwt", "namespace_jwt.html", [
+      [ "GenerateJwt", "namespace_jwt.html#ac9d9c4f9a93ea0524a2925106acd60e6", null ]
+    ] ],
     [ "NamingConventionConversion", null, [
       [ "ConvertNameToSnakeCase", "_naming_convention_conversion_8h.html#af7a7bed411d1595e3c9fdba16466b2d8", null ],
       [ "ConvertPropertyNameToSnakeCase", "_naming_convention_conversion_8h.html#a802e895661ebb7e2538cd9ae950cad0d", null ],
       [ "ConvertPropertyNameToUpperCamelCase", "_naming_convention_conversion_8h.html#aea002d5a12676738c78db4c20cc1b910", null ],
       [ "ConvertSnakeCaseToUpperCamelCase", "_naming_convention_conversion_8h.html#a09d50b08ce390f19ada55c7b4705e4c7", null ]
     ] ],
+    [ "picojson", null, [
+      [ "array", "picojson_8h.html#ac1e72166adfe3d96dc58cddc7ebd536a", null ],
+      [ "object", "picojson_8h.html#a3e769a5e2dbffd9a9309e1dc2d67975b", null ],
+      [ "_parse", "picojson_8h.html#a01c0a3f35d42282ba913375737c8e259", null ],
+      [ "_parse", "picojson_8h.html#aed024a6a1c8d8982a38c4a7fcefde221", null ],
+      [ "_parse_array", "picojson_8h.html#adcae039b132c6c96d2b2d9e786a04a88", null ],
+      [ "_parse_codepoint", "picojson_8h.html#a05316c2614f3e7a4559ce1d1003eb051", null ],
+      [ "_parse_number", "picojson_8h.html#a771defe1d981b7091c2156bf4720625c", null ],
+      [ "_parse_object", "picojson_8h.html#a480ed5e3461568672197a42e259a44c9", null ],
+      [ "_parse_quadhex", "picojson_8h.html#a92d4f60542bbdfe8203f10e1fcce9368", null ],
+      [ "_parse_string", "picojson_8h.html#a9a1d94feb2718129796225d77c9e8d11", null ],
+      [ "copy", "picojson_8h.html#abc2111aa71797805957a4296fdf9c66d", null ],
+      [ "get_last_error", "picojson_8h.html#a1ba78f161e46341e0c2fd705ff8b0210", null ],
+      [ "operator!=", "picojson_8h.html#ae46de1e9659b427ea359e7fc00dd3ff1", null ],
+      [ "operator==", "picojson_8h.html#a498fde71ce35268547d93068d9a756be", null ],
+      [ "parse", "picojson_8h.html#a21621c03c9c8c83dcf5bc604d1cafdf6", null ],
+      [ "parse", "picojson_8h.html#a522ebeba3ce386f1df0aba41ae3b7763", null ],
+      [ "parse", "picojson_8h.html#a3aca598f5855bc130a92a3e08a0c6ebf", null ],
+      [ "parse", "picojson_8h.html#a2ed8a3cba445c8ecbe3d6a3a3fbdabd3", null ],
+      [ "serialize_str", "picojson_8h.html#a11130e017d868857aeb016f5e3d29008", null ],
+      [ "set_last_error", "picojson_8h.html#a509585c918611015ec995d4374fee4c9", null ]
+    ] ],
     [ "QueryUtils", null, [
       [ "AddQueryToUrl", "_query_utils_8h.html#a0fb1b8fa7e128fb695d7592b4f384494", null ],
       [ "ParseQueryFromUrl", "_query_utils_8h.html#a71562866b68baa86070d55fbb1389ab1", null ]
+    ] ],
+    [ "std", null, [
+      [ "swap", "picojson_8h.html#abb7e41c7063536ff6eeee4bb5f66de6c", null ]
     ] ],
     [ "Util", "namespace_util.html", [
       [ "Convert", "namespace_util.html#a0cc92701804c45a7497b09167f24a477", null ],

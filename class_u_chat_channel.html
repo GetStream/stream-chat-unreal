@@ -163,6 +163,9 @@ FPaginatingMessagesDelegate&#160;</td><td class="memItemRight" valign="bottom"><
 <tr class="memitem:ad6d8661464aeb45ad07a2fbacab90df2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#ad6d8661464aeb45ad07a2fbacab90df2">SendMessage</a> (const FString &amp;Text)</td></tr>
 <tr class="memdesc:ad6d8661464aeb45ad07a2fbacab90df2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a message on this channel as the currently logged-in user.  <a href="class_u_chat_channel.html#ad6d8661464aeb45ad07a2fbacab90df2">More...</a><br /></td></tr>
 <tr class="separator:ad6d8661464aeb45ad07a2fbacab90df2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab99d1ca45360ba68b137f1bd30291f95"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#ab99d1ca45360ba68b137f1bd30291f95">SendMessageWithAdditionalFields</a> (const FString &amp;Text, const FAdditionalFields &amp;AdditionalFields)</td></tr>
+<tr class="memdesc:ab99d1ca45360ba68b137f1bd30291f95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a message on this channel as the currently logged-in user.  <a href="class_u_chat_channel.html#ab99d1ca45360ba68b137f1bd30291f95">More...</a><br /></td></tr>
+<tr class="separator:ab99d1ca45360ba68b137f1bd30291f95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5573d2437ef706d2bd0a4c3baff7cda"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#ab5573d2437ef706d2bd0a4c3baff7cda">UpdateMessage</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;Message)</td></tr>
 <tr class="memdesc:ab5573d2437ef706d2bd0a4c3baff7cda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update (user might see "Edit") a message which exists on this channel.  <a href="class_u_chat_channel.html#ab5573d2437ef706d2bd0a4c3baff7cda">More...</a><br /></td></tr>
 <tr class="separator:ab5573d2437ef706d2bd0a4c3baff7cda"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -481,6 +484,43 @@ template&lt;class TEvent , class UserClass &gt; </div>
 </div><div class="memdoc">
 
 <p>Send a message on this channel as the currently logged-in user. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Text</td><td>The text of the message </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab99d1ca45360ba68b137f1bd30291f95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab99d1ca45360ba68b137f1bd30291f95">&#9670;&nbsp;</a></span>SendMessageWithAdditionalFields()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UChatChannel::SendMessageWithAdditionalFields </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FAdditionalFields &amp;&#160;</td>
+          <td class="paramname"><em>AdditionalFields</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Send a message on this channel as the currently logged-in user. </p>
+<p>This variant allows for setting additional custom fields on the message.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">Text</td><td>The text of the message </td></tr>

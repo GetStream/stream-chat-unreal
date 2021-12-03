@@ -46,6 +46,7 @@ var group___stream_chat =
       [ "QueryAdditionalMessages", "class_u_chat_channel.html#a50bf60993814bede80604b684bb4af4d", null ],
       [ "SendEvent", "class_u_chat_channel.html#aed47eb30b9ab1fde4d67b88caa12d317", null ],
       [ "SendMessage", "class_u_chat_channel.html#ad6d8661464aeb45ad07a2fbacab90df2", null ],
+      [ "SendMessageWithAdditionalFields", "class_u_chat_channel.html#ab99d1ca45360ba68b137f1bd30291f95", null ],
       [ "SendReaction", "class_u_chat_channel.html#a7ebcf7d92e7b0000a4bca8676e06624f", null ],
       [ "Unsubscribe", "class_u_chat_channel.html#ad7a707550c3a5b6eb6a6a807ce541a21", null ],
       [ "UpdateMessage", "class_u_chat_channel.html#ab5573d2437ef706d2bd0a4c3baff7cda", null ],
@@ -145,6 +146,8 @@ var group___stream_chat =
     [ "UStreamChatSettings", "class_u_stream_chat_settings.html", [
       [ "Host", "class_u_stream_chat_settings.html#a3c81992e541233efc646aa7f44b6ac92", null ]
     ] ],
+    [ "UUserBlueprintLibrary", "class_u_user_blueprint_library.html", null ],
+    [ "UAdditionalFieldsBlueprintLibrary", "class_u_additional_fields_blueprint_library.html", null ],
     [ "EFilterOperator", "group___stream_chat.html#ga5f415eaba7bb8ad8ae40f5b8b3eb69b5", [
       [ "Equal", "group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5af5f286e73bda105e538310b3190f75c5", null ],
       [ "NotEqual", "group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a19bb0af2c3c530538cb41aff7f235b96", null ],
