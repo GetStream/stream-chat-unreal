@@ -23,13 +23,15 @@ public:
     void SetCurrentUser(const FUser& InCurrentUser);
     const FUser& GetUser(const FUserRef&);
     bool HasUser(const FUserRef&) const;
-    const FUserRef& GetCurrentUser() const;
     FUserRef UpsertUser(const FUser&);
     FUserRef UpsertUser(const FOwnUserDto&);
     FUserRef UpsertUser(const FUserObjectDto&);
     TArray<FUserRef> UpsertUsers(const TArray<FUser>&);
     TArray<FUserRef> UpsertUsers(const TArray<FUserObjectDto>&);
     FUserUpdatedMultiDelegate& OnUserUpdated(const FUserRef&);
+
+    UFUNCTION(BlueprintPure, Category = "Stream|Users")
+    const FUserRef& GetCurrentUser() const;
 
 private:
     FUserRef CurrentUser;
