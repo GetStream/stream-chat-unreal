@@ -44,6 +44,11 @@ protected:
 
 private:
     virtual void OnSetup() override;
+    virtual bool WantsTheme() override
+    {
+        return true;
+    }
+    virtual void OnTheme(UThemeDataAsset*) override;
 
     UTexture2D* GetStatusIcon() const;
     FText GetTimestampText() const;

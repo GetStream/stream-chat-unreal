@@ -2,6 +2,8 @@
 
 #include "StreamUserWidget.h"
 
+#include "ThemeDataAsset.h"
+
 void UStreamUserWidget::Setup()
 {
     OnSetup();
@@ -19,4 +21,19 @@ bool UStreamUserWidget::Initialize()
     }
 
     return false;
+}
+
+void UStreamUserWidget::NativeConstruct()
+{
+}
+
+void UStreamUserWidget::NativePreConstruct()
+{
+    if (WantsTheme())
+    {
+        if (UThemeDataAsset* Theme = UThemeDataAsset::Get(this))
+        {
+            OnTheme(Theme);
+        }
+    }
 }

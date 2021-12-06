@@ -20,7 +20,7 @@ class STREAMCHATUI_API UNamedAvatarWidget final : public UStreamUserWidget
 
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void Setup(const FUserRef& InUser, bool bInColoredName);
+    void Setup(const FUserRef& InUser);
 
 protected:
     UPROPERTY(meta = (BindWidget))
@@ -29,12 +29,13 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UTextBlock* TextBlock;
 
-    // TODO this should go in theme
-    UPROPERTY(EditAnywhere, Category = Defaults)
-    bool bColoredName;
-
 private:
     virtual void OnSetup() override;
+    virtual bool WantsTheme() override
+    {
+        return true;
+    }
+    virtual void OnTheme(UThemeDataAsset*) override;
 
     FUserRef User;
 };
