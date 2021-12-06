@@ -6,7 +6,11 @@
 
 #include "WidgetUtil.h"
 
-FLinearColor UThemeContextWidget::GetTheme(UWidget* Widget)
+UThemeDataAsset* UThemeContextWidget::GetTheme(const UWidget* Widget)
 {
-    return WidgetUtil::GetTypedParentWidget<UThemeContextWidget>(Widget)->Theme;
+    if (const UThemeContextWidget* Context = WidgetUtil::GetTypedParentWidget<UThemeContextWidget>(Widget))
+    {
+        return Context->Theme;
+    }
+    return nullptr;
 }

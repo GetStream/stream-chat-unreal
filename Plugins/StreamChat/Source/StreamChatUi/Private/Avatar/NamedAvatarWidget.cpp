@@ -2,13 +2,13 @@
 
 #include "Avatar/NamedAvatarWidget.h"
 
+#include "ThemeDataAsset.h"
 #include "User/User.h"
 #include "WidgetUtil.h"
 
-void UNamedAvatarWidget::Setup(const FUserRef& InUser, bool bInColoredName)
+void UNamedAvatarWidget::Setup(const FUserRef& InUser)
 {
     User = InUser;
-    bColoredName = bInColoredName;
 
     Super::Setup();
 }
@@ -29,11 +29,15 @@ void UNamedAvatarWidget::OnSetup()
         else
         {
             TextBlock->SetText(FText::FromString(User->Name));
-            if (bColoredName)
-            {
-                const FLinearColor Color = WidgetUtil::ChooseColorForString(User->Id);
-                TextBlock->SetColorAndOpacity(Color);
-            }
         }
+    }
+}
+
+void UNamedAvatarWidget::OnTheme(UThemeDataAsset* Theme)
+{
+    if (!User.IsCurrent() && Theme->bColoredName)
+    {
+        const FLinearColor Color = WidgetUtil::ChooseColorForString(User->Id);
+        TextBlock->SetColorAndOpacity(Color);
     }
 }

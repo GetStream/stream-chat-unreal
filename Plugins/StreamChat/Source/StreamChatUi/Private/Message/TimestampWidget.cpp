@@ -3,7 +3,9 @@
 #include "Message/TimestampWidget.h"
 
 #include "Components/OverlaySlot.h"
+#include "ThemeDataAsset.h"
 #include "User/User.h"
+#include "WidgetUtil.h"
 
 void UTimestampWidget::Setup(const FMessage& InMessage, const bool bInShowUserName, const bool bInShowMessageState)
 {
@@ -45,6 +47,15 @@ void UTimestampWidget::OnSetup()
     if (DateTimeTextBlock)
     {
         DateTimeTextBlock->SetText(GetTimestampText());
+    }
+}
+
+void UTimestampWidget::OnTheme(UThemeDataAsset* Theme)
+{
+    if (Theme->bColoredName)
+    {
+        const FLinearColor Color = WidgetUtil::ChooseColorForString(Message.User->Id);
+        UserTextBlock->SetColorAndOpacity(Color);
     }
 }
 

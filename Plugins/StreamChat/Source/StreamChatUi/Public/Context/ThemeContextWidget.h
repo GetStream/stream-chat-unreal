@@ -6,6 +6,7 @@
 
 #include "ContextWidget.h"
 #include "CoreMinimal.h"
+#include "ThemeDataAsset.h"
 
 #include "ThemeContextWidget.generated.h"
 
@@ -18,7 +19,7 @@ class STREAMCHATUI_API UThemeContextWidget final : public UContextWidget
     GENERATED_BODY()
 
 public:
-    static FLinearColor GetTheme(UWidget* Widget);
+    static UThemeDataAsset* GetTheme(const UWidget* Widget);
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat")
-    FLinearColor Theme;
+    UThemeDataAsset* Theme;
 };
