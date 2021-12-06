@@ -19,6 +19,7 @@ class STREAMCHATUI_API UThemeContextWidget final : public UContextWidget
     GENERATED_BODY()
 
 public:
+    UThemeContextWidget();
     static UThemeDataAsset* GetTheme(const UWidget* Widget);
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat")
     UThemeDataAsset* Theme;

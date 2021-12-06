@@ -6,6 +6,12 @@
 
 #include "WidgetUtil.h"
 
+UThemeContextWidget::UThemeContextWidget()
+{
+    static ConstructorHelpers::FObjectFinder<UThemeDataAsset> DefaultTheme(TEXT("/StreamChat/UI/Themes/LightTheme"));
+    Theme = DefaultTheme.Object;
+}
+
 UThemeDataAsset* UThemeContextWidget::GetTheme(const UWidget* Widget)
 {
     if (const UThemeContextWidget* Context = WidgetUtil::GetTypedParentWidget<UThemeContextWidget>(Widget))
