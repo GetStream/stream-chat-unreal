@@ -3,16 +3,24 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Subsystems/EngineSubsystem.h"
 #include "User/User.h"
 #include "User/UserRef.h"
+
+#include "UserManager.generated.h"
 
 struct FUserObjectDto;
 struct FOwnUserDto;
 
-class FUserManager : public TSharedFromThis<FUserManager>
+UCLASS()
+class UUserManager final : public UEngineSubsystem
 {
+    GENERATED_BODY()
+
 public:
-    static TSharedRef<FUserManager> Create(const FUser& InCurrentUser);
+    static UUserManager* Get();
+
+    void SetCurrentUser(const FUser& InCurrentUser);
     const FUser& GetUser(const FUserRef&);
     bool HasUser(const FUserRef&) const;
     const FUserRef& GetCurrentUser() const;

@@ -8,7 +8,7 @@
 #include "User/UserRef.h"
 
 FReactions FReactions::CollectReactions(
-    FUserManager& UserManager,
+    UUserManager& UserManager,
     const TMap<FName, int32>& ReactionCounts,
     const TMap<FName, int32>& ReactionScores,
     const TArray<FReactionDto>& LatestReactions,

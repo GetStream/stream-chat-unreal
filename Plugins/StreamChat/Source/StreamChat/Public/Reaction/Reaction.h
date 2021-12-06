@@ -19,7 +19,7 @@ struct FReaction
     GENERATED_BODY()
 
     FReaction();
-    explicit FReaction(FUserManager&, const FReactionDto&);
+    explicit FReaction(UUserManager&, const FReactionDto&);
     explicit FReaction(const FName& Type, const FUserRef&, const FString& MessageId);
 
     /// The type of reaction (e.g. 'like', 'laugh', 'wow')

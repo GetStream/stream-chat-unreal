@@ -24,7 +24,7 @@ struct FMember
     /// Create a member from a user
     explicit FMember(const FUserRef& User);
     /// Create a member from a DTO from the API
-    explicit FMember(FUserManager&, const FChannelMemberDto&);
+    explicit FMember(UUserManager&, const FChannelMemberDto&);
 
     /// The user information of this member
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Member")

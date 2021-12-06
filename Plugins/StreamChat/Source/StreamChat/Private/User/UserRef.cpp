@@ -5,7 +5,7 @@
 #include "User/User.h"
 #include "UserManager.h"
 
-FUserRef::FUserRef(const FString& UserId, const TSharedRef<FUserManager>& Manager) : UserId{UserId}, Manager{Manager}
+FUserRef::FUserRef(const FString& UserId, UUserManager* Manager) : UserId{UserId}, Manager{Manager}
 {
 }
 
@@ -13,10 +13,9 @@ FUserRef::FUserRef() = default;
 
 const FUser& FUserRef::GetUser() const
 {
-    // Only really for editor designer support
-    if (!Manager)
+    if (!::IsValid(Manager))
     {
-        Manager = MakeShared<FUserManager>();
+        Manager = UUserManager::Get();
     }
     return Manager->GetUser(*this);
 }
@@ -47,7 +46,7 @@ bool FUserRef::IsValid() const
     {
         return false;
     }
-    if (!Manager.IsValid())
+    if (!::IsValid(Manager))
     {
         return false;
     }
@@ -56,7 +55,7 @@ bool FUserRef::IsValid() const
 
 bool FUserRef::IsCurrent() const
 {
-    if (!Manager.IsValid())
+    if (!::IsValid(Manager))
     {
         return false;
     }

@@ -59,7 +59,7 @@ void UAvatarWidget::UpdateOnlineStatus(const bool bOnline)
 
 void UAvatarWidget::CreateProfilePics()
 {
-    if (!Grid || Users.Num() == 0)
+    if (!Grid || Users.Num() == 0 || !WidgetTree)
     {
         return;
     }

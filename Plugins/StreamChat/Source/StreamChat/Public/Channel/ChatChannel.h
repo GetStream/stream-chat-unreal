@@ -63,12 +63,7 @@ class STREAMCHAT_API UChatChannel final : public UObject
 
 public:
     /// Create a new channel object
-    static UChatChannel* Create(
-        UObject* Outer,
-        const TSharedRef<FChatApi>,
-        const TSharedRef<IChatSocket>,
-        const TSharedRef<FUserManager>,
-        const FChannelStateResponseFieldsDto&);
+    static UChatChannel* Create(UObject* Outer, const TSharedRef<FChatApi>, const TSharedRef<IChatSocket>, const FChannelStateResponseFieldsDto&);
 
     /// The local state of the channel
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
@@ -79,7 +74,6 @@ private:
 
     TSharedPtr<FChatApi> Api;
     TSharedPtr<IChatSocket> Socket;
-    TSharedPtr<FUserManager> UserManager;
 
 #pragma region Event
     /** @name Event
@@ -203,10 +197,14 @@ public:
     UPROPERTY(BlueprintAssignable, Category = "Stream Chat|Channel")
     FMessagesUpdatedDelegate MessagesUpdated;
 
-    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessageSentDelegate, const FMessage&, Messages);
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessageDelegate, const FMessage&, Messages);
     /// Fired when a message is first sent client-side
     UPROPERTY(BlueprintAssignable, Category = "Stream Chat|Channel")
-    FMessageSentDelegate MessageSent;
+    FMessageDelegate MessageSent;
+
+    /// Fired when a message is first received from the server (but not updated, deleted, etc)
+    UPROPERTY(BlueprintAssignable, Category = "Stream Chat|Channel")
+    FMessageDelegate MessageReceived;
 
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPaginatingMessagesDelegate, EPaginationDirection, Direction, EHttpRequestState, RequestState);
     /// Fired during various stages of message pagination

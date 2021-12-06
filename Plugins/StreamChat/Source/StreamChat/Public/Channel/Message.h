@@ -67,7 +67,7 @@ struct STREAMCHAT_API FMessage
     /// Needed by USTRUCT system. Shouldn't be used directly.
     FMessage();
     /// Create a message from a DTO from the API
-    explicit FMessage(FUserManager&, const FMessageDto&);
+    explicit FMessage(UUserManager&, const FMessageDto&);
     /// Convert a message into a update request for sending to the API
     explicit operator FMessageRequestDto() const;
     /// Convert a message from a local request *before* sending it to the API

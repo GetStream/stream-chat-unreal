@@ -9,7 +9,7 @@
 
 FChannelState::FChannelState() = default;
 
-FChannelState::FChannelState(const FChannelStateResponseFieldsDto& Dto, FUserManager& UserManager)
+FChannelState::FChannelState(const FChannelStateResponseFieldsDto& Dto, UUserManager& UserManager)
     : Type{Dto.Channel.Type}
     , Id{Dto.Channel.Id}
     , Name{Dto.Channel.Name}
@@ -21,7 +21,7 @@ FChannelState::FChannelState(const FChannelStateResponseFieldsDto& Dto, FUserMan
     SetMembers(UserManager, Dto.Members);
 }
 
-void FChannelState::Merge(const FChannelStateResponseFieldsDto& Dto, FUserManager& UserManager)
+void FChannelState::Merge(const FChannelStateResponseFieldsDto& Dto, UUserManager& UserManager)
 {
     const TArray<FMessage> NewMessages = Convert(Dto, UserManager);
     Messages.Insert(NewMessages, 0);
@@ -67,12 +67,12 @@ const TArray<FMessage>& FChannelState::GetMessages() const
     return Messages;
 }
 
-void FChannelState::SetMembers(FUserManager& UserManager, const TArray<FChannelMemberDto>& Dto)
+void FChannelState::SetMembers(UUserManager& UserManager, const TArray<FChannelMemberDto>& Dto)
 {
     Algo::Transform(Dto, Members, [&](const FChannelMemberDto& MemberDto) { return FMember{UserManager, MemberDto}; });
 }
 
-TArray<FMessage> FChannelState::Convert(const FChannelStateResponseFieldsDto& Dto, FUserManager& UserManager)
+TArray<FMessage> FChannelState::Convert(const FChannelStateResponseFieldsDto& Dto, UUserManager& UserManager)
 {
     TArray<FMessage> NewMessages;
     Algo::Transform(Dto.Messages, NewMessages, [&](const FMessageDto& MessageDto) { return FMessage{UserManager, MessageDto}; });

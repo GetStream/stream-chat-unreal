@@ -34,16 +34,12 @@ void UStreamChatClientComponent::BeginPlay()
 
 void UStreamChatClientComponent::ConnectUserInternal(const FUser& User, const TFunction<void(const FUserRef&)> Callback)
 {
-    UserManager = FUserManager::Create(User);
+    UUserManager::Get()->SetCurrentUser(User);
     Socket = IChatSocket::Create(TokenManager.ToSharedRef(), ApiKey, GetDefault<UStreamChatSettings>()->Host, Util::Convert<FUserObjectDto>(User));
     Socket->Connect(
-        [WeakThis = TWeakObjectPtr<UStreamChatClientComponent>(this), Callback](const FOwnUserDto& OwnUser)
+        [Callback](const FOwnUserDto& OwnUser)
         {
-            if (!WeakThis.IsValid())
-            {
-                return;
-            }
-            const FUserRef Ref = WeakThis->UserManager->UpsertUser(OwnUser);
+            const FUserRef Ref = UUserManager::Get()->UpsertUser(OwnUser);
             if (Callback)
             {
                 Callback(Ref);
@@ -56,7 +52,7 @@ void UStreamChatClientComponent::ConnectUserInternal(const FUser& User, const TF
 
 UChatChannel* UStreamChatClientComponent::CreateChannelObject(const FChannelStateResponseFieldsDto& Dto)
 {
-    return UChatChannel::Create(this, Api.ToSharedRef(), Socket.ToSharedRef(), UserManager.ToSharedRef(), Dto);
+    return UChatChannel::Create(this, Api.ToSharedRef(), Socket.ToSharedRef(), Dto);
 }
 
 void UStreamChatClientComponent::OnConnectionRecovered(const FConnectionRecoveredEvent&)
@@ -69,7 +65,7 @@ void UStreamChatClientComponent::OnConnectionRecovered(const FConnectionRecovere
 
 void UStreamChatClientComponent::OnUserPresenceChanged(const FUserPresenceChangedEvent& Event)
 {
-    UserManager->UpsertUser(Event.User);
+    UUserManager::Get()->UpsertUser(Event.User);
 }
 
 void UStreamChatClientComponent::ConnectUser(
@@ -128,7 +124,6 @@ void UStreamChatClientComponent::DisconnectUser()
         Socket->Disconnect();
     }
     TokenManager->Reset();
-    UserManager.Reset();
 }
 
 void UStreamChatClientComponent::QueryChannels(

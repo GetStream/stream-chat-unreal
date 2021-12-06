@@ -6,7 +6,7 @@
 
 #include "UserRef.generated.h"
 
-class FUserManager;
+class UUserManager;
 struct FUser;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUserUpdatedMultiDelegate);
@@ -48,13 +48,15 @@ struct STREAMCHAT_API FUserRef
     /// The delegate is guaranteed to be unique to the underlying user.
     FUserUpdatedMultiDelegate& OnUpdate() const;
 
-private:
-    friend FUserManager;
-
-    FUserRef(const FString& UserId, const TSharedRef<FUserManager>&);
-
-    UPROPERTY(EditAnywhere, Category = Defaults)
+protected:
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Defaults)
     FString UserId;
 
-    mutable TSharedPtr<FUserManager> Manager;
+private:
+    friend UUserManager;
+
+    FUserRef(const FString& UserId, UUserManager*);
+
+    UPROPERTY(Transient)
+    mutable UUserManager* Manager;
 };

@@ -8,7 +8,7 @@
 
 FMessage::FMessage() = default;
 
-FMessage::FMessage(FUserManager& UserManager, const FMessageDto& Dto)
+FMessage::FMessage(UUserManager& UserManager, const FMessageDto& Dto)
     : Id{Dto.Id}
     , Text{Dto.Text}
     , State{EMessageSendState::Sent}    // Assume response dto => sent

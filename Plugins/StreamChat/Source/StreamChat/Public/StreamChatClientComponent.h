@@ -19,7 +19,6 @@ struct FChannelStateResponseFieldsDto;
 struct FUserPresenceChangedEvent;
 class FChatApi;
 class FTokenManager;
-class FUserManager;
 class ITokenProvider;
 class UChatChannel;
 
@@ -113,7 +112,6 @@ private:
 
     TSharedPtr<FTokenManager> TokenManager;
     TSharedPtr<FChatApi> Api;
-    TSharedPtr<FUserManager> UserManager;
 
     UPROPERTY(Transient)
     TArray<UChatChannel*> Channels;
