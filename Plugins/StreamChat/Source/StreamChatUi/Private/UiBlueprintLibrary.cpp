@@ -9,7 +9,9 @@
 #include "Framework/Application/MenuStack.h"
 #include "Framework/Application/SlateApplication.h"
 #include "Layout/WidgetPath.h"
+#include "Math/Color.h"
 #include "User/User.h"
+#include "WidgetUtil.h"
 
 void UUiBlueprintLibrary::AddContextMenu(UWidget* Widget, const FPointerEvent& InMouseEvent)
 {
@@ -113,4 +115,14 @@ bool UUiBlueprintLibrary::IsCurrent(const FUserRef& User)
 TArray<FMessage> UUiBlueprintLibrary::FilterRecent(const TArray<FMessage>& Messages, const FTimespan& Since)
 {
     return Messages.FilterByPredicate([&](const FMessage& M) { return FDateTime::UtcNow() - M.CreatedAt < Since; });
+}
+
+FLinearColor UUiBlueprintLibrary::GenerateColorFromString(const FString& Input)
+{
+    return WidgetUtil::ChooseColorForString(Input);
+}
+
+FString UUiBlueprintLibrary::Conv_ColorToHexString(const FLinearColor& InColor)
+{
+    return InColor.ToFColor(true).ToHex().LeftChop(2);
 }

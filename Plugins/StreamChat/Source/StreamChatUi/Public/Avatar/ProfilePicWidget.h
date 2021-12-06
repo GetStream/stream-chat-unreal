@@ -32,8 +32,6 @@ protected:
 private:
     virtual void OnSetup() override;
 
-    static FLinearColor ChooseColorForString(const FString&);
-
     void FetchRemoteImage();
 
     UPROPERTY(EditAnywhere, Category = Setup)

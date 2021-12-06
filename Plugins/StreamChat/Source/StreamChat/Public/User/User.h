@@ -61,7 +61,7 @@ struct STREAMCHAT_API FUser
 
     /// The URL of a profile picture of the user
     // Not in the API spec, but common
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|User")
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat|User")
     FString Image;
 };
 

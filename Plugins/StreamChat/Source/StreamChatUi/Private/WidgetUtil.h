@@ -19,4 +19,7 @@ T* GetTypedParentWidget(const UWidget* Widget)
 FString TruncateWithEllipsis(const FString&, uint32 MaxWidth, const FSlateFontInfo& FontInfo);
 
 uint32 HashStringWithMax(const FString&, uint32 Max = 16);
+
+FLinearColor ChooseColorForString(const FString&);
+
 }    // namespace WidgetUtil

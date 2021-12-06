@@ -39,4 +39,12 @@ public:
 
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Messages")
     static TArray<FMessage> FilterRecent(const TArray<FMessage>& Messages, const FTimespan& Since);
+
+    /// Deterministically generate one of 16 preset colors from a string
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Messages")
+    static FLinearColor GenerateColorFromString(const FString& Input);
+
+    /** Converts a linear color value to a hex string, in the form 'RRGGBB' (no '#' prefix, no alpha) */
+    UFUNCTION(BlueprintPure, meta = (DisplayName = "To Hex String (linear color)", CompactNodeTitle = "->", BlueprintAutocast), Category = "Utilities|String")
+    static FString Conv_ColorToHexString(const FLinearColor& InColor);
 };
