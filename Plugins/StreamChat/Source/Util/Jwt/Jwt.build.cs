@@ -1,3 +1,5 @@
+// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+
 using System;
 using System.IO;
 using UnrealBuildTool;

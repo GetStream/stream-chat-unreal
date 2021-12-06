@@ -1,3 +1,5 @@
+// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+
 #include "AdditionalFields.h"
 
 void FAdditionalFields::AddString(const FString& Key, const FString& Value)

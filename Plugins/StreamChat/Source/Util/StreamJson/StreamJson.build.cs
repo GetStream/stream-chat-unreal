@@ -1,3 +1,5 @@
+// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+
 using UnrealBuildTool;
 
 public class StreamJson : ModuleRules

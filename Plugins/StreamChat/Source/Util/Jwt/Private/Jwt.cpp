@@ -1,3 +1,5 @@
+// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+
 #include "Jwt.h"
 
 #define UI UI_UE
