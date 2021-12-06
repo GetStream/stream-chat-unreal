@@ -38,21 +38,18 @@ protected:
     UTexture2D* YouOpeningTexture;
     UPROPERTY(EditAnywhere, Category = Bubble)
     UTexture2D* YouEndTexture;
-    UPROPERTY(EditAnywhere, Category = Bubble)
-    FLinearColor MeBubbleColor;
-    UPROPERTY(EditAnywhere, Category = Bubble)
-    FLinearColor DeletedBubbleColor;
-    UPROPERTY(EditAnywhere, Category = Text)
-    FLinearColor NormalTextColor;
-    UPROPERTY(EditAnywhere, Category = Text)
-    FLinearColor DeletedTextColor;
 
 private:
     virtual void OnSetup() override;
+    virtual bool WantsTheme() override
+    {
+        return true;
+    }
+    virtual void OnTheme(UThemeDataAsset*) override;
 
     UTexture2D* GetBubbleTexture() const;
-    const FLinearColor& GetBubbleColor() const;
-    const FLinearColor& GetTextColor() const;
+    const FLinearColor& GetBubbleColor(const UThemeDataAsset*) const;
+    const FLinearColor& GetTextColor(const UThemeDataAsset*) const;
     FText GetText() const;
 
     UPROPERTY(EditAnywhere, Category = Setup)

@@ -2,6 +2,8 @@
 
 #include "Message/TextBubbleWidget.h"
 
+#include "ThemeDataAsset.h"
+
 void UTextBubbleWidget::Setup(const FMessage& InMessage, EMessageSide InSide, EBubbleStackPosition InPosition)
 {
     Message = InMessage;
@@ -16,7 +18,6 @@ void UTextBubbleWidget::OnSetup()
     if (TextBlock)
     {
         TextBlock->SetText(GetText());
-        TextBlock->SetColorAndOpacity(GetTextColor());
     }
 
     if (Border)
@@ -24,7 +25,18 @@ void UTextBubbleWidget::OnSetup()
         Border->Background.Margin = {0.5f};
         Border->Background.DrawAs = ESlateBrushDrawType::Box;
         Border->SetBrushFromTexture(GetBubbleTexture());
-        Border->SetBrushColor(GetBubbleColor());
+    }
+}
+
+void UTextBubbleWidget::OnTheme(UThemeDataAsset* Theme)
+{
+    if (TextBlock)
+    {
+        TextBlock->SetColorAndOpacity(GetTextColor(Theme));
+    }
+    if (Border)
+    {
+        Border->SetBrushColor(GetBubbleColor(Theme));
     }
 }
 
@@ -56,26 +68,26 @@ UTexture2D* UTextBubbleWidget::GetBubbleTexture() const
     return nullptr;
 }
 
-const FLinearColor& UTextBubbleWidget::GetBubbleColor() const
+const FLinearColor& UTextBubbleWidget::GetBubbleColor(const UThemeDataAsset* Theme) const
 {
     if (Message.Type == EMessageType::Deleted)
     {
-        return DeletedBubbleColor;
+        return Theme->DeletedBubbleColor;
     }
     if (Side == EMessageSide::Me)
     {
-        return MeBubbleColor;
+        return Theme->MeBubbleColor;
     }
-    return FLinearColor::White;
+    return Theme->YouBubbleColor;
 }
 
-const FLinearColor& UTextBubbleWidget::GetTextColor() const
+const FLinearColor& UTextBubbleWidget::GetTextColor(const UThemeDataAsset* Theme) const
 {
     if (Message.Type == EMessageType::Deleted)
     {
-        return DeletedTextColor;
+        return Theme->DeletedMessageTextColor;
     }
-    return NormalTextColor;
+    return Theme->NormalMessageTextColor;
 }
 
 FText UTextBubbleWidget::GetText() const
