@@ -33,7 +33,7 @@ void UReactionsTooltipWidget::OnSetup()
         for (const FReaction& Reaction : ReactionGroup.LatestReactions)
         {
             UNamedAvatarWidget* Widget = CreateWidget<UNamedAvatarWidget>(this, NamedAvatarWidgetClass);
-            Widget->Setup(Reaction.User);
+            Widget->Setup(Reaction.User, false);
             AvatarPanel->AddChild(Widget);
         }
     }
