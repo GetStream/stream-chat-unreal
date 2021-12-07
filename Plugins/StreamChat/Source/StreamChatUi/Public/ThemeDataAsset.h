@@ -17,25 +17,49 @@ class STREAMCHATUI_API UThemeDataAsset : public UDataAsset
     GENERATED_BODY()
 
 public:
+    UFUNCTION(BlueprintPure)
+    const FLinearColor& GetPaletteColor(const FName& Name) const;
+
     static UThemeDataAsset* Get(const UWidget* Widget);
     /// Should the name of a user appear colored
     UPROPERTY(EditAnywhere, Category = "User")
     bool bColoredName;
 
-    // The bubble color of messages sent by the current user
-    UPROPERTY(EditAnywhere, Category = "Message Bubble")
-    FLinearColor MeBubbleColor;
-    // The bubble color of messages sent by other users
-    UPROPERTY(EditAnywhere, Category = "Message Bubble")
-    FLinearColor YouBubbleColor;
-    // The bubble color of messages which have been soft deleted
-    UPROPERTY(EditAnywhere, Category = "Message Bubble")
-    FLinearColor DeletedBubbleColor;
+    /// All colors should be named here, for referencing elsewhere
+    UPROPERTY(EditAnywhere, Category = Colors)
+    TMap<FName, FLinearColor> Palette;
 
-    // The color of the text of messages
-    UPROPERTY(EditAnywhere, Category = "Message Bubble")
-    FLinearColor NormalMessageTextColor;
-    // The color of the text of messages which have been soft deleted
-    UPROPERTY(EditAnywhere, Category = "Message Bubble")
-    FLinearColor DeletedMessageTextColor;
+    /// The bubble color of messages sent by the current user
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Bubble")
+    FName MeBubbleColor = TEXT("borders");
+    /// The bubble color of messages sent by other users
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Bubble")
+    FName YouBubbleColor = TEXT("bars-bg");
+    /// The bubble color of messages which have been soft deleted
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Bubble")
+    FName DeletedBubbleColor = TEXT("input-bg");
+
+    /// The color of the text of messages
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Bubble")
+    FName NormalMessageTextColor = TEXT("text-high-emphasis");
+    /// The color of the text of messages which have been soft deleted
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Bubble")
+    FName DeletedMessageTextColor = TEXT("text-low-emphasis");
+
+    /// The color of the background of the message composer
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Composer")
+    FName MessageComposerBackgroundColor = TEXT("bars-bg");
+    /// The color of the header text (e.g. "Edit Message" or "Reply to Message")
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Composer")
+    FName MessageComposerHeaderTextColor = TEXT("text-high-emphasis");
+
+    /// The color of the input text
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Input")
+    FName MessageInputTextColor = TEXT("text-high-emphasis");
+    /// The color of the input box background
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Input")
+    FName MessageInputBackgroundColor = TEXT("app-bg");
+    /// The color of the input box border
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Input")
+    FName MessageInputBorderColor = TEXT("borders");
 };
