@@ -4,6 +4,7 @@
 
 #include "Blueprint/UserWidget.h"
 #include "Channel/ChatChannel.h"
+#include "Common/IconButton.h"
 #include "Components/Border.h"
 #include "Components/Button.h"
 #include "Components/Image.h"
@@ -35,10 +36,7 @@ protected:
     UMessageInputWidget* MessageInput;
 
     UPROPERTY(meta = (BindWidget))
-    UButton* SendMessageButton;
-
-    UPROPERTY(meta = (BindWidget))
-    UImage* SendMessageIcon;
+    UIconButton* SendMessageButton;
 
     UPROPERTY(meta = (BindWidget))
     UButton* CancelEditingButton;
@@ -51,12 +49,6 @@ protected:
 
     UPROPERTY(meta = (BindWidget))
     UBorder* BackgroundBorder;
-
-    UPROPERTY(EditAnywhere, Category = "Button")
-    FButtonStyle ButtonStyleNormal;
-
-    UPROPERTY(EditAnywhere, Category = "Button")
-    FButtonStyle ButtonStyleDisabled;
 
     UPROPERTY(EditAnywhere, Category = "Icon")
     UTexture2D* IconTextureSend;

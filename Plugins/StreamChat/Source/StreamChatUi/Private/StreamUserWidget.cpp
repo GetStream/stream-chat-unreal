@@ -34,6 +34,7 @@ void UStreamUserWidget::NativePreConstruct()
         if (UThemeDataAsset* Theme = UThemeDataAsset::Get(this))
         {
             OnTheme(Theme);
+            OnTheme_BP(Theme);
         }
     }
 }

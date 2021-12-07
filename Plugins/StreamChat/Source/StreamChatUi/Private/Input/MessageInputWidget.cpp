@@ -30,8 +30,8 @@ void UMessageInputWidget::NativeOnInitialized()
 {
     Super::NativeOnInitialized();
 
-    TextBox->OnTextChanged.AddDynamic(this, &UMessageInputWidget::OnInputTextChanged);
-    TextBox->OnTextCommitted.AddDynamic(this, &UMessageInputWidget::OnInputTextCommit);
+    TextBox->OnTextChanged.AddUniqueDynamic(this, &UMessageInputWidget::OnInputTextChanged);
+    TextBox->OnTextCommitted.AddUniqueDynamic(this, &UMessageInputWidget::OnInputTextCommit);
 }
 
 void UMessageInputWidget::OnInputTextChanged(const FText& Text)
@@ -55,4 +55,10 @@ void UMessageInputWidget::OnTheme(UThemeDataAsset* Theme)
     {
         Border->SetBrushColor(Theme->GetPaletteColor(Theme->MessageInputBorderColor));
     }
+}
+
+FReply UMessageInputWidget::NativeOnFocusReceived(const FGeometry& InGeometry, const FFocusEvent& InFocusEvent)
+{
+    TextBox->SetKeyboardFocus();
+    return Super::NativeOnFocusReceived(InGeometry, InFocusEvent);
 }

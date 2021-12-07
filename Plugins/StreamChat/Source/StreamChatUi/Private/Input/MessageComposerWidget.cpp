@@ -3,9 +3,7 @@
 #include "Input/MessageComposerWidget.h"
 
 #include "Brushes/SlateImageBrush.h"
-#include "Components/ButtonSlot.h"
 #include "Context/ChannelContextWidget.h"
-#include "Engine/Texture2D.h"
 #include "ThemeDataAsset.h"
 #include "TimerManager.h"
 
@@ -24,9 +22,6 @@ void UMessageComposerWidget::NativeOnInitialized()
     {
         SendMessageButton->OnClicked.AddDynamic(this, &UMessageComposerWidget::OnSendButtonClicked);
     }
-
-    UpdateSendButtonAppearance(false);
-    UpdateEditMessageAppearance(ESendButtonIconAppearance::Send);
 
     Super::NativeOnInitialized();
 }
@@ -52,6 +47,9 @@ void UMessageComposerWidget::NativeConstruct()
             EditMessageTextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Theme->MessageComposerHeaderTextColor));
         }
     }
+
+    UpdateSendButtonAppearance(false);
+    UpdateEditMessageAppearance(ESendButtonIconAppearance::Send);
 
     Super::NativeConstruct();
 }
@@ -138,8 +136,7 @@ void UMessageComposerWidget::SendMessage()
 
 void UMessageComposerWidget::UpdateSendButtonAppearance(const bool bEnabled)
 {
-    const FButtonStyle& ButtonStyle = bEnabled ? ButtonStyleNormal : ButtonStyleDisabled;
-    SendMessageButton->SetStyle(ButtonStyle);
+    SendMessageButton->SetEnabled(bEnabled);
 }
 
 void UMessageComposerWidget::StopEditMessage()
@@ -156,15 +153,12 @@ void UMessageComposerWidget::StopEditMessage()
 
 void UMessageComposerWidget::UpdateEditMessageAppearance(const ESendButtonIconAppearance Appearance)
 {
-    if (SendMessageIcon)
+    if (SendMessageButton)
     {
         UTexture2D* Texture = Appearance == ESendButtonIconAppearance::Send ? IconTextureSend : IconTextureConfirm;
-        SendMessageIcon->SetBrushFromTexture(Texture, true);
-        if (UButtonSlot* ButtonSlot = Cast<UButtonSlot>(SendMessageIcon->Slot))
-        {
-            const FMargin IconPadding = Appearance == ESendButtonIconAppearance::Send ? IconPaddingSend : IconPaddingConfirm;
-            ButtonSlot->SetPadding(IconPadding);
-        }
+        SendMessageButton->SetIconFromTexture(Texture);
+        const FMargin IconPadding = Appearance == ESendButtonIconAppearance::Send ? IconPaddingSend : IconPaddingConfirm;
+        SendMessageButton->SetIconPadding(IconPadding);
     }
 
     if (CancelEditingHeaderPanel)
