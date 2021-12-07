@@ -72,22 +72,22 @@ const FLinearColor& UTextBubbleWidget::GetBubbleColor(const UThemeDataAsset* The
 {
     if (Message.Type == EMessageType::Deleted)
     {
-        return Theme->DeletedBubbleColor;
+        return Theme->GetPaletteColor(Theme->DeletedBubbleColor);
     }
     if (Side == EMessageSide::Me)
     {
-        return Theme->MeBubbleColor;
+        return Theme->GetPaletteColor(Theme->MeBubbleColor);
     }
-    return Theme->YouBubbleColor;
+    return Theme->GetPaletteColor(Theme->YouBubbleColor);
 }
 
 const FLinearColor& UTextBubbleWidget::GetTextColor(const UThemeDataAsset* Theme) const
 {
     if (Message.Type == EMessageType::Deleted)
     {
-        return Theme->DeletedMessageTextColor;
+        return Theme->GetPaletteColor(Theme->DeletedMessageTextColor);
     }
-    return Theme->NormalMessageTextColor;
+    return Theme->GetPaletteColor(Theme->NormalMessageTextColor);
 }
 
 FText UTextBubbleWidget::GetText() const

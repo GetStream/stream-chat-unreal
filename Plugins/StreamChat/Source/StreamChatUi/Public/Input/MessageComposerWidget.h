@@ -4,8 +4,10 @@
 
 #include "Blueprint/UserWidget.h"
 #include "Channel/ChatChannel.h"
+#include "Components/Border.h"
 #include "Components/Button.h"
 #include "Components/Image.h"
+#include "Components/TextBlock.h"
 #include "CoreMinimal.h"
 #include "MessageInputWidget.h"
 #include "Types/SlateEnums.h"
@@ -43,6 +45,12 @@ protected:
 
     UPROPERTY(meta = (BindWidget))
     UPanelWidget* CancelEditingHeaderPanel;
+
+    UPROPERTY(meta = (BindWidget))
+    UTextBlock* EditMessageTextBlock;
+
+    UPROPERTY(meta = (BindWidget))
+    UBorder* BackgroundBorder;
 
     UPROPERTY(EditAnywhere, Category = "Button")
     FButtonStyle ButtonStyleNormal;

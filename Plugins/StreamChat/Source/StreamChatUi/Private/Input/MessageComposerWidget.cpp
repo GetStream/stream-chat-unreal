@@ -6,6 +6,7 @@
 #include "Components/ButtonSlot.h"
 #include "Context/ChannelContextWidget.h"
 #include "Engine/Texture2D.h"
+#include "ThemeDataAsset.h"
 #include "TimerManager.h"
 
 void UMessageComposerWidget::NativeOnInitialized()
@@ -38,6 +39,18 @@ void UMessageComposerWidget::NativeConstruct()
     if (MessageInput)
     {
         MessageInput->SetKeyboardFocus();
+    }
+
+    if (const UThemeDataAsset* Theme = UThemeDataAsset::Get(this))
+    {
+        if (BackgroundBorder)
+        {
+            BackgroundBorder->SetBrushColor(Theme->GetPaletteColor(Theme->MessageComposerBackgroundColor));
+        }
+        if (EditMessageTextBlock)
+        {
+            EditMessageTextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Theme->MessageComposerHeaderTextColor));
+        }
     }
 
     Super::NativeConstruct();
