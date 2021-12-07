@@ -17,7 +17,7 @@ class STREAMCHATUI_API UThemeDataAsset : public UDataAsset
     GENERATED_BODY()
 
 public:
-    UFUNCTION(BlueprintPure)
+    UFUNCTION(BlueprintPure, Category = "Theme")
     const FLinearColor& GetPaletteColor(const FName& Name) const;
 
     static UThemeDataAsset* Get(const UWidget* Widget);
@@ -66,8 +66,11 @@ public:
     /// The enabled color for the background of icon buttons
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Icon Button")
     FName IconButtonEnabledBackgroundColor = TEXT("accent-primary");
-
     /// The disabled color for the background of icon buttons
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Icon Button")
     FName IconButtonDisabledBackgroundColor = TEXT("disabled");
+
+    /// The color of the timestamp text under a message stack
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Timestamp")
+    FName TimestampTextColor = TEXT("text-low-emphasis");
 };

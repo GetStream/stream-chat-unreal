@@ -4,6 +4,7 @@
 
 #include "Context/ThemeContextWidget.h"
 
+#include "UObject/ConstructorHelpers.h"
 #include "WidgetUtil.h"
 
 UThemeContextWidget::UThemeContextWidget()
