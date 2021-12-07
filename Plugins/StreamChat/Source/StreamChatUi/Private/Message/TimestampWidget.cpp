@@ -52,10 +52,18 @@ void UTimestampWidget::OnSetup()
 
 void UTimestampWidget::OnTheme(UThemeDataAsset* Theme)
 {
-    if (Theme->bColoredName)
+    if (UserTextBlock)
     {
-        const FLinearColor Color = WidgetUtil::ChooseColorForString(Message.User->Id);
-        UserTextBlock->SetColorAndOpacity(Color);
+        if (Theme->bColoredName)
+        {
+            const FLinearColor Color = WidgetUtil::ChooseColorForString(Message.User->Id);
+            UserTextBlock->SetColorAndOpacity(Color);
+        }
+    }
+
+    if (DateTimeTextBlock)
+    {
+        DateTimeTextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Theme->TimestampTextColor));
     }
 }
 
