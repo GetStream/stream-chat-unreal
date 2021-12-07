@@ -18,6 +18,10 @@ public:
     /// This must be called in your custom Setup(...) function.
     void Setup();
 
+protected:
+    UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Theme"))
+    void OnTheme_BP(UThemeDataAsset* Theme);
+
 private:
     virtual bool Initialize() override;
 

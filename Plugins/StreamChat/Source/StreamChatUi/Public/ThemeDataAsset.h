@@ -62,4 +62,12 @@ public:
     /// The color of the input box border
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Input")
     FName MessageInputBorderColor = TEXT("borders");
+
+    /// The enabled color for the background of icon buttons
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Icon Button")
+    FName IconButtonEnabledBackgroundColor = TEXT("accent-primary");
+
+    /// The disabled color for the background of icon buttons
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Icon Button")
+    FName IconButtonDisabledBackgroundColor = TEXT("disabled");
 };
