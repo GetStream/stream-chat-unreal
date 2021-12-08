@@ -73,4 +73,22 @@ public:
     /// The color of the timestamp text under a message stack
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Timestamp")
     FName TimestampTextColor = TEXT("text-low-emphasis");
+
+    /// The color of the border between context menu items
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Context Menu")
+    FName ContextMenuBorderColor = TEXT("borders");
+    /// The color of a context menu item button in the normal state
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Context Menu")
+    FName ContextMenuDefaultButtonColor = TEXT("bars-bg");
+    /// The color of a context menu item button in the pressed state
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Context Menu")
+    FName ContextMenuPressedButtonColor = TEXT("input-bg");
+    UPROPERTY(EditAnywhere, Category = Style)
+    FName ContextMenuDefaultTextColor = TEXT("text-high-emphasis");
+    UPROPERTY(EditAnywhere, Category = Style)
+    FName ContextMenuNegativeTextColor = TEXT("accent-error");
+    UPROPERTY(EditAnywhere, Category = Style)
+    FName ContextMenuDefaultIconColor = TEXT("text-low-emphasis");
+    UPROPERTY(EditAnywhere, Category = Style)
+    FName ContextMenuNegativeIconColor = TEXT("accent-error");
 };

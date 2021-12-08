@@ -51,7 +51,7 @@ private:
     {
         return true;
     }
-    virtual void OnTheme(UThemeDataAsset*) override;
+    virtual void OnTheme(const UThemeDataAsset*) override;
     virtual FReply NativeOnFocusReceived(const FGeometry& InGeometry, const FFocusEvent& InFocusEvent) override;
 
     UFUNCTION()

@@ -28,7 +28,7 @@ void UTextBubbleWidget::OnSetup()
     }
 }
 
-void UTextBubbleWidget::OnTheme(UThemeDataAsset* Theme)
+void UTextBubbleWidget::OnTheme(const UThemeDataAsset* Theme)
 {
     if (TextBlock)
     {

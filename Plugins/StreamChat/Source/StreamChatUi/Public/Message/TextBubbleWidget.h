@@ -45,7 +45,7 @@ private:
     {
         return true;
     }
-    virtual void OnTheme(UThemeDataAsset*) override;
+    virtual void OnTheme(const UThemeDataAsset*) override;
 
     UTexture2D* GetBubbleTexture() const;
     const FLinearColor& GetBubbleColor(const UThemeDataAsset*) const;
