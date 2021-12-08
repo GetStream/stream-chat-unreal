@@ -50,29 +50,22 @@ protected:
     UTexture2D* MidButtonTexture;
     UPROPERTY(EditAnywhere, Category = Button)
     UTexture2D* BottomButtonTexture;
-    UPROPERTY(EditAnywhere, Category = Button)
-    FLinearColor DefaultButtonColor;
-    UPROPERTY(EditAnywhere, Category = Button)
-    FLinearColor SelectedButtonColor;
-    UPROPERTY(EditAnywhere, Category = Style)
-    FLinearColor DefaultTextColor;
-    UPROPERTY(EditAnywhere, Category = Style)
-    FLinearColor NegativeTextColor;
-    UPROPERTY(EditAnywhere, Category = Style)
-    FLinearColor DefaultIconColor;
-    UPROPERTY(EditAnywhere, Category = Style)
-    FLinearColor NegativeIconColor;
 
 private:
     virtual void OnSetup() override;
+    virtual bool WantsTheme() override
+    {
+        return true;
+    }
+    virtual void OnTheme(const UThemeDataAsset*) override;
 
     UFUNCTION()
     void OnButtonClicked();
 
     UTexture2D* GetButtonTexture() const;
     FMargin GetButtonMargin() const;
-    FLinearColor GetIconColor() const;
-    FLinearColor GetTextColor() const;
+    const FLinearColor& GetIconColor(const UThemeDataAsset* Theme) const;
+    const FLinearColor& GetTextColor(const UThemeDataAsset* Theme) const;
 
     UPROPERTY(EditAnywhere, Category = Setup)
     FMessage Message;

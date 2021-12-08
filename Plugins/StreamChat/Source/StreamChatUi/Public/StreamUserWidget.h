@@ -42,7 +42,7 @@ private:
         return false;
     }
 
-    virtual void OnTheme(UThemeDataAsset*)
+    virtual void OnTheme(const UThemeDataAsset*)
     {
     }
 };

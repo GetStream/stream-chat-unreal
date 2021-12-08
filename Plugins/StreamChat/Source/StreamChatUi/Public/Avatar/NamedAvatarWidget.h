@@ -35,7 +35,7 @@ private:
     {
         return true;
     }
-    virtual void OnTheme(UThemeDataAsset*) override;
+    virtual void OnTheme(const UThemeDataAsset*) override;
 
     FUserRef User;
 };

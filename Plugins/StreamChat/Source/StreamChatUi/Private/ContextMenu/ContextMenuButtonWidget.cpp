@@ -4,6 +4,7 @@
 
 #include "Brushes/SlateBoxBrush.h"
 #include "Engine/Texture2D.h"
+#include "ThemeDataAsset.h"
 
 void UContextMenuButtonWidget::Setup(const FMessage& InMessage, const EContextMenuButtonPosition InPosition, UContextMenuAction* InAction)
 {
@@ -30,16 +31,6 @@ void UContextMenuButtonWidget::OnSetup()
 
     if (Button)
     {
-        UTexture2D* Texture = GetButtonTexture();
-        const FMargin Margin = GetButtonMargin();
-        const FSlateBoxBrush NormalBrush = FSlateBoxBrush(Texture, Margin, DefaultButtonColor);
-        const FSlateBoxBrush SelectedBrush = FSlateBoxBrush(Texture, Margin, SelectedButtonColor);
-        Button->WidgetStyle.SetNormal(NormalBrush);
-        Button->WidgetStyle.SetHovered(NormalBrush);
-        Button->WidgetStyle.SetPressed(SelectedBrush);
-        Button->WidgetStyle.NormalPadding = {};
-        Button->WidgetStyle.PressedPadding = {};
-
         Button->OnClicked.AddUniqueDynamic(this, &UContextMenuButtonWidget::OnButtonClicked);
     }
 
@@ -49,7 +40,6 @@ void UContextMenuButtonWidget::OnSetup()
         {
             IconImage->SetBrushFromTexture(Action->IconTexture, true);
         }
-        IconImage->SetColorAndOpacity(GetIconColor());
     }
 
     if (TextBlock)
@@ -58,7 +48,36 @@ void UContextMenuButtonWidget::OnSetup()
         {
             TextBlock->SetText(Action->Label);
         }
-        TextBlock->SetColorAndOpacity(GetTextColor());
+    }
+}
+
+void UContextMenuButtonWidget::OnTheme(const UThemeDataAsset* Theme)
+{
+    if (TopBorderImage)
+    {
+        TopBorderImage->SetColorAndOpacity(Theme->GetPaletteColor(Theme->ContextMenuBorderColor));
+    }
+    if (Button)
+    {
+        UTexture2D* Texture = GetButtonTexture();
+        const FMargin Margin = GetButtonMargin();
+        const FSlateBoxBrush NormalBrush = FSlateBoxBrush(Texture, Margin, Theme->GetPaletteColor(Theme->ContextMenuDefaultButtonColor));
+        const FSlateBoxBrush SelectedBrush = FSlateBoxBrush(Texture, Margin, Theme->GetPaletteColor(Theme->ContextMenuPressedButtonColor));
+        Button->WidgetStyle.SetNormal(NormalBrush);
+        Button->WidgetStyle.SetHovered(NormalBrush);
+        Button->WidgetStyle.SetPressed(SelectedBrush);
+        Button->WidgetStyle.NormalPadding = {};
+        Button->WidgetStyle.PressedPadding = {};
+    }
+
+    if (IconImage)
+    {
+        IconImage->SetColorAndOpacity(GetIconColor(Theme));
+    }
+
+    if (TextBlock)
+    {
+        TextBlock->SetColorAndOpacity(GetTextColor(Theme));
     }
 }
 
@@ -98,32 +117,32 @@ FMargin UContextMenuButtonWidget::GetButtonMargin() const
     return {};
 }
 
-FLinearColor UContextMenuButtonWidget::GetIconColor() const
+const FLinearColor& UContextMenuButtonWidget::GetIconColor(const UThemeDataAsset* Theme) const
 {
     if (Action)
     {
         switch (Action->Style)
         {
             case EContextMenuButtonStyle::Standard:
-                return DefaultIconColor;
+                return Theme->GetPaletteColor(Theme->ContextMenuDefaultIconColor);
             case EContextMenuButtonStyle::Negative:
-                return NegativeIconColor;
+                return Theme->GetPaletteColor(Theme->ContextMenuNegativeIconColor);
         }
     }
-    return FLinearColor::White;
+    return FLinearColor::Red;
 }
 
-FLinearColor UContextMenuButtonWidget::GetTextColor() const
+const FLinearColor& UContextMenuButtonWidget::GetTextColor(const UThemeDataAsset* Theme) const
 {
     if (Action)
     {
         switch (Action->Style)
         {
             case EContextMenuButtonStyle::Standard:
-                return DefaultTextColor;
+                return Theme->GetPaletteColor(Theme->ContextMenuDefaultTextColor);
             case EContextMenuButtonStyle::Negative:
-                return NegativeTextColor;
+                return Theme->GetPaletteColor(Theme->ContextMenuNegativeTextColor);
         }
     }
-    return FLinearColor::White;
+    return FLinearColor::Red;
 }
