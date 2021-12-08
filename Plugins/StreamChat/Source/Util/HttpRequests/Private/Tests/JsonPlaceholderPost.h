@@ -12,10 +12,10 @@ struct FJsonPlaceholderPost
     GENERATED_BODY()
 
     UPROPERTY()
-    int32 UserId;
+    int32 User = -1;
 
     UPROPERTY()
-    int32 Id;
+    int32 Id = -1;
 
     UPROPERTY()
     FString Title;

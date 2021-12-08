@@ -19,5 +19,5 @@ struct STREAMCHATDTO_API FSortParamRequestDto
     FString Field;
 
     UPROPERTY()
-    int32 Direction;
+    int32 Direction = -1;
 };

@@ -42,7 +42,7 @@ struct FQueryChannelsRequestDto
 
     /// Fetch user presence info
     UPROPERTY()
-    bool bPresence;
+    bool bPresence = false;
 
     /// List of sort parameters
     UPROPERTY()
@@ -50,9 +50,9 @@ struct FQueryChannelsRequestDto
 
     /// Refresh channel state
     UPROPERTY()
-    bool bState;
+    bool bState = true;
 
     /// Start watching the channel
     UPROPERTY()
-    bool bWatch;
+    bool bWatch = true;
 };

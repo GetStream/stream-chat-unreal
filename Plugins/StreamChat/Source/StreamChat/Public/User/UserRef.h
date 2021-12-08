@@ -58,5 +58,5 @@ private:
     FUserRef(const FString& UserId, UUserManager*);
 
     UPROPERTY(Transient)
-    mutable UUserManager* Manager;
+    mutable UUserManager* Manager = nullptr;
 };

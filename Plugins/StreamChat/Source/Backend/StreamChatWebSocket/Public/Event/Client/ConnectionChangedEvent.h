@@ -20,5 +20,5 @@ struct FConnectionChangedEvent : public FLocalEvent
     inline static FName StaticType = TEXT("connection.changed");
 
     UPROPERTY()
-    bool bOnline;
+    bool bOnline = false;
 };

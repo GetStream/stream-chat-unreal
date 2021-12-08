@@ -18,7 +18,7 @@ struct FUserObjectRequestDto
     GENERATED_BODY()
 
     UPROPERTY()
-    bool bServerDeterminesConnectionId;
+    bool bServerDeterminesConnectionId = false;
 
     UPROPERTY()
     FString ClientId;

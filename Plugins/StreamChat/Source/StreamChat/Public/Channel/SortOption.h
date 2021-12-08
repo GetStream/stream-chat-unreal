@@ -49,9 +49,9 @@ struct FSortOption
 
     /// Which field to sort by
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat")
-    ESortField Field;
+    ESortField Field = ESortField::LastMessageAt;
 
     /// The direction in which to sort
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat")
-    ESortDirection Direction;
+    ESortDirection Direction = ESortDirection::Descending;
 };
