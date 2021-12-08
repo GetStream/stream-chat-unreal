@@ -17,8 +17,6 @@ struct FMessageEvent : public FChannelEvent
 {
     GENERATED_BODY()
 
-    STREAMCHATWEBSOCKET_API static void DeserializeExtra(const FJsonObject&, FMessageEvent&);
-
     UPROPERTY()
     FMessageDto Message;
 };

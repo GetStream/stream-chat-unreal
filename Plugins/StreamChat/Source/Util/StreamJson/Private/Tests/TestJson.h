@@ -116,17 +116,18 @@ struct FExtraFieldTestJson
 {
     GENERATED_BODY()
 
-    static void DeserializeExtra(const FJsonObject& JsonObject, FExtraFieldTestJson& Self)
+    TOptional<FDateTime> GetDeletedAt() const
     {
-        JsonField::Deserialize(JsonObject, TEXT("deleted_at"), Self.DeletedAt);
+        return AdditionalFields.Get<FDateTime>(TEXT("deleted_at"));
     }
-    static void SerializeExtra(const FExtraFieldTestJson& Self, FJsonObject& JsonObject)
+    void SetDeletedAt(const FDateTime& Value)
     {
-        JsonField::Serialize(Self.DeletedAt, TEXT("deleted_at"), JsonObject);
+        return AdditionalFields.Set(TEXT("deleted_at"), Value);
     }
 
     UPROPERTY()
     FString String;
 
-    TOptional<FDateTime> DeletedAt;
+    UPROPERTY()
+    FAdditionalFields AdditionalFields;
 };

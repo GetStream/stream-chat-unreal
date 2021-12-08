@@ -43,16 +43,25 @@ void FChatApi::QueryChannel(
     const FString ChannelPath = !ChannelId.IsSet() ? ChannelType : FString::Printf(TEXT("%s/%s"), *ChannelType, *ChannelId.GetValue());
     const FString Path = FString::Printf(TEXT("channels/%s/query"), *ChannelPath);
     const FString Url = BuildUrl(Path);
-    const FChannelGetOrCreateRequestDto Body{
+    FChannelGetOrCreateRequestDto Body{
         ConnectionId,
         Data,
         EnumHasAnyFlags(Flags, EChannelFlags::Watch),
         EnumHasAnyFlags(Flags, EChannelFlags::State),
         EnumHasAnyFlags(Flags, EChannelFlags::Presence),
-        MemberPagination,
-        MessagePagination,
-        WatcherPagination,
     };
+    if (MemberPagination.IsSet())
+    {
+        Body.SetMembers(MemberPagination.GetValue());
+    }
+    if (MessagePagination.IsSet())
+    {
+        Body.SetMessages(MessagePagination.GetValue());
+    }
+    if (WatcherPagination.IsSet())
+    {
+        Body.SetWatchers(WatcherPagination.GetValue());
+    }
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
@@ -122,18 +131,31 @@ void FChatApi::QueryChannels(
     const FString Url = BuildUrl(TEXT("channels"));
     // TODO FJsonObjectWrapper for filter?
     // TODO Pagination?
-    const FQueryChannelsRequestDto Body{
+    FQueryChannelsRequestDto Body{
         ConnectionId,
         Filter.Get({}),
-        PaginationOptions.Limit,
-        MemberLimit,
-        MessageLimit,
-        PaginationOptions.Offset,
         EnumHasAnyFlags(Flags, EChannelFlags::Presence),
         SortOptions,
         EnumHasAnyFlags(Flags, EChannelFlags::State),
         EnumHasAnyFlags(Flags, EChannelFlags::Watch),
     };
+    if (PaginationOptions.Limit.IsSet())
+    {
+        Body.SetLimit(PaginationOptions.Limit.GetValue());
+    }
+    if (MemberLimit.IsSet())
+    {
+        Body.SetMemberLimit(MemberLimit.GetValue());
+    }
+    if (MessageLimit.IsSet())
+    {
+        Body.SetMemberLimit(MessageLimit.GetValue());
+    }
+    if (PaginationOptions.Offset.IsSet())
+    {
+        Body.SetOffset(PaginationOptions.Offset.GetValue());
+    }
+
     Client->Post(Url).Json(Body).Send(Callback);
 }
 

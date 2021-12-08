@@ -50,6 +50,9 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UBorder* BackgroundBorder;
 
+    UPROPERTY(meta = (BindWidget))
+    UImage* TopBorderImage;
+
     UPROPERTY(EditAnywhere, Category = "Icon")
     UTexture2D* IconTextureSend;
 

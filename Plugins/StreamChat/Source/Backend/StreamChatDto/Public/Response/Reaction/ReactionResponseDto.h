@@ -17,8 +17,6 @@ struct FReactionResponseDto
 {
     GENERATED_BODY()
 
-    STREAMCHATDTO_API static void DeserializeExtra(const FJsonObject&, FReactionResponseDto&);
-
     /// Duration of the request in human-readable format
     UPROPERTY()
     FString Duration;

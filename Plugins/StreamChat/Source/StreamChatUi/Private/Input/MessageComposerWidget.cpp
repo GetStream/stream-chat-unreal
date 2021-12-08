@@ -46,6 +46,10 @@ void UMessageComposerWidget::NativeConstruct()
         {
             EditMessageTextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Theme->MessageComposerHeaderTextColor));
         }
+        if (TopBorderImage)
+        {
+            TopBorderImage->SetColorAndOpacity(Theme->GetPaletteColor(Theme->MessageComposerBorderColor));
+        }
     }
 
     UpdateSendButtonAppearance(false);

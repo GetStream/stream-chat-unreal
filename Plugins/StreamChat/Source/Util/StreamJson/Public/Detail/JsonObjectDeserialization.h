@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "ExtraFields.h"
 
 class FJsonValue;
 class FJsonObject;
@@ -37,7 +36,6 @@ template <typename OutStructType>
 bool JsonObjectToUStruct(const TSharedRef<FJsonObject>& JsonObject, OutStructType* OutStruct)
 {
     const bool bSuccess = JsonObjectToUStruct(JsonObject, OutStructType::StaticStruct(), OutStruct);
-    ExtraFields::InvokeDeserializeExtra<OutStructType>(*JsonObject, *OutStruct);
     return bSuccess;
 }
 

@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "AdditionalFields.h"
 #include "CoreMinimal.h"
 
 #include "MessagePaginationParamsRequestDto.generated.h"
@@ -13,31 +14,32 @@ class FJsonObject;
  * @ingroup StreamChatDto
  */
 USTRUCT()
-struct FMessagePaginationParamsRequestDto
+struct STREAMCHATDTO_API FMessagePaginationParamsRequestDto
 {
     GENERATED_BODY()
 
-    STREAMCHATDTO_API static void SerializeExtra(const FMessagePaginationParamsRequestDto&, FJsonObject&);
+    void SetCreatedAtAfter(const FDateTime&);
 
-    TOptional<FDateTime> CreatedAtAfter;
+    void SetCreatedAtAfterOrEqual(const FDateTime&);
 
-    TOptional<FDateTime> CreatedAtAfterOrEqual;
+    void SetCreatedAtBefore(const FDateTime&);
 
-    TOptional<FDateTime> CreatedAtBefore;
+    void SetCreatedAtBeforeOrEqual(const FDateTime&);
 
-    TOptional<FDateTime> CreatedAtBeforeOrEqual;
+    void SetIdGt(const FString&);
 
-    TOptional<FString> IdGt;
+    void SetIdGte(const FString&);
 
-    TOptional<FString> IdGte;
+    void SetIdLt(const FString&);
 
-    TOptional<FString> IdLt;
-
-    TOptional<FString> IdLte;
+    void SetIdLte(const FString&);
 
     UPROPERTY()
     uint32 Limit = 20;
 
     UPROPERTY()
     int32 Offset = 0;
+
+    UPROPERTY()
+    FAdditionalFields AdditionalFields;
 };

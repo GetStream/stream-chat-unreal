@@ -2,9 +2,7 @@
 
 #include "Response/Message/MessageDto.h"
 
-#include "StreamJsonField.h"
-
-void FMessageDto::DeserializeExtra(const FJsonObject& JsonObject, FMessageDto& Self)
+TOptional<FDateTime> FMessageDto::GetDeletedAt() const
 {
-    JsonField::Deserialize(JsonObject, TEXT("deleted_at"), Self.DeletedAt);
+    return AdditionalFields.Get<FDateTime>(TEXT("deleted_at"));
 }

@@ -2,19 +2,70 @@
 
 #include "AdditionalFields.h"
 
-void FAdditionalFields::AddString(const FString& Key, const FString& Value)
+void FAdditionalFields::SetString(const FString& Key, const FString& Value)
 {
     Inner.Add(Key, MakeShared<FJsonValueString>(Value));
 }
 
-void FAdditionalFields::AddNumber(const FString& Key, float Value)
+void FAdditionalFields::SetString(const FString& Key, const TCHAR* Value)
 {
-    Inner.Add(Key, MakeShared<FJsonValueNumber>(Value));
+    Inner.Add(Key, MakeShared<FJsonValueString>(Value));
 }
 
-void FAdditionalFields::AddBool(const FString& Key, bool bValue)
+void FAdditionalFields::SetBool(const FString& Key, bool bValue)
 {
     Inner.Add(Key, MakeShared<FJsonValueBoolean>(bValue));
+}
+
+void FAdditionalFields::SetJsonObject(const FString& Key, const TSharedRef<FJsonValue>& Value)
+{
+    Inner.Add(Key, Value);
+}
+
+template <>
+void FAdditionalFields::Set(const FString& Key, const FDateTime& Value)
+{
+    Inner.Add(Key, MakeShared<FJsonValueString>(Value.ToIso8601()));
+}
+
+TOptional<FString> FAdditionalFields::GetString(const FString& Key) const
+{
+    if (const TSharedPtr<FJsonValue>* JsonValue = Inner.Find(Key))
+    {
+        if (FString OutString; JsonValue->Get()->TryGetString(OutString))
+        {
+            return {OutString};
+        }
+    }
+    return {};
+}
+
+TOptional<bool> FAdditionalFields::GetBool(const FString& Key) const
+{
+    if (const TSharedPtr<FJsonValue>* JsonValue = Inner.Find(Key))
+    {
+        if (bool OutBool; JsonValue->Get()->TryGetBool(OutBool))
+        {
+            return {OutBool};
+        }
+    }
+    return {};
+}
+
+template <>
+TOptional<FDateTime> FAdditionalFields::Get(const FString& Key) const
+{
+    if (const TSharedPtr<FJsonValue>* JsonValue = Inner.Find(Key))
+    {
+        if (FString OutString; JsonValue->Get()->TryGetString(OutString))
+        {
+            if (FDateTime Date; FDateTime::ParseIso8601(*OutString, Date))
+            {
+                return {Date};
+            }
+        }
+    }
+    return {};
 }
 
 const TMap<FString, TSharedPtr<FJsonValue>>& FAdditionalFields::GetFields() const
@@ -22,20 +73,38 @@ const TMap<FString, TSharedPtr<FJsonValue>>& FAdditionalFields::GetFields() cons
     return Inner;
 }
 
+FAdditionalFields* FAdditionalFields::FromProperty(void* Struct, FProperty* Property)
+{
+    static const FName AdditionalFieldsName = TEXT("AdditionalFields");
+    if (const FStructProperty* StructProperty = CastField<FStructProperty>(Property))
+    {
+        if (StructProperty->Struct->GetFName() == AdditionalFieldsName)
+        {
+            return StructProperty->ContainerPtrToValuePtr<FAdditionalFields>(Struct);
+        }
+    }
+    return nullptr;
+}
+
+const FAdditionalFields* FAdditionalFields::FromProperty(const void* Struct, FProperty* Property)
+{
+    return FromProperty(const_cast<void*>(Struct), Property);
+}
+
 void UAdditionalFieldsBlueprintLibrary::AddString(FAdditionalFields& AdditionalFields, const FString& Key, const FString& Value, FAdditionalFields& Out)
 {
-    AdditionalFields.AddString(Key, Value);
+    AdditionalFields.SetString(Key, Value);
     Out = AdditionalFields;
 }
 
 void UAdditionalFieldsBlueprintLibrary::AddNumber(FAdditionalFields& AdditionalFields, const FString& Key, float Value, FAdditionalFields& Out)
 {
-    AdditionalFields.AddNumber(Key, Value);
+    AdditionalFields.SetNumber(Key, Value);
     Out = AdditionalFields;
 }
 
 void UAdditionalFieldsBlueprintLibrary::AddBool(FAdditionalFields& AdditionalFields, const FString& Key, bool bValue, FAdditionalFields& Out)
 {
-    AdditionalFields.AddNumber(Key, bValue);
+    AdditionalFields.SetBool(Key, bValue);
     Out = AdditionalFields;
 }

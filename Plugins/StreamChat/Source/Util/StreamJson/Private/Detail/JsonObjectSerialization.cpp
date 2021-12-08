@@ -99,14 +99,10 @@ bool JsonObjectSerialization::UStructToJsonAttributes(
         }
 
         // Flatten additional fields into outer struct
-        if (const FStructProperty* StructProperty = CastField<FStructProperty>(Property))
+        if (const FAdditionalFields* Fields = FAdditionalFields::FromProperty(Struct, Property))
         {
-            if (StructProperty->Struct->GetFName() == TEXT("AdditionalFields"))
-            {
-                const FAdditionalFields* Fields = StructProperty->ContainerPtrToValuePtr<FAdditionalFields>(Struct);
-                OutJsonAttributes.Append(Fields->GetFields());
-                continue;
-            }
+            OutJsonAttributes.Append(Fields->GetFields());
+            continue;
         }
 
         const void* Value = Property->ContainerPtrToValuePtr<uint8>(Struct);

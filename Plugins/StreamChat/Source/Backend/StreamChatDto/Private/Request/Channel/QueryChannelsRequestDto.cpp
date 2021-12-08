@@ -4,10 +4,22 @@
 
 #include "StreamJsonField.h"
 
-void FQueryChannelsRequestDto::SerializeExtra(const FQueryChannelsRequestDto& Self, FJsonObject& JsonObject)
+void FQueryChannelsRequestDto::SetLimit(const int32 Value)
 {
-    JsonField::Serialize(Self.MemberLimit, TEXT("member_limit"), JsonObject);
-    JsonField::Serialize(Self.MessageLimit, TEXT("message_limit"), JsonObject);
-    JsonField::Serialize(Self.Limit, TEXT("limit"), JsonObject);
-    JsonField::Serialize(Self.Offset, TEXT("offset"), JsonObject);
+    AdditionalFields.SetNumber(TEXT("limit"), Value);
+}
+
+void FQueryChannelsRequestDto::SetMemberLimit(const int32 Value)
+{
+    AdditionalFields.SetNumber(TEXT("member_limit"), Value);
+}
+
+void FQueryChannelsRequestDto::SetMessageLimit(const int32 Value)
+{
+    AdditionalFields.SetNumber(TEXT("message_limit"), Value);
+}
+
+void FQueryChannelsRequestDto::SetOffset(const int32 Value)
+{
+    AdditionalFields.SetNumber(TEXT("offset"), Value);
 }

@@ -4,14 +4,42 @@
 
 #include "StreamJsonField.h"
 
-void FMessagePaginationParamsRequestDto::SerializeExtra(const FMessagePaginationParamsRequestDto& Self, FJsonObject& JsonObject)
+void FMessagePaginationParamsRequestDto::SetCreatedAtAfter(const FDateTime& Value)
 {
-    JsonField::Serialize(Self.IdLt, TEXT("id_lt"), JsonObject);
-    JsonField::Serialize(Self.IdLte, TEXT("id_lte"), JsonObject);
-    JsonField::Serialize(Self.IdGt, TEXT("id_gt"), JsonObject);
-    JsonField::Serialize(Self.IdGte, TEXT("id_gte"), JsonObject);
-    JsonField::Serialize(Self.CreatedAtAfter, TEXT("created_at_after"), JsonObject);
-    JsonField::Serialize(Self.CreatedAtAfterOrEqual, TEXT("created_at_after_or_equal"), JsonObject);
-    JsonField::Serialize(Self.CreatedAtBefore, TEXT("created_at_before"), JsonObject);
-    JsonField::Serialize(Self.CreatedAtBeforeOrEqual, TEXT("created_at_before_or_equal"), JsonObject);
+    AdditionalFields.Set(TEXT("created_at_after"), Value);
+}
+
+void FMessagePaginationParamsRequestDto::SetCreatedAtAfterOrEqual(const FDateTime& Value)
+{
+    AdditionalFields.Set(TEXT("created_at_after_or_equal"), Value);
+}
+
+void FMessagePaginationParamsRequestDto::SetCreatedAtBefore(const FDateTime& Value)
+{
+    AdditionalFields.Set(TEXT("created_at_before"), Value);
+}
+
+void FMessagePaginationParamsRequestDto::SetCreatedAtBeforeOrEqual(const FDateTime& Value)
+{
+    AdditionalFields.Set(TEXT("created_at_before_or_equal"), Value);
+}
+
+void FMessagePaginationParamsRequestDto::SetIdGt(const FString& Value)
+{
+    AdditionalFields.SetString(TEXT("id_gt"), Value);
+}
+
+void FMessagePaginationParamsRequestDto::SetIdGte(const FString& Value)
+{
+    AdditionalFields.SetString(TEXT("id_gte"), Value);
+}
+
+void FMessagePaginationParamsRequestDto::SetIdLt(const FString& Value)
+{
+    AdditionalFields.SetString(TEXT("id_lt"), Value);
+}
+
+void FMessagePaginationParamsRequestDto::SetIdLte(const FString& Value)
+{
+    AdditionalFields.SetString(TEXT("id_lte"), Value);
 }
