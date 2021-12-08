@@ -3,7 +3,8 @@
 #include "NamingConventionConversion.h"
 
 #include "Misc/AutomationTest.h"
-#include "TestJson.h"
+
+#if WITH_DEV_AUTOMATION_TESTS
 
 BEGIN_DEFINE_SPEC(
     FNamingConventionConversionSpec,
@@ -33,3 +34,5 @@ void FNamingConventionConversionSpec::Define()
            TestEqual("camel_case->UpperCamelCase", UpperCamelCase, Expected);
        });
 }
+
+#endif
