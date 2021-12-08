@@ -4,6 +4,7 @@
 
 #include "AdditionalFields.h"
 #include "CoreMinimal.h"
+#include "StreamJsonField.h"
 
 #include "TestJson.generated.h"
 
@@ -98,6 +99,7 @@ struct FTestJson
     UPROPERTY()
     FAdditionalFields AdditionalFields;
 };
+
 USTRUCT()
 struct FSmallTestJson
 {
@@ -108,4 +110,23 @@ struct FSmallTestJson
 
     UPROPERTY()
     FAdditionalFields AdditionalFields;
+};
+USTRUCT()
+struct FExtraFieldTestJson
+{
+    GENERATED_BODY()
+
+    static void DeserializeExtra(const FJsonObject& JsonObject, FExtraFieldTestJson& Self)
+    {
+        JsonField::Deserialize(JsonObject, TEXT("deleted_at"), Self.DeletedAt);
+    }
+    static void SerializeExtra(const FExtraFieldTestJson& Self, FJsonObject& JsonObject)
+    {
+        JsonField::Serialize(Self.DeletedAt, TEXT("deleted_at"), JsonObject);
+    }
+
+    UPROPERTY()
+    FString String;
+
+    TOptional<FDateTime> DeletedAt;
 };
