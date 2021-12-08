@@ -16,20 +16,20 @@ struct STREAMCHATDTO_API FPaginationParamsRequestDto
     GENERATED_BODY()
 
     UPROPERTY()
-    int32 IdGt;
+    int32 IdGt = -1;
 
     UPROPERTY()
-    int32 IdGte;
+    int32 IdGte = -1;
 
     UPROPERTY()
-    int32 IdLt;
+    int32 IdLt = -1;
 
     UPROPERTY()
-    int32 IdLte;
+    int32 IdLte = -1;
 
     UPROPERTY()
-    uint32 Limit;
+    uint32 Limit = -1;
 
     UPROPERTY()
-    int32 Offset;
+    int32 Offset = -1;
 };

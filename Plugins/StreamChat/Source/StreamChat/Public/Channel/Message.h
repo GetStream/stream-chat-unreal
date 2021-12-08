@@ -19,6 +19,7 @@ struct FMessageRequestDto;
 UENUM(BlueprintType)
 enum class EMessageSendState : uint8
 {
+    None,
     /// Message is shown, but user might see a "pending" icon
     Sending,
     /// Message is shown, and user might see a "confirmed" icon
@@ -84,7 +85,7 @@ struct STREAMCHAT_API FMessage
 
     /// Sending state of the message
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
-    EMessageSendState State;
+    EMessageSendState State = EMessageSendState::None;
 
     /// User who sent the message
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
@@ -92,7 +93,7 @@ struct STREAMCHAT_API FMessage
 
     /// The message type
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
-    EMessageType Type;
+    EMessageType Type = EMessageType::Regular;
 
     /// The list of user mentioned in the message
     UPROPERTY()
@@ -100,11 +101,11 @@ struct STREAMCHAT_API FMessage
 
     /// Date of first message creation
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
-    FDateTime CreatedAt;
+    FDateTime CreatedAt = FDateTime{0};
 
     /// Reserved field indicating when the message was updated last time.
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
-    FDateTime UpdatedAt;
+    FDateTime UpdatedAt = FDateTime{0};
 
     /// Reserved field indicating when the message was deleted.
     TOptional<FDateTime> DeletedAt;
@@ -114,7 +115,7 @@ struct STREAMCHAT_API FMessage
     FReactions Reactions;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
-    bool bIsRead;
+    bool bIsRead = false;
 
     // TODO rest of fields
 };

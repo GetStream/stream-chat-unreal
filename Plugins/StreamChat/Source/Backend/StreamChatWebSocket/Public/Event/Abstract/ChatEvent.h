@@ -21,5 +21,5 @@ struct FChatEvent
     FName Type;
 
     UPROPERTY()
-    FDateTime CreatedAt;
+    FDateTime CreatedAt = FDateTime{0};
 };

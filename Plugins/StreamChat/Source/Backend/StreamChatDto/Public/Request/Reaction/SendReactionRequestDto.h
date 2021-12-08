@@ -19,12 +19,12 @@ struct FSendReactionRequestDto
 
     /// Whether to replace all existing user reactions
     UPROPERTY()
-    bool bEnforceUnique;
+    bool bEnforceUnique = false;
 
     UPROPERTY()
     FReactionRequestDto Reaction;
 
     /// Skips any mobile push notifications
     UPROPERTY()
-    bool bSkipPush;
+    bool bSkipPush = false;
 };

@@ -26,7 +26,7 @@ struct FHttpResponse
     T Json() const;
 
     UPROPERTY(BlueprintReadOnly, Category = "HTTP Response")
-    int32 StatusCode;
+    int32 StatusCode = -1;
 
     UPROPERTY(BlueprintReadOnly, Category = "HTTP Response")
     FString Text;

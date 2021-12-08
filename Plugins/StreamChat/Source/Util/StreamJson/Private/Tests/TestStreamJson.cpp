@@ -1,8 +1,7 @@
 // Copyright 2021 Stream.IO, Inc. All Rights Reserved.
 
-#include "StreamJson.h"
-
 #include "Misc/AutomationTest.h"
+#include "StreamJson.h"
 #include "TestJson.h"
 
 #if WITH_DEV_AUTOMATION_TESTS
@@ -256,6 +255,27 @@ bool FJsonTestSerializeNestedSnakeCaseEnumValues::RunTest(const FString& Paramet
     constexpr FTestNestedEnum Obj{{ETestEnum::SecondEnumValue}};
     const FString Json = Json::Serialize(Obj, ENamingConvention::SnakeCase);
     const FString ExpectedJson = R"({"nested_enum":{"many_words_enum":"second_enum_value"}})";
+    TestEqual("JSON", Json, ExpectedJson);
+    return true;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FJsonTestSerializeAdditionalFields,
+    "StreamChat.StreamJson.Serialize.AdditionalFields",
+    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+bool FJsonTestSerializeAdditionalFields::RunTest(const FString& Parameters)
+{
+    FAdditionalFields Fields;
+    Fields.AddBool(TEXT("wow_such_bool"), true);
+    Fields.AddBool(TEXT("another_bool"), false);
+    Fields.AddNumber(TEXT("eighty"), 80);
+    Fields.AddNumber(TEXT("float"), -2.5f);
+    Fields.AddString(TEXT("string"), TEXT("string"));
+    Fields.AddString(TEXT("sentence"), TEXT("A long time ago..."));
+    const FSmallTestJson Obj{0.25f, Fields};
+    const FString Json = Json::Serialize(Obj, ENamingConvention::SnakeCase);
+    const FString ExpectedJson =
+        R"({"number":0.25,"wow_such_bool":true,"another_bool":false,"eighty":80,"float":-2.5,"string":"string","sentence":"A long time ago..."})";
     TestEqual("JSON", Json, ExpectedJson);
     return true;
 }

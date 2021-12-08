@@ -20,7 +20,7 @@ struct FMessageDeletedEvent : public FMessageEvent
     inline static FName StaticType = TEXT("message.deleted");
 
     UPROPERTY()
-    bool bHardDelete;
+    bool bHardDelete = false;
 
     // TODO everything else
 };

@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "AdditionalFields.h"
 #include "CoreMinimal.h"
 
 #include "TestJson.generated.h"
@@ -93,4 +94,18 @@ struct FTestJson
 
     UPROPERTY()
     ETestEnum Enum;
+
+    UPROPERTY()
+    FAdditionalFields AdditionalFields;
+};
+USTRUCT()
+struct FSmallTestJson
+{
+    GENERATED_BODY()
+
+    UPROPERTY()
+    float Number;
+
+    UPROPERTY()
+    FAdditionalFields AdditionalFields;
 };
