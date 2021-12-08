@@ -38,7 +38,6 @@ template <class T>
 TSharedRef<FJsonObject> UStructToJsonObject(const T& Struct, ENamingConvention NamingConvention = ENamingConvention::SnakeCase)
 {
     const TSharedRef<FJsonObject> JsonObject = JsonObject::UStructToJsonObject(T::StaticStruct(), &Struct, NamingConvention);
-    ExtraFields::InvokeSerializeExtra<T>(Struct, *JsonObject);
     return JsonObject;
 }
 

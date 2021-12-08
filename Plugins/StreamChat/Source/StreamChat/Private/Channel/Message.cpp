@@ -17,9 +17,8 @@ FMessage::FMessage(UUserManager& UserManager, const FMessageDto& Dto)
     , MentionedUsers{UserManager.UpsertUsers(Dto.MentionedUsers)}
     , CreatedAt{Dto.CreatedAt}
     , UpdatedAt{Dto.UpdatedAt}
-    , DeletedAt{Dto.DeletedAt}
+    , DeletedAt{Dto.GetDeletedAt()}
     , Reactions{FReactions::CollectReactions(UserManager, Dto.ReactionCounts, Dto.ReactionScores, Dto.LatestReactions, Dto.OwnReactions)}
-    , bIsRead(false)
 {
 }
 
@@ -28,10 +27,8 @@ FMessage::FMessage(const FMessageRequestDto& Dto, const FUserRef& SendingUser)
     , Text{Dto.Text}
     , State{EMessageSendState::Sending}    // Assume request dto => sending
     , User{SendingUser}
-    , Type(EMessageType::Regular)
     , CreatedAt{FDateTime::UtcNow()}
     , UpdatedAt{FDateTime::UtcNow()}
-    , bIsRead(false)
 {
 }
 

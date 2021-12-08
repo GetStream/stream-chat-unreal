@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "AdditionalFields.h"
 #include "CoreMinimal.h"
 #include "MessageTypeDto.h"
 #include "Response/Reaction/ReactionDto.h"
@@ -18,11 +19,12 @@ class FJsonObject;
  * @ingroup StreamChatDto
  */
 USTRUCT()
-struct FMessageDto
+struct STREAMCHATDTO_API FMessageDto
 {
     GENERATED_BODY()
 
-    STREAMCHATDTO_API static void DeserializeExtra(const FJsonObject&, FMessageDto&);
+    /// Date/time of deletion
+    TOptional<FDateTime> GetDeletedAt() const;
 
     /// The list of attachments, either provided by the user or generated from a
     /// command or as a result of URL scraping.
@@ -41,9 +43,6 @@ struct FMessageDto
     /// Date/time of creation
     UPROPERTY()
     FDateTime CreatedAt;
-
-    /// Date/time of deletion
-    TOptional<FDateTime> DeletedAt;
 
     /// Contains HTML markup of the message
     UPROPERTY()
@@ -157,5 +156,6 @@ struct FMessageDto
     UPROPERTY()
     FUserObjectDto User;
 
-    // TODO extraData
+    UPROPERTY()
+    FAdditionalFields AdditionalFields;
 };

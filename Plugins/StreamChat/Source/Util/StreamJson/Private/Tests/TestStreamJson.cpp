@@ -203,9 +203,9 @@ bool FJsonTestDeserializeExtraFields::RunTest(const FString& Parameters)
   "deleted_at": "2020-02-08"
 }
 )";
-        const auto [String, DeletedAt] = Json::Deserialize<FExtraFieldTestJson>(Json);
-        TestEqual("string", String, TEXT("string"));
-        TestEqual("deleted_at", DeletedAt, {FDateTime(2020, 2, 8)});
+        const auto Obj = Json::Deserialize<FExtraFieldTestJson>(Json);
+        TestEqual("string", Obj.String, TEXT("string"));
+        TestEqual("deleted_at", Obj.GetDeletedAt(), {FDateTime(2020, 2, 8)});
     }
     {
         const FString Json = R"(
@@ -213,9 +213,9 @@ bool FJsonTestDeserializeExtraFields::RunTest(const FString& Parameters)
   "string": "string"
 }
 )";
-        const auto [String, DeletedAt] = Json::Deserialize<FExtraFieldTestJson>(Json);
-        TestEqual("string", String, TEXT("string"));
-        TestEqual("deleted_at", DeletedAt, {});
+        const auto Obj = Json::Deserialize<FExtraFieldTestJson>(Json);
+        TestEqual("string", Obj.String, TEXT("string"));
+        TestEqual("deleted_at", Obj.GetDeletedAt(), {});
     }
     return true;
 }
@@ -296,12 +296,12 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(
 bool FJsonTestSerializeAdditionalFields::RunTest(const FString& Parameters)
 {
     FAdditionalFields Fields;
-    Fields.AddBool(TEXT("wow_such_bool"), true);
-    Fields.AddBool(TEXT("another_bool"), false);
-    Fields.AddNumber(TEXT("eighty"), 80);
-    Fields.AddNumber(TEXT("float"), -2.5f);
-    Fields.AddString(TEXT("string"), TEXT("string"));
-    Fields.AddString(TEXT("sentence"), TEXT("A long time ago..."));
+    Fields.SetBool(TEXT("wow_such_bool"), true);
+    Fields.SetBool(TEXT("another_bool"), false);
+    Fields.SetNumber(TEXT("eighty"), 80.f);
+    Fields.SetNumber(TEXT("float"), -2.5f);
+    Fields.SetString(TEXT("string"), TEXT("string"));
+    Fields.SetString(TEXT("sentence"), TEXT("A long time ago..."));
     const FSmallTestJson Obj{0.25f, Fields};
     const FString Json = Json::Serialize(Obj, ENamingConvention::SnakeCase);
     const FString ExpectedJson =
@@ -317,7 +317,8 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(
 bool FJsonTestSerializeExtraFields::RunTest(const FString& Parameters)
 {
     {
-        const FExtraFieldTestJson Obj = {TEXT("wow"), {FDateTime(2020, 12, 25)}};
+        FExtraFieldTestJson Obj = {TEXT("wow")};
+        Obj.SetDeletedAt(FDateTime(2020, 12, 25));
         const FString Json = Json::Serialize(Obj, ENamingConvention::SnakeCase);
         const FString ExpectedJson = R"({"string":"wow","deleted_at":"2020-12-25T00:00:00.000Z"})";
         TestEqual("JSON", Json, ExpectedJson);

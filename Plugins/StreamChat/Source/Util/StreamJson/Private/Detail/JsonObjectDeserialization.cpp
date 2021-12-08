@@ -2,6 +2,7 @@
 
 #include "Detail/JsonObjectDeserialization.h"
 
+#include "AdditionalFields.h"
 #include "Internationalization/Culture.h"
 #include "JsonObjectWrapper.h"
 #include "NamingConventionConversion.h"
@@ -585,29 +586,42 @@ bool JsonAttributesToUStructWithContainer(
         return true;
     }
 
-    int32 NumUnclaimedProperties = JsonAttributes.Num();
-    if (NumUnclaimedProperties <= 0)
+    TSet<FString> UnclaimedPropertyNames;
+    JsonAttributes.GetKeys(UnclaimedPropertyNames);
+    if (UnclaimedPropertyNames.Num() <= 0)
     {
         return true;
     }
+
+    // Collect FAdditionalFields properties. Users really shouldn't have more than one of these, but we collect and copy to all for correctness
+    TArray<FAdditionalFields*> AdditionalFields;
 
     // iterate over the struct properties
     for (TFieldIterator<FProperty> PropIt(StructDefinition); PropIt; ++PropIt)
     {
         FProperty* Property = *PropIt;
 
+        // Collect additional fields properties, and skip serializing them now
+        if (FAdditionalFields* Fields = FAdditionalFields::FromProperty(OutStruct, Property))
+        {
+            AdditionalFields.Add(Fields);
+            continue;
+        }
+
         // find a json value matching this property name
-        const FString PropertyName = Property->GetName();
+        FString PropertyName = Property->GetName();
         const TSharedPtr<FJsonValue>* JsonValue = JsonAttributes.Find(PropertyName);
         // Try again stripping things like 'b'
         if (!JsonValue && CastField<FBoolProperty>(Property))
         {
-            JsonValue = JsonAttributes.Find(NamingConventionConversion::ConvertPropertyNameToUpperCamelCase(PropertyName));
+            PropertyName = NamingConventionConversion::ConvertPropertyNameToUpperCamelCase(PropertyName);
+            JsonValue = JsonAttributes.Find(PropertyName);
         }
         // Try again converting from snake_case
         if (!JsonValue)
         {
-            JsonValue = JsonAttributes.Find(NamingConventionConversion::ConvertPropertyNameToSnakeCase(PropertyName));
+            PropertyName = NamingConventionConversion::ConvertPropertyNameToSnakeCase(PropertyName);
+            JsonValue = JsonAttributes.Find(PropertyName);
         }
         if (!JsonValue)
         {
@@ -618,19 +632,34 @@ bool JsonAttributesToUStructWithContainer(
 
         if (JsonValue->IsValid() && !(*JsonValue)->IsNull())
         {
-            void* Value = Property->ContainerPtrToValuePtr<uint8>(OutStruct);
-            if (!JsonValueToFPropertyWithContainer(*JsonValue, Property, Value, ContainerStruct, Container))
+            if (void* Value = Property->ContainerPtrToValuePtr<uint8>(OutStruct);
+                !JsonValueToFPropertyWithContainer(*JsonValue, Property, Value, ContainerStruct, Container))
             {
                 UE_LOG(LogJson, Error, TEXT("JsonObjectToUStruct - Unable to parse %s.%s from JSON"), *StructDefinition->GetName(), *Property->GetName());
                 return false;
             }
         }
 
-        if (--NumUnclaimedProperties <= 0)
+        UnclaimedPropertyNames.Remove(PropertyName);
+        if (UnclaimedPropertyNames.Num() <= 0)
         {
             // If we found all properties that were in the JsonAttributes map, there is no reason to keep looking for
             // more.
             break;
+        }
+    }
+
+    if (AdditionalFields.Num() > 0)
+    {
+        for (const FString& PropertyName : UnclaimedPropertyNames)
+        {
+            for (FAdditionalFields* Fields : AdditionalFields)
+            {
+                if (const TSharedPtr<FJsonValue>* Value = JsonAttributes.Find(PropertyName); Value && Value->IsValid())
+                {
+                    Fields->SetJsonObject(PropertyName, Value->ToSharedRef());
+                }
+            }
         }
     }
 

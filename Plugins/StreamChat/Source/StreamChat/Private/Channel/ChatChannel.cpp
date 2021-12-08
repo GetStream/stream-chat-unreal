@@ -162,11 +162,11 @@ void UChatChannel::QueryAdditionalMessages(const EPaginationDirection Direction,
         Dto.Limit = Limit;
         if (Direction == EPaginationDirection::Top)
         {
-            Dto.IdLt = State.GetMessages()[0].Id;
+            Dto.SetIdLt(State.GetMessages()[0].Id);
         }
         else
         {
-            Dto.IdGte = State.GetMessages().Last().Id;
+            Dto.SetIdGte(State.GetMessages().Last().Id);
         }
         return Dto;
     }();

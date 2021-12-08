@@ -12,12 +12,12 @@ public class StreamChatDto : ModuleRules
         PrivateDependencyModuleNames.AddRange(new[] {
             "CoreUObject",
             "Json",
-            "StreamJson",
         });
 
         PublicDependencyModuleNames.AddRange(new[] {
             "Core",
             "JsonUtilities",
+            "StreamJson",
         });
     }
 }

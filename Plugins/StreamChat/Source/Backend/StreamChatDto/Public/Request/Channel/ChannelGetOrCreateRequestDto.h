@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "AdditionalFields.h"
 #include "ChannelRequestDto.h"
 #include "CoreMinimal.h"
 #include "MessagePaginationParamsRequestDto.h"
@@ -16,11 +17,15 @@ class FJsonObject;
  * @ingroup StreamChatDto
  */
 USTRUCT()
-struct FChannelGetOrCreateRequestDto
+struct STREAMCHATDTO_API FChannelGetOrCreateRequestDto
 {
     GENERATED_BODY()
 
-    STREAMCHATDTO_API static void SerializeExtra(const FChannelGetOrCreateRequestDto&, FJsonObject&);
+    void SetMembers(const FPaginationParamsRequestDto& Value);
+
+    void SetMessages(const FMessagePaginationParamsRequestDto& Value);
+
+    void SetWatchers(const FPaginationParamsRequestDto& Value);
 
     UPROPERTY()
     FString ConnectionId;
@@ -40,9 +45,6 @@ struct FChannelGetOrCreateRequestDto
     UPROPERTY()
     bool bPresence;
 
-    TOptional<FPaginationParamsRequestDto> Members;
-
-    TOptional<FMessagePaginationParamsRequestDto> Messages;
-
-    TOptional<FPaginationParamsRequestDto> Watchers;
+    UPROPERTY()
+    FAdditionalFields AdditionalFields;
 };

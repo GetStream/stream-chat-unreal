@@ -53,6 +53,9 @@ public:
     /// The color of the background of the message composer
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Composer")
     FName MessageComposerBackgroundColor = TEXT("bars-bg");
+    /// The color of the borders in the message composer
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Composer")
+    FName MessageComposerBorderColor = TEXT("borders");
     /// The color of the header text (e.g. "Edit Message" or "Reply to Message")
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Composer")
     FName MessageComposerHeaderTextColor = TEXT("text-high-emphasis");
