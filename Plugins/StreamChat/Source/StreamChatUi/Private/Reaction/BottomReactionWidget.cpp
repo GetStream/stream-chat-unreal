@@ -3,6 +3,7 @@
 #include "Reaction/BottomReactionWidget.h"
 
 #include "Reaction/ReactionsTooltipWidget.h"
+#include "ThemeDataAsset.h"
 #include "TimerManager.h"
 
 void UBottomReactionWidget::Setup(const FReactionGroup& InReactionGroup)
@@ -28,11 +29,6 @@ void UBottomReactionWidget::OnSetup()
 
     if (Button)
     {
-        if (const FButtonStyle* Style = ButtonStyles.Find(Side))
-        {
-            Button->SetStyle(*Style);
-        }
-
         Button->OnClicked.AddUniqueDynamic(this, &UBottomReactionWidget::OnButtonClicked);
     }
 
@@ -40,6 +36,33 @@ void UBottomReactionWidget::OnSetup()
     {
         Anchor->Placement = MenuPlacement_CenteredBelowAnchor;
         Anchor->OnGetUserMenuContentEvent.BindDynamic(this, &UBottomReactionWidget::CreateReactionsMenu);
+    }
+}
+
+void UBottomReactionWidget::OnTheme(const UThemeDataAsset* Theme)
+{
+    if (Border)
+    {
+        Border->SetBrushColor(Theme->GetPaletteColor(Theme->BottomReactionBorderColor));
+    }
+    if (Button)
+    {
+        if (const EMessageSide Side = GetSide(); Side == EMessageSide::Me)
+        {
+            Button->WidgetStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->MeBottomReactionColor)};
+            Button->WidgetStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->MeBottomReactionColor)};
+            Button->WidgetStyle.Hovered.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->MeBottomReactionColor)};
+        }
+        else if (Side == EMessageSide::You)
+        {
+            Button->WidgetStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->YouBottomReactionColor)};
+            Button->WidgetStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->YouBottomReactionColor)};
+            Button->WidgetStyle.Hovered.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->YouBottomReactionColor)};
+        }
+    }
+    if (ReactionCountTextBlock)
+    {
+        ReactionCountTextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Theme->BottomReactionTextColor));
     }
 }
 
