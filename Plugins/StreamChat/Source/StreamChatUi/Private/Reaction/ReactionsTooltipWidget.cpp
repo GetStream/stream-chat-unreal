@@ -2,6 +2,8 @@
 
 #include "Reaction/ReactionsTooltipWidget.h"
 
+#include "ThemeDataAsset.h"
+
 void UReactionsTooltipWidget::Setup(const FReactionGroup& InReactionGroup)
 {
     ReactionGroup = InReactionGroup;
@@ -36,5 +38,17 @@ void UReactionsTooltipWidget::OnSetup()
             Widget->Setup(Reaction.User);
             AvatarPanel->AddChild(Widget);
         }
+    }
+}
+
+void UReactionsTooltipWidget::OnTheme(const UThemeDataAsset* Theme)
+{
+    if (BackgroundBorder)
+    {
+        BackgroundBorder->SetBrushColor(Theme->GetPaletteColor(Theme->ReactionsTooltipBackgroundColor));
+    }
+    if (IconBorder)
+    {
+        IconBorder->SetBrushColor(Theme->GetPaletteColor(Theme->ReactionsTooltipIconHighlightColor));
     }
 }

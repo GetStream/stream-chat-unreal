@@ -119,4 +119,11 @@ public:
     /// The text color of any bottom reaction
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Bottom Reactions")
     FName BottomReactionTextColor = TEXT("text-high-emphasis");
+
+    /// The background color of the reactions tooltip
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Reactions Tooltip")
+    FName ReactionsTooltipBackgroundColor = TEXT("bars-bg");
+    /// The background color of the highlighted area surrounding the reaction icon in the reactions tooltip
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Reactions Tooltip")
+    FName ReactionsTooltipIconHighlightColor = TEXT("link-bg");
 };
