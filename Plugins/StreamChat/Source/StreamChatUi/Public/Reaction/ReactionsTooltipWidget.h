@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Avatar/NamedAvatarWidget.h"
+#include "Components/Border.h"
 #include "Components/PanelWidget.h"
 #include "CoreMinimal.h"
 #include "Reaction/ReactionGroup.h"
@@ -25,6 +26,12 @@ public:
 
 protected:
     UPROPERTY(meta = (BindWidget))
+    UBorder* BackgroundBorder;
+
+    UPROPERTY(meta = (BindWidget))
+    UBorder* IconBorder;
+
+    UPROPERTY(meta = (BindWidget))
     UPanelWidget* AvatarPanel;
 
     UPROPERTY(meta = (BindWidget))
@@ -35,6 +42,11 @@ protected:
 
 private:
     virtual void OnSetup() override;
+    virtual bool WantsTheme() override
+    {
+        return true;
+    }
+    virtual void OnTheme(const UThemeDataAsset*) override;
 
     FReactionGroup ReactionGroup;
 };
