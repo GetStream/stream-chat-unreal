@@ -48,7 +48,7 @@ bool FUserRef::IsValid() const
     }
     if (!::IsValid(Manager))
     {
-        return false;
+        Manager = UUserManager::Get();
     }
     return Manager->HasUser(*this);
 }
@@ -57,7 +57,7 @@ bool FUserRef::IsCurrent() const
 {
     if (!::IsValid(Manager))
     {
-        return false;
+        Manager = UUserManager::Get();
     }
     return Manager->GetCurrentUser() == *this;
 }

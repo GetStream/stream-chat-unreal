@@ -4,6 +4,7 @@
 
 #include "Channel/ChatChannel.h"
 #include "Context/ChannelContextWidget.h"
+#include "ThemeDataAsset.h"
 
 namespace
 {
@@ -29,6 +30,14 @@ void UReactionPickerWidget::OnSetup()
             Widget->OnReactionPickerButtonClickedNative.AddUObject(this, &UReactionPickerWidget::OnReactionButtonClicked);
             ButtonsPanel->AddChild(Widget);
         }
+    }
+}
+
+void UReactionPickerWidget::OnTheme(const UThemeDataAsset* Theme)
+{
+    if (Border)
+    {
+        Border->SetBrushColor(Theme->GetPaletteColor(Theme->ReactionPickerBackgroundColor));
     }
 }
 

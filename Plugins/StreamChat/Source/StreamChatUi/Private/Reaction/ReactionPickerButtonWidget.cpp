@@ -2,6 +2,8 @@
 
 #include "Reaction/ReactionPickerButtonWidget.h"
 
+#include "ThemeDataAsset.h"
+
 void UReactionPickerButtonWidget::Setup(const FName& InReactionType, const EMessageSide InSide)
 {
     ReactionType = InReactionType;
@@ -19,6 +21,16 @@ void UReactionPickerButtonWidget::OnSetup()
     if (Icon)
     {
         Icon->Setup(ReactionType, Side);
+    }
+}
+
+void UReactionPickerButtonWidget::OnTheme(const UThemeDataAsset* Theme)
+{
+    if (Button)
+    {
+        Button->WidgetStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ReactionPickerBackgroundColor)};
+        Button->WidgetStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ReactionPickerSelectedColor)};
+        Button->WidgetStyle.Hovered.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ReactionPickerSelectedColor)};
     }
 }
 

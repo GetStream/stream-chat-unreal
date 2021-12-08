@@ -40,4 +40,8 @@ void UNamedAvatarWidget::OnTheme(const UThemeDataAsset* Theme)
         const FLinearColor Color = WidgetUtil::ChooseColorForString(User->Id);
         TextBlock->SetColorAndOpacity(Color);
     }
+    else
+    {
+        TextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Theme->NamedAvatarTextColor));
+    }
 }

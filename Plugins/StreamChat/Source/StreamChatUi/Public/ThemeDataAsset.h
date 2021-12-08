@@ -29,6 +29,10 @@ public:
     UPROPERTY(EditAnywhere, Category = Colors)
     TMap<FName, FLinearColor> Palette;
 
+    /// The default color of the text on an named avatar. Note that this will be ignored if "Colored Name" is true
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Bubble")
+    FName NamedAvatarTextColor = TEXT("text-high-emphasis");
+
     /// The bubble color of messages sent by the current user
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Bubble")
     FName MeBubbleColor = TEXT("borders");
@@ -83,12 +87,23 @@ public:
     /// The color of a context menu item button in the pressed state
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Context Menu")
     FName ContextMenuPressedButtonColor = TEXT("input-bg");
-    UPROPERTY(EditAnywhere, Category = Style)
+    /// The color of the text on context menu items
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Context Menu")
     FName ContextMenuDefaultTextColor = TEXT("text-high-emphasis");
-    UPROPERTY(EditAnywhere, Category = Style)
+    /// The color of the text on "negative" context menu items
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Context Menu")
     FName ContextMenuNegativeTextColor = TEXT("accent-error");
-    UPROPERTY(EditAnywhere, Category = Style)
+    /// The color of the icon on context menu items
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Context Menu")
     FName ContextMenuDefaultIconColor = TEXT("text-low-emphasis");
-    UPROPERTY(EditAnywhere, Category = Style)
+    /// The color of the icon on "negative" context menu items
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Context Menu")
     FName ContextMenuNegativeIconColor = TEXT("accent-error");
+
+    // The background color of the reaction picker
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Reaction Picker")
+    FName ReactionPickerBackgroundColor = TEXT("bars-bg");
+    // The background color of a button in the reaction picker when hovered/clicked
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Reaction Picker")
+    FName ReactionPickerSelectedColor = TEXT("input-bg");
 };
