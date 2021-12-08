@@ -19,6 +19,7 @@ FMessage::FMessage(UUserManager& UserManager, const FMessageDto& Dto)
     , UpdatedAt{Dto.UpdatedAt}
     , DeletedAt{Dto.GetDeletedAt()}
     , Reactions{FReactions::CollectReactions(UserManager, Dto.ReactionCounts, Dto.ReactionScores, Dto.LatestReactions, Dto.OwnReactions)}
+    , AdditionalFields{Dto.AdditionalFields}
 {
 }
 
@@ -29,6 +30,7 @@ FMessage::FMessage(const FMessageRequestDto& Dto, const FUserRef& SendingUser)
     , User{SendingUser}
     , CreatedAt{FDateTime::UtcNow()}
     , UpdatedAt{FDateTime::UtcNow()}
+    , AdditionalFields{Dto.AdditionalFields}
 {
 }
 

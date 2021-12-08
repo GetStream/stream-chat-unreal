@@ -39,6 +39,13 @@ protected:
     UPROPERTY(EditAnywhere, Category = Bubble)
     UTexture2D* YouEndTexture;
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    FMessage Message;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    EBubbleStackPosition Position;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    EMessageSide Side;
+
 private:
     virtual void OnSetup() override;
     virtual bool WantsTheme() override
@@ -51,11 +58,4 @@ private:
     const FLinearColor& GetBubbleColor(const UThemeDataAsset*) const;
     const FLinearColor& GetTextColor(const UThemeDataAsset*) const;
     FText GetText() const;
-
-    UPROPERTY(EditAnywhere, Category = Setup)
-    FMessage Message;
-    UPROPERTY(EditAnywhere, Category = Setup)
-    EBubbleStackPosition Position;
-    UPROPERTY(EditAnywhere, Category = Setup)
-    EMessageSide Side;
 };

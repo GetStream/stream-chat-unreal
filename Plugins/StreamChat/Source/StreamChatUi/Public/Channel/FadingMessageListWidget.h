@@ -41,6 +41,9 @@ protected:
     UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
     TSubclassOf<UFadingMessageWidget> FadingMessageWidgetClass = UFadingMessageWidget::StaticClass();
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    FTimespan MessageLifetime = FTimespan::FromSeconds(20.f);
+
 private:
     virtual void OnSetup() override;
 
@@ -56,7 +59,4 @@ private:
 
     UPROPERTY(Transient)
     UChatChannel* Channel;
-
-    UPROPERTY(EditAnywhere, Category = Setup)
-    FTimespan MessageLifetime = FTimespan::FromSeconds(20.f);
 };

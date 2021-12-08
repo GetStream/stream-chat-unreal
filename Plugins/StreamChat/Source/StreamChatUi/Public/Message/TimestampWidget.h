@@ -42,6 +42,15 @@ protected:
     UPROPERTY(EditAnywhere, Category = Defaults)
     UTexture2D* IconCheckAll;
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    FMessage Message;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    bool bShowUserName;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    bool bShowMessageState;
+
 private:
     virtual void OnSetup() override;
     virtual bool WantsTheme() override
@@ -53,13 +62,4 @@ private:
     UTexture2D* GetStatusIcon() const;
     FText GetTimestampText() const;
     static FText GetDayOfWeek(const FDateTime&);
-
-    UPROPERTY(EditAnywhere, Category = Setup)
-    FMessage Message;
-
-    UPROPERTY(EditAnywhere, Category = Setup)
-    bool bShowUserName;
-
-    UPROPERTY(EditAnywhere, Category = Setup)
-    bool bShowMessageState;
 };

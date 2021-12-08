@@ -29,11 +29,11 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UTextBlock* InitialsTextBlock;
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    FUserRef User;
+
 private:
     virtual void OnSetup() override;
 
     void FetchRemoteImage();
-
-    UPROPERTY(EditAnywhere, Category = Setup)
-    FUserRef User;
 };

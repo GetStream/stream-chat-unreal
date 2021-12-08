@@ -35,6 +35,12 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UReactionIconWidget* Icon;
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    FName ReactionType;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    EMessageSide Side;
+
 private:
     virtual void OnSetup() override;
     virtual bool WantsTheme() override
@@ -45,10 +51,4 @@ private:
 
     UFUNCTION()
     void OnButtonClicked();
-
-    UPROPERTY(EditAnywhere, Category = Setup)
-    FName ReactionType;
-
-    UPROPERTY(EditAnywhere, Category = Setup)
-    EMessageSide Side;
 };

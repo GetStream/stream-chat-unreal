@@ -31,10 +31,10 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UTextBlock* TextBlock;
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    TArray<FUserRef> Users;
+
 private:
     void UpdateLabel() const;
     FText GetLabel() const;
-
-    UPROPERTY(EditAnywhere, Category = Setup)
-    TArray<FUserRef> Users;
 };

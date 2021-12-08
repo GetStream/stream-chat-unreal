@@ -34,13 +34,13 @@ protected:
     UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
     TSubclassOf<UContextMenuButtonWidget> ContextMenuButtonWidgetClass = UContextMenuButtonWidget::StaticClass();
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    FMessage Message;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    EMessageSide Side;
+
 private:
     virtual void OnSetup() override;
     void AddButton(UContextMenuAction* Action, EContextMenuButtonPosition Position);
-
-    UPROPERTY(EditAnywhere, Category = Defaults)
-    FMessage Message;
-
-    UPROPERTY(EditAnywhere, Category = Setup)
-    EMessageSide Side;
 };

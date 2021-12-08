@@ -51,6 +51,11 @@ protected:
     UPROPERTY(EditAnywhere, Category = Button)
     UTexture2D* BottomButtonTexture;
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    FMessage Message;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    EContextMenuButtonPosition Position;
+
 private:
     virtual void OnSetup() override;
     virtual bool WantsTheme() override
@@ -67,10 +72,6 @@ private:
     const FLinearColor& GetIconColor(const UThemeDataAsset* Theme) const;
     const FLinearColor& GetTextColor(const UThemeDataAsset* Theme) const;
 
-    UPROPERTY(EditAnywhere, Category = Setup)
-    FMessage Message;
-    UPROPERTY(EditAnywhere, Category = Setup)
-    EContextMenuButtonPosition Position;
     UPROPERTY(EditAnywhere, Instanced, Category = Setup)
     UContextMenuAction* Action;
 };

@@ -91,20 +91,70 @@ const FAdditionalFields* FAdditionalFields::FromProperty(const void* Struct, FPr
     return FromProperty(const_cast<void*>(Struct), Property);
 }
 
-void UAdditionalFieldsBlueprintLibrary::AddString(FAdditionalFields& AdditionalFields, const FString& Key, const FString& Value, FAdditionalFields& Out)
+void UAdditionalFieldsBlueprintLibrary::SetString(FAdditionalFields& AdditionalFields, const FString& Key, const FString& Value, FAdditionalFields& Out)
 {
     AdditionalFields.SetString(Key, Value);
     Out = AdditionalFields;
 }
 
-void UAdditionalFieldsBlueprintLibrary::AddNumber(FAdditionalFields& AdditionalFields, const FString& Key, float Value, FAdditionalFields& Out)
+void UAdditionalFieldsBlueprintLibrary::SetFloat(FAdditionalFields& AdditionalFields, const FString& Key, const float Value, FAdditionalFields& Out)
 {
     AdditionalFields.SetNumber(Key, Value);
     Out = AdditionalFields;
 }
 
-void UAdditionalFieldsBlueprintLibrary::AddBool(FAdditionalFields& AdditionalFields, const FString& Key, bool bValue, FAdditionalFields& Out)
+void UAdditionalFieldsBlueprintLibrary::SetInt(FAdditionalFields& AdditionalFields, const FString& Key, const int32 Value, FAdditionalFields& Out)
+{
+    AdditionalFields.SetNumber(Key, Value);
+    Out = AdditionalFields;
+}
+
+void UAdditionalFieldsBlueprintLibrary::SetBool(FAdditionalFields& AdditionalFields, const FString& Key, bool bValue, FAdditionalFields& Out)
 {
     AdditionalFields.SetBool(Key, bValue);
     Out = AdditionalFields;
+}
+
+void UAdditionalFieldsBlueprintLibrary::GetString(const FAdditionalFields& AdditionalFields, const FString& Key, bool& bValid, FString& Result)
+{
+    const TOptional<FString> Optional = AdditionalFields.GetString(Key);
+    bValid = Optional.IsSet();
+    if (!bValid)
+    {
+        return;
+    }
+    Result = Optional.GetValue();
+}
+
+void UAdditionalFieldsBlueprintLibrary::GetFloat(const FAdditionalFields& AdditionalFields, const FString& Key, bool& bValid, float& Result)
+{
+    const TOptional<float> Optional = AdditionalFields.GetNumber<float>(Key);
+    bValid = Optional.IsSet();
+    if (!bValid)
+    {
+        return;
+    }
+    Result = Optional.GetValue();
+}
+
+void UAdditionalFieldsBlueprintLibrary::GetInt(const FAdditionalFields& AdditionalFields, const FString& Key, bool& bValid, int32& Result)
+{
+    const TOptional<int32> Optional = AdditionalFields.GetNumber<int32>(Key);
+    bValid = Optional.IsSet();
+    if (!bValid)
+    {
+        return;
+    }
+    Result = Optional.GetValue();
+}
+
+void UAdditionalFieldsBlueprintLibrary::GetBool(const FAdditionalFields& AdditionalFields, const FString& Key, bool& bValid, bool& Result)
+{
+    const TOptional<bool> Optional = AdditionalFields.GetBool(Key);
+    bValid = Optional.IsSet();
+    if (!bValid)
+    {
+        return;
+    }
+    Result = Optional.GetValue();
 }

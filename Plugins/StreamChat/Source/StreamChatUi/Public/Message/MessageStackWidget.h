@@ -47,12 +47,12 @@ protected:
     UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
     TSubclassOf<UAvatarWidget> AvatarWidgetClass = UAvatarWidget::StaticClass();
 
-private:
-    virtual void OnSetup() override;
-
-    UPROPERTY(EditAnywhere, Category = Setup)
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
     TArray<FMessage> Messages;
 
-    UPROPERTY(EditAnywhere, Category = Setup)
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
     EMessageSide Side;
+
+private:
+    virtual void OnSetup() override;
 };

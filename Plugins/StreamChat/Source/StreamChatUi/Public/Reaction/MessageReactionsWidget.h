@@ -34,14 +34,14 @@ protected:
     UPROPERTY(EditAnywhere, Category = Defaults)
     float Spacing = 8.f;
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    FMessage Message;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    EMessageSide Side;
+
 private:
     virtual void OnSetup() override;
 
     FMargin GetPadding() const;
-
-    UPROPERTY(EditAnywhere, Category = Setup)
-    FMessage Message;
-
-    UPROPERTY(EditAnywhere, Category = Setup)
-    EMessageSide Side;
 };

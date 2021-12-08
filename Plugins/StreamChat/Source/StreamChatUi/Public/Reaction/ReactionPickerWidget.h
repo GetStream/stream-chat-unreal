@@ -32,6 +32,9 @@ protected:
     UPROPERTY(EditAnywhere, NoClear, Category = Defaults)
     TSubclassOf<UReactionPickerButtonWidget> ReactionPickerButtonWidgetClass = UReactionPickerButtonWidget::StaticClass();
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    FMessage Message;
+
 private:
     virtual void OnSetup() override;
     virtual bool WantsTheme() override
@@ -41,7 +44,4 @@ private:
     virtual void OnTheme(const UThemeDataAsset*) override;
 
     void OnReactionButtonClicked(const FName& ReactionType);
-
-    UPROPERTY(EditAnywhere, Category = Setup)
-    FMessage Message;
 };
