@@ -37,6 +37,11 @@ protected:
 
 private:
     virtual void OnSetup() override;
+    virtual bool WantsTheme() override
+    {
+        return true;
+    }
+    virtual void OnTheme(const UThemeDataAsset*) override;
 
     UFUNCTION()
     void OnButtonClicked();
