@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "Components/Border.h"
 #include "Components/Button.h"
 #include "Components/MenuAnchor.h"
 #include "Components/TextBlock.h"
@@ -43,19 +44,24 @@ protected:
     UTextBlock* ReactionCountTextBlock;
 
     UPROPERTY(meta = (BindWidget))
+    UBorder* Border;
+
+    UPROPERTY(meta = (BindWidget))
     UButton* Button;
 
     UPROPERTY(meta = (BindWidget))
     UMenuAnchor* Anchor;
-
-    UPROPERTY(EditAnywhere, Category = Defaults)
-    TMap<EMessageSide, FButtonStyle> ButtonStyles;
 
     UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
     TSubclassOf<UReactionsTooltipWidget> ReactionsTooltipWidgetClass = UReactionsTooltipWidget::StaticClass();
 
 private:
     virtual void OnSetup() override;
+    virtual bool WantsTheme() override
+    {
+        return true;
+    }
+    virtual void OnTheme(const UThemeDataAsset*) override;
 
     virtual void NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
     virtual void NativeOnMouseLeave(const FPointerEvent& InMouseEvent) override;

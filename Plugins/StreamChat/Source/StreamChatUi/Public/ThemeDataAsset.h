@@ -106,4 +106,17 @@ public:
     // The background color of a button in the reaction picker when hovered/clicked
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Reaction Picker")
     FName ReactionPickerSelectedColor = TEXT("input-bg");
+
+    /// The background color of bottom reactions including the current user
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Bottom Reactions")
+    FName MeBottomReactionColor = TEXT("borders");
+    /// The background color of bottom reactions not including the current user
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Bottom Reactions")
+    FName YouBottomReactionColor = TEXT("bars-bg");
+    /// The border color of any bottom reaction
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Bottom Reactions")
+    FName BottomReactionBorderColor = TEXT("borders");
+    /// The text color of any bottom reaction
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Bottom Reactions")
+    FName BottomReactionTextColor = TEXT("text-high-emphasis");
 };
