@@ -18,7 +18,7 @@ bool FJsonTestDeserializeOutOfOrder::RunTest(const FString& Parameters)
   "float": 1.3,
   "int32": 6
 }
-					)";
+)";
     const FTestJson Obj = Json::Deserialize<FTestJson>(Json);
     TestEqual("int64", Obj.Int64, 1);
     TestEqual("float", Obj.Float, 1.3f);
@@ -41,7 +41,7 @@ bool FJsonTestDeserializeBasicTypes::RunTest(const FString& Parameters)
   "boolean": true,
   "string": "hello"
 }
-					)";
+)";
     const FTestJson Obj = Json::Deserialize<FTestJson>(Json);
     TestEqual("int32", Obj.Int32, 1);
     TestEqual("int64", Obj.Int64, 2);
@@ -67,7 +67,7 @@ bool FJsonTestDeserializeArrays::RunTest(const FString& Parameters)
   "arrayOfBoolean": [false, false, true, false, true],
   "arrayOfString": ["hello", "world"]
 }
-					)";
+)";
     const FTestJson Obj = Json::Deserialize<FTestJson>(Json);
     TestEqual("int32[]", Obj.ArrayOfInt32, {1, 2, 3});
     TestEqual("int64[]", Obj.ArrayOfInt64, {4, 5});
@@ -104,7 +104,7 @@ bool FJsonTestDeserializeNested::RunTest(const FString& Parameters)
     }
   ]
 }
-					)";
+)";
     const FTestJson Obj = Json::Deserialize<FTestJson>(Json);
     TestEqual("nestedObject.foo", Obj.NestedObject.Foo, "hello world");
     TestEqual("nestedObject.bar", Obj.NestedObject.Bar, 1.23f);
@@ -126,7 +126,7 @@ bool FJsonTestDeserializeUpperCamelCaseStringEnums::RunTest(const FString& Param
 {
   "ManyWordsEnum": "SecondEnumValue"
 }
-					)";
+)";
     const FTestEnum Obj = Json::Deserialize<FTestEnum>(Json);
     TestEqual("enum", Obj.ManyWordsEnum, ETestEnum::SecondEnumValue);
     return true;
@@ -142,7 +142,7 @@ bool FJsonTestDeserializeSnakeCaseStringEnums::RunTest(const FString& Parameters
 {
   "many_words_enum": "number3"
 }
-					)";
+)";
     const FTestEnum Obj = Json::Deserialize<FTestEnum>(Json);
     TestEqual("enum", Obj.ManyWordsEnum, ETestEnum::Number3);
     return true;
@@ -158,7 +158,7 @@ bool FJsonTestDeserializeSnakeCaseNumEnums::RunTest(const FString& Parameters)
 {
   "many_words_enum": "second_enum_value"
 }
-					)";
+)";
     const FTestEnum Obj = Json::Deserialize<FTestEnum>(Json);
     TestEqual("enum", Obj.ManyWordsEnum, ETestEnum::SecondEnumValue);
     return true;
@@ -179,7 +179,7 @@ bool FJsonTestDeserializeSnakeCasePropNameEnums::RunTest(const FString& Paramete
   "array_of_boolean": [false, false, true, false, true],
   "array_of_string": ["hello", "world"]
 }
-					)";
+)";
     const FTestJson Obj = Json::Deserialize<FTestJson>(Json);
     TestEqual("int32[]", Obj.ArrayOfInt32, {1, 2, 3});
     TestEqual("int64[]", Obj.ArrayOfInt64, {4, 5});
@@ -187,6 +187,36 @@ bool FJsonTestDeserializeSnakeCasePropNameEnums::RunTest(const FString& Paramete
     TestEqual("double[]", Obj.ArrayOfDouble, {8.9, 1.234, 5.678});
     TestEqual("boolean[]", Obj.ArrayOfBoolean, {false, false, true, false, true});
     TestEqual("string[]", Obj.ArrayOfString, {"hello", "world"});
+    return true;
+}
+
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FJsonTestDeserializeExtraFields,
+    "StreamChat.StreamJson.Deserialize.ExtraFields",
+    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+bool FJsonTestDeserializeExtraFields::RunTest(const FString& Parameters)
+{
+    {
+        const FString Json = R"(
+{
+  "string": "string",
+  "deleted_at": "2020-02-08"
+}
+)";
+        const auto [String, DeletedAt] = Json::Deserialize<FExtraFieldTestJson>(Json);
+        TestEqual("string", String, TEXT("string"));
+        TestEqual("deleted_at", DeletedAt, {FDateTime(2020, 2, 8)});
+    }
+    {
+        const FString Json = R"(
+{
+  "string": "string"
+}
+)";
+        const auto [String, DeletedAt] = Json::Deserialize<FExtraFieldTestJson>(Json);
+        TestEqual("string", String, TEXT("string"));
+        TestEqual("deleted_at", DeletedAt, {});
+    }
     return true;
 }
 
@@ -280,4 +310,24 @@ bool FJsonTestSerializeAdditionalFields::RunTest(const FString& Parameters)
     return true;
 }
 
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(
+    FJsonTestSerializeExtraFields,
+    "StreamChat.StreamJson.Serialize.ExtraFields",
+    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+bool FJsonTestSerializeExtraFields::RunTest(const FString& Parameters)
+{
+    {
+        const FExtraFieldTestJson Obj = {TEXT("wow"), {FDateTime(2020, 12, 25)}};
+        const FString Json = Json::Serialize(Obj, ENamingConvention::SnakeCase);
+        const FString ExpectedJson = R"({"string":"wow","deleted_at":"2020-12-25T00:00:00.000Z"})";
+        TestEqual("JSON", Json, ExpectedJson);
+    }
+    {
+        const FExtraFieldTestJson Obj = {TEXT("wow"), {}};
+        const FString Json = Json::Serialize(Obj, ENamingConvention::SnakeCase);
+        const FString ExpectedJson = R"({"string":"wow"})";
+        TestEqual("JSON", Json, ExpectedJson);
+    }
+    return true;
+}
 #endif
