@@ -46,6 +46,13 @@ protected:
     UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
     TSubclassOf<UContextMenuWidget> ContextMenuWidgetClass = UContextMenuWidget::StaticClass();
 
+    // TODO Just ID?
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    FMessage Message;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    EMessageSide Side;
+
 private:
     virtual void OnSetup() override;
 
@@ -57,13 +64,6 @@ private:
     UUserWidget* CreateOptionsMenu();
     UFUNCTION()
     UUserWidget* CreateReactionsMenu();
-
-    // TODO Just ID?
-    UPROPERTY(EditAnywhere, Category = Setup)
-    FMessage Message;
-
-    UPROPERTY(EditAnywhere, Category = Setup)
-    EMessageSide Side;
 
 #if WITH_EDITOR
     static void ValidateChild(const FName& Parent, const FName& Child, const UWidgetTree& BlueprintWidgetTree, IWidgetCompilerLog& CompileLog);

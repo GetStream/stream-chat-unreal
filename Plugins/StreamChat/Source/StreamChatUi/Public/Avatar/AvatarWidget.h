@@ -44,6 +44,12 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = Defaults)
     FName OnlineStatusMaterialParameterName = TEXT("bOnline");
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    TArray<FUserRef> Users;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    int32 Size = 80;
+
 private:
     virtual void OnSetup() override;
     void UpdateOnlineStatus(bool bOnline);
@@ -52,12 +58,6 @@ private:
 
     UFUNCTION()
     void OnUserUpdated();
-
-    UPROPERTY(EditAnywhere, Category = Setup)
-    TArray<FUserRef> Users;
-
-    UPROPERTY(EditAnywhere, Category = Setup)
-    int32 Size = 80;
 
     UPROPERTY(Transient)
     UMaterialInstanceDynamic* EffectMaterialDynamic;

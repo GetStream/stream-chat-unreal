@@ -117,5 +117,8 @@ struct STREAMCHAT_API FMessage
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
     bool bIsRead = false;
 
+    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Message")
+    FAdditionalFields AdditionalFields;
+
     // TODO rest of fields
 };

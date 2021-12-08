@@ -49,6 +49,13 @@ protected:
     UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
     TSubclassOf<UMessageReactionsWidget> ReactionsWidgetClass = UMessageReactionsWidget::StaticClass();
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    FMessage Message;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    EBubbleStackPosition Position;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    EMessageSide Side;
+
 private:
     virtual void OnSetup() override;
 
@@ -56,13 +63,6 @@ private:
     virtual void NativeOnMouseLeave(const FPointerEvent& InMouseEvent) override;
 
     bool ShouldDisplayHoverMenu() const;
-
-    UPROPERTY(EditAnywhere, Category = Setup)
-    FMessage Message;
-    UPROPERTY(EditAnywhere, Category = Setup)
-    EBubbleStackPosition Position;
-    UPROPERTY(EditAnywhere, Category = Setup)
-    EMessageSide Side;
 
     // Only valid while hovered
     UPROPERTY(Transient)

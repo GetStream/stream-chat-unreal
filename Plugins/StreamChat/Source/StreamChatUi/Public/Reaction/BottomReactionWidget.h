@@ -55,6 +55,9 @@ protected:
     UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
     TSubclassOf<UReactionsTooltipWidget> ReactionsTooltipWidgetClass = UReactionsTooltipWidget::StaticClass();
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    FReactionGroup ReactionGroup;
+
 private:
     virtual void OnSetup() override;
     virtual bool WantsTheme() override
@@ -73,9 +76,6 @@ private:
 
     UFUNCTION()
     UUserWidget* CreateReactionsMenu();
-
-    UPROPERTY(EditAnywhere, Category = Setup)
-    FReactionGroup ReactionGroup;
 
     FTimerHandle HoverTimerHandle;
 };

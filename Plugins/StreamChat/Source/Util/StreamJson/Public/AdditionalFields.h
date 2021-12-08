@@ -41,24 +41,6 @@ private:
     TMap<FString, TSharedPtr<FJsonValue>> Inner;
 };
 
-/**
- * @brief Blueprint functions for the Additional Fields struct
- * @ingroup StreamChat
- */
-UCLASS()
-class STREAMJSON_API UAdditionalFieldsBlueprintLibrary final : public UBlueprintFunctionLibrary
-{
-    GENERATED_BODY()
-
-public:
-    UFUNCTION(BlueprintPure, Category = "Stream Chat|Additional Fields")
-    static void AddString(UPARAM(ref) FAdditionalFields& AdditionalFields, const FString& Key, const FString& Value, FAdditionalFields& Out);
-    UFUNCTION(BlueprintPure, Category = "Stream Chat|Additional Fields")
-    static void AddNumber(UPARAM(ref) FAdditionalFields& AdditionalFields, const FString& Key, float Value, FAdditionalFields& Out);
-    UFUNCTION(BlueprintPure, Category = "Stream Chat|Additional Fields")
-    static void AddBool(UPARAM(ref) FAdditionalFields& AdditionalFields, const FString& Key, bool bValue, FAdditionalFields& Out);
-};
-
 // General implementation for all number types
 template <class T>
 void FAdditionalFields::SetNumber(const FString& Key, T Value)
@@ -107,3 +89,32 @@ template <>
 TOptional<FDateTime> STREAMJSON_API FAdditionalFields::Get(const FString& Key) const;
 template <>
 void STREAMJSON_API FAdditionalFields::Set(const FString& Key, const FDateTime&);
+
+/**
+ * @brief Blueprint functions for the Additional Fields struct
+ * @ingroup StreamChat
+ */
+UCLASS()
+class STREAMJSON_API UAdditionalFieldsBlueprintLibrary final : public UBlueprintFunctionLibrary
+{
+    GENERATED_BODY()
+
+public:
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Additional Fields")
+    static void SetString(UPARAM(ref) FAdditionalFields& AdditionalFields, const FString& Key, const FString& Value, FAdditionalFields& Out);
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Additional Fields")
+    static void SetFloat(UPARAM(ref) FAdditionalFields& AdditionalFields, const FString& Key, float Value, FAdditionalFields& Out);
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Additional Fields")
+    static void SetInt(UPARAM(ref) FAdditionalFields& AdditionalFields, const FString& Key, int32 Value, FAdditionalFields& Out);
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Additional Fields")
+    static void SetBool(UPARAM(ref) FAdditionalFields& AdditionalFields, const FString& Key, bool bValue, FAdditionalFields& Out);
+
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Additional Fields")
+    static void GetString(const FAdditionalFields& AdditionalFields, const FString& Key, bool& bValid, FString& Result);
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Additional Fields")
+    static void GetFloat(const FAdditionalFields& AdditionalFields, const FString& Key, bool& bValid, float& Result);
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Additional Fields")
+    static void GetInt(const FAdditionalFields& AdditionalFields, const FString& Key, bool& bValid, int32& Result);
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Additional Fields")
+    static void GetBool(const FAdditionalFields& AdditionalFields, const FString& Key, bool& bValid, bool& Result);
+};

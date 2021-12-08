@@ -30,18 +30,18 @@ protected:
     UPROPERTY(Transient, meta = (BindWidgetAnim))
     UWidgetAnimation* FadeAnimation;
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    FMessage Message;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    FTimespan Lifetime = FTimespan::FromSeconds(20.f);
+
 private:
     virtual void OnSetup() override;
 
     virtual void OnAnimationFinished_Implementation(const UWidgetAnimation* Animation) override;
 
     void FadeOut();
-
-    UPROPERTY(EditAnywhere, Category = Setup)
-    FMessage Message;
-
-    UPROPERTY(EditAnywhere, Category = Setup)
-    FTimespan Lifetime = FTimespan::FromSeconds(20.f);
 
     FTimerHandle TimerHandle;
 };

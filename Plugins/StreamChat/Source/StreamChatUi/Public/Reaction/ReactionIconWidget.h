@@ -34,12 +34,12 @@ protected:
     UPROPERTY(EditAnywhere, Category = Defaults)
     TMap<EMessageSide, FLinearColor> Colors;
 
-private:
-    virtual void OnSetup() override;
-
-    UPROPERTY(EditAnywhere, Category = Setup)
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
     FName ReactionType;
 
-    UPROPERTY(EditAnywhere, Category = Setup)
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
     EMessageSide Side;
+
+private:
+    virtual void OnSetup() override;
 };
