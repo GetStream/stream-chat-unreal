@@ -7,8 +7,10 @@
 #include "ChatApi.h"
 #include "ChatSocketEvents.h"
 #include "CoreMinimal.h"
+#include "Filter.h"
 #include "IChatSocket.h"
 #include "Message.h"
+#include "SortOption.h"
 #include "User/UserRef.h"
 
 #include "ChatChannel.generated.h"
@@ -191,6 +193,41 @@ public:
     /// Get all the messages in this channel which we have locally
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Channel|Message")
     const TArray<FMessage>& GetMessages() const;
+
+    /**
+     * @brief Search the messages in this channel
+     *
+     * @param Callback Called when response is received
+     * @param Query Search phrase
+     * @param MessageFilter Message filter conditions
+     * @param Sort Sort parameters. Cannot be  used with non-zero offset.
+     * @param MessageLimit Number of messages to return
+     */
+    void SearchMessages(
+        TFunction<void(const TArray<FMessage>&)> Callback,
+        const TOptional<FString>& Query = {},
+        const TOptional<FFilter>& MessageFilter = {},
+        const TArray<FSortOption>& Sort = {},
+        TOptional<uint32> MessageLimit = {}) const;
+
+    /**
+     * @brief Search the messages in this channel
+     *
+     * @param Query Search phrase (Optional)
+     * @param MessageFilter Message filter conditions (Optional)
+     * @param Sort Sort parameters (Optional)
+     * @param MessageLimit Number of messages to return (Optional)
+     * @param OutMessages The result of the search
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo, AutoCreateRefTerm = "Sort,MessageFilter"))
+    void SearchMessages(
+        const FString& Query,
+        const FFilter& MessageFilter,
+        const TArray<FSortOption>& Sort,
+        int32 MessageLimit,
+        const UObject* WorldContextObject,
+        FLatentActionInfo LatentInfo,
+        TArray<FMessage>& OutMessages);
 
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessagesUpdatedDelegate, const TArray<FMessage>&, Messages);
     /// Fired when any of the messages we have locally change

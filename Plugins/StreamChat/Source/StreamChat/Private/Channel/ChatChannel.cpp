@@ -2,6 +2,9 @@
 
 #include "Channel/ChatChannel.h"
 
+#include "Algo/Transform.h"
+#include "Blueprint/CallbackAction.h"
+#include "Channel/Filter.h"
 #include "ChatApi.h"
 #include "Engine/World.h"
 #include "Event/Channel/MessageDeletedEvent.h"
@@ -73,7 +76,7 @@ void UChatChannel::SendMessageWithAdditionalFields(const FString& Text, const FA
         State.Id,
         Request,
         false,
-        [this](const FMessageResponseDto& Response)
+        [](const FMessageResponseDto& Response)
         {
             // No need to add message here as the backend will send a websocket message
             UE_LOG(LogTemp, Log, TEXT("Sent message [Id=%s]"), *Response.Message.Id);
@@ -94,10 +97,13 @@ void UChatChannel::UpdateMessage(const FMessage& Message)
 
     Api->UpdateMessage(
         Util::Convert<FMessageRequestDto>(UpdatedMessage),
-        [this](const FMessageResponseDto& Response)
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this)](const FMessageResponseDto& Response)
         {
-            AddMessage(FMessage{*UUserManager::Get(), Response.Message});
-            UE_LOG(LogTemp, Log, TEXT("Updated message [Id=%s]"), *Response.Message.Id);
+            if (WeakThis.IsValid())
+            {
+                WeakThis->AddMessage(FMessage{*UUserManager::Get(), Response.Message});
+                UE_LOG(LogTemp, Log, TEXT("Updated message [Id=%s]"), *Response.Message.Id);
+            }
         });
     // TODO retry?
 }
@@ -128,10 +134,13 @@ void UChatChannel::DeleteMessage(const FMessage& Message)
     Api->DeleteMessage(
         DeletedMessage.Id,
         false,
-        [this](const FMessageResponseDto& Response)
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this)](const FMessageResponseDto& Response)
         {
-            AddMessage(FMessage{*UUserManager::Get(), Response.Message});
-            UE_LOG(LogTemp, Log, TEXT("Deleted message [Id=%s]"), *Response.Message.Id);
+            if (WeakThis.IsValid())
+            {
+                WeakThis->AddMessage(FMessage{*UUserManager::Get(), Response.Message});
+                UE_LOG(LogTemp, Log, TEXT("Deleted message [Id=%s]"), *Response.Message.Id);
+            }
         });
 
     // TODO retry?
@@ -172,9 +181,9 @@ void UChatChannel::QueryAdditionalMessages(const EPaginationDirection Direction,
     }();
 
     Api->QueryChannel(
-        [this, Direction, Limit](const FChannelStateResponseDto& Dto)
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Direction, Limit](const FChannelStateResponseDto& Dto)
         {
-            if (!IsValid(this))
+            if (!WeakThis.IsValid())
             {
                 return;
             }
@@ -182,12 +191,12 @@ void UChatChannel::QueryAdditionalMessages(const EPaginationDirection Direction,
             if (Dto.Messages.Num() == 0 || Dto.Messages.Num() < Limit)
             {
                 // Don't need to paginate again in this direction in the future
-                EndedPaginationDirections |= Direction;
+                WeakThis->EndedPaginationDirections |= Direction;
             }
 
-            MergeState(Dto);
+            WeakThis->MergeState(Dto);
 
-            SetPaginationRequestState(EHttpRequestState::Ended, Direction);
+            WeakThis->SetPaginationRequestState(EHttpRequestState::Ended, Direction);
         },
         State.Type,
         Socket->GetConnectionId(),
@@ -208,13 +217,65 @@ const TArray<FMessage>& UChatChannel::GetMessages() const
     return State.GetMessages();
 }
 
+void UChatChannel::SearchMessages(
+    TFunction<void(const TArray<FMessage>&)> Callback,
+    const TOptional<FString>& Query,
+    const TOptional<FFilter>& MessageFilter,
+    const TArray<FSortOption>& Sort,
+    const TOptional<uint32> MessageLimit) const
+{
+    TOptional<TSharedRef<FJsonObject>> MessageFilterJson;
+    if (MessageFilter.IsSet())
+    {
+        MessageFilterJson.Emplace(MessageFilter.GetValue().ToJsonObject());
+    }
+
+    Api->SearchMessages(
+        [Callback](const FSearchResponseDto& Response)
+        {
+            UUserManager* UserManager = UUserManager::Get();
+            TArray<FMessage> Messages;
+            Algo::Transform(Response.Results, Messages, [UserManager](const FSearchResultDto& R) { return FMessage{*UserManager, R.Message}; });
+
+            // Don't add the messages to this channel's state, just return
+            if (Callback)
+            {
+                Callback(Messages);
+            }
+        },
+        FFilter::Equal(TEXT("cid"), State.Cid).ToJsonObject(),
+        Query,
+        MessageFilterJson,
+        Util::Convert<FSortParamRequestDto>(Sort),
+        MessageLimit);
+}
+
+void UChatChannel::SearchMessages(
+    const FString& Query,
+    const FFilter& MessageFilter,
+    const TArray<FSortOption>& Sort,
+    const int32 MessageLimit,
+    const UObject* WorldContextObject,
+    const FLatentActionInfo LatentInfo,
+    TArray<FMessage>& OutMessages)
+{
+    const TOptional<FString> OptionalQuery = Query.IsEmpty() ? TOptional<FString>{} : Query;
+    const TOptional<FFilter> OptionalMessageFilter = MessageFilter.IsValid() ? MessageFilter : TOptional<FFilter>{};
+    const TOptional<uint32> OptionalMessageLimit = MessageLimit > 0 ? static_cast<uint32>(MessageLimit) : TOptional<uint32>{};
+    TCallbackAction<TArray<FMessage>>::CreateLatentAction(
+        WorldContextObject,
+        LatentInfo,
+        OutMessages,
+        [&](auto Callback) { SearchMessages(Callback, OptionalQuery, OptionalMessageFilter, Sort, OptionalMessageLimit); });
+}
+
 void UChatChannel::SendReaction(const FMessage& Message, const FName& ReactionType, const bool bEnforceUnique)
 {
     FMessage NewMessage{Message};
     // Remove all previous reactions current user did
     if (bEnforceUnique)
     {
-        NewMessage.Reactions.RemoveReactionWhere([this](const FReaction& R) { return R.User.IsCurrent(); });
+        NewMessage.Reactions.RemoveReactionWhere([](const FReaction& R) { return R.User.IsCurrent(); });
     }
 
     const FReaction NewReaction{ReactionType, UUserManager::Get()->GetCurrentUser(), Message.Id};
@@ -264,15 +325,19 @@ void UChatChannel::KeyStroke(const FString& ParentMessageId)
     FTimerHandle TimerHandle;
     GetWorld()->GetTimerManager().SetTimer(
         TimerHandle,
-        [this, ParentMessageId, TypingTimeout]()
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this), ParentMessageId, TypingTimeout]()
         {
+            if (!WeakThis.IsValid())
+            {
+                return;
+            }
             const FDateTime Now = FDateTime::UtcNow();
-            if (!LastKeystrokeAt.IsSet() || (Now - LastKeystrokeAt.GetValue()).GetTotalSeconds() >= TypingTimeout)
+            if (!WeakThis->LastKeystrokeAt.IsSet() || (Now - WeakThis->LastKeystrokeAt.GetValue()).GetTotalSeconds() >= TypingTimeout)
             {
                 const FUser& CurrentUser = *UUserManager::Get()->GetCurrentUser();
                 UE_LOG(LogTemp, Log, TEXT("Stop typing"));
-                SendEvent(FTypingStopEvent{
-                    {{FTypingStopEvent::StaticType, Now}, State.Id, State.Type, State.Cid},
+                WeakThis->SendEvent(FTypingStopEvent{
+                    {{FTypingStopEvent::StaticType, Now}, WeakThis->State.Id, WeakThis->State.Type, WeakThis->State.Cid},
                     ParentMessageId,
                     Util::Convert<FUserObjectDto>(CurrentUser),
                 });

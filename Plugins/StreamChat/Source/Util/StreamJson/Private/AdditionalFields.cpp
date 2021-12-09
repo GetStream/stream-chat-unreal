@@ -2,33 +2,33 @@
 
 #include "AdditionalFields.h"
 
-void FAdditionalFields::SetString(const FString& Key, const FString& Value)
+void FAdditionalFields::SetString(const FName& Key, const FString& Value)
 {
     Inner.Add(Key, MakeShared<FJsonValueString>(Value));
 }
 
-void FAdditionalFields::SetString(const FString& Key, const TCHAR* Value)
+void FAdditionalFields::SetString(const FName& Key, const TCHAR* Value)
 {
     Inner.Add(Key, MakeShared<FJsonValueString>(Value));
 }
 
-void FAdditionalFields::SetBool(const FString& Key, bool bValue)
+void FAdditionalFields::SetBool(const FName& Key, bool bValue)
 {
     Inner.Add(Key, MakeShared<FJsonValueBoolean>(bValue));
 }
 
-void FAdditionalFields::SetJsonValue(const FString& Key, const TSharedRef<FJsonValue>& Value)
+void FAdditionalFields::SetJsonValue(const FName& Key, const TSharedRef<FJsonValue>& Value)
 {
     Inner.Add(Key, Value);
 }
 
 template <>
-void FAdditionalFields::Set(const FString& Key, const FDateTime& Value)
+void FAdditionalFields::Set(const FName& Key, const FDateTime& Value)
 {
     Inner.Add(Key, MakeShared<FJsonValueString>(Value.ToIso8601()));
 }
 
-TOptional<FString> FAdditionalFields::GetString(const FString& Key) const
+TOptional<FString> FAdditionalFields::GetString(const FName& Key) const
 {
     if (const TSharedPtr<FJsonValue>* JsonValue = Inner.Find(Key))
     {
@@ -40,7 +40,7 @@ TOptional<FString> FAdditionalFields::GetString(const FString& Key) const
     return {};
 }
 
-TOptional<bool> FAdditionalFields::GetBool(const FString& Key) const
+TOptional<bool> FAdditionalFields::GetBool(const FName& Key) const
 {
     if (const TSharedPtr<FJsonValue>* JsonValue = Inner.Find(Key))
     {
@@ -53,7 +53,7 @@ TOptional<bool> FAdditionalFields::GetBool(const FString& Key) const
 }
 
 template <>
-TOptional<FDateTime> FAdditionalFields::Get(const FString& Key) const
+TOptional<FDateTime> FAdditionalFields::Get(const FName& Key) const
 {
     if (const TSharedPtr<FJsonValue>* JsonValue = Inner.Find(Key))
     {
@@ -68,7 +68,7 @@ TOptional<FDateTime> FAdditionalFields::Get(const FString& Key) const
     return {};
 }
 
-const TMap<FString, TSharedPtr<FJsonValue>>& FAdditionalFields::GetFields() const
+const TMap<FName, TSharedPtr<FJsonValue>>& FAdditionalFields::GetFields() const
 {
     return Inner;
 }
@@ -91,31 +91,31 @@ const FAdditionalFields* FAdditionalFields::FromProperty(const void* Struct, FPr
     return FromProperty(const_cast<void*>(Struct), Property);
 }
 
-void UAdditionalFieldsBlueprintLibrary::SetString(FAdditionalFields& AdditionalFields, const FString& Key, const FString& Value, FAdditionalFields& Out)
+void UAdditionalFieldsBlueprintLibrary::SetString(FAdditionalFields& AdditionalFields, const FName& Key, const FString& Value, FAdditionalFields& Out)
 {
     AdditionalFields.SetString(Key, Value);
     Out = AdditionalFields;
 }
 
-void UAdditionalFieldsBlueprintLibrary::SetFloat(FAdditionalFields& AdditionalFields, const FString& Key, const float Value, FAdditionalFields& Out)
+void UAdditionalFieldsBlueprintLibrary::SetFloat(FAdditionalFields& AdditionalFields, const FName& Key, const float Value, FAdditionalFields& Out)
 {
     AdditionalFields.SetNumber(Key, Value);
     Out = AdditionalFields;
 }
 
-void UAdditionalFieldsBlueprintLibrary::SetInt(FAdditionalFields& AdditionalFields, const FString& Key, const int32 Value, FAdditionalFields& Out)
+void UAdditionalFieldsBlueprintLibrary::SetInt(FAdditionalFields& AdditionalFields, const FName& Key, const int32 Value, FAdditionalFields& Out)
 {
     AdditionalFields.SetNumber(Key, Value);
     Out = AdditionalFields;
 }
 
-void UAdditionalFieldsBlueprintLibrary::SetBool(FAdditionalFields& AdditionalFields, const FString& Key, bool bValue, FAdditionalFields& Out)
+void UAdditionalFieldsBlueprintLibrary::SetBool(FAdditionalFields& AdditionalFields, const FName& Key, bool bValue, FAdditionalFields& Out)
 {
     AdditionalFields.SetBool(Key, bValue);
     Out = AdditionalFields;
 }
 
-void UAdditionalFieldsBlueprintLibrary::GetString(const FAdditionalFields& AdditionalFields, const FString& Key, bool& bValid, FString& Result)
+void UAdditionalFieldsBlueprintLibrary::GetString(const FAdditionalFields& AdditionalFields, const FName& Key, bool& bValid, FString& Result)
 {
     const TOptional<FString> Optional = AdditionalFields.GetString(Key);
     bValid = Optional.IsSet();
@@ -126,7 +126,7 @@ void UAdditionalFieldsBlueprintLibrary::GetString(const FAdditionalFields& Addit
     Result = Optional.GetValue();
 }
 
-void UAdditionalFieldsBlueprintLibrary::GetFloat(const FAdditionalFields& AdditionalFields, const FString& Key, bool& bValid, float& Result)
+void UAdditionalFieldsBlueprintLibrary::GetFloat(const FAdditionalFields& AdditionalFields, const FName& Key, bool& bValid, float& Result)
 {
     const TOptional<float> Optional = AdditionalFields.GetNumber<float>(Key);
     bValid = Optional.IsSet();
@@ -137,7 +137,7 @@ void UAdditionalFieldsBlueprintLibrary::GetFloat(const FAdditionalFields& Additi
     Result = Optional.GetValue();
 }
 
-void UAdditionalFieldsBlueprintLibrary::GetInt(const FAdditionalFields& AdditionalFields, const FString& Key, bool& bValid, int32& Result)
+void UAdditionalFieldsBlueprintLibrary::GetInt(const FAdditionalFields& AdditionalFields, const FName& Key, bool& bValid, int32& Result)
 {
     const TOptional<int32> Optional = AdditionalFields.GetNumber<int32>(Key);
     bValid = Optional.IsSet();
@@ -148,7 +148,7 @@ void UAdditionalFieldsBlueprintLibrary::GetInt(const FAdditionalFields& Addition
     Result = Optional.GetValue();
 }
 
-void UAdditionalFieldsBlueprintLibrary::GetBool(const FAdditionalFields& AdditionalFields, const FString& Key, bool& bValid, bool& Result)
+void UAdditionalFieldsBlueprintLibrary::GetBool(const FAdditionalFields& AdditionalFields, const FName& Key, bool& bValid, bool& Result)
 {
     const TOptional<bool> Optional = AdditionalFields.GetBool(Key);
     bValid = Optional.IsSet();
