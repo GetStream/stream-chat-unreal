@@ -90,66 +90,66 @@ struct STREAMCHAT_API FFilter
     static FFilter Nor(const TArray<FFilter>& Filters);
 
     /// Construct an $eq filter
-    static FFilter Equal(const FName& Key, int32 Value);
+    static FFilter Equal(const FName& Field, int32 Value);
     /// Construct an $eq filter
-    static FFilter Equal(const FName& Key, float Value);
+    static FFilter Equal(const FName& Field, float Value);
     /// Construct an $eq filter
-    static FFilter Equal(const FName& Key, const FString& Value);
+    static FFilter Equal(const FName& Field, const FString& Value);
     /// Construct an $eq filter
-    static FFilter Equal(const FName& Key, bool bValue);
+    static FFilter Equal(const FName& Field, bool bValue);
     /// Construct a $neq filter
-    static FFilter NotEqual(const FName& Key, int32 Value);
+    static FFilter NotEqual(const FName& Field, int32 Value);
     /// Construct a $neq filter
-    static FFilter NotEqual(const FName& Key, float Value);
+    static FFilter NotEqual(const FName& Field, float Value);
     /// Construct a $neq filter
-    static FFilter NotEqual(const FName& Key, const FString& Value);
+    static FFilter NotEqual(const FName& Field, const FString& Value);
     /// Construct a $neq filter
-    static FFilter NotEqual(const FName& Key, bool bValue);
+    static FFilter NotEqual(const FName& Field, bool bValue);
     /// Construct a $gt filter
-    static FFilter Greater(const FName& Key, int32 Value);
+    static FFilter Greater(const FName& Field, int32 Value);
     /// Construct a $gt filter
-    static FFilter Greater(const FName& Key, float Value);
+    static FFilter Greater(const FName& Field, float Value);
     /// Construct a $gt filter
-    static FFilter Greater(const FName& Key, const FString& Value);
+    static FFilter Greater(const FName& Field, const FString& Value);
     /// Construct a $gt filter
-    static FFilter Greater(const FName& Key, bool bValue);
+    static FFilter Greater(const FName& Field, bool bValue);
     /// Construct a $gte filter
-    static FFilter GreaterOrEqual(const FName& Key, int32 Value);
+    static FFilter GreaterOrEqual(const FName& Field, int32 Value);
     /// Construct a $gte filter
-    static FFilter GreaterOrEqual(const FName& Key, float Value);
+    static FFilter GreaterOrEqual(const FName& Field, float Value);
     /// Construct a $gte filter
-    static FFilter GreaterOrEqual(const FName& Key, const FString& Value);
+    static FFilter GreaterOrEqual(const FName& Field, const FString& Value);
     /// Construct a $gte filter
-    static FFilter GreaterOrEqual(const FName& Key, bool bValue);
+    static FFilter GreaterOrEqual(const FName& Field, bool bValue);
     /// Construct a $lt filter
-    static FFilter Less(const FName& Key, int32 Value);
+    static FFilter Less(const FName& Field, int32 Value);
     /// Construct a $lt filter
-    static FFilter Less(const FName& Key, float Value);
+    static FFilter Less(const FName& Field, float Value);
     /// Construct a $lt filter
-    static FFilter Less(const FName& Key, const FString& Value);
+    static FFilter Less(const FName& Field, const FString& Value);
     /// Construct a $lt filter
-    static FFilter Less(const FName& Key, bool bValue);
+    static FFilter Less(const FName& Field, bool bValue);
     /// Construct a $lte filter
-    static FFilter LessOrEqual(const FName& Key, int32 Value);
+    static FFilter LessOrEqual(const FName& Field, int32 Value);
     /// Construct a $lte filter
-    static FFilter LessOrEqual(const FName& Key, float Value);
+    static FFilter LessOrEqual(const FName& Field, float Value);
     /// Construct a $lte filter
-    static FFilter LessOrEqual(const FName& Key, const FString& Value);
+    static FFilter LessOrEqual(const FName& Field, const FString& Value);
     /// Construct a $lte filter
-    static FFilter LessOrEqual(const FName& Key, bool bValue);
+    static FFilter LessOrEqual(const FName& Field, bool bValue);
 
     /// Construct an $in filter
-    static FFilter In(const FName& Key, const TArray<int32>& Values);
+    static FFilter In(const FName& Field, const TArray<int32>& Values);
     /// Construct an $in filter
-    static FFilter In(const FName& Key, const TArray<float>& Values);
+    static FFilter In(const FName& Field, const TArray<float>& Values);
     /// Construct an $in filter
-    static FFilter In(const FName& Key, const TArray<FString>& Values);
+    static FFilter In(const FName& Field, const TArray<FString>& Values);
     /// Construct an $in filter
-    static FFilter NotIn(const FName& Key, const TArray<int32>& Values);
+    static FFilter NotIn(const FName& Field, const TArray<int32>& Values);
     /// Construct an $nin filter
-    static FFilter NotIn(const FName& Key, const TArray<float>& Values);
+    static FFilter NotIn(const FName& Field, const TArray<float>& Values);
     /// Construct an $nin filter
-    static FFilter NotIn(const FName& Key, const TArray<FString>& Values);
+    static FFilter NotIn(const FName& Field, const TArray<FString>& Values);
 
     /// Check if this filter has been correctly initialized
     bool IsValid() const;
@@ -158,18 +158,18 @@ private:
     /// Make logical filter
     FFilter(EFilterOperator Operator, const TArray<FFilter>& Filters);
     /// Make comparison filter
-    FFilter(EFilterOperator Operator, const FName& Key, const TSharedPtr<FJsonValue>& Value);
+    FFilter(EFilterOperator Operator, const FName& Field, const TSharedPtr<FJsonValue>& Value);
 
     template <class T>
-    static FFilter MakeComparison(EFilterOperator Operator, const FName& Key, T Value);
-    static FFilter MakeComparison(EFilterOperator Operator, const FName& Key, const FString& Value);
-    static FFilter MakeComparison(EFilterOperator Operator, const FName& Key, bool bValue);
+    static FFilter MakeComparison(EFilterOperator Operator, const FName& Field, T Value);
+    static FFilter MakeComparison(EFilterOperator Operator, const FName& Field, const FString& Value);
+    static FFilter MakeComparison(EFilterOperator Operator, const FName& Field, bool bValue);
     template <class T>
-    static FFilter MakeArrayComparison(EFilterOperator Operator, const FName& Key, const TArray<T>& Values);
-    static FFilter MakeArrayComparison(EFilterOperator Operator, const FName& Key, const TArray<FString>& Values);
+    static FFilter MakeArrayComparison(EFilterOperator Operator, const FName& Field, const TArray<T>& Values);
+    static FFilter MakeArrayComparison(EFilterOperator Operator, const FName& Field, const TArray<FString>& Values);
 
     EFilterOperator Operator;
-    FName Key;
+    FName Field;
     TSharedPtr<FJsonValue> Value;
     TArray<FFilter> ChildFilters;
 };

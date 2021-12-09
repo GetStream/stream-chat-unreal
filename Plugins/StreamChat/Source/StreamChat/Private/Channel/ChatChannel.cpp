@@ -221,7 +221,7 @@ void UChatChannel::SearchMessages(
     TFunction<void(const TArray<FMessage>&)> Callback,
     const TOptional<FString>& Query,
     const TOptional<FFilter>& MessageFilter,
-    const TArray<FSortOption>& Sort,
+    const TArray<FMessageSortOption>& Sort,
     const TOptional<uint32> MessageLimit) const
 {
     TOptional<TSharedRef<FJsonObject>> MessageFilterJson;
@@ -253,7 +253,7 @@ void UChatChannel::SearchMessages(
 void UChatChannel::SearchMessages(
     const FString& Query,
     const FFilter& MessageFilter,
-    const TArray<FSortOption>& Sort,
+    const TArray<FMessageSortOption>& Sort,
     const int32 MessageLimit,
     const UObject* WorldContextObject,
     const FLatentActionInfo LatentInfo,

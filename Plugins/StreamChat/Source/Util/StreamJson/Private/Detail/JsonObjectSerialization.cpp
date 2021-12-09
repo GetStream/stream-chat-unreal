@@ -101,7 +101,10 @@ bool JsonObjectSerialization::UStructToJsonAttributes(
         // Flatten additional fields into outer struct
         if (const FAdditionalFields* Fields = FAdditionalFields::FromProperty(Struct, Property))
         {
-            OutJsonAttributes.Append(Fields->GetFields());
+            for (auto&& Elem : Fields->GetFields())
+            {
+                OutJsonAttributes.Add(Elem.Key.ToString(), Elem.Value);
+            }
             continue;
         }
 

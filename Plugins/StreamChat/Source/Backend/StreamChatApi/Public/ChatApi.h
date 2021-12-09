@@ -9,7 +9,7 @@
 #include "Request/Channel/ChannelRequestDto.h"
 #include "Request/Channel/MessagePaginationParamsRequestDto.h"
 #include "Request/Channel/PaginationParamsRequestDto.h"
-#include "Request/Channel/SortParamRequestDto.h"
+#include "Request/SortParamRequestDto.h"
 #include "Response/Event/EventResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
 #include "Response/Reaction/ReactionResponseDto.h"
@@ -26,7 +26,7 @@ struct FHttpResponse;
 struct FMessageRequestDto;
 struct FMessageResponseDto;
 struct FReactionRequestDto;
-struct FSortOption;
+struct FChannelSortOption;
 
 template <class T>
 using TCallback = TFunction<void(const T&)>;
@@ -153,6 +153,9 @@ public:
 
     /**
      * @brief Search all messages
+     *
+     * ChannelFilter is required, and a minimum of either a query or message filter
+     *
      * @see https://getstream.io/chat/docs/other-rest/search/
      * @param Callback Called when response is received
      * @param Query Search phrase

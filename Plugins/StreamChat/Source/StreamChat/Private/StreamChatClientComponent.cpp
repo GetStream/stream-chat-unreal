@@ -81,7 +81,7 @@ void UStreamChatClientComponent::ConnectUser(
 
 void UStreamChatClientComponent::QueryChannels(
     const FFilter Filter,
-    const TArray<FSortOption>& SortOptions,
+    const TArray<FChannelSortOption>& SortOptions,
     const UObject* WorldContextObject,
     const FLatentActionInfo LatentInfo,
     TArray<UChatChannel*>& OutChannels)
@@ -130,7 +130,7 @@ void UStreamChatClientComponent::DisconnectUser()
 void UStreamChatClientComponent::QueryChannels(
     TFunction<void(const TArray<UChatChannel*>&)> Callback,
     const TOptional<FFilter> Filter,
-    const TArray<FSortOption>& SortOptions)
+    const TArray<FChannelSortOption>& SortOptions)
 {
     // TODO Can we return something from ConnectUser() that is required for this function to prevent ordering ambiguity?
     check(Socket->IsConnected());

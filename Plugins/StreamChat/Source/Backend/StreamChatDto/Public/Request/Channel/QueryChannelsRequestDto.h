@@ -6,7 +6,7 @@
 #include "CoreMinimal.h"
 #include "Dom/JsonObject.h"
 #include "JsonObjectWrapper.h"
-#include "SortParamRequestDto.h"
+#include "Request/SortParamRequestDto.h"
 
 #include "QueryChannelsRequestDto.generated.h"
 

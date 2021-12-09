@@ -2,8 +2,8 @@
 
 #pragma once
 
+#include "Channel/ChannelSortOption.h"
 #include "Channel/Filter.h"
-#include "Channel/SortOption.h"
 #include "ChatSocketEvents.h"
 #include "Components/ActorComponent.h"
 #include "CoreMinimal.h"
@@ -71,7 +71,10 @@ public:
      * direction, and multiple sorting options can be provided.
      * @return An array of channel objects which can be used to interact with the channels
      */
-    void QueryChannels(TFunction<void(const TArray<UChatChannel*>&)> Callback, TOptional<FFilter> Filter = {}, const TArray<FSortOption>& SortOptions = {});
+    void QueryChannels(
+        TFunction<void(const TArray<UChatChannel*>&)> Callback,
+        TOptional<FFilter> Filter = {},
+        const TArray<FChannelSortOption>& SortOptions = {});
 
     /**
     * Create a channel if it doesn't exist yet (if this user has the right permissions), get data about the channel
@@ -141,7 +144,7 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo))
     void QueryChannels(
         FFilter Filter,
-        const TArray<FSortOption>& SortOptions,
+        const TArray<FChannelSortOption>& SortOptions,
         const UObject* WorldContextObject,
         FLatentActionInfo LatentInfo,
         TArray<UChatChannel*>& OutChannels);

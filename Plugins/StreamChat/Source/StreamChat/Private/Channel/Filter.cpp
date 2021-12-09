@@ -33,7 +33,7 @@ FFilter::FFilter(const EFilterOperator Operator, const TArray<FFilter>& Filters)
 {
 }
 
-FFilter::FFilter(const EFilterOperator Operator, const FName& Key, const TSharedPtr<FJsonValue>& Value) : Operator{Operator}, Key{Key}, Value{Value}
+FFilter::FFilter(const EFilterOperator Operator, const FName& Field, const TSharedPtr<FJsonValue>& Value) : Operator{Operator}, Field{Field}, Value{Value}
 {
 }
 
@@ -57,13 +57,13 @@ TSharedRef<FJsonObject> FFilter::ToJsonObject() const
         }
         JsonObject->SetArrayField(AsString[Operator], Array);
     }
-    else if (!Key.IsNone())
+    else if (!Field.IsNone())
     {
         // Normal filters are encoded in the following form:
         // { key: { $<operator>: <value> } }
         const TSharedPtr<FJsonObject> InnerObject = MakeShared<FJsonObject>();
         InnerObject->SetField(AsString[Operator], Value);
-        JsonObject->SetObjectField(Key.ToString(), InnerObject);
+        JsonObject->SetObjectField(Field.ToString(), InnerObject);
     }
 
     return JsonObject;
@@ -96,167 +96,167 @@ FFilter FFilter::Nor(const TArray<FFilter>& Filters)
     return {EFilterOperator::Nor, Filters};
 }
 
-FFilter FFilter::Equal(const FName& Key, const int32 Value)
+FFilter FFilter::Equal(const FName& Field, const int32 Value)
 {
-    return MakeComparison(EFilterOperator::Equal, Key, Value);
+    return MakeComparison(EFilterOperator::Equal, Field, Value);
 }
 
-FFilter FFilter::Equal(const FName& Key, const float Value)
+FFilter FFilter::Equal(const FName& Field, const float Value)
 {
-    return MakeComparison(EFilterOperator::Equal, Key, Value);
+    return MakeComparison(EFilterOperator::Equal, Field, Value);
 }
 
-FFilter FFilter::Equal(const FName& Key, const FString& Value)
+FFilter FFilter::Equal(const FName& Field, const FString& Value)
 {
-    return MakeComparison(EFilterOperator::Equal, Key, Value);
+    return MakeComparison(EFilterOperator::Equal, Field, Value);
 }
 
-FFilter FFilter::Equal(const FName& Key, const bool bValue)
+FFilter FFilter::Equal(const FName& Field, const bool bValue)
 {
-    return MakeComparison(EFilterOperator::Equal, Key, bValue);
+    return MakeComparison(EFilterOperator::Equal, Field, bValue);
 }
 
-FFilter FFilter::NotEqual(const FName& Key, const int32 Value)
+FFilter FFilter::NotEqual(const FName& Field, const int32 Value)
 {
-    return MakeComparison(EFilterOperator::NotEqual, Key, Value);
+    return MakeComparison(EFilterOperator::NotEqual, Field, Value);
 }
 
-FFilter FFilter::NotEqual(const FName& Key, const float Value)
+FFilter FFilter::NotEqual(const FName& Field, const float Value)
 {
-    return MakeComparison(EFilterOperator::NotEqual, Key, Value);
+    return MakeComparison(EFilterOperator::NotEqual, Field, Value);
 }
 
-FFilter FFilter::NotEqual(const FName& Key, const FString& Value)
+FFilter FFilter::NotEqual(const FName& Field, const FString& Value)
 {
-    return MakeComparison(EFilterOperator::NotEqual, Key, Value);
+    return MakeComparison(EFilterOperator::NotEqual, Field, Value);
 }
 
-FFilter FFilter::NotEqual(const FName& Key, const bool bValue)
+FFilter FFilter::NotEqual(const FName& Field, const bool bValue)
 {
-    return MakeComparison(EFilterOperator::NotEqual, Key, bValue);
+    return MakeComparison(EFilterOperator::NotEqual, Field, bValue);
 }
 
-FFilter FFilter::Greater(const FName& Key, int32 const Value)
+FFilter FFilter::Greater(const FName& Field, int32 const Value)
 {
-    return MakeComparison(EFilterOperator::Greater, Key, Value);
+    return MakeComparison(EFilterOperator::Greater, Field, Value);
 }
 
-FFilter FFilter::Greater(const FName& Key, float const Value)
+FFilter FFilter::Greater(const FName& Field, float const Value)
 {
-    return MakeComparison(EFilterOperator::Greater, Key, Value);
+    return MakeComparison(EFilterOperator::Greater, Field, Value);
 }
 
-FFilter FFilter::Greater(const FName& Key, const FString& Value)
+FFilter FFilter::Greater(const FName& Field, const FString& Value)
 {
-    return MakeComparison(EFilterOperator::Greater, Key, Value);
+    return MakeComparison(EFilterOperator::Greater, Field, Value);
 }
 
-FFilter FFilter::Greater(const FName& Key, bool const bValue)
+FFilter FFilter::Greater(const FName& Field, bool const bValue)
 {
-    return MakeComparison(EFilterOperator::Greater, Key, bValue);
+    return MakeComparison(EFilterOperator::Greater, Field, bValue);
 }
 
-FFilter FFilter::GreaterOrEqual(const FName& Key, int32 const Value)
+FFilter FFilter::GreaterOrEqual(const FName& Field, int32 const Value)
 {
-    return MakeComparison(EFilterOperator::GreaterOrEqual, Key, Value);
+    return MakeComparison(EFilterOperator::GreaterOrEqual, Field, Value);
 }
 
-FFilter FFilter::GreaterOrEqual(const FName& Key, float const Value)
+FFilter FFilter::GreaterOrEqual(const FName& Field, float const Value)
 {
-    return MakeComparison(EFilterOperator::GreaterOrEqual, Key, Value);
+    return MakeComparison(EFilterOperator::GreaterOrEqual, Field, Value);
 }
 
-FFilter FFilter::GreaterOrEqual(const FName& Key, const FString& Value)
+FFilter FFilter::GreaterOrEqual(const FName& Field, const FString& Value)
 {
-    return MakeComparison(EFilterOperator::GreaterOrEqual, Key, Value);
+    return MakeComparison(EFilterOperator::GreaterOrEqual, Field, Value);
 }
 
-FFilter FFilter::GreaterOrEqual(const FName& Key, bool const bValue)
+FFilter FFilter::GreaterOrEqual(const FName& Field, bool const bValue)
 {
-    return MakeComparison(EFilterOperator::GreaterOrEqual, Key, bValue);
+    return MakeComparison(EFilterOperator::GreaterOrEqual, Field, bValue);
 }
 
-FFilter FFilter::Less(const FName& Key, int32 const Value)
+FFilter FFilter::Less(const FName& Field, int32 const Value)
 {
-    return MakeComparison(EFilterOperator::Less, Key, Value);
+    return MakeComparison(EFilterOperator::Less, Field, Value);
 }
 
-FFilter FFilter::Less(const FName& Key, float const Value)
+FFilter FFilter::Less(const FName& Field, float const Value)
 {
-    return MakeComparison(EFilterOperator::Less, Key, Value);
+    return MakeComparison(EFilterOperator::Less, Field, Value);
 }
 
-FFilter FFilter::Less(const FName& Key, const FString& Value)
+FFilter FFilter::Less(const FName& Field, const FString& Value)
 {
-    return MakeComparison(EFilterOperator::Less, Key, Value);
+    return MakeComparison(EFilterOperator::Less, Field, Value);
 }
 
-FFilter FFilter::Less(const FName& Key, bool const bValue)
+FFilter FFilter::Less(const FName& Field, bool const bValue)
 {
-    return MakeComparison(EFilterOperator::Less, Key, bValue);
+    return MakeComparison(EFilterOperator::Less, Field, bValue);
 }
 
-FFilter FFilter::LessOrEqual(const FName& Key, int32 const Value)
+FFilter FFilter::LessOrEqual(const FName& Field, int32 const Value)
 {
-    return MakeComparison(EFilterOperator::LessOrEqual, Key, Value);
+    return MakeComparison(EFilterOperator::LessOrEqual, Field, Value);
 }
 
-FFilter FFilter::LessOrEqual(const FName& Key, float const Value)
+FFilter FFilter::LessOrEqual(const FName& Field, float const Value)
 {
-    return MakeComparison(EFilterOperator::LessOrEqual, Key, Value);
+    return MakeComparison(EFilterOperator::LessOrEqual, Field, Value);
 }
 
-FFilter FFilter::LessOrEqual(const FName& Key, const FString& Value)
+FFilter FFilter::LessOrEqual(const FName& Field, const FString& Value)
 {
-    return MakeComparison(EFilterOperator::LessOrEqual, Key, Value);
+    return MakeComparison(EFilterOperator::LessOrEqual, Field, Value);
 }
 
-FFilter FFilter::LessOrEqual(const FName& Key, bool const bValue)
+FFilter FFilter::LessOrEqual(const FName& Field, bool const bValue)
 {
-    return MakeComparison(EFilterOperator::LessOrEqual, Key, bValue);
+    return MakeComparison(EFilterOperator::LessOrEqual, Field, bValue);
 }
 
-FFilter FFilter::In(const FName& Key, const TArray<int32>& Values)
+FFilter FFilter::In(const FName& Field, const TArray<int32>& Values)
 {
-    return MakeArrayComparison(EFilterOperator::In, Key, Values);
+    return MakeArrayComparison(EFilterOperator::In, Field, Values);
 }
 
-FFilter FFilter::In(const FName& Key, const TArray<float>& Values)
+FFilter FFilter::In(const FName& Field, const TArray<float>& Values)
 {
-    return MakeArrayComparison(EFilterOperator::In, Key, Values);
+    return MakeArrayComparison(EFilterOperator::In, Field, Values);
 }
 
-FFilter FFilter::In(const FName& Key, const TArray<FString>& Values)
+FFilter FFilter::In(const FName& Field, const TArray<FString>& Values)
 {
-    return MakeArrayComparison(EFilterOperator::In, Key, Values);
+    return MakeArrayComparison(EFilterOperator::In, Field, Values);
 }
 
-FFilter FFilter::NotIn(const FName& Key, const TArray<int32>& Values)
+FFilter FFilter::NotIn(const FName& Field, const TArray<int32>& Values)
 {
-    return MakeArrayComparison(EFilterOperator::NotIn, Key, Values);
+    return MakeArrayComparison(EFilterOperator::NotIn, Field, Values);
 }
 
-FFilter FFilter::NotIn(const FName& Key, const TArray<float>& Values)
+FFilter FFilter::NotIn(const FName& Field, const TArray<float>& Values)
 {
-    return MakeArrayComparison(EFilterOperator::NotIn, Key, Values);
+    return MakeArrayComparison(EFilterOperator::NotIn, Field, Values);
 }
 
-FFilter FFilter::NotIn(const FName& Key, const TArray<FString>& Values)
+FFilter FFilter::NotIn(const FName& Field, const TArray<FString>& Values)
 {
-    return MakeArrayComparison(EFilterOperator::NotIn, Key, Values);
+    return MakeArrayComparison(EFilterOperator::NotIn, Field, Values);
 }
 
-FFilter FFilter::MakeComparison(const EFilterOperator Operator, const FName& Key, const FString& Value)
+FFilter FFilter::MakeComparison(const EFilterOperator Operator, const FName& Field, const FString& Value)
 {
-    return {Operator, Key, MakeShared<FJsonValueString>(Value)};
+    return {Operator, Field, MakeShared<FJsonValueString>(Value)};
 }
 
-FFilter FFilter::MakeComparison(const EFilterOperator Operator, const FName& Key, bool bValue)
+FFilter FFilter::MakeComparison(const EFilterOperator Operator, const FName& Field, bool bValue)
 {
-    return {Operator, Key, MakeShared<FJsonValueBoolean>(bValue)};
+    return {Operator, Field, MakeShared<FJsonValueBoolean>(bValue)};
 }
 
-FFilter FFilter::MakeArrayComparison(const EFilterOperator Operator, const FName& Key, const TArray<FString>& Values)
+FFilter FFilter::MakeArrayComparison(const EFilterOperator Operator, const FName& Field, const TArray<FString>& Values)
 {
     TArray<TSharedPtr<FJsonValue>> Array;
     Array.Reserve(Values.Num());
@@ -264,22 +264,22 @@ FFilter FFilter::MakeArrayComparison(const EFilterOperator Operator, const FName
     {
         Array.Emplace(MakeShared<FJsonValueString>(Value));
     }
-    return {Operator, Key, MakeShared<FJsonValueArray>(Array)};
+    return {Operator, Field, MakeShared<FJsonValueArray>(Array)};
 }
 
 bool FFilter::IsValid() const
 {
-    return ChildFilters.Num() > 0 || (!Key.IsNone() && Value.IsValid());
+    return ChildFilters.Num() > 0 || (!Field.IsNone() && Value.IsValid());
 }
 
 template <class T>
-FFilter FFilter::MakeComparison(const EFilterOperator Operator, const FName& Key, T Value)
+FFilter FFilter::MakeComparison(const EFilterOperator Operator, const FName& Field, T Value)
 {
-    return {Operator, Key, MakeShared<FJsonValueNumberString>(LexToString(Value))};
+    return {Operator, Field, MakeShared<FJsonValueNumberString>(LexToString(Value))};
 }
 
 template <class T>
-FFilter FFilter::MakeArrayComparison(const EFilterOperator Operator, const FName& Key, const TArray<T>& Values)
+FFilter FFilter::MakeArrayComparison(const EFilterOperator Operator, const FName& Field, const TArray<T>& Values)
 {
     TArray<TSharedPtr<FJsonValue>> Array;
     Array.Reserve(Values.Num());
@@ -287,5 +287,5 @@ FFilter FFilter::MakeArrayComparison(const EFilterOperator Operator, const FName
     {
         Array.Emplace(MakeShared<FJsonValueNumberString>(LexToString(Value)));
     }
-    return {Operator, Key, MakeShared<FJsonValueArray>(Array)};
+    return {Operator, Field, MakeShared<FJsonValueArray>(Array)};
 }
