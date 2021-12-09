@@ -6,6 +6,7 @@
 #include "Request/Channel/ChannelGetOrCreateRequestDto.h"
 #include "Request/Channel/QueryChannelsRequestDto.h"
 #include "Request/Event/SendEventRequest.h"
+#include "Request/Message/SearchRequestDto.h"
 #include "Request/Message/SendMessageRequestDto.h"
 #include "Request/Message/UpdateMessageRequestDto.h"
 #include "Request/Reaction/SendReactionRequestDto.h"
@@ -15,6 +16,16 @@
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Reaction/ReactionResponseDto.h"
 #include "TokenManager.h"
+
+namespace
+{
+FJsonObjectWrapper Wrap(const TSharedRef<FJsonObject>& JsonObject)
+{
+    FJsonObjectWrapper Wrapper;
+    Wrapper.JsonObject = JsonObject;
+    return Wrapper;
+}
+}    // namespace
 
 TSharedRef<FChatApi> FChatApi::Create(const FString& InApiKey, const FString& InHost, const TSharedPtr<FTokenManager>& InTokenManager)
 {
@@ -122,18 +133,17 @@ void FChatApi::QueryChannels(
     const TCallback<FChannelsResponseDto> Callback,
     const FString& ConnectionId,
     const EChannelFlags Flags,
-    const TOptional<FJsonObjectWrapper>& Filter,
+    const TOptional<TSharedRef<FJsonObject>>& Filter,
     const TArray<FSortParamRequestDto>& SortOptions,
     const TOptional<uint32> MemberLimit,
     const TOptional<uint32> MessageLimit,
     const FPaginationOptions PaginationOptions) const
 {
     const FString Url = BuildUrl(TEXT("channels"));
-    // TODO FJsonObjectWrapper for filter?
-    // TODO Pagination?
+
     FQueryChannelsRequestDto Body{
         ConnectionId,
-        Filter.Get({}),
+        Wrap(Filter.Get({})),
         EnumHasAnyFlags(Flags, EChannelFlags::Presence),
         SortOptions,
         EnumHasAnyFlags(Flags, EChannelFlags::State),
@@ -159,15 +169,57 @@ void FChatApi::QueryChannels(
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
+void FChatApi::SearchMessages(
+    const TCallback<FSearchResponseDto> Callback,
+    const TSharedRef<FJsonObject>& ChannelFilter,
+    const TOptional<FString>& Query,
+    const TOptional<TSharedRef<FJsonObject>>& MessageFilter,
+    const TArray<FSortParamRequestDto>& Sort,
+    TOptional<uint32> MessageLimit,
+    TOptional<uint32> Offset,
+    TOptional<FString> Next) const
+{
+    const FString Url = BuildUrl(TEXT("search"));
+    FSearchRequestDto Body{
+        Wrap(ChannelFilter),
+    };
+    if (Query.IsSet())
+    {
+        Body.SetQuery(Query.GetValue());
+    }
+    if (MessageFilter.IsSet())
+    {
+        Body.SetMessageFilter(MessageFilter.GetValue());
+    }
+    if (Sort.Num() > 0)
+    {
+        Body.SetSort(Sort);
+    }
+    if (MessageLimit.IsSet())
+    {
+        Body.SetMessageLimit(MessageLimit.GetValue());
+    }
+    if (Offset.IsSet())
+    {
+        Body.SetOffset(Offset.GetValue());
+    }
+    if (Next.IsSet())
+    {
+        Body.SetNext(Next.GetValue());
+    }
+
+    Client->Post(Url).Json(Body).Send(Callback);
+}
+
 void FChatApi::SendChannelEventInternal(
     const FString& ChannelType,
     const FString& ChannelId,
-    const FJsonObjectWrapper& Event,
+    const TSharedRef<FJsonObject>& Event,
     const TCallback<FEventResponseDto> Callback) const
 {
     const FString Path = FString::Printf(TEXT("channels/%s/%s/event"), *ChannelType, *ChannelId);
     const FString Url = BuildUrl(Path);
-    const FSendEventRequestDto Body{Event};
+    const FSendEventRequestDto Body{Wrap(Event)};
 
     Client->Post(Url).Json(Body).Send(Callback);
 }

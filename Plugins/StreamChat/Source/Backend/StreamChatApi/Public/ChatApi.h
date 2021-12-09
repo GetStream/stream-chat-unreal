@@ -11,6 +11,7 @@
 #include "Request/Channel/PaginationParamsRequestDto.h"
 #include "Request/Channel/SortParamRequestDto.h"
 #include "Response/Event/EventResponseDto.h"
+#include "Response/Message/SearchResponseDto.h"
 #include "Response/Reaction/ReactionResponseDto.h"
 #include "StreamJson.h"
 
@@ -144,18 +145,40 @@ public:
         TCallback<FChannelsResponseDto> Callback,
         const FString& ConnectionId,
         EChannelFlags Flags = EChannelFlags::State | EChannelFlags::Watch,
-        const TOptional<FJsonObjectWrapper>& Filter = {},
+        const TOptional<TSharedRef<FJsonObject>>& Filter = {},
         const TArray<FSortParamRequestDto>& SortOptions = {},
         TOptional<uint32> MemberLimit = {},
         TOptional<uint32> MessageLimit = {},
         FPaginationOptions PaginationOptions = {}) const;
+
+    /**
+     * @brief Search all messages
+     * @see https://getstream.io/chat/docs/other-rest/search/
+     * @param Callback Called when response is received
+     * @param Query Search phrase
+     * @param ChannelFilter Channel filter conditions
+     * @param MessageFilter Message filter conditions
+     * @param Sort Sort parameters. Cannot be  used with non-zero offset.
+     * @param MessageLimit Number of messages to return
+     * @param Offset Pagination offset. Cannot be used with sort or next
+     * @param Next Pagination parameter. Cannot be used with non-zero offset
+     */
+    void SearchMessages(
+        TCallback<FSearchResponseDto> Callback,
+        const TSharedRef<FJsonObject>& ChannelFilter,
+        const TOptional<FString>& Query = {},
+        const TOptional<TSharedRef<FJsonObject>>& MessageFilter = {},
+        const TArray<FSortParamRequestDto>& Sort = {},
+        TOptional<uint32> MessageLimit = {},
+        TOptional<uint32> Offset = {},
+        TOptional<FString> Next = {}) const;
 
 private:
     explicit FChatApi(const FString& InApiKey, const FString& InHost, const TSharedPtr<FTokenManager>&);
     void SendChannelEventInternal(
         const FString& ChannelType,
         const FString& ChannelId,
-        const FJsonObjectWrapper& Event,
+        const TSharedRef<FJsonObject>& Event,
         TCallback<FEventResponseDto> Callback = {}) const;
 
     FString BuildUrl(const FString& Path) const;
@@ -175,7 +198,5 @@ private:
 template <class TEvent>
 void FChatApi::SendChannelEvent(const FString& ChannelType, const FString& ChannelId, const TEvent& Event, const TCallback<FEventResponseDto> Callback)
 {
-    FJsonObjectWrapper JsonObjectWrapper;
-    JsonObjectWrapper.JsonObject = JsonObject::UStructToJsonObject<TEvent>(Event);
-    SendChannelEventInternal(ChannelType, ChannelId, JsonObjectWrapper, Callback);
+    SendChannelEventInternal(ChannelType, ChannelId, JsonObject::UStructToJsonObject<TEvent>(Event), Callback);
 }

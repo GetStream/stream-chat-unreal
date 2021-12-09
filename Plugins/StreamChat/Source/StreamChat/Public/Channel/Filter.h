@@ -79,6 +79,8 @@ struct STREAMCHAT_API FFilter
     FJsonObjectWrapper ToJsonObjectWrapper() const;
     /// Convert to a JSON string
     FString ToJson() const;
+    /// Convert to a JSON object
+    TSharedRef<FJsonObject> ToJsonObject() const;
 
     /// Construct an $and filter
     static FFilter And(const TArray<FFilter>& Filters);
@@ -158,7 +160,6 @@ private:
     /// Make comparison filter
     FFilter(EFilterOperator Operator, const FName& Key, const TSharedPtr<FJsonValue>& Value);
 
-    TSharedPtr<FJsonObject> ToJsonObject() const;
     template <class T>
     static FFilter MakeComparison(EFilterOperator Operator, const FName& Key, T Value);
     static FFilter MakeComparison(EFilterOperator Operator, const FName& Key, const FString& Value);

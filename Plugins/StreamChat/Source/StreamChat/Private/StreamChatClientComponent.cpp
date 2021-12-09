@@ -5,6 +5,7 @@
 #include "Algo/Transform.h"
 #include "Blueprint/CallbackAction.h"
 #include "Channel/ChatChannel.h"
+#include "Channel/Filter.h"
 #include "ChatApi.h"
 #include "ConstantTokenProvider.h"
 #include "Event/Client/ConnectionRecoveredEvent.h"
@@ -79,7 +80,7 @@ void UStreamChatClientComponent::ConnectUser(
 }
 
 void UStreamChatClientComponent::QueryChannels(
-    FFilter Filter,
+    const FFilter Filter,
     const TArray<FSortOption>& SortOptions,
     const UObject* WorldContextObject,
     const FLatentActionInfo LatentInfo,
@@ -134,6 +135,12 @@ void UStreamChatClientComponent::QueryChannels(
     // TODO Can we return something from ConnectUser() that is required for this function to prevent ordering ambiguity?
     check(Socket->IsConnected());
 
+    TOptional<TSharedRef<FJsonObject>> FilterJson;
+    if (Filter.IsSet())
+    {
+        FilterJson.Emplace(Filter.GetValue().ToJsonObject());
+    }
+
     Api->QueryChannels(
         [WeakThis = TWeakObjectPtr<UStreamChatClientComponent>(this), Callback](const FChannelsResponseDto& Response)
         {
@@ -156,7 +163,7 @@ void UStreamChatClientComponent::QueryChannels(
         },
         Socket->GetConnectionId(),
         EChannelFlags::State | EChannelFlags::Watch | EChannelFlags::Presence,
-        Filter->ToJsonObjectWrapper(),
+        FilterJson,
         Util::Convert<FSortParamRequestDto>(SortOptions));
 }
 

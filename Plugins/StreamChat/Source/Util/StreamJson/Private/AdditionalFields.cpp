@@ -17,7 +17,7 @@ void FAdditionalFields::SetBool(const FString& Key, bool bValue)
     Inner.Add(Key, MakeShared<FJsonValueBoolean>(bValue));
 }
 
-void FAdditionalFields::SetJsonObject(const FString& Key, const TSharedRef<FJsonValue>& Value)
+void FAdditionalFields::SetJsonValue(const FString& Key, const TSharedRef<FJsonValue>& Value)
 {
     Inner.Add(Key, Value);
 }
