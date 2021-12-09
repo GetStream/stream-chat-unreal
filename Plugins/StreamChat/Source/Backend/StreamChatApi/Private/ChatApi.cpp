@@ -208,7 +208,8 @@ void FChatApi::SearchMessages(
         Body.SetNext(Next.GetValue());
     }
 
-    Client->Post(Url).Json(Body).Send(Callback);
+    const FString Payload = Json::Serialize(Body);
+    Client->Get(Url).Query({{TEXT("payload"), Payload}}).Send(Callback);
 }
 
 void FChatApi::SendChannelEventInternal(

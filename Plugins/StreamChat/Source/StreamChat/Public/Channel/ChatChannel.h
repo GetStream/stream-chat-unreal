@@ -3,14 +3,15 @@
 #pragma once
 
 #include "AdditionalFields.h"
+#include "ChannelSortOption.h"
 #include "ChannelState.h"
 #include "ChatApi.h"
 #include "ChatSocketEvents.h"
 #include "CoreMinimal.h"
+#include "Engine/LatentActionManager.h"
 #include "Filter.h"
 #include "IChatSocket.h"
 #include "Message.h"
-#include "SortOption.h"
 #include "User/UserRef.h"
 
 #include "ChatChannel.generated.h"
@@ -197,6 +198,8 @@ public:
     /**
      * @brief Search the messages in this channel
      *
+     * All parameters are optional, but a minimum of either a query or message filter is required
+     *
      * @param Callback Called when response is received
      * @param Query Search phrase
      * @param MessageFilter Message filter conditions
@@ -207,11 +210,13 @@ public:
         TFunction<void(const TArray<FMessage>&)> Callback,
         const TOptional<FString>& Query = {},
         const TOptional<FFilter>& MessageFilter = {},
-        const TArray<FSortOption>& Sort = {},
+        const TArray<FMessageSortOption>& Sort = {},
         TOptional<uint32> MessageLimit = {}) const;
 
     /**
      * @brief Search the messages in this channel
+     *
+     * All parameters are optional, but a minimum of either a query or message filter is required
      *
      * @param Query Search phrase (Optional)
      * @param MessageFilter Message filter conditions (Optional)
@@ -223,7 +228,7 @@ public:
     void SearchMessages(
         const FString& Query,
         const FFilter& MessageFilter,
-        const TArray<FSortOption>& Sort,
+        const TArray<FMessageSortOption>& Sort,
         int32 MessageLimit,
         const UObject* WorldContextObject,
         FLatentActionInfo LatentInfo,

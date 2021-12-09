@@ -30,7 +30,7 @@ void AStreamChatSampleHud::BeginPlay()
                     WeakThis->OnConnect();
                 },
                 Filter,
-                {{ESortField::LastMessageAt, ESortDirection::Descending}});
+                {{EChannelSortField::LastMessageAt, ESortDirection::Descending}});
         });
 }
 

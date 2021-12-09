@@ -21,11 +21,11 @@ struct FSearchWarningDto
 
     /// Code corresponding to the warning
     UPROPERTY()
-    int32 WarningCode;
+    int32 WarningCode = -1;
 
     /// Number of channels searched
     UPROPERTY()
-    int32 ChannelSearchCount;
+    int32 ChannelSearchCount = -1;
 
     // Channel CIDs for the searched channels
     UPROPERTY()

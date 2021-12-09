@@ -3,6 +3,7 @@
 #include "Request/Message/SearchRequestDto.h"
 
 #include "Dom/JsonObject.h"
+#include "Request/SortParamRequestDto.h"
 
 void FSearchRequestDto::SetQuery(const FString& Value)
 {

@@ -16,23 +16,23 @@ struct STREAMJSON_API FAdditionalFields
     GENERATED_BODY()
 
 public:
-    void SetString(const FName& Key, const FString& Value);
-    void SetString(const FName& Key, const TCHAR* Value);
-    void SetBool(const FName& Key, bool bValue);
-    void SetJsonValue(const FName& Key, const TSharedRef<FJsonValue>&);
+    void SetString(const FName& Field, const FString& Value);
+    void SetString(const FName& Field, const TCHAR* Value);
+    void SetBool(const FName& Field, bool bValue);
+    void SetJsonValue(const FName& Field, const TSharedRef<FJsonValue>&);
     template <class T>
-    void SetNumber(const FName& Key, T Value);
+    void SetNumber(const FName& Field, T Value);
     template <class T>
-    void SetArray(const FName& Key, const TArray<T>& Value);
+    void SetArray(const FName& Field, const TArray<T>& Value);
     template <class T>
-    void Set(const FName& Key, const T& Value);
+    void Set(const FName& Field, const T& Value);
 
-    TOptional<FString> GetString(const FName& Key) const;
-    TOptional<bool> GetBool(const FName& Key) const;
+    TOptional<FString> GetString(const FName& Field) const;
+    TOptional<bool> GetBool(const FName& Field) const;
     template <class T>
-    TOptional<T> GetNumber(const FName& Key) const;
+    TOptional<T> GetNumber(const FName& Field) const;
     template <class T>
-    TOptional<T> Get(const FName& Key) const;
+    TOptional<T> Get(const FName& Field) const;
 
     const TMap<FName, TSharedPtr<FJsonValue>>& GetFields() const;
 
@@ -45,20 +45,20 @@ private:
 
 // General implementation for all number types
 template <class T>
-void FAdditionalFields::SetNumber(const FName& Key, T Value)
+void FAdditionalFields::SetNumber(const FName& Field, T Value)
 {
-    Inner.Add(Key, MakeShared<FJsonValueNumber>(Value));
+    Inner.Add(Field, MakeShared<FJsonValueNumber>(Value));
 }
 
 template <class T>
-void FAdditionalFields::Set(const FName& Key, const T& Value)
+void FAdditionalFields::Set(const FName& Field, const T& Value)
 {
     const TSharedRef<FJsonObject> Object = JsonObject::UStructToJsonObject<T>(Value);
-    Inner.Add(Key, MakeShared<FJsonValueObject>(Object));
+    Inner.Add(Field, MakeShared<FJsonValueObject>(Object));
 }
 
 template <class T>
-void FAdditionalFields::SetArray(const FName& Key, const TArray<T>& Value)
+void FAdditionalFields::SetArray(const FName& Field, const TArray<T>& Value)
 {
     TArray<TSharedPtr<FJsonValue>> JsonValues;
     JsonValues.Reserve(Value.Num());
@@ -67,13 +67,13 @@ void FAdditionalFields::SetArray(const FName& Key, const TArray<T>& Value)
         const TSharedRef<FJsonObject> JsonObject = JsonObject::UStructToJsonObject<T>(Elem);
         JsonValues.Add(MakeShared<FJsonValueObject>(JsonObject));
     }
-    Inner.Add(Key, MakeShared<FJsonValueArray>(JsonValues));
+    Inner.Add(Field, MakeShared<FJsonValueArray>(JsonValues));
 }
 
 template <class T>
-TOptional<T> FAdditionalFields::GetNumber(const FName& Key) const
+TOptional<T> FAdditionalFields::GetNumber(const FName& Field) const
 {
-    if (const TSharedPtr<FJsonValue>* JsonValue = Inner.Find(Key))
+    if (const TSharedPtr<FJsonValue>* JsonValue = Inner.Find(Field))
     {
         if (T OutNumber; JsonValue->Get()->TryGetNumber(OutNumber))
         {
@@ -84,9 +84,9 @@ TOptional<T> FAdditionalFields::GetNumber(const FName& Key) const
 }
 
 template <class T>
-TOptional<T> FAdditionalFields::Get(const FName& Key) const
+TOptional<T> FAdditionalFields::Get(const FName& Field) const
 {
-    if (const TSharedPtr<FJsonValue>* JsonValue = Inner.Find(Key))
+    if (const TSharedPtr<FJsonValue>* JsonValue = Inner.Find(Field))
     {
         if (const TSharedPtr<FJsonObject>* OutObject; JsonValue->Get()->TryGetObject(OutObject))
         {
@@ -101,9 +101,9 @@ TOptional<T> FAdditionalFields::Get(const FName& Key) const
 }
 
 template <>
-TOptional<FDateTime> STREAMJSON_API FAdditionalFields::Get(const FName& Key) const;
+TOptional<FDateTime> STREAMJSON_API FAdditionalFields::Get(const FName& Field) const;
 template <>
-void STREAMJSON_API FAdditionalFields::Set(const FName& Key, const FDateTime&);
+void STREAMJSON_API FAdditionalFields::Set(const FName& Field, const FDateTime&);
 
 /**
  * @brief Blueprint functions for the Additional Fields struct
@@ -116,20 +116,20 @@ class STREAMJSON_API UAdditionalFieldsBlueprintLibrary final : public UBlueprint
 
 public:
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Additional Fields")
-    static void SetString(UPARAM(ref) FAdditionalFields& AdditionalFields, const FName& Key, const FString& Value, FAdditionalFields& Out);
+    static void SetString(UPARAM(ref) FAdditionalFields& AdditionalFields, FName Field, const FString& Value, FAdditionalFields& Out);
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Additional Fields")
-    static void SetFloat(UPARAM(ref) FAdditionalFields& AdditionalFields, const FName& Key, float Value, FAdditionalFields& Out);
+    static void SetFloat(UPARAM(ref) FAdditionalFields& AdditionalFields, FName Field, float Value, FAdditionalFields& Out);
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Additional Fields")
-    static void SetInt(UPARAM(ref) FAdditionalFields& AdditionalFields, const FName& Key, int32 Value, FAdditionalFields& Out);
+    static void SetInt(UPARAM(ref) FAdditionalFields& AdditionalFields, FName Field, int32 Value, FAdditionalFields& Out);
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Additional Fields")
-    static void SetBool(UPARAM(ref) FAdditionalFields& AdditionalFields, const FName& Key, bool bValue, FAdditionalFields& Out);
+    static void SetBool(UPARAM(ref) FAdditionalFields& AdditionalFields, FName Field, bool bValue, FAdditionalFields& Out);
 
-    UFUNCTION(BlueprintPure, Category = "Stream Chat|Additional Fields")
-    static void GetString(const FAdditionalFields& AdditionalFields, const FName& Key, bool& bValid, FString& Result);
-    UFUNCTION(BlueprintPure, Category = "Stream Chat|Additional Fields")
-    static void GetFloat(const FAdditionalFields& AdditionalFields, const FName& Key, bool& bValid, float& Result);
-    UFUNCTION(BlueprintPure, Category = "Stream Chat|Additional Fields")
-    static void GetInt(const FAdditionalFields& AdditionalFields, const FName& Key, bool& bValid, int32& Result);
-    UFUNCTION(BlueprintPure, Category = "Stream Chat|Additional Fields")
-    static void GetBool(const FAdditionalFields& AdditionalFields, const FName& Key, bool& bValid, bool& Result);
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Additional Fields", meta = (ReturnDisplayName = Success))
+    static bool GetString(const FAdditionalFields& AdditionalFields, FName Field, FString& Result);
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Additional Fields", meta = (ReturnDisplayName = Success))
+    static bool GetFloat(const FAdditionalFields& AdditionalFields, FName Field, float& Result);
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Additional Fields", meta = (ReturnDisplayName = Success))
+    static bool GetInt(const FAdditionalFields& AdditionalFields, FName Field, int32& Result);
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Additional Fields", meta = (ReturnDisplayName = Success))
+    static bool GetBool(const FAdditionalFields& AdditionalFields, FName Field, bool& Result);
 };
