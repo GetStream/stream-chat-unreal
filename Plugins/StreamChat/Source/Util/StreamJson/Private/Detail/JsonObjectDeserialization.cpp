@@ -609,19 +609,20 @@ bool JsonAttributesToUStructWithContainer(
         }
 
         // find a json value matching this property name
-        FString PropertyName = Property->GetName();
-        const TSharedPtr<FJsonValue>* JsonValue = JsonAttributes.Find(PropertyName);
+        const FString PropertyName = Property->GetName();
+        FString FoundPropertyName = PropertyName;
+        const TSharedPtr<FJsonValue>* JsonValue = JsonAttributes.Find(FoundPropertyName);
         // Try again stripping things like 'b'
         if (!JsonValue && CastField<FBoolProperty>(Property))
         {
-            PropertyName = NamingConventionConversion::ConvertPropertyNameToUpperCamelCase(PropertyName);
-            JsonValue = JsonAttributes.Find(PropertyName);
+            FoundPropertyName = NamingConventionConversion::ConvertPropertyNameToUpperCamelCase(PropertyName);
+            JsonValue = JsonAttributes.Find(FoundPropertyName);
         }
         // Try again converting from snake_case
         if (!JsonValue)
         {
-            PropertyName = NamingConventionConversion::ConvertPropertyNameToSnakeCase(PropertyName);
-            JsonValue = JsonAttributes.Find(PropertyName);
+            FoundPropertyName = NamingConventionConversion::ConvertPropertyNameToSnakeCase(PropertyName);
+            JsonValue = JsonAttributes.Find(FoundPropertyName);
         }
         if (!JsonValue)
         {
@@ -640,7 +641,7 @@ bool JsonAttributesToUStructWithContainer(
             }
         }
 
-        UnclaimedPropertyNames.Remove(PropertyName);
+        UnclaimedPropertyNames.Remove(FoundPropertyName);
         if (UnclaimedPropertyNames.Num() <= 0)
         {
             // If we found all properties that were in the JsonAttributes map, there is no reason to keep looking for
@@ -651,13 +652,13 @@ bool JsonAttributesToUStructWithContainer(
 
     if (AdditionalFields.Num() > 0)
     {
-        for (const FString& PropertyName : UnclaimedPropertyNames)
+        for (const FString& UnclaimedName : UnclaimedPropertyNames)
         {
             for (FAdditionalFields* Fields : AdditionalFields)
             {
-                if (const TSharedPtr<FJsonValue>* Value = JsonAttributes.Find(PropertyName); Value && Value->IsValid())
+                if (const TSharedPtr<FJsonValue>* Value = JsonAttributes.Find(UnclaimedName); Value && Value->IsValid())
                 {
-                    Fields->SetJsonObject(PropertyName, Value->ToSharedRef());
+                    Fields->SetJsonObject(UnclaimedName, Value->ToSharedRef());
                 }
             }
         }

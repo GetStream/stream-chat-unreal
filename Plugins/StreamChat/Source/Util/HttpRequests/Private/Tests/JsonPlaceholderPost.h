@@ -12,7 +12,7 @@ struct FJsonPlaceholderPost
     GENERATED_BODY()
 
     UPROPERTY()
-    int32 User = -1;
+    int32 UserId = -1;
 
     UPROPERTY()
     int32 Id = -1;
