@@ -19,9 +19,11 @@ public:
     void SetString(const FString& Key, const FString& Value);
     void SetString(const FString& Key, const TCHAR* Value);
     void SetBool(const FString& Key, bool bValue);
-    void SetJsonObject(const FString& Key, const TSharedRef<FJsonValue>&);
+    void SetJsonValue(const FString& Key, const TSharedRef<FJsonValue>&);
     template <class T>
     void SetNumber(const FString& Key, T Value);
+    template <class T>
+    void SetArray(const FString& Key, const TArray<T>& Value);
     template <class T>
     void Set(const FString& Key, const T& Value);
 
@@ -53,6 +55,19 @@ void FAdditionalFields::Set(const FString& Key, const T& Value)
 {
     const TSharedRef<FJsonObject> Object = JsonObject::UStructToJsonObject<T>(Value);
     Inner.Add(Key, MakeShared<FJsonValueObject>(Object));
+}
+
+template <class T>
+void FAdditionalFields::SetArray(const FString& Key, const TArray<T>& Value)
+{
+    TArray<TSharedPtr<FJsonValue>> JsonValues;
+    JsonValues.Reserve(Value.Num());
+    for (const T& Elem : Value)
+    {
+        const TSharedRef<FJsonObject> JsonObject = JsonObject::UStructToJsonObject<T>(Elem);
+        JsonValues.Add(MakeShared<FJsonValueObject>(JsonObject));
+    }
+    Inner.Add(Key, MakeShared<FJsonValueArray>(JsonValues));
 }
 
 template <class T>

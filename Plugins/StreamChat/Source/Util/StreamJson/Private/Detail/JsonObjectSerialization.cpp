@@ -52,7 +52,7 @@ TSharedPtr<FJsonValue> ApplyNamingConventionToValue(FProperty* Property, const v
 template <class CharType, class PrintPolicy>
 bool UStructToJsonObjectStringInternal(const TSharedRef<FJsonObject>& JsonObject, FString& OutJsonString)
 {
-    TSharedRef<TJsonWriter<CharType, PrintPolicy> > JsonWriter = TJsonWriterFactory<CharType, PrintPolicy>::Create(&OutJsonString);
+    TSharedRef<TJsonWriter<CharType, PrintPolicy>> JsonWriter = TJsonWriterFactory<CharType, PrintPolicy>::Create(&OutJsonString);
     const bool bSuccess = FJsonSerializer::Serialize(JsonObject, JsonWriter);
     JsonWriter->Close();
     return bSuccess;
@@ -61,7 +61,7 @@ bool UStructToJsonObjectStringInternal(const TSharedRef<FJsonObject>& JsonObject
 bool JsonObjectSerialization::UStructToJsonAttributes(
     const UStruct* StructDefinition,
     const void* Struct,
-    TMap<FString, TSharedPtr<FJsonValue> >& OutJsonAttributes,
+    TMap<FString, TSharedPtr<FJsonValue>>& OutJsonAttributes,
     const ENamingConvention NamingConvention)
 {
     // Skip deprecated, transient and skip serialization by default when writing

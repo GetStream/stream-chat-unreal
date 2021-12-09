@@ -658,7 +658,7 @@ bool JsonAttributesToUStructWithContainer(
             {
                 if (const TSharedPtr<FJsonValue>* Value = JsonAttributes.Find(UnclaimedName); Value && Value->IsValid())
                 {
-                    Fields->SetJsonObject(UnclaimedName, Value->ToSharedRef());
+                    Fields->SetJsonValue(UnclaimedName, Value->ToSharedRef());
                 }
             }
         }

@@ -37,9 +37,9 @@ FFilter::FFilter(const EFilterOperator Operator, const FName& Key, const TShared
 {
 }
 
-TSharedPtr<FJsonObject> FFilter::ToJsonObject() const
+TSharedRef<FJsonObject> FFilter::ToJsonObject() const
 {
-    TSharedPtr<FJsonObject> JsonObject = MakeShared<FJsonObject>();
+    TSharedRef<FJsonObject> JsonObject = MakeShared<FJsonObject>();
 
     // Logical (group) operators
     if (ChildFilters.Num() > 0)
@@ -78,7 +78,7 @@ FJsonObjectWrapper FFilter::ToJsonObjectWrapper() const
 
 FString FFilter::ToJson() const
 {
-    return JsonObject::JsonObjectToString(ToJsonObject().ToSharedRef());
+    return JsonObject::JsonObjectToString(ToJsonObject());
 }
 
 FFilter FFilter::And(const TArray<FFilter>& Filters)
