@@ -5,7 +5,6 @@
 #include "Blueprint/WidgetTree.h"
 #include "Components/GridSlot.h"
 #include "Components/HorizontalBoxSlot.h"
-#include "Components/OverlaySlot.h"
 #include "Components/Spacer.h"
 #include "Components/VerticalBoxSlot.h"
 
@@ -162,5 +161,5 @@ void UMessageWidget::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 
 bool UMessageWidget::ShouldDisplayHoverMenu() const
 {
-    return Message.Type != EMessageType::Deleted;
+    return HoverMenuTargetPanel && Message.Type != EMessageType::Deleted;
 }

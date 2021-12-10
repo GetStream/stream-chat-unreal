@@ -26,14 +26,13 @@ void UMessageListWidget::CreateMessageWidgets(const TArray<FMessage>& Messages)
     const int32 Last = Messages.Num() - 1;
     for (int32 Index = 0; Index < Messages.Num(); ++Index)
     {
-        UMessageWidget* Widget = CreateWidget<UMessageWidget>(this, MessageWidgetClass);
         const FMessage& Message = Messages[Index];
         const EMessageSide Side = Message.User.IsCurrent() ? EMessageSide::Me : EMessageSide::You;
         const EMessagePosition Position =
             Index == Last || (Messages[Index + 1].CreatedAt - Message.CreatedAt > FTimespan::FromMinutes(1.) || Messages[Index + 1].User != Message.User)
                 ? EMessagePosition::End
                 : EMessagePosition::Opening;
-        Widget->Setup(Message, Side, Position);
+        UMessageWidget* Widget = CreateMessageWidget(Message, Side, Position);
         ScrollBox->AddChild(Widget);
     }
 }
@@ -55,6 +54,17 @@ void UMessageListWidget::OnChannel()
     ChannelContext->OnStartEditMessage.AddDynamic(this, &UMessageListWidget::ScrollToBottom);
 
     SetMessages(Channel->GetMessages());
+}
+
+UMessageWidget* UMessageListWidget::CreateMessageWidget(const FMessage& Message, const EMessageSide Side, const EMessagePosition Position)
+{
+    if (OnGetMessageWidgetEvent.IsBound())
+    {
+        return OnGetMessageWidgetEvent.Execute(Message, Side, Position);
+    }
+    UMessageWidget* Widget = CreateWidget<UMessageWidget>(this, MessageWidgetClass);
+    Widget->Setup(Message, Side, Position);
+    return Widget;
 }
 
 void UMessageListWidget::SetMessages(const TArray<FMessage>& Messages)

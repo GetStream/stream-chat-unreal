@@ -26,6 +26,7 @@ bool UStreamWidget::Initialize()
 
 void UStreamWidget::NativeConstruct()
 {
+    Super::NativeConstruct();
 }
 
 void UStreamWidget::NativePreConstruct()
@@ -51,4 +52,5 @@ void UStreamWidget::NativePreConstruct()
             }
         }
     }
+    Super::NativePreConstruct();
 }

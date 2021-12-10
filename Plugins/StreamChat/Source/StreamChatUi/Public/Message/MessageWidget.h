@@ -27,27 +27,27 @@ public:
     void Setup(const FMessage& InMessage, EMessageSide InSide, EMessagePosition InPosition);
 
 protected:
-    // Should contain whatever needs to be horizontally aligned
-    UPROPERTY(meta = (BindWidget))
-    UVerticalBox* AlignPanel;
-
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(meta = (BindWidgetOptional))
     UTextBubbleWidget* TextBubble;
 
+    // Should contain whatever needs to be horizontally aligned
+    UPROPERTY(meta = (BindWidgetOptional))
+    UVerticalBox* AlignPanel;
+
     // Where the mouse hover menu will be spawned
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(meta = (BindWidgetOptional))
     UContentWidget* HoverMenuTargetPanel;
 
     // Where the reactions will be spawned
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(meta = (BindWidgetOptional))
     UContentWidget* ReactionsTargetPanel;
 
     // Where the timestamp will (maybe) be spawned
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(meta = (BindWidgetOptional))
     UContentWidget* TimestampTargetPanel;
 
     // Where the avatar will (maybe) be spawned
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(meta = (BindWidgetOptional))
     UContentWidget* AvatarTargetPanel;
 
     UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
