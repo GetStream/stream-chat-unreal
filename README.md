@@ -39,12 +39,17 @@ The **Stream Chat SDK** is the official Unreal SDK for [Stream Chat](https://get
 - **Channels:** Messages are grouped within channels.
 - **Blueprint support:** All operations can be made via C++ or Blueprint
 - **Fully open-source implementation:** You have access to the complete source code of the SDK here on GitHub.
-- **Available on UE Marketplace:** You can easily download the packaged version of the Plugin for free on the [UE Marketplace](https://www.unrealengine.com/marketplace/product/05b76120ba7e4468b01d8fcbed276c3a)
 - **Supports Unreal Engine 4.27.1:** Supports the latest version of Unreal Engine, with support for UE5 coming soon!
 
 ## Free for Makers
 
 Stream is free for most side and hobby projects. You can use Stream Chat for free if you have less than five team members and no more than $10,000 in monthly revenue.
+
+## Getting started
+
+1. Download the [latest release](https://github.com/GetStream/stream-chat-unreal/releases/latest) and copy it into the `Plugins` directory of your project.
+2. Launch Unreal Engine and ensure the **Stream Chat** Plugin is enabled in the Plugins configuration page.
+3. Start integrating Chat into your project! Check out the [Tutorial](https://getstream.io/chat/unreal/tutorial/) to get yourself going.
 
 ---
 
