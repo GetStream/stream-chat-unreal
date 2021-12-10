@@ -7,6 +7,7 @@
 UMessageInputWidget::UMessageInputWidget()
 {
     bIsFocusable = true;
+    bWantsTheme = true;
 }
 
 void UMessageInputWidget::SynchronizeProperties()

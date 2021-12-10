@@ -13,6 +13,11 @@ void UChannelContextWidget::Setup(UChatChannel* InChannel)
 
 UChannelContextWidget* UChannelContextWidget::Get(const UWidget* Widget)
 {
+    if (!Widget || Widget->IsDesignTime())
+    {
+        return nullptr;
+    }
+
     if (UChannelContextWidget* ContextWidget = WidgetUtil::GetTypedParentWidget<UChannelContextWidget>(Widget);
         ensureAlwaysMsgf(ContextWidget, TEXT("Need to wrap the channel UI with a ChannelContextWidget")))
     {
@@ -36,4 +41,9 @@ UChatChannel* UChannelContextWidget::GetChannel(const UWidget* Widget)
         }
     }
     return nullptr;
+}
+
+UChatChannel* UChannelContextWidget::GetChannel() const
+{
+    return Channel;
 }

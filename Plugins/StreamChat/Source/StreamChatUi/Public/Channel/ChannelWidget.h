@@ -23,7 +23,7 @@ public:
 
 protected:
     UPROPERTY(meta = (BindWidget))
-    UChannelContextWidget* ChannelContext;
+    UChannelContextWidget* OwnedChannelContext;
 
 private:
     virtual void OnSetup() override;

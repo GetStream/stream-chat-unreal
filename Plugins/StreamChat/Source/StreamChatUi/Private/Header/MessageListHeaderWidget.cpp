@@ -6,7 +6,12 @@
 #include "Context/ChannelContextWidget.h"
 #include "UiBlueprintLibrary.h"
 
-void UMessageListHeaderWidget::OnChannel(UChatChannel*)
+UMessageListHeaderWidget::UMessageListHeaderWidget()
+{
+    bWantsChannel = true;
+}
+
+void UMessageListHeaderWidget::OnChannel()
 {
     Channel->OnTypingIndicator.AddDynamic(this, &UMessageListHeaderWidget::OnTypingIndicator);
 

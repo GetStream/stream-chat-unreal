@@ -47,10 +47,6 @@ protected:
 
 private:
     virtual void NativeOnInitialized() override;
-    virtual bool WantsTheme() override
-    {
-        return true;
-    }
     virtual void OnTheme(const UThemeDataAsset*) override;
     virtual FReply NativeOnFocusReceived(const FGeometry& InGeometry, const FFocusEvent& InFocusEvent) override;
 

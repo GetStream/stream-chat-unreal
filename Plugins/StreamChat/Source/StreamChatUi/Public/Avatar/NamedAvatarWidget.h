@@ -19,6 +19,7 @@ class STREAMCHATUI_API UNamedAvatarWidget final : public UStreamWidget
     GENERATED_BODY()
 
 public:
+    UNamedAvatarWidget();
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(const FUserRef& InUser);
 
@@ -31,10 +32,6 @@ protected:
 
 private:
     virtual void OnSetup() override;
-    virtual bool WantsTheme() override
-    {
-        return true;
-    }
     virtual void OnTheme(const UThemeDataAsset*) override;
 
     FUserRef User;

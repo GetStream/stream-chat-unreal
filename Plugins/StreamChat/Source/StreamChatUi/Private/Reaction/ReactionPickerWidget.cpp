@@ -11,6 +11,12 @@ namespace
 const FName ReactionTypes[] = {TEXT("love"), TEXT("like"), TEXT("sad"), TEXT("haha"), TEXT("wow")};
 }
 
+UReactionPickerWidget::UReactionPickerWidget()
+{
+    bWantsChannel = true;
+    bWantsTheme = true;
+}
+
 void UReactionPickerWidget::Setup(const FMessage& InMessage)
 {
     Message = InMessage;

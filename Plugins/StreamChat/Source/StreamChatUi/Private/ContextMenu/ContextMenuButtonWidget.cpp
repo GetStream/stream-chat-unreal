@@ -6,6 +6,11 @@
 #include "Engine/Texture2D.h"
 #include "ThemeDataAsset.h"
 
+UContextMenuButtonWidget::UContextMenuButtonWidget()
+{
+    bWantsTheme = true;
+}
+
 void UContextMenuButtonWidget::Setup(const FMessage& InMessage, const EContextMenuButtonPosition InPosition, UContextMenuAction* InAction)
 {
     Message = InMessage;

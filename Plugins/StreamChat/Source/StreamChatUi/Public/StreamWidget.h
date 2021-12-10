@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Blueprint/UserWidget.h"
+#include "Context/ChannelContextWidget.h"
 #include "CoreMinimal.h"
 
 #include "StreamWidget.generated.h"
@@ -25,7 +26,7 @@ protected:
     void OnTheme_BP(const UThemeDataAsset* Theme);
     /// Called with the current chat channel when it's available. You need to enable WantsChannel for this to be fired.
     UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Channel"))
-    void OnChannel_BP(UChatChannel* Theme);
+    void OnChannel_BP();
 
     /// Should the OnTheme function be called with the current theme, when it is available?
     UPROPERTY(EditDefaultsOnly, Category = Defaults)
@@ -34,6 +35,9 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = Defaults)
     bool bWantsChannel = false;
 
+    /// The channel context if this widget is below a such a context in the hierarchy and if WantsChannel is true.
+    UPROPERTY(BlueprintReadOnly, Transient, Category = Stream)
+    UChannelContextWidget* ChannelContext;
     /// The channel if this widget is below a ChannelContextWidget in the hierarchy and if WantsChannel is true.
     UPROPERTY(BlueprintReadOnly, Transient, Category = Stream)
     UChatChannel* Channel;
@@ -53,21 +57,12 @@ private:
     {
     }
 
-    virtual bool WantsTheme()
-    {
-        return bWantsTheme;
-    }
-    virtual bool WantsChannel()
-    {
-        return bWantsChannel;
-    }
-
     /// Called with the current theme when it's available
     virtual void OnTheme(const UThemeDataAsset*)
     {
     }
-    /// Called with the current chat channel when it's available
-    virtual void OnChannel(UChatChannel*)
+    /// Called the current chat channel is available
+    virtual void OnChannel()
     {
     }
 };

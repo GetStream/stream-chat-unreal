@@ -6,6 +6,11 @@
 #include "Context/ChannelContextWidget.h"
 #include "Reaction/BottomReactionWidget.h"
 
+UMessageReactionsWidget::UMessageReactionsWidget()
+{
+    bWantsChannel = true;
+}
+
 void UMessageReactionsWidget::Setup(const FMessage& InMessage, const EMessageSide InSide)
 {
     ensureMsgf(!InMessage.Reactions.IsEmpty(), TEXT("Creating ReactionsWidget from message with no reactions"));

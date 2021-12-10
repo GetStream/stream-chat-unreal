@@ -23,12 +23,11 @@ class STREAMCHATUI_API UMessageListHeaderWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 
+public:
+    UMessageListHeaderWidget();
+
 protected:
-    virtual bool WantsChannel() override
-    {
-        return true;
-    }
-    virtual void OnChannel(UChatChannel*) override;
+    virtual void OnChannel() override;
     virtual void NativeDestruct() override;
 
     UPROPERTY(meta = (BindWidget))
