@@ -41,7 +41,7 @@ void UStreamWidget::NativePreConstruct()
     if (bWantsChannel)
     {
         ChannelContext = UChannelContextWidget::Get(this);
-        if (Channel)
+        if (ChannelContext)
         {
             Channel = ChannelContext->GetChannel();
             if (ChannelContext)

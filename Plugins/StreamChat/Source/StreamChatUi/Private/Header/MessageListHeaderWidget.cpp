@@ -29,15 +29,6 @@ void UMessageListHeaderWidget::OnChannel()
     }
 }
 
-void UMessageListHeaderWidget::NativeDestruct()
-{
-    if (Channel)
-    {
-        Channel->OnTypingIndicator.RemoveDynamic(this, &UMessageListHeaderWidget::OnTypingIndicator);
-    }
-    Super::NativeDestruct();
-}
-
 void UMessageListHeaderWidget::OnTypingIndicator(const ETypingIndicatorState TypingState, const FUserRef& User)
 {
     if (User.IsCurrent() || !Header)

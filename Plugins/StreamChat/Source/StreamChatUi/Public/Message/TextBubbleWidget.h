@@ -2,11 +2,11 @@
 
 #pragma once
 
-#include "BubbleStackPosition.h"
 #include "Channel/Message.h"
 #include "Components/Border.h"
 #include "Components/TextBlock.h"
 #include "CoreMinimal.h"
+#include "MessagePosition.h"
 #include "MessageSide.h"
 #include "StreamWidget.h"
 
@@ -23,7 +23,7 @@ class STREAMCHATUI_API UTextBubbleWidget final : public UStreamWidget
 public:
     UTextBubbleWidget();
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void Setup(const FMessage& InMessage, EMessageSide InSide, EBubbleStackPosition InPosition);
+    void Setup(const FMessage& InMessage, EMessageSide InSide, EMessagePosition InPosition);
 
 protected:
     UPROPERTY(meta = (BindWidget))
@@ -43,7 +43,7 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
     FMessage Message;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
-    EBubbleStackPosition Position;
+    EMessagePosition Position;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
     EMessageSide Side;
 
