@@ -25,6 +25,16 @@ FJsonObjectWrapper Wrap(const TSharedRef<FJsonObject>& JsonObject)
     Wrapper.JsonObject = JsonObject;
     return Wrapper;
 }
+FJsonObjectWrapper Wrap(const TOptional<TSharedRef<FJsonObject>>& JsonObject)
+{
+    if (JsonObject.IsSet())
+    {
+        FJsonObjectWrapper Wrapper;
+        Wrapper.JsonObject = JsonObject.GetValue();
+        return Wrapper;
+    }
+    return {};
+}
 }    // namespace
 
 TSharedRef<FChatApi> FChatApi::Create(const FString& InApiKey, const FString& InHost, const TSharedPtr<FTokenManager>& InTokenManager)
@@ -143,7 +153,7 @@ void FChatApi::QueryChannels(
 
     FQueryChannelsRequestDto Body{
         ConnectionId,
-        Wrap(Filter.Get({})),
+        Wrap(Filter),
         EnumHasAnyFlags(Flags, EChannelFlags::Presence),
         SortOptions,
         EnumHasAnyFlags(Flags, EChannelFlags::State),
