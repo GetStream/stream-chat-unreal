@@ -8,7 +8,7 @@
 #include "Components/TextBlock.h"
 #include "CoreMinimal.h"
 #include "MessageSide.h"
-#include "StreamUserWidget.h"
+#include "StreamWidget.h"
 
 #include "TextBubbleWidget.generated.h"
 
@@ -16,7 +16,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UTextBubbleWidget final : public UStreamUserWidget
+class STREAMCHATUI_API UTextBubbleWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 

@@ -7,7 +7,7 @@
 #include "Components/VerticalBox.h"
 #include "CoreMinimal.h"
 #include "MessageWidget.h"
-#include "StreamUserWidget.h"
+#include "StreamWidget.h"
 #include "TextBubbleWidget.h"
 #include "TimestampWidget.h"
 
@@ -17,7 +17,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UMessageStackWidget final : public UStreamUserWidget
+class STREAMCHATUI_API UMessageStackWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 

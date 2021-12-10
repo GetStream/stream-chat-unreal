@@ -5,7 +5,7 @@
 #include "AvatarWidget.h"
 #include "Components/TextBlock.h"
 #include "CoreMinimal.h"
-#include "StreamUserWidget.h"
+#include "StreamWidget.h"
 #include "User/UserRef.h"
 
 #include "NamedAvatarWidget.generated.h"
@@ -14,7 +14,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UNamedAvatarWidget final : public UStreamUserWidget
+class STREAMCHATUI_API UNamedAvatarWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 

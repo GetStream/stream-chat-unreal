@@ -5,7 +5,7 @@
 #include "Components/Border.h"
 #include "Components/EditableTextBox.h"
 #include "CoreMinimal.h"
-#include "StreamUserWidget.h"
+#include "StreamWidget.h"
 
 #include "MessageInputWidget.generated.h"
 
@@ -13,7 +13,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UMessageInputWidget final : public UStreamUserWidget
+class STREAMCHATUI_API UMessageInputWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 

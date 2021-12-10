@@ -5,7 +5,7 @@
 #include "Components/Button.h"
 #include "CoreMinimal.h"
 #include "ReactionIconWidget.h"
-#include "StreamUserWidget.h"
+#include "StreamWidget.h"
 
 #include "ReactionPickerButtonWidget.generated.h"
 
@@ -13,7 +13,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UReactionPickerButtonWidget final : public UStreamUserWidget
+class STREAMCHATUI_API UReactionPickerButtonWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 

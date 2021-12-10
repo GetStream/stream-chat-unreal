@@ -8,7 +8,7 @@
 #include "CoreMinimal.h"
 #include "Reaction/ReactionGroup.h"
 #include "ReactionIconWidget.h"
-#include "StreamUserWidget.h"
+#include "StreamWidget.h"
 
 #include "ReactionsTooltipWidget.generated.h"
 
@@ -16,7 +16,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UReactionsTooltipWidget final : public UStreamUserWidget
+class STREAMCHATUI_API UReactionsTooltipWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 

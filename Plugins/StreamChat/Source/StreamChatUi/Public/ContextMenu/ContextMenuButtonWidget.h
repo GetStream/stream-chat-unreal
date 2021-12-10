@@ -8,7 +8,7 @@
 #include "Components/TextBlock.h"
 #include "ContextMenuAction.h"
 #include "CoreMinimal.h"
-#include "StreamUserWidget.h"
+#include "StreamWidget.h"
 
 #include "ContextMenuButtonWidget.generated.h"
 
@@ -26,7 +26,7 @@ enum class EContextMenuButtonPosition : uint8
  *
  */
 UCLASS()
-class STREAMCHATUI_API UContextMenuButtonWidget final : public UStreamUserWidget
+class STREAMCHATUI_API UContextMenuButtonWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 

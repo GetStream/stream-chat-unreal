@@ -8,7 +8,7 @@
 #include "Components/PanelWidget.h"
 #include "CoreMinimal.h"
 #include "Message/MessageSide.h"
-#include "StreamUserWidget.h"
+#include "StreamWidget.h"
 
 #include "MessageReactionsWidget.generated.h"
 
@@ -16,7 +16,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UMessageReactionsWidget final : public UStreamUserWidget
+class STREAMCHATUI_API UMessageReactionsWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 
@@ -25,6 +25,10 @@ public:
     void Setup(const FMessage& InMessage, EMessageSide InSide);
 
 protected:
+    virtual bool WantsChannel() override
+    {
+        return true;
+    }
     UPROPERTY(meta = (BindWidget))
     UHorizontalBox* ReactionsPanel;
 

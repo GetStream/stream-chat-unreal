@@ -19,15 +19,18 @@ class UChatChannel;
  * @see https://www.figma.com/file/ekifwChR9tR7zRJg1QEzSM/Chat-Design-Kit---Current-version?node-id=15271%3A237867
  */
 UCLASS()
-class STREAMCHATUI_API UMessageListHeaderWidget final : public UUserWidget
+class STREAMCHATUI_API UMessageListHeaderWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 
-public:
-    virtual void NativeConstruct() override;
+protected:
+    virtual bool WantsChannel() override
+    {
+        return true;
+    }
+    virtual void OnChannel(UChatChannel*) override;
     virtual void NativeDestruct() override;
 
-protected:
     UPROPERTY(meta = (BindWidget))
     UHeaderWidget* Header;
 
@@ -44,9 +47,6 @@ private:
     void OnTypingIndicator(ETypingIndicatorState TypingState, const FUserRef& User);
 
     void ShowOnlineStatusSubheader();
-
-    UPROPERTY(Transient)
-    UChatChannel* Channel;
 
     UPROPERTY(Transient)
     UTypingIndicatorWidget* TypingIndicator;

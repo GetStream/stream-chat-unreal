@@ -8,7 +8,7 @@
 #include "Components/SizeBox.h"
 #include "CoreMinimal.h"
 #include "ProfilePicWidget.h"
-#include "StreamUserWidget.h"
+#include "StreamWidget.h"
 #include "User/UserRef.h"
 
 #include "AvatarWidget.generated.h"
@@ -17,7 +17,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UAvatarWidget : public UStreamUserWidget
+class STREAMCHATUI_API UAvatarWidget : public UStreamWidget
 {
     GENERATED_BODY()
 

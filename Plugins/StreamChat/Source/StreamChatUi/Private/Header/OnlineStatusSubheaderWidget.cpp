@@ -7,15 +7,12 @@
 #include "TimerManager.h"
 #include "User/User.h"
 
-void UOnlineStatusSubheaderWidget::NativeConstruct()
+void UOnlineStatusSubheaderWidget::OnChannel(UChatChannel*)
 {
-    Channel = UChannelContextWidget::GetChannel(this);
     // TODO subscribe to user presence events
 
     UpdateLabel();
     GetWorld()->GetTimerManager().SetTimer(Handle, this, &UOnlineStatusSubheaderWidget::UpdateLabel, 60.f, true);
-
-    Super::NativeConstruct();
 }
 
 void UOnlineStatusSubheaderWidget::NativeDestruct()

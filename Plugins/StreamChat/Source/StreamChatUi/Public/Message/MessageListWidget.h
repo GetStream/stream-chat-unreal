@@ -2,11 +2,11 @@
 
 #pragma once
 
-#include "Blueprint/UserWidget.h"
 #include "Channel/Message.h"
 #include "Components/ScrollBox.h"
 #include "CoreMinimal.h"
 #include "MessageStackWidget.h"
+#include "StreamWidget.h"
 
 #include "MessageListWidget.generated.h"
 
@@ -14,7 +14,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UMessageListWidget final : public UUserWidget
+class STREAMCHATUI_API UMessageListWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 

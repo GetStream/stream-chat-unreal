@@ -4,6 +4,7 @@
 
 void UChannelWidget::Setup(UChatChannel* InChannel)
 {
+    // Channel needs to be provided as this widget won't be under a ChannelContextProvider in the hierarchy
     Channel = InChannel;
 
     Super::Setup();

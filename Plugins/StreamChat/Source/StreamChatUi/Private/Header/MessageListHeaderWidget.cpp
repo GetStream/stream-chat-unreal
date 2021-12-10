@@ -6,29 +6,22 @@
 #include "Context/ChannelContextWidget.h"
 #include "UiBlueprintLibrary.h"
 
-void UMessageListHeaderWidget::NativeConstruct()
+void UMessageListHeaderWidget::OnChannel(UChatChannel*)
 {
-    Channel = UChannelContextWidget::GetChannel(this);
-    if (Channel)
+    Channel->OnTypingIndicator.AddDynamic(this, &UMessageListHeaderWidget::OnTypingIndicator);
+
+    if (Header)
     {
-        Channel->OnTypingIndicator.AddDynamic(this, &UMessageListHeaderWidget::OnTypingIndicator);
-
         const FText Title = FText::FromString(UUiBlueprintLibrary::GetChannelTitle(Channel));
-
-        if (Header)
-        {
-            Header->SetTitle(Title);
-            ShowOnlineStatusSubheader();
-        }
-
-        if (Avatar)
-        {
-            // TODO Group chat
-            Avatar->Setup(Channel->State.GetOtherMemberUsers());
-        }
+        Header->SetTitle(Title);
+        ShowOnlineStatusSubheader();
     }
 
-    Super::NativeConstruct();
+    if (Avatar)
+    {
+        // TODO Group chat
+        Avatar->Setup(Channel->State.GetOtherMemberUsers());
+    }
 }
 
 void UMessageListHeaderWidget::NativeDestruct()

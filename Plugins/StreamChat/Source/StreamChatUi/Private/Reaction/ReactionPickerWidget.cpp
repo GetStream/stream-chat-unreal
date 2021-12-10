@@ -43,7 +43,7 @@ void UReactionPickerWidget::OnTheme(const UThemeDataAsset* Theme)
 
 void UReactionPickerWidget::OnReactionButtonClicked(const FName& ReactionType)
 {
-    if (UChatChannel* Channel = UChannelContextWidget::GetChannel(this))
+    if (ensure(Channel))
     {
         if (const TOptional<FReaction> OwnReaction = Message.Reactions.GetOwnReaction(ReactionType); OwnReaction.IsSet())
         {

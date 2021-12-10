@@ -6,19 +6,23 @@
 #include "Channel/ChatChannel.h"
 #include "Components/TextBlock.h"
 #include "CoreMinimal.h"
+#include "StreamWidget.h"
 
 #include "OnlineStatusSubheaderWidget.generated.h"
 
 UCLASS()
-class STREAMCHATUI_API UOnlineStatusSubheaderWidget final : public UUserWidget
+class STREAMCHATUI_API UOnlineStatusSubheaderWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 
-public:
-    virtual void NativeConstruct() override;
+protected:
+    virtual bool WantsChannel() override
+    {
+        return true;
+    }
+    virtual void OnChannel(UChatChannel*) override;
     virtual void NativeDestruct() override;
 
-protected:
     UPROPERTY(meta = (BindWidget))
     UTextBlock* TextBlock;
 
@@ -28,9 +32,6 @@ private:
     FText GetSingleUserLabel(const FUserRef& User) const;
     FText GetMultiUserLabel() const;
     static const FDateTime& GetLastActive(const FUserRef& User);
-
-    UPROPERTY(Transient)
-    UChatChannel* Channel;
 
     FTimerHandle Handle;
 };

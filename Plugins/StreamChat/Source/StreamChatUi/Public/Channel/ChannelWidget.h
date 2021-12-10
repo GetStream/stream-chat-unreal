@@ -5,7 +5,7 @@
 #include "Channel/ChatChannel.h"
 #include "Context/ChannelContextWidget.h"
 #include "CoreMinimal.h"
-#include "StreamUserWidget.h"
+#include "StreamWidget.h"
 
 #include "ChannelWidget.generated.h"
 
@@ -13,7 +13,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UChannelWidget final : public UStreamUserWidget
+class STREAMCHATUI_API UChannelWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 
@@ -27,6 +27,4 @@ protected:
 
 private:
     virtual void OnSetup() override;
-    UPROPERTY(Transient)
-    UChatChannel* Channel;
 };

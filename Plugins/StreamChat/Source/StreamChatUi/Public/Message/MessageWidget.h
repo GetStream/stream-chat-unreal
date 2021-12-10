@@ -7,7 +7,7 @@
 #include "CoreMinimal.h"
 #include "MessageHoverMenuWidget.h"
 #include "Reaction/MessageReactionsWidget.h"
-#include "StreamUserWidget.h"
+#include "StreamWidget.h"
 #include "TextBubbleWidget.h"
 
 #include "MessageWidget.generated.h"
@@ -16,7 +16,7 @@
  * @brief Encapsulates a text bubble, reactions and the mouse hover menu for a message
  */
 UCLASS()
-class STREAMCHATUI_API UMessageWidget final : public UStreamUserWidget
+class STREAMCHATUI_API UMessageWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 

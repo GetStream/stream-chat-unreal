@@ -6,7 +6,7 @@
 #include "Components/Border.h"
 #include "CoreMinimal.h"
 #include "ReactionPickerButtonWidget.h"
-#include "StreamUserWidget.h"
+#include "StreamWidget.h"
 
 #include "ReactionPickerWidget.generated.h"
 
@@ -14,7 +14,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UReactionPickerWidget final : public UStreamUserWidget
+class STREAMCHATUI_API UReactionPickerWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 
@@ -37,6 +37,10 @@ protected:
 
 private:
     virtual void OnSetup() override;
+    virtual bool WantsChannel() override
+    {
+        return true;
+    }
     virtual bool WantsTheme() override
     {
         return true;
