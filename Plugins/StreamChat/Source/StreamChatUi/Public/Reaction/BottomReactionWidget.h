@@ -11,7 +11,7 @@
 #include "Reaction/ReactionGroup.h"
 #include "ReactionIconWidget.h"
 #include "ReactionsTooltipWidget.h"
-#include "StreamUserWidget.h"
+#include "StreamWidget.h"
 #include "Styling/SlateTypes.h"
 
 #include "BottomReactionWidget.generated.h"
@@ -21,7 +21,7 @@
  * @see https://www.figma.com/file/oeHiSMDoutuVbJ9WiVyhcG/Chat-Design-Kit-1.5-Android---Work-in-Progress?node-id=17089%3A113943
  */
 UCLASS()
-class STREAMCHATUI_API UBottomReactionWidget final : public UStreamUserWidget
+class STREAMCHATUI_API UBottomReactionWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 

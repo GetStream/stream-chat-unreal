@@ -28,7 +28,7 @@ void UMessageReactionsWidget::OnSetup()
             Widget->OnBottomReactionClickedNative.AddLambda(
                 [this](const FReactionGroup& Reaction)
                 {
-                    if (UChatChannel* Channel = UChannelContextWidget::GetChannel(this))
+                    if (ensure(Channel))
                     {
                         if (Reaction.OwnReaction.IsSet())
                         {

@@ -5,7 +5,7 @@
 #include "Components/Button.h"
 #include "Components/Image.h"
 #include "CoreMinimal.h"
-#include "StreamUserWidget.h"
+#include "StreamWidget.h"
 
 #include "IconButton.generated.h"
 
@@ -15,7 +15,7 @@
  * UMG disabling affects the style in a way which we can't control.
  */
 UCLASS()
-class STREAMCHATUI_API UIconButton : public UStreamUserWidget
+class STREAMCHATUI_API UIconButton : public UStreamWidget
 {
     GENERATED_BODY()
 

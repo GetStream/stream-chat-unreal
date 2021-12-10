@@ -5,7 +5,7 @@
 #include "Components/Image.h"
 #include "CoreMinimal.h"
 #include "Message/MessageSide.h"
-#include "StreamUserWidget.h"
+#include "StreamWidget.h"
 
 #include "ReactionIconWidget.generated.h"
 
@@ -13,7 +13,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UReactionIconWidget : public UStreamUserWidget
+class STREAMCHATUI_API UReactionIconWidget : public UStreamWidget
 {
     GENERATED_BODY()
 

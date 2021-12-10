@@ -7,7 +7,7 @@
 #include "Components/Button.h"
 #include "CoreMinimal.h"
 #include "Message/TimestampWidget.h"
-#include "StreamUserWidget.h"
+#include "StreamWidget.h"
 
 #include "ChannelStatusWidget.generated.h"
 
@@ -15,7 +15,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UChannelStatusWidget final : public UStreamUserWidget
+class STREAMCHATUI_API UChannelStatusWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 
@@ -26,7 +26,7 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void UpdateSelection(UChatChannel* SelectedChannel) const;
 
-    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FChannelStatusButtonClicked, UChatChannel*, Channel);
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FChannelStatusButtonClicked, UChatChannel*, InChannel);
     UPROPERTY(BlueprintAssignable)
     FChannelStatusButtonClicked OnChannelStatusButtonClicked;
 
@@ -74,8 +74,6 @@ private:
 
     UFUNCTION()
     void OnButtonClicked();
-    UPROPERTY(Transient)
-    UChatChannel* Channel;
 
     mutable float RecentMessageAvailableSpace;
     mutable float ChannelTitleAvailableSpace;

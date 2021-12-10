@@ -6,7 +6,7 @@
 #include "Components/EditableText.h"
 #include "CoreMinimal.h"
 #include "FadingMessageListWidget.h"
-#include "StreamUserWidget.h"
+#include "StreamWidget.h"
 #include "Types/SlateEnums.h"
 
 #include "InGameChatWidget.generated.h"
@@ -15,7 +15,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UInGameChatWidget final : public UStreamUserWidget
+class STREAMCHATUI_API UInGameChatWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 
@@ -29,7 +29,4 @@ protected:
 
 private:
     virtual void OnSetup() override;
-
-    UPROPERTY(Transient)
-    UChatChannel* Channel;
 };

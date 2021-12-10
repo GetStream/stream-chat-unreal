@@ -5,7 +5,7 @@
 #include "Components/Image.h"
 #include "Components/TextBlock.h"
 #include "CoreMinimal.h"
-#include "StreamUserWidget.h"
+#include "StreamWidget.h"
 #include "User/UserRef.h"
 
 #include "ProfilePicWidget.generated.h"
@@ -14,7 +14,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UProfilePicWidget : public UStreamUserWidget
+class STREAMCHATUI_API UProfilePicWidget : public UStreamWidget
 {
     GENERATED_BODY()
 

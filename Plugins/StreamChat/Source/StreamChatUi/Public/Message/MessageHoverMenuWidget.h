@@ -9,7 +9,7 @@
 #include "ContextMenu/ContextMenuWidget.h"
 #include "CoreMinimal.h"
 #include "Reaction/ReactionPickerWidget.h"
-#include "StreamUserWidget.h"
+#include "StreamWidget.h"
 
 #include "MessageHoverMenuWidget.generated.h"
 
@@ -19,7 +19,7 @@
  * Includes Options and Reactions buttons.
  */
 UCLASS()
-class STREAMCHATUI_API UMessageHoverMenuWidget final : public UStreamUserWidget
+class STREAMCHATUI_API UMessageHoverMenuWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 

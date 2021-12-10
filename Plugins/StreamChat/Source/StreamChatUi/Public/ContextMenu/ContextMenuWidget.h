@@ -8,7 +8,7 @@
 #include "ContextMenuButtonWidget.h"
 #include "CoreMinimal.h"
 #include "Message/MessageSide.h"
-#include "StreamUserWidget.h"
+#include "StreamWidget.h"
 
 #include "ContextMenuWidget.generated.h"
 
@@ -16,7 +16,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UContextMenuWidget final : public UStreamUserWidget
+class STREAMCHATUI_API UContextMenuWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 

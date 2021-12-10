@@ -6,7 +6,7 @@
 #include "Components/Image.h"
 #include "Components/Overlay.h"
 #include "CoreMinimal.h"
-#include "StreamUserWidget.h"
+#include "StreamWidget.h"
 #include "TextBubbleWidget.h"
 
 #include "TimestampWidget.generated.h"
@@ -15,7 +15,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UTimestampWidget final : public UStreamUserWidget
+class STREAMCHATUI_API UTimestampWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 

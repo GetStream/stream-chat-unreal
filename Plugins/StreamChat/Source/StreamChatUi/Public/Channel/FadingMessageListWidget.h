@@ -8,7 +8,7 @@
 #include "Components/ScrollBox.h"
 #include "CoreMinimal.h"
 #include "Message/FadingMessageWidget.h"
-#include "StreamUserWidget.h"
+#include "StreamWidget.h"
 
 #include "FadingMessageListWidget.generated.h"
 
@@ -16,7 +16,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UFadingMessageListWidget final : public UStreamUserWidget
+class STREAMCHATUI_API UFadingMessageListWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 
@@ -56,7 +56,4 @@ private:
     UFUNCTION()
     void OpenChat();
     void CloseChat();
-
-    UPROPERTY(Transient)
-    UChatChannel* Channel;
 };
