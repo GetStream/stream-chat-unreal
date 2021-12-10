@@ -5,7 +5,7 @@
 #include "Channel/Message.h"
 #include "Components/ScrollBox.h"
 #include "CoreMinimal.h"
-#include "MessageStackWidget.h"
+#include "MessageWidget.h"
 #include "StreamWidget.h"
 
 #include "MessageListWidget.generated.h"
@@ -26,10 +26,9 @@ public:
 protected:
     virtual void NativeOnInitialized() override;
     virtual void OnChannel() override;
-    virtual void NativeDestruct() override;
 
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void CreateMessageStackWidgets(const TArray<FMessage>& Messages);
+    void CreateMessageWidgets(const TArray<FMessage>& Messages);
 
     UPROPERTY(meta = (BindWidget))
     UScrollBox* ScrollBox;
@@ -38,7 +37,8 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = Defaults)
     float PaginateScrollThreshold = 100.f;
 
-    UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults) TSubclassOf<UMessageStackWidget> MessageStackWidgetClass = UMessageStackWidget::StaticClass();
+    UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
+    TSubclassOf<UMessageWidget> MessageWidgetClass = UMessageWidget::StaticClass();
 
 private:
     UFUNCTION()

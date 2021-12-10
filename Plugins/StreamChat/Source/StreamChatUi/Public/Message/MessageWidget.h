@@ -9,6 +9,7 @@
 #include "Reaction/MessageReactionsWidget.h"
 #include "StreamWidget.h"
 #include "TextBubbleWidget.h"
+#include "TimestampWidget.h"
 
 #include "MessageWidget.generated.h"
 
@@ -23,12 +24,12 @@ class STREAMCHATUI_API UMessageWidget final : public UStreamWidget
 public:
     explicit UMessageWidget(const FObjectInitializer& ObjectInitializer);
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void Setup(const FMessage& InMessage, EMessageSide InSide, EBubbleStackPosition InPosition);
+    void Setup(const FMessage& InMessage, EMessageSide InSide, EMessagePosition InPosition);
 
 protected:
     // Should contain whatever needs to be horizontally aligned
     UPROPERTY(meta = (BindWidget))
-    UVerticalBox* OuterPanel;
+    UVerticalBox* AlignPanel;
 
     UPROPERTY(meta = (BindWidget))
     UTextBubbleWidget* TextBubble;
@@ -41,7 +42,13 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UContentWidget* ReactionsTargetPanel;
 
-    // TODO Reactions
+    // Where the timestamp will (maybe) be spawned
+    UPROPERTY(meta = (BindWidget))
+    UContentWidget* TimestampTargetPanel;
+
+    // Where the avatar will (maybe) be spawned
+    UPROPERTY(meta = (BindWidget))
+    UContentWidget* AvatarTargetPanel;
 
     UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
     TSubclassOf<UMessageHoverMenuWidget> MouseHoverMenuWidgetClass = UMessageHoverMenuWidget::StaticClass();
@@ -49,10 +56,19 @@ protected:
     UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
     TSubclassOf<UMessageReactionsWidget> ReactionsWidgetClass = UMessageReactionsWidget::StaticClass();
 
+    UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
+    TSubclassOf<UAvatarWidget> AvatarWidgetClass = UAvatarWidget::StaticClass();
+
+    UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
+    TSubclassOf<UTimestampWidget> TimestampWidgetClass = UTimestampWidget::StaticClass();
+
+    UPROPERTY(EditDefaultsOnly, Category = Defaults)
+    int32 AvatarSize = 72;
+
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
     FMessage Message;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
-    EBubbleStackPosition Position;
+    EMessagePosition Position;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
     EMessageSide Side;
 

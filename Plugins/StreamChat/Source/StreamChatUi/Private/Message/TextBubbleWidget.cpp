@@ -9,7 +9,7 @@ UTextBubbleWidget::UTextBubbleWidget()
     bWantsTheme = true;
 }
 
-void UTextBubbleWidget::Setup(const FMessage& InMessage, EMessageSide InSide, EBubbleStackPosition InPosition)
+void UTextBubbleWidget::Setup(const FMessage& InMessage, EMessageSide InSide, EMessagePosition InPosition)
 {
     Message = InMessage;
     Side = InSide;
@@ -49,7 +49,7 @@ UTexture2D* UTextBubbleWidget::GetBubbleTexture() const
 {
     switch (Position)
     {
-        case EBubbleStackPosition::Opening:
+        case EMessagePosition::Opening:
         {
             switch (Side)
             {
@@ -59,7 +59,7 @@ UTexture2D* UTextBubbleWidget::GetBubbleTexture() const
                     return MaskOpeningTexture;
             }
         }
-        case EBubbleStackPosition::End:
+        case EMessagePosition::End:
         {
             switch (Side)
             {
