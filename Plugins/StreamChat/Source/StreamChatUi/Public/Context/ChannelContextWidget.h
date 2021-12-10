@@ -27,10 +27,11 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(UChatChannel* InChannel);
 
-    UFUNCTION(BlueprintPure, Category = "Stream Chat")
+    UFUNCTION(BlueprintPure, Category = "Stream Chat", meta = (DisplayName = "Get Channel Context"))
     static UChannelContextWidget* Get(const UWidget* Widget);
     UFUNCTION(BlueprintPure, Category = "Stream Chat")
     static UChatChannel* GetChannel(const UWidget* Widget);
+    UChatChannel* GetChannel() const;
 
     UPROPERTY(BlueprintAssignable)
     FStartEditMessageDelegate OnStartEditMessage;

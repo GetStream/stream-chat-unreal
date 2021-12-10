@@ -26,6 +26,7 @@ class STREAMCHATUI_API UBottomReactionWidget final : public UStreamWidget
     GENERATED_BODY()
 
 public:
+    UBottomReactionWidget();
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(const FReactionGroup& InReactionGroup);
 
@@ -60,10 +61,6 @@ protected:
 
 private:
     virtual void OnSetup() override;
-    virtual bool WantsTheme() override
-    {
-        return true;
-    }
     virtual void OnTheme(const UThemeDataAsset*) override;
 
     virtual void NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;

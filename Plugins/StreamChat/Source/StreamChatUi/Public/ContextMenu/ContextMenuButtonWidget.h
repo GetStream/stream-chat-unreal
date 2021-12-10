@@ -31,6 +31,7 @@ class STREAMCHATUI_API UContextMenuButtonWidget final : public UStreamWidget
     GENERATED_BODY()
 
 public:
+    UContextMenuButtonWidget();
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(const FMessage& InMessage, EContextMenuButtonPosition InPosition, UContextMenuAction* InAction);
 
@@ -58,10 +59,6 @@ protected:
 
 private:
     virtual void OnSetup() override;
-    virtual bool WantsTheme() override
-    {
-        return true;
-    }
     virtual void OnTheme(const UThemeDataAsset*) override;
 
     UFUNCTION()

@@ -5,6 +5,11 @@
 #include "Components/ButtonSlot.h"
 #include "ThemeDataAsset.h"
 
+UIconButton::UIconButton()
+{
+    bWantsTheme = true;
+}
+
 void UIconButton::SetEnabled(const bool bInEnabled)
 {
     bEnabled = bInEnabled;

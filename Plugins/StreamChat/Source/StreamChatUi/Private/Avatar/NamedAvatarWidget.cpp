@@ -6,6 +6,11 @@
 #include "User/User.h"
 #include "WidgetUtil.h"
 
+UNamedAvatarWidget::UNamedAvatarWidget()
+{
+    bWantsTheme = true;
+}
+
 void UNamedAvatarWidget::Setup(const FUserRef& InUser)
 {
     User = InUser;

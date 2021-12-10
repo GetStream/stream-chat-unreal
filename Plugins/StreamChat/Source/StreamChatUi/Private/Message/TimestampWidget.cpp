@@ -7,6 +7,11 @@
 #include "User/User.h"
 #include "WidgetUtil.h"
 
+UTimestampWidget::UTimestampWidget()
+{
+    bWantsTheme = true;
+}
+
 void UTimestampWidget::Setup(const FMessage& InMessage, const bool bInShowUserName, const bool bInShowMessageState)
 {
     Message = InMessage;

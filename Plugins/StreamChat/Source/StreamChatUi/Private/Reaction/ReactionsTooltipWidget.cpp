@@ -4,6 +4,11 @@
 
 #include "ThemeDataAsset.h"
 
+UReactionsTooltipWidget::UReactionsTooltipWidget()
+{
+    bWantsTheme = true;
+}
+
 void UReactionsTooltipWidget::Setup(const FReactionGroup& InReactionGroup)
 {
     ReactionGroup = InReactionGroup;

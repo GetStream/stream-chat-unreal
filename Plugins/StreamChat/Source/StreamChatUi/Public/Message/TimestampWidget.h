@@ -20,6 +20,7 @@ class STREAMCHATUI_API UTimestampWidget final : public UStreamWidget
     GENERATED_BODY()
 
 public:
+    UTimestampWidget();
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(const FMessage& InMessage, bool bInShowUserName, bool bInShowMessageState);
 
@@ -53,10 +54,6 @@ protected:
 
 private:
     virtual void OnSetup() override;
-    virtual bool WantsTheme() override
-    {
-        return true;
-    }
     virtual void OnTheme(const UThemeDataAsset*) override;
 
     UTexture2D* GetStatusIcon() const;

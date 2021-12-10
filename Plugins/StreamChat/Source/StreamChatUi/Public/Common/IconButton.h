@@ -20,6 +20,7 @@ class STREAMCHATUI_API UIconButton : public UStreamWidget
     GENERATED_BODY()
 
 public:
+    UIconButton();
     UFUNCTION(BlueprintCallable, Category = "Icon Button")
     void SetEnabled(bool bInEnabled);
     UFUNCTION(BlueprintCallable, Category = "Icon Button")
@@ -55,10 +56,6 @@ protected:
 private:
     virtual void SynchronizeProperties() override;
     virtual void NativeOnInitialized() override;
-    virtual bool WantsTheme() override
-    {
-        return true;
-    }
     virtual void OnTheme(const UThemeDataAsset*) override;
 
     UFUNCTION()

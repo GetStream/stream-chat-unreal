@@ -4,6 +4,11 @@
 
 #include "ThemeDataAsset.h"
 
+UTextBubbleWidget::UTextBubbleWidget()
+{
+    bWantsTheme = true;
+}
+
 void UTextBubbleWidget::Setup(const FMessage& InMessage, EMessageSide InSide, EBubbleStackPosition InPosition)
 {
     Message = InMessage;

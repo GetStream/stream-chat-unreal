@@ -6,6 +6,11 @@
 #include "ThemeDataAsset.h"
 #include "TimerManager.h"
 
+UBottomReactionWidget::UBottomReactionWidget()
+{
+    bWantsTheme = true;
+}
+
 void UBottomReactionWidget::Setup(const FReactionGroup& InReactionGroup)
 {
     ReactionGroup = InReactionGroup;

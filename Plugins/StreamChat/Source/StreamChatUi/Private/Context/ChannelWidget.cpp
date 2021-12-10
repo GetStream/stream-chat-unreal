@@ -12,8 +12,8 @@ void UChannelWidget::Setup(UChatChannel* InChannel)
 
 void UChannelWidget::OnSetup()
 {
-    if (ChannelContext)
+    if (OwnedChannelContext)
     {
-        ChannelContext->Setup(Channel);
+        OwnedChannelContext->Setup(Channel);
     }
 }

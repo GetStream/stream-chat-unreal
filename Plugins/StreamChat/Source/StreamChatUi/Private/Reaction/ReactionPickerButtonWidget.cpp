@@ -4,6 +4,11 @@
 
 #include "ThemeDataAsset.h"
 
+UReactionPickerButtonWidget::UReactionPickerButtonWidget()
+{
+    bWantsTheme = true;
+}
+
 void UReactionPickerButtonWidget::Setup(const FName& InReactionType, const EMessageSide InSide)
 {
     ReactionType = InReactionType;

@@ -7,7 +7,12 @@
 #include "TimerManager.h"
 #include "User/User.h"
 
-void UOnlineStatusSubheaderWidget::OnChannel(UChatChannel*)
+UOnlineStatusSubheaderWidget::UOnlineStatusSubheaderWidget()
+{
+    bWantsChannel = true;
+}
+
+void UOnlineStatusSubheaderWidget::OnChannel()
 {
     // TODO subscribe to user presence events
 

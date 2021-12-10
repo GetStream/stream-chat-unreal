@@ -10,6 +10,8 @@
 
 #include "MessageListWidget.generated.h"
 
+class UChannelContextWidget;
+
 /**
  *
  */
@@ -19,13 +21,30 @@ class STREAMCHATUI_API UMessageListWidget final : public UStreamWidget
     GENERATED_BODY()
 
 public:
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void CreateMessageStackWidgets(const TArray<FMessage> Messages);
+    UMessageListWidget();
 
 protected:
+    virtual void NativeOnInitialized() override;
+    virtual void OnChannel() override;
+    virtual void NativeDestruct() override;
+
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat")
+    void CreateMessageStackWidgets(const TArray<FMessage>& Messages);
+
     UPROPERTY(meta = (BindWidget))
     UScrollBox* ScrollBox;
 
-    UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
-    TSubclassOf<UMessageStackWidget> MessageStackWidgetClass = UMessageStackWidget::StaticClass();
+    // If the scroll offset is below this value, then new messages will be fetched
+    UPROPERTY(EditDefaultsOnly, Category = Defaults)
+    float PaginateScrollThreshold = 100.f;
+
+    UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults) TSubclassOf<UMessageStackWidget> MessageStackWidgetClass = UMessageStackWidget::StaticClass();
+
+private:
+    UFUNCTION()
+    void SetMessages(const TArray<FMessage>& Messages);
+    UFUNCTION()
+    void ScrollToBottom(const FMessage& Message);
+    UFUNCTION()
+    void OnUserScroll(float CurrentOffset);
 };

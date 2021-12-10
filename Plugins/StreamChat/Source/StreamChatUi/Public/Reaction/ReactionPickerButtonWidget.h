@@ -18,6 +18,7 @@ class STREAMCHATUI_API UReactionPickerButtonWidget final : public UStreamWidget
     GENERATED_BODY()
 
 public:
+    UReactionPickerButtonWidget();
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(const FName& InReactionType, EMessageSide InSide);
 
@@ -43,10 +44,6 @@ protected:
 
 private:
     virtual void OnSetup() override;
-    virtual bool WantsTheme() override
-    {
-        return true;
-    }
     virtual void OnTheme(const UThemeDataAsset*) override;
 
     UFUNCTION()

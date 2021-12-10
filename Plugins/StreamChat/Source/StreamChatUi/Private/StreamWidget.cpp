@@ -30,7 +30,7 @@ void UStreamWidget::NativeConstruct()
 
 void UStreamWidget::NativePreConstruct()
 {
-    if (WantsTheme())
+    if (bWantsTheme)
     {
         if (const UThemeDataAsset* Theme = UThemeDataAsset::Get(this))
         {
@@ -38,13 +38,17 @@ void UStreamWidget::NativePreConstruct()
             OnTheme_BP(Theme);
         }
     }
-    if (WantsChannel())
+    if (bWantsChannel)
     {
-        Channel = UChannelContextWidget::GetChannel(this);
+        ChannelContext = UChannelContextWidget::Get(this);
         if (Channel)
         {
-            OnChannel(Channel);
-            OnChannel_BP(Channel);
+            Channel = ChannelContext->GetChannel();
+            if (ChannelContext)
+            {
+                OnChannel();
+                OnChannel_BP();
+            }
         }
     }
 }

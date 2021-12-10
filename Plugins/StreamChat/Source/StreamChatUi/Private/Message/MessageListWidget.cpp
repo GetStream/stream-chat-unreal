@@ -3,8 +3,14 @@
 #include "Message/MessageListWidget.h"
 
 #include "Channel/ChatChannel.h"
+#include "Context/ChannelContextWidget.h"
+#include "UiBlueprintLibrary.h"
 
-void UMessageListWidget::CreateMessageStackWidgets(const TArray<FMessage> Messages)
+UMessageListWidget::UMessageListWidget()
+{
+    bWantsChannel = true;
+}
+void UMessageListWidget::CreateMessageStackWidgets(const TArray<FMessage>& Messages)
 {
     if (!ScrollBox)
     {
@@ -37,4 +43,84 @@ void UMessageListWidget::CreateMessageStackWidgets(const TArray<FMessage> Messag
             StartIndex = Index + 1;
         }
     }
+}
+
+void UMessageListWidget::NativeOnInitialized()
+{
+    Super::NativeOnInitialized();
+    if (ScrollBox)
+    {
+        ScrollBox->OnUserScrolled.AddDynamic(this, &UMessageListWidget::OnUserScroll);
+    }
+}
+
+void UMessageListWidget::OnChannel()
+{
+    Channel->MessagesUpdated.AddDynamic(this, &UMessageListWidget::SetMessages);
+    Channel->MessageSent.AddDynamic(this, &UMessageListWidget::ScrollToBottom);
+
+    ChannelContext->OnStartEditMessage.AddDynamic(this, &UMessageListWidget::ScrollToBottom);
+
+    SetMessages(Channel->GetMessages());
+}
+
+void UMessageListWidget::SetMessages(const TArray<FMessage>& Messages)
+{
+    if (!ScrollBox)
+    {
+        return;
+    }
+
+    int32 FirstIndex;
+    float FirstLeadingEdge;
+    UUiBlueprintLibrary::GetFirstVisibleChildOfScrollBox(ScrollBox, FirstIndex, FirstLeadingEdge);
+    const int32 StartListLength = ScrollBox->GetChildrenCount();
+
+    CreateMessageStackWidgets(Messages);
+
+    // Try to maintain the position of all children
+    if (FirstIndex == INDEX_NONE)
+    {
+        ScrollBox->ScrollToEnd();
+    }
+    else
+    {
+        const int32 Index = ScrollBox->GetChildrenCount() - StartListLength + FirstIndex;
+        UWidget* Widget = ScrollBox->GetChildAt(Index);
+        ScrollBox->ScrollWidgetIntoView(Widget, false, EDescendantScrollDestination::TopOrLeft, FirstLeadingEdge);
+    }
+}
+
+void UMessageListWidget::ScrollToBottom(const FMessage& Message)
+{
+    if (ScrollBox)
+    {
+        ScrollBox->ScrollToEnd();
+    }
+}
+
+void UMessageListWidget::OnUserScroll(const float CurrentOffset)
+{
+    if (CurrentOffset < PaginateScrollThreshold)
+    {
+        if (Channel)
+        {
+            Channel->QueryAdditionalMessages();
+        }
+    }
+}
+
+void UMessageListWidget::NativeDestruct()
+{
+    if (Channel)
+    {
+        Channel->MessagesUpdated.RemoveDynamic(this, &UMessageListWidget::SetMessages);
+        Channel->MessageSent.RemoveDynamic(this, &UMessageListWidget::ScrollToBottom);
+    }
+
+    if (ChannelContext)
+    {
+        ChannelContext->OnStartEditMessage.AddDynamic(this, &UMessageListWidget::ScrollToBottom);
+    }
+    Super::NativeDestruct();
 }
