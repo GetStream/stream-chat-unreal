@@ -30,7 +30,7 @@ void UFadingMessageWidget::OnSetup()
         }
     }
 
-    if (FadeAnimation)
+    if (FadeAnimation && Message.CreatedAt.GetTicks() > 0)
     {
         const FTimespan MessageAge = FDateTime::UtcNow() - Message.CreatedAt;
         const FTimespan ShowFor = Lifetime - MessageAge;
