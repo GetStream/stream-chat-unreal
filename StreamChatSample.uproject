@@ -21,54 +21,87 @@
 		},
 		{
 			"Name": "OculusVR",
-			"Enabled": false,
-			"SupportedTargetPlatforms": [
-				"Win32",
-				"Win64",
-				"Android"
-			]
+			"Enabled": false
 		},
 		{
 			"Name": "OpenXREyeTracker",
-			"Enabled": false,
-			"SupportedTargetPlatforms": [
-				"Win32",
-				"Win64",
-				"Linux",
-				"HoloLens",
-				"Android"
-			]
+			"Enabled": false
 		},
 		{
 			"Name": "OpenXRHandTracking",
-			"Enabled": false,
-			"SupportedTargetPlatforms": [
-				"Win32",
-				"Win64",
-				"Linux",
-				"HoloLens",
-				"Android"
-			]
+			"Enabled": false
 		},
 		{
 			"Name": "OpenXR",
-			"Enabled": false,
-			"SupportedTargetPlatforms": [
-				"Win32",
-				"Win64",
-				"Linux",
-				"Android",
-				"HoloLens"
-			]
+			"Enabled": false
+		},
+		{
+			"Name": "AudioSynesthesia",
+			"Enabled": false
+		},
+		{
+			"Name": "SpeedTreeImporter",
+			"Enabled": false
+		},
+		{
+			"Name": "Synthesis",
+			"Enabled": false
+		},
+		{
+			"Name": "GeometryMode",
+			"Enabled": false
+		},
+		{
+			"Name": "GeometryCollectionPlugin",
+			"Enabled": false
+		},
+		{
+			"Name": "MediaCompositing",
+			"Enabled": false
+		},
+		{
+			"Name": "DatasmithContent",
+			"Enabled": false
+		},
+		{
+			"Name": "PythonScriptPlugin",
+			"Enabled": false
+		},
+		{
+			"Name": "ChaosSolverPlugin",
+			"Enabled": false
+		},
+		{
+			"Name": "ChaosClothEditor",
+			"Enabled": false
+		},
+		{
+			"Name": "MotoSynth",
+			"Enabled": false
+		},
+		{
+			"Name": "AnimationSharing",
+			"Enabled": false
+		},
+		{
+			"Name": "Paper2D",
+			"Enabled": false
+		},
+		{
+			"Name": "MagicLeapPassableWorld",
+			"Enabled": false
+		},
+		{
+			"Name": "MagicLeap",
+			"Enabled": false
+		},
+		{
+			"Name": "GeometryProcessing",
+			"Enabled": false
 		},
 		{
 			"Name": "SteamVR",
-			"Enabled": false,
-			"SupportedTargetPlatforms": [
-				"Win32",
-				"Win64",
-				"Linux"
-			]
+			"Enabled": false
 		}
 	]
 }
