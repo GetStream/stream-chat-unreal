@@ -12,18 +12,18 @@ jobs:
   samples:
     strategy:
       matrix:
-        os: [linux, macos, windows]
+        os: [Linux, macOS, Windows]
         what: [team-chat, jumpy-lion]
         include: 
           - what: team-chat
             map: /Game/TeamChatSample/Maps/TeamChatSample
           - what: jumpy-lion
             map: /Game/JumpyLion/Maps/JumpyLion
-          - os: linux
+          - os: Linux
             path: LinuxNoEditor
-          - os: macos
+          - os: macOS
             path: MacNoEditor
-          - os: windows
+          - os: Windows
             path: WindowsNoEditor
             
     name: 📦 Package ${{ matrix.what }} - ${{ matrix.os }}
@@ -47,8 +47,8 @@ jobs:
         name: 📁 Upload artifact
 
   plugin:
-    name: 📦 Package plugin
-    runs-on: [self-hosted, linux]
+    name: 🔌 Package plugin
+    runs-on: [self-hosted, Linux]
 
     steps:
       - uses: actions/checkout@v2
@@ -62,7 +62,7 @@ jobs:
           ue4 package -NoPCH -NoSharedPCH -DisableUnity
 
       # Satisfy marketplace requirements
-      - name: Move SourceFiles
+      - name: 🥫 Move SourceFiles
         run: |
           mkdir Plugins/StreamChat/dist/Content/SourceFiles
           find Plugins/StreamChat/dist -type f '(' -name "*.png" -o -name "*.svg" ')' -print0 | xargs -0 mv -t Plugins/StreamChat/dist/Content/SourceFiles
