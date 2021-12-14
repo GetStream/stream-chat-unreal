@@ -39,7 +39,7 @@ jobs:
           cd Plugins/StreamChat
           ue4 build -NoPCH -NoSharedPCH -DisableUnity
 
-      - name: 🔨 Build sample project
+      - name: 🔨 Build sample projects
         run: ue4 build -NoPCH -NoSharedPCH -DisableUnity
 
       - name: 🧪 Run tests
