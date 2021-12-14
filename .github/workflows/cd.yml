@@ -48,7 +48,7 @@ jobs:
 
   plugin:
     name: 📦 Package plugin
-    runs-on: self-hosted
+    runs-on: [self-hosted, linux]
 
     steps:
       - uses: actions/checkout@v2
