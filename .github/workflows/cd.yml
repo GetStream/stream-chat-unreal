@@ -19,14 +19,17 @@ jobs:
             map: /Game/TeamChatSample/Maps/TeamChatSample
           - what: jumpy-lion
             map: /Game/JumpyLion/Maps/JumpyLion
-          - os: Linux
+          - os: linux
             path: LinuxNoEditor
-          - os: macOS
+            name: Linux
+          - os: macos
             path: MacNoEditor
-          - os: Windows
+            name: macOS
+          - os: windows
             path: WindowsNoEditor
+            name: Windows
             
-    name: 📦 Package ${{ matrix.what }} - ${{ matrix.os }}
+    name: 📦 Package ${{ matrix.what }} - ${{ matrix.name }}
     runs-on: [self-hosted, '${{ matrix.os }}']
 
     steps:
@@ -40,7 +43,7 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: ${{matrix.what}}-${{matrix.os}}
+          name: ${{matrix.what}}-${{matrix.name}}
           path: |
             dist/${{matrix.path}}
             !**/Manifest_NonUFSFiles*.txt
@@ -48,7 +51,7 @@ jobs:
 
   plugin:
     name: 🔌 Package plugin
-    runs-on: [self-hosted, Linux]
+    runs-on: [self-hosted, linux]
 
     steps:
       - uses: actions/checkout@v2
