@@ -26,7 +26,7 @@ jobs:
           - os: windows
             path: WindowsNoEditor
             
-    name: 📦 Package ${{ matrix.what }}
+    name: 📦 Package ${{ matrix.what }} - ${{ matrix.os }}
     runs-on: [self-hosted, '${{ matrix.os }}']
 
     steps:
