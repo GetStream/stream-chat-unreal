@@ -35,7 +35,7 @@ jobs:
         run: chown -R ue4:ue4 ${{ github.workspace }}
 
       - name: 📦 Package
-        run: runuser -u ue4 -- ue4 package Shipping -NoPCH -NoSharedPCH -DisableUnity -map=/Game/TeamChatSample/Maps/TeamChatSample
+        run: ue4 package Shipping -NoPCH -NoSharedPCH -DisableUnity -map=/Game/TeamChatSample/Maps/TeamChatSample
 
       - uses: actions/upload-artifact@v2
         with:
@@ -70,7 +70,7 @@ jobs:
         run: chown -R ue4:ue4 ${{ github.workspace }}
 
       - name: 📦 Package
-        run: runuser -u ue4 -- ue4 package Shipping -NoPCH -NoSharedPCH -DisableUnity -map=/Game/JumpyLion/Maps/JumpyLion
+        run: ue4 package Shipping -NoPCH -NoSharedPCH -DisableUnity -map=/Game/JumpyLion/Maps/JumpyLion
 
       - uses: actions/upload-artifact@v2
         with:
@@ -107,7 +107,7 @@ jobs:
       - name: 📦 Package plugin
         run: |
           cd Plugins/StreamChat
-          runuser -u ue4 -- ue4 package -NoPCH -NoSharedPCH -DisableUnity
+          ue4 package -NoPCH -NoSharedPCH -DisableUnity
 
       # Satisfy marketplace requirements
       - name: Move SourceFiles
