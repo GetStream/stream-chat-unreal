@@ -9,9 +9,25 @@ on:
   workflow_dispatch:
 
 jobs:
-  team_chat:
-    name: 📦 Package team chat sample project
-    runs-on: self-hosted
+  samples:
+    strategy:
+      matrix:
+        os: [linux, macos, windows]
+        what: [team-chat, jumpy-lion]
+        include: 
+          - what: team-chat
+            map: /Game/TeamChatSample/Maps/TeamChatSample
+          - what: jumpy-lion
+            map: /Game/JumpyLion/Maps/JumpyLion
+          - os: linux
+            path: LinuxNoEditor
+          - os: macos
+            path: MacNoEditor
+          - os: windows
+            path: WindowsNoEditor
+            
+    name: 📦 Package ${{ matrix.what }}
+    runs-on: [self-hosted, '${{ matrix.os }}']
 
     steps:
       - uses: actions/checkout@v2
@@ -20,34 +36,13 @@ jobs:
           lfs: true
 
       - name: 📦 Package
-        run: ue4 package Shipping -NoPCH -NoSharedPCH -DisableUnity -map=/Game/TeamChatSample/Maps/TeamChatSample
+        run: ue4 package Shipping -NoPCH -NoSharedPCH -DisableUnity -map=${{ matrix.map }}
 
       - uses: actions/upload-artifact@v2
         with:
-          name: TeamChatSample-Linux
+          name: ${{matrix.what}}-${{matrix.os}}
           path: |
-            dist/LinuxNoEditor
-            !**/Manifest_NonUFSFiles*.txt
-        name: 📁 Upload artifact
-
-  jumpy_lion:
-    name: 📦 Package Jumpy Lion
-    runs-on: self-hosted
-
-    steps:
-      - uses: actions/checkout@v2
-        name: 🛒 Checkout
-        with:
-          lfs: true
-
-      - name: 📦 Package
-        run: ue4 package Shipping -NoPCH -NoSharedPCH -DisableUnity -map=/Game/JumpyLion/Maps/JumpyLion
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: JumpyLion-Linux
-          path: |
-            dist/LinuxNoEditor
+            dist/${{matrix.path}}
             !**/Manifest_NonUFSFiles*.txt
         name: 📁 Upload artifact
 
