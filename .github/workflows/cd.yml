@@ -11,6 +11,7 @@ on:
 jobs:
   samples:
     strategy:
+      fail-fast: false
       matrix:
         os: [Linux, macOS, Windows]
         what: [team-chat, jumpy-lion]
