@@ -39,7 +39,7 @@ jobs:
           lfs: true
 
       - name: 📦 Package
-        run: ue4 package Shipping -NoPCH -NoSharedPCH -DisableUnity -map=${{ matrix.map }}
+        run: ue4 package Shipping -map=${{ matrix.map }}
 
       - uses: actions/upload-artifact@v2
         with:
@@ -62,7 +62,7 @@ jobs:
       - name: 📦 Package plugin
         run: |
           cd Plugins/StreamChat
-          ue4 package -NoPCH -NoSharedPCH -DisableUnity
+          ue4 package
 
       # Satisfy marketplace requirements
       - name: 🥫 Move SourceFiles
