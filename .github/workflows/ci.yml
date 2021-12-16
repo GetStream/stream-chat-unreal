@@ -77,18 +77,18 @@ jobs:
           print(TestSuite.to_xml_string([ts]))
           with open(output, 'w') as f:
               TestSuite.to_file(f, [ts], prettyprint=False)
-      - name: Upload test report
+      - name: 📤 Upload test report
         uses: actions/upload-artifact@v2
         with:
           path: Saved/Automation/Reports/report.xml
           name: test-report
 
   report:
-    name: report
+    name: 🧪 Publish test results
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Download test report
+      - name: 📥 Download test report
         uses: actions/download-artifact@v2
         with:
           name: test-report
