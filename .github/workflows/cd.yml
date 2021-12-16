@@ -13,22 +13,22 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [Linux, Mac, "Win64"]
+        platform: [Linux, Mac, "Win64"]
         what: [team-chat, jumpy-lion]
         include: 
           - what: team-chat
             map: /Game/TeamChatSample/Maps/TeamChatSample
           - what: jumpy-lion
             map: /Game/JumpyLion/Maps/JumpyLion
-          - target: Linux
+          - platform: Linux
             path: LinuxNoEditor
-          - target: Mac
+          - platform: Mac
             path: MacNoEditor
-          - target: Win64
+          - platform: Win64
             path: WindowsNoEditor
             
-    name: 📦 Package ${{ matrix.what }} - ${{ matrix.target }}
-    runs-on: [self-hosted, 'UE_${{ matrix.target }}']
+    name: 📦 Package ${{ matrix.what }} - ${{ matrix.platform }}
+    runs-on: [self-hosted, 'UE_${{ matrix.platform }}']
 
     steps:
       - uses: actions/checkout@v2
@@ -37,13 +37,13 @@ jobs:
           lfs: true
 
       - name: 📦 Package
-        run: ue4 package Shipping -map=${{ matrix.map }}
+        run: ue4 package Shipping -platform=${{ matrix.platform }} -map=${{ matrix.map }}
 
       - uses: actions/upload-artifact@v2
         with:
-          name: ${{matrix.what}}-${{matrix.target}}
+          name: ${{ matrix.what }}-${{ matrix.platform }}
           path: |
-            dist/${{matrix.path}}
+            dist/${{ matrix.path }}
             !**/Manifest_NonUFSFiles*.txt
         name: 📁 Upload artifact
 
