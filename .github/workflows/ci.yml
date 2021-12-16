@@ -22,7 +22,7 @@ jobs:
 
   build:
     name: 🔨 Build
-    runs-on: [self-hosted, UE_Linux]
+    runs-on: [self-hosted]
 
     steps:
       - name: 🔪 Prerequisites
