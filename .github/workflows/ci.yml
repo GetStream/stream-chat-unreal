@@ -77,8 +77,22 @@ jobs:
           print(TestSuite.to_xml_string([ts]))
           with open(output, 'w') as f:
               TestSuite.to_file(f, [ts], prettyprint=False)
+      - name: Upload test report
+        uses: actions/upload-artifact@v2
+        with:
+          path: Saved/Automation/Reports/report.xml
+          name: test-report
 
+  report:
+    name: report
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download test report
+        uses: actions/download-artifact@v2
+        with:
+          name: test-report
       - name: ⚗️ Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1
         with:
-          files: Saved/Automation/Reports/report.xml
+          files: report.xml
