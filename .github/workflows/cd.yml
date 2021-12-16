@@ -49,7 +49,7 @@ jobs:
 
   plugin:
     name: 🔌 Package plugin
-    runs-on: [self-hosted, UE_Linux]
+    runs-on: [self-hosted]
 
     steps:
       - uses: actions/checkout@v2
@@ -64,9 +64,10 @@ jobs:
 
       # Satisfy marketplace requirements
       - name: 🥫 Move SourceFiles
+        shell: bash
         run: |
           mkdir Plugins/StreamChat/dist/Content/SourceFiles
-          find Plugins/StreamChat/dist -type f '(' -name "*.png" -o -name "*.svg" ')' -print0 | xargs -0 mv -t Plugins/StreamChat/dist/Content/SourceFiles
+          find Plugins/StreamChat/dist -type f '(' -name "*.png" -o -name "*.svg" ')' -exec mv -i {} Plugins/StreamChat/dist/Content/SourceFiles \;
 
       - uses: actions/upload-artifact@v2
         with:
