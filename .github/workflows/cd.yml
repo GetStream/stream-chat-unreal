@@ -37,7 +37,9 @@ jobs:
           lfs: true
 
       - name: 📦 Package
-        run: ue4 package Shipping -platform=${{ matrix.platform }} -map=${{ matrix.map }}
+        run: |
+          sed -i 'k' 's|/Engine/Maps/Entry|${{ matrix.map }}|' Config/DefaultEngine.ini
+          ue4 package Shipping -platform=${{ matrix.platform }}
 
       - uses: actions/upload-artifact@v2
         with:
