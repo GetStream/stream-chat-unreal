@@ -17,9 +17,9 @@ jobs:
         what: [team-chat, jumpy-lion]
         include: 
           - what: team-chat
-            map: /Game/TeamChatSample/Maps/TeamChatSample
+            map: /Game/TeamChatSample/Maps/TeamChatSample.TeamChatSample
           - what: jumpy-lion
-            map: /Game/JumpyLion/Maps/JumpyLion
+            map: /Game/JumpyLion/Maps/JumpyLion.JumpyLion
           - platform: Linux
             path: LinuxNoEditor
           - platform: Mac
@@ -38,7 +38,7 @@ jobs:
 
       - name: 📦 Package
         run: |
-          sed -i 'k' 's|/Engine/Maps/Entry|${{ matrix.map }}|' Config/DefaultEngine.ini
+          sed -i '' 's|/Engine/Maps/Entry.Entry|${{ matrix.map }}|' Config/DefaultEngine.ini
           ue4 package Shipping -platform=${{ matrix.platform }}
 
       - uses: actions/upload-artifact@v2
