@@ -26,8 +26,7 @@ jobs:
 
     steps:
       - name: 🔪 Prerequisites
-        run: |
-          pip install junit_xml
+        run: pip3 install junit_xml
 
       - uses: actions/checkout@v2
         name: 🛒 Checkout
