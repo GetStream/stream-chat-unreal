@@ -43,6 +43,8 @@ jobs:
 
       - name: 🧪 Run tests
         run: ue4 test StreamChat -- -ReportExportPath="$PWD/Saved/Automation/Reports"
+        # https://github.com/adamrehn/ue4cli/issues/39
+        continue-on-error: true
 
       - name: 🏭 Generate JUnit report
         shell: python3 {0}
