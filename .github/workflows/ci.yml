@@ -42,7 +42,7 @@ jobs:
         run: ue4 build -NoPCH -NoSharedPCH -DisableUnity
 
       - name: 🧪 Run tests
-        run: UE4Editor $PWD/StreamChatSample.uproject /Game/Tests/Maps/Empty -buildmachine -stdout -fullstdoutlogoutput -forcelogflush -unattended -nopause -nosplash -nop4 -nullrhi -ExecCmds="automation RunTests Now StreamChat" -TestExit="Automation Test Queue Empty" -ReportExportPath=$PWD/Saved/Automation/Reports
+        run: ue4 test StreamChat
 
       - name: 🏭 Generate JUnit report
         shell: python3 {0}
