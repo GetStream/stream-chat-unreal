@@ -82,7 +82,7 @@ jobs:
 
   report:
     name: 🧪 Publish test results
-    needs: build
+    needs: build-plugin
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Download test report
