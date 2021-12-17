@@ -20,8 +20,8 @@ jobs:
         source: 'Source Plugins'
         clangFormatVersion: 12
 
-  build:
-    name: 🔨 Build
+  build-plugin:
+    name: 🔌 Build Plugin
     runs-on: [self-hosted]
 
     steps:
@@ -37,9 +37,6 @@ jobs:
         run: |
           cd Plugins/StreamChat
           ue4 build -NoPCH -NoSharedPCH -DisableUnity
-
-      - name: 🔨 Build sample projects
-        run: ue4 build -NoPCH -NoSharedPCH -DisableUnity
 
       - name: 🧪 Run tests
         run: ue4 test StreamChat -- -ReportExportPath="$PWD/Saved/Automation/Reports"
@@ -96,3 +93,16 @@ jobs:
         uses: EnricoMi/publish-unit-test-result-action@v1
         with:
           files: report.xml
+
+  build-samples:
+    name: 🤡 Build samples
+    runs-on: [self-hosted]
+
+    steps:
+      - uses: actions/checkout@v2
+        name: 🛒 Checkout
+        with:
+          lfs: true
+
+      - name: 🔨 Build sample projects
+        run: ue4 build -NoPCH -NoSharedPCH -DisableUnity
