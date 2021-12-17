@@ -96,6 +96,8 @@ FChatSocketEvents& FChatSocket::Events()
 void FChatSocket::CreateUnderlyingWebSocket(const bool bRefreshToken)
 {
     const FString Url = BuildUrl(bRefreshToken);
+    // Ensure WebSockets module is actually loaded
+    FModuleManager::Get().LoadModule(TEXT("WebSockets"));
     WebSocket = FWebSocketsModule::Get().CreateWebSocket(Url, TEXT("wss"));
     UE_LOG(LogChatSocket, Log, TEXT("WebSocket configured with URL: %s"), *Url);
 }
