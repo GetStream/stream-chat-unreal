@@ -39,7 +39,7 @@ jobs:
       - name: 📦 Package
         run: |
           sed -i '' 's|/Engine/Maps/Entry.Entry|${{ matrix.map }}|' Config/DefaultEngine.ini
-          ue4 package Shipping -platform=${{ matrix.platform }}
+          ue4 package Shipping -platform=${{ matrix.platform }} -mapstocook="${{ matrix.map }}"
 
       - uses: actions/upload-artifact@v2
         with:
