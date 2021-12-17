@@ -4,6 +4,7 @@
 
 #include "HttpClient.h"
 #include "HttpModule.h"
+#include "Interfaces/IPluginManager.h"
 #include "QueryParameters.h"
 #include "QueryUtils.h"
 #include "String/ParseTokens.h"
@@ -18,6 +19,14 @@ FRequestBuilder::FRequestBuilder(const TSharedRef<const FHttpClient>& InClient, 
 
     // Set some reasonable defaults
     Request->SetHeader(TEXT("User-Agent"), TEXT("X-UnrealEngine-Agent"));
+    static FString StreamClient;
+    if (StreamClient.IsEmpty())
+    {
+        const TSharedPtr<IPlugin> Plugin = IPluginManager::Get().FindPlugin(TEXT("StreamChat"));
+        const FString& Version = Plugin->GetDescriptor().VersionName;
+        StreamClient = FString::Printf(TEXT("stream-chat-unreal-%s"), *Version);
+    }
+    Request->SetHeader(TEXT("X-Stream-Client"), StreamClient);
 }
 
 FRequestBuilder& FRequestBuilder::Header(const FQueryParameters& Headers)
@@ -50,6 +59,10 @@ void FRequestBuilder::Send(TFunction<void(const FHttpResponse&)> Callback)
     Client->OnRequestDelegate.Broadcast(*this);
     SendInternal();
     UE_LOG(LogHttpClient, Log, TEXT("Sent HTTP request [Url=%s]"), *Request->GetURL());
+    for (const FString& Header : Request->GetAllHeaders())
+    {
+        UE_LOG(LogHttpClient, Log, TEXT("[Header=%s]"), *Header);
+    }
 }
 
 void FRequestBuilder::Resend()
