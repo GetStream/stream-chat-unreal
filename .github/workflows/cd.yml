@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       build-configuration:
-        description: 'The Unreal Engine build configuration'
+        description: 'Unreal Engine build configuration'
         required: false
         default: Shipping
         options:
@@ -50,6 +50,10 @@ jobs:
         run: |
           sed -i '' 's|/Engine/Maps/Entry.Entry|${{ matrix.map }}|' Config/DefaultEngine.ini
           ue4 package ${{ github.event.inputs.build-configuration }} -platform=${{ matrix.platform }} -mapstocook="${{ matrix.map }}"
+      
+      - name: Make executable
+        if: ${{ matrix.platform == 'Mac' }}
+        run: chmod +x dist/${{ matrix.path }}/StreamChatSample-${{ matrix.platform }}-${{ github.event.inputs.build-configuration }}.app/Contents/MacOS/StreamChatSample-${{ matrix.platform }}-${{ github.event.inputs.build-configuration }}
 
       - uses: actions/upload-artifact@v2
         with:
