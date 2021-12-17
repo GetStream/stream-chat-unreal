@@ -46,7 +46,14 @@ jobs:
         with:
           lfs: true
 
+      - name: 📦 Package for distribution
+        if: ${{ github.event.inputs.build-configuration }} == 'Shipping' }}
+        run: |
+          sed -i '' 's|/Engine/Maps/Entry.Entry|${{ matrix.map }}|' Config/DefaultEngine.ini
+          ue4 package ${{ github.event.inputs.build-configuration }} -platform=${{ matrix.platform }} -distribution -mapstocook="${{ matrix.map }}"
+
       - name: 📦 Package
+        if: ${{ github.event.inputs.build-configuration }} != 'Shipping' }}
         run: |
           sed -i '' 's|/Engine/Maps/Entry.Entry|${{ matrix.map }}|' Config/DefaultEngine.ini
           ue4 package ${{ github.event.inputs.build-configuration }} -platform=${{ matrix.platform }} -mapstocook="${{ matrix.map }}"
