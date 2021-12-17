@@ -5,6 +5,7 @@
 #include "AdditionalFields.h"
 #include "Internationalization/Culture.h"
 #include "JsonObjectWrapper.h"
+#include "Misc/FeedbackContext.h"
 #include "NamingConventionConversion.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
@@ -419,7 +420,7 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
 
             FString ImportTextString = JsonValue->AsString();
             const TCHAR* ImportTextPtr = *ImportTextString;
-            if (!TheCppStructOps->ImportTextItem(ImportTextPtr, OutValue, PPF_None, nullptr, reinterpret_cast<FOutputDevice*>(GWarn)))
+            if (!TheCppStructOps->ImportTextItem(ImportTextPtr, OutValue, PPF_None, nullptr, GWarn))
             {
                 // Fall back to trying the tagged property approach if custom ImportTextItem couldn't get it done
                 Property->ImportText(ImportTextPtr, OutValue, PPF_None, nullptr);
