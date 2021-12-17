@@ -5,8 +5,18 @@ on:
   push:
     branches: [ main ]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      build-configuration:
+        description: 'The Unreal Engine build configuration'
+        required: false
+        default: Shipping
+        options:
+          - Debug
+          - DebugGame
+          - Development
+          - Shipping
+          - Test
 
 jobs:
   samples:
@@ -39,7 +49,7 @@ jobs:
       - name: 📦 Package
         run: |
           sed -i '' 's|/Engine/Maps/Entry.Entry|${{ matrix.map }}|' Config/DefaultEngine.ini
-          ue4 package Shipping -platform=${{ matrix.platform }} -mapstocook="${{ matrix.map }}"
+          ue4 package ${{ github.event.inputs.build-configuration }} -platform=${{ matrix.platform }} -mapstocook="${{ matrix.map }}"
 
       - uses: actions/upload-artifact@v2
         with:
