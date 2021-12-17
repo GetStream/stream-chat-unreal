@@ -18,6 +18,8 @@ public class HttpRequests : ModuleRules
         PrivateDependencyModuleNames.AddRange(new[] {
 			"Core",
             "CoreUObject",
+            // For stream chat plugin version
+			"Projects",
         });
     }
 }

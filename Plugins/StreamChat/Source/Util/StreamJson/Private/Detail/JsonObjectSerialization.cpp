@@ -47,6 +47,18 @@ TSharedPtr<FJsonValue> ApplyNamingConventionToValue(FProperty* Property, const v
     }
     return nullptr;
 }
+FString ApplyNamingConventionToPropertyName(const FString& PropertyName, ENamingConvention NamingConvention)
+{
+    if (NamingConvention == ENamingConvention::UpperCamelCase)
+    {
+        return NamingConventionConversion::ConvertPropertyNameToUpperCamelCase(PropertyName);
+    }
+    if (NamingConvention == ENamingConvention::SnakeCase)
+    {
+        return NamingConventionConversion::ConvertPropertyNameToSnakeCase(PropertyName);
+    }
+    return PropertyName;
+}
 }    // namespace
 
 template <class CharType, class PrintPolicy>
@@ -88,22 +100,13 @@ bool JsonObjectSerialization::UStructToJsonAttributes(
             continue;
         }
 
-        FString VariableName = Property->GetName();
-        if (NamingConvention == ENamingConvention::UpperCamelCase)
-        {
-            VariableName = NamingConventionConversion::ConvertPropertyNameToUpperCamelCase(VariableName);
-        }
-        if (NamingConvention == ENamingConvention::SnakeCase)
-        {
-            VariableName = NamingConventionConversion::ConvertPropertyNameToSnakeCase(VariableName);
-        }
-
         // Flatten additional fields into outer struct
         if (const FAdditionalFields* Fields = FAdditionalFields::FromProperty(Struct, Property))
         {
             for (auto&& Elem : Fields->GetFields())
             {
-                OutJsonAttributes.Add(Elem.Key.ToString(), Elem.Value);
+                const FString Key = ApplyNamingConventionToPropertyName(Elem.Key.ToString(), NamingConvention);
+                OutJsonAttributes.Add(Key, Elem.Value);
             }
             continue;
         }
@@ -120,6 +123,7 @@ bool JsonObjectSerialization::UStructToJsonAttributes(
         }
 
         // set the value on the output object
+        const FString VariableName = ApplyNamingConventionToPropertyName(Property->GetName(), NamingConvention);
         OutJsonAttributes.Add(VariableName, JsonValue);
     }
 

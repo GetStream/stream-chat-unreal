@@ -5,6 +5,7 @@
 #include "Dom/JsonObject.h"
 #include "Dom/JsonValue.h"
 #include "JsonObjectWrapper.h"
+#include "NamingConventionConversion.h"
 #include "StreamJson.h"
 
 namespace
@@ -63,7 +64,8 @@ TSharedRef<FJsonObject> FFilter::ToJsonObject() const
         // { key: { $<operator>: <value> } }
         const TSharedPtr<FJsonObject> InnerObject = MakeShared<FJsonObject>();
         InnerObject->SetField(AsString[Operator], Value);
-        JsonObject->SetObjectField(Field.ToString(), InnerObject);
+        const FString Key = NamingConventionConversion::ConvertPropertyNameToSnakeCase(Field.ToString());
+        JsonObject->SetObjectField(Key, InnerObject);
     }
 
     return JsonObject;
