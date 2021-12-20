@@ -47,6 +47,7 @@ jobs:
           lfs: true
 
       - name: 📦 Package
+        shell: bash
         run: |
           # Set startup map
           sed -i '' 's|/Engine/Maps/Entry.Entry|${{ matrix.map }}|' Config/DefaultEngine.ini
