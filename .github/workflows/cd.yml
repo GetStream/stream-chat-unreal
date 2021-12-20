@@ -53,11 +53,13 @@ jobs:
 
           ue4 package ${{ github.event.inputs.build-configuration }} -platform=${{ matrix.platform }} -mapstocook="${{ matrix.map }}" |
             sed 's/.*LogInit: Display: \(.*\): Warning: \(.*\)/::warning title=\1::\2/'
+            sed 's/.*LogInit: Display: \(.*\): Error: \(.*\)/::error title=\1::\2/'
+            sed 's/.*ERROR: \(.*\)/::error::\1/'
+     
       
-      - name: Make executable
-        if: ${{ matrix.platform == 'Mac' }}
-        run: chmod +x dist/${{ matrix.path }}/StreamChatSample-${{ matrix.platform }}-${{ github.event.inputs.build-configuration }}.app/Contents/MacOS/StreamChatSample-${{ matrix.platform }}-${{ github.event.inputs.build-configuration }}
-
+     
+     
+     
       - uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.what }}-${{ matrix.platform }}
