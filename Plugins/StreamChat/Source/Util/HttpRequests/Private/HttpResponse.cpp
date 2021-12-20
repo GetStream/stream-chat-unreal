@@ -4,6 +4,11 @@
 
 #include "Interfaces/IHttpResponse.h"
 
-FHttpResponse::FHttpResponse(const FHttpResponsePtr Response) : StatusCode(Response->GetResponseCode()), Text(Response->GetContentAsString())
+FHttpResponse::FHttpResponse(const FHttpResponsePtr Response)
 {
+    if (Response)
+    {
+        StatusCode = Response->GetResponseCode();
+        Text = Response->GetContentAsString();
+    }
 }
