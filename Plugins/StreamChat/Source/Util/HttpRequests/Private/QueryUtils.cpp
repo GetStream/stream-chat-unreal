@@ -62,6 +62,11 @@ TMap<FString, FString> QueryUtils::ParseQueryFromUrl(const FString& Url)
 
 FString QueryUtils::AddQueryToUrl(const FString& Url, const FQueryParameters& Parameters)
 {
+    if (Parameters.Num() == 0)
+    {
+        return Url;
+    }
+
     FStringView Path, Query, Fragment;
     SplitUrl(Url, Path, Query, Fragment);
 
@@ -74,8 +79,9 @@ FString QueryUtils::AddQueryToUrl(const FString& Url, const FQueryParameters& Pa
         ExistingParams.Emplace(Pair.Key, Pair.Value.ToString());
     }
 
-    FString Result(Path);
+    FString Result;
     Result.Reserve(Url.Len());
+    Result.Append(Path);
 
     Result.AppendChar(TEXT('?'));
     for (auto It = ExistingParams.CreateConstIterator(); It;)
