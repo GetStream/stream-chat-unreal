@@ -50,7 +50,11 @@ jobs:
         shell: bash
         run: |
           # Set startup map
-          sed -i '' 's|/Engine/Maps/Entry.Entry|${{ matrix.map }}|' Config/DefaultEngine.ini
+          if [[ "$OSTYPE" == "darwin"* ]]; then
+            sed -i '' 's|/Engine/Maps/Entry.Entry|${{ matrix.map }}|' Config/DefaultEngine.ini
+          else
+            sed -i 's|/Engine/Maps/Entry.Entry|${{ matrix.map }}|' Config/DefaultEngine.ini
+          fi
 
           ue4 package ${{ github.event.inputs.build-configuration }} -platform=${{ matrix.platform }} -mapstocook="${{ matrix.map }}" |
             sed 's/.*LogInit: Display: \(.*\): Warning: \(.*\)/::warning title=\1::\2/'
