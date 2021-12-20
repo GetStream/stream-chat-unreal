@@ -52,9 +52,6 @@ jobs:
           # Set startup map
           sed -i '' 's|/Engine/Maps/Entry.Entry|${{ matrix.map }}|' Config/DefaultEngine.ini
 
-          # Ensure `ue4 package` exit code is returned
-          set -o pipefail
-
           ue4 package ${{ github.event.inputs.build-configuration }} -platform=${{ matrix.platform }} -mapstocook="${{ matrix.map }}" |
             sed 's/.*LogInit: Display: \(.*\): Warning: \(.*\)/::warning title=\1::\2/'
             sed 's/.*LogInit: Display: \(.*\): Error: \(.*\)/::error title=\1::\2/'
