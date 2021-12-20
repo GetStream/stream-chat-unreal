@@ -88,14 +88,6 @@
 			"Enabled": false
 		},
 		{
-			"Name": "MagicLeapPassableWorld",
-			"Enabled": false
-		},
-		{
-			"Name": "MagicLeap",
-			"Enabled": false
-		},
-		{
 			"Name": "GeometryProcessing",
 			"Enabled": false
 		},
@@ -108,7 +100,11 @@
 			"Enabled": false
 		},
 		{
-			"Name": "MagicLeap",
+			"Name": "MagicLeapLightEstimation",
+			"Enabled": false
+		},
+		{
+			"Name": "MLSDK",
 			"Enabled": false
 		},
 		{
@@ -116,11 +112,7 @@
 			"Enabled": false
 		},
 		{
-			"Name": "MagicLeapLightEstimation",
-			"Enabled": false
-		},
-		{
-			"Name": "MLSDK",
+			"Name": "MagicLeap",
 			"Enabled": false
 		}
 	]
