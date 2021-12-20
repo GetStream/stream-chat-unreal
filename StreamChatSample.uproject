@@ -116,6 +116,50 @@
 			"Enabled": false
 		},
 		{
+			"Name": "MagicLeapBLE",
+			"Enabled": false
+		},
+		{
+			"Name": "MagicLeapCamera",
+			"Enabled": false
+		},
+		{
+			"Name": "MagicLeapConnections",
+			"Enabled": false
+		},
+		{
+			"Name": "MagicLeapContacts",
+			"Enabled": false
+		},
+		{
+			"Name": "MagicLeapDispatch",
+			"Enabled": false
+		},
+		{
+			"Name": "MagicLeapMedia",
+			"Enabled": false
+		},
+		{
+			"Name": "MagicLeapMovement",
+			"Enabled": false
+		},
+		{
+			"Name": "MagicLeapMusicService",
+			"Enabled": false
+		},
+		{
+			"Name": "MagicLeapNetworking",
+			"Enabled": false
+		},
+		{
+			"Name": "MagicLeapSharedFile",
+			"Enabled": false
+		},
+		{
+			"Name": "MagicLeapTablet",
+			"Enabled": false
+		},
+		{
 			"Name": "MagicLeap",
 			"Enabled": false
 		}
