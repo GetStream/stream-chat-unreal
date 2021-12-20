@@ -106,6 +106,22 @@
 		{
 			"Name": "OpenImageDenoise",
 			"Enabled": false
+		},
+		{
+			"Name": "MagicLeap",
+			"Enabled": false
+		},
+		{
+			"Name": "MagicLeapPassableWorld",
+			"Enabled": false
+		},
+		{
+			"Name": "MagicLeapLightEstimation",
+			"Enabled": false
+		},
+		{
+			"Name": "MLSDK",
+			"Enabled": false
 		}
 	]
 }
