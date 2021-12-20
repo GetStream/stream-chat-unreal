@@ -65,6 +65,8 @@ private:
 
     TSharedPtr<const FHttpClient> Client;
     FHttpRequestPtr Request;
+    FString BaseUrl;
+    FQueryParameters QueryParameters;
     TFunction<void(const FHttpResponse&)> RetainedCallback;
 };
 

@@ -11,10 +11,9 @@
 
 DEFINE_LOG_CATEGORY(LogHttpClient);
 
-FRequestBuilder::FRequestBuilder(const TSharedRef<const FHttpClient>& InClient, const FString& Verb, const FString& Url) : Client(InClient)
+FRequestBuilder::FRequestBuilder(const TSharedRef<const FHttpClient>& InClient, const FString& Verb, const FString& Url) : Client(InClient), BaseUrl(Url)
 {
     Request = FHttpModule::Get().CreateRequest();
-    Request->SetURL(Url);
     Request->SetVerb(Verb);
 
     // Set some reasonable defaults
@@ -46,14 +45,12 @@ FRequestBuilder& FRequestBuilder::Body(const FString& Text)
 
 FRequestBuilder& FRequestBuilder::Query(const FQueryParameters& Query)
 {
-    const FString NewUrl = QueryUtils::AddQueryToUrl(Request->GetURL(), Query);
-
-    Request->SetURL(NewUrl);
+    QueryParameters.Append(Query);
 
     return *this;
 }
 
-void FRequestBuilder::Send(TFunction<void(const FHttpResponse&)> Callback)
+void FRequestBuilder::Send(const TFunction<void(const FHttpResponse&)> Callback)
 {
     RetainedCallback = Callback;
     Client->OnRequestDelegate.Broadcast(*this);
@@ -102,5 +99,8 @@ void FRequestBuilder::SendInternal()
                 RequestBuilder.Client->OnErrorDelegate.Broadcast(HttpResponse, RequestBuilder);
             }
         });
+
+    const FString Url = QueryUtils::AddQueryToUrl(BaseUrl, QueryParameters);
+    Request->SetURL(Url);
     Request->ProcessRequest();
 }
