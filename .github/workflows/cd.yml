@@ -76,7 +76,7 @@ jobs:
           security unlock-keychain -p qwerty build.keychain
           security import certificate.p12 -k build.keychain -P $MACOS_CERTIFICATE_PWD -T /usr/bin/codesign
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k qwerty build.keychain
-          /usr/bin/codesign --force -s $MACOS_IDENTITY_ID ./dist/${{ matrix.path }} -v
+          /usr/bin/codesign --force -s $MACOS_IDENTITY_ID ./dist/${{ matrix.path }}/StreamChatSample-${{ matrix.platform }}-${{ github.event.inputs.build-configuration }}.app -v
 
       - name: 📇 Tar files
         if: ${{ matrix.platform == 'Mac' }}
