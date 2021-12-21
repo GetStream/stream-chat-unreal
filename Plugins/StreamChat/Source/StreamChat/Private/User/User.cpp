@@ -24,7 +24,7 @@ FUser::operator FUserObjectDto() const
     return {Id, bOnline, CreatedAt, UpdatedAt, LastActive, Name, Image};
 }
 
-FUser::FUser(const FString& InId) : Id(InId), bOnline(false)
+FUser::FUser(const FString& InId) : Id(InId)
 {
 }
 
