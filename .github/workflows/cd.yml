@@ -64,7 +64,7 @@ jobs:
             sed 's/.*LogInit: Display: \(.*\): Error: \(.*\)/::error title=\1::\2/'
             sed 's/.*ERROR: \(.*\)/::error::\1/'
         
-      - name: Codesign executable
+      - name: 🔏 Codesign executable
         if: ${{ matrix.platform == 'Mac' }}
         env: 
           MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
@@ -78,7 +78,7 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k qwerty build.keychain
           /usr/bin/codesign --force -s $MACOS_IDENTITY_ID ./dist/${{ matrix.path }} -v
 
-      - name: Tar files
+      - name: 📇 Tar files
         if: ${{ matrix.platform == 'Mac' }}
         run: tar -cvf ${{ matrix.what }}-${{ matrix.platform }}.tar -C dist/${{ matrix.path }} .
 
