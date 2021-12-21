@@ -63,6 +63,19 @@ jobs:
             sed 's/.*LogInit: Display: \(.*\): Warning: \(.*\)/::warning title=\1::\2/'
             sed 's/.*LogInit: Display: \(.*\): Error: \(.*\)/::error title=\1::\2/'
             sed 's/.*ERROR: \(.*\)/::error::\1/'
+        
+      - name: Codesign executable
+        if: ${{ matrix.platform == 'Mac' }}
+        env: 
+          MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
+          MACOS_CERTIFICATE_PWD: ${{ secrets.MACOS_CERTIFICATE_PWD }}
+        run: |
+          echo $MACOS_CERTIFICATE | base64 --decode > certificate.p12
+          security create-keychain -p qwerty build.keychain security default-keychain -s build.keychain
+          security unlock-keychain -p qwerty build.keychain
+          security import certificate.p12 -k build.keychain -P $MACOS_CERTIFICATE_PWD -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k qwerty build.keychain
+          /usr/bin/codesign --force -s $MACOS_IDENTITY_ID ./dist/${{ matrix.path }} -v
 
       - name: Tar files
         if: ${{ matrix.platform == 'Mac' }}
