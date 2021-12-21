@@ -64,11 +64,20 @@ jobs:
             sed 's/.*LogInit: Display: \(.*\): Error: \(.*\)/::error title=\1::\2/'
             sed 's/.*ERROR: \(.*\)/::error::\1/'
 
-      - name: Make executable
+      - name: Tar files
         if: ${{ matrix.platform == 'Mac' }}
-        run: chmod +x dist/${{ matrix.path }}/StreamChatSample-${{ matrix.platform }}-${{ github.event.inputs.build-configuration }}.app/Contents/MacOS/StreamChatSample-${{ matrix.platform }}-${{ github.event.inputs.build-configuration }}
+        run: tar -cvf ${{ matrix.what }}-${{ matrix.platform }}.tar dist/${{ matrix.path }}
+
+      - uses: actions/upload-artifact@v2
+        if: ${{ matrix.platform == 'Mac' }}
+        with:
+          name: ${{ matrix.what }}-${{ matrix.platform }}
+          path: |
+            ${{ matrix.what }}-${{ matrix.platform }}.tar
+        name: 📁 Upload artifact
      
       - uses: actions/upload-artifact@v2
+        if: ${{ matrix.platform != 'Mac' }}
         with:
           name: ${{ matrix.what }}-${{ matrix.platform }}
           path: |
