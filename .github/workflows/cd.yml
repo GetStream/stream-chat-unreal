@@ -69,6 +69,7 @@ jobs:
         env: 
           MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
           MACOS_CERTIFICATE_PWD: ${{ secrets.MACOS_CERTIFICATE_PWD }}
+          MACOS_IDENTITY_ID: ${{ secrets.MACOS_IDENTITY_ID }}
         run: |
           echo $MACOS_CERTIFICATE | base64 --decode > certificate.p12
           # Allow already existing keychain
@@ -76,7 +77,6 @@ jobs:
           security unlock-keychain -p qwerty build.keychain
           security import certificate.p12 -k build.keychain -P $MACOS_CERTIFICATE_PWD -T /usr/bin/codesign
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k qwerty build.keychain
-          echo /usr/bin/codesign --force -s $MACOS_IDENTITY_ID dist/${{ matrix.path }}/StreamChatSample-${{ matrix.platform }}-${{ github.event.inputs.build-configuration }}.app -v
           /usr/bin/codesign --force -s $MACOS_IDENTITY_ID dist/${{ matrix.path }}/StreamChatSample-${{ matrix.platform }}-${{ github.event.inputs.build-configuration }}.app -v
 
       - name: 📇 Tar files
