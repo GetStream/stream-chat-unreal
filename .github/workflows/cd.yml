@@ -48,6 +48,9 @@ jobs:
 
       - name: 📦 Package
         shell: bash
+        env:
+          # Fix mingw trying to be smart and converting paths https://github.com/moby/moby/issues/24029#issuecomment-250412919
+          MSYS_NO_PATHCONV: 1
         run: |
           # Set startup map
           if [[ "$OSTYPE" == "darwin"* ]]; then
