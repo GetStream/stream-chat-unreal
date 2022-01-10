@@ -28,6 +28,7 @@ namespace
 {
 struct FQueryParameterToString
 {
+    bool bUrlEncode = true;
     FString operator()(const bool bValue) const
     {
         return LexToString(bValue);
@@ -46,12 +47,16 @@ struct FQueryParameterToString
 
     FString operator()(const FString& Value) const
     {
-        return FGenericPlatformHttp::UrlEncode(Value);
+        if (bUrlEncode)
+        {
+            return FGenericPlatformHttp::UrlEncode(Value);
+        }
+        return Value;
     }
 };
 }    // namespace
 
-FString FQueryParameter::ToString() const
+FString FQueryParameter::ToString(const bool bUrlEncode) const
 {
-    return Visit(FQueryParameterToString{}, Data);
+    return Visit(FQueryParameterToString{bUrlEncode}, Data);
 }

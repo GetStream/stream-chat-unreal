@@ -16,6 +16,7 @@ public class StreamChat : ModuleRules
 			"Json", // Filter
 			"JsonUtilities", // Filter
 			"StreamJson",
+			"Jwt",
 			"TokenProvider",
 		});
 

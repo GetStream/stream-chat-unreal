@@ -100,6 +100,9 @@ public:
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Client")
     const TArray<UChatChannel*>& GetChannels() const;
 
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Client")
+    static FString DevToken(const FString& UserId);
+
     UPROPERTY(EditAnywhere, Config, Category = "Stream Chat", meta = (DisplayName = "API Key"))
     FString ApiKey;
 
