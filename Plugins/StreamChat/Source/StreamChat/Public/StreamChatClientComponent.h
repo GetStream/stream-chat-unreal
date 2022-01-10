@@ -4,12 +4,12 @@
 
 #include "Channel/ChannelSortOption.h"
 #include "Channel/Filter.h"
+#include "Channel/PaginationOptions.h"
 #include "ChatSocketEvents.h"
 #include "Components/ActorComponent.h"
 #include "CoreMinimal.h"
 #include "Engine/LatentActionManager.h"
 #include "IChatSocket.h"
-#include "PaginationOptions.h"
 #include "User/User.h"
 #include "User/UserRef.h"
 

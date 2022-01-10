@@ -169,7 +169,8 @@ void UStreamChatClientComponent::QueryChannels(
         Util::Convert<FSortParamRequestDto>(SortOptions),
         {},
         {},
-        PaginationOptions);
+        PaginationOptions.Limit,
+        PaginationOptions.Offset);
 }
 
 void UStreamChatClientComponent::CreateChannel(
