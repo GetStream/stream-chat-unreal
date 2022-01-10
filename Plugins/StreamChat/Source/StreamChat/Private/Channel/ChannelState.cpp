@@ -12,6 +12,7 @@ FChannelState::FChannelState() = default;
 FChannelState::FChannelState(const FChannelStateResponseFieldsDto& Dto, UUserManager& UserManager)
     : Type{Dto.Channel.Type}
     , Id{Dto.Channel.Id}
+    , WatcherCount{Dto.WatcherCount}
     , Name{Dto.Channel.Name}
     , ImageUrl{Dto.Channel.Image}
     , Cid{Dto.Channel.Cid}
@@ -23,6 +24,9 @@ FChannelState::FChannelState(const FChannelStateResponseFieldsDto& Dto, UUserMan
 
 void FChannelState::Merge(const FChannelStateResponseFieldsDto& Dto, UUserManager& UserManager)
 {
+    WatcherCount = Dto.WatcherCount;
+    Name = Dto.Channel.Name;
+    ImageUrl = Dto.Channel.Image;
     const TArray<FMessage> NewMessages = Convert(Dto, UserManager);
     Messages.Insert(NewMessages, 0);
     SetMembers(UserManager, Dto.Members);

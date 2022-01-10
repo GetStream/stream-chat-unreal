@@ -51,6 +51,10 @@ struct STREAMCHAT_API FChannelState
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
     TArray<FMember> Members;
 
+    /// Number of channel watchers
+    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
+    int32 WatcherCount;
+
     /// The human-readable name of this channel
     // Not in spec so might not be set
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
