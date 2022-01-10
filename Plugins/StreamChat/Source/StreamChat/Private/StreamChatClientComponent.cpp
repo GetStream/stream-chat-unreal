@@ -168,11 +168,32 @@ void UStreamChatClientComponent::QueryChannels(
         Util::Convert<FSortParamRequestDto>(SortOptions));
 }
 
+void UStreamChatClientComponent::CreateChannel(
+    const TFunction<void(UChatChannel*)> Callback,
+    const FString& Type,
+    const TOptional<FString>& Id,
+    const TOptional<TArray<FString>>& Members,
+    const TOptional<FString>& Team)
+{
+    QueryChannel(Callback, Type, EChannelFlags::None, Id, Members, Team);
+}
+
 void UStreamChatClientComponent::WatchChannel(
-    TFunction<void(UChatChannel*)> Callback,
+    const TFunction<void(UChatChannel*)> Callback,
     const FString& Type,
     const TOptional<FString>& Id,
     const TOptional<TArray<FString>>& Members)
+{
+    QueryChannel(Callback, Type, EChannelFlags::State | EChannelFlags::Watch, Id, Members);
+}
+
+void UStreamChatClientComponent::QueryChannel(
+    TFunction<void(UChatChannel*)> Callback,
+    const FString& Type,
+    const EChannelFlags Flags,
+    const TOptional<FString>& Id,
+    const TOptional<TArray<FString>>& Members,
+    const TOptional<FString>& Team)
 {
     // TODO Can we return something from ConnectUser() that is required for this function to prevent ordering ambiguity?
     check(Socket->IsConnected());
@@ -194,8 +215,8 @@ void UStreamChatClientComponent::WatchChannel(
         },
         Type,
         Socket->GetConnectionId(),
-        EChannelFlags::State | EChannelFlags::Watch,
-        {Members.Get({})},
+        Flags,
+        {Members.Get({}), Team.Get(TEXT(""))},
         Id);
 }
 

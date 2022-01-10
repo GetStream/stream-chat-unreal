@@ -25,5 +25,7 @@ struct FChannelRequestDto
 
     // TODO OwnCapabilities
 
-    // TODO Team
+    /// Team the channel belongs to (if multi-tenant mode is enabled)
+    UPROPERTY()
+    FString Team;
 };
