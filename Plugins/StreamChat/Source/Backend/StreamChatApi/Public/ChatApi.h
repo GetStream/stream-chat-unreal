@@ -5,7 +5,6 @@
 #include "ChannelFlags.h"
 #include "CoreMinimal.h"
 #include "JsonObjectWrapper.h"
-#include "PaginationOptions.h"
 #include "Request/Channel/ChannelRequestDto.h"
 #include "Request/Channel/MessagePaginationParamsRequestDto.h"
 #include "Request/Channel/PaginationParamsRequestDto.h"
@@ -137,8 +136,9 @@ public:
      * Sorting is based on field and direction, multiple sorting options can be provided.
      * @param MemberLimit How many members should be included for each channel (Max 100)
      * @param MessageLimit How many messages should be included to each channel (Max 300)
+     * @param Limit The number of channels to return (max is 30, optional)
+     * @param Offset The pagination offset (max is 1000, optional)
      * @param Flags Additional actions to perform, like watch, or fetch presence. @see EChannelFlags
-     * @param PaginationOptions Limit and offset
      * @param Callback Called when response is received
      */
     void QueryChannels(
@@ -149,7 +149,8 @@ public:
         const TArray<FSortParamRequestDto>& SortOptions = {},
         TOptional<uint32> MemberLimit = {},
         TOptional<uint32> MessageLimit = {},
-        FPaginationOptions PaginationOptions = {}) const;
+        TOptional<uint32> Limit = {},
+        TOptional<uint32> Offset = {}) const;
 
     /**
      * @brief Search all messages

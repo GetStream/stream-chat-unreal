@@ -147,7 +147,8 @@ void FChatApi::QueryChannels(
     const TArray<FSortParamRequestDto>& SortOptions,
     const TOptional<uint32> MemberLimit,
     const TOptional<uint32> MessageLimit,
-    const FPaginationOptions PaginationOptions) const
+    TOptional<uint32> Limit,
+    TOptional<uint32> Offset) const
 {
     const FString Url = BuildUrl(TEXT("channels"));
 
@@ -159,10 +160,6 @@ void FChatApi::QueryChannels(
         EnumHasAnyFlags(Flags, EChannelFlags::State),
         EnumHasAnyFlags(Flags, EChannelFlags::Watch),
     };
-    if (PaginationOptions.Limit.IsSet())
-    {
-        Body.SetLimit(PaginationOptions.Limit.GetValue());
-    }
     if (MemberLimit.IsSet())
     {
         Body.SetMemberLimit(MemberLimit.GetValue());
@@ -171,9 +168,13 @@ void FChatApi::QueryChannels(
     {
         Body.SetMemberLimit(MessageLimit.GetValue());
     }
-    if (PaginationOptions.Offset.IsSet())
+    if (Limit.IsSet())
     {
-        Body.SetOffset(PaginationOptions.Offset.GetValue());
+        Body.SetLimit(Limit.GetValue());
+    }
+    if (Offset.IsSet())
+    {
+        Body.SetOffset(Offset.GetValue());
     }
 
     Client->Post(Url).Json(Body).Send(Callback);

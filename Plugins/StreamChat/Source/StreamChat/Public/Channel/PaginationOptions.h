@@ -6,9 +6,9 @@
 
 /**
  * @brief Options for pagination of channels
- * @ingroup StreamChatApi
+ * @ingroup StreamChat
  */
-struct STREAMCHATAPI_API FPaginationOptions
+struct STREAMCHAT_API FPaginationOptions
 {
     /// The number of channels to return (max is 30)
     TOptional<uint32> Limit;
