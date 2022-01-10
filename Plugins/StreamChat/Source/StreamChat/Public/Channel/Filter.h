@@ -16,6 +16,8 @@ struct FJsonObjectWrapper;
  */
 enum class EFilterOperator : uint8
 {
+    None,
+
     /// Matches values that are equal to a specified value.
     Equal,
 
@@ -150,6 +152,9 @@ struct STREAMCHAT_API FFilter
     static FFilter NotIn(const FName& Field, const TArray<float>& Values);
     /// Construct an $nin filter
     static FFilter NotIn(const FName& Field, const TArray<FString>& Values);
+
+    /// Construct an empty filter, e.g. {field:{}}
+    static FFilter Empty(const FName& Field);
 
     /// Check if this filter has been correctly initialized
     bool IsValid() const;

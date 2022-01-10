@@ -60,12 +60,21 @@ TSharedRef<FJsonObject> FFilter::ToJsonObject() const
     }
     else if (!Field.IsNone())
     {
-        // Normal filters are encoded in the following form:
-        // { key: { $<operator>: <value> } }
-        const TSharedPtr<FJsonObject> InnerObject = MakeShared<FJsonObject>();
-        InnerObject->SetField(AsString[Operator], Value);
-        const FString Key = NamingConventionConversion::ConvertPropertyNameToSnakeCase(Field.ToString());
-        JsonObject->SetObjectField(Key, InnerObject);
+        if (Operator == EFilterOperator::None)
+        {
+            // None filters are encoded in the following form:
+            // { <field>: {} }
+            JsonObject->SetField(Field.ToString(), MakeShared<FJsonValueObject>(MakeShared<FJsonObject>()));
+        }
+        else
+        {
+            // Normal filters are encoded in the following form:
+            // { key: { $<operator>: <value> } }
+            const TSharedPtr<FJsonObject> InnerObject = MakeShared<FJsonObject>();
+            InnerObject->SetField(AsString[Operator], Value);
+            const FString Key = NamingConventionConversion::ConvertPropertyNameToSnakeCase(Field.ToString());
+            JsonObject->SetObjectField(Key, InnerObject);
+        }
     }
 
     return JsonObject;
@@ -246,6 +255,14 @@ FFilter FFilter::NotIn(const FName& Field, const TArray<float>& Values)
 FFilter FFilter::NotIn(const FName& Field, const TArray<FString>& Values)
 {
     return MakeArrayComparison(EFilterOperator::NotIn, Field, Values);
+}
+
+FFilter FFilter::Empty(const FName& Field)
+{
+    FFilter Filter;
+    Filter.Operator = EFilterOperator::None;
+    Filter.Field = Field;
+    return Filter;
 }
 
 FFilter FFilter::MakeComparison(const EFilterOperator Operator, const FName& Field, const FString& Value)

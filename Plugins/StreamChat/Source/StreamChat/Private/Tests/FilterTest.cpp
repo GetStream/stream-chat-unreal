@@ -88,6 +88,12 @@ bool FConvertFilterToJsonTest::RunTest(const FString& Parameters)
         const FString ExpectedJson{TEXT(R"({"$nor":[{"key":{"$in":[1,2,4]}},{"key2":{"$eq":10}}]})")};
         TestEqual("$ne", Json, ExpectedJson);
     }
+    {
+        const FFilter Filter = FFilter::Empty(TEXT("team"));
+        const FString Json = Filter.ToJson();
+        const FString ExpectedJson{TEXT(R"({"team":{}})")};
+        TestEqual("empty", Json, ExpectedJson);
+    }
 
     return true;
 }
