@@ -18,6 +18,7 @@
 #include "TokenManager.h"
 #include "User/UserManager.h"
 #include "Util.h"
+#include "Jwt/Public/Jwt.h"
 
 UStreamChatClientComponent::UStreamChatClientComponent() : TokenManager(MakeShared<FTokenManager>())
 {
@@ -196,6 +197,11 @@ void UStreamChatClientComponent::WatchChannel(
         EChannelFlags::State | EChannelFlags::Watch,
         {Members.Get({})},
         Id);
+}
+
+FString UStreamChatClientComponent::DevToken(const FString& UserId)
+{
+    return Jwt::Development(UserId);
 }
 
 void UStreamChatClientComponent::UpdateMessage(const FString& Id, const FString& Text) const

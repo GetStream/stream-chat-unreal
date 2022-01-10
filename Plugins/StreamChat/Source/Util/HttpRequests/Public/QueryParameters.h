@@ -14,7 +14,7 @@ struct HTTPREQUESTS_API FQueryParameter
     FQueryParameter(const FString& Value);
     FQueryParameter(const TCHAR* Value);
 
-    FString ToString() const;
+    FString ToString(bool bUrlEncode = false) const;
 
 private:
     TVariant<bool, float, int32, FString> Data;

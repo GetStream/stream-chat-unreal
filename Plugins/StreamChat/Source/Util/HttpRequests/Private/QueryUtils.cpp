@@ -76,7 +76,7 @@ FString QueryUtils::AddQueryToUrl(const FString& Url, const FQueryParameters& Pa
     ExistingParams.Reserve(ExistingParams.Num() + Parameters.Num());
     for (auto& Pair : Parameters)
     {
-        ExistingParams.Emplace(Pair.Key, Pair.Value.ToString());
+        ExistingParams.Emplace(Pair.Key, Pair.Value.ToString(true));
     }
 
     FString Result;
