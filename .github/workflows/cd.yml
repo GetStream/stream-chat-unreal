@@ -72,8 +72,9 @@ jobs:
           MACOS_IDENTITY_ID: ${{ secrets.MACOS_IDENTITY_ID }}
         run: |
           echo $MACOS_CERTIFICATE | base64 --decode > certificate.p12
-          # Allow already existing keychain
-          security create-keychain -p qwerty build.keychain security default-keychain -s build.keychain || true
+          security delete-keychain build.keychain
+          security create-keychain -p qwerty build.keychain
+          security default-keychain -s build.keychain
           security unlock-keychain -p qwerty build.keychain
           security import certificate.p12 -k build.keychain -P $MACOS_CERTIFICATE_PWD -T /usr/bin/codesign
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k qwerty build.keychain
