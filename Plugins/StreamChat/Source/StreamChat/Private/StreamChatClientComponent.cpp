@@ -11,6 +11,7 @@
 #include "Event/Client/ConnectionRecoveredEvent.h"
 #include "Event/User/UserPresenceChangedEvent.h"
 #include "IChatSocket.h"
+#include "Jwt/Public/Jwt.h"
 #include "Request/Message/MessageRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
@@ -18,7 +19,6 @@
 #include "TokenManager.h"
 #include "User/UserManager.h"
 #include "Util.h"
-#include "Jwt/Public/Jwt.h"
 
 UStreamChatClientComponent::UStreamChatClientComponent() : TokenManager(MakeShared<FTokenManager>())
 {
