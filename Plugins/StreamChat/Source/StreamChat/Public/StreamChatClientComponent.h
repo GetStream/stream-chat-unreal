@@ -9,6 +9,7 @@
 #include "CoreMinimal.h"
 #include "Engine/LatentActionManager.h"
 #include "IChatSocket.h"
+#include "PaginationOptions.h"
 #include "User/User.h"
 #include "User/UserRef.h"
 
@@ -75,7 +76,8 @@ public:
     void QueryChannels(
         TFunction<void(const TArray<UChatChannel*>&)> Callback,
         TOptional<FFilter> Filter = {},
-        const TArray<FChannelSortOption>& SortOptions = {});
+        const TArray<FChannelSortOption>& SortOptions = {},
+        const FPaginationOptions& PaginationOptions = {});
 
     /**
     * Create a channel if it doesn't exist yet (if this user has the right permissions).
