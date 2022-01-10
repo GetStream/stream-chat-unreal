@@ -2,6 +2,8 @@
 
 #include "Jwt.h"
 
+#include "Misc/Base64.h"
+
 #define UI UI_UE
 #pragma push_macro("verify")
 #undef verify
