@@ -34,7 +34,7 @@ float GetReconnectDelay(const uint32 Attempt)
 FChatSocket::FChatSocket(const TSharedRef<FTokenManager>& TokenManager, const FString& ApiKey, const FString& Host, const FUserObjectDto& User)
     : ChatSocketEvents(MakeUnique<FChatSocketEvents>()), TokenManager(TokenManager), ApiKey(ApiKey), Host(Host)
 {
-    const FConnectRequestDto Request = {true, User.Id, User};
+    const FConnectRequestDto Request = {User};
     ConnectionRequestJson = Json::Serialize(Request);
     ConnectionRequestJson.ReplaceInline(TEXT(" "), TEXT("%20"));
 

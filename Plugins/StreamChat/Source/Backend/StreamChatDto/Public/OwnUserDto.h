@@ -34,6 +34,10 @@ struct STREAMCHATDTO_API FOwnUserDto
     UPROPERTY(Transient)
     FDateTime LastActive;
 
+    /// Whether a user should appear online or not
+    UPROPERTY(Transient)
+    bool bInvisible;
+
     // Not in the API spec, but common
     UPROPERTY(Transient)
     FString Name;
