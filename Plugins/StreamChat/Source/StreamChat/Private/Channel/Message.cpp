@@ -23,18 +23,12 @@ FMessage::FMessage(UUserManager& UserManager, const FMessageDto& Dto)
 {
 }
 
-FMessage::FMessage(const FMessageRequestDto& Dto, const FUserRef& SendingUser)
-    : Id{Dto.Id}
-    , Text{Dto.Text}
-    , State{EMessageSendState::Sending}    // Assume request dto => sending
-    , User{SendingUser}
-    , CreatedAt{FDateTime::UtcNow()}
-    , UpdatedAt{FDateTime::UtcNow()}
-    , AdditionalFields{Dto.AdditionalFields}
+FMessage::FMessage(const FString& Text)
+    : Id{FGuid::NewGuid().ToString(EGuidFormats::DigitsWithHyphens)}, Text{Text}, CreatedAt{FDateTime::UtcNow()}, UpdatedAt{FDateTime::UtcNow()}
 {
 }
 
-FMessage::operator FMessageRequestDto() const
+FMessageRequestDto FMessage::ToRequestDto(const FString& Cid) const
 {
-    return FMessageRequestDto{{}, {}, Id, {}, Reactions.GetScores(), false, Text};
+    return FMessageRequestDto{Cid, {}, Id, {}, Reactions.GetScores(), bIsSilent, Text, AdditionalFields};
 }

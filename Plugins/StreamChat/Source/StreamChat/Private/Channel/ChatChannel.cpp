@@ -50,27 +50,31 @@ UChatChannel* UChatChannel::Create(
     return Channel;
 }
 
-void UChatChannel::SendMessage(const FString& Text)
-{
-    SendMessageWithAdditionalFields(Text, {});
-}
-
-void UChatChannel::SendMessageWithAdditionalFields(const FString& Text, const FAdditionalFields& AdditionalFields)
+void UChatChannel::SendMessage(const FMessage& Message)
 {
     // TODO Wait for attachments to upload
 
-    const FMessageRequestDto Request{
-        State.Cid,
-        {},
-        FGuid::NewGuid().ToString(EGuidFormats::DigitsWithHyphens),
-        {},
-        {},
-        false,
-        Text,
-        AdditionalFields,
-    };
-    const FMessage LocalMessage{Request, UUserManager::Get()->GetCurrentUser()};
-    AddMessage(LocalMessage);
+    FMessage NewMessage = Message;
+    NewMessage.State = EMessageSendState::Sending;
+    if (NewMessage.Id.IsEmpty())
+    {
+        NewMessage.Id = FGuid::NewGuid().ToString(EGuidFormats::DigitsWithHyphens);
+    }
+    if (!NewMessage.User.IsValid())
+    {
+        NewMessage.User = UUserManager::Get()->GetCurrentUser();
+    }
+    if (NewMessage.CreatedAt.GetTicks() == 0)
+    {
+        NewMessage.CreatedAt = FDateTime::UtcNow();
+    }
+    if (NewMessage.UpdatedAt.GetTicks() == 0)
+    {
+        NewMessage.UpdatedAt = FDateTime::UtcNow();
+    }
+
+    const FMessageRequestDto Request = NewMessage.ToRequestDto(State.Cid);
+    AddMessage(NewMessage);
     Api->SendNewMessage(
         State.Type,
         State.Id,
@@ -81,7 +85,7 @@ void UChatChannel::SendMessageWithAdditionalFields(const FString& Text, const FA
             // No need to add message here as the backend will send a websocket message
             UE_LOG(LogTemp, Log, TEXT("Sent message [Id=%s]"), *Response.Message.Id);
         });
-    MessageSent.Broadcast(LocalMessage);
+    MessageSent.Broadcast(NewMessage);
 
     // TODO Cooldown?
     // TODO Retry logic
@@ -95,8 +99,9 @@ void UChatChannel::UpdateMessage(const FMessage& Message)
     UpdatedMessage.State = EMessageSendState::Updating;
     AddMessage(UpdatedMessage);
 
+    const FMessageRequestDto Request = UpdatedMessage.ToRequestDto(State.Cid);
     Api->UpdateMessage(
-        Util::Convert<FMessageRequestDto>(UpdatedMessage),
+        Request,
         [WeakThis = TWeakObjectPtr<UChatChannel>(this)](const FMessageResponseDto& Response)
         {
             if (WeakThis.IsValid())
