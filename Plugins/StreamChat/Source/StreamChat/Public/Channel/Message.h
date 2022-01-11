@@ -69,18 +69,17 @@ struct STREAMCHAT_API FMessage
     FMessage();
     /// Create a message from a DTO from the API
     explicit FMessage(UUserManager&, const FMessageDto&);
-    /// Convert a message into a update request for sending to the API
-    explicit operator FMessageRequestDto() const;
-    /// Convert a message from a local request *before* sending it to the API
-    explicit FMessage(const FMessageRequestDto&, const FUserRef& SendingUser);
+    /// Create a new message from a message string
+    explicit FMessage(const FString& Text);
+    /// Convert a message into a create/update request for sending to the API
+    FMessageRequestDto ToRequestDto(const FString& Cid) const;
 
-    /// The message ID. This is either created by Stream or set client side when
-    /// the message is added.
+    /// The message ID. This is either created by the Stream API or set client side when the message is created.
     UPROPERTY()
     FString Id;
 
     /// The text of this message
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat|Message")
     FString Text;
 
     /// Sending state of the message
@@ -117,7 +116,10 @@ struct STREAMCHAT_API FMessage
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
     bool bIsRead = false;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Message")
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat|Message", AdvancedDisplay)
+    bool bIsSilent = false;
+
+    UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|Message", AdvancedDisplay)
     FAdditionalFields AdditionalFields;
 
     // TODO rest of fields

@@ -64,7 +64,8 @@ void UFadingMessageListWidget::TextCommitted(const FText& Text, ETextCommit::Typ
 
     if (!Text.IsEmpty())
     {
-        Channel->SendMessage(Text.ToString());
+        const FMessage Message{Text.ToString()};
+        Channel->SendMessage(Message);
     }
 
     CloseChat();
