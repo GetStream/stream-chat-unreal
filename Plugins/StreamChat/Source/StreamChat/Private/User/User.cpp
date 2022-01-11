@@ -5,23 +5,35 @@
 #include "OwnUserDto.h"
 #include "UserObjectDto.h"
 
-#include <cwctype>
-
 FUser::FUser() = default;
 
 FUser::FUser(const FUserObjectDto& Dto)
-    : Id{Dto.Id}, bOnline{Dto.bOnline}, CreatedAt(Dto.CreatedAt), UpdatedAt{Dto.UpdatedAt}, LastActive{Dto.LastActive}, Name{Dto.Name}, Image{Dto.Image}
+    : Id{Dto.Id}
+    , bOnline{Dto.bOnline}
+    , bInvisible{Dto.bInvisible}
+    , CreatedAt(Dto.CreatedAt)
+    , UpdatedAt{Dto.UpdatedAt}
+    , LastActive{Dto.LastActive}
+    , Name{Dto.Name}
+    , Image{Dto.Image}
 {
 }
 
 FUser::FUser(const FOwnUserDto& Dto)
-    : Id{Dto.Id}, bOnline{Dto.bOnline}, CreatedAt(Dto.CreatedAt), UpdatedAt{Dto.UpdatedAt}, LastActive{Dto.LastActive}, Name{Dto.Name}, Image{Dto.Image}
+    : Id{Dto.Id}
+    , bOnline{Dto.bOnline}
+    , bInvisible{Dto.bInvisible}
+    , CreatedAt(Dto.CreatedAt)
+    , UpdatedAt{Dto.UpdatedAt}
+    , LastActive{Dto.LastActive}
+    , Name{Dto.Name}
+    , Image{Dto.Image}
 {
 }
 
 FUser::operator FUserObjectDto() const
 {
-    return {Id, bOnline, CreatedAt, UpdatedAt, LastActive, Name, Image};
+    return {Id, bOnline, CreatedAt, UpdatedAt, LastActive, bInvisible, Name, Image};
 }
 
 FUser::FUser(const FString& InId) : Id(InId)

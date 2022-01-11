@@ -18,12 +18,6 @@ struct FConnectRequestDto
     GENERATED_BODY()
 
     UPROPERTY()
-    bool bServerDeterminesConnectionId;
-
-    UPROPERTY()
-    FString ClientId;
-
-    UPROPERTY()
     FUserObjectDto UserDetails;
 
     UPROPERTY()
