@@ -148,22 +148,12 @@ public:
 
 public:
     /**
-     * @brief Send a message on this channel as the currently logged-in user
+     * @brief Send a message on this channel
      *
-     * @param Text The text of the message
+     * @param Message A message struct containing information of the message to be sent
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message")
-    void SendMessage(const FString& Text);
-
-    /**
-     * @brief Send a message on this channel as the currently logged-in user.
-     *
-     * This variant allows for setting additional custom fields on the message.
-     *
-     * @param Text The text of the message
-     */
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message")
-    void SendMessageWithAdditionalFields(const FString& Text, const FAdditionalFields& AdditionalFields);
+    void SendMessage(const FMessage& Message);
 
     /**
      * @brief Update (user might see "Edit") a message which exists on this channel

@@ -133,7 +133,7 @@ void UMessageComposerWidget::SendMessage()
     }
     else
     {
-        Channel->SendMessage(Text);
+        Channel->SendMessage(FMessage{Text});
         MessageInput->SetText(FText::GetEmpty());
     }
 }
