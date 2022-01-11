@@ -85,11 +85,15 @@ void UStreamChatClientComponent::QueryChannels(
     const TArray<FChannelSortOption>& SortOptions,
     const UObject* WorldContextObject,
     const FLatentActionInfo LatentInfo,
-    TArray<UChatChannel*>& OutChannels)
+    TArray<UChatChannel*>& OutChannels,
+    const int32 Flags)
 {
     const TOptional<FFilter> OptionalFilter = Filter.IsValid() ? Filter : TOptional<FFilter>{};
     TCallbackAction<TArray<UChatChannel*>>::CreateLatentAction(
-        WorldContextObject, LatentInfo, OutChannels, [&](auto Callback) { QueryChannels(Callback, OptionalFilter, SortOptions); });
+        WorldContextObject,
+        LatentInfo,
+        OutChannels,
+        [&](auto Callback) { QueryChannels(Callback, OptionalFilter, SortOptions, static_cast<EChannelFlags>(Flags)); });
 }
 
 void UStreamChatClientComponent::WatchChannel(
@@ -132,6 +136,7 @@ void UStreamChatClientComponent::QueryChannels(
     TFunction<void(const TArray<UChatChannel*>&)> Callback,
     const TOptional<FFilter> Filter,
     const TArray<FChannelSortOption>& SortOptions,
+    const EChannelFlags Flags,
     const FPaginationOptions& PaginationOptions)
 {
     // TODO Can we return something from ConnectUser() that is required for this function to prevent ordering ambiguity?
@@ -164,7 +169,7 @@ void UStreamChatClientComponent::QueryChannels(
             }
         },
         Socket->GetConnectionId(),
-        EChannelFlags::State | EChannelFlags::Watch | EChannelFlags::Presence,
+        Flags,
         FilterJson,
         Util::Convert<FSortParamRequestDto>(SortOptions),
         {},

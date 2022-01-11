@@ -4,10 +4,13 @@
 
 #include "CoreMinimal.h"
 
+#include "ChannelFlags.generated.h"
+
 /**
  * @brief Additional channel actions to perform when requesting channel data from API
  * @ingroup StreamChatApi
  */
+UENUM(BlueprintType, meta = (Bitflags, UseEnumValuesAsMaskValuesInEditor = "true"))
 enum class EChannelFlags : uint8
 {
     /// Do nothing

@@ -5,6 +5,7 @@
 #include "Channel/ChannelSortOption.h"
 #include "Channel/Filter.h"
 #include "Channel/PaginationOptions.h"
+#include "ChannelFlags.h"
 #include "ChatSocketEvents.h"
 #include "Components/ActorComponent.h"
 #include "CoreMinimal.h"
@@ -15,14 +16,13 @@
 
 #include "StreamChatClientComponent.generated.h"
 
-enum class EChannelFlags : uint8;
-struct FConnectionRecoveredEvent;
-struct FChannelStateResponseFieldsDto;
-struct FUserPresenceChangedEvent;
 class FChatApi;
 class FTokenManager;
 class ITokenProvider;
 class UChatChannel;
+struct FChannelStateResponseFieldsDto;
+struct FConnectionRecoveredEvent;
+struct FUserPresenceChangedEvent;
 
 /**
  * @brief A component which allows for connecting to the Stream Chat API.
@@ -71,12 +71,15 @@ public:
      * As a minimum, the filter should be something like: { members: { $in: [userID] } }
      * @param SortOptions The sorting used for the channels matching the filters. Sorting is based on field and
      * direction, and multiple sorting options can be provided.
+     * @param Flags Get state, get presence and/or watch
+     * @param PaginationOptions Pagination offset and limit
      * @return An array of channel objects which can be used to interact with the channels
      */
     void QueryChannels(
         TFunction<void(const TArray<UChatChannel*>&)> Callback,
         TOptional<FFilter> Filter = {},
         const TArray<FChannelSortOption>& SortOptions = {},
+        const EChannelFlags Flags = EChannelFlags::State | EChannelFlags::Watch,
         const FPaginationOptions& PaginationOptions = {});
 
     /**
@@ -183,6 +186,7 @@ public:
      * As a minimum, the filter should be something like: { members: { $in: [userID] } }
      * @param SortOptions The sorting used for the channels matching the filters. Sorting is based on field and
      * direction, and multiple sorting options can be provided.
+     * @param Flags Get state, get presence and/or watch
      * @param OutChannels An array of channel objects which can be used to interact with the channels
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo))
@@ -191,7 +195,8 @@ public:
         const TArray<FChannelSortOption>& SortOptions,
         const UObject* WorldContextObject,
         FLatentActionInfo LatentInfo,
-        TArray<UChatChannel*>& OutChannels);
+        TArray<UChatChannel*>& OutChannels,
+        UPARAM(meta = (Bitmask, BitmaskEnum = EChannelFlags)) const int32 Flags = 3);
 
     /**
     * Create a channel if it doesn't exist yet (if this user has the right permissions), get data about the channel
