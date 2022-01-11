@@ -108,8 +108,8 @@ $(document).ready(function(){initNavTree('_fading_message_list_widget_8h_source.
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;public:</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    UFUNCTION(BlueprintCallable, Category = &quot;Stream Chat&quot;)</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">void</span> Setup(UChatChannel* InChannel, const FTimespan&amp; InMessageLifetime);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">void</span> Setup(UChatChannel* InChannel);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">void</span> Setup(<a class="code" href="class_u_chat_channel.html">UChatChannel</a>* InChannel, const FTimespan&amp; InMessageLifetime);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">void</span> Setup(<a class="code" href="class_u_chat_channel.html">UChatChannel</a>* InChannel);</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;protected:</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    UPROPERTY(meta = (BindWidget))</div>
@@ -134,7 +134,7 @@ $(document).ready(function(){initNavTree('_fading_message_list_widget_8h_source.
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    virtual <span class="keywordtype">void</span> OnSetup() override;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    UFUNCTION()</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> MessagesUpdated(const TArray&lt;FMessage&gt;&amp; Messages);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> MessagesUpdated(const TArray&lt;<a class="code" href="struct_f_message.html">FMessage</a>&gt;&amp; Messages);</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    UFUNCTION()</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> TextCommitted(const FText&amp; Text, ETextCommit::Type CommitMethod);</div>
@@ -143,6 +143,8 @@ $(document).ready(function(){initNavTree('_fading_message_list_widget_8h_source.
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> OpenChat();</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> CloseChat();</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;};</div>
+<div class="ttc" id="aclass_u_chat_channel_html"><div class="ttname"><a href="class_u_chat_channel.html">UChatChannel</a></div><div class="ttdoc">The client-side representation of a Stream Chat channel.</div><div class="ttdef"><b>Definition:</b> ChatChannel.h:64</div></div>
+<div class="ttc" id="astruct_f_message_html"><div class="ttname"><a href="struct_f_message.html">FMessage</a></div><div class="ttdoc">Represents a Stream Chat message.</div><div class="ttdef"><b>Definition:</b> Message.h:65</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

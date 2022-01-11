@@ -115,19 +115,19 @@ $(document).ready(function(){initNavTree('_ui_blueprint_library_8h_source.html',
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    static <span class="keywordtype">void</span> DismissContextMenu(UWidget* Widget);</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|UI&quot;)</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    static FString GetChannelTitle(const UChatChannel* Channel);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    static FString GetChannelTitle(const <a class="code" href="class_u_chat_channel.html">UChatChannel</a>* Channel);</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    UFUNCTION(BlueprintCallable, Category = &quot;Stream Chat|UI&quot;)</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    static <span class="keywordtype">void</span> GetFirstVisibleChildOfScrollBox(UScrollBox* ScrollBox, int32&amp; OutIndex, <span class="keywordtype">float</span>&amp; OutLeadingEdge);</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|User&quot;, meta = (DisplayName = &quot;Deference User Ref&quot;, CompactNodeTitle = &quot;-&gt;&quot;, BlueprintAutocast))</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    static const FUser&amp; DerefUserRef(const FUserRef&amp; User);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    static const <a class="code" href="struct_f_user.html">FUser</a>&amp; DerefUserRef(const <a class="code" href="struct_f_user_ref.html">FUserRef</a>&amp; User);</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|User&quot;)</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    static <span class="keywordtype">bool</span> IsCurrent(const FUserRef&amp; User);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    static <span class="keywordtype">bool</span> IsCurrent(const <a class="code" href="struct_f_user_ref.html">FUserRef</a>&amp; User);</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Messages&quot;)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    static TArray&lt;FMessage&gt; FilterRecent(const TArray&lt;FMessage&gt;&amp; Messages, const FTimespan&amp; Since);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    static TArray&lt;<a class="code" href="struct_f_message.html">FMessage</a>&gt; FilterRecent(const TArray&lt;<a class="code" href="struct_f_message.html">FMessage</a>&gt;&amp; Messages, const FTimespan&amp; Since);</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Messages&quot;)</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    static FLinearColor GenerateColorFromString(const FString&amp; Input);</div>
@@ -135,6 +135,10 @@ $(document).ready(function(){initNavTree('_ui_blueprint_library_8h_source.html',
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    UFUNCTION(BlueprintPure, meta = (DisplayName = &quot;To Hex String (linear color)&quot;, CompactNodeTitle = &quot;-&gt;&quot;, BlueprintAutocast), Category = &quot;Utilities|String&quot;)</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    static FString Conv_ColorToHexString(const FLinearColor&amp; InColor);</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
+<div class="ttc" id="aclass_u_chat_channel_html"><div class="ttname"><a href="class_u_chat_channel.html">UChatChannel</a></div><div class="ttdoc">The client-side representation of a Stream Chat channel.</div><div class="ttdef"><b>Definition:</b> ChatChannel.h:64</div></div>
+<div class="ttc" id="astruct_f_message_html"><div class="ttname"><a href="struct_f_message.html">FMessage</a></div><div class="ttdoc">Represents a Stream Chat message.</div><div class="ttdef"><b>Definition:</b> Message.h:65</div></div>
+<div class="ttc" id="astruct_f_user_html"><div class="ttname"><a href="struct_f_user.html">FUser</a></div><div class="ttdoc">A Stream Chat user.</div><div class="ttdef"><b>Definition:</b> User.h:18</div></div>
+<div class="ttc" id="astruct_f_user_ref_html"><div class="ttname"><a href="struct_f_user_ref.html">FUserRef</a></div><div class="ttdoc">A reference to a unique User.</div><div class="ttdef"><b>Definition:</b> UserRef.h:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -153,8 +153,8 @@ $(document).ready(function(){initNavTree('_additional_fields_8h_source.html','')
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    JsonValues.Reserve(Value.Num());</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> T&amp; Elem : Value)</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    {</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keyword">const</span> TSharedRef&lt;FJsonObject&gt; JsonObject = JsonObject::UStructToJsonObject&lt;T&gt;(Elem);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        JsonValues.Add(MakeShared&lt;FJsonValueObject&gt;(JsonObject));</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keyword">const</span> TSharedRef&lt;FJsonObject&gt; <a class="code" href="namespace_json_object.html">JsonObject</a> = JsonObject::UStructToJsonObject&lt;T&gt;(Elem);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        JsonValues.Add(MakeShared&lt;FJsonValueObject&gt;(<a class="code" href="namespace_json_object.html">JsonObject</a>));</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    Inner.Add(Field, MakeShared&lt;FJsonValueArray&gt;(JsonValues));</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
@@ -180,7 +180,7 @@ $(document).ready(function(){initNavTree('_additional_fields_8h_source.html','')
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">if</span> (<span class="keyword">const</span> TSharedPtr&lt;FJsonObject&gt;* OutObject; JsonValue-&gt;Get()-&gt;TryGetObject(OutObject))</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        {</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            T OutStruct;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            <span class="keywordflow">if</span> (JsonObjectDeserialization::JsonObjectToUStruct(OutObject-&gt;ToSharedRef(), &amp;OutStruct))</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="namespace_json_object_deserialization.html#aaceeb85c66719a2de40d176517ac19cb">JsonObjectDeserialization::JsonObjectToUStruct</a>(OutObject-&gt;ToSharedRef(), &amp;OutStruct))</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            {</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                <span class="keywordflow">return</span> {OutStruct};</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            }</div>
@@ -195,29 +195,32 @@ $(document).ready(function(){initNavTree('_additional_fields_8h_source.html','')
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keywordtype">void</span> STREAMJSON_API FAdditionalFields::Set(<span class="keyword">const</span> FName&amp; Field, <span class="keyword">const</span> FDateTime&amp;);</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;UCLASS()</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;class STREAMJSON_API UAdditionalFieldsBlueprintLibrary final : public UBlueprintFunctionLibrary</div>
+<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="class_u_additional_fields_blueprint_library.html">  113</a></span>&#160;class STREAMJSON_API <a class="code" href="class_u_additional_fields_blueprint_library.html">UAdditionalFieldsBlueprintLibrary</a> final : public UBlueprintFunctionLibrary</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;{</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    GENERATED_BODY()</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;public:</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Additional Fields&quot;)</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    static <span class="keywordtype">void</span> SetString(UPARAM(ref) FAdditionalFields&amp; AdditionalFields, FName Field, const FString&amp; Value, FAdditionalFields&amp; Out);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Additional Fields&quot;)</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    static <span class="keywordtype">void</span> SetFloat(UPARAM(ref) FAdditionalFields&amp; AdditionalFields, FName Field, <span class="keywordtype">float</span> Value, FAdditionalFields&amp; Out);</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Additional Fields&quot;)</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    static <span class="keywordtype">void</span> SetInt(UPARAM(ref) FAdditionalFields&amp; AdditionalFields, FName Field, int32 Value, FAdditionalFields&amp; Out);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Additional Fields&quot;)</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    static <span class="keywordtype">void</span> SetBool(UPARAM(ref) FAdditionalFields&amp; AdditionalFields, FName Field, <span class="keywordtype">bool</span> bValue, FAdditionalFields&amp; Out);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    UFUNCTION(BlueprintPure, Category = <span class="stringliteral">&quot;Stream Chat|Additional Fields&quot;</span>)</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> SetString(UPARAM(ref) FAdditionalFields&amp; AdditionalFields, FName Field, <span class="keyword">const</span> FString&amp; Value, FAdditionalFields&amp; Out);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    UFUNCTION(BlueprintPure, Category = <span class="stringliteral">&quot;Stream Chat|Additional Fields&quot;</span>)</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> SetFloat(UPARAM(ref) FAdditionalFields&amp; AdditionalFields, FName Field, <span class="keywordtype">float</span> Value, FAdditionalFields&amp; Out);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    UFUNCTION(BlueprintPure, Category = <span class="stringliteral">&quot;Stream Chat|Additional Fields&quot;</span>)</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> SetInt(UPARAM(ref) FAdditionalFields&amp; AdditionalFields, FName Field, int32 Value, FAdditionalFields&amp; Out);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    UFUNCTION(BlueprintPure, Category = <span class="stringliteral">&quot;Stream Chat|Additional Fields&quot;</span>)</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> SetBool(UPARAM(ref) FAdditionalFields&amp; AdditionalFields, FName Field, <span class="keywordtype">bool</span> bValue, FAdditionalFields&amp; Out);</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    UFUNCTION(BlueprintCallable, Category = &quot;Stream Chat|Additional Fields&quot;, meta = (ReturnDisplayName = Success))</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    static <span class="keywordtype">bool</span> GetString(const FAdditionalFields&amp; AdditionalFields, FName Field, FString&amp; Result);</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    UFUNCTION(BlueprintCallable, Category = &quot;Stream Chat|Additional Fields&quot;, meta = (ReturnDisplayName = Success))</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    static <span class="keywordtype">bool</span> GetFloat(const FAdditionalFields&amp; AdditionalFields, FName Field, <span class="keywordtype">float</span>&amp; Result);</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    UFUNCTION(BlueprintCallable, Category = &quot;Stream Chat|Additional Fields&quot;, meta = (ReturnDisplayName = Success))</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    static <span class="keywordtype">bool</span> GetInt(const FAdditionalFields&amp; AdditionalFields, FName Field, int32&amp; Result);</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    UFUNCTION(BlueprintCallable, Category = &quot;Stream Chat|Additional Fields&quot;, meta = (ReturnDisplayName = Success))</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    static <span class="keywordtype">bool</span> GetBool(const FAdditionalFields&amp; AdditionalFields, FName Field, <span class="keywordtype">bool</span>&amp; Result);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    UFUNCTION(BlueprintCallable, Category = <span class="stringliteral">&quot;Stream Chat|Additional Fields&quot;</span>, meta = (ReturnDisplayName = Success))</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> GetString(<span class="keyword">const</span> FAdditionalFields&amp; AdditionalFields, FName Field, FString&amp; Result);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    UFUNCTION(BlueprintCallable, Category = <span class="stringliteral">&quot;Stream Chat|Additional Fields&quot;</span>, meta = (ReturnDisplayName = Success))</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> GetFloat(<span class="keyword">const</span> FAdditionalFields&amp; AdditionalFields, FName Field, <span class="keywordtype">float</span>&amp; Result);</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    UFUNCTION(BlueprintCallable, Category = <span class="stringliteral">&quot;Stream Chat|Additional Fields&quot;</span>, meta = (ReturnDisplayName = Success))</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> GetInt(<span class="keyword">const</span> FAdditionalFields&amp; AdditionalFields, FName Field, int32&amp; Result);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    UFUNCTION(BlueprintCallable, Category = <span class="stringliteral">&quot;Stream Chat|Additional Fields&quot;</span>, meta = (ReturnDisplayName = Success))</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> GetBool(<span class="keyword">const</span> FAdditionalFields&amp; AdditionalFields, FName Field, <span class="keywordtype">bool</span>&amp; Result);</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;};</div>
+<div class="ttc" id="aclass_u_additional_fields_blueprint_library_html"><div class="ttname"><a href="class_u_additional_fields_blueprint_library.html">UAdditionalFieldsBlueprintLibrary</a></div><div class="ttdoc">Blueprint functions for the Additional Fields struct.</div><div class="ttdef"><b>Definition:</b> AdditionalFields.h:114</div></div>
+<div class="ttc" id="anamespace_json_object_deserialization_html_aaceeb85c66719a2de40d176517ac19cb"><div class="ttname"><a href="namespace_json_object_deserialization.html#aaceeb85c66719a2de40d176517ac19cb">JsonObjectDeserialization::JsonObjectToUStruct</a></div><div class="ttdeci">STREAMJSON_API bool JsonObjectToUStruct(const TSharedRef&lt; FJsonObject &gt; &amp;JsonObject, const UStruct *StructDefinition, void *OutStruct)</div><div class="ttdoc">Converts from a Json Object to a UStruct, using importText.</div><div class="ttdef"><b>Definition:</b> JsonObjectDeserialization.cpp:672</div></div>
+<div class="ttc" id="anamespace_json_object_html"><div class="ttname"><a href="namespace_json_object.html">JsonObject</a></div><div class="ttdoc">Conversion to and from dynamic JSON objects.</div><div class="ttdef"><b>Definition:</b> StreamJson.h:16</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

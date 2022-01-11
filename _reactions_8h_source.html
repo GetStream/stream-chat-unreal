@@ -97,54 +97,59 @@ $(document).ready(function(){initNavTree('_reactions_8h_source.html',''); initRe
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;Reactions.generated.h&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">struct </span>FUserRef;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">struct </span>FReaction;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">struct </span>FReactionDto;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">struct </span><a class="code" href="struct_f_user_ref.html">FUserRef</a>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">struct </span><a class="code" href="struct_f_reaction.html">FReaction</a>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">struct </span><a class="code" href="struct_f_reaction_dto.html">FReactionDto</a>;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;USTRUCT(BlueprintType)</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">struct </span>STREAMCHAT_API FReactions</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="struct_f_reactions.html">   20</a></span>&#160;struct STREAMCHAT_API <a class="code" href="struct_f_reactions.html">FReactions</a></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    GENERATED_BODY()</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    static FReactions CollectReactions(</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">static</span> <a class="code" href="struct_f_reactions.html">FReactions</a> CollectReactions(</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        UUserManager&amp; UserManager,</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        const TMap&lt;FName, int32&gt;&amp; ReactionCounts,</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        const TMap&lt;FName, int32&gt;&amp; ReactionScores,</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        const TArray&lt;FReactionDto&gt;&amp; LatestReactions,</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        const TArray&lt;FReactionDto&gt;&amp; OwnReactions);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">const</span> TMap&lt;FName, int32&gt;&amp; ReactionCounts,</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keyword">const</span> TMap&lt;FName, int32&gt;&amp; ReactionScores,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keyword">const</span> TArray&lt;FReactionDto&gt;&amp; LatestReactions,</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keyword">const</span> TArray&lt;FReactionDto&gt;&amp; OwnReactions);</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> AddReaction(const FReaction&amp;);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> AddReaction(<span class="keyword">const</span> <a class="code" href="struct_f_reaction.html">FReaction</a>&amp;);</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">void</span> RemoveReactionWhere(TFunctionRef&lt;<span class="keywordtype">bool</span>(const FReaction&amp;)&gt; Predicate);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">void</span> RemoveReactionWhere(TFunctionRef&lt;<span class="keywordtype">bool</span>(<span class="keyword">const</span> <a class="code" href="struct_f_reaction.html">FReaction</a>&amp;)&gt; Predicate);</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">bool</span> IsEmpty() const;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">bool</span> IsEmpty() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    TOptional&lt;FReaction&gt; GetOwnReaction(const FName&amp; ReactionType) const;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    TOptional&lt;FReaction&gt; GetOwnReaction(<span class="keyword">const</span> FName&amp; ReactionType) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    const TMap&lt;FName, FReactionGroup&gt;&amp; GetReactionGroups() const;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">const</span> TMap&lt;FName, FReactionGroup&gt;&amp; GetReactionGroups() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    TMap&lt;FName, int32&gt; GetScores() const;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    TMap&lt;FName, int32&gt; GetScores() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> UpdateOwnReactions();</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;private:</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = &quot;Stream Chat|Message&quot;, meta = (AllowPrivateAccess))</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|Message&quot;</span>, meta = (AllowPrivateAccess))</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    TMap&lt;FName, FReactionGroup&gt; ReactionGroups;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;};</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;UCLASS()</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;class STREAMCHAT_API UReactionsBlueprintLibrary final : public UBlueprintFunctionLibrary</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="class_u_reactions_blueprint_library.html">   64</a></span>&#160;class STREAMCHAT_API <a class="code" href="class_u_reactions_blueprint_library.html">UReactionsBlueprintLibrary</a> final : public UBlueprintFunctionLibrary</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;{</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    GENERATED_BODY()</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;public:</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Reactions&quot;, meta = (DisplayName = &quot;Has Own Reaction&quot;))</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    static <span class="keywordtype">bool</span> HasOwnReaction(const FReactions&amp; Reactions, const FName&amp; ReactionType);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    UFUNCTION(BlueprintPure, Category = <span class="stringliteral">&quot;Stream Chat|Reactions&quot;</span>, meta = (DisplayName = <span class="stringliteral">&quot;Has Own Reaction&quot;</span>))</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> HasOwnReaction(<span class="keyword">const</span> <a class="code" href="struct_f_reactions.html">FReactions</a>&amp; Reactions, <span class="keyword">const</span> FName&amp; ReactionType);</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Reactions&quot;)</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    static <span class="keywordtype">bool</span> IsEmpty(const FReactions&amp; Reactions);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    UFUNCTION(BlueprintPure, Category = <span class="stringliteral">&quot;Stream Chat|Reactions&quot;</span>)</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">bool</span> IsEmpty(<span class="keyword">const</span> <a class="code" href="struct_f_reactions.html">FReactions</a>&amp; Reactions);</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;};</div>
+<div class="ttc" id="aclass_u_reactions_blueprint_library_html"><div class="ttname"><a href="class_u_reactions_blueprint_library.html">UReactionsBlueprintLibrary</a></div><div class="ttdoc">Blueprint functions for the Reactions struct.</div><div class="ttdef"><b>Definition:</b> Reactions.h:65</div></div>
+<div class="ttc" id="astruct_f_reaction_dto_html"><div class="ttname"><a href="struct_f_reaction_dto.html">FReactionDto</a></div><div class="ttdoc">#/components/schemas/Reaction Represents user reaction to a message</div><div class="ttdef"><b>Definition:</b> ReactionDto.h:17</div></div>
+<div class="ttc" id="astruct_f_reaction_html"><div class="ttname"><a href="struct_f_reaction.html">FReaction</a></div><div class="ttdoc">An individual reaction to a message.</div><div class="ttdef"><b>Definition:</b> Reaction.h:18</div></div>
+<div class="ttc" id="astruct_f_reactions_html"><div class="ttname"><a href="struct_f_reactions.html">FReactions</a></div><div class="ttdoc">Encapsulates a collection of reactions for a message.</div><div class="ttdef"><b>Definition:</b> Reactions.h:21</div></div>
+<div class="ttc" id="astruct_f_user_ref_html"><div class="ttname"><a href="struct_f_user_ref.html">FUserRef</a></div><div class="ttdoc">A reference to a unique User.</div><div class="ttdef"><b>Definition:</b> UserRef.h:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

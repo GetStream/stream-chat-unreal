@@ -97,17 +97,19 @@ $(document).ready(function(){initNavTree('_message_deleted_event_8h_source.html'
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;MessageDeletedEvent.generated.h&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;USTRUCT()</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;struct FMessageDeletedEvent : public FMessageEvent</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="struct_f_message_deleted_event.html">   16</a></span>&#160;struct <a class="code" href="struct_f_message_deleted_event.html">FMessageDeletedEvent</a> : public <a class="code" href="struct_f_message_event.html">FMessageEvent</a></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    GENERATED_BODY()</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    inline static FName StaticType = TEXT(&quot;message.deleted&quot;);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">inline</span> <span class="keyword">static</span> FName StaticType = TEXT(<span class="stringliteral">&quot;message.deleted&quot;</span>);</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">bool</span> bHardDelete = false;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">bool</span> bHardDelete = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="comment">// TODO everything else</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;};</div>
+<div class="ttc" id="astruct_f_message_deleted_event_html"><div class="ttname"><a href="struct_f_message_deleted_event.html">FMessageDeletedEvent</a></div><div class="ttdoc">A message was deleted.</div><div class="ttdef"><b>Definition:</b> MessageDeletedEvent.h:17</div></div>
+<div class="ttc" id="astruct_f_message_event_html"><div class="ttname"><a href="struct_f_message_event.html">FMessageEvent</a></div><div class="ttdoc">A WebSocket event related to a message.</div><div class="ttdef"><b>Definition:</b> MessageEvent.h:17</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

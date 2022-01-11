@@ -101,21 +101,21 @@ $(document).ready(function(){initNavTree('_message_list_header_widget_8h_source.
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;MessageListHeaderWidget.generated.h&quot;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span>UChatChannel;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span><a class="code" href="class_u_chat_channel.html">UChatChannel</a>;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;UCLASS()</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;class STREAMCHATUI_API UMessageListHeaderWidget final : public UStreamWidget</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="class_u_message_list_header_widget.html">   22</a></span>&#160;class STREAMCHATUI_API <a class="code" href="class_u_message_list_header_widget.html">UMessageListHeaderWidget</a> final : public UStreamWidget</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    GENERATED_BODY()</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;public:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    UMessageListHeaderWidget();</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="class_u_message_list_header_widget.html">UMessageListHeaderWidget</a>();</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;protected:</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    virtual <span class="keywordtype">void</span> OnChannel() override;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnChannel() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    UPROPERTY(meta = (BindWidget))</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    UHeaderWidget* Header;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="class_u_header_widget.html">UHeaderWidget</a>* Header;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    UPROPERTY(meta = (BindWidget))</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    UAvatarWidget* Avatar;</div>
@@ -125,15 +125,21 @@ $(document).ready(function(){initNavTree('_message_list_header_widget_8h_source.
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    TSubclassOf&lt;UOnlineStatusSubheaderWidget&gt; StatusWidgetClass = UOnlineStatusSubheaderWidget::StaticClass();</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;private:</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    UFUNCTION()</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">void</span> OnTypingIndicator(ETypingIndicatorState TypingState, const FUserRef&amp; User);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_u_chat_channel.html#a93d772ef1c497a17a5af73a0be954084">OnTypingIndicator</a>(ETypingIndicatorState TypingState, <span class="keyword">const</span> <a class="code" href="struct_f_user_ref.html">FUserRef</a>&amp; User);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> ShowOnlineStatusSubheader();</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    UPROPERTY(Transient)</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    UTypingIndicatorWidget* TypingIndicator;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="class_u_typing_indicator_widget.html">UTypingIndicatorWidget</a>* TypingIndicator;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;};</div>
+<div class="ttc" id="aclass_u_chat_channel_html"><div class="ttname"><a href="class_u_chat_channel.html">UChatChannel</a></div><div class="ttdoc">The client-side representation of a Stream Chat channel.</div><div class="ttdef"><b>Definition:</b> ChatChannel.h:64</div></div>
+<div class="ttc" id="aclass_u_chat_channel_html_a93d772ef1c497a17a5af73a0be954084"><div class="ttname"><a href="class_u_chat_channel.html#a93d772ef1c497a17a5af73a0be954084">UChatChannel::OnTypingIndicator</a></div><div class="ttdeci">FTypingIndicatorDelegate OnTypingIndicator</div><div class="ttdoc">Fired whenever any user starts or stops typing.</div><div class="ttdef"><b>Definition:</b> ChatChannel.h:307</div></div>
+<div class="ttc" id="aclass_u_header_widget_html"><div class="ttname"><a href="class_u_header_widget.html">UHeaderWidget</a></div><div class="ttdoc">A top bar widget.</div><div class="ttdef"><b>Definition:</b> HeaderWidget.h:17</div></div>
+<div class="ttc" id="aclass_u_message_list_header_widget_html"><div class="ttname"><a href="class_u_message_list_header_widget.html">UMessageListHeaderWidget</a></div><div class="ttdoc">Top bar for a message list.</div><div class="ttdef"><b>Definition:</b> MessageListHeaderWidget.h:23</div></div>
+<div class="ttc" id="aclass_u_typing_indicator_widget_html"><div class="ttname"><a href="class_u_typing_indicator_widget.html">UTypingIndicatorWidget</a></div><div class="ttdoc">Displays typing status for multiple users.</div><div class="ttdef"><b>Definition:</b> TypingIndicatorWidget.h:20</div></div>
+<div class="ttc" id="astruct_f_user_ref_html"><div class="ttname"><a href="struct_f_user_ref.html">FUserRef</a></div><div class="ttdoc">A reference to a unique User.</div><div class="ttdef"><b>Definition:</b> UserRef.h:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

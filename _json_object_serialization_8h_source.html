@@ -97,9 +97,9 @@ $(document).ready(function(){initNavTree('_json_object_serialization_8h_source.h
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">class </span>FJsonObject;</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">class </span>FJsonValue;</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>JsonObjectSerialization</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="namespace_json_object_serialization.html">   15</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_json_object_serialization.html">JsonObjectSerialization</a></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keywordtype">bool</span> UStructToJsonAttributes(</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="namespace_json_object_serialization.html#ac6ece5ebd6cb1cada8e3b949cdffbc31">   27</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="namespace_json_object_serialization.html#ac6ece5ebd6cb1cada8e3b949cdffbc31">UStructToJsonAttributes</a>(</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">const</span> UStruct* StructDefinition,</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">void</span>* Struct,</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    TMap&lt;FString, TSharedPtr&lt;FJsonValue&gt; &gt;&amp; OutJsonAttributes,</div>
@@ -110,6 +110,8 @@ $(document).ready(function(){initNavTree('_json_object_serialization_8h_source.h
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">void</span> STREAMJSON_API SetObjectField(FJsonObject&amp; TargetJsonObject, <span class="keyword">const</span> FString&amp; FieldName, <span class="keyword">const</span> TSharedPtr&lt;FJsonObject&gt;&amp; FieldJsonObject);</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keywordtype">bool</span> STREAMJSON_API TryGetObjectField(<span class="keyword">const</span> FJsonObject&amp; TargetJsonObject, <span class="keyword">const</span> FString&amp; FieldName, <span class="keyword">const</span> TSharedPtr&lt;FJsonObject&gt;*&amp; FieldJsonObject);</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}    <span class="comment">// namespace JsonObjectSerialization</span></div>
+<div class="ttc" id="anamespace_json_object_serialization_html"><div class="ttname"><a href="namespace_json_object_serialization.html">JsonObjectSerialization</a></div><div class="ttdoc">Handles converting UStructs to Json objects.</div><div class="ttdef"><b>Definition:</b> JsonObjectSerialization.h:16</div></div>
+<div class="ttc" id="anamespace_json_object_serialization_html_ac6ece5ebd6cb1cada8e3b949cdffbc31"><div class="ttname"><a href="namespace_json_object_serialization.html#ac6ece5ebd6cb1cada8e3b949cdffbc31">JsonObjectSerialization::UStructToJsonAttributes</a></div><div class="ttdeci">bool UStructToJsonAttributes(const UStruct *StructDefinition, const void *Struct, TMap&lt; FString, TSharedPtr&lt; FJsonValue &gt; &gt; &amp;OutJsonAttributes, ENamingConvention NamingConvention=ENamingConvention::SnakeCase)</div><div class="ttdoc">Converts from a UStruct to a set of json attributes (possibly from within a JsonObject)</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

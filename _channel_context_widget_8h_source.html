@@ -99,30 +99,33 @@ $(document).ready(function(){initNavTree('_channel_context_widget_8h_source.html
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;ChannelContextWidget.generated.h&quot;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FStartEditMessageDelegate, <span class="keyword">const</span> FMessage&amp;, Message);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FStartEditMessageDelegate, <span class="keyword">const</span> <a class="code" href="struct_f_message.html">FMessage</a>&amp;, Message);</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;UCLASS()</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;class STREAMCHATUI_API UChannelContextWidget final : public UContextWidget</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="class_u_channel_context_widget.html">   22</a></span>&#160;class STREAMCHATUI_API <a class="code" href="class_u_channel_context_widget.html">UChannelContextWidget</a> final : public UContextWidget</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    GENERATED_BODY()</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;public:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    UFUNCTION(BlueprintCallable, Category = &quot;Stream Chat&quot;)</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">void</span> Setup(UChatChannel* InChannel);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    UFUNCTION(BlueprintCallable, Category = <span class="stringliteral">&quot;Stream Chat&quot;</span>)</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">void</span> Setup(<a class="code" href="class_u_chat_channel.html">UChatChannel</a>* InChannel);</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat&quot;, meta = (DisplayName = &quot;Get Channel Context&quot;))</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    static UChannelContextWidget* Get(const UWidget* Widget);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat&quot;)</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    static UChatChannel* GetChannel(const UWidget* Widget);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    UChatChannel* GetChannel() const;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    UFUNCTION(BlueprintPure, Category = <span class="stringliteral">&quot;Stream Chat&quot;</span>, meta = (DisplayName = <span class="stringliteral">&quot;Get Channel Context&quot;</span>))</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_u_channel_context_widget.html">UChannelContextWidget</a>* Get(<span class="keyword">const</span> UWidget* Widget);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    UFUNCTION(BlueprintPure, Category = <span class="stringliteral">&quot;Stream Chat&quot;</span>)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_u_chat_channel.html">UChatChannel</a>* GetChannel(<span class="keyword">const</span> UWidget* Widget);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="class_u_chat_channel.html">UChatChannel</a>* GetChannel() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    UPROPERTY(BlueprintAssignable)</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    FStartEditMessageDelegate OnStartEditMessage;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;private:</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    UPROPERTY(Transient)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    UChatChannel* Channel;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="class_u_chat_channel.html">UChatChannel</a>* Channel;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;};</div>
+<div class="ttc" id="aclass_u_channel_context_widget_html"><div class="ttname"><a href="class_u_channel_context_widget.html">UChannelContextWidget</a></div><div class="ttdoc">Provide a reference to a UChatChannel to child widgets.</div><div class="ttdef"><b>Definition:</b> ChannelContextWidget.h:23</div></div>
+<div class="ttc" id="aclass_u_chat_channel_html"><div class="ttname"><a href="class_u_chat_channel.html">UChatChannel</a></div><div class="ttdoc">The client-side representation of a Stream Chat channel.</div><div class="ttdef"><b>Definition:</b> ChatChannel.h:64</div></div>
+<div class="ttc" id="astruct_f_message_html"><div class="ttname"><a href="struct_f_message.html">FMessage</a></div><div class="ttdoc">Represents a Stream Chat message.</div><div class="ttdef"><b>Definition:</b> Message.h:65</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

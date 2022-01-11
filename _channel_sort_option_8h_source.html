@@ -95,17 +95,17 @@ $(document).ready(function(){initNavTree('_channel_sort_option_8h_source.html','
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;ChannelSortOption.generated.h&quot;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">struct </span>FSortParamRequestDto;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">struct </span><a class="code" href="struct_f_sort_param_request_dto.html">FSortParamRequestDto</a>;</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;UENUM(BlueprintType)</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">enum class</span> ESortDirection : uint8</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="group___stream_chat.html#ga3b38841cfa7e76d2948c49d219950551">   16</a></span>&#160;enum class <a class="code" href="group___stream_chat.html#ga3b38841cfa7e76d2948c49d219950551">ESortDirection</a> : uint8</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    Ascending,</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    Descending</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;};</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;UENUM(BlueprintType)</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">enum class</span> EChannelSortField : uint8</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="group___stream_chat.html#ga898a433fd419f8f469a04c180ca52965">   27</a></span>&#160;enum class <a class="code" href="group___stream_chat.html#ga898a433fd419f8f469a04c180ca52965">EChannelSortField</a> : uint8</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    LastUpdated,</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    LastMessageAt,</div>
@@ -117,55 +117,72 @@ $(document).ready(function(){initNavTree('_channel_sort_option_8h_source.html','
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;};</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;USTRUCT(BlueprintType)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">struct </span>FChannelSortOption</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="struct_f_channel_sort_option.html">   43</a></span>&#160;struct <a class="code" href="struct_f_channel_sort_option.html">FChannelSortOption</a></div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    GENERATED_BODY()</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    explicit operator FSortParamRequestDto() const;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">explicit</span> <span class="keyword">operator</span> <a class="code" href="struct_f_sort_param_request_dto.html">FSortParamRequestDto</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = &quot;Stream Chat&quot;)</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    EChannelSortField Field = EChannelSortField::LastMessageAt;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = <span class="stringliteral">&quot;Stream Chat&quot;</span>)</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="struct_f_channel_sort_option.html#ae29c479408e15e4c867c7fe9be3c9dfc">   52</a></span>&#160;    <a class="code" href="group___stream_chat.html#ga898a433fd419f8f469a04c180ca52965">EChannelSortField</a> Field = <a class="code" href="group___stream_chat.html#ga898a433fd419f8f469a04c180ca52965">EChannelSortField</a>::LastMessageAt;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = &quot;Stream Chat&quot;)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    ESortDirection Direction = ESortDirection::Descending;</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="struct_f_channel_sort_option.html#ab7463c8d9a16af5932a719ff4906e25a">   56</a></span>&#160;    <a class="code" href="group___stream_chat.html#ga3b38841cfa7e76d2948c49d219950551">ESortDirection</a> Direction = <a class="code" href="group___stream_chat.html#ga3b38841cfa7e76d2948c49d219950551">ESortDirection</a>::Descending;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;};</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;UENUM(BlueprintType)</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;enum class EMessageSortField : uint8</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="group___stream_chat.html#ga3f9dd725081330daf92bbd44f5084e8f">   64</a></span>&#160;enum class <a class="code" href="group___stream_chat.html#ga3f9dd725081330daf92bbd44f5084e8f">EMessageSortField</a> : uint8</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;{</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    Id,</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    Text,</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    Type,</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    ParentId,</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    ReplyCount,</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    Attachments,</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    AttachmentsType,</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    MentionedUsersId,</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    UserId,</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <a class="code" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa490aa6e856ccf208a054389e47ce0d06">Id</a>,</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa9dffbf69ffba8bc38bc4e01abf4b1675">Text</a>,</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">Type</a>,</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faafaa6abc71ded82c59c64411193549cd">ParentId</a>,</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fafb929994ee4a037b613ef81d0718f78b">ReplyCount</a>,</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa7e2708aeb65763c54052f57ed1a1ec1d">Attachments</a>,</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="code" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fade639cb0a3d565cd29031f1d33a6ea7c">AttachmentsType</a>,</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa917470f33aa08d56080ec48f1edb2c6b">MentionedUsersId</a>,</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa4733e94f511132be01e92cc23c017d16">UserId</a>,</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    CreatedAt,</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    UpdatedAt,</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    Pinned,</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    Custom,</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <a class="code" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa3c5e891bff07947cbae2fda89162df9f">Pinned</a>,</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <a class="code" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa90589c47f06eb971d548591f23c285af">Custom</a>,</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;};</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;USTRUCT(BlueprintType)</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="keyword">struct </span>FMessageSortOption</div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="struct_f_message_sort_option.html">   99</a></span>&#160;struct <a class="code" href="struct_f_message_sort_option.html">FMessageSortOption</a></div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;{</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    GENERATED_BODY()</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    explicit operator FSortParamRequestDto() const;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keyword">explicit</span> <span class="keyword">operator</span> <a class="code" href="struct_f_sort_param_request_dto.html">FSortParamRequestDto</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = &quot;Stream Chat&quot;)</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    EMessageSortField Field = EMessageSortField::CreatedAt;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = <span class="stringliteral">&quot;Stream Chat&quot;</span>)</div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="struct_f_message_sort_option.html#a181a0e55c38fd7536ef4f4e4e7591aa8">  108</a></span>&#160;    <a class="code" href="group___stream_chat.html#ga3f9dd725081330daf92bbd44f5084e8f">EMessageSortField</a> Field = <a class="code" href="group___stream_chat.html#ga3f9dd725081330daf92bbd44f5084e8f">EMessageSortField</a>::CreatedAt;</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = &quot;Stream Chat&quot;)</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    FName CustomField;</div>
+<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="struct_f_message_sort_option.html#adfe6d2966056fdfda51665b25306ada9">  112</a></span>&#160;    FName CustomField;</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = &quot;Stream Chat&quot;)</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    ESortDirection Direction = ESortDirection::Descending;</div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="struct_f_message_sort_option.html#a786c7589b83976fc38ef11de8ee28921">  116</a></span>&#160;    <a class="code" href="group___stream_chat.html#ga3b38841cfa7e76d2948c49d219950551">ESortDirection</a> Direction = <a class="code" href="group___stream_chat.html#ga3b38841cfa7e76d2948c49d219950551">ESortDirection</a>::Descending;</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;};</div>
+<div class="ttc" id="agroup___stream_chat_html_ga3b38841cfa7e76d2948c49d219950551"><div class="ttname"><a href="group___stream_chat.html#ga3b38841cfa7e76d2948c49d219950551">ESortDirection</a></div><div class="ttdeci">ESortDirection</div><div class="ttdoc">The desired sort direction for Stream Chat API queries.</div><div class="ttdef"><b>Definition:</b> ChannelSortOption.h:17</div></div>
+<div class="ttc" id="agroup___stream_chat_html_ga3f9dd725081330daf92bbd44f5084e8f"><div class="ttname"><a href="group___stream_chat.html#ga3f9dd725081330daf92bbd44f5084e8f">EMessageSortField</a></div><div class="ttdeci">EMessageSortField</div><div class="ttdoc">The desired sort field for message queries.</div><div class="ttdef"><b>Definition:</b> ChannelSortOption.h:65</div></div>
+<div class="ttc" id="agroup___stream_chat_html_ga898a433fd419f8f469a04c180ca52965"><div class="ttname"><a href="group___stream_chat.html#ga898a433fd419f8f469a04c180ca52965">EChannelSortField</a></div><div class="ttdeci">EChannelSortField</div><div class="ttdoc">The desired sort field for Channel API queries.</div><div class="ttdef"><b>Definition:</b> ChannelSortOption.h:28</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8fa3c5e891bff07947cbae2fda89162df9f"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa3c5e891bff07947cbae2fda89162df9f">EMessageSortField::Pinned</a></div><div class="ttdeci">@ Pinned</div><div class="ttdoc">Whether the message has been pinned,.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8fa4733e94f511132be01e92cc23c017d16"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa4733e94f511132be01e92cc23c017d16">EMessageSortField::UserId</a></div><div class="ttdeci">@ UserId</div><div class="ttdoc">The user ID of the user that sent the message.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8fa490aa6e856ccf208a054389e47ce0d06"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa490aa6e856ccf208a054389e47ce0d06">EMessageSortField::Id</a></div><div class="ttdeci">@ Id</div><div class="ttdoc">Message ID.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8fa7e2708aeb65763c54052f57ed1a1ec1d"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa7e2708aeb65763c54052f57ed1a1ec1d">EMessageSortField::Attachments</a></div><div class="ttdeci">@ Attachments</div><div class="ttdoc">Whether or not the message contains an attachment.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8fa90589c47f06eb971d548591f23c285af"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa90589c47f06eb971d548591f23c285af">EMessageSortField::Custom</a></div><div class="ttdeci">@ Custom</div><div class="ttdoc">Any custom field that is attached to your message. Must fill CustomField.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8fa917470f33aa08d56080ec48f1edb2c6b"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa917470f33aa08d56080ec48f1edb2c6b">EMessageSortField::MentionedUsersId</a></div><div class="ttdeci">@ MentionedUsersId</div><div class="ttdoc">The user ID that is included in the messages's mentions.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8fa9dffbf69ffba8bc38bc4e01abf4b1675"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa9dffbf69ffba8bc38bc4e01abf4b1675">EMessageSortField::Text</a></div><div class="ttdeci">@ Text</div><div class="ttdoc">Text of the message.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">EMessageSortField::Type</a></div><div class="ttdeci">@ Type</div><div class="ttdoc">Type of the message.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8faafaa6abc71ded82c59c64411193549cd"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faafaa6abc71ded82c59c64411193549cd">EMessageSortField::ParentId</a></div><div class="ttdeci">@ ParentId</div><div class="ttdoc">The parent message ID (if the message is a reply)</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8fade639cb0a3d565cd29031f1d33a6ea7c"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fade639cb0a3d565cd29031f1d33a6ea7c">EMessageSortField::AttachmentsType</a></div><div class="ttdeci">@ AttachmentsType</div><div class="ttdoc">The type of the attachment.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8fafb929994ee4a037b613ef81d0718f78b"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fafb929994ee4a037b613ef81d0718f78b">EMessageSortField::ReplyCount</a></div><div class="ttdeci">@ ReplyCount</div><div class="ttdoc">The number of replies the message has.</div></div>
+<div class="ttc" id="astruct_f_channel_sort_option_html"><div class="ttname"><a href="struct_f_channel_sort_option.html">FChannelSortOption</a></div><div class="ttdoc">The desired sort options for Channel API queries.</div><div class="ttdef"><b>Definition:</b> ChannelSortOption.h:44</div></div>
+<div class="ttc" id="astruct_f_message_sort_option_html"><div class="ttname"><a href="struct_f_message_sort_option.html">FMessageSortOption</a></div><div class="ttdoc">The desired sort options for message queries.</div><div class="ttdef"><b>Definition:</b> ChannelSortOption.h:100</div></div>
+<div class="ttc" id="astruct_f_sort_param_request_dto_html"><div class="ttname"><a href="struct_f_sort_param_request_dto.html">FSortParamRequestDto</a></div><div class="ttdoc">#/components/schemas/SortParamRequest</div><div class="ttdef"><b>Definition:</b> SortParamRequestDto.h:15</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

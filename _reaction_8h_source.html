@@ -96,32 +96,40 @@ $(document).ready(function(){initNavTree('_reaction_8h_source.html',''); initRes
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;Reaction.generated.h&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">struct </span>FReactionDto;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">struct </span><a class="code" href="struct_f_reaction_dto.html">FReactionDto</a>;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;USTRUCT(BlueprintType)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">struct </span>FReaction</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="struct_f_reaction.html">   17</a></span>&#160;struct <a class="code" href="struct_f_reaction.html">FReaction</a></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    GENERATED_BODY()</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    FReaction();</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    explicit FReaction(UUserManager&amp;, const FReactionDto&amp;);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    explicit FReaction(const FName&amp; Type, const FUserRef&amp;, const FString&amp; MessageId);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="struct_f_reaction.html">FReaction</a>();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="struct_f_reaction.html">FReaction</a>(UUserManager&amp;, <span class="keyword">const</span> <a class="code" href="struct_f_reaction_dto.html">FReactionDto</a>&amp;);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="struct_f_reaction.html">FReaction</a>(<span class="keyword">const</span> FName&amp; <a class="code" href="struct_f_reaction_dto.html#af1d7c759248b6bb12e95836cdb53d3b3">Type</a>, <span class="keyword">const</span> <a class="code" href="struct_f_user_ref.html">FUserRef</a>&amp;, <span class="keyword">const</span> FString&amp; <a class="code" href="struct_f_reaction_dto.html#aa7bda7f33579bc13a3c659e31c801604">MessageId</a>);</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = &quot;Stream Chat|Reaction&quot;)</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    FName Type;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|Reaction&quot;</span>)</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="struct_f_reaction.html#ada94cc55b4805bb7d68af2e691e7eb11">   27</a></span>&#160;    FName <a class="code" href="struct_f_reaction_dto.html#af1d7c759248b6bb12e95836cdb53d3b3">Type</a>;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = &quot;Stream Chat|Reaction&quot;)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    int32 Score = 1;</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="struct_f_reaction.html#a17c8d8f9f5bf844b41ef92b8b5ef759c">   31</a></span>&#160;    int32 <a class="code" href="struct_f_reaction_dto.html#a40017e207f2e7e13bfd13924b0aa1acf">Score</a> = 1;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = &quot;Stream Chat|Reaction&quot;)</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    FUserRef User;</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="struct_f_reaction.html#aa231b75005a632ef414aaac9371922dd">   35</a></span>&#160;    <a class="code" href="struct_f_user_ref.html">FUserRef</a> User;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    FString MessageId;</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="struct_f_reaction.html#aed5d244bc9019cede9664e3151873bc3">   38</a></span>&#160;    FString <a class="code" href="struct_f_reaction_dto.html#aa7bda7f33579bc13a3c659e31c801604">MessageId</a>;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    FDateTime CreatedAt = FDateTime::UtcNow();</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="struct_f_reaction.html#a0e769fe1b38e5122e985ab2a817aa25f">   41</a></span>&#160;    FDateTime <a class="code" href="struct_f_reaction_dto.html#a7401f203ba997a9de1d51ebd1a623189">CreatedAt</a> = FDateTime::UtcNow();</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    FDateTime UpdatedAt = FDateTime::UtcNow();</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="struct_f_reaction.html#aa9b9db952b98e90e1069c3e06b758782">   44</a></span>&#160;    FDateTime <a class="code" href="struct_f_reaction_dto.html#ada1593510df6132189078068b128cb13">UpdatedAt</a> = FDateTime::UtcNow();</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;};</div>
+<div class="ttc" id="astruct_f_reaction_dto_html"><div class="ttname"><a href="struct_f_reaction_dto.html">FReactionDto</a></div><div class="ttdoc">#/components/schemas/Reaction Represents user reaction to a message</div><div class="ttdef"><b>Definition:</b> ReactionDto.h:17</div></div>
+<div class="ttc" id="astruct_f_reaction_dto_html_a40017e207f2e7e13bfd13924b0aa1acf"><div class="ttname"><a href="struct_f_reaction_dto.html#a40017e207f2e7e13bfd13924b0aa1acf">FReactionDto::Score</a></div><div class="ttdeci">int32 Score</div><div class="ttdoc">Reaction score. If not specified reaction has score of 1.</div><div class="ttdef"><b>Definition:</b> ReactionDto.h:30</div></div>
+<div class="ttc" id="astruct_f_reaction_dto_html_a7401f203ba997a9de1d51ebd1a623189"><div class="ttname"><a href="struct_f_reaction_dto.html#a7401f203ba997a9de1d51ebd1a623189">FReactionDto::CreatedAt</a></div><div class="ttdeci">FDateTime CreatedAt</div><div class="ttdoc">Date/time of creation.</div><div class="ttdef"><b>Definition:</b> ReactionDto.h:22</div></div>
+<div class="ttc" id="astruct_f_reaction_dto_html_aa7bda7f33579bc13a3c659e31c801604"><div class="ttname"><a href="struct_f_reaction_dto.html#aa7bda7f33579bc13a3c659e31c801604">FReactionDto::MessageId</a></div><div class="ttdeci">FString MessageId</div><div class="ttdoc">ID of a message user reacted to.</div><div class="ttdef"><b>Definition:</b> ReactionDto.h:26</div></div>
+<div class="ttc" id="astruct_f_reaction_dto_html_ada1593510df6132189078068b128cb13"><div class="ttname"><a href="struct_f_reaction_dto.html#ada1593510df6132189078068b128cb13">FReactionDto::UpdatedAt</a></div><div class="ttdeci">FDateTime UpdatedAt</div><div class="ttdoc">Date/time of the last update.</div><div class="ttdef"><b>Definition:</b> ReactionDto.h:38</div></div>
+<div class="ttc" id="astruct_f_reaction_dto_html_af1d7c759248b6bb12e95836cdb53d3b3"><div class="ttname"><a href="struct_f_reaction_dto.html#af1d7c759248b6bb12e95836cdb53d3b3">FReactionDto::Type</a></div><div class="ttdeci">FName Type</div><div class="ttdoc">The type of reaction (e.g. 'like', 'laugh', 'wow')</div><div class="ttdef"><b>Definition:</b> ReactionDto.h:34</div></div>
+<div class="ttc" id="astruct_f_reaction_html"><div class="ttname"><a href="struct_f_reaction.html">FReaction</a></div><div class="ttdoc">An individual reaction to a message.</div><div class="ttdef"><b>Definition:</b> Reaction.h:18</div></div>
+<div class="ttc" id="astruct_f_user_ref_html"><div class="ttname"><a href="struct_f_user_ref.html">FUserRef</a></div><div class="ttdoc">A reference to a unique User.</div><div class="ttdef"><b>Definition:</b> UserRef.h:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

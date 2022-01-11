@@ -97,35 +97,35 @@ $(document).ready(function(){initNavTree('_stream_json_8h_source.html',''); init
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;NamingConvention.h&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;UObject/ReflectedTypeAccessors.h&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>JsonObject</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="namespace_json_object.html">   15</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_json_object.html">JsonObject</a></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;STREAMJSON_API TSharedRef&lt;FJsonObject&gt; UStructToJsonObject(</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;STREAMJSON_API TSharedRef&lt;FJsonObject&gt; <a class="code" href="namespace_json_object.html#a60b6f2811146e94a037e5be463889220">UStructToJsonObject</a>(</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">const</span> UStruct* StructDefinition,</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">void</span>* Struct,</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    ENamingConvention NamingConvention = ENamingConvention::SnakeCase);</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;TSharedRef&lt;FJsonObject&gt; UStructToJsonObject(<span class="keyword">const</span> T&amp; Struct, ENamingConvention NamingConvention = ENamingConvention::SnakeCase)</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="namespace_json_object.html#a7c8b47e23e63c0edd5068374339167cb">   38</a></span>&#160;TSharedRef&lt;FJsonObject&gt; <a class="code" href="namespace_json_object.html#a60b6f2811146e94a037e5be463889220">UStructToJsonObject</a>(<span class="keyword">const</span> T&amp; Struct, ENamingConvention NamingConvention = ENamingConvention::SnakeCase)</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">const</span> TSharedRef&lt;FJsonObject&gt; JsonObject = JsonObject::UStructToJsonObject(T::StaticStruct(), &amp;Struct, NamingConvention);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">return</span> JsonObject;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">const</span> TSharedRef&lt;FJsonObject&gt; <a class="code" href="namespace_json_object.html">JsonObject</a> = <a class="code" href="namespace_json_object.html#a60b6f2811146e94a037e5be463889220">JsonObject::UStructToJsonObject</a>(T::StaticStruct(), &amp;Struct, NamingConvention);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespace_json_object.html">JsonObject</a>;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;FString STREAMJSON_API JsonObjectToString(<span class="keyword">const</span> TSharedRef&lt;FJsonObject&gt;&amp; JsonObject);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;FString STREAMJSON_API JsonObjectToString(<span class="keyword">const</span> TSharedRef&lt;FJsonObject&gt;&amp; <a class="code" href="namespace_json_object.html">JsonObject</a>);</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}    <span class="comment">// namespace JsonObject</span></div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">namespace </span>Json</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;{</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">typename</span> TEnableIf&lt;TIsClass&lt;T&gt;::Value, FString&gt;::Type Serialize(<span class="keyword">const</span> T&amp; Struct, <span class="keyword">const</span> ENamingConvention NamingConvention = ENamingConvention::SnakeCase)</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">typename</span> TEnableIf&lt;TIsClass&lt;T&gt;::Value, FString&gt;<a class="code" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">::Type</a> Serialize(<span class="keyword">const</span> T&amp; Struct, <span class="keyword">const</span> ENamingConvention NamingConvention = ENamingConvention::SnakeCase)</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;{</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">const</span> TSharedRef&lt;FJsonObject&gt; JsonObject = JsonObject::UStructToJsonObject&lt;T&gt;(Struct, NamingConvention);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">const</span> TSharedRef&lt;FJsonObject&gt; <a class="code" href="namespace_json_object.html">JsonObject</a> = JsonObject::UStructToJsonObject&lt;T&gt;(Struct, NamingConvention);</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">return</span> JsonObject::JsonObjectToString(JsonObject);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">return</span> JsonObject::JsonObjectToString(<a class="code" href="namespace_json_object.html">JsonObject</a>);</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">typename</span> TEnableIf&lt;TIsEnumClass&lt;T&gt;::Value, FString&gt;::Type Serialize(<span class="keyword">const</span> T&amp; Enum, <span class="keyword">const</span> ENamingConvention NamingConvention = ENamingConvention::SnakeCase)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">typename</span> TEnableIf&lt;TIsEnumClass&lt;T&gt;::Value, FString&gt;<a class="code" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">::Type</a> Serialize(<span class="keyword">const</span> T&amp; Enum, <span class="keyword">const</span> ENamingConvention NamingConvention = ENamingConvention::SnakeCase)</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;{</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">return</span> JsonObjectSerialization::UEnumToString(StaticEnum&lt;T&gt;(), <span class="keyword">static_cast&lt;</span>int64<span class="keyword">&gt;</span>(Enum), NamingConvention);</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
@@ -138,6 +138,9 @@ $(document).ready(function(){initNavTree('_stream_json_8h_source.html',''); init
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">return</span> OutData;</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;}</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}    <span class="comment">// namespace Json</span></div>
+<div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">EMessageSortField::Type</a></div><div class="ttdeci">@ Type</div><div class="ttdoc">Type of the message.</div></div>
+<div class="ttc" id="anamespace_json_object_html"><div class="ttname"><a href="namespace_json_object.html">JsonObject</a></div><div class="ttdoc">Conversion to and from dynamic JSON objects.</div><div class="ttdef"><b>Definition:</b> StreamJson.h:16</div></div>
+<div class="ttc" id="anamespace_json_object_html_a60b6f2811146e94a037e5be463889220"><div class="ttname"><a href="namespace_json_object.html#a60b6f2811146e94a037e5be463889220">JsonObject::UStructToJsonObject</a></div><div class="ttdeci">STREAMJSON_API TSharedRef&lt; FJsonObject &gt; UStructToJsonObject(const UStruct *StructDefinition, const void *Struct, ENamingConvention NamingConvention=ENamingConvention::SnakeCase)</div><div class="ttdoc">Converts from a UStruct to a Json Object.</div><div class="ttdef"><b>Definition:</b> StreamJson.cpp:8</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

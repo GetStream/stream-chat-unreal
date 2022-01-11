@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('_message_list_widget_8h_source.html','
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;MessageListWidget.generated.h&quot;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span>UChannelContextWidget;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span><a class="code" href="class_u_channel_context_widget.html">UChannelContextWidget</a>;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;UCLASS()</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;class STREAMCHATUI_API UMessageListWidget final : public UStreamWidget</div>
@@ -116,7 +116,7 @@ $(document).ready(function(){initNavTree('_message_list_widget_8h_source.html','
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    virtual <span class="keywordtype">void</span> OnChannel() override;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    UFUNCTION(BlueprintCallable, Category = &quot;Stream Chat&quot;)</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> CreateMessageWidgets(const TArray&lt;FMessage&gt;&amp; Messages);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> CreateMessageWidgets(const TArray&lt;<a class="code" href="struct_f_message.html">FMessage</a>&gt;&amp; Messages);</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    UPROPERTY(meta = (BindWidget))</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    UScrollBox* ScrollBox;</div>
@@ -126,22 +126,25 @@ $(document).ready(function(){initNavTree('_message_list_widget_8h_source.html','
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">float</span> PaginateScrollThreshold = 100.f;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    UPROPERTY(EditDefaultsOnly, Category = Defaults)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    TSubclassOf&lt;UMessageWidget&gt; MessageWidgetClass;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    TSubclassOf&lt;<a class="code" href="class_u_message_widget.html">UMessageWidget</a>&gt; MessageWidgetClass;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    DECLARE_DYNAMIC_DELEGATE_RetVal_ThreeParams(UMessageWidget*, FGetMessageWidget, const FMessage&amp;, Message, EMessageSide, Side, EMessagePosition, Position);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    DECLARE_DYNAMIC_DELEGATE_RetVal_ThreeParams(<a class="code" href="class_u_message_widget.html">UMessageWidget</a>*, FGetMessageWidget, const <a class="code" href="struct_f_message.html">FMessage</a>&amp;, Message, EMessageSide, Side, EMessagePosition, Position);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    UPROPERTY(EditAnywhere, Category = Events)</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    FGetMessageWidget OnGetMessageWidgetEvent;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;private:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    UMessageWidget* CreateMessageWidget(const FMessage&amp;, EMessageSide, EMessagePosition);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="class_u_message_widget.html">UMessageWidget</a>* CreateMessageWidget(const <a class="code" href="struct_f_message.html">FMessage</a>&amp;, EMessageSide, EMessagePosition);</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    UFUNCTION()</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> SetMessages(const TArray&lt;FMessage&gt;&amp; Messages);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> SetMessages(const TArray&lt;<a class="code" href="struct_f_message.html">FMessage</a>&gt;&amp; Messages);</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    UFUNCTION()</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> ScrollToBottom(const FMessage&amp; Message);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> ScrollToBottom(const <a class="code" href="struct_f_message.html">FMessage</a>&amp; Message);</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    UFUNCTION()</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> OnUserScroll(<span class="keywordtype">float</span> CurrentOffset);</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;};</div>
+<div class="ttc" id="aclass_u_channel_context_widget_html"><div class="ttname"><a href="class_u_channel_context_widget.html">UChannelContextWidget</a></div><div class="ttdoc">Provide a reference to a UChatChannel to child widgets.</div><div class="ttdef"><b>Definition:</b> ChannelContextWidget.h:23</div></div>
+<div class="ttc" id="aclass_u_message_widget_html"><div class="ttname"><a href="class_u_message_widget.html">UMessageWidget</a></div><div class="ttdoc">Encapsulates a text bubble, reactions and the mouse hover menu for a message.</div><div class="ttdef"><b>Definition:</b> MessageWidget.h:21</div></div>
+<div class="ttc" id="astruct_f_message_html"><div class="ttname"><a href="struct_f_message.html">FMessage</a></div><div class="ttdoc">Represents a Stream Chat message.</div><div class="ttdef"><b>Definition:</b> Message.h:65</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

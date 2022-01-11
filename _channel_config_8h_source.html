@@ -96,62 +96,78 @@ $(document).ready(function(){initNavTree('_channel_config_8h_source.html',''); i
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;ChannelConfig.generated.h&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">struct </span>FChannelConfigWithInfoDto;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">struct </span><a class="code" href="struct_f_channel_config_with_info_dto.html">FChannelConfigWithInfoDto</a>;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;USTRUCT(BlueprintType)</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">struct </span>FChannelConfig</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="struct_f_channel_config.html">   18</a></span>&#160;struct <a class="code" href="struct_f_channel_config.html">FChannelConfig</a></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    GENERATED_BODY()</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    FChannelConfig();</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="struct_f_channel_config.html#a245e6e5d70c299a636963e80f46f4fe3">   23</a></span>&#160;    <a class="code" href="struct_f_channel_config.html">FChannelConfig</a>();</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    explicit FChannelConfig(const FChannelConfigWithInfoDto&amp;);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    explicit <a class="code" href="struct_f_channel_config.html">FChannelConfig</a>(const <a class="code" href="struct_f_channel_config_with_info_dto.html">FChannelConfigWithInfoDto</a>&amp;);</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    FString Automod;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="struct_f_channel_config.html#a55ebcc199aa002185c99803a25761bad">   30</a></span>&#160;    FString <a class="code" href="struct_f_channel_config_with_info_dto.html#a57fe5d353169226ec7018d80e9d652cc">Automod</a>;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    TArray&lt;FCommand&gt; Commands;</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="struct_f_channel_config.html#a7228633011f5285098da0b979e53cf0b">   34</a></span>&#160;    TArray&lt;FCommand&gt; <a class="code" href="struct_f_channel_config_with_info_dto.html#ae559831a02303bff44262162d9e3751f">Commands</a>;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">bool</span> bConnectEvents = false;</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="struct_f_channel_config.html#a33d98925e9b39e797d8bb366d1514e5c">   38</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="struct_f_channel_config_with_info_dto.html#ac2fdf620cec2671911215c684b700c81">bConnectEvents</a> = false;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    FDateTime CreatedAt = FDateTime{0};</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="struct_f_channel_config.html#ad90a688c29b2f35c0d269abdf3c17b25">   42</a></span>&#160;    FDateTime <a class="code" href="struct_f_channel_config_with_info_dto.html#a7dfd635ec036ad16cf049570bb6b00af">CreatedAt</a> = FDateTime{0};</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    FDateTime UpdatedAt = FDateTime{0};</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="struct_f_channel_config.html#ae03596ecf9aac3156b8eb28166c0b715">   46</a></span>&#160;    FDateTime <a class="code" href="struct_f_channel_config_with_info_dto.html#a296e04832b02e2bba1e61924059a82ea">UpdatedAt</a> = FDateTime{0};</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    int32 MaxMessageLength = 0;</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="struct_f_channel_config.html#acfe8ce287eb5822f04155b1f19342fa6">   50</a></span>&#160;    int32 <a class="code" href="struct_f_channel_config_with_info_dto.html#aa2bc3d201f463d6fcbc9c6663540b5bc">MaxMessageLength</a> = 0;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    FString MessageRetention;</div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="struct_f_channel_config.html#a4552dfcd59a17310bc6f04770e5730b8">   54</a></span>&#160;    FString <a class="code" href="struct_f_channel_config_with_info_dto.html#a7c6875783308811707f5438e759ad099">MessageRetention</a>;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">bool</span> bMutes = false;</div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="struct_f_channel_config.html#a827dbd180caef61e6be67884d847d4a2">   58</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="struct_f_channel_config_with_info_dto.html#a2707c1b313acad2563b4a96edb0c318c">bMutes</a> = false;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">bool</span> bReactions = false;</div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="struct_f_channel_config.html#a76cf64aba0f2bcf871e5f8f7dc4ad7d6">   62</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="struct_f_channel_config_with_info_dto.html#ac45b8353681c4f60f6efbcd4064bdc84">bReactions</a> = false;</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">bool</span> bReadEvents = false;</div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="struct_f_channel_config.html#a7a73894ffb3d50cfbd9d584c8082cdac">   66</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="struct_f_channel_config_with_info_dto.html#a93a898919046ccd793f71e6f87c05b4b">bReadEvents</a> = false;</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">bool</span> bReplies = false;</div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="struct_f_channel_config.html#a46b5f46927ef0c4396ebbc6272fbc52c">   70</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="struct_f_channel_config_with_info_dto.html#a20cb7fcf2aab29308d182256e5d96676">bReplies</a> = false;</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">bool</span> bSearch = false;</div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="struct_f_channel_config.html#a296192fc54a48f2355bc870aadb70f8f">   74</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="struct_f_channel_config_with_info_dto.html#a241ff9728bbc8acadc741048bc9cf65b">bSearch</a> = false;</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">bool</span> bTypingEvents = false;</div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="struct_f_channel_config.html#a2c935b890acf6ea9b044218b45c536c7">   77</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="struct_f_channel_config_with_info_dto.html#ab53c234e995c2b445300c95e92af8275">bTypingEvents</a> = false;</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">bool</span> bUploads = false;</div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="struct_f_channel_config.html#a67b73088591db483fdae6db99b8a0e8b">   81</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="struct_f_channel_config_with_info_dto.html#a5269102cc32a0153bb64887954a919dd">bUploads</a> = false;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">bool</span> bUrlEnrichment = false;</div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="struct_f_channel_config.html#a714a4b1f199d9e0c18c5c6b5289ff7cf">   85</a></span>&#160;    <span class="keywordtype">bool</span> bUrlEnrichment = false;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;};</div>
+<div class="ttc" id="astruct_f_channel_config_html"><div class="ttname"><a href="struct_f_channel_config.html">FChannelConfig</a></div><div class="ttdoc">The configuration, permissions and features of a channel, as defined by the &quot;channel type&quot;.</div><div class="ttdef"><b>Definition:</b> ChannelConfig.h:19</div></div>
+<div class="ttc" id="astruct_f_channel_config_with_info_dto_html"><div class="ttname"><a href="struct_f_channel_config_with_info_dto.html">FChannelConfigWithInfoDto</a></div><div class="ttdoc">#/components/schemas/ChannelConfigWithInfo</div><div class="ttdef"><b>Definition:</b> ChannelConfigWithInfoDto.h:16</div></div>
+<div class="ttc" id="astruct_f_channel_config_with_info_dto_html_a20cb7fcf2aab29308d182256e5d96676"><div class="ttname"><a href="struct_f_channel_config_with_info_dto.html#a20cb7fcf2aab29308d182256e5d96676">FChannelConfigWithInfoDto::bReplies</a></div><div class="ttdeci">bool bReplies</div><div class="ttdoc">True if reply message are active for this channel.</div><div class="ttdef"><b>Definition:</b> ChannelConfigWithInfoDto.h:53</div></div>
+<div class="ttc" id="astruct_f_channel_config_with_info_dto_html_a241ff9728bbc8acadc741048bc9cf65b"><div class="ttname"><a href="struct_f_channel_config_with_info_dto.html#a241ff9728bbc8acadc741048bc9cf65b">FChannelConfigWithInfoDto::bSearch</a></div><div class="ttdeci">bool bSearch</div><div class="ttdoc">True if it's possible to perform a search in this channel.</div><div class="ttdef"><b>Definition:</b> ChannelConfigWithInfoDto.h:45</div></div>
+<div class="ttc" id="astruct_f_channel_config_with_info_dto_html_a2707c1b313acad2563b4a96edb0c318c"><div class="ttname"><a href="struct_f_channel_config_with_info_dto.html#a2707c1b313acad2563b4a96edb0c318c">FChannelConfigWithInfoDto::bMutes</a></div><div class="ttdeci">bool bMutes</div><div class="ttdoc">True if users can be muted.</div><div class="ttdef"><b>Definition:</b> ChannelConfigWithInfoDto.h:57</div></div>
+<div class="ttc" id="astruct_f_channel_config_with_info_dto_html_a296e04832b02e2bba1e61924059a82ea"><div class="ttname"><a href="struct_f_channel_config_with_info_dto.html#a296e04832b02e2bba1e61924059a82ea">FChannelConfigWithInfoDto::UpdatedAt</a></div><div class="ttdeci">FDateTime UpdatedAt</div><div class="ttdoc">Date of last channel update.</div><div class="ttdef"><b>Definition:</b> ChannelConfigWithInfoDto.h:25</div></div>
+<div class="ttc" id="astruct_f_channel_config_with_info_dto_html_a5269102cc32a0153bb64887954a919dd"><div class="ttname"><a href="struct_f_channel_config_with_info_dto.html#a5269102cc32a0153bb64887954a919dd">FChannelConfigWithInfoDto::bUploads</a></div><div class="ttdeci">bool bUploads</div><div class="ttdoc">True if it's possible to upload files to this channel.</div><div class="ttdef"><b>Definition:</b> ChannelConfigWithInfoDto.h:61</div></div>
+<div class="ttc" id="astruct_f_channel_config_with_info_dto_html_a57fe5d353169226ec7018d80e9d652cc"><div class="ttname"><a href="struct_f_channel_config_with_info_dto.html#a57fe5d353169226ec7018d80e9d652cc">FChannelConfigWithInfoDto::Automod</a></div><div class="ttdeci">FString Automod</div><div class="ttdoc">Enables automatic message moderation.</div><div class="ttdef"><b>Definition:</b> ChannelConfigWithInfoDto.h:87</div></div>
+<div class="ttc" id="astruct_f_channel_config_with_info_dto_html_a7c6875783308811707f5438e759ad099"><div class="ttname"><a href="struct_f_channel_config_with_info_dto.html#a7c6875783308811707f5438e759ad099">FChannelConfigWithInfoDto::MessageRetention</a></div><div class="ttdeci">FString MessageRetention</div><div class="ttdoc">Number of days to keep messages. 'infinite' disables retention.</div><div class="ttdef"><b>Definition:</b> ChannelConfigWithInfoDto.h:77</div></div>
+<div class="ttc" id="astruct_f_channel_config_with_info_dto_html_a7dfd635ec036ad16cf049570bb6b00af"><div class="ttname"><a href="struct_f_channel_config_with_info_dto.html#a7dfd635ec036ad16cf049570bb6b00af">FChannelConfigWithInfoDto::CreatedAt</a></div><div class="ttdeci">FDateTime CreatedAt</div><div class="ttdoc">Date of channel creation.</div><div class="ttdef"><b>Definition:</b> ChannelConfigWithInfoDto.h:21</div></div>
+<div class="ttc" id="astruct_f_channel_config_with_info_dto_html_a93a898919046ccd793f71e6f87c05b4b"><div class="ttname"><a href="struct_f_channel_config_with_info_dto.html#a93a898919046ccd793f71e6f87c05b4b">FChannelConfigWithInfoDto::bReadEvents</a></div><div class="ttdeci">bool bReadEvents</div><div class="ttdoc">True if readEvents are active for this channel.</div><div class="ttdef"><b>Definition:</b> ChannelConfigWithInfoDto.h:37</div></div>
+<div class="ttc" id="astruct_f_channel_config_with_info_dto_html_aa2bc3d201f463d6fcbc9c6663540b5bc"><div class="ttname"><a href="struct_f_channel_config_with_info_dto.html#aa2bc3d201f463d6fcbc9c6663540b5bc">FChannelConfigWithInfoDto::MaxMessageLength</a></div><div class="ttdeci">int32 MaxMessageLength</div><div class="ttdef"><b>Definition:</b> ChannelConfigWithInfoDto.h:82</div></div>
+<div class="ttc" id="astruct_f_channel_config_with_info_dto_html_ab53c234e995c2b445300c95e92af8275"><div class="ttname"><a href="struct_f_channel_config_with_info_dto.html#ab53c234e995c2b445300c95e92af8275">FChannelConfigWithInfoDto::bTypingEvents</a></div><div class="ttdeci">bool bTypingEvents</div><div class="ttdoc">True if typing events should be sent for this channel.</div><div class="ttdef"><b>Definition:</b> ChannelConfigWithInfoDto.h:33</div></div>
+<div class="ttc" id="astruct_f_channel_config_with_info_dto_html_ac2fdf620cec2671911215c684b700c81"><div class="ttname"><a href="struct_f_channel_config_with_info_dto.html#ac2fdf620cec2671911215c684b700c81">FChannelConfigWithInfoDto::bConnectEvents</a></div><div class="ttdeci">bool bConnectEvents</div><div class="ttdoc">True if the channel should send connect events.</div><div class="ttdef"><b>Definition:</b> ChannelConfigWithInfoDto.h:41</div></div>
+<div class="ttc" id="astruct_f_channel_config_with_info_dto_html_ac45b8353681c4f60f6efbcd4064bdc84"><div class="ttname"><a href="struct_f_channel_config_with_info_dto.html#ac45b8353681c4f60f6efbcd4064bdc84">FChannelConfigWithInfoDto::bReactions</a></div><div class="ttdeci">bool bReactions</div><div class="ttdoc">True if reaction are active for this channel.</div><div class="ttdef"><b>Definition:</b> ChannelConfigWithInfoDto.h:49</div></div>
+<div class="ttc" id="astruct_f_channel_config_with_info_dto_html_ae559831a02303bff44262162d9e3751f"><div class="ttname"><a href="struct_f_channel_config_with_info_dto.html#ae559831a02303bff44262162d9e3751f">FChannelConfigWithInfoDto::Commands</a></div><div class="ttdeci">TArray&lt; FCommandDto &gt; Commands</div><div class="ttdoc">List of available commands.</div><div class="ttdef"><b>Definition:</b> ChannelConfigWithInfoDto.h:107</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

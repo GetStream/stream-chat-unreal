@@ -99,109 +99,127 @@ $(document).ready(function(){initNavTree('_filter_8h_source.html',''); initResiz
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">class </span>FJsonObject;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">struct </span>FJsonObjectWrapper;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">enum class</span> EFilterOperator : uint8</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="group___stream_chat.html#ga5f415eaba7bb8ad8ae40f5b8b3eb69b5">   17</a></span>&#160;<span class="keyword">enum class</span> <a class="code" href="group___stream_chat.html#ga5f415eaba7bb8ad8ae40f5b8b3eb69b5">EFilterOperator</a> : uint8</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    None,</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a6adf97f83acf6453d4a6a4b1070f3754">None</a>,</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    Equal,</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5af5f286e73bda105e538310b3190f75c5">Equal</a>,</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    NotEqual,</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a19bb0af2c3c530538cb41aff7f235b96">NotEqual</a>,</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    Greater,</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a8768a6821cd735aea4f5b0df88c1fc6a">Greater</a>,</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    GreaterOrEqual,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a6f2f0aefb3d22da0f3839453add5f937">GreaterOrEqual</a>,</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    Less,</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a1cfdf0e8d0c87a228c1f40d9bee7888b">Less</a>,</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    LessOrEqual,</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5aa4cbdbb6070a5abb35fc95ecf1e22c14">LessOrEqual</a>,</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    In,</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5aefeb369cccbd560588a756610865664c">In</a>,</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    NotIn,</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5ac949090e2cb12faab4dabb4621dd6c9e">NotIn</a>,</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    Query,</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a66c1b4c7f3dc385b68a9fa903ccd016d">Query</a>,</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    AutoComplete,</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5aa5b073d2349cd7dd3ce14df3216b0e81">AutoComplete</a>,</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    Exists,</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a2a8eb028670e972535e8e246be645821">Exists</a>,</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    And,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5ac33315685a0cba3ce53be378b3c7874b">And</a>,</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    Or,</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a3a2d5fe857d8f9541136a124c2edec6c">Or</a>,</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    Nor,</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a5f61fcb6e17f7a46a46a47c7977c90c1">Nor</a>,</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    Contains,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5ab270372be5b4433b4736daaf25e1c74e">Contains</a>,</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;USTRUCT(BlueprintType)</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">struct </span>STREAMCHAT_API FFilter</div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="struct_f_filter.html">   74</a></span>&#160;struct STREAMCHAT_API <a class="code" href="struct_f_filter.html">FFilter</a></div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;{</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    GENERATED_BODY()</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    FFilter() = default;</div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="struct_f_filter.html#a19b44c9b8c53e8aa495af85237079b0b">   79</a></span>&#160;    <a class="code" href="struct_f_filter.html">FFilter</a>() = default;</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    FJsonObjectWrapper ToJsonObjectWrapper() const;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    FString ToJson() const;</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    TSharedRef&lt;FJsonObject&gt; ToJsonObject() const;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    static FFilter And(const TArray&lt;FFilter&gt;&amp; Filters);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    static FFilter Or(const TArray&lt;FFilter&gt;&amp; Filters);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    static FFilter Nor(const TArray&lt;FFilter&gt;&amp; Filters);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> And(const TArray&lt;<a class="code" href="struct_f_filter.html">FFilter</a>&gt;&amp; Filters);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> Or(const TArray&lt;<a class="code" href="struct_f_filter.html">FFilter</a>&gt;&amp; Filters);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> Nor(const TArray&lt;<a class="code" href="struct_f_filter.html">FFilter</a>&gt;&amp; Filters);</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    static FFilter Equal(const FName&amp; Field, int32 Value);</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    static FFilter Equal(const FName&amp; Field, <span class="keywordtype">float</span> Value);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    static FFilter Equal(const FName&amp; Field, const FString&amp; Value);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    static FFilter Equal(const FName&amp; Field, <span class="keywordtype">bool</span> bValue);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    static FFilter NotEqual(const FName&amp; Field, int32 Value);</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    static FFilter NotEqual(const FName&amp; Field, <span class="keywordtype">float</span> Value);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    static FFilter NotEqual(const FName&amp; Field, const FString&amp; Value);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    static FFilter NotEqual(const FName&amp; Field, <span class="keywordtype">bool</span> bValue);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    static FFilter Greater(const FName&amp; Field, int32 Value);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    static FFilter Greater(const FName&amp; Field, <span class="keywordtype">float</span> Value);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    static FFilter Greater(const FName&amp; Field, const FString&amp; Value);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    static FFilter Greater(const FName&amp; Field, <span class="keywordtype">bool</span> bValue);</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    static FFilter GreaterOrEqual(const FName&amp; Field, int32 Value);</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    static FFilter GreaterOrEqual(const FName&amp; Field, <span class="keywordtype">float</span> Value);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    static FFilter GreaterOrEqual(const FName&amp; Field, const FString&amp; Value);</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    static FFilter GreaterOrEqual(const FName&amp; Field, <span class="keywordtype">bool</span> bValue);</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    static FFilter Less(const FName&amp; Field, int32 Value);</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    static FFilter Less(const FName&amp; Field, <span class="keywordtype">float</span> Value);</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    static FFilter Less(const FName&amp; Field, const FString&amp; Value);</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    static FFilter Less(const FName&amp; Field, <span class="keywordtype">bool</span> bValue);</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    static FFilter LessOrEqual(const FName&amp; Field, int32 Value);</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    static FFilter LessOrEqual(const FName&amp; Field, <span class="keywordtype">float</span> Value);</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    static FFilter LessOrEqual(const FName&amp; Field, const FString&amp; Value);</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    static FFilter LessOrEqual(const FName&amp; Field, <span class="keywordtype">bool</span> bValue);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> Equal(const FName&amp; Field, int32 Value);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> Equal(const FName&amp; Field, <span class="keywordtype">float</span> Value);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> Equal(const FName&amp; Field, const FString&amp; Value);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> Equal(const FName&amp; Field, <span class="keywordtype">bool</span> bValue);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> NotEqual(const FName&amp; Field, int32 Value);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> NotEqual(const FName&amp; Field, <span class="keywordtype">float</span> Value);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> NotEqual(const FName&amp; Field, const FString&amp; Value);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> NotEqual(const FName&amp; Field, <span class="keywordtype">bool</span> bValue);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> Greater(const FName&amp; Field, int32 Value);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> Greater(const FName&amp; Field, <span class="keywordtype">float</span> Value);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> Greater(const FName&amp; Field, const FString&amp; Value);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> Greater(const FName&amp; Field, <span class="keywordtype">bool</span> bValue);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> GreaterOrEqual(const FName&amp; Field, int32 Value);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> GreaterOrEqual(const FName&amp; Field, <span class="keywordtype">float</span> Value);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> GreaterOrEqual(const FName&amp; Field, const FString&amp; Value);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> GreaterOrEqual(const FName&amp; Field, <span class="keywordtype">bool</span> bValue);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> Less(const FName&amp; Field, int32 Value);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> Less(const FName&amp; Field, <span class="keywordtype">float</span> Value);</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> Less(const FName&amp; Field, const FString&amp; Value);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> Less(const FName&amp; Field, <span class="keywordtype">bool</span> bValue);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> LessOrEqual(const FName&amp; Field, int32 Value);</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> LessOrEqual(const FName&amp; Field, <span class="keywordtype">float</span> Value);</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> LessOrEqual(const FName&amp; Field, const FString&amp; Value);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> LessOrEqual(const FName&amp; Field, <span class="keywordtype">bool</span> bValue);</div>
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    static FFilter In(const FName&amp; Field, const TArray&lt;int32&gt;&amp; Values);</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    static FFilter In(const FName&amp; Field, const TArray&lt;<span class="keywordtype">float</span>&gt;&amp; Values);</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    static FFilter In(const FName&amp; Field, const TArray&lt;FString&gt;&amp; Values);</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    static FFilter NotIn(const FName&amp; Field, const TArray&lt;int32&gt;&amp; Values);</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    static FFilter NotIn(const FName&amp; Field, const TArray&lt;<span class="keywordtype">float</span>&gt;&amp; Values);</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    static FFilter NotIn(const FName&amp; Field, const TArray&lt;FString&gt;&amp; Values);</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> In(const FName&amp; Field, const TArray&lt;int32&gt;&amp; Values);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> In(const FName&amp; Field, const TArray&lt;<span class="keywordtype">float</span>&gt;&amp; Values);</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> In(const FName&amp; Field, const TArray&lt;FString&gt;&amp; Values);</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> NotIn(const FName&amp; Field, const TArray&lt;int32&gt;&amp; Values);</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> NotIn(const FName&amp; Field, const TArray&lt;<span class="keywordtype">float</span>&gt;&amp; Values);</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> NotIn(const FName&amp; Field, const TArray&lt;FString&gt;&amp; Values);</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    static FFilter Empty(const FName&amp; Field);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> Empty(const FName&amp; Field);</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keywordtype">bool</span> IsValid() const;</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;private:</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    FFilter(EFilterOperator Operator, const TArray&lt;FFilter&gt;&amp; Filters);</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    FFilter(EFilterOperator Operator, const FName&amp; Field, const TSharedPtr&lt;FJsonValue&gt;&amp; Value);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <a class="code" href="struct_f_filter.html">FFilter</a>(<a class="code" href="group___stream_chat.html#ga5f415eaba7bb8ad8ae40f5b8b3eb69b5">EFilterOperator</a> Operator, const TArray&lt;<a class="code" href="struct_f_filter.html">FFilter</a>&gt;&amp; Filters);</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <a class="code" href="struct_f_filter.html">FFilter</a>(<a class="code" href="group___stream_chat.html#ga5f415eaba7bb8ad8ae40f5b8b3eb69b5">EFilterOperator</a> Operator, const FName&amp; Field, const TSharedPtr&lt;FJsonValue&gt;&amp; Value);</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    template &lt;class T&gt;</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    static FFilter MakeComparison(EFilterOperator Operator, const FName&amp; Field, T Value);</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    static FFilter MakeComparison(EFilterOperator Operator, const FName&amp; Field, const FString&amp; Value);</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    static FFilter MakeComparison(EFilterOperator Operator, const FName&amp; Field, <span class="keywordtype">bool</span> bValue);</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> MakeComparison(<a class="code" href="group___stream_chat.html#ga5f415eaba7bb8ad8ae40f5b8b3eb69b5">EFilterOperator</a> Operator, const FName&amp; Field, T Value);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> MakeComparison(<a class="code" href="group___stream_chat.html#ga5f415eaba7bb8ad8ae40f5b8b3eb69b5">EFilterOperator</a> Operator, const FName&amp; Field, const FString&amp; Value);</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> MakeComparison(<a class="code" href="group___stream_chat.html#ga5f415eaba7bb8ad8ae40f5b8b3eb69b5">EFilterOperator</a> Operator, const FName&amp; Field, <span class="keywordtype">bool</span> bValue);</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    template &lt;class T&gt;</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    static FFilter MakeArrayComparison(EFilterOperator Operator, const FName&amp; Field, const TArray&lt;T&gt;&amp; Values);</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    static FFilter MakeArrayComparison(EFilterOperator Operator, const FName&amp; Field, const TArray&lt;FString&gt;&amp; Values);</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> MakeArrayComparison(<a class="code" href="group___stream_chat.html#ga5f415eaba7bb8ad8ae40f5b8b3eb69b5">EFilterOperator</a> Operator, const FName&amp; Field, const TArray&lt;T&gt;&amp; Values);</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> MakeArrayComparison(<a class="code" href="group___stream_chat.html#ga5f415eaba7bb8ad8ae40f5b8b3eb69b5">EFilterOperator</a> Operator, const FName&amp; Field, const TArray&lt;FString&gt;&amp; Values);</div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    EFilterOperator Operator;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <a class="code" href="group___stream_chat.html#ga5f415eaba7bb8ad8ae40f5b8b3eb69b5">EFilterOperator</a> Operator;</div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    FName Field;</div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    TSharedPtr&lt;FJsonValue&gt; Value;</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    TArray&lt;FFilter&gt; ChildFilters;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    TArray&lt;<a class="code" href="struct_f_filter.html">FFilter</a>&gt; ChildFilters;</div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;};</div>
+<div class="ttc" id="agroup___stream_chat_api_html_gga683630d96445bae6259c39daebb90898a6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a6adf97f83acf6453d4a6a4b1070f3754">EChannelFlags::None</a></div><div class="ttdeci">@ None</div><div class="ttdoc">Do nothing.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_ga5f415eaba7bb8ad8ae40f5b8b3eb69b5"><div class="ttname"><a href="group___stream_chat.html#ga5f415eaba7bb8ad8ae40f5b8b3eb69b5">EFilterOperator</a></div><div class="ttdeci">EFilterOperator</div><div class="ttdoc">The type of operator of a filter.</div><div class="ttdef"><b>Definition:</b> Filter.h:18</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a19bb0af2c3c530538cb41aff7f235b96"><div class="ttname"><a href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a19bb0af2c3c530538cb41aff7f235b96">EFilterOperator::NotEqual</a></div><div class="ttdeci">@ NotEqual</div><div class="ttdoc">Matches all values that are not equal to a specified value.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a1cfdf0e8d0c87a228c1f40d9bee7888b"><div class="ttname"><a href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a1cfdf0e8d0c87a228c1f40d9bee7888b">EFilterOperator::Less</a></div><div class="ttdeci">@ Less</div><div class="ttdoc">Matches values that are less than a specified value.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a2a8eb028670e972535e8e246be645821"><div class="ttname"><a href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a2a8eb028670e972535e8e246be645821">EFilterOperator::Exists</a></div><div class="ttdeci">@ Exists</div><div class="ttdoc">Matches values that exist/don't exist based on the specified boolean value.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a3a2d5fe857d8f9541136a124c2edec6c"><div class="ttname"><a href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a3a2d5fe857d8f9541136a124c2edec6c">EFilterOperator::Or</a></div><div class="ttdeci">@ Or</div><div class="ttdoc">Matches at least one of the values specified in an array.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a5f61fcb6e17f7a46a46a47c7977c90c1"><div class="ttname"><a href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a5f61fcb6e17f7a46a46a47c7977c90c1">EFilterOperator::Nor</a></div><div class="ttdeci">@ Nor</div><div class="ttdoc">Matches none of the values specified in an array.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a66c1b4c7f3dc385b68a9fa903ccd016d"><div class="ttname"><a href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a66c1b4c7f3dc385b68a9fa903ccd016d">EFilterOperator::Query</a></div><div class="ttdeci">@ Query</div><div class="ttdoc">Matches values by performing text search with the specified value.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a6f2f0aefb3d22da0f3839453add5f937"><div class="ttname"><a href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a6f2f0aefb3d22da0f3839453add5f937">EFilterOperator::GreaterOrEqual</a></div><div class="ttdeci">@ GreaterOrEqual</div><div class="ttdoc">Matches values that are greater than a specified value.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a8768a6821cd735aea4f5b0df88c1fc6a"><div class="ttname"><a href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a8768a6821cd735aea4f5b0df88c1fc6a">EFilterOperator::Greater</a></div><div class="ttdeci">@ Greater</div><div class="ttdoc">Matches values that are greater than a specified value.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga5f415eaba7bb8ad8ae40f5b8b3eb69b5aa4cbdbb6070a5abb35fc95ecf1e22c14"><div class="ttname"><a href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5aa4cbdbb6070a5abb35fc95ecf1e22c14">EFilterOperator::LessOrEqual</a></div><div class="ttdeci">@ LessOrEqual</div><div class="ttdoc">Matches values that are less than or equal to a specified value.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga5f415eaba7bb8ad8ae40f5b8b3eb69b5aa5b073d2349cd7dd3ce14df3216b0e81"><div class="ttname"><a href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5aa5b073d2349cd7dd3ce14df3216b0e81">EFilterOperator::AutoComplete</a></div><div class="ttdeci">@ AutoComplete</div><div class="ttdoc">Matches values with the specified prefix.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga5f415eaba7bb8ad8ae40f5b8b3eb69b5ab270372be5b4433b4736daaf25e1c74e"><div class="ttname"><a href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5ab270372be5b4433b4736daaf25e1c74e">EFilterOperator::Contains</a></div><div class="ttdeci">@ Contains</div><div class="ttdoc">Matches any list that contains the specified value.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga5f415eaba7bb8ad8ae40f5b8b3eb69b5ac33315685a0cba3ce53be378b3c7874b"><div class="ttname"><a href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5ac33315685a0cba3ce53be378b3c7874b">EFilterOperator::And</a></div><div class="ttdeci">@ And</div><div class="ttdoc">Matches all the values specified in an array.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga5f415eaba7bb8ad8ae40f5b8b3eb69b5ac949090e2cb12faab4dabb4621dd6c9e"><div class="ttname"><a href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5ac949090e2cb12faab4dabb4621dd6c9e">EFilterOperator::NotIn</a></div><div class="ttdeci">@ NotIn</div><div class="ttdoc">Matches none of the values specified in an array.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga5f415eaba7bb8ad8ae40f5b8b3eb69b5aefeb369cccbd560588a756610865664c"><div class="ttname"><a href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5aefeb369cccbd560588a756610865664c">EFilterOperator::In</a></div><div class="ttdeci">@ In</div><div class="ttdoc">Matches any of the values specified in an array.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga5f415eaba7bb8ad8ae40f5b8b3eb69b5af5f286e73bda105e538310b3190f75c5"><div class="ttname"><a href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5af5f286e73bda105e538310b3190f75c5">EFilterOperator::Equal</a></div><div class="ttdeci">@ Equal</div><div class="ttdoc">Matches values that are equal to a specified value.</div></div>
+<div class="ttc" id="astruct_f_filter_html"><div class="ttname"><a href="struct_f_filter.html">FFilter</a></div><div class="ttdoc">A filter used for querying channels.</div><div class="ttdef"><b>Definition:</b> Filter.h:75</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

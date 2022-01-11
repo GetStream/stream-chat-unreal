@@ -109,7 +109,7 @@ $(document).ready(function(){initNavTree('_avatar_widget_8h_source.html',''); in
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;public:</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    UFUNCTION(BlueprintCallable, Category = &quot;Stream Chat&quot;)</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">void</span> Setup(const TArray&lt;FUserRef&gt;&amp; InUsers, int32 InSize = -1);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">void</span> Setup(const TArray&lt;<a class="code" href="struct_f_user_ref.html">FUserRef</a>&gt;&amp; InUsers, int32 InSize = -1);</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;protected:</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    UPROPERTY(meta = (BindWidget))</div>
@@ -131,7 +131,7 @@ $(document).ready(function(){initNavTree('_avatar_widget_8h_source.html',''); in
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    FName OnlineStatusMaterialParameterName = TEXT(&quot;bOnline&quot;);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    TArray&lt;FUserRef&gt; Users;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    TArray&lt;<a class="code" href="struct_f_user_ref.html">FUserRef</a>&gt; Users;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    int32 Size = 80;</div>
@@ -140,7 +140,7 @@ $(document).ready(function(){initNavTree('_avatar_widget_8h_source.html',''); in
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    virtual <span class="keywordtype">void</span> OnSetup() override;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> UpdateOnlineStatus(<span class="keywordtype">bool</span> bOnline);</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> CreateProfilePics();</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    UProfilePicWidget* CreateProfilePic(const FUserRef&amp;);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    UProfilePicWidget* CreateProfilePic(const <a class="code" href="struct_f_user_ref.html">FUserRef</a>&amp;);</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    UFUNCTION()</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> OnUserUpdated();</div>
@@ -148,6 +148,7 @@ $(document).ready(function(){initNavTree('_avatar_widget_8h_source.html',''); in
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    UPROPERTY(Transient)</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    UMaterialInstanceDynamic* EffectMaterialDynamic;</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;};</div>
+<div class="ttc" id="astruct_f_user_ref_html"><div class="ttname"><a href="struct_f_user_ref.html">FUserRef</a></div><div class="ttdoc">A reference to a unique User.</div><div class="ttdef"><b>Definition:</b> UserRef.h:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

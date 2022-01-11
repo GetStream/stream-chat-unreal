@@ -91,16 +91,16 @@ $(document).ready(function(){initNavTree('_util_8h_source.html',''); initResizab
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>Util</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="namespace_util.html">   13</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_util.html">Util</a></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> OutT, <span class="keyword">typename</span> InT&gt;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;FORCEINLINE OutT Convert(<span class="keyword">const</span> InT&amp; Input)</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="namespace_util.html#a0cc92701804c45a7497b09167f24a477">   17</a></span>&#160;FORCEINLINE OutT <a class="code" href="namespace_util.html#a0cc92701804c45a7497b09167f24a477">Convert</a>(<span class="keyword">const</span> InT&amp; Input)</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>OutT<span class="keyword">&gt;</span>(Input);</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> OutT, <span class="keyword">typename</span> InT&gt;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;FORCEINLINE TOptional&lt;OutT&gt; Convert(<span class="keyword">const</span> TOptional&lt;InT&gt;&amp; Input)</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="namespace_util.html#a42beebc21f20dd2ae0fb00e868eb224a">   24</a></span>&#160;FORCEINLINE TOptional&lt;OutT&gt; <a class="code" href="namespace_util.html#a0cc92701804c45a7497b09167f24a477">Convert</a>(<span class="keyword">const</span> TOptional&lt;InT&gt;&amp; Input)</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">if</span> (Input.IsSet())</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    {</div>
@@ -110,7 +110,7 @@ $(document).ready(function(){initNavTree('_util_8h_source.html',''); initResizab
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> OutT, <span class="keyword">typename</span> InT&gt;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;FORCEINLINE TOptional&lt;OutT&gt; Convert(<span class="keyword">const</span> InT* Input)</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="namespace_util.html#a221af06feb04de09235dca7f71ea6185">   35</a></span>&#160;FORCEINLINE TOptional&lt;OutT&gt; <a class="code" href="namespace_util.html#a0cc92701804c45a7497b09167f24a477">Convert</a>(<span class="keyword">const</span> InT* Input)</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> (Input != <span class="keyword">nullptr</span>)</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    {</div>
@@ -120,7 +120,7 @@ $(document).ready(function(){initNavTree('_util_8h_source.html',''); initResizab
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> OutT, <span class="keyword">typename</span> InT&gt;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;FORCEINLINE TOptional&lt;TArray&lt;OutT&gt;&gt; Convert(<span class="keyword">const</span> TOptional&lt;TArray&lt;InT&gt;&gt;&amp; Input)</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="namespace_util.html#a2f571b909e92173f4e888245f7ed036b">   46</a></span>&#160;FORCEINLINE TOptional&lt;TArray&lt;OutT&gt;&gt; <a class="code" href="namespace_util.html#a0cc92701804c45a7497b09167f24a477">Convert</a>(<span class="keyword">const</span> TOptional&lt;TArray&lt;InT&gt;&gt;&amp; Input)</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;{</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">if</span> (Input.IsSet())</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    {</div>
@@ -130,7 +130,7 @@ $(document).ready(function(){initNavTree('_util_8h_source.html',''); initResizab
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> OutT, <span class="keyword">typename</span> InT&gt;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;FORCEINLINE TArray&lt;OutT&gt; Convert(<span class="keyword">const</span> TArray&lt;InT&gt;&amp; Input)</div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="namespace_util.html#ada59455932cbafa6f8d8846603f02f09">   57</a></span>&#160;FORCEINLINE TArray&lt;OutT&gt; <a class="code" href="namespace_util.html#a0cc92701804c45a7497b09167f24a477">Convert</a>(<span class="keyword">const</span> TArray&lt;InT&gt;&amp; Input)</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;{</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    TArray&lt;OutT&gt; Output;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    Output.Reserve(Input.Num());</div>
@@ -141,6 +141,8 @@ $(document).ready(function(){initNavTree('_util_8h_source.html',''); initResizab
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">return</span> Output;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}    <span class="comment">// namespace Util</span></div>
+<div class="ttc" id="anamespace_util_html"><div class="ttname"><a href="namespace_util.html">Util</a></div><div class="ttdoc">Helpers for DTO conversion.</div><div class="ttdef"><b>Definition:</b> Util.h:14</div></div>
+<div class="ttc" id="anamespace_util_html_a0cc92701804c45a7497b09167f24a477"><div class="ttname"><a href="namespace_util.html#a0cc92701804c45a7497b09167f24a477">Util::Convert</a></div><div class="ttdeci">FORCEINLINE OutT Convert(const InT &amp;Input)</div><div class="ttdoc">Map from one type to an another using direct initialization.</div><div class="ttdef"><b>Definition:</b> Util.h:17</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
