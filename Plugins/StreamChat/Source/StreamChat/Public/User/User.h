@@ -38,9 +38,13 @@ struct STREAMCHAT_API FUser
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat|User")
     FString Id;
 
-    /// Whether a user online or not
+    /// Whether a user is online or not
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|User")
     bool bOnline = false;
+
+    /// When invisible is set to true, the current user will appear as offline to other users.
+    UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|User", AdvancedDisplay)
+    bool bInvisible = false;
 
     /// Date/time of creation
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|User")

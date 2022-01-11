@@ -8,6 +8,7 @@
 
 /**
  * @brief #/components/schemas/UserObject
+ * Used in both requests and responses
  * @ingroup StreamChatDto
  */
 USTRUCT(BlueprintType)
@@ -33,6 +34,10 @@ struct STREAMCHATDTO_API FUserObjectDto
     /// Date of last activity
     UPROPERTY(Transient)
     FDateTime LastActive;
+
+    /// Whether a user should appear online or not
+    UPROPERTY()
+    bool bInvisible;
 
     // Not in the API spec, but common
     UPROPERTY()
