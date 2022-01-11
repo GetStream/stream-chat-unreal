@@ -104,51 +104,50 @@ $(document).ready(function(){initNavTree('_filter_blueprint_library_8h_source.ht
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;public:</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Filter&quot;)</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    static FString ToJsonString(const <a class="code" href="struct_f_filter.html">FFilter</a>&amp; Filter);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    static FString ToJsonString(const FFilter&amp; Filter);</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Filter&quot;, meta = (DisplayName = &quot;$and (Filter)&quot;, CompactNodeTitle = &quot;$and&quot;, Keywords = &quot;&amp;&quot;))</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> And(const TArray&lt;<a class="code" href="struct_f_filter.html">FFilter</a>&gt;&amp; Filters);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    static FFilter And(const TArray&lt;FFilter&gt;&amp; Filters);</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Filter&quot;, meta = (DisplayName = &quot;$or (Filter)&quot;, CompactNodeTitle = &quot;$or&quot;, Keywords = &quot;|&quot;))</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> Or(const TArray&lt;<a class="code" href="struct_f_filter.html">FFilter</a>&gt;&amp; Filters);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    static FFilter Or(const TArray&lt;FFilter&gt;&amp; Filters);</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Filter&quot;, meta = (DisplayName = &quot;$nor (Filter)&quot;, CompactNodeTitle = &quot;$nor&quot;, Keywords = &quot;not |&quot;))</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> Nor(const TArray&lt;<a class="code" href="struct_f_filter.html">FFilter</a>&gt;&amp; Filters);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    static FFilter Nor(const TArray&lt;FFilter&gt;&amp; Filters);</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Filter&quot;, meta = (DisplayName = &quot;$eq (Filter, integer)&quot;, Keywords = &quot;= $eq&quot;))</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> EqualInt(FName Key, int32 Value);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    static FFilter EqualInt(FName Key, int32 Value);</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Filter&quot;, meta = (DisplayName = &quot;$eq (Filter, <span class="keywordtype">string</span>)&quot;, Keywords = &quot;= $eq&quot;))</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> EqualString(FName Key, FString Value);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    static FFilter EqualString(FName Key, FString Value);</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Filter&quot;, meta = (DisplayName = &quot;$eq (Filter, <span class="keywordtype">boolean</span>)&quot;, Keywords = &quot;= $eq&quot;))</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> EqualBool(FName Key, <span class="keywordtype">bool</span> bValue);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    static FFilter EqualBool(FName Key, <span class="keywordtype">bool</span> bValue);</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Filter&quot;, meta = (DisplayName = &quot;$ne (Filter, integer)&quot;, Keywords = &quot;!= $neq&quot;))</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> NotEqualInt(FName Key, int32 Value);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    static FFilter NotEqualInt(FName Key, int32 Value);</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Filter&quot;, meta = (DisplayName = &quot;$ne (Filter, <span class="keywordtype">string</span>)&quot;, Keywords = &quot;!= $neq&quot;))</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> NotEqualString(FName Key, FString Value);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    static FFilter NotEqualString(FName Key, FString Value);</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Filter&quot;, meta = (DisplayName = &quot;$ne (Filter, <span class="keywordtype">boolean</span>)&quot;, Keywords = &quot;!= $neq&quot;))</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> NotEqualBool(FName Key, <span class="keywordtype">bool</span> bValue);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    static FFilter NotEqualBool(FName Key, <span class="keywordtype">bool</span> bValue);</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Filter&quot;, meta = (DisplayName = &quot;$gt (Filter)&quot;, Keywords = &quot;&gt; $gt&quot;))</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> GreaterInt(FName Key, int32 Value);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    static FFilter GreaterInt(FName Key, int32 Value);</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Filter&quot;, meta = (DisplayName = &quot;$gte (Filter)&quot;, Keywords = &quot;&gt;= $gte&quot;))</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> GreaterOrEqualInt(FName Key, int32 Value);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    static FFilter GreaterOrEqualInt(FName Key, int32 Value);</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Filter&quot;, meta = (DisplayName = &quot;$lt (Filter)&quot;, Keywords = &quot;&gt; $lt&quot;))</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> LessInt(FName Key, int32 Value);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    static FFilter LessInt(FName Key, int32 Value);</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Filter&quot;, meta = (DisplayName = &quot;$lte (Filter)&quot;, Keywords = &quot;&gt;= $lte&quot;))</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> LessOrEqualInt(FName Key, int32 Value);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    static FFilter LessOrEqualInt(FName Key, int32 Value);</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Filter&quot;, meta = (DisplayName = &quot;$in (Filter, integer)&quot;))</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> InInt(FName Key, const TArray&lt;int32&gt;&amp; Values);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    static FFilter InInt(FName Key, const TArray&lt;int32&gt;&amp; Values);</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Filter&quot;, meta = (DisplayName = &quot;$in (Filter, <span class="keywordtype">string</span>)&quot;))</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> InString(FName Key, const TArray&lt;FString&gt;&amp; Values);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    static FFilter InString(FName Key, const TArray&lt;FString&gt;&amp; Values);</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Filter&quot;, meta = (DisplayName = &quot;$nin (Filter, integer)&quot;, Keywords = &quot;not&quot;))</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> NotInInt(FName Key, const TArray&lt;int32&gt;&amp; Values);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    static FFilter NotInInt(FName Key, const TArray&lt;int32&gt;&amp; Values);</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Filter&quot;, meta = (DisplayName = &quot;$nin (Filter, <span class="keywordtype">string</span>)&quot;, Keywords = &quot;not&quot;))</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    static <a class="code" href="struct_f_filter.html">FFilter</a> NotInString(FName Key, const TArray&lt;FString&gt;&amp; Values);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    static FFilter NotInString(FName Key, const TArray&lt;FString&gt;&amp; Values);</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;};</div>
-<div class="ttc" id="astruct_f_filter_html"><div class="ttname"><a href="struct_f_filter.html">FFilter</a></div><div class="ttdoc">A filter used for querying channels.</div><div class="ttdef"><b>Definition:</b> Filter.h:73</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

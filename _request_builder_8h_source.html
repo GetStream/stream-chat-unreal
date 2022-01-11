@@ -110,7 +110,7 @@ $(document).ready(function(){initNavTree('_request_builder_8h_source.html',''); 
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    FRequestBuilder&amp; Header(<span class="keyword">const</span> FQueryParameters&amp; Headers);</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    FRequestBuilder&amp; Body(<span class="keyword">const</span> FString&amp; Text);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    FRequestBuilder&amp; <a class="code" href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a66c1b4c7f3dc385b68a9fa903ccd016d">Query</a>(<span class="keyword">const</span> FQueryParameters&amp; <a class="code" href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a66c1b4c7f3dc385b68a9fa903ccd016d">Query</a>);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    FRequestBuilder&amp; Query(<span class="keyword">const</span> FQueryParameters&amp; Query);</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    FRequestBuilder&amp; Json(<span class="keyword">const</span> T&amp; Struct, ENamingConvention NamingConvention = ENamingConvention::SnakeCase);</div>
@@ -128,29 +128,30 @@ $(document).ready(function(){initNavTree('_request_builder_8h_source.html',''); 
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    TSharedPtr&lt;const FHttpClient&gt; Client;</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    FHttpRequestPtr Request;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    TFunction&lt;void(<span class="keyword">const</span> FHttpResponse&amp;)&gt; RetainedCallback;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;};</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;FRequestBuilder&amp; FRequestBuilder::Json(<span class="keyword">const</span> T&amp; Struct, ENamingConvention NamingConvention)</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;{</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">const</span> FString JsonBody = Json::Serialize(Struct, NamingConvention);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">return</span> Json(JsonBody);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keywordtype">void</span> FRequestBuilder::Send(TFunction&lt;<span class="keywordtype">void</span>(<span class="keyword">const</span> T&amp;)&gt; Callback)</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;{</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    Send(</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        [Callback](<span class="keyword">const</span> FHttpResponse&amp; Response)</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            <span class="keywordflow">if</span> (Callback)</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                Callback(Response.Json&lt;T&gt;());</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            }</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        });</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div>
-<div class="ttc" id="agroup___stream_chat_html_gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a66c1b4c7f3dc385b68a9fa903ccd016d"><div class="ttname"><a href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a66c1b4c7f3dc385b68a9fa903ccd016d">EFilterOperator::Query</a></div><div class="ttdeci">@ Query</div><div class="ttdoc">Matches values by performing text search with the specified value.</div></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    FString BaseUrl;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    FQueryParameters QueryParameters;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    TFunction&lt;void(<span class="keyword">const</span> FHttpResponse&amp;)&gt; RetainedCallback;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;};</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;FRequestBuilder&amp; FRequestBuilder::Json(<span class="keyword">const</span> T&amp; Struct, ENamingConvention NamingConvention)</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;{</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">const</span> FString JsonBody = Json::Serialize(Struct, NamingConvention);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">return</span> Json(JsonBody);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keywordtype">void</span> FRequestBuilder::Send(TFunction&lt;<span class="keywordtype">void</span>(<span class="keyword">const</span> T&amp;)&gt; Callback)</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;{</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    Send(</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        [Callback](<span class="keyword">const</span> FHttpResponse&amp; Response)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <span class="keywordflow">if</span> (Callback)</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                Callback(Response.Json&lt;T&gt;());</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        });</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

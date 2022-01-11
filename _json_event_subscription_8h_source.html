@@ -127,10 +127,10 @@ $(document).ready(function(){initNavTree('_json_event_subscription_8h_source.htm
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">using</span> FEventSubscriptionPtr = TSharedPtr&lt;IJsonEventSubscription&gt;;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keywordtype">bool</span> TJsonEventSubscription&lt;T&gt;::OnMessage(<span class="keyword">const</span> TSharedRef&lt;FJsonObject&gt;&amp; <a class="code" href="namespace_json_object.html">JsonObject</a>)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keywordtype">bool</span> TJsonEventSubscription&lt;T&gt;::OnMessage(<span class="keyword">const</span> TSharedRef&lt;FJsonObject&gt;&amp; JsonObject)</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;{</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    T OutStruct;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">if</span> (!JsonObjectDeserialization::JsonObjectToUStruct&lt;T&gt;(<a class="code" href="namespace_json_object.html">JsonObject</a>, &amp;OutStruct))</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">if</span> (!JsonObjectDeserialization::JsonObjectToUStruct&lt;T&gt;(JsonObject, &amp;OutStruct))</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    {</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
@@ -145,7 +145,6 @@ $(document).ready(function(){initNavTree('_json_event_subscription_8h_source.htm
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;{</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">return</span> Delegate.RemoveAll(Object);</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
-<div class="ttc" id="anamespace_json_object_html"><div class="ttname"><a href="namespace_json_object.html">JsonObject</a></div><div class="ttdoc">Conversion to and from dynamic JSON objects.</div><div class="ttdef"><b>Definition:</b> StreamJson.h:16</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

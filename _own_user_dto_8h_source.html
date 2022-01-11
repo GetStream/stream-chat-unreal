@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('_own_user_dto_8h_source.html',''); ini
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;OwnUserDto.generated.h&quot;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;USTRUCT(BlueprintType)</div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="struct_f_own_user_dto.html">   14</a></span>&#160;struct STREAMCHATDTO_API <a class="code" href="struct_f_own_user_dto.html">FOwnUserDto</a></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">struct </span>STREAMCHATDTO_API FOwnUserDto</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    GENERATED_BODY()</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
@@ -104,26 +104,28 @@ $(document).ready(function(){initNavTree('_own_user_dto_8h_source.html',''); ini
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    FString Id;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    UPROPERTY(Transient)</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="struct_f_own_user_dto.html#aeb65b4d943936fc88226896a49b1204a">   23</a></span>&#160;    bool bOnline;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">bool</span> bOnline;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    UPROPERTY(Transient)</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="struct_f_own_user_dto.html#a3e2b24c7a14520e9fc51d48b4f8caf51">   27</a></span>&#160;    FDateTime CreatedAt;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    FDateTime CreatedAt;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    UPROPERTY(Transient)</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="struct_f_own_user_dto.html#a5fd4834a192f266a7ec91bfc0bbe34e7">   31</a></span>&#160;    FDateTime UpdatedAt;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    FDateTime UpdatedAt;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    UPROPERTY(Transient)</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="struct_f_own_user_dto.html#a6e7489704b99675256d6cf72b07aad8e">   35</a></span>&#160;    FDateTime LastActive;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    FDateTime LastActive;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="comment">// Not in the API spec, but common</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    UPROPERTY(Transient)</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    FString Name;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">bool</span> bInvisible;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="comment">// Not in the API spec, but common</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    UPROPERTY(Transient)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    FString Image;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;};</div>
-<div class="ttc" id="astruct_f_own_user_dto_html"><div class="ttname"><a href="struct_f_own_user_dto.html">FOwnUserDto</a></div><div class="ttdoc">#/components/schemas/OwnUser</div><div class="ttdef"><b>Definition:</b> OwnUserDto.h:15</div></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    FString Name;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="comment">// Not in the API spec, but common</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    UPROPERTY(Transient)</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    FString Image;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;};</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

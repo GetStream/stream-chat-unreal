@@ -92,50 +92,42 @@ $(document).ready(function(){initNavTree('_json_object_deserialization_8h_source
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;ExtraFields.h&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">class </span>FJsonValue;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">class </span>FJsonObject;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="namespace_json_object_deserialization.html">   15</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_json_object_deserialization.html">JsonObjectDeserialization</a></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;STREAMJSON_API <span class="keywordtype">bool</span> <a class="code" href="namespace_json_object_deserialization.html#aaceeb85c66719a2de40d176517ac19cb">JsonObjectToUStruct</a>(<span class="keyword">const</span> TSharedRef&lt;FJsonObject&gt;&amp; <a class="code" href="namespace_json_object.html">JsonObject</a>, <span class="keyword">const</span> UStruct* StructDefinition, <span class="keywordtype">void</span>* OutStruct);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> OutStructType&gt;</div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="namespace_json_object_deserialization.html#a6297bc5a072f30410a3c2b26f3fdf246">   37</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="namespace_json_object_deserialization.html#aaceeb85c66719a2de40d176517ac19cb">JsonObjectToUStruct</a>(<span class="keyword">const</span> TSharedRef&lt;FJsonObject&gt;&amp; <a class="code" href="namespace_json_object.html">JsonObject</a>, OutStructType* OutStruct)</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;{</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">bool</span> bSuccess = <a class="code" href="namespace_json_object_deserialization.html#aaceeb85c66719a2de40d176517ac19cb">JsonObjectToUStruct</a>(<a class="code" href="namespace_json_object.html">JsonObject</a>, OutStructType::StaticStruct(), OutStruct);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    ExtraFields::InvokeDeserializeExtra&lt;OutStructType&gt;(*<a class="code" href="namespace_json_object.html">JsonObject</a>, *OutStruct);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">return</span> bSuccess;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="namespace_json_object_deserialization.html#a2852a919217601778d3fc8559dc75d2a">JsonAttributesToUStruct</a>(<span class="keyword">const</span> TMap&lt;FString, TSharedPtr&lt;FJsonValue&gt;&gt;&amp; JsonAttributes, <span class="keyword">const</span> UStruct* StructDefinition, <span class="keywordtype">void</span>* OutStruct);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;STREAMJSON_API <span class="keywordtype">bool</span> <a class="code" href="namespace_json_object_deserialization.html#a890e1afb0fb819bbcd81f9f243ba485e">JsonObjectStringToJsonObject</a>(<span class="keyword">const</span> FString&amp; JsonString, TSharedPtr&lt;FJsonObject&gt;&amp; OutObject);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> OutStructType&gt;</div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="namespace_json_object_deserialization.html#a08062e6c8c6fbd0e62c191de29d54772">   74</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="namespace_json_object_deserialization.html#a08062e6c8c6fbd0e62c191de29d54772">JsonObjectStringToUStruct</a>(<span class="keyword">const</span> FString&amp; JsonString, OutStructType* OutStruct)</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;{</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    TSharedPtr&lt;FJsonObject&gt; <a class="code" href="namespace_json_object.html">JsonObject</a>;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="namespace_json_object_deserialization.html#a890e1afb0fb819bbcd81f9f243ba485e">JsonObjectDeserialization::JsonObjectStringToJsonObject</a>(JsonString, <a class="code" href="namespace_json_object.html">JsonObject</a>))</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        UE_LOG(LogTemp, Warning, TEXT(<span class="stringliteral">&quot;JsonObjectStringToUStruct - Unable to parse json=[%s]&quot;</span>), *JsonString);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    }</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="namespace_json_object_deserialization.html#aaceeb85c66719a2de40d176517ac19cb">JsonObjectDeserialization::JsonObjectToUStruct</a>(<a class="code" href="namespace_json_object.html">JsonObject</a>.ToSharedRef(), OutStruct))</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        UE_LOG(LogTemp, Warning, TEXT(<span class="stringliteral">&quot;JsonObjectStringToUStruct - Unable to deserialize. json=[%s]&quot;</span>), *JsonString);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    }</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;};    <span class="comment">// namespace JsonObjectDeserialization</span></div>
-<div class="ttc" id="anamespace_json_object_deserialization_html"><div class="ttname"><a href="namespace_json_object_deserialization.html">JsonObjectDeserialization</a></div><div class="ttdoc">Handles converting Json objects to UStructs.</div><div class="ttdef"><b>Definition:</b> JsonObjectDeserialization.h:16</div></div>
-<div class="ttc" id="anamespace_json_object_deserialization_html_a08062e6c8c6fbd0e62c191de29d54772"><div class="ttname"><a href="namespace_json_object_deserialization.html#a08062e6c8c6fbd0e62c191de29d54772">JsonObjectDeserialization::JsonObjectStringToUStruct</a></div><div class="ttdeci">bool JsonObjectStringToUStruct(const FString &amp;JsonString, OutStructType *OutStruct)</div><div class="ttdoc">Converts from a json string containing an object to a UStruct.</div><div class="ttdef"><b>Definition:</b> JsonObjectDeserialization.h:74</div></div>
-<div class="ttc" id="anamespace_json_object_deserialization_html_a2852a919217601778d3fc8559dc75d2a"><div class="ttname"><a href="namespace_json_object_deserialization.html#a2852a919217601778d3fc8559dc75d2a">JsonObjectDeserialization::JsonAttributesToUStruct</a></div><div class="ttdeci">bool JsonAttributesToUStruct(const TMap&lt; FString, TSharedPtr&lt; FJsonValue &gt;&gt; &amp;JsonAttributes, const UStruct *StructDefinition, void *OutStruct)</div><div class="ttdoc">Converts a set of json attributes (possibly from within a JsonObject) to a UStruct,...</div><div class="ttdef"><b>Definition:</b> JsonObjectDeserialization.cpp:646</div></div>
-<div class="ttc" id="anamespace_json_object_deserialization_html_a890e1afb0fb819bbcd81f9f243ba485e"><div class="ttname"><a href="namespace_json_object_deserialization.html#a890e1afb0fb819bbcd81f9f243ba485e">JsonObjectDeserialization::JsonObjectStringToJsonObject</a></div><div class="ttdeci">STREAMJSON_API bool JsonObjectStringToJsonObject(const FString &amp;JsonString, TSharedPtr&lt; FJsonObject &gt; &amp;OutObject)</div><div class="ttdoc">Converts from a json string containing an object to a UStruct.</div><div class="ttdef"><b>Definition:</b> JsonObjectDeserialization.cpp:654</div></div>
-<div class="ttc" id="anamespace_json_object_deserialization_html_aaceeb85c66719a2de40d176517ac19cb"><div class="ttname"><a href="namespace_json_object_deserialization.html#aaceeb85c66719a2de40d176517ac19cb">JsonObjectDeserialization::JsonObjectToUStruct</a></div><div class="ttdeci">STREAMJSON_API bool JsonObjectToUStruct(const TSharedRef&lt; FJsonObject &gt; &amp;JsonObject, const UStruct *StructDefinition, void *OutStruct)</div><div class="ttdoc">Converts from a Json Object to a UStruct, using importText.</div><div class="ttdef"><b>Definition:</b> JsonObjectDeserialization.cpp:641</div></div>
-<div class="ttc" id="anamespace_json_object_html"><div class="ttname"><a href="namespace_json_object.html">JsonObject</a></div><div class="ttdoc">Conversion to and from dynamic JSON objects.</div><div class="ttdef"><b>Definition:</b> StreamJson.h:16</div></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">class </span>FJsonValue;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">class </span>FJsonObject;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>JsonObjectDeserialization</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;STREAMJSON_API <span class="keywordtype">bool</span> JsonObjectToUStruct(<span class="keyword">const</span> TSharedRef&lt;FJsonObject&gt;&amp; JsonObject, <span class="keyword">const</span> UStruct* StructDefinition, <span class="keywordtype">void</span>* OutStruct);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> OutStructType&gt;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keywordtype">bool</span> JsonObjectToUStruct(<span class="keyword">const</span> TSharedRef&lt;FJsonObject&gt;&amp; JsonObject, OutStructType* OutStruct)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;{</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">bool</span> bSuccess = JsonObjectToUStruct(JsonObject, OutStructType::StaticStruct(), OutStruct);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">return</span> bSuccess;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keywordtype">bool</span> JsonAttributesToUStruct(<span class="keyword">const</span> TMap&lt;FString, TSharedPtr&lt;FJsonValue&gt;&gt;&amp; JsonAttributes, <span class="keyword">const</span> UStruct* StructDefinition, <span class="keywordtype">void</span>* OutStruct);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;STREAMJSON_API <span class="keywordtype">bool</span> JsonObjectStringToJsonObject(<span class="keyword">const</span> FString&amp; JsonString, TSharedPtr&lt;FJsonObject&gt;&amp; OutObject);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> OutStructType&gt;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keywordtype">bool</span> JsonObjectStringToUStruct(<span class="keyword">const</span> FString&amp; JsonString, OutStructType* OutStruct)</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;{</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    TSharedPtr&lt;FJsonObject&gt; JsonObject;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">if</span> (!JsonObjectDeserialization::JsonObjectStringToJsonObject(JsonString, JsonObject))</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        UE_LOG(LogTemp, Warning, TEXT(<span class="stringliteral">&quot;JsonObjectStringToUStruct - Unable to parse json=[%s]&quot;</span>), *JsonString);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">if</span> (!JsonObjectDeserialization::JsonObjectToUStruct(JsonObject.ToSharedRef(), OutStruct))</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    {</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        UE_LOG(LogTemp, Warning, TEXT(<span class="stringliteral">&quot;JsonObjectStringToUStruct - Unable to deserialize. json=[%s]&quot;</span>), *JsonString);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;};    <span class="comment">// namespace JsonObjectDeserialization</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -104,9 +104,9 @@ $(document).ready(function(){initNavTree('base_8h_source.html',''); initResizabl
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#define JWT_FALLTHROUGH</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="namespacejwt.html">   18</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacejwt.html">jwt</a> {</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="namespacejwt_1_1alphabet.html">   22</a></span>&#160;    <span class="keyword">namespace </span>alphabet {</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="structjwt_1_1alphabet_1_1base64.html">   26</a></span>&#160;        <span class="keyword">struct </span><a class="code" href="structjwt_1_1alphabet_1_1base64.html">base64</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span>jwt {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">namespace </span>alphabet {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keyword">struct </span>base64 {</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            <span class="keyword">static</span> <span class="keyword">const</span> std::array&lt;char, 64&gt;&amp; data() {</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                <span class="keyword">static</span> constexpr std::array&lt;char, 64&gt; data{</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                    {<span class="charliteral">&#39;A&#39;</span>, <span class="charliteral">&#39;B&#39;</span>, <span class="charliteral">&#39;C&#39;</span>, <span class="charliteral">&#39;D&#39;</span>, <span class="charliteral">&#39;E&#39;</span>, <span class="charliteral">&#39;F&#39;</span>, <span class="charliteral">&#39;G&#39;</span>, <span class="charliteral">&#39;H&#39;</span>, <span class="charliteral">&#39;I&#39;</span>, <span class="charliteral">&#39;J&#39;</span>, <span class="charliteral">&#39;K&#39;</span>, <span class="charliteral">&#39;L&#39;</span>, <span class="charliteral">&#39;M&#39;</span>, <span class="charliteral">&#39;N&#39;</span>, <span class="charliteral">&#39;O&#39;</span>, <span class="charliteral">&#39;P&#39;</span>,</div>
@@ -120,7 +120,7 @@ $(document).ready(function(){initNavTree('base_8h_source.html',''); initResizabl
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                <span class="keywordflow">return</span> fill;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            }</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        };</div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="structjwt_1_1alphabet_1_1base64url.html">   43</a></span>&#160;        <span class="keyword">struct </span><a class="code" href="structjwt_1_1alphabet_1_1base64url.html">base64url</a> {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keyword">struct </span>base64url {</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <span class="keyword">static</span> <span class="keyword">const</span> std::array&lt;char, 64&gt;&amp; data() {</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                <span class="keyword">static</span> constexpr std::array&lt;char, 64&gt; data{</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                    {<span class="charliteral">&#39;A&#39;</span>, <span class="charliteral">&#39;B&#39;</span>, <span class="charliteral">&#39;C&#39;</span>, <span class="charliteral">&#39;D&#39;</span>, <span class="charliteral">&#39;E&#39;</span>, <span class="charliteral">&#39;F&#39;</span>, <span class="charliteral">&#39;G&#39;</span>, <span class="charliteral">&#39;H&#39;</span>, <span class="charliteral">&#39;I&#39;</span>, <span class="charliteral">&#39;J&#39;</span>, <span class="charliteral">&#39;K&#39;</span>, <span class="charliteral">&#39;L&#39;</span>, <span class="charliteral">&#39;M&#39;</span>, <span class="charliteral">&#39;N&#39;</span>, <span class="charliteral">&#39;O&#39;</span>, <span class="charliteral">&#39;P&#39;</span>,</div>
@@ -136,23 +136,23 @@ $(document).ready(function(){initNavTree('base_8h_source.html',''); initResizabl
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        };</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    } <span class="comment">// namespace alphabet</span></div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="classjwt_1_1base.html">   62</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classjwt_1_1base.html">base</a> {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">class </span>base {</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keyword">static</span> std::string encode(<span class="keyword">const</span> std::string&amp; bin) {</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <span class="keywordflow">return</span> encode(bin, T::data(), T::fill());</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        }</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keyword">static</span> std::string decode(<span class="keyword">const</span> std::string&amp; <a class="code" href="classjwt_1_1base.html">base</a>) {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keywordflow">return</span> decode(<a class="code" href="classjwt_1_1base.html">base</a>, T::data(), T::fill());</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keyword">static</span> std::string decode(<span class="keyword">const</span> std::string&amp; base) {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keywordflow">return</span> decode(base, T::data(), T::fill());</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        }</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keyword">static</span> std::string pad(<span class="keyword">const</span> std::string&amp; <a class="code" href="classjwt_1_1base.html">base</a>) {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            <span class="keywordflow">return</span> pad(<a class="code" href="classjwt_1_1base.html">base</a>, T::fill());</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keyword">static</span> std::string pad(<span class="keyword">const</span> std::string&amp; base) {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            <span class="keywordflow">return</span> pad(base, T::fill());</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        }</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keyword">static</span> std::string trim(<span class="keyword">const</span> std::string&amp; <a class="code" href="classjwt_1_1base.html">base</a>) {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keywordflow">return</span> trim(<a class="code" href="classjwt_1_1base.html">base</a>, T::fill());</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keyword">static</span> std::string trim(<span class="keyword">const</span> std::string&amp; base) {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keywordflow">return</span> trim(base, T::fill());</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        }</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">private</span>:</div>
@@ -205,13 +205,13 @@ $(document).ready(function(){initNavTree('base_8h_source.html',''); initResizabl
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            <span class="keywordflow">return</span> res;</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        }</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keyword">static</span> std::string decode(<span class="keyword">const</span> std::string&amp; <a class="code" href="classjwt_1_1base.html">base</a>, <span class="keyword">const</span> std::array&lt;char, 64&gt;&amp; alphabet,</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keyword">static</span> std::string decode(<span class="keyword">const</span> std::string&amp; base, <span class="keyword">const</span> std::array&lt;char, 64&gt;&amp; alphabet,</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                                  <span class="keyword">const</span> std::string&amp; fill) {</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            <span class="keywordtype">size_t</span> size = <a class="code" href="classjwt_1_1base.html">base</a>.size();</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            <span class="keywordtype">size_t</span> size = base.size();</div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            <span class="keywordtype">size_t</span> fill_cnt = 0;</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            <span class="keywordflow">while</span> (size &gt; fill.size()) {</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="classjwt_1_1base.html">base</a>.substr(size - fill.size(), fill.size()) == fill) {</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                <span class="keywordflow">if</span> (base.substr(size - fill.size(), fill.size()) == fill) {</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                    fill_cnt++;</div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                    size -= fill.size();</div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                    <span class="keywordflow">if</span> (fill_cnt &gt; 2) <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Invalid input&quot;</span>);</div>
@@ -227,7 +227,7 @@ $(document).ready(function(){initNavTree('base_8h_source.html',''); initResizabl
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;            <span class="keyword">auto</span> get_sextet = [&amp;](<span class="keywordtype">size_t</span> offset) {</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; alphabet.size(); i++) {</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                    <span class="keywordflow">if</span> (alphabet[i] == <a class="code" href="classjwt_1_1base.html">base</a>[offset]) <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(i);</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                    <span class="keywordflow">if</span> (alphabet[i] == base[offset]) <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>uint32_t<span class="keyword">&gt;</span>(i);</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                }</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Invalid input&quot;</span>);</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;            };</div>
@@ -263,30 +263,26 @@ $(document).ready(function(){initNavTree('base_8h_source.html',''); initResizabl
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            <span class="keywordflow">return</span> res;</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        }</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        <span class="keyword">static</span> std::string pad(<span class="keyword">const</span> std::string&amp; <a class="code" href="classjwt_1_1base.html">base</a>, <span class="keyword">const</span> std::string&amp; fill) {</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        <span class="keyword">static</span> std::string pad(<span class="keyword">const</span> std::string&amp; base, <span class="keyword">const</span> std::string&amp; fill) {</div>
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;            std::string padding;</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;            <span class="keywordflow">switch</span> (<a class="code" href="classjwt_1_1base.html">base</a>.size() % 4) {</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;            <span class="keywordflow">switch</span> (base.size() % 4) {</div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            <span class="keywordflow">case</span> 1: padding += fill; JWT_FALLTHROUGH;</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;            <span class="keywordflow">case</span> 2: padding += fill; JWT_FALLTHROUGH;</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;            <span class="keywordflow">case</span> 3: padding += fill; JWT_FALLTHROUGH;</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;            <span class="keywordflow">default</span>: <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;            }</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classjwt_1_1base.html">base</a> + padding;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;            <span class="keywordflow">return</span> base + padding;</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        }</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        <span class="keyword">static</span> std::string trim(<span class="keyword">const</span> std::string&amp; <a class="code" href="classjwt_1_1base.html">base</a>, <span class="keyword">const</span> std::string&amp; fill) {</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            <span class="keyword">auto</span> pos = <a class="code" href="classjwt_1_1base.html">base</a>.find(fill);</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classjwt_1_1base.html">base</a>.substr(0, pos);</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        <span class="keyword">static</span> std::string trim(<span class="keyword">const</span> std::string&amp; base, <span class="keyword">const</span> std::string&amp; fill) {</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            <span class="keyword">auto</span> pos = base.find(fill);</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;            <span class="keywordflow">return</span> base.substr(0, pos);</div>
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        }</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    };</div>
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;} <span class="comment">// namespace jwt</span></div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aclassjwt_1_1base_html"><div class="ttname"><a href="classjwt_1_1base.html">jwt::base</a></div><div class="ttdoc">Alphabet generic methods for working with encoding/decoding the base64 family.</div><div class="ttdef"><b>Definition:</b> base.h:62</div></div>
-<div class="ttc" id="anamespacejwt_html"><div class="ttname"><a href="namespacejwt.html">jwt</a></div><div class="ttdoc">JSON Web Token.</div><div class="ttdef"><b>Definition:</b> base.h:18</div></div>
-<div class="ttc" id="astructjwt_1_1alphabet_1_1base64_html"><div class="ttname"><a href="structjwt_1_1alphabet_1_1base64.html">jwt::alphabet::base64</a></div><div class="ttdoc">valid list of characted when working with Base64</div><div class="ttdef"><b>Definition:</b> base.h:26</div></div>
-<div class="ttc" id="astructjwt_1_1alphabet_1_1base64url_html"><div class="ttname"><a href="structjwt_1_1alphabet_1_1base64url.html">jwt::alphabet::base64url</a></div><div class="ttdoc">valid list of characted when working with Base64URL</div><div class="ttdef"><b>Definition:</b> base.h:43</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

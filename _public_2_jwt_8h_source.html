@@ -87,16 +87,17 @@ $(document).ready(function(){initNavTree('_public_2_jwt_8h_source.html',''); ini
 <div class="title">Jwt.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">// Copyright 2021 Stream.IO, Inc. All Rights Reserved.</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="namespace_jwt.html">    8</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_jwt.html">Jwt</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="namespace_jwt.html#ac9d9c4f9a93ea0524a2925106acd60e6">   16</a></span>&#160;FString <a class="code" href="namespace_jwt.html#ac9d9c4f9a93ea0524a2925106acd60e6">GenerateJwt</a>(<span class="keyword">const</span> FString&amp; ApiSecret, <span class="keyword">const</span> FString&amp; UserId);</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}    <span class="comment">// namespace Jwt</span></div>
-<div class="ttc" id="anamespace_jwt_html"><div class="ttname"><a href="namespace_jwt.html">Jwt</a></div><div class="ttdoc">Utilities for JSON Web Token manipulation.</div><div class="ttdef"><b>Definition:</b> Jwt.h:9</div></div>
-<div class="ttc" id="anamespace_jwt_html_ac9d9c4f9a93ea0524a2925106acd60e6"><div class="ttname"><a href="namespace_jwt.html#ac9d9c4f9a93ea0524a2925106acd60e6">Jwt::GenerateJwt</a></div><div class="ttdeci">FString GenerateJwt(const FString &amp;ApiSecret, const FString &amp;UserId)</div><div class="ttdoc">Generate a JSON Web Token.</div></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>Jwt</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;FString GenerateJwt(<span class="keyword">const</span> FString&amp; ApiSecret, <span class="keyword">const</span> FString&amp; UserId);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;JWT_API FString Development(<span class="keyword">const</span> FString&amp; UserId);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}    <span class="comment">// namespace Jwt</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -94,12 +94,12 @@ $(document).ready(function(){initNavTree('_reaction_icon_widget_8h_source.html',
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;Components/Image.h&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;Message/MessageSide.h&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;StreamUserWidget.h&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;StreamWidget.h&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;ReactionIconWidget.generated.h&quot;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;UCLASS()</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;class STREAMCHATUI_API UReactionIconWidget : public UStreamUserWidget</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;class STREAMCHATUI_API UReactionIconWidget : public UStreamWidget</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    GENERATED_BODY()</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
@@ -120,14 +120,14 @@ $(document).ready(function(){initNavTree('_reaction_icon_widget_8h_source.html',
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    UPROPERTY(EditAnywhere, Category = Defaults)</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    TMap&lt;EMessageSide, FLinearColor&gt; Colors;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;private:</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    virtual <span class="keywordtype">void</span> OnSetup() override;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    FName ReactionType;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    UPROPERTY(EditAnywhere, Category = Setup)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    FName ReactionType;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    EMessageSide Side;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    UPROPERTY(EditAnywhere, Category = Setup)</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    EMessageSide Side;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;private:</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    virtual <span class="keywordtype">void</span> OnSetup() override;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;};</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

@@ -98,21 +98,18 @@ $(document).ready(function(){initNavTree('_typing_start_event_8h_source.html',''
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;TypingStartEvent.generated.h&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;USTRUCT()</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="struct_f_typing_start_event.html">   17</a></span>&#160;struct <a class="code" href="struct_f_typing_start_event.html">FTypingStartEvent</a> : public <a class="code" href="struct_f_channel_event.html">FChannelEvent</a></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;struct FTypingStartEvent : public FChannelEvent</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    GENERATED_BODY()</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">inline</span> <span class="keyword">static</span> FName StaticType = TEXT(<span class="stringliteral">&quot;typing.start&quot;</span>);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    inline static FName StaticType = TEXT(&quot;typing.start&quot;);</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    UPROPERTY()</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    FString ParentId;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="struct_f_user_object_dto.html">FUserObjectDto</a> User;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    FUserObjectDto User;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;};</div>
-<div class="ttc" id="astruct_f_channel_event_html"><div class="ttname"><a href="struct_f_channel_event.html">FChannelEvent</a></div><div class="ttdoc">Represents an event that happened in a Stream channel.</div><div class="ttdef"><b>Definition:</b> ChannelEvent.h:17</div></div>
-<div class="ttc" id="astruct_f_typing_start_event_html"><div class="ttname"><a href="struct_f_typing_start_event.html">FTypingStartEvent</a></div><div class="ttdoc">A user started typing.</div><div class="ttdef"><b>Definition:</b> TypingStartEvent.h:18</div></div>
-<div class="ttc" id="astruct_f_user_object_dto_html"><div class="ttname"><a href="struct_f_user_object_dto.html">FUserObjectDto</a></div><div class="ttdoc">#/components/schemas/UserObject</div><div class="ttdef"><b>Definition:</b> UserObjectDto.h:15</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -110,7 +110,7 @@ $(document).ready(function(){initNavTree('_http_response_8h_source.html',''); in
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    T Json() const;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    UPROPERTY(BlueprintReadOnly, Category = &quot;HTTP Response&quot;)</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    int32 StatusCode;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    int32 StatusCode = -1;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    UPROPERTY(BlueprintReadOnly, Category = &quot;HTTP Response&quot;)</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    FString Text;</div>

@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('_context_menu_button_widget_8h_source.
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;Components/TextBlock.h&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;ContextMenuAction.h&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;StreamUserWidget.h&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;StreamWidget.h&quot;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;ContextMenuButtonWidget.generated.h&quot;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
@@ -112,62 +112,52 @@ $(document).ready(function(){initNavTree('_context_menu_button_widget_8h_source.
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;};</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;UCLASS()</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;class STREAMCHATUI_API UContextMenuButtonWidget final : public UStreamUserWidget</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;class STREAMCHATUI_API UContextMenuButtonWidget final : public UStreamWidget</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    GENERATED_BODY()</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;public:</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    UFUNCTION(BlueprintCallable, Category = &quot;Stream Chat&quot;)</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> Setup(const <a class="code" href="struct_f_message.html">FMessage</a>&amp; InMessage, EContextMenuButtonPosition InPosition, UContextMenuAction* InAction);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;protected:</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    UPROPERTY(meta = (BindWidget))</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    UButton* Button;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    UPROPERTY(meta = (BindWidget))</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    UImage* IconImage;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    UPROPERTY(meta = (BindWidget))</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    UImage* TopBorderImage;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    UPROPERTY(meta = (BindWidget))</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    UTextBlock* TextBlock;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    UPROPERTY(EditAnywhere, Category = Button)</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    UTexture2D* TopButtonTexture;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    UPROPERTY(EditAnywhere, Category = Button)</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    UTexture2D* MidButtonTexture;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    UPROPERTY(EditAnywhere, Category = Button)</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    UTexture2D* BottomButtonTexture;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    UPROPERTY(EditAnywhere, Category = Button)</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    FLinearColor DefaultButtonColor;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    UPROPERTY(EditAnywhere, Category = Button)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    FLinearColor SelectedButtonColor;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    UPROPERTY(EditAnywhere, Category = Style)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    FLinearColor DefaultTextColor;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    UPROPERTY(EditAnywhere, Category = Style)</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    FLinearColor NegativeTextColor;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    UPROPERTY(EditAnywhere, Category = Style)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    FLinearColor DefaultIconColor;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    UPROPERTY(EditAnywhere, Category = Style)</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    FLinearColor NegativeIconColor;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;private:</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    virtual <span class="keywordtype">void</span> OnSetup() override;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    UFUNCTION()</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">void</span> OnButtonClicked();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    UContextMenuButtonWidget();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    UFUNCTION(BlueprintCallable, Category = &quot;Stream Chat&quot;)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">void</span> Setup(const FMessage&amp; InMessage, EContextMenuButtonPosition InPosition, UContextMenuAction* InAction);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;protected:</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    UPROPERTY(meta = (BindWidget))</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    UButton* Button;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    UPROPERTY(meta = (BindWidget))</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    UImage* IconImage;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    UPROPERTY(meta = (BindWidget))</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    UImage* TopBorderImage;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    UPROPERTY(meta = (BindWidget))</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    UTextBlock* TextBlock;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    UPROPERTY(EditAnywhere, Category = Button)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    UTexture2D* TopButtonTexture;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    UPROPERTY(EditAnywhere, Category = Button)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    UTexture2D* MidButtonTexture;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    UPROPERTY(EditAnywhere, Category = Button)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    UTexture2D* BottomButtonTexture;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    FMessage Message;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    EContextMenuButtonPosition Position;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;private:</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    virtual <span class="keywordtype">void</span> OnSetup() override;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    virtual <span class="keywordtype">void</span> OnTheme(const UThemeDataAsset*) override;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    UFUNCTION()</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">void</span> OnButtonClicked();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    UTexture2D* GetButtonTexture() const;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    FMargin GetButtonMargin() const;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    const FLinearColor&amp; GetIconColor(const UThemeDataAsset* Theme) const;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    const FLinearColor&amp; GetTextColor(const UThemeDataAsset* Theme) const;</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    UTexture2D* GetButtonTexture() const;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    FMargin GetButtonMargin() const;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    FLinearColor GetIconColor() const;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    FLinearColor GetTextColor() const;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    UPROPERTY(EditAnywhere, Category = Setup)</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="struct_f_message.html">FMessage</a> Message;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    UPROPERTY(EditAnywhere, Category = Setup)</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    EContextMenuButtonPosition Position;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    UPROPERTY(EditAnywhere, Instanced, Category = Setup)</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    UContextMenuAction* Action;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;};</div>
-<div class="ttc" id="astruct_f_message_html"><div class="ttname"><a href="struct_f_message.html">FMessage</a></div><div class="ttdoc">Represents a Stream Chat message.</div><div class="ttdef"><b>Definition:</b> Message.h:64</div></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    UPROPERTY(EditAnywhere, Instanced, Category = Setup)</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    UContextMenuAction* Action;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;};</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
