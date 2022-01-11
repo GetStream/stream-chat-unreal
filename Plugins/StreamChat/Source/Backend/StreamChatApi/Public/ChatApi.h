@@ -17,7 +17,6 @@
 class FHttpClient;
 class FRequestBuilder;
 class FTokenManager;
-struct FChannelEvent;
 struct FChannelResponseDto;
 struct FChannelStateResponseDto;
 struct FChannelsResponseDto;
@@ -202,5 +201,6 @@ private:
 template <class TEvent>
 void FChatApi::SendChannelEvent(const FString& ChannelType, const FString& ChannelId, const TEvent& Event, const TCallback<FEventResponseDto> Callback)
 {
+    static_assert(TIsSame<decltype(TEvent::StaticType), FName>::Value, "TEvent must have a FName member 'StaticType' to use with SendChannelEvent.");
     SendChannelEventInternal(ChannelType, ChannelId, JsonObject::UStructToJsonObject<TEvent>(Event), Callback);
 }

@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "AdditionalFields.h"
 #include "ChannelSortOption.h"
 #include "ChannelState.h"
 #include "ChatApi.h"
