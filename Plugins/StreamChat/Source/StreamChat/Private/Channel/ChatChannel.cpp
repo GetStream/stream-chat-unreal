@@ -327,29 +327,41 @@ void UChatChannel::KeyStroke(const FString& ParentMessageId)
     }
     LastKeystrokeAt.Emplace(Now);
 
-    FTimerHandle TimerHandle;
     GetWorld()->GetTimerManager().SetTimer(
-        TimerHandle,
-        [WeakThis = TWeakObjectPtr<UChatChannel>(this), ParentMessageId, TypingTimeout]()
+        TypingTimerHandle,
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this), ParentMessageId, TypingTimeout]
         {
             if (!WeakThis.IsValid())
             {
                 return;
             }
-            const FDateTime Now = FDateTime::UtcNow();
-            if (!WeakThis->LastKeystrokeAt.IsSet() || (Now - WeakThis->LastKeystrokeAt.GetValue()).GetTotalSeconds() >= TypingTimeout)
+            if (!WeakThis->LastKeystrokeAt.IsSet() || (FDateTime::UtcNow() - WeakThis->LastKeystrokeAt.GetValue()).GetTotalSeconds() >= TypingTimeout)
             {
-                const FUser& CurrentUser = *UUserManager::Get()->GetCurrentUser();
-                UE_LOG(LogTemp, Log, TEXT("Stop typing"));
-                WeakThis->SendEvent(FTypingStopEvent{
-                    {{FTypingStopEvent::StaticType, Now}, WeakThis->State.Id, WeakThis->State.Type, WeakThis->State.Cid},
-                    ParentMessageId,
-                    Util::Convert<FUserObjectDto>(CurrentUser),
-                });
+                WeakThis->SendStopTypingEvent(ParentMessageId);
             }
         },
-        2.f,
+        TypingTimeout,
         false);
+}
+
+void UChatChannel::StopTyping(const FString& ParentMessageId)
+{
+    if (TypingTimerHandle.IsValid())
+    {
+        GetWorld()->GetTimerManager().ClearTimer(TypingTimerHandle);
+    }
+    SendStopTypingEvent(ParentMessageId);
+}
+
+void UChatChannel::SendStopTypingEvent(const FString& ParentMessageId)
+{
+    const FUser& CurrentUser = *UUserManager::Get()->GetCurrentUser();
+    UE_LOG(LogTemp, Log, TEXT("Stop typing"));
+    SendEvent(FTypingStopEvent{
+        {{FTypingStopEvent::StaticType, FDateTime::UtcNow()}, State.Id, State.Type, State.Cid},
+        ParentMessageId,
+        Util::Convert<FUserObjectDto>(CurrentUser),
+    });
 }
 
 void UChatChannel::OnTypingStart(const FTypingStartEvent& Event)
