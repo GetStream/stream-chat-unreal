@@ -58,6 +58,12 @@ struct STREAMCHAT_API FUser
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
     FDateTime LastActive = FDateTime{0};
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
+    int32 TotalUnreadCount = 0;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
+    int32 UnreadChannels = 0;
+
     /// The human-readable name of the user
     // Not in the API spec, but common
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat|User")
