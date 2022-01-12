@@ -26,6 +26,8 @@ FUser::FUser(const FOwnUserDto& Dto)
     , CreatedAt(Dto.CreatedAt)
     , UpdatedAt{Dto.UpdatedAt}
     , LastActive{Dto.LastActive}
+    , TotalUnreadCount(Dto.TotalUnreadCount)
+    , UnreadChannels(Dto.UnreadChannels)
     , Name{Dto.Name}
     , Image{Dto.Image}
 {

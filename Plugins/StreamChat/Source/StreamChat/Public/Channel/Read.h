@@ -29,8 +29,8 @@ struct FRead
     FUserRef User;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Read")
-    int32 UnreadMessages;
+    int32 UnreadMessages = 0;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Read")
-    FDateTime LastRead;
+    FDateTime LastRead = FDateTime{0};
 };
