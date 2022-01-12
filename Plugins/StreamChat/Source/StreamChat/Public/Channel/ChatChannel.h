@@ -7,6 +7,7 @@
 #include "ChatApi.h"
 #include "ChatSocketEvents.h"
 #include "CoreMinimal.h"
+#include "Engine/EngineTypes.h"
 #include "Engine/LatentActionManager.h"
 #include "Filter.h"
 #include "IChatSocket.h"
