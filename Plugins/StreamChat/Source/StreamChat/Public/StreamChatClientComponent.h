@@ -2,9 +2,9 @@
 
 #pragma once
 
+#include "Channel/ChannelPaginationOptions.h"
 #include "Channel/ChannelSortOption.h"
 #include "Channel/Filter.h"
-#include "Channel/PaginationOptions.h"
 #include "ChannelFlags.h"
 #include "ChatSocketEvents.h"
 #include "Components/ActorComponent.h"
@@ -80,7 +80,7 @@ public:
         TOptional<FFilter> Filter = {},
         const TArray<FChannelSortOption>& SortOptions = {},
         const EChannelFlags Flags = EChannelFlags::State | EChannelFlags::Watch,
-        const FPaginationOptions& PaginationOptions = {});
+        const FChannelPaginationOptions& PaginationOptions = {});
 
     /**
     * Create a channel if it doesn't exist yet (if this user has the right permissions).

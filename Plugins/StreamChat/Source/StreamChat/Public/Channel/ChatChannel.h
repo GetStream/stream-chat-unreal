@@ -12,7 +12,9 @@
 #include "Filter.h"
 #include "IChatSocket.h"
 #include "Message.h"
+#include "MessagePaginationOptions.h"
 #include "User/UserRef.h"
+#include "UserPaginationOptions.h"
 
 #include "ChatChannel.generated.h"
 
@@ -184,6 +186,22 @@ public:
     /// Get all the messages in this channel which we have locally
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Channel|Message")
     const TArray<FMessage>& GetMessages() const;
+
+    /**
+     * @brief Get messages, members or other channel fields.
+     * @param Callback Called when response is received.
+     * @param Flags Additional actions to perform, like watch, or fetch presence. @see EChannelFlags
+     * @param MessagePagination Pagination details for returned messages.
+     * @see https://getstream.io/chat/docs/other-rest/channel_pagination/
+     * @param MemberPagination Pagination details for returned members.
+     * @param WatcherPagination Pagination details for returned watchers/
+     */
+    void Query(
+        TFunction<void()> Callback,
+        EChannelFlags Flags = EChannelFlags::State,
+        const TOptional<FMessagePaginationOptions> MessagePagination = {},
+        const TOptional<FUserPaginationOptions> MemberPagination = {},
+        const TOptional<FUserPaginationOptions> WatcherPagination = {});
 
     /**
      * @brief Search the messages in this channel
