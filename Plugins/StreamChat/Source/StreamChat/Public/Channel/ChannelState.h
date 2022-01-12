@@ -39,10 +39,12 @@ struct STREAMCHAT_API FChannelState
     /// Get all the messages of this channel
     const TArray<FMessage>& GetMessages() const;
 
+    /// Get the count of unread messages for the current user in this channel
+    int32 UnreadCount() const;
+
     /// Type of channel, either built-in or custom
     /// @see https://getstream.io/chat/docs/other-rest/channel_features/
-    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
-    FString Type;
+    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel") FString Type;
 
     /// An identifier for this channel. Not globally unique. A subset of the Cid.
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")

@@ -69,6 +69,15 @@ const TArray<FMessage>& FChannelState::GetMessages() const
     return Messages;
 }
 
+int32 FChannelState::UnreadCount() const
+{
+    if (const FRead* CurrentUserRead = Read.FindByPredicate([](const FRead& R) { return R.User.IsCurrent(); }))
+    {
+        return CurrentUserRead->UnreadMessages;
+    }
+    return 0;
+}
+
 void FChannelState::SetMembers(UUserManager& UserManager, const TArray<FChannelMemberDto>& Dto)
 {
     Algo::Transform(Dto, Members, [&](const FChannelMemberDto& MemberDto) { return FMember{UserManager, MemberDto}; });
