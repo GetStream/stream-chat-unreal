@@ -137,7 +137,7 @@ void UStreamChatClientComponent::QueryChannels(
     const TOptional<FFilter> Filter,
     const TArray<FChannelSortOption>& SortOptions,
     const EChannelFlags Flags,
-    const FPaginationOptions& PaginationOptions)
+    const FChannelPaginationOptions& PaginationOptions)
 {
     // TODO Can we return something from ConnectUser() that is required for this function to prevent ordering ambiguity?
     check(Socket->IsConnected());

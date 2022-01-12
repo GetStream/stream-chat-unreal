@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "AdditionalFields.h"
 #include "CoreMinimal.h"
 
 #include "PaginationParamsRequestDto.generated.h"
@@ -15,21 +16,20 @@ struct STREAMCHATDTO_API FPaginationParamsRequestDto
 {
     GENERATED_BODY()
 
-    UPROPERTY()
-    int32 IdGt = -1;
+    void SetIdGt(const FString&);
+
+    void SetIdGte(const FString&);
+
+    void SetIdLt(const FString&);
+
+    void SetIdLte(const FString&);
 
     UPROPERTY()
-    int32 IdGte = -1;
+    uint32 Limit = 20;
 
     UPROPERTY()
-    int32 IdLt = -1;
+    int32 Offset = 0;
 
     UPROPERTY()
-    int32 IdLte = -1;
-
-    UPROPERTY()
-    uint32 Limit = -1;
-
-    UPROPERTY()
-    int32 Offset = -1;
+    FAdditionalFields AdditionalFields;
 };

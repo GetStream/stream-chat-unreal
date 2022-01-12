@@ -170,44 +170,39 @@ void UChatChannel::QueryAdditionalMessages(const EPaginationDirection Direction,
 
     SetPaginationRequestState(EHttpRequestState::Started, Direction);
 
-    const FMessagePaginationParamsRequestDto MessagePagination = [&]
+    const FMessagePaginationOptions MessagePagination = [&]
     {
-        FMessagePaginationParamsRequestDto Dto;
-        Dto.Limit = Limit;
+        FMessagePaginationOptions Options;
+        Options.Limit = Limit;
         if (Direction == EPaginationDirection::Top)
         {
-            Dto.SetIdLt(State.GetMessages()[0].Id);
+            Options.IdLt = State.GetMessages()[0].Id;
         }
         else
         {
-            Dto.SetIdGte(State.GetMessages().Last().Id);
+            Options.IdGte = State.GetMessages().Last().Id;
         }
-        return Dto;
+        return Options;
     }();
 
-    Api->QueryChannel(
-        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Direction, Limit](const FChannelStateResponseDto& Dto)
+    const int32 OrigMessageCount = State.GetMessages().Num();
+    Query(
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Direction, Limit, OrigMessageCount]
         {
             if (!WeakThis.IsValid())
             {
                 return;
             }
 
-            if (Dto.Messages.Num() == 0 || Dto.Messages.Num() < Limit)
+            const int32 DeltaMessageCount = WeakThis->State.GetMessages().Num() - OrigMessageCount;
+            if (DeltaMessageCount == 0 || DeltaMessageCount < Limit)
             {
                 // Don't need to paginate again in this direction in the future
                 WeakThis->EndedPaginationDirections |= Direction;
             }
-
-            WeakThis->MergeState(Dto);
-
             WeakThis->SetPaginationRequestState(EHttpRequestState::Ended, Direction);
         },
-        State.Type,
-        Socket->GetConnectionId(),
         EChannelFlags::State,
-        {},
-        State.Id,
         MessagePagination);
 }
 
@@ -220,6 +215,38 @@ inline void UChatChannel::SetPaginationRequestState(const EHttpRequestState Requ
 const TArray<FMessage>& UChatChannel::GetMessages() const
 {
     return State.GetMessages();
+}
+
+void UChatChannel::Query(
+    TFunction<void()> Callback,
+    const EChannelFlags Flags,
+    const TOptional<FMessagePaginationOptions> MessagePagination,
+    const TOptional<FUserPaginationOptions> MemberPagination,
+    const TOptional<FUserPaginationOptions> WatcherPagination)
+{
+    Api->QueryChannel(
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback](const FChannelStateResponseDto& Dto)
+        {
+            if (!WeakThis.IsValid())
+            {
+                return;
+            }
+
+            WeakThis->MergeState(Dto);
+
+            if (Callback)
+            {
+                Callback();
+            }
+        },
+        State.Type,
+        Socket->GetConnectionId(),
+        Flags,
+        {},
+        State.Id,
+        Util::Convert<FMessagePaginationParamsRequestDto>(MessagePagination),
+        Util::Convert<FPaginationParamsRequestDto>(MemberPagination),
+        Util::Convert<FPaginationParamsRequestDto>(WatcherPagination));
 }
 
 void UChatChannel::SearchMessages(
