@@ -303,16 +303,26 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Typing", meta = (AdvancedDisplay = ParentMessageId))
     void KeyStroke(const FString& ParentMessageId = TEXT(""));
 
+    /**
+     * @brief Should be called when the user sends the message (or aborts).
+     * Manually sends the typing.stop event, and cancels any pending typing.stop event queued by Keystroke()
+     * @param ParentMessageId In the case of a thread, the ID of the parent message (optional)
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Typing", meta = (AdvancedDisplay = ParentMessageId))
+    void StopTyping(const FString& ParentMessageId = TEXT(""));
+
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTypingIndicatorDelegate, ETypingIndicatorState, TypingState, const FUserRef&, User);
     /// Fired whenever any user starts or stops typing
     UPROPERTY(BlueprintAssignable)
     FTypingIndicatorDelegate OnTypingIndicator;
 
 private:
+    void SendStopTypingEvent(const FString& ParentMessageId = TEXT(""));
     void OnTypingStart(const FTypingStartEvent&);
     void OnTypingStop(const FTypingStopEvent&);
 
     TOptional<FDateTime> LastKeystrokeAt;
+    FTimerHandle TypingTimerHandle;
 
     ///@}
 #pragma endregion Typing
