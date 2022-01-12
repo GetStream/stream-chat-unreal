@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Reaction/Reactions.h"
 #include "Response/Channel/ChannelStateResponseFieldsDto.h"
+#include "Response/Message/SearchResultDto.h"
 #include "User/UserRef.h"
 
 #include "Message.generated.h"
@@ -73,6 +74,8 @@ struct STREAMCHAT_API FMessage
     explicit FMessage(const FString& Text);
     /// Convert a message into a create/update request for sending to the API
     FMessageRequestDto ToRequestDto(const FString& Cid) const;
+
+    static TArray<FMessage> FromSearchResults(const TArray<FSearchResultDto>&);
 
     /// The message ID. This is either created by the Stream API or set client side when the message is created.
     UPROPERTY()

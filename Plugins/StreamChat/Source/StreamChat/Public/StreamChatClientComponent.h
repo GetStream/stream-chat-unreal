@@ -16,6 +16,7 @@
 
 #include "StreamChatClientComponent.generated.h"
 
+struct FMessage;
 class FChatApi;
 class FTokenManager;
 class ITokenProvider;
@@ -136,6 +137,27 @@ public:
         const TOptional<FString>& Id = {},
         const TOptional<TArray<FString>>& Members = {},
         const TOptional<FString>& Team = {});
+
+    /**
+     * @brief Search all messages
+     *
+     * A channel filter is required.
+     * All other parameters are optional, but a minimum of either a query or message filter is additionally required
+     *
+     * @param Callback Called when response is received
+     * @param Query Search phrase
+     * @param ChannelFilter Channel filter conditions
+     * @param MessageFilter Message filter conditions
+     * @param Sort Sort parameters. Cannot be  used with non-zero offset.
+     * @param MessageLimit Number of messages to return
+     */
+    void SearchMessages(
+        TFunction<void(const TArray<FMessage>&)> Callback,
+        const FFilter& ChannelFilter = {},
+        const TOptional<FString>& Query = {},
+        const TOptional<FFilter>& MessageFilter = {},
+        const TArray<FMessageSortOption>& Sort = {},
+        TOptional<uint32> MessageLimit = {}) const;
 
     // TODO does this need to be exposed?
     void UpdateMessage(const FString& Id, const FString& Text) const;
