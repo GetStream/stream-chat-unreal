@@ -2,6 +2,7 @@
 
 #include "Channel/Message.h"
 
+#include "Algo/Transform.h"
 #include "Request/Message/MessageRequestDto.h"
 #include "Response/Message/MessageDto.h"
 #include "User/UserManager.h"
@@ -31,4 +32,12 @@ FMessage::FMessage(const FString& Text)
 FMessageRequestDto FMessage::ToRequestDto(const FString& Cid) const
 {
     return FMessageRequestDto{Cid, {}, Id, {}, Reactions.GetScores(), bIsSilent, Text, AdditionalFields};
+}
+
+TArray<FMessage> FMessage::FromSearchResults(const TArray<FSearchResultDto>& Result)
+{
+    UUserManager* UserManager = UUserManager::Get();
+    TArray<FMessage> Messages;
+    Algo::Transform(Result, Messages, [UserManager](const FSearchResultDto& R) { return FMessage{*UserManager, R.Message}; });
+    return Messages;
 }

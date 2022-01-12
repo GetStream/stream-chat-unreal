@@ -265,14 +265,10 @@ void UChatChannel::SearchMessages(
     Api->SearchMessages(
         [Callback](const FSearchResponseDto& Response)
         {
-            UUserManager* UserManager = UUserManager::Get();
-            TArray<FMessage> Messages;
-            Algo::Transform(Response.Results, Messages, [UserManager](const FSearchResultDto& R) { return FMessage{*UserManager, R.Message}; });
-
             // Don't add the messages to this channel's state, just return
             if (Callback)
             {
-                Callback(Messages);
+                Callback(FMessage::FromSearchResults(Response.Results));
             }
         },
         FFilter::Equal(TEXT("cid"), State.Cid).ToJsonObject(),

@@ -230,6 +230,35 @@ void UStreamChatClientComponent::QueryChannel(
         Id);
 }
 
+void UStreamChatClientComponent::SearchMessages(
+    TFunction<void(const TArray<FMessage>&)> Callback,
+    const FFilter& ChannelFilter,
+    const TOptional<FString>& Query,
+    const TOptional<FFilter>& MessageFilter,
+    const TArray<FMessageSortOption>& Sort,
+    TOptional<uint32> MessageLimit) const
+{
+    TOptional<TSharedRef<FJsonObject>> MessageFilterJson;
+    if (MessageFilter.IsSet())
+    {
+        MessageFilterJson.Emplace(MessageFilter.GetValue().ToJsonObject());
+    }
+
+    Api->SearchMessages(
+        [Callback](const FSearchResponseDto& Response)
+        {
+            if (Callback)
+            {
+                Callback(FMessage::FromSearchResults(Response.Results));
+            }
+        },
+        ChannelFilter.ToJsonObject(),
+        Query,
+        MessageFilterJson,
+        Util::Convert<FSortParamRequestDto>(Sort),
+        MessageLimit);
+}
+
 FString UStreamChatClientComponent::DevToken(const FString& UserId)
 {
     return Jwt::Development(UserId);
