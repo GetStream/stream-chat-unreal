@@ -6,6 +6,7 @@
 #include "CoreMinimal.h"
 #include "Member.h"
 #include "Message.h"
+#include "Read.h"
 
 #include "ChannelState.generated.h"
 
@@ -27,7 +28,7 @@ struct STREAMCHAT_API FChannelState
     explicit FChannelState(const FChannelStateResponseFieldsDto&, UUserManager&);
 
     /// Merge new information from the API into this state
-    void Merge(const FChannelStateResponseFieldsDto&, UUserManager&);
+    void Append(const FChannelStateResponseFieldsDto&, UUserManager&);
 
     /// Locally add a message to this channel
     void AddMessage(const FMessage&);
@@ -54,6 +55,10 @@ struct STREAMCHAT_API FChannelState
     /// Number of channel watchers
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
     int32 WatcherCount;
+
+    /// The read states of each user in this channel
+    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
+    TArray<FRead> Read;
 
     /// The human-readable name of this channel
     // Not in spec so might not be set

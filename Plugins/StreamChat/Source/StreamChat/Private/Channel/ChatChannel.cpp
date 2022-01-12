@@ -368,7 +368,7 @@ void UChatChannel::MergeState(const FChannelStateResponseFieldsDto& Dto)
 {
     check(!State.Cid.IsEmpty());
     UUserManager* UserManager = UUserManager::Get();
-    State.Merge(Dto, *UserManager);
+    State.Append(Dto, *UserManager);
     MessagesUpdated.Broadcast(State.GetMessages());
 }
 

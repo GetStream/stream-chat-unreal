@@ -24,11 +24,11 @@ struct FChannelStateResponseFieldsDto
 
     /// Whether this channel is hidden or not
     UPROPERTY()
-    bool bHidden;
+    bool bHidden = false;
 
     /// Messages before this date are hidden from the user
     UPROPERTY()
-    FDateTime HideMessagesBefore;
+    FDateTime HideMessagesBefore = FDateTime{0};
 
     /// List of channel members
     UPROPERTY()
@@ -52,7 +52,7 @@ struct FChannelStateResponseFieldsDto
 
     /// The count of users watching the channel
     UPROPERTY()
-    int32 WatcherCount;
+    int32 WatcherCount = -1;
 
     /// A list of users watching the channel
     UPROPERTY()

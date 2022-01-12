@@ -19,21 +19,19 @@ FChannelState::FChannelState(const FChannelStateResponseFieldsDto& Dto, UUserMan
     , Config{Dto.Channel.Config}
     , Messages{Convert(Dto, UserManager)}
 {
-    SetMembers(UserManager, Dto.Members);
-}
-
-void FChannelState::Merge(const FChannelStateResponseFieldsDto& Dto, UUserManager& UserManager)
-{
-    WatcherCount = Dto.WatcherCount;
-    Name = Dto.Channel.Name;
-    ImageUrl = Dto.Channel.Image;
-    const TArray<FMessage> NewMessages = Convert(Dto, UserManager);
-    Messages.Insert(NewMessages, 0);
+    Algo::Transform(Dto.Read, Read, [&](const FReadDto& ReadDto) { return FRead{UserManager, ReadDto}; });
     SetMembers(UserManager, Dto.Members);
     // TODO Watchers
-    // TODO Read
     // TODO Attachment
     // TODO Pinned messages
+}
+
+void FChannelState::Append(const FChannelStateResponseFieldsDto& Dto, UUserManager& UserManager)
+{
+    FChannelState NewState{Dto, UserManager};
+    // Current (old) messages go AFTER new messages
+    NewState.Messages.Append(Messages);
+    *this = NewState;
 }
 
 void FChannelState::AddMessage(const FMessage& Message)
@@ -82,8 +80,8 @@ TArray<FMessage> FChannelState::Convert(const FChannelStateResponseFieldsDto& Dt
     Algo::Transform(Dto.Messages, NewMessages, [&](const FMessageDto& MessageDto) { return FMessage{UserManager, MessageDto}; });
     for (FMessage& Message : NewMessages)
     {
-        Message.bIsRead = Dto.Read.ContainsByPredicate([&Message, &UserManager](const FReadDto& Read)
-                                                       { return Read.User.Id != UserManager.GetCurrentUser()->Id && Read.LastRead > Message.CreatedAt; });
+        Message.bIsRead = Dto.Read.ContainsByPredicate([&Message, &UserManager](const FReadDto& ReadDto)
+                                                       { return ReadDto.User.Id != UserManager.GetCurrentUser()->Id && ReadDto.LastRead > Message.CreatedAt; });
     }
     return NewMessages;
 }
