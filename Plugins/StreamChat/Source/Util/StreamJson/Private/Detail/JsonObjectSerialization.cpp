@@ -27,6 +27,7 @@ TSharedPtr<FJsonValue> ApplyNamingConventionToValue(FProperty* Property, const v
     {
         static const FName NAME_DateTime(TEXT("DateTime"));
 
+        // DateTimes should always be converted to ISO 8601 strings
         if (StructProperty->Struct->GetFName() == NAME_DateTime)
         {
             const FDateTime* DateTime = static_cast<const FDateTime*>(Value);
@@ -112,6 +113,24 @@ bool JsonObjectSerialization::UStructToJsonAttributes(
         }
 
         const void* Value = Property->ContainerPtrToValuePtr<uint8>(Struct);
+
+        // Skip serializing empty arrays
+        if (const FArrayProperty* ArrayProperty = CastField<FArrayProperty>(Property))
+        {
+            if (const FScriptArrayHelper ArrayHelper{ArrayProperty, Value}; ArrayHelper.Num() == 0)
+            {
+                continue;
+            }
+        }
+
+        // Skip serializing empty strings
+        if (const FStrProperty* StrProperty = CastField<FStrProperty>(Property))
+        {
+            if (StrProperty->GetPropertyValue(Value).IsEmpty())
+            {
+                continue;
+            }
+        }
 
         // convert the property to a FJsonValue
         TSharedPtr<FJsonValue> JsonValue = FJsonObjectConverter::UPropertyToJsonValue(Property, Value, 0, SkipFlags, &Callback);
