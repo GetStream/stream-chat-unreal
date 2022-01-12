@@ -95,6 +95,11 @@ void UMessageComposerWidget::OnInputTextCommit(const FText&, ETextCommit::Type C
             GetWorld()->GetTimerManager().SetTimerForNextTick([&] { MessageInput->SetKeyboardFocus(); });
         }
     }
+
+    if (UChatChannel* Channel = UChannelContextWidget::GetChannel(this))
+    {
+        Channel->StopTyping();
+    }
 }
 
 void UMessageComposerWidget::OnCancelEditingButtonClicked()
@@ -105,6 +110,11 @@ void UMessageComposerWidget::OnCancelEditingButtonClicked()
 void UMessageComposerWidget::OnSendButtonClicked()
 {
     SendMessage();
+
+    if (UChatChannel* Channel = UChannelContextWidget::GetChannel(this))
+    {
+        Channel->StopTyping();
+    }
 }
 
 void UMessageComposerWidget::SendMessage()
