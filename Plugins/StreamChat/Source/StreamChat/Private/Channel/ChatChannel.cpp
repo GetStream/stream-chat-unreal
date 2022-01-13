@@ -35,7 +35,7 @@ UChatChannel* UChatChannel::Create(
 
     Channel->Api = Api;
     Channel->Socket = Socket;
-    Channel->Id = FChannelProperties{Dto.Channel, *UUserManager::Get()};
+    Channel->Properties = FChannelProperties{Dto.Channel, *UUserManager::Get()};
     Channel->State = FChannelState{Dto, *UUserManager::Get()};
     Channel->On<FMessageNewEvent>(Channel, &UChatChannel::OnMessageNew);
     Channel->On<FMessageUpdatedEvent>(Channel, &UChatChannel::OnMessageUpdated);
@@ -74,11 +74,11 @@ void UChatChannel::SendMessage(const FMessage& Message)
         NewMessage.UpdatedAt = FDateTime::UtcNow();
     }
 
-    const FMessageRequestDto Request = NewMessage.ToRequestDto(Id.Cid);
+    const FMessageRequestDto Request = NewMessage.ToRequestDto(Properties.Cid);
     AddMessage(NewMessage);
     Api->SendNewMessage(
-        Id.Type,
-        Id.Id,
+        Properties.Type,
+        Properties.Id,
         Request,
         false,
         [](const FMessageResponseDto& Response)
@@ -100,7 +100,7 @@ void UChatChannel::UpdateMessage(const FMessage& Message)
     UpdatedMessage.State = EMessageSendState::Updating;
     AddMessage(UpdatedMessage);
 
-    const FMessageRequestDto Request = UpdatedMessage.ToRequestDto(Id.Cid);
+    const FMessageRequestDto Request = UpdatedMessage.ToRequestDto(Properties.Cid);
     Api->UpdateMessage(
         Request,
         [WeakThis = TWeakObjectPtr<UChatChannel>(this)](const FMessageResponseDto& Response)
@@ -240,11 +240,11 @@ void UChatChannel::Query(
                 Callback();
             }
         },
-        Id.Type,
+        Properties.Type,
         Socket->GetConnectionId(),
         Flags,
         {},
-        Id.Id,
+        Properties.Id,
         Util::Convert<FMessagePaginationParamsRequestDto>(MessagePagination),
         Util::Convert<FPaginationParamsRequestDto>(MemberPagination),
         Util::Convert<FPaginationParamsRequestDto>(WatcherPagination));
@@ -272,7 +272,7 @@ void UChatChannel::SearchMessages(
                 Callback(FMessage::FromSearchResults(Response.Results));
             }
         },
-        FFilter::Equal(TEXT("cid"), Id.Cid).ToJsonObject(),
+        FFilter::Equal(TEXT("cid"), Properties.Cid).ToJsonObject(),
         Query,
         MessageFilterJson,
         Util::Convert<FSortParamRequestDto>(Sort),
@@ -332,7 +332,7 @@ void UChatChannel::DeleteReaction(const FMessage& Message, const FReaction& Reac
 
 void UChatChannel::KeyStroke(const FString& ParentMessageId)
 {
-    if (!Id.Config.bTypingEvents)
+    if (!Properties.Config.bTypingEvents)
     {
         return;
     }
@@ -344,7 +344,7 @@ void UChatChannel::KeyStroke(const FString& ParentMessageId)
         UE_LOG(LogTemp, Log, TEXT("Start typing"));
         const FUser& CurrentUser = *UUserManager::Get()->GetCurrentUser();
         SendEvent(FTypingStartEvent{
-            {{FTypingStartEvent::StaticType, Now}, Id.Id, Id.Type, Id.Cid},
+            {{FTypingStartEvent::StaticType, Now}, Properties.Id, Properties.Type, Properties.Cid},
             ParentMessageId,
             Util::Convert<FUserObjectDto>(CurrentUser),
         });
@@ -382,7 +382,7 @@ void UChatChannel::SendStopTypingEvent(const FString& ParentMessageId)
     const FUser& CurrentUser = *UUserManager::Get()->GetCurrentUser();
     UE_LOG(LogTemp, Log, TEXT("Stop typing"));
     SendEvent(FTypingStopEvent{
-        {{FTypingStopEvent::StaticType, FDateTime::UtcNow()}, Id.Id, Id.Type, Id.Cid},
+        {{FTypingStopEvent::StaticType, FDateTime::UtcNow()}, Properties.Id, Properties.Type, Properties.Cid},
         ParentMessageId,
         Util::Convert<FUserObjectDto>(CurrentUser),
     });
@@ -402,7 +402,7 @@ void UChatChannel::OnTypingStop(const FTypingStopEvent& Event)
 
 void UChatChannel::MergeState(const FChannelStateResponseFieldsDto& Dto)
 {
-    check(!Id.Cid.IsEmpty());
+    check(!Properties.Cid.IsEmpty());
     UUserManager* UserManager = UUserManager::Get();
     State.Append(Dto, *UserManager);
     MessagesUpdated.Broadcast(State.GetMessages());

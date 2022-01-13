@@ -43,6 +43,21 @@ FChannelProperties::operator FChannelRequestDto() const
     return Dto;
 }
 
+FChannelProperties FChannelProperties::WithType(const FString& InType)
+{
+    FChannelProperties Props;
+    Props.Type = InType;
+    return Props;
+}
+
+FChannelProperties FChannelProperties::WithId(const FString& InType, const FString& InId)
+{
+    FChannelProperties Props;
+    Props.Type = InType;
+    Props.Id = InId;
+    return Props;
+}
+
 TArray<FUserRef> FChannelProperties::GetOtherMemberUsers() const
 {
     constexpr auto NotCurrentUser = [](const FMember& M)
@@ -58,16 +73,18 @@ TArray<FUserRef> FChannelProperties::GetOtherMemberUsers() const
     return OtherUsers;
 }
 
-void FChannelProperties::SetMembers(const TArray<FString>& UserIds)
+FChannelProperties& FChannelProperties::SetMembers(const TArray<FString>& UserIds)
 {
     Algo::Transform(UserIds, Members, [&](const FString& UserId) { return FMember{UUserManager::Get()->UpsertUser(UserId)}; });
     MemberCount = Members.Num();
+    return *this;
 }
 
-void FChannelProperties::SetMembers(const TArray<FUserRef>& Users)
+FChannelProperties& FChannelProperties::SetMembers(const TArray<FUserRef>& Users)
 {
     Algo::Transform(Users, Members, [&](const FUserRef& UserRef) { return FMember{UserRef}; });
     MemberCount = Members.Num();
+    return *this;
 }
 
 TOptional<FString> FChannelProperties::GetName() const
@@ -80,6 +97,18 @@ TOptional<FString> FChannelProperties::GetImageUrl() const
     return ExtraData.GetString(TEXT("image"));
 }
 
+FChannelProperties& FChannelProperties::SetName(const FString& Value)
+{
+    ExtraData.SetString(TEXT("name"), Value);
+    return *this;
+}
+
+FChannelProperties& FChannelProperties::SetImageUrl(const FString& Value)
+{
+    ExtraData.SetString(TEXT("image"), Value);
+    return *this;
+}
+
 void FChannelProperties::SetMembers(UUserManager& UserManager, const TArray<FChannelMemberDto>& Dto)
 {
     Algo::Transform(Dto, Members, [&](const FChannelMemberDto& MemberDto) { return FMember{UserManager, MemberDto}; });
@@ -87,12 +116,10 @@ void FChannelProperties::SetMembers(UUserManager& UserManager, const TArray<FCha
 
 void UChannelPropertiesBlueprintLibrary::SetMembers_UserId(FChannelProperties& ChannelProperties, const TArray<FString>& UserIds, FChannelProperties& Out)
 {
-    ChannelProperties.SetMembers(UserIds);
-    Out = ChannelProperties;
+    Out = ChannelProperties.SetMembers(UserIds);
 }
 
 void UChannelPropertiesBlueprintLibrary::SetMembers_User(FChannelProperties& ChannelProperties, const TArray<FUserRef>& Users, FChannelProperties& Out)
 {
-    ChannelProperties.SetMembers(Users);
-    Out = ChannelProperties;
+    Out = ChannelProperties.SetMembers(Users);
 }

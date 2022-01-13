@@ -21,7 +21,7 @@ void UChannelStatusWidget::UpdateSelection(UChatChannel* SelectedChannel) const
         return;
     }
 
-    if (SelectedChannel->Id.Cid == Channel->Id.Cid)
+    if (SelectedChannel->Properties.Cid == Channel->Properties.Cid)
     {
         Button->SetStyle(SelectedStyle);
     }
@@ -48,7 +48,7 @@ void UChannelStatusWidget::OnSetup()
 
     if (Avatar)
     {
-        Avatar->Setup(Channel->Id.GetOtherMemberUsers());
+        Avatar->Setup(Channel->Properties.GetOtherMemberUsers());
     }
 
     // Force update channel title

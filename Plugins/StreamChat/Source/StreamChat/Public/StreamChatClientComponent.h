@@ -88,34 +88,32 @@ public:
     /**
     * Create a channel if it doesn't exist yet (if this user has the right permissions).
 
-     * @param Callback Called when a response is received from the API
      * @param ChannelProperties Properties of the channel to create
+     * @param Callback Called when a response is received from the API
      * @return A channel object which can be used to interact with the channel
      */
-    void CreateChannel(TFunction<void(UChatChannel*)> Callback, const FChannelProperties& ChannelProperties);
+    void CreateChannel(const FChannelProperties& ChannelProperties, TFunction<void(UChatChannel*)> Callback);
 
     /**
     * Create a channel if it doesn't exist yet (if this user has the right permissions), get data about the channel
     (including members, watchers and messages) and subscribe to future updates
 
-     * @param Callback Called when a response is received from the API
      * @param ChannelProperties Properties of the channel to watch
+     * @param Callback Called when a response is received from the API
      * @return A channel object which can be used to interact with the channel
      */
-    void WatchChannel(TFunction<void(UChatChannel*)> Callback, const FChannelProperties& ChannelProperties);
+    void WatchChannel(const FChannelProperties& ChannelProperties, TFunction<void(UChatChannel*)> Callback);
 
     /**
     * Create a channel if it doesn't exist yet (if this user has the right permissions).
     * Includes options to get data about the channel (including members, watchers and messages), subscribe to future updates.
 
-     * @param Callback Called when a response is received from the API
-     * @param Type The channel type. Default types are livestream, messaging, team, gaming and commerce. You can also
-    create your own types.
      * @param Flags Get state, get presence and/or watch
      * @param ChannelProperties Properties of the channel to query
+     * @param Callback Called when a response is received from the API
      * @return A channel object which can be used to interact with the channel
      */
-    void QueryChannel(TFunction<void(UChatChannel*)> Callback, const FChannelProperties& ChannelProperties, const EChannelFlags Flags);
+    void QueryChannel(const FChannelProperties& ChannelProperties, const EChannelFlags Flags, TFunction<void(UChatChannel*)> Callback);
 
     /**
      * @brief Search all messages

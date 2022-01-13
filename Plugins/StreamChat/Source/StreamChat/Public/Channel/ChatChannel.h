@@ -73,7 +73,7 @@ public:
 
     /// The local static properties of the channel
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
-    FChannelProperties Id;
+    FChannelProperties Properties;
 
     /// The local state of the channel
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
@@ -355,7 +355,7 @@ private:
 template <class TEvent>
 void UChatChannel::SendEvent(const TEvent& Event)
 {
-    Api->SendChannelEvent(Id.Type, Id.Id, Event);
+    Api->SendChannelEvent(Properties.Type, Properties.Id, Event);
 }
 
 template <class TEvent>
@@ -366,7 +366,7 @@ FDelegateHandle UChatChannel::On(TEventDelegate<TEvent> Callback)
         {
             // TODO static assert with nice error message
             // https://stackoverflow.com/questions/1005476/how-to-detect-whether-there-is-a-specific-member-variable-in-class
-            if (Event.Cid == Id.Cid)
+            if (Event.Cid == Properties.Cid)
             {
                 Callback.ExecuteIfBound(Event);
             }
