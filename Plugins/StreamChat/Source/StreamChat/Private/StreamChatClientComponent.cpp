@@ -61,7 +61,7 @@ void UStreamChatClientComponent::OnConnectionRecovered(const FConnectionRecovere
 {
     // Fetch data for known channels
     TArray<FString> Cids;
-    Algo::Transform(Channels, Cids, [](const UChatChannel* Channel) { return Channel->State.Cid; });
+    Algo::Transform(Channels, Cids, [](const UChatChannel* Channel) { return Channel->Id.Cid; });
     QueryChannels({}, FFilter::In(TEXT("cid"), Cids));
 }
 
@@ -183,9 +183,10 @@ void UStreamChatClientComponent::CreateChannel(
     const FString& Type,
     const TOptional<FString>& Id,
     const TOptional<TArray<FString>>& Members,
-    const TOptional<FString>& Team)
+    const TOptional<FString>& Team,
+    const FAdditionalFields ExtraData)
 {
-    QueryChannel(Callback, Type, EChannelFlags::None, Id, Members, Team);
+    QueryChannel(Callback, Type, EChannelFlags::None, Id, Members, Team, ExtraData);
 }
 
 void UStreamChatClientComponent::WatchChannel(
@@ -203,11 +204,17 @@ void UStreamChatClientComponent::QueryChannel(
     const EChannelFlags Flags,
     const TOptional<FString>& Id,
     const TOptional<TArray<FString>>& Members,
-    const TOptional<FString>& Team)
+    const TOptional<FString>& Team,
+    const FAdditionalFields ExtraData)
 {
     // TODO Can we return something from ConnectUser() that is required for this function to prevent ordering ambiguity?
     check(Socket->IsConnected());
 
+    const FChannelRequestDto Data{
+        Members.Get({}),
+        Team.Get(TEXT("")),
+        ExtraData,
+    };
     Api->QueryChannel(
         [WeakThis = TWeakObjectPtr<UStreamChatClientComponent>(this), Callback](const FChannelStateResponseDto& Dto)
         {
@@ -226,7 +233,7 @@ void UStreamChatClientComponent::QueryChannel(
         Type,
         Socket->GetConnectionId(),
         Flags,
-        {Members.Get({}), Team.Get(TEXT(""))},
+        Data,
         Id);
 }
 
