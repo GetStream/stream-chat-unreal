@@ -30,16 +30,21 @@ struct STREAMCHAT_API FChannelProperties
     /// Convert to a channel request DTO to send to the API
     explicit operator FChannelRequestDto() const;
 
-    /// Get user information of channel members other than the currently logged-in user
-    TArray<FUserRef> GetOtherMemberUsers() const;
+    static FChannelProperties WithType(const FString& InType);
+    static FChannelProperties WithId(const FString& InType, const FString& InId);
 
     /// Set the members using just their User IDs
-    void SetMembers(const TArray<FString>& UserIds);
+    FChannelProperties& SetMembers(const TArray<FString>& UserIds);
     /// Set the members using a list of Users
-    void SetMembers(const TArray<FUserRef>& Users);
+    FChannelProperties& SetMembers(const TArray<FUserRef>& Users);
 
+    FChannelProperties& SetName(const FString&);
+    FChannelProperties& SetImageUrl(const FString&);
     TOptional<FString> GetName() const;
     TOptional<FString> GetImageUrl() const;
+
+    /// Get user information of channel members other than the currently logged-in user
+    TArray<FUserRef> GetOtherMemberUsers() const;
 
     /// Type of channel, either built-in or custom
     /// Default types are livestream, messaging, team, gaming and commerce. You can also create your own types.
@@ -138,6 +143,7 @@ struct STREAMCHAT_API FChannelProperties
 private:
     void SetMembers(UUserManager&, const TArray<FChannelMemberDto>&);
 };
+
 /**
  * @brief Blueprint functions for the Additional Fields struct
  * @ingroup StreamChat

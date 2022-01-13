@@ -38,7 +38,7 @@ void UUiBlueprintLibrary::DismissContextMenu(UWidget* Widget)
 
 FString UUiBlueprintLibrary::GetChannelTitle(const UChatChannel* Channel)
 {
-    if (TOptional<FString> Name = Channel->Id.GetName())
+    if (TOptional<FString> Name = Channel->Properties.GetName())
     {
         return Name.GetValue();
     }
@@ -48,12 +48,12 @@ FString UUiBlueprintLibrary::GetChannelTitle(const UChatChannel* Channel)
         return !M.User.IsCurrent();
     };
 
-    if (Channel->Id.Members.Num() > 2)
+    if (Channel->Properties.Members.Num() > 2)
     {
         FString Result;
         bool First = true;
         Algo::ForEachIf(
-            Channel->Id.Members,
+            Channel->Properties.Members,
             OthersPredicate,
             [&](const FMember& M)
             {
@@ -70,7 +70,7 @@ FString UUiBlueprintLibrary::GetChannelTitle(const UChatChannel* Channel)
         return Result;
     }
 
-    if (const FMember* Member = Channel->Id.Members.FindByPredicate(OthersPredicate))
+    if (const FMember* Member = Channel->Properties.Members.FindByPredicate(OthersPredicate))
     {
         return Member->User->Name;
     }

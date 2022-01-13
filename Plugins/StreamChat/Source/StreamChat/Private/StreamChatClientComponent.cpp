@@ -61,7 +61,7 @@ void UStreamChatClientComponent::OnConnectionRecovered(const FConnectionRecovere
 {
     // Fetch data for known channels
     TArray<FString> Cids;
-    Algo::Transform(Channels, Cids, [](const UChatChannel* Channel) { return Channel->Id.Cid; });
+    Algo::Transform(Channels, Cids, [](const UChatChannel* Channel) { return Channel->Properties.Cid; });
     QueryChannels({}, FFilter::In(TEXT("cid"), Cids));
 }
 
@@ -103,7 +103,7 @@ void UStreamChatClientComponent::WatchChannel(
     UChatChannel*& OutChannel)
 {
     TCallbackAction<UChatChannel*, UChatChannel*>::CreateLatentAction(
-        WorldContextObject, LatentInfo, OutChannel, [&](auto Callback) { WatchChannel(Callback, ChannelProperties); });
+        WorldContextObject, LatentInfo, OutChannel, [&](auto Callback) { WatchChannel(ChannelProperties, Callback); });
 }
 
 void UStreamChatClientComponent::ConnectUser(const FUser& User, TUniquePtr<ITokenProvider> TokenProvider, const TFunction<void(const FUserRef&)> Callback)
@@ -174,17 +174,17 @@ void UStreamChatClientComponent::QueryChannels(
         PaginationOptions.Offset);
 }
 
-void UStreamChatClientComponent::CreateChannel(const TFunction<void(UChatChannel*)> Callback, const FChannelProperties& ChannelProperties)
+void UStreamChatClientComponent::CreateChannel(const FChannelProperties& ChannelProperties, const TFunction<void(UChatChannel*)> Callback)
 {
-    QueryChannel(Callback, ChannelProperties, EChannelFlags::None);
+    QueryChannel(ChannelProperties, EChannelFlags::None, Callback);
 }
 
-void UStreamChatClientComponent::WatchChannel(const TFunction<void(UChatChannel*)> Callback, const FChannelProperties& ChannelProperties)
+void UStreamChatClientComponent::WatchChannel(const FChannelProperties& ChannelProperties, const TFunction<void(UChatChannel*)> Callback)
 {
-    QueryChannel(Callback, ChannelProperties, EChannelFlags::State | EChannelFlags::Watch);
+    QueryChannel(ChannelProperties, EChannelFlags::State | EChannelFlags::Watch, Callback);
 }
 
-void UStreamChatClientComponent::QueryChannel(TFunction<void(UChatChannel*)> Callback, const FChannelProperties& ChannelProperties, const EChannelFlags Flags)
+void UStreamChatClientComponent::QueryChannel(const FChannelProperties& ChannelProperties, const EChannelFlags Flags, TFunction<void(UChatChannel*)> Callback)
 {
     // TODO Can we return something from ConnectUser() that is required for this function to prevent ordering ambiguity?
     check(Socket->IsConnected());
