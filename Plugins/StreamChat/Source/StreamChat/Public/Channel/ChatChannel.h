@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "ChannelId.h"
+#include "ChannelProperties.h"
 #include "ChannelSortOption.h"
 #include "ChannelState.h"
 #include "ChatApi.h"
@@ -73,7 +73,7 @@ public:
 
     /// The local static properties of the channel
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
-    FChannelId Id;
+    FChannelProperties Id;
 
     /// The local state of the channel
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")

@@ -97,13 +97,13 @@ void UStreamChatClientComponent::QueryChannels(
 }
 
 void UStreamChatClientComponent::WatchChannel(
-    const FChannelId& ChannelId,
+    const FChannelProperties& ChannelProperties,
     const UObject* WorldContextObject,
     FLatentActionInfo LatentInfo,
     UChatChannel*& OutChannel)
 {
     TCallbackAction<UChatChannel*, UChatChannel*>::CreateLatentAction(
-        WorldContextObject, LatentInfo, OutChannel, [&](auto Callback) { WatchChannel(Callback, ChannelId); });
+        WorldContextObject, LatentInfo, OutChannel, [&](auto Callback) { WatchChannel(Callback, ChannelProperties); });
 }
 
 void UStreamChatClientComponent::ConnectUser(const FUser& User, TUniquePtr<ITokenProvider> TokenProvider, const TFunction<void(const FUserRef&)> Callback)
@@ -174,23 +174,23 @@ void UStreamChatClientComponent::QueryChannels(
         PaginationOptions.Offset);
 }
 
-void UStreamChatClientComponent::CreateChannel(const TFunction<void(UChatChannel*)> Callback, const FChannelId& ChannelId)
+void UStreamChatClientComponent::CreateChannel(const TFunction<void(UChatChannel*)> Callback, const FChannelProperties& ChannelProperties)
 {
-    QueryChannel(Callback, ChannelId, EChannelFlags::None);
+    QueryChannel(Callback, ChannelProperties, EChannelFlags::None);
 }
 
-void UStreamChatClientComponent::WatchChannel(const TFunction<void(UChatChannel*)> Callback, const FChannelId& ChannelId)
+void UStreamChatClientComponent::WatchChannel(const TFunction<void(UChatChannel*)> Callback, const FChannelProperties& ChannelProperties)
 {
-    QueryChannel(Callback, ChannelId, EChannelFlags::State | EChannelFlags::Watch);
+    QueryChannel(Callback, ChannelProperties, EChannelFlags::State | EChannelFlags::Watch);
 }
 
-void UStreamChatClientComponent::QueryChannel(TFunction<void(UChatChannel*)> Callback, const FChannelId& ChannelId, const EChannelFlags Flags)
+void UStreamChatClientComponent::QueryChannel(TFunction<void(UChatChannel*)> Callback, const FChannelProperties& ChannelProperties, const EChannelFlags Flags)
 {
     // TODO Can we return something from ConnectUser() that is required for this function to prevent ordering ambiguity?
     check(Socket->IsConnected());
 
-    const TOptional<FString> OptionalId = ChannelId.Id.IsEmpty() ? TOptional<FString>{} : ChannelId.Id;
-    const FChannelRequestDto Data = Util::Convert<FChannelRequestDto>(ChannelId);
+    const TOptional<FString> OptionalId = ChannelProperties.Id.IsEmpty() ? TOptional<FString>{} : ChannelProperties.Id;
+    const FChannelRequestDto Data = Util::Convert<FChannelRequestDto>(ChannelProperties);
     Api->QueryChannel(
         [WeakThis = TWeakObjectPtr<UStreamChatClientComponent>(this), Callback](const FChannelStateResponseDto& Dto)
         {
@@ -206,7 +206,7 @@ void UStreamChatClientComponent::QueryChannel(TFunction<void(UChatChannel*)> Cal
                 Callback(Channel);
             }
         },
-        ChannelId.Type,
+        ChannelProperties.Type,
         Socket->GetConnectionId(),
         Flags,
         Data,

@@ -1,14 +1,14 @@
 // Copyright 2021 Stream.IO, Inc. All Rights Reserved.
 
-#include "Channel/ChannelId.h"
+#include "Channel/ChannelProperties.h"
 
 #include "Algo/Transform.h"
 #include "Response/Channel/ChannelResponseDto.h"
 #include "User/UserManager.h"
 
-FChannelId::FChannelId() = default;
+FChannelProperties::FChannelProperties() = default;
 
-FChannelId::FChannelId(const FChannelResponseDto& Dto, UUserManager& UserManager)
+FChannelProperties::FChannelProperties(const FChannelResponseDto& Dto, UUserManager& UserManager)
     : Type{Dto.Type}
     , Id{Dto.Id}
     , Cid{Dto.Cid}
@@ -35,7 +35,7 @@ FChannelId::FChannelId(const FChannelResponseDto& Dto, UUserManager& UserManager
     SetMembers(UserManager, Dto.Members);
 }
 
-FChannelId::operator FChannelRequestDto() const
+FChannelProperties::operator FChannelRequestDto() const
 {
     FChannelRequestDto Dto{bAutoTranslationEnabled, AutoTranslationLanguage, bDisabled, bFrozen, {}, Team, ExtraData};
     Algo::Transform(Members, Dto.Members, [&](const FMember& M) { return M.User->Id; });
@@ -43,7 +43,7 @@ FChannelId::operator FChannelRequestDto() const
     return Dto;
 }
 
-TArray<FUserRef> FChannelId::GetOtherMemberUsers() const
+TArray<FUserRef> FChannelProperties::GetOtherMemberUsers() const
 {
     constexpr auto NotCurrentUser = [](const FMember& M)
     {
@@ -58,41 +58,41 @@ TArray<FUserRef> FChannelId::GetOtherMemberUsers() const
     return OtherUsers;
 }
 
-void FChannelId::SetMembers(const TArray<FString>& UserIds)
+void FChannelProperties::SetMembers(const TArray<FString>& UserIds)
 {
     Algo::Transform(UserIds, Members, [&](const FString& UserId) { return FMember{UUserManager::Get()->UpsertUser(UserId)}; });
     MemberCount = Members.Num();
 }
 
-void FChannelId::SetMembers(const TArray<FUserRef>& Users)
+void FChannelProperties::SetMembers(const TArray<FUserRef>& Users)
 {
     Algo::Transform(Users, Members, [&](const FUserRef& UserRef) { return FMember{UserRef}; });
     MemberCount = Members.Num();
 }
 
-TOptional<FString> FChannelId::GetName() const
+TOptional<FString> FChannelProperties::GetName() const
 {
     return ExtraData.GetString(TEXT("name"));
 }
 
-TOptional<FString> FChannelId::GetImageUrl() const
+TOptional<FString> FChannelProperties::GetImageUrl() const
 {
     return ExtraData.GetString(TEXT("image"));
 }
 
-void FChannelId::SetMembers(UUserManager& UserManager, const TArray<FChannelMemberDto>& Dto)
+void FChannelProperties::SetMembers(UUserManager& UserManager, const TArray<FChannelMemberDto>& Dto)
 {
     Algo::Transform(Dto, Members, [&](const FChannelMemberDto& MemberDto) { return FMember{UserManager, MemberDto}; });
 }
 
-void UChannelIdBlueprintLibrary::SetMembers_UserId(FChannelId& ChannelId, const TArray<FString>& UserIds, FChannelId& Out)
+void UChannelPropertiesBlueprintLibrary::SetMembers_UserId(FChannelProperties& ChannelProperties, const TArray<FString>& UserIds, FChannelProperties& Out)
 {
-    ChannelId.SetMembers(UserIds);
-    Out = ChannelId;
+    ChannelProperties.SetMembers(UserIds);
+    Out = ChannelProperties;
 }
 
-void UChannelIdBlueprintLibrary::SetMembers_User(FChannelId& ChannelId, const TArray<FUserRef>& Users, FChannelId& Out)
+void UChannelPropertiesBlueprintLibrary::SetMembers_User(FChannelProperties& ChannelProperties, const TArray<FUserRef>& Users, FChannelProperties& Out)
 {
-    ChannelId.SetMembers(Users);
-    Out = ChannelId;
+    ChannelProperties.SetMembers(Users);
+    Out = ChannelProperties;
 }
