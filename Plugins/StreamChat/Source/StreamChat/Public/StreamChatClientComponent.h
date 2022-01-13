@@ -17,6 +17,7 @@
 
 #include "StreamChatClientComponent.generated.h"
 
+struct FChannelId;
 struct FMessage;
 class FChatApi;
 class FTokenManager;
@@ -88,37 +89,20 @@ public:
     * Create a channel if it doesn't exist yet (if this user has the right permissions).
 
      * @param Callback Called when a response is received from the API
-     * @param Type The channel type. Default types are livestream, messaging, team, gaming and commerce. You can also
-    create your own types.
-     * @param Id A unique name for the channel (optional)
-     * @param Members The members participating in this Channel (optional)
-     * @param Team Team the channel belongs to (if multi-tenant mode is enabled)
+     * @param ChannelId Properties of the channel to create
      * @return A channel object which can be used to interact with the channel
      */
-    void CreateChannel(
-        TFunction<void(UChatChannel*)> Callback,
-        const FString& Type,
-        const TOptional<FString>& Id = {},
-        const TOptional<TArray<FString>>& Members = {},
-        const TOptional<FString>& Team = {},
-        const FAdditionalFields ExtraData = {});
+    void CreateChannel(TFunction<void(UChatChannel*)> Callback, const FChannelId& ChannelId);
 
     /**
     * Create a channel if it doesn't exist yet (if this user has the right permissions), get data about the channel
     (including members, watchers and messages) and subscribe to future updates
 
      * @param Callback Called when a response is received from the API
-     * @param Type The channel type. Default types are livestream, messaging, team, gaming and commerce. You can also
-    create your own types.
-     * @param Id A unique name for the channel (optional)
-     * @param Members The members participating in this Channel (optional)
+     * @param ChannelId Properties of the channel to watch
      * @return A channel object which can be used to interact with the channel
      */
-    void WatchChannel(
-        TFunction<void(UChatChannel*)> Callback,
-        const FString& Type,
-        const TOptional<FString>& Id = {},
-        const TOptional<TArray<FString>>& Members = {});
+    void WatchChannel(TFunction<void(UChatChannel*)> Callback, const FChannelId& ChannelId);
 
     /**
     * Create a channel if it doesn't exist yet (if this user has the right permissions).
@@ -128,18 +112,10 @@ public:
      * @param Type The channel type. Default types are livestream, messaging, team, gaming and commerce. You can also
     create your own types.
      * @param Flags Get state, get presence and/or watch
-     * @param Members The members participating in this Channel (optional)
-     * @param Id A unique name for the channel (optional)
+     * @param ChannelId Properties of the channel to query
      * @return A channel object which can be used to interact with the channel
      */
-    void QueryChannel(
-        TFunction<void(UChatChannel*)> Callback,
-        const FString& Type,
-        const EChannelFlags Flags,
-        const TOptional<FString>& Id = {},
-        const TOptional<TArray<FString>>& Members = {},
-        const TOptional<FString>& Team = {},
-        const FAdditionalFields ExtraData = {});
+    void QueryChannel(TFunction<void(UChatChannel*)> Callback, const FChannelId& ChannelId, const EChannelFlags Flags);
 
     /**
      * @brief Search all messages
@@ -227,20 +203,11 @@ public:
     * Create a channel if it doesn't exist yet (if this user has the right permissions), get data about the channel
     (including members, watchers and messages) and subscribe to future updates
 
-     * @param Type The channel type. Default types are livestream, messaging, team, gaming and commerce. You can also
-    create your own types.
-     * @param Members The members participating in this Channel (optional)
-     * @param Id A unique name for the channel (optional)
+     * @param ChannelId Properties of the channel to watch
      * @param OutChannel Object which can be used to interact with the channel
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo, AdvancedDisplay = Id))
-    void WatchChannel(
-        const FString& Type,
-        const TArray<FString>& Members,
-        const FString& Id,
-        const UObject* WorldContextObject,
-        FLatentActionInfo LatentInfo,
-        UChatChannel*& OutChannel);
+    void WatchChannel(const FChannelId& ChannelId, const UObject* WorldContextObject, FLatentActionInfo LatentInfo, UChatChannel*& OutChannel);
 
 #pragma endregion Blueprint
 

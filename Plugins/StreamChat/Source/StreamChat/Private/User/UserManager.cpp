@@ -56,6 +56,11 @@ FUserRef UUserManager::UpsertUser(const FUserObjectDto& Dto)
     return UpsertUser(Util::Convert<FUser>(Dto));
 }
 
+FUserRef UUserManager::UpsertUser(const FString& Id)
+{
+    return UpsertUser(FUser{Id});
+}
+
 TArray<FUserRef> UUserManager::UpsertUsers(const TArray<FUser>& NewUsers)
 {
     TArray<FUserRef> Refs;
