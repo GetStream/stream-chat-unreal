@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "AdditionalFields.h"
 #include "CoreMinimal.h"
 
 #include "ChannelRequestDto.generated.h"
@@ -28,4 +29,7 @@ struct FChannelRequestDto
     /// Team the channel belongs to (if multi-tenant mode is enabled)
     UPROPERTY()
     FString Team;
+
+    UPROPERTY()
+    FAdditionalFields AdditionalFields;
 };

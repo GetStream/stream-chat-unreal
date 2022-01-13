@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "ChannelId.h"
 #include "ChannelSortOption.h"
 #include "ChannelState.h"
 #include "ChatApi.h"
@@ -69,6 +70,10 @@ class STREAMCHAT_API UChatChannel final : public UObject
 public:
     /// Create a new channel object
     static UChatChannel* Create(UObject* Outer, const TSharedRef<FChatApi>, const TSharedRef<IChatSocket>, const FChannelStateResponseFieldsDto&);
+
+    /// The local static properties of the channel
+    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
+    FChannelId Id;
 
     /// The local state of the channel
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
@@ -350,7 +355,7 @@ private:
 template <class TEvent>
 void UChatChannel::SendEvent(const TEvent& Event)
 {
-    Api->SendChannelEvent(State.Type, State.Id, Event);
+    Api->SendChannelEvent(Id.Type, Id.Id, Event);
 }
 
 template <class TEvent>
@@ -361,7 +366,7 @@ FDelegateHandle UChatChannel::On(TEventDelegate<TEvent> Callback)
         {
             // TODO static assert with nice error message
             // https://stackoverflow.com/questions/1005476/how-to-detect-whether-there-is-a-specific-member-variable-in-class
-            if (Event.Cid == State.Cid)
+            if (Event.Cid == Id.Cid)
             {
                 Callback.ExecuteIfBound(Event);
             }

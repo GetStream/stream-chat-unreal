@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "AdditionalFields.h"
 #include "ChannelConfigWithInfoDto.h"
 #include "ChannelMemberDto.h"
 #include "CoreMinimal.h"
@@ -44,12 +45,10 @@ struct FChannelResponseDto
     FDateTime CreatedAt;
 
     /// The user that created this channel
-    // TODO: Optional
     UPROPERTY()
     FUserObjectDto CreatedBy;
 
     /// The date of channel deletion
-    // TODO: Optional
     UPROPERTY()
     FDateTime DeletedAt;
 
@@ -73,7 +72,6 @@ struct FChannelResponseDto
     FString Id;
 
     /// The date of the last message
-    // TODO: Optional
     UPROPERTY()
     FDateTime LastMessageAt;
 
@@ -98,7 +96,6 @@ struct FChannelResponseDto
     TArray<FString> OwnCapabilities;
 
     /// The team the channel belongs to (multi-tenant only)
-    // TODO: Optional
     UPROPERTY()
     FString Team;
 
@@ -110,11 +107,6 @@ struct FChannelResponseDto
     UPROPERTY()
     FDateTime UpdatedAt;
 
-    // Not in spec but common additional field
     UPROPERTY()
-    FString Name;
-
-    // URL of channel image. Not in spec but common additional field
-    UPROPERTY()
-    FString Image;
+    FAdditionalFields AdditionalFields;
 };

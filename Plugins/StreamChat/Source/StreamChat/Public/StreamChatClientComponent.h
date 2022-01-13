@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "AdditionalFields.h"
 #include "Channel/ChannelPaginationOptions.h"
 #include "Channel/ChannelSortOption.h"
 #include "Channel/Filter.h"
@@ -99,7 +100,8 @@ public:
         const FString& Type,
         const TOptional<FString>& Id = {},
         const TOptional<TArray<FString>>& Members = {},
-        const TOptional<FString>& Team = {});
+        const TOptional<FString>& Team = {},
+        const FAdditionalFields ExtraData = {});
 
     /**
     * Create a channel if it doesn't exist yet (if this user has the right permissions), get data about the channel
@@ -136,7 +138,8 @@ public:
         const EChannelFlags Flags,
         const TOptional<FString>& Id = {},
         const TOptional<TArray<FString>>& Members = {},
-        const TOptional<FString>& Team = {});
+        const TOptional<FString>& Team = {},
+        const FAdditionalFields ExtraData = {});
 
     /**
      * @brief Search all messages

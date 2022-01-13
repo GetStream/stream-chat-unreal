@@ -10,17 +10,9 @@
 FChannelState::FChannelState() = default;
 
 FChannelState::FChannelState(const FChannelStateResponseFieldsDto& Dto, UUserManager& UserManager)
-    : Type{Dto.Channel.Type}
-    , Id{Dto.Channel.Id}
-    , WatcherCount{Dto.WatcherCount}
-    , Name{Dto.Channel.Name}
-    , ImageUrl{Dto.Channel.Image}
-    , Cid{Dto.Channel.Cid}
-    , Config{Dto.Channel.Config}
-    , Messages{Convert(Dto, UserManager)}
+    : WatcherCount{Dto.WatcherCount}, Messages{Convert(Dto, UserManager)}
 {
     Algo::Transform(Dto.Read, Read, [&](const FReadDto& ReadDto) { return FRead{UserManager, ReadDto}; });
-    SetMembers(UserManager, Dto.Members);
     // TODO Watchers
     // TODO Attachment
     // TODO Pinned messages
@@ -49,21 +41,6 @@ void FChannelState::AddMessage(const FMessage& Message)
     }
 }
 
-TArray<FUserRef> FChannelState::GetOtherMemberUsers() const
-{
-    constexpr auto NotCurrentUser = [](const FMember& M)
-    {
-        return !M.User.IsCurrent();
-    };
-    constexpr auto ToUser = [](const FMember& M)
-    {
-        return M.User;
-    };
-    TArray<FUserRef> OtherUsers;
-    Algo::TransformIf(Members, OtherUsers, NotCurrentUser, ToUser);
-    return OtherUsers;
-}
-
 const TArray<FMessage>& FChannelState::GetMessages() const
 {
     return Messages;
@@ -76,11 +53,6 @@ int32 FChannelState::UnreadCount() const
         return CurrentUserRead->UnreadMessages;
     }
     return 0;
-}
-
-void FChannelState::SetMembers(UUserManager& UserManager, const TArray<FChannelMemberDto>& Dto)
-{
-    Algo::Transform(Dto, Members, [&](const FChannelMemberDto& MemberDto) { return FMember{UserManager, MemberDto}; });
 }
 
 TArray<FMessage> FChannelState::Convert(const FChannelStateResponseFieldsDto& Dto, UUserManager& UserManager)
