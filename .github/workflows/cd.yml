@@ -82,6 +82,8 @@ jobs:
           security import certificate.p12 -k build.keychain -P $MACOS_CERTIFICATE_PWD -T /usr/bin/codesign
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k qwerty build.keychain
           security list-keychains -s `security list-keychains | xargs` build.keychain
+          build_config=${{ github.event.inputs.build-configuration }}
+          if [ -z ${buil_config+x} ]; then build_config=Shipping; fi
           /usr/bin/codesign --force -s $MACOS_IDENTITY_ID dist/${{ matrix.path }}/StreamChatSample-${{ matrix.platform }}-${{ github.event.inputs.build-configuration }}.app -v
 
       - name: 📇 Tar files
