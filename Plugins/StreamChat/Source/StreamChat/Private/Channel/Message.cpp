@@ -20,7 +20,7 @@ FMessage::FMessage(UUserManager& UserManager, const FMessageDto& Dto)
     , UpdatedAt{Dto.UpdatedAt}
     , DeletedAt{Dto.GetDeletedAt()}
     , Reactions{FReactions::CollectReactions(UserManager, Dto.ReactionCounts, Dto.ReactionScores, Dto.LatestReactions, Dto.OwnReactions)}
-    , AdditionalFields{Dto.AdditionalFields}
+    , ExtraData{Dto.AdditionalFields}
 {
 }
 
@@ -31,7 +31,7 @@ FMessage::FMessage(const FString& Text)
 
 FMessageRequestDto FMessage::ToRequestDto(const FString& Cid) const
 {
-    return FMessageRequestDto{Cid, {}, Id, {}, Reactions.GetScores(), bIsSilent, Text, AdditionalFields};
+    return FMessageRequestDto{Cid, {}, Id, {}, Reactions.GetScores(), bIsSilent, Text, ExtraData};
 }
 
 TArray<FMessage> FMessage::FromSearchResults(const TArray<FSearchResultDto>& Result)

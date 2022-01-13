@@ -37,9 +37,9 @@ void UOnlineStatusSubheaderWidget::UpdateLabel() const
 
 FText UOnlineStatusSubheaderWidget::GetLabel() const
 {
-    if (Channel->State.Members.Num() <= 2)
+    if (Channel->Properties.Members.Num() <= 2)
     {
-        if (const FMember* Member = Channel->State.Members.FindByPredicate([this](const FMember& M) { return !M.User.IsCurrent(); }))
+        if (const FMember* Member = Channel->Properties.Members.FindByPredicate([this](const FMember& M) { return !M.User.IsCurrent(); }))
         {
             return GetSingleUserLabel(Member->User);
         }
@@ -92,8 +92,8 @@ FText UOnlineStatusSubheaderWidget::GetSingleUserLabel(const FUserRef& User) con
 
 FText UOnlineStatusSubheaderWidget::GetMultiUserLabel() const
 {
-    const uint32 TotalCount = Channel->State.Members.Num();
-    const uint32 OnlineCount = Algo::CountIf(Channel->State.Members, [](const FMember& M) { return M.User->bOnline; });
+    const uint32 TotalCount = Channel->Properties.Members.Num();
+    const uint32 OnlineCount = Algo::CountIf(Channel->Properties.Members, [](const FMember& M) { return M.User->bOnline; });
 
     FFormatNamedArguments Args;
     Args.Add(TEXT("TotalCount"), TotalCount);

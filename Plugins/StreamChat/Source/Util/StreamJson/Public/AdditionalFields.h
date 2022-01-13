@@ -24,6 +24,7 @@ public:
     void SetNumber(const FName& Field, T Value);
     template <class T>
     void SetArray(const FName& Field, const TArray<T>& Value);
+    /// Set JSON object field using a USTRUCT
     template <class T>
     void Set(const FName& Field, const T& Value);
 
@@ -31,6 +32,7 @@ public:
     TOptional<bool> GetBool(const FName& Field) const;
     template <class T>
     TOptional<T> GetNumber(const FName& Field) const;
+    /// Get JSON object field using a USTRUCT
     template <class T>
     TOptional<T> Get(const FName& Field) const;
 

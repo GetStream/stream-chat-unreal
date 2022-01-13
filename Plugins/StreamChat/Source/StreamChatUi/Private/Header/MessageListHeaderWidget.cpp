@@ -25,7 +25,7 @@ void UMessageListHeaderWidget::OnChannel()
     if (Avatar)
     {
         // TODO Group chat
-        Avatar->Setup(Channel->State.GetOtherMemberUsers());
+        Avatar->Setup(Channel->Properties.GetOtherMemberUsers());
     }
 }
 

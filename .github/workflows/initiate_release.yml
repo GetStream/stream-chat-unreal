@@ -1,0 +1,32 @@
+name: Create release PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'The new version number. Example: 1.40.1'
+        required: true
+
+jobs:
+  init_release:
+    name: Create release PR
+    runs-on: ubuntu-latest
+    steps:
+      - uses: extractions/setup-just@v1
+      - uses: actions/checkout@v2
+        name: 🛒 Checkout
+        with:
+          lfs: true
+
+      - name: Create release branch
+        run: just create-release-branch "${{ github.event.inputs.version }}"
+
+      - name: Open pull request
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            -t "Release ${{ github.event.inputs.version }}" \
+            -b "# :rocket: ${{ github.event.inputs.version }}
+            Make sure to use squash & merge when merging!
+            Once this is merged, another job will kick off automatically and publish the package.
