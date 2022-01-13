@@ -123,7 +123,7 @@ struct STREAMCHAT_API FMessage
     bool bIsSilent = false;
 
     UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|Message", AdvancedDisplay)
-    FAdditionalFields AdditionalFields;
+    FAdditionalFields ExtraData;
 
     // TODO rest of fields
 };

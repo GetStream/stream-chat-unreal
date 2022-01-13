@@ -2,8 +2,8 @@
 
 #pragma once
 
-#include "AdditionalFields.h"
 #include "Channel/ChannelPaginationOptions.h"
+#include "Channel/ChannelProperties.h"
 #include "Channel/ChannelSortOption.h"
 #include "Channel/Filter.h"
 #include "ChannelFlags.h"
@@ -17,14 +17,13 @@
 
 #include "StreamChatClientComponent.generated.h"
 
-struct FChannelProperties;
-struct FMessage;
 class FChatApi;
 class FTokenManager;
 class ITokenProvider;
 class UChatChannel;
 struct FChannelStateResponseFieldsDto;
 struct FConnectionRecoveredEvent;
+struct FMessage;
 struct FUserPresenceChangedEvent;
 
 /**
