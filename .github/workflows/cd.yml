@@ -138,7 +138,7 @@ jobs:
 
   release:
     name: 🚀 Release
-    if: startsWith(github.head_ref, 'release-') || startsWith(github.ref, 'release-')
+    if: startsWith(github.head_ref, 'release-') || startsWith(github.ref_name, 'release-')
     needs: [samples, plugin]
     runs-on: ubuntu-latest
 
