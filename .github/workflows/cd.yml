@@ -148,7 +148,7 @@ jobs:
             console.log("Node version " + process.version);
             // Getting the release version from the PR source branch
             // Source branch looks like this: release-1.0.0
-            const ref = context.payload.pull_request?.head?.ref ?? context.ref;
+            const ref = context.payload.pull_request ? context.payload.pull_request.head.ref : context.ref;
             const version = ref.split('-')[1];
             console.log("Detected version " + version);
             core.exportVariable('VERSION', version);
