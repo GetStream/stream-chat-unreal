@@ -145,12 +145,13 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
+            console.log("hi!");
+            console.log(`Node version ${process.version}`);
             // Getting the release version from the PR source branch
             // Source branch looks like this: release-1.0.0
-            console.log(`Node version ${process.version}`);
             const version = (context.payload.pull_request?.head?.ref ?? context.ref).split('-')[1];
             console.log(`Detected version ${version}`);
-            core.exportVariable('VERSION', version)
+            core.exportVariable('VERSION', version);
 
       - name: Download
         uses: actions/download-artifact@v2
