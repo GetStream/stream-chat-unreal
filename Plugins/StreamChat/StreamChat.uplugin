@@ -1,81 +1,125 @@
 {
-	"FileVersion": 3,
-	"Version": 1,
-	"VersionName": "1.0.0",
-	"EngineVersion" : "4.27.0",
-	"FriendlyName": "Stream Chat",
-	"Description": "Official Unreal Plugin for Stream Chat",
-	"Category": "Other",
-	"CreatedBy": "Stream",
-	"CreatedByURL": "https://getstream.io",
-	"DocsURL": "https://getstream.github.io/stream-chat-unreal/",
-	"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/05b76120ba7e4468b01d8fcbed276c3a",
-	"SupportURL": "",
-	"CanContainContent": true,
-	"IsBetaVersion": true,
-	"IsExperimentalVersion": false,
-	"Installed": false,
-	"WhitelistPlatforms": [ "Win64", "Mac", "Linux" ],
-	"Modules": [
-		{
-			"Name": "StreamChat",
-			"Type": "Runtime",
-			"LoadingPhase": "Default",
-			"WhitelistPlatforms": ["Win64", "Linux", "Mac"]
-		},
-		{
-			"Name": "StreamChatEditor",
-			"Type": "Editor",
-			"LoadingPhase": "Default",
-			"WhitelistPlatforms": ["Win64", "Linux", "Mac"]
-		},
-		{
-			"Name": "HttpRequests",
-			"Type": "Runtime",
-			"LoadingPhase": "Default",
-			"WhitelistPlatforms": ["Win64", "Linux", "Mac"]
-		},
-		{
-			"Name": "StreamJson",
-			"Type": "Runtime",
-			"LoadingPhase": "Default",
-			"WhitelistPlatforms": ["Win64", "Linux", "Mac"]
-		},
-		{
-			"Name": "Jwt",
-			"Type": "Runtime",
-			"LoadingPhase": "Default",
-			"WhitelistPlatforms": ["Win64", "Linux", "Mac"]
-		},
-		{
-			"Name": "TokenProvider",
-			"Type": "Runtime",
-			"LoadingPhase": "Default",
-			"WhitelistPlatforms": ["Win64", "Linux", "Mac"]
-		},
-		{
-			"Name": "StreamChatDto",
-			"Type": "Runtime",
-			"LoadingPhase": "Default",
-			"WhitelistPlatforms": ["Win64", "Linux", "Mac"]
-		},
-		{
-			"Name": "StreamChatApi",
-			"Type": "Runtime",
-			"LoadingPhase": "Default",
-			"WhitelistPlatforms": ["Win64", "Linux", "Mac"]
-		},
-		{
-			"Name": "StreamChatWebSocket",
-			"Type": "Runtime",
-			"LoadingPhase": "Default",
-			"WhitelistPlatforms": ["Win64", "Linux", "Mac"]
-		},
-		{
-			"Name": "StreamChatUi",
-			"Type": "Runtime",
-			"LoadingPhase": "Default",
-			"WhitelistPlatforms": ["Win64", "Linux", "Mac"]
-		}
-	]
+    "FileVersion": 3,
+    "Version": 2,
+    "VersionName": "1.0.0",
+    "EngineVersion": "4.27.0",
+    "FriendlyName": "Stream Chat",
+    "Description": "Official Unreal Plugin for Stream Chat",
+    "Category": "Other",
+    "CreatedBy": "Stream",
+    "CreatedByURL": "https://getstream.io",
+    "DocsURL": "https://getstream.github.io/stream-chat-unreal/",
+    "MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/05b76120ba7e4468b01d8fcbed276c3a",
+    "SupportURL": "",
+    "CanContainContent": true,
+    "IsBetaVersion": true,
+    "IsExperimentalVersion": false,
+    "Installed": false,
+    "WhitelistPlatforms": [
+        "Win64",
+        "Mac",
+        "Linux"
+    ],
+    "Modules": [
+        {
+            "Name": "StreamChat",
+            "Type": "Runtime",
+            "LoadingPhase": "Default",
+            "WhitelistPlatforms": [
+                "Win64",
+                "Linux",
+                "Mac"
+            ]
+        },
+        {
+            "Name": "StreamChatEditor",
+            "Type": "Editor",
+            "LoadingPhase": "Default",
+            "WhitelistPlatforms": [
+                "Win64",
+                "Linux",
+                "Mac"
+            ]
+        },
+        {
+            "Name": "HttpRequests",
+            "Type": "Runtime",
+            "LoadingPhase": "Default",
+            "WhitelistPlatforms": [
+                "Win64",
+                "Linux",
+                "Mac"
+            ]
+        },
+        {
+            "Name": "StreamJson",
+            "Type": "Runtime",
+            "LoadingPhase": "Default",
+            "WhitelistPlatforms": [
+                "Win64",
+                "Linux",
+                "Mac"
+            ]
+        },
+        {
+            "Name": "Jwt",
+            "Type": "Runtime",
+            "LoadingPhase": "Default",
+            "WhitelistPlatforms": [
+                "Win64",
+                "Linux",
+                "Mac"
+            ]
+        },
+        {
+            "Name": "TokenProvider",
+            "Type": "Runtime",
+            "LoadingPhase": "Default",
+            "WhitelistPlatforms": [
+                "Win64",
+                "Linux",
+                "Mac"
+            ]
+        },
+        {
+            "Name": "StreamChatDto",
+            "Type": "Runtime",
+            "LoadingPhase": "Default",
+            "WhitelistPlatforms": [
+                "Win64",
+                "Linux",
+                "Mac"
+            ]
+        },
+        {
+            "Name": "StreamChatApi",
+            "Type": "Runtime",
+            "LoadingPhase": "Default",
+            "WhitelistPlatforms": [
+                "Win64",
+                "Linux",
+                "Mac"
+            ]
+        },
+        {
+            "Name": "StreamChatWebSocket",
+            "Type": "Runtime",
+            "LoadingPhase": "Default",
+            "WhitelistPlatforms": [
+                "Win64",
+                "Linux",
+                "Mac"
+            ]
+        },
+        {
+            "Name": "StreamChatUi",
+            "Type": "Runtime",
+            "LoadingPhase": "Default",
+            "WhitelistPlatforms": [
+                "Win64",
+                "Linux",
+                "Mac"
+            ]
+        }
+    ]
 }
