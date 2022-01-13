@@ -1,10 +1,10 @@
-name: Release
+name: CD
 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  workflow_run:
-    workflows: ["Create release PR"]
-    types: [completed]
+  pull_request:
+    types: [ closed ]
+    branches: [ main ]
 
   workflow_dispatch:
     inputs:
@@ -136,10 +136,11 @@ jobs:
 
   release:
     name: 🚀 Release
+    if: github.event.pull_request.merged && startsWith(github.head_ref, 'release-')
     runs-on: ubuntu-latest
 
     steps:
-      - name: Determine version
+      - name: 🔎 Determine version
         uses: actions/github-script@v5
         with:
           script: |
@@ -148,7 +149,7 @@ jobs:
             const version = context.payload.pull_request.head.ref.split('-')[1]
             core.exportVariable('VERSION', version)
 
-      - name: Create GitHub release
+      - name: 🚀 Create GitHub release
         uses: ncipollo/release-action@v1
         with:
           generateReleaseNotes: true
