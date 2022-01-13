@@ -67,7 +67,7 @@ struct STREAMCHAT_API FChannelProperties
 
     /// The count of the members of this channel
     UPROPERTY()
-    int32 MemberCount;
+    int32 MemberCount = 0;
 
     /// The members of this channel
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel Properties")
@@ -75,50 +75,50 @@ struct STREAMCHAT_API FChannelProperties
 
     /// Cooldown period after sending each message
     UPROPERTY()
-    int32 Cooldown;
+    int32 Cooldown = 0;
 
     /// The date of channel creation
     UPROPERTY()
-    FDateTime CreatedAt;
+    FDateTime CreatedAt = FDateTime{0};
 
     /// The date of the last channel update
     UPROPERTY()
-    FDateTime UpdatedAt;
+    FDateTime UpdatedAt = FDateTime{0};
 
     /// The date of channel deletion
     UPROPERTY()
-    FDateTime DeletedAt;
+    FDateTime DeletedAt = FDateTime{0};
 
     /// The date of the last message
     UPROPERTY()
-    FDateTime LastMessageAt;
+    FDateTime LastMessageAt = FDateTime{0};
 
     /// The user that created this channel
     UPROPERTY()
     FUserRef CreatedBy;
 
     UPROPERTY()
-    bool bDisabled;
+    bool bDisabled = false;
 
     /// Whether this channel is frozen or not
     UPROPERTY()
-    bool bFrozen;
+    bool bFrozen = false;
 
     /// Whether this channel is hidden by current user or not
     UPROPERTY()
-    bool bHidden;
+    bool bHidden = false;
 
     /// Whether this channel is muted or not
     UPROPERTY()
-    bool bMuted;
+    bool bMuted = false;
 
     /// Date of mute expiration
     UPROPERTY()
-    FDateTime MuteExpiresAt;
+    FDateTime MuteExpiresAt = FDateTime{0};
 
     /// Date since when the message history is accessible
     UPROPERTY()
-    FDateTime HideMessagesBefore;
+    FDateTime HideMessagesBefore = FDateTime{0};
 
     /// List of channel capabilities of the authenticated user
     UPROPERTY()
@@ -126,7 +126,7 @@ struct STREAMCHAT_API FChannelProperties
 
     /// Whether auto translation is enabled or not
     UPROPERTY()
-    bool bAutoTranslationEnabled;
+    bool bAutoTranslationEnabled = false;
 
     /// Language to translate to when auto translation is active
     UPROPERTY()
