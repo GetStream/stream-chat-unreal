@@ -60,8 +60,8 @@ create-release-branch version: (bump-version version)
 
     git config --global user.name 'github-actions' 
     git config --global user.email 'release@getstream.io'
-    git checkout -q -b "release-$VERSION"
-    git commit -am "chore(release): $VERSION"
-    git push -q -u origin "release-$VERSION"
+    git checkout -q -b "release-{{version}}"
+    git commit -am "chore(release): {{version}}"
+    git push -q -u origin "release-{{version}}"
 
     echo "Done!"
