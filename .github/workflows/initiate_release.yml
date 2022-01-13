@@ -14,6 +14,9 @@ jobs:
     steps:
       - uses: extractions/setup-just@v1
       - uses: actions/checkout@v2
+        name: 🛒 Checkout
+        with:
+          lfs: true
 
       - name: Create release branch
         run: just create-release-branch "${{ github.event.inputs.version }}"

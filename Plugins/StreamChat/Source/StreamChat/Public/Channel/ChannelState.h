@@ -39,7 +39,7 @@ struct STREAMCHAT_API FChannelState
 
     /// Number of channel watchers
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
-    int32 WatcherCount;
+    int32 WatcherCount = 0;
 
     /// The read states of each user in this channel
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
