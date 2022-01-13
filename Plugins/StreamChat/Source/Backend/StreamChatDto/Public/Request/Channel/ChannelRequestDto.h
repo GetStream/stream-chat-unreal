@@ -16,9 +16,22 @@ struct FChannelRequestDto
 {
     GENERATED_BODY()
 
-    // TODO Auto translation
+    // Enable or disable auto translation
+    UPROPERTY()
+    bool bAutoTranslationEnabled = false;
+
+    UPROPERTY()
+    FString AutoTranslationLanguage;
+
     // TODO ConfigOverrides
-    // TODO Disabled, Frozen.
+    // TODO CreatedBy
+
+    UPROPERTY()
+    bool bDisabled;
+
+    /// Freeze or unfreeze the channel
+    UPROPERTY()
+    bool bFrozen;
 
     // TODO it seems this should really be a ChannelMemberRequest
     UPROPERTY()

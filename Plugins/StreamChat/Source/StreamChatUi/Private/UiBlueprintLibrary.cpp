@@ -38,9 +38,9 @@ void UUiBlueprintLibrary::DismissContextMenu(UWidget* Widget)
 
 FString UUiBlueprintLibrary::GetChannelTitle(const UChatChannel* Channel)
 {
-    if (!Channel->Id.Name.IsEmpty())
+    if (TOptional<FString> Name = Channel->Id.GetName())
     {
-        return Channel->Id.Name;
+        return Name.GetValue();
     }
 
     const auto OthersPredicate = [&](const FMember& M)

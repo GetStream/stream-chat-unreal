@@ -26,6 +26,7 @@ public:
     FUserRef UpsertUser(const FUser&);
     FUserRef UpsertUser(const FOwnUserDto&);
     FUserRef UpsertUser(const FUserObjectDto&);
+    FUserRef UpsertUser(const FString& Id);
     TArray<FUserRef> UpsertUsers(const TArray<FUser>&);
     TArray<FUserRef> UpsertUsers(const TArray<FUserObjectDto>&);
     FUserUpdatedMultiDelegate& OnUserUpdated(const FUserRef&);

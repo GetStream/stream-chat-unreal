@@ -6,6 +6,7 @@
 #include "CoreMinimal.h"
 #include "Member.h"
 #include "Message.h"
+#include "Request/Channel/ChannelRequestDto.h"
 
 #include "ChannelId.generated.h"
 
@@ -26,16 +27,28 @@ struct STREAMCHAT_API FChannelId
     /// Create a channel ID from a DTO from the API
     explicit FChannelId(const FChannelResponseDto&, UUserManager&);
 
+    /// Convert to a channel request DTO to send to the API
+    explicit operator FChannelRequestDto() const;
+
     /// Get user information of channel members other than the currently logged-in user
     TArray<FUserRef> GetOtherMemberUsers() const;
 
+    /// Set the members using just their User IDs
+    void SetMembers(const TArray<FString>& UserIds);
+    /// Set the members using Users
+    void SetMembers(const TArray<FUserRef>& Users);
+
+    TOptional<FString> GetName() const;
+    TOptional<FString> GetImageUrl() const;
+
     /// Type of channel, either built-in or custom
+    /// Default types are livestream, messaging, team, gaming and commerce. You can also create your own types.
     /// @see https://getstream.io/chat/docs/other-rest/channel_features/
-    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
+    UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|Channel")
     FString Type;
 
     /// An identifier for this channel. Not globally unique. A subset of the Cid.
-    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
+    UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|Channel")
     FString Id;
 
     /// The cid of this channel
@@ -114,19 +127,31 @@ struct STREAMCHAT_API FChannelId
     FString AutoTranslationLanguage;
 
     /// The team the channel belongs to (multi-tenant only)
-    UPROPERTY()
+    UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|Channel", AdvancedDisplay)
     FString Team;
 
-    /// The human-readable name of this channel
-    // Not in spec so might not be set
-    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
-    FString Name;
-
-    /// The URL of an image to show as the "profile-picture" of this channel
-    // Not in spec so might not be set
-    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
-    FString ImageUrl;
+    /// Extra data for this channel
+    UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|Channel")
+    FAdditionalFields ExtraData;
 
 private:
     void SetMembers(UUserManager&, const TArray<FChannelMemberDto>&);
+};
+/**
+ * @brief Blueprint functions for the Additional Fields struct
+ * @ingroup StreamChat
+ */
+UCLASS()
+class STREAMJSON_API UChannelIdBlueprintLibrary final : public UBlueprintFunctionLibrary
+{
+    GENERATED_BODY()
+
+public:
+    /// Set the members using just their User IDs
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Channel ID", meta = (DisplayName = "Set Members (User ID)"))
+    static void SetMembers_UserId(UPARAM(ref) FChannelId& ChannelId, const TArray<FString>& UserIds, FChannelId& Out);
+
+    /// Set the members using just their User IDs
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Channel ID", meta = (DisplayName = "Set Members (User)"))
+    static void SetMembers_User(UPARAM(ref) FChannelId& ChannelId, const TArray<FUserRef>& Users, FChannelId& Out);
 };
