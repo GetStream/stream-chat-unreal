@@ -14,6 +14,23 @@ FChannelId::FChannelId(const FChannelResponseDto& Dto, UUserManager& UserManager
     , Id{Dto.Id}
     , Cid{Dto.Cid}
     , Config{Dto.Config}
+    , MemberCount{Dto.MemberCount}
+    , Cooldown{Dto.Cooldown}
+    , CreatedAt{Dto.CreatedAt}
+    , UpdatedAt{Dto.UpdatedAt}
+    , DeletedAt{Dto.DeletedAt}
+    , LastMessageAt{Dto.LastMessageAt}
+    , CreatedBy{UserManager.UpsertUser(Dto.CreatedBy)}
+    , bDisabled{Dto.bDisabled}
+    , bFrozen{Dto.bFrozen}
+    , bHidden{Dto.bHidden}
+    , bMuted{Dto.bMuted}
+    , MuteExpiresAt{Dto.MuteExpiresAt}
+    , HideMessagesBefore{Dto.HideMessagesBefore}
+    , OwnCapabilities{Dto.OwnCapabilities}
+    , bAutoTranslationEnabled{Dto.bAutoTranslationEnabled}
+    , AutoTranslationLanguage{Dto.AutoTranslationLanguage}
+    , Team{Dto.Team}
     , Name{Dto.AdditionalFields.GetString(TEXT("name")).Get(TEXT(""))}
     , ImageUrl{Dto.AdditionalFields.GetString(TEXT("image")).Get(TEXT(""))}
 {
