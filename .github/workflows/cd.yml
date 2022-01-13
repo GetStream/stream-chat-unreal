@@ -156,6 +156,9 @@ jobs:
 
       - name: Download
         uses: actions/download-artifact@v2
+      
+      - name: Zip
+        run: for i in */; do zip -r "${i%/}.zip" "$i"; done
 
       - name: 🚀 Create GitHub release
         uses: ncipollo/release-action@v1
@@ -163,5 +166,5 @@ jobs:
           generateReleaseNotes: true
           draft: true
           tag: v${{ env.VERSION }}
-          artifacts: "**/*"
+          artifacts: "*.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
