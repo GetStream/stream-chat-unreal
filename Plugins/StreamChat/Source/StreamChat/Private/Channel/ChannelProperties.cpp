@@ -50,14 +50,6 @@ FChannelProperties FChannelProperties::WithType(const FString& InType)
     return Props;
 }
 
-FChannelProperties FChannelProperties::WithId(const FString& InType, const FString& InId)
-{
-    FChannelProperties Props;
-    Props.Type = InType;
-    Props.Id = InId;
-    return Props;
-}
-
 TArray<FUserRef> FChannelProperties::GetOtherMemberUsers() const
 {
     constexpr auto NotCurrentUser = [](const FMember& M)
@@ -84,6 +76,12 @@ FChannelProperties& FChannelProperties::SetMembers(const TArray<FUserRef>& Users
 {
     Algo::Transform(Users, Members, [&](const FUserRef& UserRef) { return FMember{UserRef}; });
     MemberCount = Members.Num();
+    return *this;
+}
+
+FChannelProperties& FChannelProperties::SetId(const FString& InId)
+{
+    Id = InId;
     return *this;
 }
 
