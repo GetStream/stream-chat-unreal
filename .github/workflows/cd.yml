@@ -139,6 +139,7 @@ jobs:
   release:
     name: 🚀 Release
     if: github.event.pull_request.merged && startsWith(github.head_ref, 'release-')
+    needs: [samples, plugin]
     runs-on: ubuntu-latest
 
     steps:
@@ -151,10 +152,14 @@ jobs:
             const version = context.payload.pull_request.head.ref.split('-')[1]
             core.exportVariable('VERSION', version)
 
+      - name: Download
+        uses: actions/download-artifact@v2
+
       - name: 🚀 Create GitHub release
         uses: ncipollo/release-action@v1
         with:
           generateReleaseNotes: true
           draft: true
-          tag: ${{ env.VERSION }}
+          tag: v${{ env.VERSION }}
+          artifacts: "**/*"
           token: ${{ secrets.GITHUB_TOKEN }}
