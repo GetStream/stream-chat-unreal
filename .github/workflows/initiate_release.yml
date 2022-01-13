@@ -9,6 +9,7 @@ on:
 
 jobs:
   init_release:
+    name: Create release PR
     runs-on: ubuntu-latest
     steps:
       - uses: extractions/setup-just@v1
