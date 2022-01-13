@@ -30,14 +30,14 @@ struct STREAMCHAT_API FChannelProperties
     /// Convert to a channel request DTO to send to the API
     explicit operator FChannelRequestDto() const;
 
-    static FChannelProperties WithType(const FString& InType);
-    static FChannelProperties WithId(const FString& InType, const FString& InId);
+    static FChannelProperties WithType(const FString&);
 
     /// Set the members using just their User IDs
     FChannelProperties& SetMembers(const TArray<FString>& UserIds);
     /// Set the members using a list of Users
     FChannelProperties& SetMembers(const TArray<FUserRef>& Users);
 
+    FChannelProperties& SetId(const FString&);
     FChannelProperties& SetName(const FString&);
     FChannelProperties& SetImageUrl(const FString&);
     TOptional<FString> GetName() const;
