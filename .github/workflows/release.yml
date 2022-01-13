@@ -1,9 +1,10 @@
-name: CD
+name: Release
 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
+  workflow_run:
+    workflows: ["Create release PR"]
+    types: [completed]
 
   workflow_dispatch:
     inputs:
@@ -132,3 +133,25 @@ jobs:
             !**/Binaries
             !**/Intermediate
         name: 📁 Upload plugin artifact
+
+  release:
+    name: 🚀 Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Determine version
+        uses: actions/github-script@v5
+        with:
+          script: |
+            // Getting the release version from the PR source branch
+            // Source branch looks like this: release-1.0.0
+            const version = context.payload.pull_request.head.ref.split('-')[1]
+            core.exportVariable('VERSION', version)
+
+      - name: Create GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          generateReleaseNotes: true
+          draft: true
+          tag: ${{ env.VERSION }}
+          token: ${{ secrets.GITHUB_TOKEN }}
