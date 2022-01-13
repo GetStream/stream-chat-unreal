@@ -149,7 +149,7 @@ private:
  * @ingroup StreamChat
  */
 UCLASS()
-class STREAMJSON_API UChannelPropertiesBlueprintLibrary final : public UBlueprintFunctionLibrary
+class STREAMCHAT_API UChannelPropertiesBlueprintLibrary final : public UBlueprintFunctionLibrary
 {
     GENERATED_BODY()
 
