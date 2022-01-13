@@ -138,7 +138,7 @@ jobs:
 
   release:
     name: 🚀 Release
-    if: startsWith(github.head_ref, 'release-')
+    if: startsWith(github.head_ref, 'release-') || startsWith(github.ref, 'release-')
     needs: [samples, plugin]
     runs-on: ubuntu-latest
 
@@ -149,7 +149,7 @@ jobs:
           script: |
             // Getting the release version from the PR source branch
             // Source branch looks like this: release-1.0.0
-            const version = context.ref.split('-')[1]
+            const version = (context.payload.pull_request.head.ref || context.ref).split('-')[1]
             core.exportVariable('VERSION', version)
 
       - name: Download
