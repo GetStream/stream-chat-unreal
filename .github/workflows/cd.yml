@@ -161,7 +161,15 @@ jobs:
         uses: actions/download-artifact@v2
       
       - name: Zip
-        run: for i in */; do zip -r "${i%/}.zip" "$i"; done
+        run: |
+          # move macOS tars
+          mv **/*.tar .
+          # delete empty directories
+          find . -type d -empty -delete
+          # zip rest of directories
+          for i in */; do
+            zip -r "${i%/}.zip" "$i"
+          done
 
       - name: 🚀 Create GitHub release
         uses: ncipollo/release-action@v1
@@ -169,5 +177,5 @@ jobs:
           generateReleaseNotes: true
           draft: true
           tag: v${{ env.VERSION }}
-          artifacts: "*.zip"
+          artifacts: "*.zip,*.tar"
           token: ${{ secrets.GITHUB_TOKEN }}
