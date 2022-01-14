@@ -88,6 +88,7 @@ jobs:
           security list-keychains -s `security list-keychains | xargs` build.keychain
 
           codesign --force --options runtime -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app 
+          codesign --force --options runtime -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app/Contents/MacOS/StreamChatSample-Mac-Shipping
           codesign --force --options runtime -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app/Contents/Resources/RadioEffectUnit.component/Contents/MacOS/RadioEffectUnit
           codesign --force --options runtime -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app/Contents/UE4/Engine/Build/Mac/RadioEffectUnit/RadioEffectUnit.component/Contents/MacOS/RadioEffectUnit
           find jumpy-lion.app -type f -name '*.dylib' -exec codesign --force --options runtime -s $MACOS_IDENTITY_ID -v {} \;
