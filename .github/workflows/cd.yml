@@ -73,6 +73,8 @@ jobs:
           MACOS_CERTIFICATE_PWD: ${{ secrets.MACOS_CERTIFICATE_PWD }}
           MACOS_IDENTITY_ID: ${{ secrets.MACOS_IDENTITY_ID }}
         run: |
+          build_config=${{ github.event.inputs.build-configuration }}
+          if [ -z ${buil_config+x} ]; then build_config=Shipping; fi
           echo "Rename to ${{ matrix.what }}.app"
           mv dist/${{ matrix.path }}/StreamChatSample-${{ matrix.platform }}-$build_config.app ${{ matrix.what }}.app
 
@@ -84,11 +86,10 @@ jobs:
           security import certificate.p12 -k build.keychain -P $MACOS_CERTIFICATE_PWD -T /usr/bin/codesign
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k qwerty build.keychain
           security list-keychains -s `security list-keychains | xargs` build.keychain
-          build_config=${{ github.event.inputs.build-configuration }}
-          if [ -z ${buil_config+x} ]; then build_config=Shipping; fi
           /usr/bin/codesign --force -s $MACOS_IDENTITY_ID ${{ matrix.what }}.app -v
 
       - name: Notarize
+        if: ${{ matrix.platform == 'Mac' }}
         uses: devbotsxyz/xcode-notarize@v1
         with:
           product-path: "${{ matrix.what }}.app"
@@ -96,11 +97,13 @@ jobs:
           appstore-connect-password: ${{ secrets.NOTARIZATION_PASSWORD }}
 
       - name: Staple
+        if: ${{ matrix.platform == 'Mac' }}
         uses: devbotsxyz/xcode-staple@v1
         with:
           product-path: "${{ matrix.what }}.app"
 
       - name: Package
+        if: ${{ matrix.platform == 'Mac' }}
         run: ditto -V -c -k --keepParent "${{ matrix.what }}.app" "${{ matrix.what }}-${{ matrix.platform }}.zip"
 
       - uses: actions/upload-artifact@v2
