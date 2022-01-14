@@ -1,18 +1,12 @@
 name: CD
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
     types: [closed]
     branches: [ main ]
 
   workflow_dispatch:
     inputs:
-      force-release:
-        description: 'Force trigger a GitHub release'
-        type: boolean
-        required: false
       build-configuration:
         description: 'Unreal Engine build configuration'
         required: false
@@ -145,7 +139,7 @@ jobs:
 
   release:
     name: 🚀 Release
-    if: github.event.inputs.force-release == 'true' || startsWith(github.head_ref, 'release-') || startsWith(github.ref_name, 'release-')
+    if: startsWith(github.head_ref, 'release-') || startsWith(github.ref_name, 'release-')
     needs: [samples, plugin]
     runs-on: ubuntu-latest
 
@@ -161,10 +155,10 @@ jobs:
             console.log("Detected version " + version);
             core.exportVariable('VERSION', version);
 
-      - name: Download
+      - name: 📥 Download
         uses: actions/download-artifact@v2
       
-      - name: Zip
+      - name: 📇 Zip
         run: |
           # move macOS tars
           mv **/*.tar .
