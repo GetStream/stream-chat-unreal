@@ -9,6 +9,10 @@ on:
 
   workflow_dispatch:
     inputs:
+      force-release:
+        description: 'Force trigger a GitHub release'
+        type: boolean
+        required: false
       build-configuration:
         description: 'Unreal Engine build configuration'
         required: false
@@ -141,7 +145,7 @@ jobs:
 
   release:
     name: 🚀 Release
-    if: startsWith(github.head_ref, 'release-') || startsWith(github.ref_name, 'release-')
+    if: github.event.inputs.force-release == 'true' || startsWith(github.head_ref, 'release-') || startsWith(github.ref_name, 'release-')
     needs: [samples, plugin]
     runs-on: ubuntu-latest
 
