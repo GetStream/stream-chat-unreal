@@ -86,7 +86,11 @@ jobs:
           security import certificate.p12 -k build.keychain -P $MACOS_CERTIFICATE_PWD -T /usr/bin/codesign
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k qwerty build.keychain
           security list-keychains -s `security list-keychains | xargs` build.keychain
-          /usr/bin/codesign --force -s $MACOS_IDENTITY_ID ${{ matrix.what }}.app -v
+
+          codesign --force --options runtime -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app 
+          codesign --force --options runtime -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app/Contents/Resources/RadioEffectUnit.component/Contents/MacOS/RadioEffectUnit
+          codesign --force --options runtime -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app/Contents/UE4/Engine/Build/Mac/RadioEffectUnit/RadioEffectUnit.component/Contents/MacOS/RadioEffectUnit
+          find jumpy-lion.app -type f -name '*.dylib' -exec codesign --force --options runtime -s $MACOS_IDENTITY_ID -v {} \;
 
       - name: Notarize
         if: ${{ matrix.platform == 'Mac' }}
