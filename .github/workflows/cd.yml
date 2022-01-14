@@ -87,7 +87,7 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k qwerty build.keychain
           security list-keychains -s `security list-keychains | xargs` build.keychain
 
-          find jumpy-lion.app -type f -name '*.dylib' -exec codesign --timestamp --force -s $MACOS_IDENTITY_ID -v {} \;
+          find ${{ matrix.what }}.app -type f -name '*.dylib' -exec codesign --timestamp --force -s $MACOS_IDENTITY_ID -v {} \;
           codesign --timestamp --force -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app/Contents/Resources/RadioEffectUnit.component/Contents/MacOS/RadioEffectUnit
           codesign --timestamp --force -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app/Contents/UE4/Engine/Build/Mac/RadioEffectUnit/RadioEffectUnit.component/Contents/MacOS/RadioEffectUnit
           # enable the hardened runtime for the main executable
