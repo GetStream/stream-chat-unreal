@@ -73,6 +73,9 @@ jobs:
           MACOS_CERTIFICATE_PWD: ${{ secrets.MACOS_CERTIFICATE_PWD }}
           MACOS_IDENTITY_ID: ${{ secrets.MACOS_IDENTITY_ID }}
         run: |
+          echo "Rename to ${{ matrix.what }}.app"
+          mv dist/${{ matrix.path }}/StreamChatSample-${{ matrix.platform }}-$build_config.app ${{ matrix.what }}.app
+
           echo $MACOS_CERTIFICATE | base64 --decode > certificate.p12
           security delete-keychain build.keychain
           security create-keychain -p qwerty build.keychain
@@ -83,18 +86,29 @@ jobs:
           security list-keychains -s `security list-keychains | xargs` build.keychain
           build_config=${{ github.event.inputs.build-configuration }}
           if [ -z ${buil_config+x} ]; then build_config=Shipping; fi
-          /usr/bin/codesign --force -s $MACOS_IDENTITY_ID dist/${{ matrix.path }}/StreamChatSample-${{ matrix.platform }}-$build_config.app -v
+          /usr/bin/codesign --force -s $MACOS_IDENTITY_ID ${{ matrix.what }}.app -v
 
-      - name: 📇 Tar files
-        if: ${{ matrix.platform == 'Mac' }}
-        run: tar -cvf ${{ matrix.what }}-${{ matrix.platform }}.tar -C dist/${{ matrix.path }} .
+      - name: Notarize
+        uses: devbotsxyz/xcode-notarize@v1
+        with:
+          product-path: "${{ matrix.what }}.app"
+          appstore-connect-username: ${{ secrets.NOTARIZATION_USERNAME }}
+          appstore-connect-password: ${{ secrets.NOTARIZATION_PASSWORD }}
+
+      - name: Staple
+        uses: devbotsxyz/xcode-staple@v1
+        with:
+          product-path: "${{ matrix.what }}.app"
+
+      - name: Package
+        run: ditto -V -c -k --keepParent "${{ matrix.what }}.app" "${{ matrix.what }}-${{ matrix.platform }}.zip"
 
       - uses: actions/upload-artifact@v2
         if: ${{ matrix.platform == 'Mac' }}
         with:
           name: ${{ matrix.what }}-${{ matrix.platform }}
           path: |
-            ${{ matrix.what }}-${{ matrix.platform }}.tar
+            ${{ matrix.what }}-${{ matrix.platform }}.zip
         name: 📁 Upload artifact
      
       - uses: actions/upload-artifact@v2
