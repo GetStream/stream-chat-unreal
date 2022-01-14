@@ -88,7 +88,6 @@ jobs:
           security list-keychains -s `security list-keychains | xargs` build.keychain
 
           codesign --force --options runtime -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app 
-          codesign --force --options runtime -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app/Contents/MacOS/StreamChatSample-Mac-Shipping
           codesign --force --options runtime -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app/Contents/Resources/RadioEffectUnit.component/Contents/MacOS/RadioEffectUnit
           codesign --force --options runtime -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app/Contents/UE4/Engine/Build/Mac/RadioEffectUnit/RadioEffectUnit.component/Contents/MacOS/RadioEffectUnit
           find jumpy-lion.app -type f -name '*.dylib' -exec codesign --force --options runtime -s $MACOS_IDENTITY_ID -v {} \;
@@ -109,7 +108,7 @@ jobs:
 
       - name: Package
         if: ${{ matrix.platform == 'Mac' }}
-        run: ditto -V -c -k --keepParent "${{ matrix.what }}.app" "${{ matrix.what }}-${{ matrix.platform }}.zip"
+        run: ditto -V -c -k --sequesterRsrc --keepParent "${{ matrix.what }}.app" "${{ matrix.what }}-${{ matrix.platform }}.zip"
 
       - uses: actions/upload-artifact@v2
         if: ${{ matrix.platform == 'Mac' }}
