@@ -82,7 +82,7 @@ jobs:
           security list-keychains -s `security list-keychains | xargs` build.keychain
           build_config=${{ github.event.inputs.build-configuration }}
           if [ -z ${buil_config+x} ]; then build_config=Shipping; fi
-          /usr/bin/codesign --force -s $MACOS_IDENTITY_ID dist/${{ matrix.path }}/StreamChatSample-${{ matrix.platform }}-${{ github.event.inputs.build-configuration }}.app -v
+          /usr/bin/codesign --force -s $MACOS_IDENTITY_ID dist/${{ matrix.path }}/StreamChatSample-${{ matrix.platform }}-$build_config.app -v
 
       - name: 📇 Tar files
         if: ${{ matrix.platform == 'Mac' }}
