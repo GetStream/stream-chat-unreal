@@ -91,7 +91,8 @@ jobs:
           codesign --timestamp --force -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app/Contents/Resources/RadioEffectUnit.component/Contents/MacOS/RadioEffectUnit
           codesign --timestamp --force -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app/Contents/UE4/Engine/Build/Mac/RadioEffectUnit/RadioEffectUnit.component/Contents/MacOS/RadioEffectUnit
           # enable the hardened runtime for the main executable
-          codesign --timestamp --force --options runtime -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app
+          # for this we need an entitlements which reduce the strictness a little
+          codesign --timestamp --force --options runtime --entitlements Build/Mac/entitlements.plist -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app
 
       - name: Notarize
         if: ${{ matrix.platform == 'Mac' }}

@@ -62,6 +62,9 @@ Build/*/**
 !Build/**/*.png
 !Build/**/*.icns
 
+# Used to codesign macOS packaged builds
+!Build/Mac/entitlements.plist
+
 # Built data for maps
 *_BuiltData.uasset
 
