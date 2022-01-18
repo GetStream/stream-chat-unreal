@@ -86,10 +86,18 @@ class STREAMCHAT_API UUserBlueprintLibrary final : public UBlueprintFunctionLibr
 
 public:
     /**
-     * @brief Generated a valid user ID from a human-readable name
+     * @brief Generate a valid user ID from a human-readable name
      * @param Name User's human-readable name
-     * @return A valid UserId, with all disallowed characters replaced with '_'
+     * @param OutUserId A valid UserId, with all disallowed characters replaced with '_'
      */
-    UFUNCTION(BlueprintPure, Category = "Stream Chat|User")
-    static FString GenerateUserId(const FString& Name);
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|User")
+    static bool GenerateUserId(const FString& Name, FString& OutUserId);
+
+    /**
+     * @brief Ensure a human readable user name is valid by removing bad characters
+     * @param Name User's human-readable name
+     * @param SanitizedName A valid user name
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|User")
+    static bool SanitizeName(const FString& Name, FString& SanitizedName);
 };
