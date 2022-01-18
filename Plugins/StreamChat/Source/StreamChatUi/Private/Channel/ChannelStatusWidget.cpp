@@ -104,7 +104,7 @@ void UChannelStatusWidget::UpdateDynamic() const
 
 void UChannelStatusWidget::UpdateChannelTitleText() const
 {
-    if (TitleTextBlock)
+    if (TitleTextBlock && Channel)
     {
         const FString Title = UUiBlueprintLibrary::GetChannelTitle(Channel);
         const FString Shortened = WidgetUtil::TruncateWithEllipsis(Title, ChannelTitleAvailableSpace, TitleTextBlock->Font);
@@ -115,7 +115,7 @@ void UChannelStatusWidget::UpdateChannelTitleText() const
 
 void UChannelStatusWidget::UpdateRecentMessageText() const
 {
-    if (RecentMessageTextBlock)
+    if (RecentMessageTextBlock && Channel)
     {
         const FString Shortened =
             WidgetUtil::TruncateWithEllipsis(Channel->State.GetMessages().Last().Text, RecentMessageAvailableSpace, RecentMessageTextBlock->Font);

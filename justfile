@@ -18,7 +18,7 @@ test:
 
 # Convert svg assets to pngs
 convert-svg:
-    for f in $(find Plugins/StreamChat/Content -name '*.svg'); do echo "$f"; inkscape "$f" --export-dpi=192 -o "${f%.svg}.png" & done
+    for f in $(find Plugins/StreamChat/Content -name '*.svg'); do echo "$f"; inkscape "$f" -o "${f%.svg}.png" & done
 # On mac you need to install inkscape: brew install inkscape
 # And symlink the CLI: ln -s /Applications/Inkscape.app/Contents/MacOS/inkscape /usr/local/bin/inkscape
 

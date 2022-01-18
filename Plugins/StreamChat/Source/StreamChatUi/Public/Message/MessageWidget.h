@@ -63,7 +63,7 @@ protected:
     TSubclassOf<UTimestampWidget> TimestampWidgetClass = UTimestampWidget::StaticClass();
 
     UPROPERTY(EditDefaultsOnly, Category = Defaults)
-    int32 AvatarSize = 72;
+    int32 AvatarSize = 36;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
     FMessage Message;

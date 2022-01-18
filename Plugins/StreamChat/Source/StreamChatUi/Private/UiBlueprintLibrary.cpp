@@ -38,6 +38,11 @@ void UUiBlueprintLibrary::DismissContextMenu(UWidget* Widget)
 
 FString UUiBlueprintLibrary::GetChannelTitle(const UChatChannel* Channel)
 {
+    if (!Channel)
+    {
+        return TEXT("");
+    }
+
     if (TOptional<FString> Name = Channel->Properties.GetName())
     {
         return Name.GetValue();

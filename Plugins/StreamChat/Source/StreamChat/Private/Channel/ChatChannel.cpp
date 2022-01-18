@@ -35,7 +35,7 @@ UChatChannel* UChatChannel::Create(
 
     Channel->Api = Api;
     Channel->Socket = Socket;
-    Channel->Properties = FChannelProperties{Dto.Channel, *UUserManager::Get()};
+    Channel->Properties = FChannelProperties{Dto, *UUserManager::Get()};
     Channel->State = FChannelState{Dto, *UUserManager::Get()};
     Channel->On<FMessageNewEvent>(Channel, &UChatChannel::OnMessageNew);
     Channel->On<FMessageUpdatedEvent>(Channel, &UChatChannel::OnMessageUpdated);
