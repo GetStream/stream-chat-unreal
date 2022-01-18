@@ -78,10 +78,10 @@ jobs:
 
           app=${{ matrix.what }}.app
           executable=StreamChatSample-${{ matrix.platform }}-$build_config
-          echo "\n==> Rename to $app"
+          echo -e "\n==> Rename to $app"
           mv dist/${{ matrix.path }}/$executable.app $app
 
-          echo "\n==> Set up cert"
+          echo -e "\n==> Set up cert"
           echo $MACOS_CERTIFICATE | base64 --decode > certificate.p12
           security delete-keychain build.keychain
           security create-keychain -p qwerty build.keychain
@@ -91,11 +91,11 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k qwerty build.keychain
           security list-keychains -s `security list-keychains | xargs` build.keychain
 
-          echo "\n==> Remove RadioEffectComponent"
+          echo -e "\n==> Remove RadioEffectComponent"
           rm -rf $app/Contents/Resources/RadioEffectUnit.component
           rm -rf $app/Contents/UE4/Engine/Build
 
-          echo "\n==> Fix rpaths"
+          echo -e "\n==> Fix rpaths"
           # These rpaths lead to invalid locations. They need to be removed, otherwise the notarized app won't pass the Gatekeeper.
           declare -a bad_exe_rpaths=(
             "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_4.27/Engine/Binaries/ThirdParty/PhysX3/Mac" 
@@ -112,7 +112,7 @@ jobs:
             install_name_tool -delete_rpath "$i" $app/Contents/MacOS/$executable
           done
 
-          echo "\n==> codesign all dylibs"
+          echo -e "\n==> codesign all dylibs"
           find $app -type f -name '*.dylib' -exec codesign --timestamp --force -s $MACOS_IDENTITY_ID -v {} \;
           echo " --> codesign with hardened runtime for the main executable + entitlements"
           # for this we need an entitlements which reduce the strictness a little
@@ -122,7 +122,7 @@ jobs:
         if: ${{ matrix.platform == 'Mac' }}
         uses: devbotsxyz/xcode-notarize@v1
         with:
-          product-path: "$app"
+          product-path: "${{ matrix.what }}.app"
           appstore-connect-username: ${{ secrets.NOTARIZATION_USERNAME }}
           appstore-connect-password: ${{ secrets.NOTARIZATION_PASSWORD }}
 
@@ -130,11 +130,11 @@ jobs:
         if: ${{ matrix.platform == 'Mac' }}
         uses: devbotsxyz/xcode-staple@v1
         with:
-          product-path: "$app"
+          product-path: "${{ matrix.what }}.app"
 
       - name: Package
         if: ${{ matrix.platform == 'Mac' }}
-        run: ditto -V -c -k --sequesterRsrc --keepParent "$app" "${{ matrix.what }}-${{ matrix.platform }}.zip"
+        run: ditto -V -c -k --sequesterRsrc --keepParent "${{ matrix.what }}.app" "${{ matrix.what }}-${{ matrix.platform }}.zip"
 
       - uses: actions/upload-artifact@v2
         if: ${{ matrix.platform == 'Mac' }}
