@@ -74,11 +74,14 @@ jobs:
           MACOS_IDENTITY_ID: ${{ secrets.MACOS_IDENTITY_ID }}
         run: |
           build_config=${{ github.event.inputs.build-configuration }}
-          if [ -z ${buil_config+x} ]; then build_config=Shipping; fi
-          echo "--> Rename to ${{ matrix.what }}.app"
-          mv dist/${{ matrix.path }}/StreamChatSample-${{ matrix.platform }}-$build_config.app ${{ matrix.what }}.app
+          if [ -z ${build_config+x} ]; then build_config=Shipping; fi
 
-          echo "==> Set up cert <=="
+          app=${{ matrix.what }}.app
+          executable=StreamChatSample-${{ matrix.platform }}-$build_config
+          echo "--> Rename to $app"
+          mv dist/${{ matrix.path }}/$executable.app $app
+
+          echo "==> Set up cert"
           echo $MACOS_CERTIFICATE | base64 --decode > certificate.p12
           security delete-keychain build.keychain
           security create-keychain -p qwerty build.keychain
@@ -88,10 +91,30 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k qwerty build.keychain
           security list-keychains -s `security list-keychains | xargs` build.keychain
 
-          echo "==> Fix rpaths <=="
+          echo "==> Remove RadioEffectComponent"
+          rm -rf $app/Contents/Resources/RadioEffectUnit.component
+          rm -rf $app/Contents/UE4/Engine/Build
+
+          echo "==> Fix rpaths"
+          # These rpaths lead to invalid locations. They need to be removed, otherwise the notarized app won't pass the Gatekeeper.
+          declare -a bad_exe_rpaths=(
+            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_4.27/Engine/Binaries/ThirdParty/PhysX3/Mac" 
+            "@loader_path/../../../../../../Engine/Binaries/ThirdParty/PhysX3/Mac"
+            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_4.27/Engine/Binaries/ThirdParty/Ogg/Mac"
+            "@loader_path/../../../../../../Engine/Binaries/ThirdParty/Ogg/Mac"
+            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_4.27/Engine/Binaries/ThirdParty/Vorbis/Mac"
+            "@loader_path/../../../../../../Engine/Binaries/ThirdParty/Vorbis/Mac"
+            "@executable_path/../../../"
+          )
+
+          for i in "${bad_exe_rpaths[@]}"; do
+            echo "Removing bad rpath: $i"
+            install_name_tool -delete_rpath $i $app/Contents/MacOS/$executable
+          done
+
           brew install coreutils
-          find ${{ matrix.what }}.app -name '*.dylib' -print0 | while IFS= read -r -d '' i; do 
-            path=@executable_path/$(grealpath --relative-to=${{ matrix.what }}.app/Contents/MacOS $(dirname $i))
+          find $app -name '*.dylib' -print0 | while IFS= read -r -d '' i; do 
+            path=@executable_path/$(grealpath --relative-to=$app/Contents/MacOS $(dirname $i))
             echo "--> Fix dylib for $i using $path"
             if otool -l "$i" | grep -q LC_RPATH; then
               echo "--> Replace rpath"
@@ -103,19 +126,17 @@ jobs:
             fi
           done
 
-          echo "==> codesign all dylibs <=="
-          find ${{ matrix.what }}.app -type f -name '*.dylib' -exec codesign --timestamp --force -s $MACOS_IDENTITY_ID -v {} \;
-          codesign --timestamp --force -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app/Contents/Resources/RadioEffectUnit.component/Contents/MacOS/RadioEffectUnit
-          codesign --timestamp --force -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app/Contents/UE4/Engine/Build/Mac/RadioEffectUnit/RadioEffectUnit.component/Contents/MacOS/RadioEffectUnit
+          echo "==> codesign all dylibs"
+          find $app -type f -name '*.dylib' -exec codesign --timestamp --force -s $MACOS_IDENTITY_ID -v {} \;
           echo " --> codesign with hardened runtime for the main executable + entitlements"
           # for this we need an entitlements which reduce the strictness a little
-          codesign --timestamp --force --options runtime --entitlements Build/Mac/entitlements.plist -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app
+          codesign --timestamp --force --options runtime --entitlements Build/Mac/entitlements.plist -s $MACOS_IDENTITY_ID -v $app
 
       - name: Notarize
         if: ${{ matrix.platform == 'Mac' }}
         uses: devbotsxyz/xcode-notarize@v1
         with:
-          product-path: "${{ matrix.what }}.app"
+          product-path: "$app"
           appstore-connect-username: ${{ secrets.NOTARIZATION_USERNAME }}
           appstore-connect-password: ${{ secrets.NOTARIZATION_PASSWORD }}
 
@@ -123,11 +144,11 @@ jobs:
         if: ${{ matrix.platform == 'Mac' }}
         uses: devbotsxyz/xcode-staple@v1
         with:
-          product-path: "${{ matrix.what }}.app"
+          product-path: "$app"
 
       - name: Package
         if: ${{ matrix.platform == 'Mac' }}
-        run: ditto -V -c -k --sequesterRsrc --keepParent "${{ matrix.what }}.app" "${{ matrix.what }}-${{ matrix.platform }}.zip"
+        run: ditto -V -c -k --sequesterRsrc --keepParent "$app" "${{ matrix.what }}-${{ matrix.platform }}.zip"
 
       - uses: actions/upload-artifact@v2
         if: ${{ matrix.platform == 'Mac' }}
