@@ -75,9 +75,10 @@ jobs:
         run: |
           build_config=${{ github.event.inputs.build-configuration }}
           if [ -z ${buil_config+x} ]; then build_config=Shipping; fi
-          echo "Rename to ${{ matrix.what }}.app"
+          echo "--> Rename to ${{ matrix.what }}.app"
           mv dist/${{ matrix.path }}/StreamChatSample-${{ matrix.platform }}-$build_config.app ${{ matrix.what }}.app
 
+          echo "==> Set up cert <=="
           echo $MACOS_CERTIFICATE | base64 --decode > certificate.p12
           security delete-keychain build.keychain
           security create-keychain -p qwerty build.keychain
@@ -87,18 +88,24 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k qwerty build.keychain
           security list-keychains -s `security list-keychains | xargs` build.keychain
 
-          echo Fix rpaths for PhysX3
-          find ${{ matrix.what }}.app/Contents/UE4/Engine/Binaries/ThirdParty/PhysX3 -type f -name '*.dylib' -exec install_name_tool -rpath /Volumes/Work/Perforce/UE4/Engine/Binaries/ThirdParty/PhysX3/Mac ${{ matrix.what }}.app/Contents/UE4/Engine/Binaries/ThirdParty/PhysX3/Mac {} \;
-          echo Fix rpaths for Ogg
-          install_name_tool -add_rpath ${{ matrix.what }}.app/Contents/UE4/Engine/Binaries/Thirdparty/Ogg/Mac ${{ matrix.what }}.app/Contents/UE4/Engine/Binaries/Thirdparty/Ogg/Mac/libogg.dylib
-          echo Fix rpaths for Vorbis
-          install_name_tool -add_rpath ${{ matrix.what }}.app/Contents/UE4/Engine/Binaries/Thirdparty/Vorbis/Mac ${{ matrix.what }}.app/Contents/UE4/Engine/Binaries/Thirdparty/Vorbis/Mac/libvorbis.dylib
+          echo "==> Fix rpaths <=="
+          find ${{ matrix.what }}.app -name '*.dylib' -print0 | while IFS= read -r -d '' i; do 
+            echo "--> Fix dylib for $i"
+            if otool -l "$i" | grep -q LC_RPATH; then
+              echo "--> Replace rpath"
+              # Currently only PhysX3 so can hardcode
+              install_name_tool -rpath /Volumes/Work/Perforce/UE4/Engine/Binaries/ThirdParty/PhysX3/Mac $(dirname $i) $i
+            else
+              echo "--> Add rpath"
+              install_name_tool -add_rpath $(dirname $i) $i
+            fi
+          done
 
-          echo codesign all dylibs
+          echo "==> codesign all dylibs <=="
           find ${{ matrix.what }}.app -type f -name '*.dylib' -exec codesign --timestamp --force -s $MACOS_IDENTITY_ID -v {} \;
           codesign --timestamp --force -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app/Contents/Resources/RadioEffectUnit.component/Contents/MacOS/RadioEffectUnit
           codesign --timestamp --force -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app/Contents/UE4/Engine/Build/Mac/RadioEffectUnit/RadioEffectUnit.component/Contents/MacOS/RadioEffectUnit
-          echo codesign with hardened runtime for the main executable + entitlements
+          echo " --> codesign with hardened runtime for the main executable + entitlements"
           # for this we need an entitlements which reduce the strictness a little
           codesign --timestamp --force --options runtime --entitlements Build/Mac/entitlements.plist -s $MACOS_IDENTITY_ID -v ${{ matrix.what }}.app
 
