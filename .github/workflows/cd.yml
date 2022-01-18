@@ -89,15 +89,17 @@ jobs:
           security list-keychains -s `security list-keychains | xargs` build.keychain
 
           echo "==> Fix rpaths <=="
+          brew install coreutils
           find ${{ matrix.what }}.app -name '*.dylib' -print0 | while IFS= read -r -d '' i; do 
-            echo "--> Fix dylib for $i"
+            path=@executable_path/$(grealpath --relative-to=${{ matrix.what }}.app/Contents/MacOS $(dirname $i))
+            echo "--> Fix dylib for $i using $path"
             if otool -l "$i" | grep -q LC_RPATH; then
               echo "--> Replace rpath"
               # Currently only PhysX3 so can hardcode
-              install_name_tool -rpath /Volumes/Work/Perforce/UE4/Engine/Binaries/ThirdParty/PhysX3/Mac $(dirname $i) $i
+              install_name_tool -rpath /Volumes/Work/Perforce/UE4/Engine/Binaries/ThirdParty/PhysX3/Mac $path $i
             else
               echo "--> Add rpath"
-              install_name_tool -add_rpath $(dirname $i) $i
+              install_name_tool -add_rpath $path $i
             fi
           done
 
