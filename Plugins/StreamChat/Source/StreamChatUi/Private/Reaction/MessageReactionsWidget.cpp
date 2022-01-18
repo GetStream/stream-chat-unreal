@@ -26,6 +26,12 @@ void UMessageReactionsWidget::OnSetup()
     if (ReactionsPanel)
     {
         ReactionsPanel->ClearChildren();
+
+        if (Message.Type == EMessageType::Deleted)
+        {
+            return;
+        }
+
         for (const auto& [Type, Group] : Message.Reactions.GetReactionGroups())
         {
             UBottomReactionWidget* Widget = CreateWidget<UBottomReactionWidget>(this, BottomReactionWidgetClass);
