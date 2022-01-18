@@ -78,10 +78,10 @@ jobs:
 
           app=${{ matrix.what }}.app
           executable=StreamChatSample-${{ matrix.platform }}-$build_config
-          echo "--> Rename to $app"
+          echo "\n==> Rename to $app"
           mv dist/${{ matrix.path }}/$executable.app $app
 
-          echo "==> Set up cert"
+          echo "\n==> Set up cert"
           echo $MACOS_CERTIFICATE | base64 --decode > certificate.p12
           security delete-keychain build.keychain
           security create-keychain -p qwerty build.keychain
@@ -91,11 +91,11 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k qwerty build.keychain
           security list-keychains -s `security list-keychains | xargs` build.keychain
 
-          echo "==> Remove RadioEffectComponent"
+          echo "\n==> Remove RadioEffectComponent"
           rm -rf $app/Contents/Resources/RadioEffectUnit.component
           rm -rf $app/Contents/UE4/Engine/Build
 
-          echo "==> Fix rpaths"
+          echo "\n==> Fix rpaths"
           # These rpaths lead to invalid locations. They need to be removed, otherwise the notarized app won't pass the Gatekeeper.
           declare -a bad_exe_rpaths=(
             "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_4.27/Engine/Binaries/ThirdParty/PhysX3/Mac" 
@@ -109,10 +109,10 @@ jobs:
 
           for i in "${bad_exe_rpaths[@]}"; do
             echo "Removing bad rpath: $i"
-            install_name_tool -delete_rpath $i $app/Contents/MacOS/$executable
+            install_name_tool -delete_rpath "$i" $app/Contents/MacOS/$executable
           done
 
-          echo "==> codesign all dylibs"
+          echo "\n==> codesign all dylibs"
           find $app -type f -name '*.dylib' -exec codesign --timestamp --force -s $MACOS_IDENTITY_ID -v {} \;
           echo " --> codesign with hardened runtime for the main executable + entitlements"
           # for this we need an entitlements which reduce the strictness a little
