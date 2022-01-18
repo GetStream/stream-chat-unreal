@@ -129,6 +129,13 @@ void UMessageComposerWidget::SendMessage()
     {
         return;
     }
+
+    if (Text[0] == TEXT('/'))
+    {
+        UE_LOG(LogTemp, Warning, TEXT("The Unreal SDK doesn't currently support slash commands"));
+        return;
+    }
+
     UChatChannel* Channel = UChannelContextWidget::GetChannel(this);
     if (!Channel)
     {

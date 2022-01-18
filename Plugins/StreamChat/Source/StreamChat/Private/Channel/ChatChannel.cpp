@@ -370,6 +370,11 @@ void UChatChannel::KeyStroke(const FString& ParentMessageId)
 
 void UChatChannel::StopTyping(const FString& ParentMessageId)
 {
+    if (!Properties.Config.bTypingEvents)
+    {
+        return;
+    }
+
     if (TypingTimerHandle.IsValid())
     {
         GetWorld()->GetTimerManager().ClearTimer(TypingTimerHandle);
