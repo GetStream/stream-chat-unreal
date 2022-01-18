@@ -32,7 +32,7 @@ protected:
     TSubclassOf<UBottomReactionWidget> BottomReactionWidgetClass = UBottomReactionWidget::StaticClass();
 
     UPROPERTY(EditAnywhere, Category = Defaults)
-    float Spacing = 8.f;
+    float Spacing = 4.f;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
     FMessage Message;

@@ -48,7 +48,7 @@ protected:
     TArray<FUserRef> Users;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
-    int32 Size = 80;
+    int32 Size = 40;
 
 private:
     virtual void OnSetup() override;
