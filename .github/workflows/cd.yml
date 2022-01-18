@@ -216,7 +216,7 @@ jobs:
       - name: 📇 Zip
         run: |
           # move macOS tars
-          find . -type f *.tar -exec mv -i {} . \;
+          find . -type f -name "*.tar" -exec mv -i {} . \;
           # delete empty directories
           find . -type d -empty -delete
           # zip rest of directories
