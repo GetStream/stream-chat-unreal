@@ -67,29 +67,77 @@ FString FUser::GetInitials(const int32 Limit) const
     return Initials;
 }
 
-FString UUserBlueprintLibrary::GenerateUserId(const FString& Name)
+bool UUserBlueprintLibrary::GenerateUserId(const FString& Name, FString& OutUserId)
 {
-    FString UserId = Name;
-    for (auto Iter = UserId.CreateIterator(); Iter; ++Iter)
+    bool bHadValidCharacter = false;
+    bool bPrevAlphaNum = false;
+    OutUserId.Empty(Name.Len());
+    for (auto Iter = Name.CreateConstIterator(); Iter; ++Iter)
     {
+        if (OutUserId.Len() >= 32 || *Iter == TEXT('\0'))
+        {
+            break;
+        }
         if (FChar::IsDigit(*Iter))
         {
+            bHadValidCharacter = true;
+            bPrevAlphaNum = true;
+            OutUserId.AppendChar(*Iter);
             continue;
         }
         if (FChar::IsLower(*Iter))
         {
-            continue;
-        }
-        if (*Iter == TEXT('@') || *Iter == TEXT('_') || *Iter == TEXT('-') || *Iter == TEXT('\0'))
-        {
+            bHadValidCharacter = true;
+            bPrevAlphaNum = true;
+            OutUserId.AppendChar(*Iter);
             continue;
         }
         if (FChar::IsUpper(*Iter))
         {
-            *Iter = FChar::ToLower(*Iter);
+            OutUserId.AppendChar(FChar::ToLower(*Iter));
+            bHadValidCharacter = true;
+            bPrevAlphaNum = true;
             continue;
         }
-        *Iter = TEXT('_');
+        if (bPrevAlphaNum)
+        {
+            OutUserId.AppendChar(TEXT('_'));
+        }
+        else
+        {
+            // Ignore
+        }
+        bPrevAlphaNum = false;
     }
-    return UserId;
+    return bHadValidCharacter;
+}
+
+bool UUserBlueprintLibrary::SanitizeName(const FString& Name, FString& SanitizedName)
+{
+    bool bHadValidCharacter = false;
+    bool bPrevAlphaNum = false;
+    SanitizedName.Empty(Name.Len());
+    for (auto Iter = Name.CreateConstIterator(); Iter; ++Iter)
+    {
+        if (FChar::IsAlnum(*Iter))
+        {
+            bHadValidCharacter = true;
+            bPrevAlphaNum = true;
+            SanitizedName.AppendChar(*Iter);
+            continue;
+        }
+        if (FChar::IsWhitespace(*Iter))
+        {
+            if (bPrevAlphaNum)
+            {
+                SanitizedName.AppendChar(TEXT(' '));
+            }
+            else
+            {
+                // Skip
+            }
+        }
+        bPrevAlphaNum = false;
+    }
+    return bHadValidCharacter;
 }
