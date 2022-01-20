@@ -22,7 +22,7 @@ struct FTestEnum
     GENERATED_BODY()
 
     UPROPERTY()
-    ETestEnum ManyWordsEnum;
+    ETestEnum ManyWordsEnum = ETestEnum::Number3;
 };
 
 USTRUCT()
@@ -43,7 +43,7 @@ struct FTestNestedJson
     FString Foo;
 
     UPROPERTY()
-    float Bar;
+    float Bar = -1.f;
 };
 
 USTRUCT()
@@ -52,19 +52,19 @@ struct FTestJson
     GENERATED_BODY()
 
     UPROPERTY()
-    int32 Int32;
+    int32 Int32 = -1;
 
     UPROPERTY()
-    int32 Int64;
+    int32 Int64 = -1;
 
     UPROPERTY()
-    float Float;
+    float Float = -1.f;
 
     UPROPERTY()
-    double Double;
+    double Double = -1.;
 
     UPROPERTY()
-    bool bBoolean;
+    bool bBoolean = false;
 
     UPROPERTY()
     FString String;
@@ -94,7 +94,7 @@ struct FTestJson
     TArray<FTestNestedJson> ArrayOfNestedObject;
 
     UPROPERTY()
-    ETestEnum Enum;
+    ETestEnum Enum = ETestEnum::Number3;
 
     UPROPERTY()
     FAdditionalFields AdditionalFields;
@@ -106,7 +106,7 @@ struct FSmallTestJson
     GENERATED_BODY()
 
     UPROPERTY()
-    float Number;
+    float Number = -1.f;
 
     UPROPERTY()
     FAdditionalFields AdditionalFields;

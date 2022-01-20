@@ -22,7 +22,7 @@ struct FChannelResponseDto
 
     /// Whether auto translation is enabled or not
     UPROPERTY()
-    bool bAutoTranslationEnabled;
+    bool bAutoTranslationEnabled = false;
 
     /// Language to translate to when auto translation is active
     UPROPERTY()
@@ -38,11 +38,11 @@ struct FChannelResponseDto
 
     /// Cooldown period after sending each message
     UPROPERTY()
-    int32 Cooldown;
+    int32 Cooldown = -1;
 
     /// The date of channel creation
     UPROPERTY()
-    FDateTime CreatedAt;
+    FDateTime CreatedAt = FDateTime{0};
 
     /// The user that created this channel
     UPROPERTY()
@@ -50,22 +50,22 @@ struct FChannelResponseDto
 
     /// The date of channel deletion
     UPROPERTY()
-    FDateTime DeletedAt;
+    FDateTime DeletedAt = FDateTime{0};
 
     UPROPERTY()
-    bool bDisabled;
+    bool bDisabled = false;
 
     /// Whether this channel is frozen or not
     UPROPERTY()
-    bool bFrozen;
+    bool bFrozen = false;
 
     /// Whether this channel is hidden by current user or not
     UPROPERTY()
-    bool bHidden;
+    bool bHidden = false;
 
     /// Date since when the message history is accessible
     UPROPERTY()
-    FDateTime HideMessagesBefore;
+    FDateTime HideMessagesBefore = FDateTime{0};
 
     /// The id of this channel
     UPROPERTY()
@@ -73,11 +73,11 @@ struct FChannelResponseDto
 
     /// The date of the last message
     UPROPERTY()
-    FDateTime LastMessageAt;
+    FDateTime LastMessageAt = FDateTime{0};
 
     /// The count of this channel members
     UPROPERTY()
-    int32 MemberCount;
+    int32 MemberCount = 0;
 
     /// List of channel members (max 100)
     UPROPERTY()
@@ -85,11 +85,11 @@ struct FChannelResponseDto
 
     /// Date of mute expiration
     UPROPERTY()
-    FDateTime MuteExpiresAt;
+    FDateTime MuteExpiresAt = FDateTime{0};
 
     /// Whether this channel is muted or not
     UPROPERTY()
-    bool bMuted;
+    bool bMuted = false;
 
     /// List of channel capabilities of the authenticated user
     UPROPERTY()
@@ -105,7 +105,7 @@ struct FChannelResponseDto
 
     /// The date of the last channel update
     UPROPERTY()
-    FDateTime UpdatedAt;
+    FDateTime UpdatedAt = FDateTime{0};
 
     UPROPERTY()
     FAdditionalFields AdditionalFields;

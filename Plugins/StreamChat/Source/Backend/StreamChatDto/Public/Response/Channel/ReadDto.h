@@ -17,10 +17,10 @@ struct STREAMCHATDTO_API FReadDto
     GENERATED_BODY()
 
     UPROPERTY()
-    FDateTime LastRead;
+    FDateTime LastRead = FDateTime{0};
 
     UPROPERTY()
-    uint32 UnreadMessages;
+    uint32 UnreadMessages = 0;
 
     UPROPERTY()
     FUserObjectDto User;

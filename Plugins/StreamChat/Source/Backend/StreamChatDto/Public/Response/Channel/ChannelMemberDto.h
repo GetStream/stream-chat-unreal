@@ -18,11 +18,11 @@ struct STREAMCHATDTO_API FChannelMemberDto
 
     /// Expiration date of the ban
     UPROPERTY()
-    FDateTime BanExpires;
+    FDateTime BanExpires = FDateTime{0};
 
     /// Whether member is banned in this channel or not
     UPROPERTY()
-    bool bBanned;
+    bool bBanned = false;
 
     /// Role of the member in the channel
     UPROPERTY()
@@ -30,31 +30,31 @@ struct STREAMCHATDTO_API FChannelMemberDto
 
     /// Date/time of creation
     UPROPERTY()
-    FDateTime CreatedAt;
+    FDateTime CreatedAt = FDateTime{0};
 
     /// Date when invite was accepted
     UPROPERTY()
-    FDateTime InviteAcceptedAt;
+    FDateTime InviteAcceptedAt = FDateTime{0};
 
     /// Date when invite was rejected
     UPROPERTY()
-    FDateTime InviteRejectedAt;
+    FDateTime InviteRejectedAt = FDateTime{0};
 
     /// Whether member was invited or not
     UPROPERTY()
-    bool bInvited;
+    bool bInvited = false;
 
     /// Whether member is channel moderator or not
     UPROPERTY()
-    bool bIsModerator;
+    bool bIsModerator = false;
 
     /// Whether member is shadow banned in this channel or not
     UPROPERTY()
-    bool bShadowBanned;
+    bool bShadowBanned = false;
 
     /// Date/time of the last update
     UPROPERTY()
-    FDateTime UpdatedAt;
+    FDateTime UpdatedAt = FDateTime{0};
 
     UPROPERTY()
     FUserObjectDto User;

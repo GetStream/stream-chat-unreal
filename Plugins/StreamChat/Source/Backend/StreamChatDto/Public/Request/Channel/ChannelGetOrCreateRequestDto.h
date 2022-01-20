@@ -35,15 +35,15 @@ struct STREAMCHATDTO_API FChannelGetOrCreateRequestDto
 
     /// Start watching the channel
     UPROPERTY()
-    bool bWatch;
+    bool bWatch = false;
 
     /// Refresh channel state
     UPROPERTY()
-    bool bState;
+    bool bState = false;
 
     /// Fetch user presence info
     UPROPERTY()
-    bool bPresence;
+    bool bPresence = false;
 
     UPROPERTY()
     FAdditionalFields AdditionalFields;

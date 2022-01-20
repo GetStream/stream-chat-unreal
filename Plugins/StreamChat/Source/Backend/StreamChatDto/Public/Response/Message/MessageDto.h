@@ -42,7 +42,7 @@ struct STREAMCHATDTO_API FMessageDto
 
     /// Date/time of creation
     UPROPERTY()
-    FDateTime CreatedAt;
+    FDateTime CreatedAt = FDateTime{0};
 
     /// Contains HTML markup of the message
     UPROPERTY()
@@ -85,16 +85,16 @@ struct STREAMCHATDTO_API FMessageDto
     /// if `null` message has no expiry
     // TODO Optional
     UPROPERTY()
-    FDateTime PinExpires;
+    FDateTime PinExpires = FDateTime{0};
 
     /// If true the message is pinned
     UPROPERTY()
-    bool bPinned;
+    bool bPinned = false;
 
     /// Reserved field indicating when the message was pinned
     // TODO Optional
     UPROPERTY()
-    FDateTime PinnedAt;
+    FDateTime PinnedAt = FDateTime{0};
 
     /// Reserved field indicating who pinned the message
     // TODO Optional
@@ -121,19 +121,19 @@ struct STREAMCHATDTO_API FMessageDto
 
     /// Reserved field indicating the number of replies for this message.
     UPROPERTY()
-    uint32 ReplyCount;
+    uint32 ReplyCount = 0;
 
     /// If true the message is shadowed
     UPROPERTY()
-    bool bShadowed;
+    bool bShadowed = false;
 
     /// Whether thread reply should be shown in the channel as well
     UPROPERTY()
-    bool bShowInChannel;
+    bool bShowInChannel = false;
 
     /// If true the message is silent
     UPROPERTY()
-    bool bSilent;
+    bool bSilent = false;
 
     /// The text of this message
     UPROPERTY()
@@ -149,7 +149,7 @@ struct STREAMCHATDTO_API FMessageDto
 
     /// Reserved field indicating when the message was updated last time.
     UPROPERTY()
-    FDateTime UpdatedAt;
+    FDateTime UpdatedAt = FDateTime{0};
 
     /// User who sent the message
     // TODO Optional

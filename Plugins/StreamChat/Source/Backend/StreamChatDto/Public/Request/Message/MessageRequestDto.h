@@ -48,7 +48,7 @@ struct FMessageRequestDto
 
     // Whether message is silent or not
     UPROPERTY()
-    bool bSilent;
+    bool bSilent = false;
 
     /// Text of the message. Should be empty if `mml` is provided
     UPROPERTY()
