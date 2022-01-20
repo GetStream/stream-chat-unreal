@@ -9,7 +9,7 @@ UTextBubbleWidget::UTextBubbleWidget()
     bWantsTheme = true;
 }
 
-void UTextBubbleWidget::Setup(const FMessage& InMessage, EMessageSide InSide, EMessagePosition InPosition)
+void UTextBubbleWidget::Setup(const FMessage& InMessage, const EMessageSide InSide, EMessagePosition InPosition)
 {
     Message = InMessage;
     Side = InSide;
