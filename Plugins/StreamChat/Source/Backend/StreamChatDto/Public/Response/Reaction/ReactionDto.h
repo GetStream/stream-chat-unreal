@@ -19,7 +19,7 @@ struct FReactionDto
 
     /// Date/time of creation
     UPROPERTY()
-    FDateTime CreatedAt;
+    FDateTime CreatedAt = FDateTime{0};
 
     /// ID of a message user reacted to
     UPROPERTY()
@@ -35,7 +35,7 @@ struct FReactionDto
 
     /// Date/time of the last update
     UPROPERTY()
-    FDateTime UpdatedAt;
+    FDateTime UpdatedAt = FDateTime{0};
 
     UPROPERTY()
     FUserObjectDto User;

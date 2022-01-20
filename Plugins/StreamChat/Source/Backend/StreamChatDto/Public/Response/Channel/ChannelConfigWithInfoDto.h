@@ -18,11 +18,11 @@ struct FChannelConfigWithInfoDto
 
     /// Date of channel creation
     UPROPERTY()
-    FDateTime CreatedAt;
+    FDateTime CreatedAt = FDateTime{0};
 
     /// Date of last channel update
     UPROPERTY()
-    FDateTime UpdatedAt;
+    FDateTime UpdatedAt = FDateTime{0};
 
     /// Channel type name
     UPROPERTY()
@@ -30,47 +30,47 @@ struct FChannelConfigWithInfoDto
 
     /// True if typing events should be sent for this channel
     UPROPERTY()
-    bool bTypingEvents;
+    bool bTypingEvents = false;
 
     /// True if readEvents are active for this channel
     UPROPERTY()
-    bool bReadEvents;
+    bool bReadEvents = false;
 
     /// True if the channel should send connect events
     UPROPERTY()
-    bool bConnectEvents;
+    bool bConnectEvents = false;
 
     /// True if it's possible to perform a search in this channel
     UPROPERTY()
-    bool bSearch;
+    bool bSearch = false;
 
     /// True if reaction are active for this channel
     UPROPERTY()
-    bool bReactions;
+    bool bReactions = false;
 
     /// True if reply message are active for this channel
     UPROPERTY()
-    bool bReplies;
+    bool bReplies = false;
 
     /// True if users can be muted
     UPROPERTY()
-    bool bMutes;
+    bool bMutes = false;
 
     /// True if it's possible to upload files to this channel
     UPROPERTY()
-    bool bUploads;
+    bool bUploads = false;
 
     /// True if urls appears as attachments
     UPROPERTY()
-    bool bURLEnrichment;
+    bool bURLEnrichment = false;
 
     /// Enables custom events
     UPROPERTY()
-    bool bCustomEvents;
+    bool bCustomEvents = false;
 
     /// Enables push notifications
     UPROPERTY()
-    bool bPushNotifications;
+    bool bPushNotifications = false;
 
     /// Number of days to keep messages. 'infinite' disables retention
     UPROPERTY()
@@ -79,7 +79,7 @@ struct FChannelConfigWithInfoDto
     /// Number of maximum message characters
     /// Max: 20000
     UPROPERTY()
-    int32 MaxMessageLength;
+    int32 MaxMessageLength = -1;
 
     /// Enables automatic message moderation
     // TODO enum

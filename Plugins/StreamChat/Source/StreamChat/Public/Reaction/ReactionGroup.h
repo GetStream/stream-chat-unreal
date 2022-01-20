@@ -23,11 +23,11 @@ struct STREAMCHAT_API FReactionGroup
 
     /// Count of all reactions of this type
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Reaction")
-    int32 Count;
+    int32 Count = 0;
 
     /// Total reaction score of all reactions of this type
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Reaction")
-    int32 TotalScore;
+    int32 TotalScore = 0;
 
     /// The latest reactions of this type created by any user.
     /// Note that `Count` might not equal `LatestReactions.Num()`, depending on how much data we have locally

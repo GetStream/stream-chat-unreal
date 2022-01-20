@@ -16,10 +16,10 @@ struct FCommandDto
     GENERATED_BODY()
 
     UPROPERTY()
-    FDateTime CreatedAt;
+    FDateTime CreatedAt = FDateTime{0};
 
     UPROPERTY()
-    FDateTime UpdatedAt;
+    FDateTime UpdatedAt = FDateTime{0};
 
     UPROPERTY()
     FString Name;

@@ -27,5 +27,5 @@ struct FSendMessageRequestDto
      * Disables all push notifications for this message
      */
     UPROPERTY()
-    bool bSkipPush;
+    bool bSkipPush = false;
 };

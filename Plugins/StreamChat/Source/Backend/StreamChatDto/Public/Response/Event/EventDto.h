@@ -32,7 +32,7 @@ struct FEventDto
 
     /// Date/time of creation
     UPROPERTY()
-    FDateTime CreatedAt;
+    FDateTime CreatedAt = FDateTime{0};
 
     // TODO other fields?
 };

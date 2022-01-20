@@ -21,23 +21,23 @@ struct STREAMCHATDTO_API FUserObjectDto
 
     /// Whether a user online or not
     UPROPERTY(Transient)
-    bool bOnline;
+    bool bOnline = false;
 
     /// Date/time of creation
     UPROPERTY(Transient)
-    FDateTime CreatedAt;
+    FDateTime CreatedAt = FDateTime{0};
 
     /// Date/time of the last update
     UPROPERTY(Transient)
-    FDateTime UpdatedAt;
+    FDateTime UpdatedAt = FDateTime{0};
 
     /// Date of last activity
     UPROPERTY(Transient)
-    FDateTime LastActive;
+    FDateTime LastActive = FDateTime{0};
 
     /// Whether a user should appear online or not
     UPROPERTY()
-    bool bInvisible;
+    bool bInvisible = false;
 
     // Not in the API spec, but common
     UPROPERTY()

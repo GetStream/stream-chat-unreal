@@ -19,11 +19,11 @@ struct STREAMCHATDTO_API FErrorResponseDto
 
     /// Response HTTP status code
     UPROPERTY()
-    int32 StatusCode;
+    int32 StatusCode = -1;
 
     /// API error code
     UPROPERTY()
-    int32 Code;
+    int32 Code = -1;
 
     /// Request duration
     UPROPERTY()

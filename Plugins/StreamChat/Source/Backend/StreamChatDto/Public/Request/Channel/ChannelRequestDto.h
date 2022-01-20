@@ -27,11 +27,11 @@ struct FChannelRequestDto
     // TODO CreatedBy
 
     UPROPERTY()
-    bool bDisabled;
+    bool bDisabled = false;
 
     /// Freeze or unfreeze the channel
     UPROPERTY()
-    bool bFrozen;
+    bool bFrozen = false;
 
     // TODO it seems this should really be a ChannelMemberRequest
     UPROPERTY()
