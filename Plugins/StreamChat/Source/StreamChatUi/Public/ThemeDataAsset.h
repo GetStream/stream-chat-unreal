@@ -129,4 +129,12 @@ public:
     /// The background color of the highlighted area surrounding the reaction icon in the reactions tooltip
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Reactions Tooltip")
     FName ReactionsTooltipIconHighlightColor = TEXT("link-bg");
+
+    /// The background color of the default header widget
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Header")
+    FName HeaderBackgroundColor = TEXT("bars-bg");
+
+    /// The background color of the default header widget
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Header")
+    FName HeaderTitleTextColor = TEXT("text-high-emphasis");
 };
