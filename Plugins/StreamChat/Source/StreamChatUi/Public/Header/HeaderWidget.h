@@ -2,9 +2,10 @@
 
 #pragma once
 
-#include "Blueprint/UserWidget.h"
+#include "Components/Border.h"
 #include "Components/TextBlock.h"
 #include "CoreMinimal.h"
+#include "StreamWidget.h"
 
 #include "HeaderWidget.generated.h"
 
@@ -13,13 +14,12 @@
  * @see https://www.figma.com/file/ekifwChR9tR7zRJg1QEzSM/Chat-Design-Kit---Current-version?node-id=15271%3A237867
  */
 UCLASS()
-class STREAMCHATUI_API UHeaderWidget : public UUserWidget
+class STREAMCHATUI_API UHeaderWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 
 public:
-    virtual void NativeOnInitialized() override;
-
+    UHeaderWidget();
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void SetTitle(const FText& InTitle);
 
@@ -30,6 +30,9 @@ public:
     void SetRightContent(UWidget* Content) const;
 
 protected:
+    UPROPERTY(meta = (BindWidget))
+    UBorder* Border;
+
     UPROPERTY(meta = (BindWidget))
     UTextBlock* HeaderTitleTextBlock;
 
@@ -44,4 +47,8 @@ protected:
 
     UPROPERTY(EditAnywhere, Category = Defaults)
     FText Title;
+
+private:
+    virtual void OnSetup() override;
+    virtual void OnTheme(const UThemeDataAsset*) override;
 };

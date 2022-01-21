@@ -3,20 +3,11 @@
 #include "Header/HeaderWidget.h"
 
 #include "Components/NamedSlot.h"
+#include "ThemeDataAsset.h"
 
-void UHeaderWidget::NativeOnInitialized()
+UHeaderWidget::UHeaderWidget()
 {
-    if (SubtitleSlot && !SubtitleSlot->HasAnyChildren())
-    {
-        SubtitleSlot->SetVisibility(ESlateVisibility::Collapsed);
-    }
-
-    if (HeaderTitleTextBlock)
-    {
-        HeaderTitleTextBlock->SetText(Title);
-    }
-
-    Super::NativeOnInitialized();
+    bWantsTheme = true;
 }
 
 void UHeaderWidget::SetTitle(const FText& InTitle)
@@ -44,4 +35,29 @@ void UHeaderWidget::SetRightContent(UWidget* Content) const
     }
 
     RightSlot->SetContent(Content);
+}
+
+void UHeaderWidget::OnSetup()
+{
+    if (SubtitleSlot && !SubtitleSlot->HasAnyChildren())
+    {
+        SubtitleSlot->SetVisibility(ESlateVisibility::Collapsed);
+    }
+
+    if (HeaderTitleTextBlock)
+    {
+        HeaderTitleTextBlock->SetText(Title);
+    }
+}
+
+void UHeaderWidget::OnTheme(const UThemeDataAsset* Theme)
+{
+    if (Border)
+    {
+        Border->SetBrushColor(Theme->GetPaletteColor(Theme->HeaderBackgroundColor));
+    }
+    if (HeaderTitleTextBlock)
+    {
+        HeaderTitleTextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Theme->HeaderTitleTextColor));
+    }
 }
