@@ -31,4 +31,15 @@ void UTeamChatWidget::OnTheme(const UThemeDataAsset* Theme)
     {
         MessageListContainer->SetBrushColor(Theme->GetPaletteColor(Theme->MessageListContainerBackgroundColor));
     }
+    if (ChannelListContainer)
+    {
+        ChannelListContainer->SetBrushColor(Theme->GetPaletteColor(Theme->ChannelListContainerBackgroundColor));
+    }
+    for (UImage* Divider : {HorizontalDivider, VerticalDivider})
+    {
+        if (Divider)
+        {
+            Divider->SetColorAndOpacity(Theme->GetPaletteColor(Theme->TeamChatDividerColor));
+        }
+    }
 }

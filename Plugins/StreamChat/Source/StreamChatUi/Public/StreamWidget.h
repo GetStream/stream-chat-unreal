@@ -40,6 +40,9 @@ protected:
     /// Should the OnChannel function be called with the current channel, when it is available?
     UPROPERTY(EditDefaultsOnly, Category = Defaults)
     bool bWantsChannel = false;
+    /// Call the internal OnSetup function automatically. Needed if you don't have a custom Setup function.
+    UPROPERTY(EditDefaultsOnly, Category = Defaults)
+    bool bAutoSetup = false;
 
     /// The chat client if this widget is below a ClientContextWidget in the hierarchy and if WantsClient is true.
     UPROPERTY(BlueprintReadOnly, Transient, Category = Stream)

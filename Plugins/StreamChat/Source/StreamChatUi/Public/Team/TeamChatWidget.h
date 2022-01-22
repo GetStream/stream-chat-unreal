@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Components/Border.h"
+#include "Components/Image.h"
 #include "Context/ClientContextWidget.h"
 #include "CoreMinimal.h"
 #include "StreamWidget.h"
@@ -25,9 +26,14 @@ public:
 protected:
     UPROPERTY(meta = (BindWidget))
     UClientContextWidget* ClientContextWidget;
-
     UPROPERTY(meta = (BindWidget))
     UBorder* MessageListContainer;
+    UPROPERTY(meta = (BindWidget))
+    UBorder* ChannelListContainer;
+    UPROPERTY(meta = (BindWidget))
+    UImage* HorizontalDivider;
+    UPROPERTY(meta = (BindWidget))
+    UImage* VerticalDivider;
 
 private:
     virtual void OnSetup() override;
