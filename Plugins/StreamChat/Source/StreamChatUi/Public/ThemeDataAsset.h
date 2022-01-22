@@ -139,6 +139,12 @@ public:
     FName HeaderTitleTextColor = TEXT("text-high-emphasis");
 
     /// The background color of the message list container
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message List")
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Team Chat")
     FName MessageListContainerBackgroundColor = TEXT("app-bg");
+    /// The background color of the channel list container
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Team Chat")
+    FName ChannelListContainerBackgroundColor = TEXT("input-bg");
+    /// The color of the dividers in the team chat layout
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Team Chat")
+    FName TeamChatDividerColor = TEXT("borders");
 };

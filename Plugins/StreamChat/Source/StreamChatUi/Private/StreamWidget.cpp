@@ -15,7 +15,7 @@ bool UStreamWidget::Initialize()
 {
     if (Super::Initialize())
     {
-        if (IsDesignTime())
+        if (IsDesignTime() || bAutoSetup)
         {
             OnSetup();
         }

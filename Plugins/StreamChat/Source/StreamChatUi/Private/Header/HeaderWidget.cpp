@@ -8,6 +8,7 @@
 UHeaderWidget::UHeaderWidget()
 {
     bWantsTheme = true;
+    bAutoSetup = true;
 }
 
 void UHeaderWidget::SetTitle(const FText& InTitle)
