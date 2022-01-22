@@ -24,6 +24,9 @@ protected:
     /// Called with the current theme when it's available. You need to enable WantsTheme for this to be fired.
     UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Theme"))
     void OnTheme_BP(const UThemeDataAsset* Theme);
+    /// Called with the chat client when it's available. You need to enable WantsClient for this to be fired.
+    UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Client"))
+    void OnClient_BP();
     /// Called with the current chat channel when it's available. You need to enable WantsChannel for this to be fired.
     UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Channel"))
     void OnChannel_BP();
@@ -31,10 +34,16 @@ protected:
     /// Should the OnTheme function be called with the current theme, when it is available?
     UPROPERTY(EditDefaultsOnly, Category = Defaults)
     bool bWantsTheme = false;
+    /// Should the OnClient function be called with the current chat client, when it is available?
+    UPROPERTY(EditDefaultsOnly, Category = Defaults)
+    bool bWantsClient = false;
     /// Should the OnChannel function be called with the current channel, when it is available?
     UPROPERTY(EditDefaultsOnly, Category = Defaults)
     bool bWantsChannel = false;
 
+    /// The chat client if this widget is below a ClientContextWidget in the hierarchy and if WantsClient is true.
+    UPROPERTY(BlueprintReadOnly, Transient, Category = Stream)
+    UStreamChatClientComponent* Client;
     /// The channel context if this widget is below a such a context in the hierarchy and if WantsChannel is true.
     UPROPERTY(BlueprintReadOnly, Transient, Category = Stream)
     UChannelContextWidget* ChannelContext;
@@ -50,7 +59,7 @@ private:
 
     virtual void NativePreConstruct() override final;
 
-    /// You should override this to perform all child widget initialization.
+    /// You should override this to perform all child widget initialization (e.g. text, image, etc + bound widgets).
     /// Widget bindings, defaults and setup properties will be valid here.
     /// Only called once when widget is spawned, NOT when added to parent/viewport
     virtual void OnSetup()
@@ -61,7 +70,11 @@ private:
     virtual void OnTheme(const UThemeDataAsset*)
     {
     }
-    /// Called the current chat channel is available
+    /// Called when the chat client is available
+    virtual void OnClient()
+    {
+    }
+    /// Called when the current chat channel is available
     virtual void OnChannel()
     {
     }

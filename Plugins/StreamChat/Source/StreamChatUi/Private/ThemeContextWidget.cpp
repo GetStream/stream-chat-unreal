@@ -15,6 +15,10 @@ UThemeContextWidget::UThemeContextWidget()
 
 UThemeDataAsset* UThemeContextWidget::GetTheme(const UWidget* Widget)
 {
+    if (const UThemeContextWidget* Context = WidgetUtil::GetTypedChildWidget<UThemeContextWidget>(Widget))
+    {
+        return Context->Theme;
+    }
     if (const UThemeContextWidget* Context = WidgetUtil::GetTypedParentWidget<UThemeContextWidget>(Widget))
     {
         return Context->Theme;

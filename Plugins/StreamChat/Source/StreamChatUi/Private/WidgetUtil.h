@@ -8,12 +8,19 @@
 namespace WidgetUtil
 {
 UWidget* GetTypedParentWidget(const UWidget*, const TSubclassOf<UWidget>);
+UWidget* GetTypedChildWidget(const UWidget*, const TSubclassOf<UWidget>);
 
 template <class T>
 T* GetTypedParentWidget(const UWidget* Widget)
 {
     static_assert(TIsDerivedFrom<T, UWidget>::IsDerived, "T must be derived from UWidget");
     return static_cast<T*>(GetTypedParentWidget(Widget, T::StaticClass()));
+}
+template <class T>
+T* GetTypedChildWidget(const UWidget* Widget)
+{
+    static_assert(TIsDerivedFrom<T, UWidget>::IsDerived, "T must be derived from UWidget");
+    return static_cast<T*>(GetTypedChildWidget(Widget, T::StaticClass()));
 }
 
 FString TruncateWithEllipsis(const FString&, uint32 MaxWidth, const FSlateFontInfo& FontInfo);
