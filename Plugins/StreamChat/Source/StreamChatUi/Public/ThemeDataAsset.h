@@ -137,4 +137,8 @@ public:
     /// The background color of the default header widget
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Header")
     FName HeaderTitleTextColor = TEXT("text-high-emphasis");
+
+    /// The background color of the message list container
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message List")
+    FName MessageListContainerBackgroundColor = TEXT("app-bg");
 };

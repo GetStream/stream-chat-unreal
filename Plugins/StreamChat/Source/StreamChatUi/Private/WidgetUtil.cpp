@@ -58,6 +58,29 @@ UWidget* WidgetUtil::GetTypedParentWidget(const UWidget* Widget, const TSubclass
     return nullptr;
 }
 
+UWidget* WidgetUtil::GetTypedChildWidget(const UWidget* Widget, const TSubclassOf<UWidget> Type)
+{
+    if (const UUserWidget* UserWidget = Cast<UUserWidget>(Widget))
+    {
+        if (UserWidget->WidgetTree)
+        {
+            UWidget* FoundWidget = nullptr;
+
+            UserWidget->WidgetTree->ForEachWidget(
+                [&](UWidget* W)
+                {
+                    if (W->IsA(Type))
+                    {
+                        FoundWidget = W;
+                    }
+                });
+
+            return FoundWidget;
+        }
+    }
+    return nullptr;
+}
+
 FString WidgetUtil::TruncateWithEllipsis(const FString& Input, const uint32 MaxWidth, const FSlateFontInfo& FontInfo)
 {
     const TSharedRef<FSlateFontMeasure> Service = FSlateApplication::Get().GetRenderer()->GetFontMeasureService();

@@ -6,7 +6,17 @@
 
 #include "WidgetUtil.h"
 
+void UClientContextWidget::Setup(UStreamChatClientComponent* InClient)
+{
+    Client = InClient;
+}
+
 UStreamChatClientComponent* UClientContextWidget::GetClient(UWidget* Widget)
 {
     return WidgetUtil::GetTypedParentWidget<UClientContextWidget>(Widget)->Client;
+}
+
+UStreamChatClientComponent* UClientContextWidget::GetClient() const
+{
+    return Client;
 }
