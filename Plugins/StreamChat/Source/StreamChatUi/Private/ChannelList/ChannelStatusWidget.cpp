@@ -1,6 +1,6 @@
 // Copyright 2021 Stream.IO, Inc. All Rights Reserved.
 
-#include "Channel/ChannelStatusWidget.h"
+#include "ChannelList/ChannelStatusWidget.h"
 
 #include "Algo/Transform.h"
 #include "ThemeDataAsset.h"
