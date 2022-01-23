@@ -34,10 +34,10 @@ void UChannelListWidget::OnChannelsUpdated(const TArray<UChatChannel*>& InChanne
     }
 
     ChannelList->ClearChildren();
-    for (UChatChannel* Channel : InChannels)
+    for (UChatChannel* InChannel : InChannels)
     {
         UChannelStatusWidget* Widget = CreateWidget<UChannelStatusWidget>(this, ChannelStatusWidgetClass);
-        Widget->Setup(Channel);
+        Widget->Setup(InChannel);
         Widget->OnChannelStatusButtonClicked.AddDynamic(this, &UChannelListWidget::ChannelStatusClicked);
         ChannelList->AddChild(Widget);
     }
