@@ -170,4 +170,8 @@ public:
     /// The color of the divider between each channel status widget
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel Status")
     FName ChannelStatusDividerColor = TEXT("borders");
+
+    /// The color of the top left icon in the channel list header
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel List Header")
+    FName ChannelListHeaderIconColor = TEXT("text-high-emphasis");
 };
