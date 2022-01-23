@@ -68,6 +68,17 @@ void UChannelStatusWidget::OnTheme(const UThemeDataAsset* Theme)
     SelectedStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusSelectedBackgroundColor)};
     SelectedStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusSelectedBackgroundColor)};
     SelectedStyle.Hovered.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusSelectedBackgroundColor)};
+
+    if (Divider)
+    {
+        Divider->SetColorAndOpacity(Theme->GetPaletteColor(Theme->ChannelStatusDividerColor));
+    }
+
+    if (TitleTextBlock)
+    {
+        const FName Color{Channel->Properties.bMuted ? Theme->ChannelStatusMutedTitleTextColor : Theme->ChannelStatusTitleTextColor};
+        TitleTextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Color));
+    }
 }
 
 int32 UChannelStatusWidget::NativePaint(
