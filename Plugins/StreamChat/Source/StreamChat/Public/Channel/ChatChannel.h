@@ -345,6 +345,7 @@ private:
     void OnTypingStart(const FTypingStartEvent&);
     void OnTypingStop(const FTypingStopEvent&);
 
+    float TypingTimeout = 2.f;
     TOptional<FDateTime> LastKeystrokeAt;
     FTimerHandle TypingTimerHandle;
 

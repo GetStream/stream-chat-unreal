@@ -47,7 +47,7 @@ void UProfilePicWidget::FetchRemoteImage()
         Url,
         [WeakThis = TWeakObjectPtr<UProfilePicWidget>(this)](UTexture2DDynamic* Texture)
         {
-            if (!WeakThis.IsValid() || !WeakThis->Image || !WeakThis->InitialsTextBlock)
+            if (!WeakThis.IsValid() || !WeakThis->Image || !WeakThis->InitialsTextBlock || !Texture)
             {
                 return;
             }

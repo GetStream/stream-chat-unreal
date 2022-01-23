@@ -14,7 +14,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UProfilePicWidget : public UStreamWidget
+class STREAMCHATUI_API UProfilePicWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 

@@ -337,7 +337,6 @@ void UChatChannel::KeyStroke(const FString& ParentMessageId)
         return;
     }
 
-    constexpr float TypingTimeout = 2.f;
     const FDateTime Now = FDateTime::UtcNow();
     if (!LastKeystrokeAt.IsSet() || (Now - LastKeystrokeAt.GetValue()).GetTotalSeconds() >= TypingTimeout)
     {
@@ -353,13 +352,13 @@ void UChatChannel::KeyStroke(const FString& ParentMessageId)
 
     GetWorld()->GetTimerManager().SetTimer(
         TypingTimerHandle,
-        [WeakThis = TWeakObjectPtr<UChatChannel>(this), ParentMessageId, TypingTimeout]
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this), ParentMessageId]
         {
             if (!WeakThis.IsValid())
             {
                 return;
             }
-            if (!WeakThis->LastKeystrokeAt.IsSet() || (FDateTime::UtcNow() - WeakThis->LastKeystrokeAt.GetValue()).GetTotalSeconds() >= TypingTimeout)
+            if (WeakThis->LastKeystrokeAt.IsSet() && (FDateTime::UtcNow() - WeakThis->LastKeystrokeAt.GetValue()).GetTotalSeconds() >= WeakThis->TypingTimeout)
             {
                 WeakThis->SendStopTypingEvent(ParentMessageId);
             }
@@ -379,7 +378,10 @@ void UChatChannel::StopTyping(const FString& ParentMessageId)
     {
         GetWorld()->GetTimerManager().ClearTimer(TypingTimerHandle);
     }
-    SendStopTypingEvent(ParentMessageId);
+    if (LastKeystrokeAt.IsSet() && (FDateTime::UtcNow() - LastKeystrokeAt.GetValue()).GetTotalSeconds() >= TypingTimeout)
+    {
+        SendStopTypingEvent(ParentMessageId);
+    }
 }
 
 void UChatChannel::SendStopTypingEvent(const FString& ParentMessageId)
