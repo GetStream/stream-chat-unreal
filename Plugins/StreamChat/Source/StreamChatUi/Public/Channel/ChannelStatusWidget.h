@@ -20,6 +20,7 @@ class STREAMCHATUI_API UChannelStatusWidget final : public UStreamWidget
     GENERATED_BODY()
 
 public:
+    UChannelStatusWidget();
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(UChatChannel* InChannel);
 
@@ -49,13 +50,9 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UTimestampWidget* Timestamp;
 
-    UPROPERTY(EditAnywhere, Category = Defaults)
-    FButtonStyle NormalStyle;
-    UPROPERTY(EditAnywhere, Category = Defaults)
-    FButtonStyle SelectedStyle;
-
 private:
     virtual void OnSetup() override;
+    virtual void OnTheme(const UThemeDataAsset*) override;
 
     virtual int32 NativePaint(
         const FPaintArgs& Args,
@@ -77,4 +74,7 @@ private:
 
     mutable float RecentMessageAvailableSpace;
     mutable float ChannelTitleAvailableSpace;
+
+    FButtonStyle NormalStyle;
+    FButtonStyle SelectedStyle;
 };
