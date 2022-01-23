@@ -3,8 +3,14 @@
 #include "Channel/ChannelStatusWidget.h"
 
 #include "Algo/Transform.h"
+#include "ThemeDataAsset.h"
 #include "UiBlueprintLibrary.h"
 #include "WidgetUtil.h"
+
+UChannelStatusWidget::UChannelStatusWidget()
+{
+    bWantsTheme = true;
+}
 
 void UChannelStatusWidget::Setup(UChatChannel* InChannel)
 {
@@ -33,12 +39,10 @@ void UChannelStatusWidget::UpdateSelection(UChatChannel* SelectedChannel) const
 
 void UChannelStatusWidget::OnSetup()
 {
-    if (!Channel)
+    if (Channel)
     {
-        return;
+        Channel->MessagesUpdated.AddDynamic(this, &UChannelStatusWidget::OnMessagesUpdated);
     }
-
-    Channel->MessagesUpdated.AddDynamic(this, &UChannelStatusWidget::OnMessagesUpdated);
 
     if (Button)
     {
@@ -46,7 +50,7 @@ void UChannelStatusWidget::OnSetup()
         Button->SetStyle(NormalStyle);
     }
 
-    if (Avatar)
+    if (Channel && Avatar)
     {
         Avatar->Setup(Channel->Properties.GetOtherMemberUsers());
     }
@@ -54,6 +58,16 @@ void UChannelStatusWidget::OnSetup()
     // Force update channel title
     ChannelTitleAvailableSpace = -1.f;
     UpdateDynamic();
+}
+
+void UChannelStatusWidget::OnTheme(const UThemeDataAsset* Theme)
+{
+    NormalStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusNormalBackgroundColor)};
+    NormalStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusSelectedBackgroundColor)};
+    NormalStyle.Hovered.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusHoveredBackgroundColor)};
+    SelectedStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusSelectedBackgroundColor)};
+    SelectedStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusSelectedBackgroundColor)};
+    SelectedStyle.Hovered.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusSelectedBackgroundColor)};
 }
 
 int32 UChannelStatusWidget::NativePaint(
@@ -88,12 +102,7 @@ int32 UChannelStatusWidget::NativePaint(
 
 void UChannelStatusWidget::UpdateDynamic() const
 {
-    if (!Channel)
-    {
-        return;
-    }
-
-    if (Timestamp)
+    if (Channel && Timestamp)
     {
         Timestamp->Setup(Channel->State.GetMessages().Last(), false, true);
     }

@@ -151,4 +151,14 @@ public:
     /// The color of the divider between the header and messages in the channel widget
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel")
     FName ChannelHeaderDividerColor = TEXT("borders");
+
+    /// The normal background color of the channel status button
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel Status")
+    FName ChannelStatusNormalBackgroundColor = TEXT("bars-bg");
+    /// The hovered background color of the channel status button
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel Status")
+    FName ChannelStatusHoveredBackgroundColor = TEXT("input-bg");
+    /// The selected background color of the channel status button
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel Status")
+    FName ChannelStatusSelectedBackgroundColor = TEXT("borders");
 };
