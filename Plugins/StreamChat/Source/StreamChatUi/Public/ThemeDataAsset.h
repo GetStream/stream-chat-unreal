@@ -147,4 +147,8 @@ public:
     /// The color of the dividers in the team chat layout
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Team Chat")
     FName TeamChatDividerColor = TEXT("borders");
+
+    /// The color of the divider between the header and messages in the channel widget
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel")
+    FName ChannelHeaderDividerColor = TEXT("borders");
 };
