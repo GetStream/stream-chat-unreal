@@ -11,9 +11,13 @@ void UClientContextWidget::Setup(UStreamChatClientComponent* InClient)
     Client = InClient;
 }
 
-UStreamChatClientComponent* UClientContextWidget::GetClient(UWidget* Widget)
+UStreamChatClientComponent* UClientContextWidget::GetClient(const UWidget* Widget)
 {
-    return WidgetUtil::GetTypedParentWidget<UClientContextWidget>(Widget)->Client;
+    if (const UClientContextWidget* Context = WidgetUtil::GetTypedParentWidget<UClientContextWidget>(Widget))
+    {
+        return Context->Client;
+    }
+    return nullptr;
 }
 
 UStreamChatClientComponent* UClientContextWidget::GetClient() const
