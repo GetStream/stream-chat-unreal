@@ -47,7 +47,6 @@ void UChannelStatusWidget::OnSetup()
     if (Button)
     {
         Button->OnClicked.AddDynamic(this, &UChannelStatusWidget::OnButtonClicked);
-        Button->SetStyle(NormalStyle);
     }
 
     if (Channel && Avatar)
@@ -68,6 +67,10 @@ void UChannelStatusWidget::OnTheme(const UThemeDataAsset* Theme)
     SelectedStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusSelectedBackgroundColor)};
     SelectedStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusSelectedBackgroundColor)};
     SelectedStyle.Hovered.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusSelectedBackgroundColor)};
+    if (Button)
+    {
+        Button->SetStyle(NormalStyle);
+    }
 
     if (Divider)
     {

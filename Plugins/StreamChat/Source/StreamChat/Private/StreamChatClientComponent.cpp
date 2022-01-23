@@ -70,6 +70,12 @@ void UStreamChatClientComponent::OnUserPresenceChanged(const FUserPresenceChange
     UUserManager::Get()->UpsertUser(Event.User);
 }
 
+void UStreamChatClientComponent::SetChannels(const TArray<UChatChannel*>& InChannels)
+{
+    Channels = InChannels;
+    ChannelsUpdated.Broadcast(Channels);
+}
+
 void UStreamChatClientComponent::ConnectUser(
     const FUser& User,
     const FString& Token,
@@ -157,7 +163,7 @@ void UStreamChatClientComponent::QueryChannels(
                 Response.Channels,
                 NewChannels,
                 [WeakThis](const FChannelStateResponseFieldsDto& ResponseChannel) { return WeakThis->CreateChannelObject(ResponseChannel); });
-            WeakThis->Channels = NewChannels;
+            WeakThis->SetChannels(NewChannels);
 
             if (Callback)
             {

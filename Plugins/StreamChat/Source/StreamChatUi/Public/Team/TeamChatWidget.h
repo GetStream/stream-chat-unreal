@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "Channel/ChannelWidget.h"
+#include "ChannelList/ChannelListWidget.h"
 #include "Components/Border.h"
 #include "Components/Image.h"
 #include "Context/ClientContextWidget.h"
@@ -31,11 +33,19 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UBorder* ChannelListContainer;
     UPROPERTY(meta = (BindWidget))
+    UChannelListWidget* ChannelList;
+    UPROPERTY(meta = (BindWidget))
     UImage* HorizontalDivider;
     UPROPERTY(meta = (BindWidget))
     UImage* VerticalDivider;
 
+    UPROPERTY(EditAnywhere, NoClear, Category = Defaults)
+    TSubclassOf<UChannelWidget> ChannelWidgetClass = UChannelWidget::StaticClass();
+
 private:
     virtual void OnSetup() override;
     virtual void OnTheme(const UThemeDataAsset*) override;
+
+    UFUNCTION()
+    void ChannelSelected(UChatChannel* SelectedChannel);
 };

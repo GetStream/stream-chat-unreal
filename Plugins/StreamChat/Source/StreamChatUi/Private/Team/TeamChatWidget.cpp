@@ -15,6 +15,8 @@ void UTeamChatWidget::Setup(UStreamChatClientComponent* InClient)
     {
         ClientContextWidget->Setup(InClient);
     }
+
+    Super::Setup();
 }
 
 void UTeamChatWidget::OnSetup()
@@ -22,6 +24,10 @@ void UTeamChatWidget::OnSetup()
     if (MessageListContainer)
     {
         MessageListContainer->SetPadding({0.f});
+    }
+    if (ChannelList)
+    {
+        ChannelList->OnChannelStatusClicked.AddDynamic(this, &UTeamChatWidget::ChannelSelected);
     }
 }
 
@@ -42,4 +48,17 @@ void UTeamChatWidget::OnTheme(const UThemeDataAsset* Theme)
             Divider->SetColorAndOpacity(Theme->GetPaletteColor(Theme->TeamChatDividerColor));
         }
     }
+}
+
+void UTeamChatWidget::ChannelSelected(UChatChannel* SelectedChannel)
+{
+    if (!MessageListContainer)
+    {
+        return;
+    }
+
+    MessageListContainer->ClearChildren();
+    UChannelWidget* Widget = CreateWidget<UChannelWidget>(this, ChannelWidgetClass);
+    Widget->Setup(SelectedChannel);
+    MessageListContainer->AddChild(Widget);
 }

@@ -148,6 +148,11 @@ public:
     UPROPERTY(EditAnywhere, Config, Category = "Stream Chat", meta = (DisplayName = "API Key"))
     FString ApiKey;
 
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FChannelsUpdatedDelegate, const TArray<UChatChannel*>&, Channels);
+    /// Fired when any of the channels we have locally change
+    UPROPERTY(BlueprintAssignable, Category = "Stream Chat|Channel")
+    FChannelsUpdatedDelegate ChannelsUpdated;
+
 private:
     // Called when the game starts
     virtual void BeginPlay() override;
@@ -157,6 +162,8 @@ private:
 
     void OnConnectionRecovered(const FConnectionRecoveredEvent&);
     void OnUserPresenceChanged(const FUserPresenceChangedEvent&);
+
+    void SetChannels(const TArray<UChatChannel*>& InChannels);
 
     TSharedPtr<FTokenManager> TokenManager;
     TSharedPtr<FChatApi> Api;
