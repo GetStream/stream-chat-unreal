@@ -5,6 +5,7 @@
 #include "Avatar/AvatarWidget.h"
 #include "Channel/ChatChannel.h"
 #include "Components/Button.h"
+#include "Components/Image.h"
 #include "CoreMinimal.h"
 #include "Message/TimestampWidget.h"
 #include "StreamWidget.h"
@@ -49,6 +50,9 @@ protected:
 
     UPROPERTY(meta = (BindWidget))
     UTimestampWidget* Timestamp;
+
+    UPROPERTY(meta = (BindWidget))
+    UImage* Divider;
 
 private:
     virtual void OnSetup() override;

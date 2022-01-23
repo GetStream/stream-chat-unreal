@@ -161,4 +161,13 @@ public:
     /// The selected background color of the channel status button
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel Status")
     FName ChannelStatusSelectedBackgroundColor = TEXT("borders");
+    /// The color of the title text of the channel status widget normally
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel Status")
+    FName ChannelStatusTitleTextColor = TEXT("text-high-emphasis");
+    /// The color of the title text of the channel status widget when muted
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel Status")
+    FName ChannelStatusMutedTitleTextColor = TEXT("text-low-emphasis");
+    /// The color of the divider between each channel status widget
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel Status")
+    FName ChannelStatusDividerColor = TEXT("borders");
 };
