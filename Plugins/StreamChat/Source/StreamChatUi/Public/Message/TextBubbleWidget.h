@@ -39,6 +39,12 @@ protected:
     UTexture2D* YouOpeningTexture;
     UPROPERTY(EditAnywhere, Category = Bubble)
     UTexture2D* YouEndTexture;
+    UPROPERTY(EditAnywhere, Category = Emoji)
+    FSlateFontInfo NormalFont;
+    UPROPERTY(EditAnywhere, Category = Emoji)
+    float SingleEmojiFontSize = 32.f;
+    UPROPERTY(EditAnywhere, Category = Emoji)
+    float SingleEmojiBorderStyle = 32.f;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
     FMessage Message;
@@ -55,4 +61,5 @@ private:
     const FLinearColor& GetBubbleColor(const UThemeDataAsset*) const;
     const FLinearColor& GetTextColor(const UThemeDataAsset*) const;
     FText GetText() const;
+    bool IsSingleEmoji() const;
 };
