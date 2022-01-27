@@ -34,5 +34,6 @@ struct FEventDto
     UPROPERTY()
     FDateTime CreatedAt = FDateTime{0};
 
-    // TODO other fields?
+    UPROPERTY()
+    FAdditionalFields AdditionalFields;
 };

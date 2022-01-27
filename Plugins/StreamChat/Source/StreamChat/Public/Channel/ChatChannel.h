@@ -188,6 +188,19 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message")
     void QueryAdditionalMessages(EPaginationDirection Direction = EPaginationDirection::Top, int32 Limit = 20);
 
+    /**
+     * @brief Manually mark all messages in this channel as read
+     * @param Message Optionally provide a Message that is considered last read
+     */
+    void MarkRead(const TOptional<FMessage>& Message = {});
+
+    /**
+     * @brief Manually mark all messages in this channel as read
+     * @param Message Optionally provide a Message that is considered last read
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message", meta = (AutoCreateRefTerm = Message))
+    void MarkRead(const FMessage& Message);
+
     /// Get all the messages in this channel which we have locally
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Channel|Message")
     const TArray<FMessage>& GetMessages() const;
