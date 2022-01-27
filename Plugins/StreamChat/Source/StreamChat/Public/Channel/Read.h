@@ -24,6 +24,9 @@ struct FRead
     /// Create a read state from a DTO from the API
     explicit FRead(const FReadDto&, UUserManager*);
 
+    void AddUnreaMessage();
+    void MarkMessageRead();
+
     /// The user to which this read state applies
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Read")
     FUserRef User;

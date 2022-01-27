@@ -116,11 +116,16 @@ struct STREAMCHAT_API FMessage
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
     FReactions Reactions;
 
+    /// Empty if not a reply in a thread
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
-    bool bIsRead = false;
+    FString ParentId;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat|Message", AdvancedDisplay)
     bool bIsSilent = false;
+
+    /// Whether the message was shadowed or not
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat|Message", AdvancedDisplay)
+    bool bIsShadowed = false;
 
     UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|Message", AdvancedDisplay)
     FAdditionalFields ExtraData;

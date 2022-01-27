@@ -3,7 +3,6 @@
 #include "Header/MessageListHeaderWidget.h"
 
 #include "Algo/Transform.h"
-#include "Context/ChannelContextWidget.h"
 #include "UiBlueprintLibrary.h"
 
 UMessageListHeaderWidget::UMessageListHeaderWidget()

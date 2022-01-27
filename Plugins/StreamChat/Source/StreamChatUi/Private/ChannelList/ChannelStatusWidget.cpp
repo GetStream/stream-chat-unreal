@@ -39,6 +39,11 @@ void UChannelStatusWidget::UpdateSelection(UChatChannel* SelectedChannel) const
 
 void UChannelStatusWidget::OnSetup()
 {
+    if (ChannelContextProvider)
+    {
+        ChannelContextProvider->Setup(Channel);
+    }
+
     if (Channel)
     {
         Channel->MessagesUpdated.AddDynamic(this, &UChannelStatusWidget::OnMessagesUpdated);

@@ -4,7 +4,6 @@
 
 #include "Channel/Message.h"
 #include "Components/Image.h"
-#include "Components/Overlay.h"
 #include "CoreMinimal.h"
 #include "StreamWidget.h"
 #include "TextBubbleWidget.h"
@@ -55,6 +54,7 @@ protected:
 private:
     virtual void OnSetup() override;
     virtual void OnTheme(const UThemeDataAsset*) override;
+    virtual void OnChannel() override;
 
     UTexture2D* GetStatusIcon() const;
     FText GetTimestampText() const;

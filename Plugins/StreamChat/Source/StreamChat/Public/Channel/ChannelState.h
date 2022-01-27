@@ -34,6 +34,12 @@ struct STREAMCHAT_API FChannelState
     /// Get all the messages of this channel
     const TArray<FMessage>& GetMessages() const;
 
+    /// Has message been read by everyone else?
+    bool IsMessageRead(const FMessage&) const;
+
+    /// Mark all messages in this channel as read by the current user
+    void MarkRead();
+
     /// Get the count of unread messages for the current user in this channel
     int32 UnreadCount() const;
 
@@ -46,7 +52,7 @@ struct STREAMCHAT_API FChannelState
     TArray<FRead> Read;
 
 private:
-    static TArray<FMessage> Convert(const FChannelStateResponseFieldsDto&, UUserManager*);
-
+    FRead* GetCurrentUserRead();
+    const FRead* GetCurrentUserRead() const;
     TArray<FMessage> Messages;
 };
