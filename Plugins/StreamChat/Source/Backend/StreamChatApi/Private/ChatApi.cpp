@@ -4,6 +4,7 @@
 
 #include "HttpClient.h"
 #include "Request/Channel/ChannelGetOrCreateRequestDto.h"
+#include "Request/Channel/MarkReadRequestDto.h"
 #include "Request/Channel/QueryChannelsRequestDto.h"
 #include "Request/Event/SendEventRequest.h"
 #include "Request/Message/SearchRequestDto.h"
@@ -12,6 +13,7 @@
 #include "Request/Reaction/SendReactionRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
+#include "Response/Channel/MarkReadResponseDto.h"
 #include "Response/ErrorResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Reaction/ReactionResponseDto.h"
@@ -221,6 +223,22 @@ void FChatApi::SearchMessages(
 
     const FString Payload = Json::Serialize(Body);
     Client->Get(Url).Query({{TEXT("payload"), Payload}}).Send(Callback);
+}
+
+void FChatApi::MarkChannelRead(
+    const TCallback<FMarkReadResponseDto> Callback,
+    const FString& Type,
+    const FString& ChannelId,
+    const TOptional<FString>& MessageId)
+{
+    const FString Path = FString::Printf(TEXT("channels/%s/%s/read"), *Type, *ChannelId);
+    const FString Url = BuildUrl(Path);
+    FMarkReadRequestDto Body{};
+    if (MessageId.IsSet())
+    {
+        Body.SetMessageId(MessageId.GetValue());
+    }
+    Client->Post(Url).Json(Body).Send(Callback);
 }
 
 void FChatApi::SendChannelEventInternal(

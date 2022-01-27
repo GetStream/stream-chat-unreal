@@ -66,7 +66,7 @@ struct STREAMCHAT_API FMessage
 {
     GENERATED_BODY()
 
-    /// Needed by USTRUCT system. Shouldn't be used directly.
+    /// Default construct an invalid message
     FMessage();
     /// Create a message from a DTO from the API
     explicit FMessage(UUserManager&, const FMessageDto&);

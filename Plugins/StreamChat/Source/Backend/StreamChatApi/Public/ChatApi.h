@@ -18,13 +18,15 @@ class FHttpClient;
 class FRequestBuilder;
 class FTokenManager;
 struct FChannelResponseDto;
+struct FChannelSortOption;
 struct FChannelStateResponseDto;
 struct FChannelsResponseDto;
 struct FHttpResponse;
+struct FMarkReadRequestDto;
+struct FMarkReadResponseDto;
 struct FMessageRequestDto;
 struct FMessageResponseDto;
 struct FReactionRequestDto;
-struct FChannelSortOption;
 
 template <class T>
 using TCallback = TFunction<void(const T&)>;
@@ -175,6 +177,8 @@ public:
         TOptional<uint32> MessageLimit = {},
         TOptional<uint32> Offset = {},
         TOptional<FString> Next = {}) const;
+
+    void MarkChannelRead(TCallback<FMarkReadResponseDto> Callback, const FString& Type, const FString& ChannelId, const TOptional<FString>& MessageId = {});
 
 private:
     explicit FChatApi(const FString& InApiKey, const FString& InHost, const TSharedPtr<FTokenManager>&);

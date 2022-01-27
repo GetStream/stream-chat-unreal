@@ -207,6 +207,18 @@ void UChatChannel::QueryAdditionalMessages(const EPaginationDirection Direction,
         MessagePagination);
 }
 
+void UChatChannel::MarkRead(const TOptional<FMessage>& Message)
+{
+    const TOptional<FString> MessageId = Message.IsSet() ? Message.GetValue().Id : TOptional<FString>{};
+    Api->MarkChannelRead({}, Properties.Type, Properties.Id, MessageId);
+}
+
+void UChatChannel::MarkRead(const FMessage& Message)
+{
+    const TOptional<FString> MessageId = Message.Id.IsEmpty() ? TOptional<FString>{} : Message.Id;
+    Api->MarkChannelRead({}, Properties.Type, Properties.Id, MessageId);
+}
+
 inline void UChatChannel::SetPaginationRequestState(const EHttpRequestState RequestState, const EPaginationDirection Direction)
 {
     PaginationRequestState = RequestState;
