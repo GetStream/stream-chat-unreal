@@ -92,6 +92,8 @@ void UMessageListWidget::SetMessages(const TArray<FMessage>& Messages)
         UWidget* Widget = ScrollBox->GetChildAt(Index);
         ScrollBox->ScrollWidgetIntoView(Widget, false, EDescendantScrollDestination::TopOrLeft, FirstLeadingEdge);
     }
+
+    Channel->MarkRead();
 }
 
 void UMessageListWidget::ScrollToBottom(const FMessage& Message)

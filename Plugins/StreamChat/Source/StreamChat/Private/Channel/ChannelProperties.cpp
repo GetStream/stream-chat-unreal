@@ -5,21 +5,24 @@
 #include "Algo/Transform.h"
 #include "Response/Channel/ChannelResponseDto.h"
 #include "User/UserManager.h"
+#include "Util.h"
 
 FChannelProperties::FChannelProperties() = default;
 
-FChannelProperties::FChannelProperties(const FChannelStateResponseFieldsDto& Dto, UUserManager& UserManager)
+FChannelProperties::FChannelProperties(const FChannelStateResponseFieldsDto& Dto, UUserManager* UserManager)
     : Type{Dto.Channel.Type}
     , Id{Dto.Channel.Id}
     , Cid{Dto.Channel.Cid}
     , Config{Dto.Channel.Config}
     , MemberCount{Dto.Channel.MemberCount}
+    , Members{Util::Convert<FMember>(Dto.Members, UserManager)}
+    // For whatever reason the Dto.Channel.Members field is always empty. Use the outer field instead
     , Cooldown{Dto.Channel.Cooldown}
     , CreatedAt{Dto.Channel.CreatedAt}
     , UpdatedAt{Dto.Channel.UpdatedAt}
     , DeletedAt{Dto.Channel.DeletedAt}
     , LastMessageAt{Dto.Channel.LastMessageAt}
-    , CreatedBy{UserManager.UpsertUser(Dto.Channel.CreatedBy)}
+    , CreatedBy{UserManager->UpsertUser(Dto.Channel.CreatedBy)}
     , bDisabled{Dto.Channel.bDisabled}
     , bFrozen{Dto.Channel.bFrozen}
     , bHidden{Dto.Channel.bHidden}
@@ -32,8 +35,6 @@ FChannelProperties::FChannelProperties(const FChannelStateResponseFieldsDto& Dto
     , Team{Dto.Channel.Team}
     , ExtraData(Dto.Channel.AdditionalFields)
 {
-    // For whatever reason the Dto.Channel.Members field is always empty. Use the outer field instead
-    SetMembers(UserManager, Dto.Members);
 }
 
 FChannelProperties::operator FChannelRequestDto() const
@@ -106,11 +107,6 @@ FChannelProperties& FChannelProperties::SetImageUrl(const FString& Value)
 {
     ExtraData.SetString(TEXT("image"), Value);
     return *this;
-}
-
-void FChannelProperties::SetMembers(UUserManager& UserManager, const TArray<FChannelMemberDto>& Dto)
-{
-    Algo::Transform(Dto, Members, [&](const FChannelMemberDto& MemberDto) { return FMember{UserManager, MemberDto}; });
 }
 
 void UChannelPropertiesBlueprintLibrary::SetMembers_UserId(FChannelProperties& ChannelProperties, const TArray<FString>& UserIds, FChannelProperties& Out)

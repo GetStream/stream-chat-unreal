@@ -23,10 +23,10 @@ struct STREAMCHAT_API FChannelState
     FChannelState();
 
     /// Create a channel state from a DTO from the API
-    explicit FChannelState(const FChannelStateResponseFieldsDto&, UUserManager&);
+    explicit FChannelState(const FChannelStateResponseFieldsDto&, UUserManager*);
 
     /// Merge new information from the API into this state
-    void Append(const FChannelStateResponseFieldsDto&, UUserManager&);
+    void Append(const FChannelStateResponseFieldsDto&, UUserManager*);
 
     /// Locally add a message to this channel
     void AddMessage(const FMessage&);
@@ -46,7 +46,7 @@ struct STREAMCHAT_API FChannelState
     TArray<FRead> Read;
 
 private:
-    static TArray<FMessage> Convert(const FChannelStateResponseFieldsDto&, UUserManager&);
+    static TArray<FMessage> Convert(const FChannelStateResponseFieldsDto&, UUserManager*);
 
     TArray<FMessage> Messages;
 };

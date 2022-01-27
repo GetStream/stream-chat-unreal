@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "UserMuteDto.h"
 
 #include "OwnUserDto.generated.h"
 
@@ -43,6 +44,10 @@ struct STREAMCHATDTO_API FOwnUserDto
 
     UPROPERTY(Transient)
     int32 UnreadChannels = -1;
+
+    // Muted users
+    UPROPERTY(Transient)
+    TArray<FUserMuteDto> Mutes;
 
     // Not in the API spec, but common
     UPROPERTY(Transient)

@@ -8,7 +8,7 @@
 #include "User/UserRef.h"
 
 FReactions FReactions::CollectReactions(
-    UUserManager& UserManager,
+    UUserManager* UserManager,
     const TMap<FName, int32>& ReactionCounts,
     const TMap<FName, int32>& ReactionScores,
     const TArray<FReactionDto>& LatestReactions,
@@ -24,11 +24,11 @@ FReactions FReactions::CollectReactions(
 
     for (const FReactionDto& Latest : LatestReactions)
     {
-        Result.ReactionGroups.FindOrAdd(Latest.Type).LatestReactions.Add(FReaction{UserManager, Latest});
+        Result.ReactionGroups.FindOrAdd(Latest.Type).LatestReactions.Add(FReaction{Latest, UserManager});
     }
     for (const FReactionDto& Own : OwnReactions)
     {
-        Result.ReactionGroups.FindOrAdd(Own.Type).OwnReaction.Emplace(FReaction{UserManager, Own});
+        Result.ReactionGroups.FindOrAdd(Own.Type).OwnReaction.Emplace(FReaction{Own, UserManager});
     }
     return Result;
 }

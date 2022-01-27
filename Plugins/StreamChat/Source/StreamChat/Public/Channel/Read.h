@@ -22,7 +22,7 @@ struct FRead
     /// Needed by USTRUCT system. Shouldn't be used directly.
     FRead();
     /// Create a read state from a DTO from the API
-    explicit FRead(UUserManager&, const FReadDto&);
+    explicit FRead(const FReadDto&, UUserManager*);
 
     /// The user to which this read state applies
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Read")

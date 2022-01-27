@@ -11,6 +11,6 @@ FMember::FMember(const FUserRef& User) : User{User}
 {
 }
 
-FMember::FMember(UUserManager& UserManager, const FChannelMemberDto& Dto) : User{UserManager.UpsertUser(Dto.User)}
+FMember::FMember(const FChannelMemberDto& Dto, UUserManager* UserManager) : User{UserManager->UpsertUser(Dto.User)}
 {
 }

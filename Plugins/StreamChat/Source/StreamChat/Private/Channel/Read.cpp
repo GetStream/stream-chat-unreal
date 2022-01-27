@@ -7,7 +7,7 @@
 
 FRead::FRead() = default;
 
-FRead::FRead(UUserManager& UserManager, const FReadDto& Dto)
-    : User{UserManager.UpsertUser(Dto.User)}, UnreadMessages{static_cast<int32>(Dto.UnreadMessages)}, LastRead{Dto.LastRead}
+FRead::FRead(const FReadDto& Dto, UUserManager* UserManager)
+    : User{UserManager->UpsertUser(Dto.User)}, UnreadMessages{static_cast<int32>(Dto.UnreadMessages)}, LastRead{Dto.LastRead}
 {
 }

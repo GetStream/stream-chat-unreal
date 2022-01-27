@@ -6,19 +6,19 @@
 #include "Channel/Message.h"
 #include "Response/Channel/ChannelStateResponseFieldsDto.h"
 #include "User/UserManager.h"
+#include "Util.h"
 
 FChannelState::FChannelState() = default;
 
-FChannelState::FChannelState(const FChannelStateResponseFieldsDto& Dto, UUserManager& UserManager)
-    : WatcherCount{Dto.WatcherCount}, Messages{Convert(Dto, UserManager)}
+FChannelState::FChannelState(const FChannelStateResponseFieldsDto& Dto, UUserManager* UserManager)
+    : WatcherCount{Dto.WatcherCount}, Read{Util::Convert<FRead>(Dto.Read, UserManager)}, Messages{Convert(Dto, UserManager)}
 {
-    Algo::Transform(Dto.Read, Read, [&](const FReadDto& ReadDto) { return FRead{UserManager, ReadDto}; });
     // TODO Watchers
     // TODO Attachment
     // TODO Pinned messages
 }
 
-void FChannelState::Append(const FChannelStateResponseFieldsDto& Dto, UUserManager& UserManager)
+void FChannelState::Append(const FChannelStateResponseFieldsDto& Dto, UUserManager* UserManager)
 {
     FChannelState NewState{Dto, UserManager};
     // Current (old) messages go AFTER new messages
@@ -55,14 +55,14 @@ int32 FChannelState::UnreadCount() const
     return 0;
 }
 
-TArray<FMessage> FChannelState::Convert(const FChannelStateResponseFieldsDto& Dto, UUserManager& UserManager)
+TArray<FMessage> FChannelState::Convert(const FChannelStateResponseFieldsDto& Dto, UUserManager* UserManager)
 {
-    TArray<FMessage> NewMessages;
-    Algo::Transform(Dto.Messages, NewMessages, [&](const FMessageDto& MessageDto) { return FMessage{UserManager, MessageDto}; });
+    TArray<FMessage> NewMessages = Util::Convert<FMessage>(Dto.Messages, UserManager);
     for (FMessage& Message : NewMessages)
     {
-        Message.bIsRead = Dto.Read.ContainsByPredicate([&Message, &UserManager](const FReadDto& ReadDto)
-                                                       { return ReadDto.User.Id != UserManager.GetCurrentUser()->Id && ReadDto.LastRead > Message.CreatedAt; });
+        Message.bIsRead =
+            Dto.Read.ContainsByPredicate([&Message, &UserManager](const FReadDto& ReadDto)
+                                         { return ReadDto.User.Id != UserManager->GetCurrentUser()->Id && ReadDto.LastRead > Message.CreatedAt; });
     }
     return NewMessages;
 }

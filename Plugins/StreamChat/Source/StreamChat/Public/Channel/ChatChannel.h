@@ -189,13 +189,12 @@ public:
     void QueryAdditionalMessages(EPaginationDirection Direction = EPaginationDirection::Top, int32 Limit = 20);
 
     /**
-     * @brief Manually mark all messages in this channel as read
+     * @brief Manually mark all messages in this channel as read by the current user
      * @param Message Optionally provide a Message that is considered last read
      */
     void MarkRead(const TOptional<FMessage>& Message = {});
-
     /**
-     * @brief Manually mark all messages in this channel as read
+     * @brief Manually mark all messages in this channel as read by the current user
      * @param Message Optionally provide a Message that is considered last read
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message", meta = (AutoCreateRefTerm = Message))
@@ -281,6 +280,7 @@ public:
 
 private:
     void AddMessage(const FMessage&);
+    void MarkRead(const TOptional<FString>& MessageId);
 
     void OnMessageNew(const FMessageNewEvent&);
     void OnMessageUpdated(const FMessageUpdatedEvent&);

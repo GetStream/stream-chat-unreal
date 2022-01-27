@@ -25,7 +25,7 @@ struct STREAMCHAT_API FChannelProperties
     FChannelProperties();
 
     /// Create channel properties from a DTO from the API
-    explicit FChannelProperties(const FChannelStateResponseFieldsDto&, UUserManager&);
+    explicit FChannelProperties(const FChannelStateResponseFieldsDto&, UUserManager*);
 
     /// Convert to a channel request DTO to send to the API
     explicit operator FChannelRequestDto() const;
@@ -139,9 +139,6 @@ struct STREAMCHAT_API FChannelProperties
     /// Extra data for this channel
     UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|Channel Properties")
     FAdditionalFields ExtraData;
-
-private:
-    void SetMembers(UUserManager&, const TArray<FChannelMemberDto>&);
 };
 
 /**

@@ -19,6 +19,13 @@ FORCEINLINE OutT Convert(const InT& Input)
     return static_cast<OutT>(Input);
 }
 
+/// Map from one type to an another using a constructor + additional arguments
+template <typename OutT, typename InT, typename... TArgs>
+FORCEINLINE OutT Convert(const InT& Input, TArgs... Args)
+{
+    return OutT{Input, Args...};
+}
+
 /// Map from an optional of one type to an optional of another using direct initialization
 template <typename OutT, typename InT>
 FORCEINLINE TOptional<OutT> Convert(const TOptional<InT>& Input)
@@ -61,6 +68,19 @@ FORCEINLINE TArray<OutT> Convert(const TArray<InT>& Input)
     for (const InT& Value : Input)
     {
         Output.Emplace(static_cast<OutT>(Value));
+    }
+    return Output;
+}
+
+/// Map from an array of one type to an array of another using a constructor and any other arguments
+template <typename OutT, typename InT, typename... TArgs>
+FORCEINLINE TArray<OutT> Convert(const TArray<InT>& Input, TArgs... Args)
+{
+    TArray<OutT> Output;
+    Output.Reserve(Input.Num());
+    for (const InT& Value : Input)
+    {
+        Output.Emplace(OutT{Value, Args...});
     }
     return Output;
 }
