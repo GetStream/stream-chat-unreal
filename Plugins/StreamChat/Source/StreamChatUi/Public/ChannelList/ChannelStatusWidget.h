@@ -37,6 +37,9 @@ public:
 
 protected:
     UPROPERTY(meta = (BindWidget))
+    UChannelContextWidget* ChannelContextProvider;
+
+    UPROPERTY(meta = (BindWidget))
     UButton* Button;
 
     UPROPERTY(meta = (BindWidget))

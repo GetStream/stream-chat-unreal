@@ -2,7 +2,8 @@
 
 #include "Message/TimestampWidget.h"
 
-#include "Components/OverlaySlot.h"
+#include "Channel/ChannelState.h"
+#include "Channel/ChatChannel.h"
 #include "ThemeDataAsset.h"
 #include "User/User.h"
 #include "WidgetUtil.h"
@@ -10,6 +11,7 @@
 UTimestampWidget::UTimestampWidget()
 {
     bWantsTheme = true;
+    bWantsChannel = true;
 }
 
 void UTimestampWidget::Setup(const FMessage& InMessage, const bool bInShowUserName, const bool bInShowMessageState)
@@ -36,19 +38,6 @@ void UTimestampWidget::OnSetup()
         }
     }
 
-    if (MessageStateIconImage)
-    {
-        if (bShowMessageState)
-        {
-            MessageStateIconImage->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
-            MessageStateIconImage->SetBrushFromTexture(GetStatusIcon(), true);
-        }
-        else
-        {
-            MessageStateIconImage->SetVisibility(ESlateVisibility::Collapsed);
-        }
-    }
-
     if (DateTimeTextBlock)
     {
         DateTimeTextBlock->SetText(GetTimestampText());
@@ -72,6 +61,22 @@ void UTimestampWidget::OnTheme(const UThemeDataAsset* Theme)
     }
 }
 
+void UTimestampWidget::OnChannel()
+{
+    if (MessageStateIconImage)
+    {
+        if (bShowMessageState)
+        {
+            MessageStateIconImage->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+            MessageStateIconImage->SetBrushFromTexture(GetStatusIcon(), true);
+        }
+        else
+        {
+            MessageStateIconImage->SetVisibility(ESlateVisibility::Collapsed);
+        }
+    }
+}
+
 UTexture2D* UTimestampWidget::GetStatusIcon() const
 {
     // 1 check - Message sent, but not received by the recipient.
@@ -87,7 +92,7 @@ UTexture2D* UTimestampWidget::GetStatusIcon() const
     {
         return IconClock;
     }
-    if (Message.bIsRead)
+    if (Channel->State.IsMessageRead(Message))
     {
         return IconCheckAll;
     }

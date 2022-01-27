@@ -24,15 +24,6 @@
 #include "User/UserManager.h"
 #include "Util.h"
 
-namespace
-{
-bool CountMessageAsUnread(const FMessage& Message)
-{
-    const FUserRef CurrentUser = UUserManager::Get()->GetCurrentUser();
-    return false;
-}
-}    // namespace
-
 UChatChannel* UChatChannel::Create(
     UObject* Outer,
     const TSharedRef<FChatApi> Api,

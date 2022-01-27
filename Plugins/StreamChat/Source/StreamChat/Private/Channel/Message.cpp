@@ -20,6 +20,9 @@ FMessage::FMessage(const FMessageDto& Dto, UUserManager* UserManager)
     , UpdatedAt{Dto.UpdatedAt}
     , DeletedAt{Dto.GetDeletedAt()}
     , Reactions{FReactions::CollectReactions(UserManager, Dto.ReactionCounts, Dto.ReactionScores, Dto.LatestReactions, Dto.OwnReactions)}
+    , ParentId{Dto.ParentId}
+    , bIsSilent{Dto.bSilent}
+    , bIsShadowed{Dto.bShadowed}
     , ExtraData{Dto.AdditionalFields}
 {
 }
