@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "MutedUser.h"
 
 #include "User.generated.h"
 
@@ -27,7 +28,7 @@ struct STREAMCHAT_API FUser
     /// Convert from UserObject
     explicit FUser(const FUserObjectDto&);
     /// Convert from OwnUser
-    explicit FUser(const FOwnUserDto&);
+    explicit FUser(const FOwnUserDto&, UUserManager*);
     /// Convert to UserObject
     explicit operator FUserObjectDto() const;
 
@@ -63,6 +64,10 @@ struct STREAMCHAT_API FUser
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
     int32 UnreadChannels = 0;
+
+    /// Only populated for current user
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
+    TArray<FMutedUser> MutedUsers;
 
     /// The human-readable name of the user
     // Not in the API spec, but common

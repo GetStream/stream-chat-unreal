@@ -23,7 +23,7 @@ struct STREAMCHAT_API FReactions
 
     /// Create a collection of reactions using the data in the format received from the server
     static FReactions CollectReactions(
-        UUserManager& UserManager,
+        UUserManager* UserManager,
         const TMap<FName, int32>& ReactionCounts,
         const TMap<FName, int32>& ReactionScores,
         const TArray<FReactionDto>& LatestReactions,

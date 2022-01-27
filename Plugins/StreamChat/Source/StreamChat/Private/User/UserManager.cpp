@@ -48,7 +48,7 @@ FUserRef UUserManager::UpsertUser(const FUser& User)
 
 FUserRef UUserManager::UpsertUser(const FOwnUserDto& Dto)
 {
-    return UpsertUser(Util::Convert<FUser>(Dto));
+    return UpsertUser(Util::Convert<FUser>(Dto, this));
 }
 
 FUserRef UUserManager::UpsertUser(const FUserObjectDto& Dto)

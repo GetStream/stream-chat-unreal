@@ -69,7 +69,7 @@ struct STREAMCHAT_API FMessage
     /// Default construct an invalid message
     FMessage();
     /// Create a message from a DTO from the API
-    explicit FMessage(UUserManager&, const FMessageDto&);
+    explicit FMessage(const FMessageDto&, UUserManager*);
     /// Create a new message from a message string
     explicit FMessage(const FString& Text);
     /// Convert a message into a create/update request for sending to the API

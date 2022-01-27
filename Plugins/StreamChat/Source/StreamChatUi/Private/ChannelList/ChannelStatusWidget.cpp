@@ -118,7 +118,15 @@ void UChannelStatusWidget::UpdateDynamic() const
 {
     if (Channel && Timestamp)
     {
-        Timestamp->Setup(Channel->State.GetMessages().Last(), false, true);
+        if (Channel->State.GetMessages().Num() > 0)
+        {
+            Timestamp->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+            Timestamp->Setup(Channel->State.GetMessages().Last(), false, true);
+        }
+        else
+        {
+            Timestamp->SetVisibility(ESlateVisibility::Hidden);
+        }
     }
 
     // Force update recent message text
@@ -140,10 +148,18 @@ void UChannelStatusWidget::UpdateRecentMessageText() const
 {
     if (RecentMessageTextBlock && Channel)
     {
-        const FString Shortened =
-            WidgetUtil::TruncateWithEllipsis(Channel->State.GetMessages().Last().Text, RecentMessageAvailableSpace, RecentMessageTextBlock->Font);
-        const FText Text = FText::FromString(Shortened);
-        RecentMessageTextBlock->SetText(Text);
+        if (Channel->State.GetMessages().Num() > 0)
+        {
+            RecentMessageTextBlock->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+            const FString LastText = Channel->State.GetMessages().Last().Text;
+            const FString Shortened = WidgetUtil::TruncateWithEllipsis(LastText, RecentMessageAvailableSpace, RecentMessageTextBlock->Font);
+            const FText Text = FText::FromString(Shortened);
+            RecentMessageTextBlock->SetText(Text);
+        }
+        else
+        {
+            RecentMessageTextBlock->SetVisibility(ESlateVisibility::Hidden);
+        }
     }
 }
 

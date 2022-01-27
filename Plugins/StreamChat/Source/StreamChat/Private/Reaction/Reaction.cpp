@@ -7,8 +7,8 @@
 
 FReaction::FReaction() = default;
 
-FReaction::FReaction(UUserManager& UserManager, const FReactionDto& Dto)
-    : Type{Dto.Type}, Score{Dto.Score}, User{UserManager.UpsertUser(Dto.User)}, MessageId{Dto.MessageId}, CreatedAt{Dto.CreatedAt}, UpdatedAt{Dto.UpdatedAt}
+FReaction::FReaction(const FReactionDto& Dto, UUserManager* UserManager)
+    : Type{Dto.Type}, Score{Dto.Score}, User{UserManager->UpsertUser(Dto.User)}, MessageId{Dto.MessageId}, CreatedAt{Dto.CreatedAt}, UpdatedAt{Dto.UpdatedAt}
 {
 }
 

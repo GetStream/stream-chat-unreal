@@ -24,6 +24,15 @@
 #include "User/UserManager.h"
 #include "Util.h"
 
+namespace
+{
+bool CountMessageAsUnread(const FMessage& Message)
+{
+    const FUserRef CurrentUser = UUserManager::Get()->GetCurrentUser();
+    return false;
+}
+}    // namespace
+
 UChatChannel* UChatChannel::Create(
     UObject* Outer,
     const TSharedRef<FChatApi> Api,
@@ -35,8 +44,8 @@ UChatChannel* UChatChannel::Create(
 
     Channel->Api = Api;
     Channel->Socket = Socket;
-    Channel->Properties = FChannelProperties{Dto, *UUserManager::Get()};
-    Channel->State = FChannelState{Dto, *UUserManager::Get()};
+    Channel->Properties = FChannelProperties{Dto, UUserManager::Get()};
+    Channel->State = FChannelState{Dto, UUserManager::Get()};
     Channel->On<FMessageNewEvent>(Channel, &UChatChannel::OnMessageNew);
     Channel->On<FMessageUpdatedEvent>(Channel, &UChatChannel::OnMessageUpdated);
     Channel->On<FMessageDeletedEvent>(Channel, &UChatChannel::OnMessageDeleted);
@@ -107,7 +116,7 @@ void UChatChannel::UpdateMessage(const FMessage& Message)
         {
             if (WeakThis.IsValid())
             {
-                WeakThis->AddMessage(FMessage{*UUserManager::Get(), Response.Message});
+                WeakThis->AddMessage(FMessage{Response.Message, UUserManager::Get()});
                 UE_LOG(LogTemp, Log, TEXT("Updated message [Id=%s]"), *Response.Message.Id);
             }
         });
@@ -144,7 +153,7 @@ void UChatChannel::DeleteMessage(const FMessage& Message)
         {
             if (WeakThis.IsValid())
             {
-                WeakThis->AddMessage(FMessage{*UUserManager::Get(), Response.Message});
+                WeakThis->AddMessage(FMessage{Response.Message, UUserManager::Get()});
                 UE_LOG(LogTemp, Log, TEXT("Deleted message [Id=%s]"), *Response.Message.Id);
             }
         });
@@ -210,16 +219,24 @@ void UChatChannel::QueryAdditionalMessages(const EPaginationDirection Direction,
 void UChatChannel::MarkRead(const TOptional<FMessage>& Message)
 {
     const TOptional<FString> MessageId = Message.IsSet() ? Message.GetValue().Id : TOptional<FString>{};
-    Api->MarkChannelRead({}, Properties.Type, Properties.Id, MessageId);
+    MarkRead(MessageId);
 }
 
 void UChatChannel::MarkRead(const FMessage& Message)
 {
     const TOptional<FString> MessageId = Message.Id.IsEmpty() ? TOptional<FString>{} : Message.Id;
-    Api->MarkChannelRead({}, Properties.Type, Properties.Id, MessageId);
+    MarkRead(MessageId);
 }
 
-inline void UChatChannel::SetPaginationRequestState(const EHttpRequestState RequestState, const EPaginationDirection Direction)
+void UChatChannel::MarkRead(const TOptional<FString>& MessageId)
+{
+    if (Properties.Config.bReadEvents && State.UnreadCount() > 0)
+    {
+        Api->MarkChannelRead({}, Properties.Type, Properties.Id, MessageId);
+    }
+}
+
+void UChatChannel::SetPaginationRequestState(const EHttpRequestState RequestState, const EPaginationDirection Direction)
 {
     PaginationRequestState = RequestState;
     OnPaginatingMessages.Broadcast(Direction, RequestState);
@@ -423,7 +440,7 @@ void UChatChannel::MergeState(const FChannelStateResponseFieldsDto& Dto)
 {
     check(!Properties.Cid.IsEmpty());
     UUserManager* UserManager = UUserManager::Get();
-    State.Append(Dto, *UserManager);
+    State.Append(Dto, UserManager);
     MessagesUpdated.Broadcast(State.GetMessages());
 }
 
@@ -436,8 +453,7 @@ void UChatChannel::AddMessage(const FMessage& Message)
 
 FMessage MakeMessage(const FMessageEvent& Event)
 {
-    UUserManager* UserManager = UUserManager::Get();
-    return FMessage{*UserManager, Event.Message};
+    return FMessage{Event.Message, UUserManager::Get()};
 }
 
 void UChatChannel::OnMessageNew(const FMessageNewEvent& Event)

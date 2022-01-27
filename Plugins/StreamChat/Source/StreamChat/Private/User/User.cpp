@@ -2,8 +2,10 @@
 
 #include "User/User.h"
 
+#include "Algo/Transform.h"
 #include "OwnUserDto.h"
 #include "UserObjectDto.h"
+#include "Util.h"
 
 FUser::FUser() = default;
 
@@ -19,7 +21,7 @@ FUser::FUser(const FUserObjectDto& Dto)
 {
 }
 
-FUser::FUser(const FOwnUserDto& Dto)
+FUser::FUser(const FOwnUserDto& Dto, UUserManager* UserManager)
     : Id{Dto.Id}
     , bOnline{Dto.bOnline}
     , bInvisible{Dto.bInvisible}
@@ -28,6 +30,7 @@ FUser::FUser(const FOwnUserDto& Dto)
     , LastActive{Dto.LastActive}
     , TotalUnreadCount(Dto.TotalUnreadCount)
     , UnreadChannels(Dto.UnreadChannels)
+    , MutedUsers{Util::Convert<FMutedUser>(Dto.Mutes, UserManager)}
     , Name{Dto.Name}
     , Image{Dto.Image}
 {

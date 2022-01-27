@@ -9,13 +9,13 @@
 
 FMessage::FMessage() = default;
 
-FMessage::FMessage(UUserManager& UserManager, const FMessageDto& Dto)
+FMessage::FMessage(const FMessageDto& Dto, UUserManager* UserManager)
     : Id{Dto.Id}
     , Text{Dto.Text}
     , State{EMessageSendState::Sent}    // Assume response dto => sent
-    , User{UserManager.UpsertUser(Dto.User)}
+    , User{UserManager->UpsertUser(Dto.User)}
     , Type{static_cast<EMessageType>(Dto.Type)}
-    , MentionedUsers{UserManager.UpsertUsers(Dto.MentionedUsers)}
+    , MentionedUsers{UserManager->UpsertUsers(Dto.MentionedUsers)}
     , CreatedAt{Dto.CreatedAt}
     , UpdatedAt{Dto.UpdatedAt}
     , DeletedAt{Dto.GetDeletedAt()}
@@ -38,6 +38,6 @@ TArray<FMessage> FMessage::FromSearchResults(const TArray<FSearchResultDto>& Res
 {
     UUserManager* UserManager = UUserManager::Get();
     TArray<FMessage> Messages;
-    Algo::Transform(Result, Messages, [UserManager](const FSearchResultDto& R) { return FMessage{*UserManager, R.Message}; });
+    Algo::Transform(Result, Messages, [UserManager](const FSearchResultDto& R) { return FMessage{R.Message, UserManager}; });
     return Messages;
 }
