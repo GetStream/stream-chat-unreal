@@ -20,16 +20,38 @@ void UTextBubbleWidget::Setup(const FMessage& InMessage, const EMessageSide InSi
 
 void UTextBubbleWidget::OnSetup()
 {
+    const bool bSingleEmoji = IsSingleEmoji();
     if (TextBlock)
     {
         TextBlock->SetText(GetText());
+
+        if (bSingleEmoji)
+        {
+            FSlateFontInfo LargeFont{NormalFont};
+            LargeFont.Size = SingleEmojiFontSize;
+            TextBlock->SetFont(LargeFont);
+        }
+        else
+        {
+            TextBlock->SetFont(NormalFont);
+        }
     }
 
     if (Border)
     {
-        Border->Background.Margin = {0.5f};
-        Border->Background.DrawAs = ESlateBrushDrawType::Box;
-        Border->SetBrushFromTexture(GetBubbleTexture());
+        if (bSingleEmoji)
+        {
+            FSlateBrush None{};
+            None.DrawAs = ESlateBrushDrawType::NoDrawType;
+            Border->SetBrush(None);
+            Border->SetPadding({0.f});
+        }
+        else
+        {
+            Border->Background.Margin = {0.5f};
+            Border->Background.DrawAs = ESlateBrushDrawType::Box;
+            Border->SetBrushFromTexture(GetBubbleTexture());
+        }
     }
 }
 
@@ -102,4 +124,13 @@ FText UTextBubbleWidget::GetText() const
         return FText::FromString(TEXT("Message deleted"));
     }
     return FText::FromString(Message.Text);
+}
+
+bool UTextBubbleWidget::IsSingleEmoji() const
+{
+    const TSharedRef<FSlateFontCache> FontCache = FSlateApplication::Get().GetRenderer()->GetFontCache();
+    const FShapedGlyphSequenceRef Shaped =
+        FontCache->ShapeUnidirectionalText(Message.Text, NormalFont, 1.f, TextBiDi::ETextDirection::LeftToRight, ETextShapingMethod::Auto);
+    const bool bIsSingleMulticharacterGlyph = Shaped->GetGlyphsToRender().Num() == 1 && Shaped->GetGlyphsToRender()[0].NumCharactersInGlyph > 1;
+    return bIsSingleMulticharacterGlyph;
 }
