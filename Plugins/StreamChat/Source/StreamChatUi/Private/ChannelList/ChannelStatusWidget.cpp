@@ -14,7 +14,6 @@ UChannelStatusWidget::UChannelStatusWidget()
 
 void UChannelStatusWidget::Setup(UChatChannel* InChannel)
 {
-    // Channel needs to be provided as this widget won't be under a ChannelContextProvider in the hierarchy
     Channel = InChannel;
 
     Super::Setup();
@@ -47,6 +46,7 @@ void UChannelStatusWidget::OnSetup()
     if (Channel)
     {
         Channel->MessagesUpdated.AddDynamic(this, &UChannelStatusWidget::OnMessagesUpdated);
+        Channel->UnreadChanged.AddDynamic(this, &UChannelStatusWidget::OnUnreadChanged);
     }
 
     if (Button)
@@ -61,7 +61,8 @@ void UChannelStatusWidget::OnSetup()
 
     // Force update channel title
     ChannelTitleAvailableSpace = -1.f;
-    UpdateDynamic();
+    OnMessagesUpdated(Channel->GetMessages());
+    OnUnreadChanged(Channel->State.UnreadCount());
 }
 
 void UChannelStatusWidget::OnTheme(const UThemeDataAsset* Theme)
@@ -119,25 +120,6 @@ int32 UChannelStatusWidget::NativePaint(
     return Super::NativePaint(Args, AllottedGeometry, MyCullingRect, OutDrawElements, LayerId, InWidgetStyle, bParentEnabled);
 }
 
-void UChannelStatusWidget::UpdateDynamic() const
-{
-    if (Channel && Timestamp)
-    {
-        if (Channel->State.GetMessages().Num() > 0)
-        {
-            Timestamp->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
-            Timestamp->Setup(Channel->State.GetMessages().Last(), false, true);
-        }
-        else
-        {
-            Timestamp->SetVisibility(ESlateVisibility::Hidden);
-        }
-    }
-
-    // Force update recent message text
-    RecentMessageAvailableSpace = -1.f;
-}
-
 void UChannelStatusWidget::UpdateChannelTitleText() const
 {
     if (TitleTextBlock && Channel)
@@ -168,9 +150,37 @@ void UChannelStatusWidget::UpdateRecentMessageText() const
     }
 }
 
-void UChannelStatusWidget::OnMessagesUpdated(const TArray<FMessage>&)
+void UChannelStatusWidget::OnMessagesUpdated(const TArray<FMessage>& Messages)
 {
-    UpdateDynamic();
+    if (Timestamp)
+    {
+        if (Messages.Num() > 0)
+        {
+            Timestamp->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+            Timestamp->Setup(Messages.Last(), false, true);
+        }
+        else
+        {
+            Timestamp->SetVisibility(ESlateVisibility::Hidden);
+        }
+    }
+
+    // Force update recent message text
+    RecentMessageAvailableSpace = -1.f;
+}
+
+void UChannelStatusWidget::OnUnreadChanged(const int32 UnreadCount)
+{
+    if (Notification)
+    {
+        const ESlateVisibility Vis = UnreadCount > 0 ? ESlateVisibility::SelfHitTestInvisible : ESlateVisibility::Collapsed;
+        Notification->SetVisibility(Vis);
+    }
+    if (NotificationTextBlock)
+    {
+        const FText Text = UnreadCount > 9 ? FText::FromString(TEXT("9+")) : FText::AsNumber(UnreadCount);
+        NotificationTextBlock->SetText(Text);
+    }
 }
 
 void UChannelStatusWidget::OnButtonClicked()

@@ -9,12 +9,14 @@
 #include "Engine/World.h"
 #include "Event/Channel/MessageDeletedEvent.h"
 #include "Event/Channel/MessageNewEvent.h"
+#include "Event/Channel/MessageReadEvent.h"
 #include "Event/Channel/MessageUpdatedEvent.h"
 #include "Event/Channel/ReactionDeletedEvent.h"
 #include "Event/Channel/ReactionNewEvent.h"
 #include "Event/Channel/ReactionUpdatedEvent.h"
 #include "Event/Channel/TypingStartEvent.h"
 #include "Event/Channel/TypingStopEvent.h"
+#include "Event/Notification/NotificationMarkReadEvent.h"
 #include "Reaction/Reaction.h"
 #include "Request/Message/MessageRequestDto.h"
 #include "Request/Reaction/ReactionRequestDto.h"
@@ -37,6 +39,7 @@ UChatChannel* UChatChannel::Create(
     Channel->Socket = Socket;
     Channel->Properties = FChannelProperties{Dto, UUserManager::Get()};
     Channel->State = FChannelState{Dto, UUserManager::Get()};
+
     Channel->On<FMessageNewEvent>(Channel, &UChatChannel::OnMessageNew);
     Channel->On<FMessageUpdatedEvent>(Channel, &UChatChannel::OnMessageUpdated);
     Channel->On<FMessageDeletedEvent>(Channel, &UChatChannel::OnMessageDeleted);
@@ -45,6 +48,12 @@ UChatChannel* UChatChannel::Create(
     Channel->On<FReactionDeletedEvent>(Channel, &UChatChannel::OnReactionDeleted);
     Channel->On<FTypingStartEvent>(Channel, &UChatChannel::OnTypingStart);
     Channel->On<FTypingStopEvent>(Channel, &UChatChannel::OnTypingStop);
+
+    if (Channel->Properties.Config.bReadEvents)
+    {
+        Channel->On<FMessageReadEvent>(Channel, &UChatChannel::OnMessageRead);
+        Channel->On<FNotificationMarkReadEvent>(Channel, &UChatChannel::OnNotificationMessageRead);
+    }
 
     Channel->MessagesUpdated.Broadcast(Channel->State.GetMessages());
 
@@ -224,6 +233,9 @@ void UChatChannel::MarkRead(const TOptional<FString>& MessageId)
     if (Properties.Config.bReadEvents && State.UnreadCount() > 0)
     {
         Api->MarkChannelRead({}, Properties.Type, Properties.Id, MessageId);
+
+        // Clear unread count straight away locally
+        State.MarkRead();
     }
 }
 
@@ -453,6 +465,7 @@ void UChatChannel::OnMessageNew(const FMessageNewEvent& Event)
     AddMessage(NewMessage);
 
     MessageReceived.Broadcast(NewMessage);
+    UnreadChanged.Broadcast(State.UnreadCount());
 }
 
 void UChatChannel::OnMessageUpdated(const FMessageUpdatedEvent& Event)
@@ -463,6 +476,36 @@ void UChatChannel::OnMessageUpdated(const FMessageUpdatedEvent& Event)
 void UChatChannel::OnMessageDeleted(const FMessageDeletedEvent& Event)
 {
     AddMessage(MakeMessage(Event));
+}
+
+void UChatChannel::OnMessageRead(const FMessageReadEvent& Event)
+{
+    const FUserRef EventUser = UUserManager::Get()->UpsertUser(Event.User);
+    UpdateUnread(EventUser, 0, Event.CreatedAt);
+}
+
+void UChatChannel::OnNotificationMessageRead(const FNotificationMarkReadEvent& Event)
+{
+    const FUserRef EventUser = UUserManager::Get()->UpsertUser(Event.User);
+    const int32 Unread = Event.TotalUnreadCount;
+    UpdateUnread(EventUser, Unread, Event.CreatedAt);
+}
+
+void UChatChannel::UpdateUnread(const FUserRef& User, const int32 UnreadCount, const FDateTime& LastRead)
+{
+    if (FRead* Read = State.Read.FindByPredicate([&User](const FRead& R) { return R.User == User; }))
+    {
+        Read->UnreadMessages = UnreadCount;
+        Read->LastRead = LastRead;
+    }
+    else
+    {
+        State.Read.Add(FRead{User, UnreadCount, LastRead});
+    }
+    if (User.IsCurrent())
+    {
+        UnreadChanged.Broadcast(UnreadCount);
+    }
 }
 
 void UChatChannel::OnReactionNew(const FReactionNewEvent& Event)

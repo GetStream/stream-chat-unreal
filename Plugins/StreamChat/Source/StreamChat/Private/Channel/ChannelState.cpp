@@ -73,7 +73,7 @@ void FChannelState::AddMessage(const FMessage& Message)
         {
             if (FRead* CurrentUserRead = GetCurrentUserRead())
             {
-                CurrentUserRead->AddUnreaMessage();
+                CurrentUserRead->AddUnreadMessage();
             }
         }
     }
@@ -93,7 +93,7 @@ void FChannelState::MarkRead()
 {
     if (FRead* CurrentUserRead = GetCurrentUserRead())
     {
-        CurrentUserRead->MarkMessageRead();
+        CurrentUserRead->MarkRead();
     }
 }
 

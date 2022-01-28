@@ -55,6 +55,12 @@ protected:
     UTimestampWidget* Timestamp;
 
     UPROPERTY(meta = (BindWidget))
+    UWidget* Notification;
+
+    UPROPERTY(meta = (BindWidget))
+    UTextBlock* NotificationTextBlock;
+
+    UPROPERTY(meta = (BindWidget))
     UImage* Divider;
 
 private:
@@ -70,11 +76,13 @@ private:
         const FWidgetStyle& InWidgetStyle,
         bool bParentEnabled) const override;
 
-    void UpdateDynamic() const;
     void UpdateChannelTitleText() const;
     void UpdateRecentMessageText() const;
 
-    UFUNCTION() void OnMessagesUpdated(const TArray<FMessage>& Messages);
+    UFUNCTION()
+    void OnMessagesUpdated(const TArray<FMessage>& Messages);
+    UFUNCTION()
+    void OnUnreadChanged(int32 UnreadCount);
 
     UFUNCTION()
     void OnButtonClicked();

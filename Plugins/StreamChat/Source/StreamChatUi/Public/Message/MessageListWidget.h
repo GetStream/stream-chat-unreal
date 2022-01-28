@@ -28,6 +28,7 @@ public:
 protected:
     virtual void NativeOnInitialized() override;
     virtual void OnChannel() override;
+    virtual void NativeDestruct() override;
 
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void CreateMessageWidgets(const TArray<FMessage>& Messages);

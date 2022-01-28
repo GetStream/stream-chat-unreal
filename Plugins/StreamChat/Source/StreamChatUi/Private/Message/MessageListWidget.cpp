@@ -56,6 +56,21 @@ void UMessageListWidget::OnChannel()
     SetMessages(Channel->GetMessages());
 }
 
+void UMessageListWidget::NativeDestruct()
+{
+    if (Channel)
+    {
+        Channel->MessagesUpdated.RemoveDynamic(this, &UMessageListWidget::SetMessages);
+        Channel->MessageSent.RemoveDynamic(this, &UMessageListWidget::ScrollToBottom);
+    }
+
+    if (ChannelContext)
+    {
+        ChannelContext->OnStartEditMessage.RemoveDynamic(this, &UMessageListWidget::ScrollToBottom);
+    }
+    Super::NativeDestruct();
+}
+
 UMessageWidget* UMessageListWidget::CreateMessageWidget(const FMessage& Message, const EMessageSide Side, const EMessagePosition Position)
 {
     if (OnGetMessageWidgetEvent.IsBound())
