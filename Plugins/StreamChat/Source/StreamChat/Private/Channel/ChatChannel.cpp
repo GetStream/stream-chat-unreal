@@ -236,6 +236,7 @@ void UChatChannel::MarkRead(const TOptional<FString>& MessageId)
 
         // Clear unread count straight away locally
         State.MarkRead();
+        UnreadChanged.Broadcast(0);
     }
 }
 

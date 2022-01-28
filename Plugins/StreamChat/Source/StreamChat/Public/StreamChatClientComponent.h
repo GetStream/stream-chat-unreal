@@ -11,6 +11,7 @@
 #include "Components/ActorComponent.h"
 #include "CoreMinimal.h"
 #include "Engine/LatentActionManager.h"
+#include "Event/Channel/MessageNewEvent.h"
 #include "IChatSocket.h"
 #include "User/User.h"
 #include "User/UserRef.h"
@@ -162,6 +163,7 @@ private:
 
     void OnConnectionRecovered(const FConnectionRecoveredEvent&);
     void OnUserPresenceChanged(const FUserPresenceChangedEvent&);
+    void OnNewMessage(const FMessageNewEvent&);
 
     void SetChannels(const TArray<UChatChannel*>& InChannels);
 

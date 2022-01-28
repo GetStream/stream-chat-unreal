@@ -16,14 +16,20 @@ void UChannelListWidget::OnClient()
 
 void UChannelListWidget::ChannelStatusClicked(UChatChannel* ClickedChannel)
 {
+    if (ClickedChannel == CurrentChannel)
+    {
+        return;
+    }
+    CurrentChannel = ClickedChannel;
+
     for (UWidget* Child : ChannelList->GetAllChildren())
     {
         if (const UChannelStatusWidget* ChannelStatusWidget = Cast<UChannelStatusWidget>(Child))
         {
-            ChannelStatusWidget->UpdateSelection(ClickedChannel);
+            ChannelStatusWidget->UpdateSelection(CurrentChannel);
         }
     }
-    OnChannelStatusClicked.Broadcast(ClickedChannel);
+    OnChannelStatusClicked.Broadcast(CurrentChannel);
 }
 
 void UChannelListWidget::OnChannelsUpdated(const TArray<UChatChannel*>& InChannels)
@@ -33,6 +39,16 @@ void UChannelListWidget::OnChannelsUpdated(const TArray<UChatChannel*>& InChanne
         return;
     }
 
+    if (!CurrentChannel)
+    {
+        // Select first channel. TODO support channel pagination
+        if (InChannels.Num() > 0)
+        {
+            CurrentChannel = InChannels[0];
+            OnChannelStatusClicked.Broadcast(CurrentChannel);
+        }
+    }
+
     ChannelList->ClearChildren();
     for (UChatChannel* InChannel : InChannels)
     {
@@ -40,10 +56,6 @@ void UChannelListWidget::OnChannelsUpdated(const TArray<UChatChannel*>& InChanne
         Widget->Setup(InChannel);
         Widget->OnChannelStatusButtonClicked.AddDynamic(this, &UChannelListWidget::ChannelStatusClicked);
         ChannelList->AddChild(Widget);
-    }
-    // Select first channel. TODO support channel pagination
-    if (InChannels.Num() > 0)
-    {
-        ChannelStatusClicked(InChannels[0]);
+        Widget->UpdateSelection(CurrentChannel);
     }
 }
