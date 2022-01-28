@@ -25,7 +25,9 @@ struct FChannelStateResponseDto;
 struct FChannelStateResponseFieldsDto;
 struct FMessageDeletedEvent;
 struct FMessageNewEvent;
+struct FMessageReadEvent;
 struct FMessageUpdatedEvent;
+struct FNotificationMarkReadEvent;
 struct FReactionDeletedEvent;
 struct FReactionNewEvent;
 struct FReactionUpdatedEvent;
@@ -273,6 +275,11 @@ public:
     UPROPERTY(BlueprintAssignable, Category = "Stream Chat|Channel")
     FMessageDelegate MessageReceived;
 
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUnreadChangedDelegate, int32, UnreadCount);
+    /// Fired when the unread count changes for the current user
+    UPROPERTY(BlueprintAssignable, Category = "Stream Chat|Channel")
+    FUnreadChangedDelegate UnreadChanged;
+
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPaginatingMessagesDelegate, EPaginationDirection, Direction, EHttpRequestState, RequestState);
     /// Fired during various stages of message pagination
     UPROPERTY(BlueprintAssignable)
@@ -285,6 +292,10 @@ private:
     void OnMessageNew(const FMessageNewEvent&);
     void OnMessageUpdated(const FMessageUpdatedEvent&);
     void OnMessageDeleted(const FMessageDeletedEvent&);
+    void OnMessageRead(const FMessageReadEvent&);
+    void OnNotificationMessageRead(const FNotificationMarkReadEvent&);
+
+    void UpdateUnread(const FUserRef& User, int32 UnreadCount, const FDateTime& LastRead);
 
     void SetPaginationRequestState(EHttpRequestState, EPaginationDirection);
     EPaginationDirection EndedPaginationDirections = EPaginationDirection::None;
