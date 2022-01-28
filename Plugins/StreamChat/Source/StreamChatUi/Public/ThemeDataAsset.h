@@ -167,6 +167,9 @@ public:
     /// The color of the title text of the channel status widget when muted
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel Status")
     FName ChannelStatusMutedTitleTextColor = TEXT("text-low-emphasis");
+    /// The color of the recent message text
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel Status")
+    FName ChannelStatusRecentMessageTextColor = TEXT("text-low-emphasis");
     /// The color of the divider between each channel status widget
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel Status")
     FName ChannelStatusDividerColor = TEXT("borders");

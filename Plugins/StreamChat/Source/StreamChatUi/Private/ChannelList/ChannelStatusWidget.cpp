@@ -47,6 +47,8 @@ void UChannelStatusWidget::OnSetup()
     {
         Channel->MessagesUpdated.AddDynamic(this, &UChannelStatusWidget::OnMessagesUpdated);
         Channel->UnreadChanged.AddDynamic(this, &UChannelStatusWidget::OnUnreadChanged);
+        OnMessagesUpdated(Channel->GetMessages());
+        OnUnreadChanged(Channel->State.UnreadCount());
     }
 
     if (Button)
@@ -61,8 +63,6 @@ void UChannelStatusWidget::OnSetup()
 
     // Force update channel title
     ChannelTitleAvailableSpace = -1.f;
-    OnMessagesUpdated(Channel->GetMessages());
-    OnUnreadChanged(Channel->State.UnreadCount());
 }
 
 void UChannelStatusWidget::OnTheme(const UThemeDataAsset* Theme)
@@ -87,6 +87,11 @@ void UChannelStatusWidget::OnTheme(const UThemeDataAsset* Theme)
     {
         const FName Color{Channel->Properties.bMuted ? Theme->ChannelStatusMutedTitleTextColor : Theme->ChannelStatusTitleTextColor};
         TitleTextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Color));
+    }
+
+    if (RecentMessageTextBlock)
+    {
+        RecentMessageTextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Theme->ChannelStatusRecentMessageTextColor));
     }
 }
 
