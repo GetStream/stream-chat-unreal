@@ -17,6 +17,7 @@
 #include "Event/Channel/TypingStartEvent.h"
 #include "Event/Channel/TypingStopEvent.h"
 #include "Event/Notification/NotificationMarkReadEvent.h"
+#include "Event/Notification/NotificationMessageNewEvent.h"
 #include "Reaction/Reaction.h"
 #include "Request/Message/MessageRequestDto.h"
 #include "Request/Reaction/ReactionRequestDto.h"
@@ -41,6 +42,8 @@ UChatChannel* UChatChannel::Create(
     Channel->State = FChannelState{Dto, UUserManager::Get()};
 
     Channel->On<FMessageNewEvent>(Channel, &UChatChannel::OnMessageNew);
+    Channel->On<FNotificationMessageNewEvent>(Channel, &UChatChannel::OnNotificationMessageNew);
+
     Channel->On<FMessageUpdatedEvent>(Channel, &UChatChannel::OnMessageUpdated);
     Channel->On<FMessageDeletedEvent>(Channel, &UChatChannel::OnMessageDeleted);
     Channel->On<FReactionNewEvent>(Channel, &UChatChannel::OnReactionNew);
@@ -462,10 +465,20 @@ FMessage MakeMessage(const FMessageEvent& Event)
 
 void UChatChannel::OnMessageNew(const FMessageNewEvent& Event)
 {
-    const FMessage NewMessage = MakeMessage(Event);
-    AddMessage(NewMessage);
+    HandleNewMessageEvent(Event);
+}
 
-    MessageReceived.Broadcast(NewMessage);
+void UChatChannel::OnNotificationMessageNew(const FNotificationMessageNewEvent& Event)
+{
+    HandleNewMessageEvent(Event);
+}
+
+void UChatChannel::HandleNewMessageEvent(const FMessageEvent& Event)
+{
+    const FMessage Message = MakeMessage(Event);
+    AddMessage(Message);
+
+    MessageReceived.Broadcast(Message);
     UnreadChanged.Broadcast(State.UnreadCount());
 }
 

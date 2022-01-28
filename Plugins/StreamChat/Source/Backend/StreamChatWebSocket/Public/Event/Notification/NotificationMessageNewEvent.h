@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Event/Abstract/ChatEvent.h"
+#include "Event/Abstract/MessageEvent.h"
 
 #include "NotificationMessageNewEvent.generated.h"
 
@@ -13,7 +13,7 @@
  * @ingroup StreamChatWebSocket
  */
 USTRUCT()
-struct FNotificationMessageNewEvent : public FChatEvent
+struct FNotificationMessageNewEvent : public FMessageEvent
 {
     GENERATED_BODY()
 
