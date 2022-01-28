@@ -37,4 +37,7 @@ private:
     void ChannelStatusClicked(UChatChannel* ClickedChannel);
     UFUNCTION()
     void OnChannelsUpdated(const TArray<UChatChannel*>& InChannels);
+
+    UPROPERTY(Transient)
+    UChatChannel* CurrentChannel;
 };

@@ -50,6 +50,7 @@ void UStreamChatClientComponent::ConnectUserInternal(const FUser& User, const TF
 
     On<FConnectionRecoveredEvent>(this, &UStreamChatClientComponent::OnConnectionRecovered);
     On<FUserPresenceChangedEvent>(this, &UStreamChatClientComponent::OnUserPresenceChanged);
+    On<FMessageNewEvent>(this, &UStreamChatClientComponent::OnNewMessage);
 }
 
 UChatChannel* UStreamChatClientComponent::CreateChannelObject(const FChannelStateResponseFieldsDto& Dto)
@@ -68,6 +69,20 @@ void UStreamChatClientComponent::OnConnectionRecovered(const FConnectionRecovere
 void UStreamChatClientComponent::OnUserPresenceChanged(const FUserPresenceChangedEvent& Event)
 {
     UUserManager::Get()->UpsertUser(Event.User);
+}
+
+void UStreamChatClientComponent::OnNewMessage(const FMessageNewEvent& Event)
+{
+    // Maintain order by most recent message
+    if (const int32 Index = Channels.IndexOfByPredicate([&Event](const UChatChannel* Channel) { return Channel->Properties.Id == Event.ChannelId; });
+        Index != 0)
+    {
+        // We could sort the entire array, but moving the channel to the first position should be enough
+        UChatChannel* Channel = Channels[Index];
+        Channels.RemoveAt(Index, 1, false);
+        Channels.Insert(Channel, 0);
+        ChannelsUpdated.Broadcast(Channels);
+    }
 }
 
 void UStreamChatClientComponent::SetChannels(const TArray<UChatChannel*>& InChannels)

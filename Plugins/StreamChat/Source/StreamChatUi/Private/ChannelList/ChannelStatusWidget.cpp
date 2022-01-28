@@ -21,7 +21,7 @@ void UChannelStatusWidget::Setup(UChatChannel* InChannel)
 
 void UChannelStatusWidget::UpdateSelection(UChatChannel* SelectedChannel) const
 {
-    if (!Button)
+    if (!Button || !SelectedChannel)
     {
         return;
     }
