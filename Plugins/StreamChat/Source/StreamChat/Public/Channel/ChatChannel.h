@@ -24,10 +24,12 @@ struct FChannelEvent;
 struct FChannelStateResponseDto;
 struct FChannelStateResponseFieldsDto;
 struct FMessageDeletedEvent;
+struct FMessageEvent;
 struct FMessageNewEvent;
 struct FMessageReadEvent;
 struct FMessageUpdatedEvent;
 struct FNotificationMarkReadEvent;
+struct FNotificationMessageNewEvent;
 struct FReactionDeletedEvent;
 struct FReactionNewEvent;
 struct FReactionUpdatedEvent;
@@ -289,12 +291,15 @@ private:
     void AddMessage(const FMessage&);
     void MarkRead(const TOptional<FString>& MessageId);
 
-    void OnMessageNew(const FMessageNewEvent&);
     void OnMessageUpdated(const FMessageUpdatedEvent&);
     void OnMessageDeleted(const FMessageDeletedEvent&);
+
+    void OnMessageNew(const FMessageNewEvent&);
+    void OnNotificationMessageNew(const FNotificationMessageNewEvent&);
+    void HandleNewMessageEvent(const FMessageEvent&);
+
     void OnMessageRead(const FMessageReadEvent&);
     void OnNotificationMessageRead(const FNotificationMarkReadEvent&);
-
     void UpdateUnread(const FUserRef& User, int32 UnreadCount, const FDateTime& LastRead);
 
     void SetPaginationRequestState(EHttpRequestState, EPaginationDirection);
