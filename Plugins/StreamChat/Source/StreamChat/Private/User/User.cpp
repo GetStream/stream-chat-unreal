@@ -15,9 +15,18 @@ FUser::FUser(const FUserObjectDto& Dto)
     , bInvisible{Dto.bInvisible}
     , CreatedAt(Dto.CreatedAt)
     , UpdatedAt{Dto.UpdatedAt}
+    , DeactivatedAt{Dto.DeactivatedAt}
+    , DeletedAt{Dto.DeletedAt}
     , LastActive{Dto.LastActive}
-    , Name{Dto.Name}
-    , Image{Dto.Image}
+    , BanExpires{Dto.BanExpires}
+    , bBanned{Dto.bBanned}
+    , Language{Dto.Language}
+    , bPushNotifications{Dto.bPushNotifications}
+    , RevokeTokensIssuedBefore{Dto.RevokeTokensIssuedBefore}
+    , Role{Dto.Role}
+    , Teams{Dto.Teams}
+    , Name{Dto.AdditionalFields.GetString(TEXT("name")).Get(TEXT(""))}
+    , Image{Dto.AdditionalFields.GetString(TEXT("image")).Get(TEXT(""))}
 {
 }
 
@@ -31,14 +40,48 @@ FUser::FUser(const FOwnUserDto& Dto, UUserManager* UserManager)
     , TotalUnreadCount(Dto.TotalUnreadCount)
     , UnreadChannels(Dto.UnreadChannels)
     , MutedUsers{Util::Convert<FMutedUser>(Dto.Mutes, UserManager)}
-    , Name{Dto.Name}
-    , Image{Dto.Image}
+    , BanExpires{Dto.BanExpires}
+    , bBanned{Dto.bBanned}
+    , Language{Dto.Language}
+    , bPushNotifications{Dto.bPushNotifications}
+    , RevokeTokensIssuedBefore{Dto.RevokeTokensIssuedBefore}
+    , Role{Dto.Role}
+    , Teams{Dto.Teams}
+    , Name{Dto.AdditionalFields.GetString(TEXT("name")).Get(TEXT(""))}
+    , Image{Dto.AdditionalFields.GetString(TEXT("image")).Get(TEXT(""))}
 {
 }
 
 FUser::operator FUserObjectDto() const
 {
-    return {Id, bOnline, CreatedAt, UpdatedAt, LastActive, bInvisible, Name, Image};
+    FAdditionalFields AdditionalFields;
+    if (!Name.IsEmpty())
+    {
+        AdditionalFields.SetString(TEXT("name"), Name);
+    }
+    if (!Image.IsEmpty())
+    {
+        AdditionalFields.SetString(TEXT("image"), Image);
+    }
+    return {
+        {
+            Id,
+            BanExpires,
+            bBanned,
+            bInvisible,
+            Language,
+            bPushNotifications,
+            RevokeTokensIssuedBefore,
+            Role,
+            Teams,
+            AdditionalFields,
+        },
+        CreatedAt,
+        UpdatedAt,
+        DeactivatedAt,
+        DeletedAt,
+        LastActive,
+        bOnline};
 }
 
 FUser::FUser(const FString& InId) : Id(InId)

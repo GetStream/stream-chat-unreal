@@ -12,12 +12,9 @@
  * @ingroup StreamChatDto
  */
 USTRUCT(BlueprintType)
-struct STREAMCHATDTO_API FOwnUserDto
+struct STREAMCHATDTO_API FOwnUserDto : public FUserDto
 {
     GENERATED_BODY()
-
-    UPROPERTY()
-    FString Id;
 
     /// Whether a user online or not
     UPROPERTY(Transient)
@@ -35,10 +32,6 @@ struct STREAMCHATDTO_API FOwnUserDto
     UPROPERTY(Transient)
     FDateTime LastActive = FDateTime{0};
 
-    /// Whether a user should appear online or not
-    UPROPERTY(Transient)
-    bool bInvisible = false;
-
     UPROPERTY(Transient)
     int32 TotalUnreadCount = -1;
 
@@ -48,12 +41,4 @@ struct STREAMCHATDTO_API FOwnUserDto
     // Muted users
     UPROPERTY(Transient)
     TArray<FUserMuteDto> Mutes;
-
-    // Not in the API spec, but common
-    UPROPERTY(Transient)
-    FString Name;
-
-    // Not in the API spec, but common
-    UPROPERTY(Transient)
-    FString Image;
 };

@@ -21,6 +21,7 @@
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
 #include "Response/Reaction/ReactionResponseDto.h"
+#include "Response/User/UsersResponseDto.h"
 #include "TokenManager.h"
 
 namespace

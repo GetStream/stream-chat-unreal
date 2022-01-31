@@ -22,5 +22,5 @@ struct FUsersResponseDto
 
     /// List of found users
     UPROPERTY()
-    TArray<FUserResponseDto>;
+    TArray<FUserResponseDto> Users;
 };

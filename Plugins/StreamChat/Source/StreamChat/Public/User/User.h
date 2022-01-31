@@ -48,15 +48,23 @@ struct STREAMCHAT_API FUser
     bool bInvisible = false;
 
     /// Date/time of creation
-    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|User")
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User", AdvancedDisplay)
     FDateTime CreatedAt = FDateTime{0};
 
     /// Date/time of the last update
-    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|User")
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User", AdvancedDisplay)
     FDateTime UpdatedAt = FDateTime{0};
 
+    /// Date/time of deactivation
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User", AdvancedDisplay)
+    FDateTime DeactivatedAt = FDateTime{0};
+
+    /// Date/time of deletion
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User", AdvancedDisplay)
+    FDateTime DeletedAt = FDateTime{0};
+
     /// Date of last activity
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User", AdvancedDisplay)
     FDateTime LastActive = FDateTime{0};
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
@@ -68,6 +76,33 @@ struct STREAMCHAT_API FUser
     /// Only populated for current user
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
     TArray<FMutedUser> MutedUsers;
+
+    /// Expiration date of the ban
+    UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|User", AdvancedDisplay)
+    FDateTime BanExpires = FDateTime{0};
+
+    /// Whether a user is banned or not
+    UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|User", AdvancedDisplay)
+    bool bBanned = false;
+
+    /// Preferred language of a user
+    UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|User", AdvancedDisplay)
+    FString Language;
+
+    UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|User", AdvancedDisplay)
+    bool bPushNotifications = false;
+
+    /// Revocation date for tokens
+    UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|User", AdvancedDisplay)
+    FDateTime RevokeTokensIssuedBefore = FDateTime{0};
+
+    /// Determines the set of user permissions
+    UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|User", AdvancedDisplay)
+    FString Role;
+
+    /// List of teams user is a part of
+    UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|User", AdvancedDisplay)
+    TArray<FString> Teams;
 
     /// The human-readable name of the user
     // Not in the API spec, but common
