@@ -228,9 +228,9 @@ void FChatSocket::HandleChatError(const FErrorResponseDto& Error)
 
 void FChatSocket::OnHealthCheckEvent(const FHealthCheckEvent& HealthCheckEvent)
 {
-    UE_LOG(LogChatSocket, Verbose, TEXT("Health check received [ConnectionId=%s]"), *ConnectionId);
-
     ConnectionId = HealthCheckEvent.ConnectionId;
+
+    UE_LOG(LogChatSocket, Verbose, TEXT("Health check received [ConnectionId=%s]"), *ConnectionId);
 
     const bool bIsConnectionEvent = !HealthCheckEvent.Me.Id.IsEmpty();
     if (bIsConnectionEvent)
