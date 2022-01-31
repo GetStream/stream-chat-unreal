@@ -44,7 +44,6 @@ FChatSocket::FChatSocket(const TSharedRef<FTokenManager>& TokenManager, const FS
 FChatSocket::~FChatSocket()
 {
     Disconnect();
-    UnbindEventHandlers();
 }
 
 void FChatSocket::Connect(const TFunction<void(const FOwnUserDto&)> Callback)
@@ -66,9 +65,9 @@ void FChatSocket::Connect(const TFunction<void(const FOwnUserDto&)> Callback)
 void FChatSocket::Disconnect()
 {
     UE_LOG(LogChatSocket, Log, TEXT("Closing WebSocket connection"));
-    SetConnectionState(EConnectionState::Disconnecting);
 
     CloseUnderlyingWebSocket();
+    SetConnectionState(EConnectionState::Disconnecting);
     StopMonitoring();
 }
 
@@ -117,7 +116,7 @@ void FChatSocket::ConnectUnderlyingWebSocket()
 void FChatSocket::CloseUnderlyingWebSocket()
 {
     UnbindEventHandlers();
-    if (!WebSocket->IsConnected())
+    if (!WebSocket->IsConnected() || ConnectionState == EConnectionState::Disconnecting)
     {
         return;
     }
@@ -319,9 +318,9 @@ void FChatSocket::Reconnect(const bool bRefreshToken)
         return;
     }
 
+    CloseUnderlyingWebSocket();
     SetConnectionState(EConnectionState::Reconnecting);
 
-    CloseUnderlyingWebSocket();
     if (bRefreshToken)
     {
         WebSocket.Reset();
