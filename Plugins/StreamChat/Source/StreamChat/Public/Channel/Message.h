@@ -35,7 +35,7 @@ enum class EMessageSendState : uint8
 
 /**
  * @brief Type of message, as set by the API or chat bots and custom commands.
- * @see https://getstream.io/chat/docs/other-rest/message_format/#message-types
+ * @see https://getstream.io/chat/docs/unreal/message_format/#message-types
  * @ingroup StreamChat
  */
 UENUM(BlueprintType)

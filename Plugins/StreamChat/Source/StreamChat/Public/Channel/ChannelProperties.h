@@ -48,7 +48,7 @@ struct STREAMCHAT_API FChannelProperties
 
     /// Type of channel, either built-in or custom
     /// Default types are livestream, messaging, team, gaming and commerce. You can also create your own types.
-    /// @see https://getstream.io/chat/docs/other-rest/channel_features/
+    /// @see https://getstream.io/chat/docs/unreal/channel_features/
     UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|Channel Properties")
     FString Type;
 

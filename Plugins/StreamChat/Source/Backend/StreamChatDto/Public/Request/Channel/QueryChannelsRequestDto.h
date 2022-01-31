@@ -2,9 +2,7 @@
 
 #pragma once
 
-#include "AdditionalFields.h"
 #include "CoreMinimal.h"
-#include "Dom/JsonObject.h"
 #include "JsonObjectWrapper.h"
 #include "Request/SortParamRequestDto.h"
 
@@ -20,17 +18,20 @@ struct STREAMCHATDTO_API FQueryChannelsRequestDto
 {
     GENERATED_BODY()
 
-    /// Number of channels to limit
-    void SetLimit(int32);
+    /// The number of channels to return (max is 30)
+    UPROPERTY()
+    uint32 Limit = 10;
 
-    /// Number of members to limit
-    void SetMemberLimit(int32);
+    /// The offset (max is 1000)
+    UPROPERTY()
+    uint32 Offset = 0;
 
-    /// Number of messages to limit
-    void SetMessageLimit(int32);
+    UPROPERTY()
+    uint32 MessageLimit = 25;
 
-    /// Channel pagination offset
-    void SetOffset(int32);
+    /// How many members should be included for each channel (Max 100)
+    UPROPERTY()
+    uint32 MemberLimit = 100;
 
     /// WebSocket connection ID to interact with
     UPROPERTY()
@@ -54,7 +55,4 @@ struct STREAMCHATDTO_API FQueryChannelsRequestDto
     /// Start watching the channel
     UPROPERTY()
     bool bWatch = true;
-
-    UPROPERTY()
-    FAdditionalFields AdditionalFields;
 };

@@ -8,7 +8,7 @@
 
 /**
  * @brief DTO for type of message
- * @see https://getstream.io/chat/docs/other-rest/message_format/#message-types
+ * @see https://getstream.io/chat/docs/unreal/message_format/#message-types
  * @ingroup StreamChatDto
  */
 UENUM()

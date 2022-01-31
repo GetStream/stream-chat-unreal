@@ -66,7 +66,7 @@ enum class EFilterOperator : uint8
 
 /**
  * @brief A filter used for querying channels
- * @see https://getstream.io/chat/docs/other-rest/query_channels
+ * @see https://getstream.io/chat/docs/unreal/query_channels
  * @todo Query, AutoComplete, Exists, Contains
  * @ingroup StreamChat
  */
