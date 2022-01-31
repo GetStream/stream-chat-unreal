@@ -13,9 +13,12 @@
 #include "Request/Reaction/SendReactionRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
+#include "Response/Channel/DeleteChannelResponseDto.h"
 #include "Response/Channel/MarkReadResponseDto.h"
 #include "Response/ErrorResponseDto.h"
+#include "Response/Event/EventResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
+#include "Response/Message/SearchResponseDto.h"
 #include "Response/Reaction/ReactionResponseDto.h"
 #include "TokenManager.h"
 
@@ -86,6 +89,13 @@ void FChatApi::QueryChannel(
         Body.SetWatchers(WatcherPagination.GetValue());
     }
     Client->Post(Url).Json(Body).Send(Callback);
+}
+
+void FChatApi::DeleteChannel(const TCallback<FDeleteChannelResponseDto> Callback, const FString& ChannelType, const FString& ChannelId, bool bHardDelete) const
+{
+    const FString Path = FString::Printf(TEXT("channels/%s/%s"), *ChannelType, *ChannelId);
+    const FString Url = BuildUrl(Path);
+    Client->Delete(Url).Query({{TEXT("hard_delete"), bHardDelete}}).Send(Callback);
 }
 
 void FChatApi::SendNewMessage(

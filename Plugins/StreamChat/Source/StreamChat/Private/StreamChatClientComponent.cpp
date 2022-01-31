@@ -15,6 +15,7 @@
 #include "Request/Message/MessageRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
+#include "Response/Message/SearchResponseDto.h"
 #include "StreamChatSettings.h"
 #include "TokenManager.h"
 #include "User/UserManager.h"
