@@ -27,6 +27,7 @@ struct FMessageResponseDto;
 struct FReactionRequestDto;
 struct FReactionResponseDto;
 struct FSearchResponseDto;
+struct FUsersResponseDto;
 
 template <class T>
 using TCallback = TFunction<void(const T&)>;
@@ -271,7 +272,7 @@ public:
      * @param Callback Called when response is received
      */
     void QueryUsers(
-        TCallback<FChannelsResponseDto> Callback,
+        TCallback<FUsersResponseDto> Callback,
         const FString& ConnectionId,
         bool bPresence = true,
         const TOptional<TSharedRef<FJsonObject>>& Filter = {},
