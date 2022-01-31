@@ -41,6 +41,21 @@ class STREAMCHATAPI_API FChatApi : public TSharedFromThis<FChatApi>
 public:
     static TSharedRef<FChatApi> Create(const FString& InApiKey, const FString& InHost, const TSharedPtr<FTokenManager>&);
 
+#pragma region Moderation
+    /** @name Moderation
+     *  https://getstream.io/chat/docs/rest/#Moderation
+     *  @{
+     */
+
+    ///@}
+#pragma endregion Moderation
+
+#pragma region Channels
+    /** @name Channels
+     *  https://getstream.io/chat/docs/rest/#Channels
+     *  @{
+     */
+
     /**
      * @brief Get messages, members or other channel fields. Creates the channel if not yet created.
      * @param Callback Called when response is received.
@@ -63,6 +78,68 @@ public:
         const TOptional<FMessagePaginationParamsRequestDto> MessagePagination = {},
         const TOptional<FPaginationParamsRequestDto> MemberPagination = {},
         const TOptional<FPaginationParamsRequestDto> WatcherPagination = {}) const;
+
+    /**
+     * @brief Query channels with filter query
+     * @param ConnectionId Websocket connection ID to interact with.
+     * @param Filter The query filters to use. You can query on any of the custom fields you've defined on the Channel.
+     * You can also filter other built-in channel fields,
+     * @see https://getstream.io/chat/docs/other-rest/query_channels/#channel-queryable-built-in-fields
+     * @param SortOptions The sorting used for the channels matching the filters.
+     * Sorting is based on field and direction, multiple sorting options can be provided.
+     * @param MemberLimit How many members should be included for each channel (Max 100)
+     * @param MessageLimit How many messages should be included to each channel (Max 300)
+     * @param Limit The number of channels to return (max is 30, optional)
+     * @param Offset The pagination offset (max is 1000, optional)
+     * @param Flags Additional actions to perform, like watch, or fetch presence. @see EChannelFlags
+     * @param Callback Called when response is received
+     */
+    void QueryChannels(
+        TCallback<FChannelsResponseDto> Callback,
+        const FString& ConnectionId,
+        EChannelFlags Flags = EChannelFlags::State | EChannelFlags::Watch,
+        const TOptional<TSharedRef<FJsonObject>>& Filter = {},
+        const TArray<FSortParamRequestDto>& SortOptions = {},
+        TOptional<uint32> MemberLimit = {},
+        TOptional<uint32> MessageLimit = {},
+        TOptional<uint32> Limit = {},
+        TOptional<uint32> Offset = {}) const;
+
+    /**
+     * @brief Search all messages
+     *
+     * ChannelFilter is required, and a minimum of either a query or message filter
+     *
+     * @see https://getstream.io/chat/docs/other-rest/search/
+     * @param Callback Called when response is received
+     * @param Query Search phrase
+     * @param ChannelFilter Channel filter conditions
+     * @param MessageFilter Message filter conditions
+     * @param Sort Sort parameters. Cannot be  used with non-zero offset.
+     * @param MessageLimit Number of messages to return
+     * @param Offset Pagination offset. Cannot be used with sort or next
+     * @param Next Pagination parameter. Cannot be used with non-zero offset
+     */
+    void SearchMessages(
+        TCallback<FSearchResponseDto> Callback,
+        const TSharedRef<FJsonObject>& ChannelFilter,
+        const TOptional<FString>& Query = {},
+        const TOptional<TSharedRef<FJsonObject>>& MessageFilter = {},
+        const TArray<FSortParamRequestDto>& Sort = {},
+        TOptional<uint32> MessageLimit = {},
+        TOptional<uint32> Offset = {},
+        TOptional<FString> Next = {}) const;
+
+    void MarkChannelRead(TCallback<FMarkReadResponseDto> Callback, const FString& Type, const FString& ChannelId, const TOptional<FString>& MessageId = {});
+
+    ///@}
+#pragma endregion Channels
+
+#pragma region Messages
+    /** @name Messages
+     *  https://getstream.io/chat/docs/rest/#Messages
+     *  @{
+     */
 
     /**
      * @brief Send a message to the given @param ChannelId of the given @param ChannelType .
@@ -117,6 +194,15 @@ public:
      */
     void DeleteReaction(const FString& MessageId, const FName& Type, TCallback<FReactionResponseDto> Callback = {}) const;
 
+    ///@}
+#pragma endregion Messages
+
+#pragma region Events
+    /** @name Events
+     *  https://getstream.io/chat/docs/rest/#Events
+     *  @{
+     */
+
     /**
      * @brief Send a custom or built-in event on this channel
      * @tparam TEvent The event to send
@@ -127,58 +213,35 @@ public:
     template <class TEvent>
     void SendChannelEvent(const FString& ChannelType, const FString& ChannelId, const TEvent&, TCallback<FEventResponseDto> Callback = {});
 
-    /**
-     * @brief Query channels with filter query
-     * @param ConnectionId Websocket connection ID to interact with.
-     * @param Filter The query filters to use. You can query on any of the custom fields you've defined on the Channel.
-     * You can also filter other built-in channel fields,
-     * @see https://getstream.io/chat/docs/other-rest/query_channels/#channel-queryable-built-in-fields
-     * @param SortOptions The sorting used for the channels matching the filters.
-     * Sorting is based on field and direction, multiple sorting options can be provided.
-     * @param MemberLimit How many members should be included for each channel (Max 100)
-     * @param MessageLimit How many messages should be included to each channel (Max 300)
-     * @param Limit The number of channels to return (max is 30, optional)
-     * @param Offset The pagination offset (max is 1000, optional)
-     * @param Flags Additional actions to perform, like watch, or fetch presence. @see EChannelFlags
-     * @param Callback Called when response is received
-     */
-    void QueryChannels(
-        TCallback<FChannelsResponseDto> Callback,
-        const FString& ConnectionId,
-        EChannelFlags Flags = EChannelFlags::State | EChannelFlags::Watch,
-        const TOptional<TSharedRef<FJsonObject>>& Filter = {},
-        const TArray<FSortParamRequestDto>& SortOptions = {},
-        TOptional<uint32> MemberLimit = {},
-        TOptional<uint32> MessageLimit = {},
-        TOptional<uint32> Limit = {},
-        TOptional<uint32> Offset = {}) const;
+    ///@}
+#pragma endregion Events
 
-    /**
-     * @brief Search all messages
-     *
-     * ChannelFilter is required, and a minimum of either a query or message filter
-     *
-     * @see https://getstream.io/chat/docs/other-rest/search/
-     * @param Callback Called when response is received
-     * @param Query Search phrase
-     * @param ChannelFilter Channel filter conditions
-     * @param MessageFilter Message filter conditions
-     * @param Sort Sort parameters. Cannot be  used with non-zero offset.
-     * @param MessageLimit Number of messages to return
-     * @param Offset Pagination offset. Cannot be used with sort or next
-     * @param Next Pagination parameter. Cannot be used with non-zero offset
+#pragma region Files
+    /** @name Files
+     *  https://getstream.io/chat/docs/rest/#Files
+     *  @{
      */
-    void SearchMessages(
-        TCallback<FSearchResponseDto> Callback,
-        const TSharedRef<FJsonObject>& ChannelFilter,
-        const TOptional<FString>& Query = {},
-        const TOptional<TSharedRef<FJsonObject>>& MessageFilter = {},
-        const TArray<FSortParamRequestDto>& Sort = {},
-        TOptional<uint32> MessageLimit = {},
-        TOptional<uint32> Offset = {},
-        TOptional<FString> Next = {}) const;
 
-    void MarkChannelRead(TCallback<FMarkReadResponseDto> Callback, const FString& Type, const FString& ChannelId, const TOptional<FString>& MessageId = {});
+    ///@}
+#pragma endregion Files
+
+#pragma region Users
+    /** @name Users
+     *  https://getstream.io/chat/docs/rest/#Users
+     *  @{
+     */
+
+    ///@}
+#pragma endregion Users
+
+#pragma region Devices
+    /** @name Devices
+     *  https://getstream.io/chat/docs/rest/#Devices
+     *  @{
+     */
+
+    ///@}
+#pragma endregion Devices
 
 private:
     explicit FChatApi(const FString& InApiKey, const FString& InHost, const TSharedPtr<FTokenManager>&);
