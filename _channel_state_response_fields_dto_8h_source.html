@@ -108,10 +108,10 @@ $(document).ready(function(){initNavTree('_channel_state_response_fields_dto_8h_
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="struct_f_channel_response_dto.html">FChannelResponseDto</a> Channel;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="struct_f_channel_state_response_fields_dto.html#aa8fdc71f7ab33409959b1915de1645dd">   27</a></span>&#160;    bool bHidden;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="struct_f_channel_state_response_fields_dto.html#aa8fdc71f7ab33409959b1915de1645dd">   27</a></span>&#160;    bool bHidden = false;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="struct_f_channel_state_response_fields_dto.html#a44d789546e795643cec7a70a2a4eab08">   31</a></span>&#160;    FDateTime HideMessagesBefore;</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="struct_f_channel_state_response_fields_dto.html#a44d789546e795643cec7a70a2a4eab08">   31</a></span>&#160;    FDateTime HideMessagesBefore = FDateTime{0};</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    UPROPERTY()</div>
 <div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="struct_f_channel_state_response_fields_dto.html#aade08f6425148020e4a6906f4c6524c3">   35</a></span>&#160;    TArray&lt;<a class="code" href="struct_f_channel_member_dto.html">FChannelMemberDto</a>&gt; Members;</div>
@@ -129,13 +129,13 @@ $(document).ready(function(){initNavTree('_channel_state_response_fields_dto_8h_
 <div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="struct_f_channel_state_response_fields_dto.html#a5b74faf2666b551290631b2afd074147">   51</a></span>&#160;    TArray&lt;<a class="code" href="struct_f_read_dto.html">FReadDto</a>&gt; Read;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="struct_f_channel_state_response_fields_dto.html#a9ae31539fe472c2d60bbe51874f5cdcc">   55</a></span>&#160;    int32 WatcherCount;</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="struct_f_channel_state_response_fields_dto.html#a9ae31539fe472c2d60bbe51874f5cdcc">   55</a></span>&#160;    int32 WatcherCount = -1;</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    UPROPERTY()</div>
 <div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="struct_f_channel_state_response_fields_dto.html#a18e92da00a9e350e5ac8ded8fbd33adb">   59</a></span>&#160;    TArray&lt;<a class="code" href="struct_f_user_object_dto.html">FUserObjectDto</a>&gt; Watchers;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
 <div class="ttc" id="astruct_f_channel_member_dto_html"><div class="ttname"><a href="struct_f_channel_member_dto.html">FChannelMemberDto</a></div><div class="ttdoc">#/components/schemas/ChannelMember</div><div class="ttdef"><b>Definition:</b> ChannelMemberDto.h:16</div></div>
-<div class="ttc" id="astruct_f_channel_response_dto_html"><div class="ttname"><a href="struct_f_channel_response_dto.html">FChannelResponseDto</a></div><div class="ttdoc">#/components/schemas/ChannelResponse Represents channel in chat</div><div class="ttdef"><b>Definition:</b> ChannelResponseDto.h:19</div></div>
+<div class="ttc" id="astruct_f_channel_response_dto_html"><div class="ttname"><a href="struct_f_channel_response_dto.html">FChannelResponseDto</a></div><div class="ttdoc">#/components/schemas/ChannelResponse Represents channel in chat</div><div class="ttdef"><b>Definition:</b> ChannelResponseDto.h:20</div></div>
 <div class="ttc" id="astruct_f_channel_state_response_fields_dto_html"><div class="ttname"><a href="struct_f_channel_state_response_fields_dto.html">FChannelStateResponseFieldsDto</a></div><div class="ttdoc">#/components/schemas/ChannelStateResponseFields</div><div class="ttdef"><b>Definition:</b> ChannelStateResponseFieldsDto.h:19</div></div>
 <div class="ttc" id="astruct_f_message_dto_html"><div class="ttname"><a href="struct_f_message_dto.html">FMessageDto</a></div><div class="ttdoc">#/components/schemas/Message Represents any chat message. Used in responses only</div><div class="ttdef"><b>Definition:</b> MessageDto.h:23</div></div>
 <div class="ttc" id="astruct_f_read_dto_html"><div class="ttname"><a href="struct_f_read_dto.html">FReadDto</a></div><div class="ttdoc">#/components/schemas/Read</div><div class="ttdef"><b>Definition:</b> ReadDto.h:16</div></div>

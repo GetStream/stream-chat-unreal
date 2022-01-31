@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['field_834',['Field',['../struct_f_channel_sort_option.html#ae29c479408e15e4c867c7fe9be3c9dfc',1,'FChannelSortOption::Field()'],['../struct_f_message_sort_option.html#a181a0e55c38fd7536ef4f4e4e7591aa8',1,'FMessageSortOption::Field()']]]
+  ['event_893',['Event',['../struct_f_mark_read_response_dto.html#ac8677611f8336265807c6c3028f78dc2',1,'FMarkReadResponseDto']]],
+  ['expires_894',['Expires',['../struct_f_user_mute_dto.html#aa47d1fa9636bc88340e444109f895190',1,'FUserMuteDto']]],
+  ['extradata_895',['ExtraData',['../struct_f_channel_properties.html#a7de119f088e2049b7db9d6a32149956b',1,'FChannelProperties']]]
 ];

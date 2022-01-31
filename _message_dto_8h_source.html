@@ -120,7 +120,7 @@ $(document).ready(function(){initNavTree('_message_dto_8h_source.html',''); init
 <div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#ae091ffcdc7ef628f191ce7de4d68e6dc">   41</a></span>&#160;    FString Command;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#a247fc682a7a7a24dd6376ed9d7af9c72">   45</a></span>&#160;    FDateTime CreatedAt;</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#a247fc682a7a7a24dd6376ed9d7af9c72">   45</a></span>&#160;    FDateTime CreatedAt = FDateTime{0};</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    UPROPERTY()</div>
 <div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#ab8c4a2805f662c12a7e09d0ee3e00d1d">   49</a></span>&#160;    FString Html;</div>
@@ -151,14 +151,14 @@ $(document).ready(function(){initNavTree('_message_dto_8h_source.html',''); init
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="comment">// TODO Optional</span></div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#ae96097caea9a3ed132366c1bce3410c7">   88</a></span>&#160;    FDateTime PinExpires;</div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#ae96097caea9a3ed132366c1bce3410c7">   88</a></span>&#160;    FDateTime PinExpires = FDateTime{0};</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#a1bb973eefdd96e99c2280c183beb8283">   92</a></span>&#160;    <span class="keywordtype">bool</span> bPinned;</div>
+<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#a1bb973eefdd96e99c2280c183beb8283">   92</a></span>&#160;    bool bPinned = false;</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="comment">// TODO Optional</span></div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#a7c963cad79d30e7c78680264504b610e">   97</a></span>&#160;    FDateTime PinnedAt;</div>
+<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#a7c963cad79d30e7c78680264504b610e">   97</a></span>&#160;    FDateTime PinnedAt = FDateTime{0};</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="comment">// TODO Optional</span></div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    UPROPERTY()</div>
@@ -179,16 +179,16 @@ $(document).ready(function(){initNavTree('_message_dto_8h_source.html',''); init
 <div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#a6df0e4eab86c1a6d6dcd46c78ad6b85f">  120</a></span>&#160;    TMap&lt;FName, int32&gt; ReactionScores;</div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#aabc995a1be48612d30c05572b297323a">  124</a></span>&#160;    uint32 <a class="code" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fafb929994ee4a037b613ef81d0718f78b">ReplyCount</a>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#aabc995a1be48612d30c05572b297323a">  124</a></span>&#160;    uint32 <a class="code" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fafb929994ee4a037b613ef81d0718f78b">ReplyCount</a> = 0;</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#a38e6cb0b680005a5f3862d28188ce87e">  128</a></span>&#160;    <span class="keywordtype">bool</span> bShadowed;</div>
+<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#a38e6cb0b680005a5f3862d28188ce87e">  128</a></span>&#160;    <span class="keywordtype">bool</span> bShadowed = false;</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#acec263cb4e373dcd190bd79bd3e9ac6c">  132</a></span>&#160;    <span class="keywordtype">bool</span> bShowInChannel;</div>
+<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#acec263cb4e373dcd190bd79bd3e9ac6c">  132</a></span>&#160;    <span class="keywordtype">bool</span> bShowInChannel = false;</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#a8ddb89aa16bea4ecca7b829809050510">  136</a></span>&#160;    <span class="keywordtype">bool</span> bSilent;</div>
+<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#a8ddb89aa16bea4ecca7b829809050510">  136</a></span>&#160;    <span class="keywordtype">bool</span> bSilent = false;</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    UPROPERTY()</div>
 <div class="line"><a name="l00140"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#ab03355da15a7b2cbdfd3e3b536732057">  140</a></span>&#160;    FString <a class="code" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa9dffbf69ffba8bc38bc4e01abf4b1675">Text</a>;</div>
@@ -200,7 +200,7 @@ $(document).ready(function(){initNavTree('_message_dto_8h_source.html',''); init
 <div class="line"><a name="l00148"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#a23146a584acafa6e7c0439f4351e209e">  148</a></span>&#160;    <a class="code" href="group___stream_chat_dto.html#ga25892b8ff165ca27984b03e49e9899a5">EMessageTypeDto</a> <a class="code" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">Type</a> = <a class="code" href="group___stream_chat_dto.html#ga25892b8ff165ca27984b03e49e9899a5">EMessageTypeDto</a>::Regular;</div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#acb10ccf5d7f6acaf5c51ca1b871041cf">  152</a></span>&#160;    FDateTime UpdatedAt;</div>
+<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="struct_f_message_dto.html#acb10ccf5d7f6acaf5c51ca1b871041cf">  152</a></span>&#160;    FDateTime UpdatedAt = FDateTime{0};</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="comment">// TODO Optional</span></div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    UPROPERTY()</div>

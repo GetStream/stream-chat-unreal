@@ -31,6 +31,9 @@ var group___stream_chat_web_socket =
       [ "bHardDelete", "struct_f_message_deleted_event.html#a54154a8c09d3cb306510fcfbf56a5c08", null ]
     ] ],
     [ "FMessageNewEvent", "struct_f_message_new_event.html", null ],
+    [ "FMessageReadEvent", "struct_f_message_read_event.html", [
+      [ "User", "struct_f_message_read_event.html#a35048018b1289859e32957af3339581c", null ]
+    ] ],
     [ "FMessageUpdatedEvent", "struct_f_message_updated_event.html", null ],
     [ "FReactionDeletedEvent", "struct_f_reaction_deleted_event.html", null ],
     [ "FReactionNewEvent", "struct_f_reaction_new_event.html", null ],
@@ -50,6 +53,16 @@ var group___stream_chat_web_socket =
     [ "FHealthCheckEvent", "struct_f_health_check_event.html", [
       [ "ConnectionId", "struct_f_health_check_event.html#aeac628197f88309e4c7c993463ee003e", null ],
       [ "Me", "struct_f_health_check_event.html#a300d3ff6ab3851b25ab9a4d577c90900", null ]
+    ] ],
+    [ "FNotificationMarkReadEvent", "struct_f_notification_mark_read_event.html", [
+      [ "TotalUnreadCount", "struct_f_notification_mark_read_event.html#aeb2942aedab36391cd2f32e128662539", null ],
+      [ "UnreadChannels", "struct_f_notification_mark_read_event.html#a83e080d5da79fc027ab030f08e4994ff", null ],
+      [ "UnreadCount", "struct_f_notification_mark_read_event.html#af45b870574c4970a3b61dcecd182bb4f", null ],
+      [ "User", "struct_f_notification_mark_read_event.html#a1a5d4c17bbdbe75fbf331df38ed53116", null ]
+    ] ],
+    [ "FNotificationMessageNewEvent", "struct_f_notification_message_new_event.html", [
+      [ "TotalUnreadCount", "struct_f_notification_message_new_event.html#a2c2e23d9e1c5864167a14821ce3e1256", null ],
+      [ "UnreadChannels", "struct_f_notification_message_new_event.html#a967e1942232eb259e269ff98421b41bd", null ]
     ] ],
     [ "FUserPresenceChangedEvent", "struct_f_user_presence_changed_event.html", [
       [ "User", "struct_f_user_presence_changed_event.html#afb5a5056f389da788c3614055bc31bd0", null ]

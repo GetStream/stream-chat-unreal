@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['id_840',['Id',['../struct_f_message_request_dto.html#ab7f3fdf46bffdab16aacaad520c611da',1,'FMessageRequestDto::Id()'],['../struct_f_channel_response_dto.html#aefc90c12bf46740d60be3ead87caf982',1,'FChannelResponseDto::Id()'],['../struct_f_message_dto.html#a8b60be6934fb0896392a6c229a8afb69',1,'FMessageDto::Id()'],['../struct_f_channel_state.html#ae833a4a885065e7427999fdad28a20b2',1,'FChannelState::Id()'],['../struct_f_message.html#a3bb506fb5bc73a79bda17ac633139c75',1,'FMessage::Id()'],['../struct_f_user.html#ac9ebcfe4ceccb6acbbefa3e98216fe9b',1,'FUser::Id()']]],
-  ['image_841',['Image',['../struct_f_user.html#a2ca45f74018a8256b0a4a9955d52d6c7',1,'FUser']]],
-  ['imageurl_842',['ImageUrl',['../struct_f_channel_state.html#ade5dbc7dc5924d890563a11de57ea0bf',1,'FChannelState']]],
-  ['inviteacceptedat_843',['InviteAcceptedAt',['../struct_f_channel_member_dto.html#ad74e316c7e86b7bf62eb15b095fe54a9',1,'FChannelMemberDto']]],
-  ['inviterejectedat_844',['InviteRejectedAt',['../struct_f_channel_member_dto.html#a68fadfd086ad0a9945e6670c613211bb',1,'FChannelMemberDto']]]
+  ['header_897',['header',['../classjwt_1_1decoded__jwt.html#a1029396a3c9d1a6a9946ab000546b58f',1,'jwt::decoded_jwt']]],
+  ['header_5fbase64_898',['header_base64',['../classjwt_1_1decoded__jwt.html#a1b5eb0489af7f8158779b59d03bc0431',1,'jwt::decoded_jwt']]],
+  ['hidemessagesbefore_899',['HideMessagesBefore',['../struct_f_channel_response_dto.html#affcfb2a44d30992bc04241d80f151c21',1,'FChannelResponseDto::HideMessagesBefore()'],['../struct_f_channel_state_response_fields_dto.html#a44d789546e795643cec7a70a2a4eab08',1,'FChannelStateResponseFieldsDto::HideMessagesBefore()'],['../struct_f_channel_properties.html#a67e0af32d8a6908dfd6e7562518191de',1,'FChannelProperties::HideMessagesBefore()']]],
+  ['host_900',['Host',['../class_u_stream_chat_settings.html#a3c81992e541233efc646aa7f44b6ac92',1,'UStreamChatSettings']]],
+  ['html_901',['Html',['../struct_f_message_request_dto.html#a41f6cfe682e1521a72791f8fe00b8855',1,'FMessageRequestDto::Html()'],['../struct_f_message_dto.html#ab8c4a2805f662c12a7e09d0ee3e00d1d',1,'FMessageDto::Html()']]]
 ];

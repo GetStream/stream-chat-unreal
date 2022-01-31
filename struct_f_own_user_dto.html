@@ -102,25 +102,34 @@ Public Attributes</h2></td></tr>
 FString&#160;</td><td class="memItemRight" valign="bottom"><b>Id</b></td></tr>
 <tr class="separator:a71ece7b92161ca4a864ad662c1531f2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb65b4d943936fc88226896a49b1204a"><td class="memItemLeft" align="right" valign="top"><a id="aeb65b4d943936fc88226896a49b1204a"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_own_user_dto.html#aeb65b4d943936fc88226896a49b1204a">bOnline</a></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_own_user_dto.html#aeb65b4d943936fc88226896a49b1204a">bOnline</a> = false</td></tr>
 <tr class="memdesc:aeb65b4d943936fc88226896a49b1204a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether a user online or not. <br /></td></tr>
 <tr class="separator:aeb65b4d943936fc88226896a49b1204a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e2b24c7a14520e9fc51d48b4f8caf51"><td class="memItemLeft" align="right" valign="top"><a id="a3e2b24c7a14520e9fc51d48b4f8caf51"></a>
-FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_own_user_dto.html#a3e2b24c7a14520e9fc51d48b4f8caf51">CreatedAt</a></td></tr>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_own_user_dto.html#a3e2b24c7a14520e9fc51d48b4f8caf51">CreatedAt</a> = FDateTime{0}</td></tr>
 <tr class="memdesc:a3e2b24c7a14520e9fc51d48b4f8caf51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Date/time of creation. <br /></td></tr>
 <tr class="separator:a3e2b24c7a14520e9fc51d48b4f8caf51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5fd4834a192f266a7ec91bfc0bbe34e7"><td class="memItemLeft" align="right" valign="top"><a id="a5fd4834a192f266a7ec91bfc0bbe34e7"></a>
-FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_own_user_dto.html#a5fd4834a192f266a7ec91bfc0bbe34e7">UpdatedAt</a></td></tr>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_own_user_dto.html#a5fd4834a192f266a7ec91bfc0bbe34e7">UpdatedAt</a> = FDateTime{0}</td></tr>
 <tr class="memdesc:a5fd4834a192f266a7ec91bfc0bbe34e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Date/time of the last update. <br /></td></tr>
 <tr class="separator:a5fd4834a192f266a7ec91bfc0bbe34e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e7489704b99675256d6cf72b07aad8e"><td class="memItemLeft" align="right" valign="top"><a id="a6e7489704b99675256d6cf72b07aad8e"></a>
-FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_own_user_dto.html#a6e7489704b99675256d6cf72b07aad8e">LastActive</a></td></tr>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_own_user_dto.html#a6e7489704b99675256d6cf72b07aad8e">LastActive</a> = FDateTime{0}</td></tr>
 <tr class="memdesc:a6e7489704b99675256d6cf72b07aad8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Date of last activity. <br /></td></tr>
 <tr class="separator:a6e7489704b99675256d6cf72b07aad8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a645bf6dae305e2a32ce5fa98a98e9f1b"><td class="memItemLeft" align="right" valign="top"><a id="a645bf6dae305e2a32ce5fa98a98e9f1b"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_own_user_dto.html#a645bf6dae305e2a32ce5fa98a98e9f1b">bInvisible</a></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_own_user_dto.html#a645bf6dae305e2a32ce5fa98a98e9f1b">bInvisible</a> = false</td></tr>
 <tr class="memdesc:a645bf6dae305e2a32ce5fa98a98e9f1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether a user should appear online or not. <br /></td></tr>
 <tr class="separator:a645bf6dae305e2a32ce5fa98a98e9f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3648f7815f324571dde0e3ddc07f7b08"><td class="memItemLeft" align="right" valign="top"><a id="a3648f7815f324571dde0e3ddc07f7b08"></a>
+int32&#160;</td><td class="memItemRight" valign="bottom"><b>TotalUnreadCount</b> = -1</td></tr>
+<tr class="separator:a3648f7815f324571dde0e3ddc07f7b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a965c872cad22ec7b96aa5a73e0d08130"><td class="memItemLeft" align="right" valign="top"><a id="a965c872cad22ec7b96aa5a73e0d08130"></a>
+int32&#160;</td><td class="memItemRight" valign="bottom"><b>UnreadChannels</b> = -1</td></tr>
+<tr class="separator:a965c872cad22ec7b96aa5a73e0d08130"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23002586c3718527bbe15599d06c0ce2"><td class="memItemLeft" align="right" valign="top"><a id="a23002586c3718527bbe15599d06c0ce2"></a>
+TArray&lt; <a class="el" href="struct_f_user_mute_dto.html">FUserMuteDto</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Mutes</b></td></tr>
+<tr class="separator:a23002586c3718527bbe15599d06c0ce2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73bb7bbdefd6a5e3747616684ad85318"><td class="memItemLeft" align="right" valign="top"><a id="a73bb7bbdefd6a5e3747616684ad85318"></a>
 FString&#160;</td><td class="memItemRight" valign="bottom"><b>Name</b></td></tr>
 <tr class="separator:a73bb7bbdefd6a5e3747616684ad85318"><td class="memSeparator" colspan="2">&#160;</td></tr>

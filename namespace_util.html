@@ -100,6 +100,11 @@ template&lt;typename OutT , typename InT &gt; </td></tr>
 <tr class="memitem:a0cc92701804c45a7497b09167f24a477"><td class="memTemplItemLeft" align="right" valign="top">FORCEINLINE OutT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_util.html#a0cc92701804c45a7497b09167f24a477">Convert</a> (const InT &amp;Input)</td></tr>
 <tr class="memdesc:a0cc92701804c45a7497b09167f24a477"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map from one type to an another using direct initialization. <br /></td></tr>
 <tr class="separator:a0cc92701804c45a7497b09167f24a477"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3873b27a49f53e3b7fc1aaded816c029"><td class="memTemplParams" colspan="2"><a id="a3873b27a49f53e3b7fc1aaded816c029"></a>
+template&lt;typename OutT , typename InT , typename... TArgs&gt; </td></tr>
+<tr class="memitem:a3873b27a49f53e3b7fc1aaded816c029"><td class="memTemplItemLeft" align="right" valign="top">FORCEINLINE OutT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_util.html#a3873b27a49f53e3b7fc1aaded816c029">Convert</a> (const InT &amp;Input, TArgs... Args)</td></tr>
+<tr class="memdesc:a3873b27a49f53e3b7fc1aaded816c029"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map from one type to an another using a constructor + additional arguments. <br /></td></tr>
+<tr class="separator:a3873b27a49f53e3b7fc1aaded816c029"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42beebc21f20dd2ae0fb00e868eb224a"><td class="memTemplParams" colspan="2"><a id="a42beebc21f20dd2ae0fb00e868eb224a"></a>
 template&lt;typename OutT , typename InT &gt; </td></tr>
 <tr class="memitem:a42beebc21f20dd2ae0fb00e868eb224a"><td class="memTemplItemLeft" align="right" valign="top">FORCEINLINE TOptional&lt; OutT &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_util.html#a42beebc21f20dd2ae0fb00e868eb224a">Convert</a> (const TOptional&lt; InT &gt; &amp;Input)</td></tr>
@@ -120,6 +125,11 @@ template&lt;typename OutT , typename InT &gt; </td></tr>
 <tr class="memitem:ada59455932cbafa6f8d8846603f02f09"><td class="memTemplItemLeft" align="right" valign="top">FORCEINLINE TArray&lt; OutT &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_util.html#ada59455932cbafa6f8d8846603f02f09">Convert</a> (const TArray&lt; InT &gt; &amp;Input)</td></tr>
 <tr class="memdesc:ada59455932cbafa6f8d8846603f02f09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map from an array of one type to an array of another using its direct initialization. <br /></td></tr>
 <tr class="separator:ada59455932cbafa6f8d8846603f02f09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c0e0e3021a878c6d9599d79a5208971"><td class="memTemplParams" colspan="2"><a id="a1c0e0e3021a878c6d9599d79a5208971"></a>
+template&lt;typename OutT , typename InT , typename... TArgs&gt; </td></tr>
+<tr class="memitem:a1c0e0e3021a878c6d9599d79a5208971"><td class="memTemplItemLeft" align="right" valign="top">FORCEINLINE TArray&lt; OutT &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_util.html#a1c0e0e3021a878c6d9599d79a5208971">Convert</a> (const TArray&lt; InT &gt; &amp;Input, TArgs... Args)</td></tr>
+<tr class="memdesc:a1c0e0e3021a878c6d9599d79a5208971"><td class="mdescLeft">&#160;</td><td class="mdescRight">Map from an array of one type to an array of another using a constructor and any other arguments. <br /></td></tr>
+<tr class="separator:a1c0e0e3021a878c6d9599d79a5208971"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Helpers for DTO conversion. </p>

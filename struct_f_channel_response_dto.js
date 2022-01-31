@@ -1,5 +1,6 @@
 var struct_f_channel_response_dto =
 [
+    [ "AdditionalFields", "struct_f_channel_response_dto.html#a805fd96db65d1e1cab81f4d23e252958", null ],
     [ "AutoTranslationLanguage", "struct_f_channel_response_dto.html#ab19afd64e7b5fabb2a59be6f62727526", null ],
     [ "bAutoTranslationEnabled", "struct_f_channel_response_dto.html#a04db63f9af490deb9b66315328a72be7", null ],
     [ "bDisabled", "struct_f_channel_response_dto.html#a4dd2c9c9c07387987210436197b82afc", null ],
@@ -14,12 +15,10 @@ var struct_f_channel_response_dto =
     [ "DeletedAt", "struct_f_channel_response_dto.html#af527e1d0bae32d3f6945a274716c5a9d", null ],
     [ "HideMessagesBefore", "struct_f_channel_response_dto.html#affcfb2a44d30992bc04241d80f151c21", null ],
     [ "Id", "struct_f_channel_response_dto.html#aefc90c12bf46740d60be3ead87caf982", null ],
-    [ "Image", "struct_f_channel_response_dto.html#ac652a0a1ab5d33260f9ce9092797429f", null ],
     [ "LastMessageAt", "struct_f_channel_response_dto.html#a69a3ac5a0c316f4f2bd2c48a7e2d8bd5", null ],
     [ "MemberCount", "struct_f_channel_response_dto.html#a2714513279ea7382e16fc78ab3c1c00b", null ],
     [ "Members", "struct_f_channel_response_dto.html#ae660d0a30b008bff69a691c4644980f1", null ],
     [ "MuteExpiresAt", "struct_f_channel_response_dto.html#ab084032cdef730ca70af4721e7a6bd0a", null ],
-    [ "Name", "struct_f_channel_response_dto.html#a34c73524240a724896f8301cf504e967", null ],
     [ "OwnCapabilities", "struct_f_channel_response_dto.html#adb6e23ef5d4c0e7ed20e77e4f55c66d1", null ],
     [ "Team", "struct_f_channel_response_dto.html#ab59e272ddf5f0622b41c56f6ddcc148b", null ],
     [ "Type", "struct_f_channel_response_dto.html#a1bcdfa99b130d95ce575a330f803a35a", null ],

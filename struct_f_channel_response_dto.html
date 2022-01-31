@@ -99,7 +99,7 @@ $(document).ready(function(){initNavTree('struct_f_channel_response_dto.html',''
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a04db63f9af490deb9b66315328a72be7"><td class="memItemLeft" align="right" valign="top"><a id="a04db63f9af490deb9b66315328a72be7"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#a04db63f9af490deb9b66315328a72be7">bAutoTranslationEnabled</a></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#a04db63f9af490deb9b66315328a72be7">bAutoTranslationEnabled</a> = false</td></tr>
 <tr class="memdesc:a04db63f9af490deb9b66315328a72be7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether auto translation is enabled or not. <br /></td></tr>
 <tr class="separator:a04db63f9af490deb9b66315328a72be7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab19afd64e7b5fabb2a59be6f62727526"><td class="memItemLeft" align="right" valign="top"><a id="ab19afd64e7b5fabb2a59be6f62727526"></a>
@@ -115,11 +115,11 @@ FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="s
 <tr class="memdesc:a6ea1d4fb70104bac73d137309121da92"><td class="mdescLeft">&#160;</td><td class="mdescRight">The channel configuration data. <br /></td></tr>
 <tr class="separator:a6ea1d4fb70104bac73d137309121da92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2316c1efcd13b445755e44c6313bfb55"><td class="memItemLeft" align="right" valign="top"><a id="a2316c1efcd13b445755e44c6313bfb55"></a>
-int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#a2316c1efcd13b445755e44c6313bfb55">Cooldown</a></td></tr>
+int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#a2316c1efcd13b445755e44c6313bfb55">Cooldown</a> = -1</td></tr>
 <tr class="memdesc:a2316c1efcd13b445755e44c6313bfb55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cooldown period after sending each message. <br /></td></tr>
 <tr class="separator:a2316c1efcd13b445755e44c6313bfb55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12a71e664e55c74f5be87bec83092d14"><td class="memItemLeft" align="right" valign="top"><a id="a12a71e664e55c74f5be87bec83092d14"></a>
-FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#a12a71e664e55c74f5be87bec83092d14">CreatedAt</a></td></tr>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#a12a71e664e55c74f5be87bec83092d14">CreatedAt</a> = FDateTime{0}</td></tr>
 <tr class="memdesc:a12a71e664e55c74f5be87bec83092d14"><td class="mdescLeft">&#160;</td><td class="mdescRight">The date of channel creation. <br /></td></tr>
 <tr class="separator:a12a71e664e55c74f5be87bec83092d14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad961ad9aeef5e72ba61c97f5f584a999"><td class="memItemLeft" align="right" valign="top"><a id="ad961ad9aeef5e72ba61c97f5f584a999"></a>
@@ -127,22 +127,22 @@ FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 <tr class="memdesc:ad961ad9aeef5e72ba61c97f5f584a999"><td class="mdescLeft">&#160;</td><td class="mdescRight">The user that created this channel. <br /></td></tr>
 <tr class="separator:ad961ad9aeef5e72ba61c97f5f584a999"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af527e1d0bae32d3f6945a274716c5a9d"><td class="memItemLeft" align="right" valign="top"><a id="af527e1d0bae32d3f6945a274716c5a9d"></a>
-FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#af527e1d0bae32d3f6945a274716c5a9d">DeletedAt</a></td></tr>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#af527e1d0bae32d3f6945a274716c5a9d">DeletedAt</a> = FDateTime{0}</td></tr>
 <tr class="memdesc:af527e1d0bae32d3f6945a274716c5a9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The date of channel deletion. <br /></td></tr>
 <tr class="separator:af527e1d0bae32d3f6945a274716c5a9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4dd2c9c9c07387987210436197b82afc"><td class="memItemLeft" align="right" valign="top"><a id="a4dd2c9c9c07387987210436197b82afc"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>bDisabled</b></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>bDisabled</b> = false</td></tr>
 <tr class="separator:a4dd2c9c9c07387987210436197b82afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4bcd6cee8af9e4a6ac707e002810d7d"><td class="memItemLeft" align="right" valign="top"><a id="ab4bcd6cee8af9e4a6ac707e002810d7d"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#ab4bcd6cee8af9e4a6ac707e002810d7d">bFrozen</a></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#ab4bcd6cee8af9e4a6ac707e002810d7d">bFrozen</a> = false</td></tr>
 <tr class="memdesc:ab4bcd6cee8af9e4a6ac707e002810d7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether this channel is frozen or not. <br /></td></tr>
 <tr class="separator:ab4bcd6cee8af9e4a6ac707e002810d7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a973ad9b6a6615208024d2d0102a98bef"><td class="memItemLeft" align="right" valign="top"><a id="a973ad9b6a6615208024d2d0102a98bef"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#a973ad9b6a6615208024d2d0102a98bef">bHidden</a></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#a973ad9b6a6615208024d2d0102a98bef">bHidden</a> = false</td></tr>
 <tr class="memdesc:a973ad9b6a6615208024d2d0102a98bef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether this channel is hidden by current user or not. <br /></td></tr>
 <tr class="separator:a973ad9b6a6615208024d2d0102a98bef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:affcfb2a44d30992bc04241d80f151c21"><td class="memItemLeft" align="right" valign="top"><a id="affcfb2a44d30992bc04241d80f151c21"></a>
-FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#affcfb2a44d30992bc04241d80f151c21">HideMessagesBefore</a></td></tr>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#affcfb2a44d30992bc04241d80f151c21">HideMessagesBefore</a> = FDateTime{0}</td></tr>
 <tr class="memdesc:affcfb2a44d30992bc04241d80f151c21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Date since when the message history is accessible. <br /></td></tr>
 <tr class="separator:affcfb2a44d30992bc04241d80f151c21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aefc90c12bf46740d60be3ead87caf982"><td class="memItemLeft" align="right" valign="top"><a id="aefc90c12bf46740d60be3ead87caf982"></a>
@@ -150,11 +150,11 @@ FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="s
 <tr class="memdesc:aefc90c12bf46740d60be3ead87caf982"><td class="mdescLeft">&#160;</td><td class="mdescRight">The id of this channel. <br /></td></tr>
 <tr class="separator:aefc90c12bf46740d60be3ead87caf982"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69a3ac5a0c316f4f2bd2c48a7e2d8bd5"><td class="memItemLeft" align="right" valign="top"><a id="a69a3ac5a0c316f4f2bd2c48a7e2d8bd5"></a>
-FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#a69a3ac5a0c316f4f2bd2c48a7e2d8bd5">LastMessageAt</a></td></tr>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#a69a3ac5a0c316f4f2bd2c48a7e2d8bd5">LastMessageAt</a> = FDateTime{0}</td></tr>
 <tr class="memdesc:a69a3ac5a0c316f4f2bd2c48a7e2d8bd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The date of the last message. <br /></td></tr>
 <tr class="separator:a69a3ac5a0c316f4f2bd2c48a7e2d8bd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2714513279ea7382e16fc78ab3c1c00b"><td class="memItemLeft" align="right" valign="top"><a id="a2714513279ea7382e16fc78ab3c1c00b"></a>
-int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#a2714513279ea7382e16fc78ab3c1c00b">MemberCount</a></td></tr>
+int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#a2714513279ea7382e16fc78ab3c1c00b">MemberCount</a> = 0</td></tr>
 <tr class="memdesc:a2714513279ea7382e16fc78ab3c1c00b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The count of this channel members. <br /></td></tr>
 <tr class="separator:a2714513279ea7382e16fc78ab3c1c00b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae660d0a30b008bff69a691c4644980f1"><td class="memItemLeft" align="right" valign="top"><a id="ae660d0a30b008bff69a691c4644980f1"></a>
@@ -162,11 +162,11 @@ TArray&lt; <a class="el" href="struct_f_channel_member_dto.html">FChannelMemberD
 <tr class="memdesc:ae660d0a30b008bff69a691c4644980f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of channel members (max 100) <br /></td></tr>
 <tr class="separator:ae660d0a30b008bff69a691c4644980f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab084032cdef730ca70af4721e7a6bd0a"><td class="memItemLeft" align="right" valign="top"><a id="ab084032cdef730ca70af4721e7a6bd0a"></a>
-FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#ab084032cdef730ca70af4721e7a6bd0a">MuteExpiresAt</a></td></tr>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#ab084032cdef730ca70af4721e7a6bd0a">MuteExpiresAt</a> = FDateTime{0}</td></tr>
 <tr class="memdesc:ab084032cdef730ca70af4721e7a6bd0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Date of mute expiration. <br /></td></tr>
 <tr class="separator:ab084032cdef730ca70af4721e7a6bd0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b27bdb8375fa2093b682f03d04167d2"><td class="memItemLeft" align="right" valign="top"><a id="a8b27bdb8375fa2093b682f03d04167d2"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#a8b27bdb8375fa2093b682f03d04167d2">bMuted</a></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#a8b27bdb8375fa2093b682f03d04167d2">bMuted</a> = false</td></tr>
 <tr class="memdesc:a8b27bdb8375fa2093b682f03d04167d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether this channel is muted or not. <br /></td></tr>
 <tr class="separator:a8b27bdb8375fa2093b682f03d04167d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb6e23ef5d4c0e7ed20e77e4f55c66d1"><td class="memItemLeft" align="right" valign="top"><a id="adb6e23ef5d4c0e7ed20e77e4f55c66d1"></a>
@@ -182,15 +182,12 @@ FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="s
 <tr class="memdesc:a1bcdfa99b130d95ce575a330f803a35a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of this channel. <br /></td></tr>
 <tr class="separator:a1bcdfa99b130d95ce575a330f803a35a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a786811ed6f94bf063ae668df96da9fb1"><td class="memItemLeft" align="right" valign="top"><a id="a786811ed6f94bf063ae668df96da9fb1"></a>
-FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#a786811ed6f94bf063ae668df96da9fb1">UpdatedAt</a></td></tr>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_response_dto.html#a786811ed6f94bf063ae668df96da9fb1">UpdatedAt</a> = FDateTime{0}</td></tr>
 <tr class="memdesc:a786811ed6f94bf063ae668df96da9fb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The date of the last channel update. <br /></td></tr>
 <tr class="separator:a786811ed6f94bf063ae668df96da9fb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34c73524240a724896f8301cf504e967"><td class="memItemLeft" align="right" valign="top"><a id="a34c73524240a724896f8301cf504e967"></a>
-FString&#160;</td><td class="memItemRight" valign="bottom"><b>Name</b></td></tr>
-<tr class="separator:a34c73524240a724896f8301cf504e967"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac652a0a1ab5d33260f9ce9092797429f"><td class="memItemLeft" align="right" valign="top"><a id="ac652a0a1ab5d33260f9ce9092797429f"></a>
-FString&#160;</td><td class="memItemRight" valign="bottom"><b>Image</b></td></tr>
-<tr class="separator:ac652a0a1ab5d33260f9ce9092797429f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a805fd96db65d1e1cab81f4d23e252958"><td class="memItemLeft" align="right" valign="top"><a id="a805fd96db65d1e1cab81f4d23e252958"></a>
+FAdditionalFields&#160;</td><td class="memItemRight" valign="bottom"><b>AdditionalFields</b></td></tr>
+<tr class="separator:a805fd96db65d1e1cab81f4d23e252958"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>#/components/schemas/ChannelResponse Represents channel in chat </p>

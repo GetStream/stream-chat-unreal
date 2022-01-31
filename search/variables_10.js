@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['team_897',['Team',['../struct_f_channel_response_dto.html#ab59e272ddf5f0622b41c56f6ddcc148b',1,'FChannelResponseDto::Team()'],['../struct_f_channel_request_dto.html#a2650ccaee9b077567f2c2d87895abdd6',1,'FChannelRequestDto::Team()']]],
-  ['text_898',['Text',['../struct_f_message_request_dto.html#ab24fd104212ec3a5b2263739aa4065b8',1,'FMessageRequestDto::Text()'],['../struct_f_message_dto.html#ab03355da15a7b2cbdfd3e3b536732057',1,'FMessageDto::Text()'],['../struct_f_message.html#ae3268aa0c96ae1b8e21368503000ebda',1,'FMessage::Text()']]],
-  ['threadparticipants_899',['ThreadParticipants',['../struct_f_message_dto.html#a05f05016f6f352963a49153fe427aaad',1,'FMessageDto']]],
-  ['token_900',['token',['../classjwt_1_1decoded__jwt.html#a9f877448c74ce81f72279ebf2c45d4c3',1,'jwt::decoded_jwt']]],
-  ['totalscore_901',['TotalScore',['../struct_f_reaction_group.html#a7da3ed913174d43c9f59e7fcf5835194',1,'FReactionGroup']]],
-  ['type_902',['Type',['../struct_f_reaction_group.html#af442f6d95071418868a78017b1e1206b',1,'FReactionGroup::Type()'],['../struct_f_reaction.html#ada94cc55b4805bb7d68af2e691e7eb11',1,'FReaction::Type()'],['../struct_f_message.html#a8b04a180abfd5a7ee2978798426f7178',1,'FMessage::Type()'],['../struct_f_channel_state.html#a00d8cfd2b2c323e61d310f402693897a',1,'FChannelState::Type()'],['../struct_f_local_event.html#a30ccc0345e12a6a302028584769e1e1d',1,'FLocalEvent::Type()'],['../struct_f_chat_event.html#aff9733dcd2ce4163ecd5a27fee3e8d8d',1,'FChatEvent::Type()'],['../struct_f_reaction_dto.html#af1d7c759248b6bb12e95836cdb53d3b3',1,'FReactionDto::Type()'],['../struct_f_message_dto.html#a23146a584acafa6e7c0439f4351e209e',1,'FMessageDto::Type()'],['../struct_f_event_dto.html#ac675828a3e845f64223826687b7417c2',1,'FEventDto::Type()'],['../struct_f_channel_response_dto.html#a1bcdfa99b130d95ce575a330f803a35a',1,'FChannelResponseDto::Type()'],['../struct_f_reaction_request_dto.html#a191da3fbea78e3e116343424580041f7',1,'FReactionRequestDto::Type()']]]
+  ['score_954',['Score',['../struct_f_reaction_request_dto.html#a8a82e03d33902299f48fcb82963b3d13',1,'FReactionRequestDto::Score()'],['../struct_f_reaction_dto.html#a40017e207f2e7e13bfd13924b0aa1acf',1,'FReactionDto::Score()'],['../struct_f_reaction.html#a17c8d8f9f5bf844b41ef92b8b5ef759c',1,'FReaction::Score()']]],
+  ['signature_955',['signature',['../classjwt_1_1decoded__jwt.html#a029ac1ee047b99ac75265755a3107ccb',1,'jwt::decoded_jwt']]],
+  ['signature_5fbase64_956',['signature_base64',['../classjwt_1_1decoded__jwt.html#a8ccaba87d81df84591da392cb8702f2e',1,'jwt::decoded_jwt']]],
+  ['sort_957',['Sort',['../struct_f_query_channels_request_dto.html#ad3bc9151f4d3c44a2e5c194b54e4d178',1,'FQueryChannelsRequestDto']]],
+  ['state_958',['State',['../class_u_chat_channel.html#ab615cb29d3090b13947e83132c4e0fcd',1,'UChatChannel::State()'],['../struct_f_message.html#af393eb1e750acd7b49b997c7e1b0ab3b',1,'FMessage::State()']]],
+  ['statuscode_959',['StatusCode',['../struct_f_error_response_dto.html#aafe32e1c980d05d7d6321eaeda5cadca',1,'FErrorResponseDto']]]
 ];

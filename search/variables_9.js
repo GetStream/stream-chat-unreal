@@ -1,18 +1,7 @@
 var searchData=
 [
-  ['maxmessagelength_850',['MaxMessageLength',['../struct_f_channel_config.html#acfe8ce287eb5822f04155b1f19342fa6',1,'FChannelConfig::MaxMessageLength()'],['../struct_f_channel_config_with_info_dto.html#aa2bc3d201f463d6fcbc9c6663540b5bc',1,'FChannelConfigWithInfoDto::MaxMessageLength()']]],
-  ['membercount_851',['MemberCount',['../struct_f_channel_response_dto.html#a2714513279ea7382e16fc78ab3c1c00b',1,'FChannelResponseDto']]],
-  ['members_852',['Members',['../struct_f_channel_response_dto.html#ae660d0a30b008bff69a691c4644980f1',1,'FChannelResponseDto::Members()'],['../struct_f_channel_state_response_fields_dto.html#aade08f6425148020e4a6906f4c6524c3',1,'FChannelStateResponseFieldsDto::Members()'],['../struct_f_channel_state.html#ad6f7699e29a53476f1cee100642b9fdf',1,'FChannelState::Members()']]],
-  ['membership_853',['Membership',['../struct_f_channel_state_response_fields_dto.html#a05367b531eef390914364df0f42d5bc3',1,'FChannelStateResponseFieldsDto']]],
-  ['mentionedusers_854',['MentionedUsers',['../struct_f_message_dto.html#a3029015ca8796ddc74db3163b1ab1f8b',1,'FMessageDto::MentionedUsers()'],['../struct_f_message.html#af6f004b3f8981291856ca34b74b57121',1,'FMessage::MentionedUsers()']]],
-  ['message_855',['Message',['../struct_f_send_message_request_dto.html#ae6135998edc718d07e530e7613d54142',1,'FSendMessageRequestDto::Message()'],['../struct_f_update_message_request_dto.html#a612cb7398288222720cf5a575c2a8312',1,'FUpdateMessageRequestDto::Message()'],['../struct_f_error_response_dto.html#a0319a7412e1281187789840ea2a74ec7',1,'FErrorResponseDto::Message()'],['../struct_f_search_result_dto.html#a08af9db68dccfcea7241434ddcbb6d73',1,'FSearchResultDto::Message()']]],
-  ['messageid_856',['MessageId',['../struct_f_reaction_request_dto.html#a3943076267a1a7b9ba02ac951ea0929b',1,'FReactionRequestDto::MessageId()'],['../struct_f_reaction.html#aed5d244bc9019cede9664e3151873bc3',1,'FReaction::MessageId()'],['../struct_f_reaction_dto.html#aa7bda7f33579bc13a3c659e31c801604',1,'FReactionDto::MessageId()']]],
-  ['messagereceived_857',['MessageReceived',['../class_u_chat_channel.html#a0f426d966a9351d06905cbdf0e374914',1,'UChatChannel']]],
-  ['messageretention_858',['MessageRetention',['../struct_f_channel_config_with_info_dto.html#a7c6875783308811707f5438e759ad099',1,'FChannelConfigWithInfoDto::MessageRetention()'],['../struct_f_channel_config.html#a4552dfcd59a17310bc6f04770e5730b8',1,'FChannelConfig::MessageRetention()']]],
-  ['messages_859',['Messages',['../struct_f_channel_state_response_fields_dto.html#a95ccb123f3ed5887d6936c9523f032c4',1,'FChannelStateResponseFieldsDto']]],
-  ['messagesent_860',['MessageSent',['../class_u_chat_channel.html#a337613796335627050f7645c0b1d7823',1,'UChatChannel']]],
-  ['messagesupdated_861',['MessagesUpdated',['../class_u_chat_channel.html#a7eee9c31542dec3a10bc033af1de4c75',1,'UChatChannel']]],
-  ['mml_862',['Mml',['../struct_f_message_request_dto.html#aaaffb243ad1068d68462da12c25d28c9',1,'FMessageRequestDto::Mml()'],['../struct_f_message_dto.html#a7a1eead86619a84881840f70cabe9ea7',1,'FMessageDto::Mml()']]],
-  ['moreinfo_863',['MoreInfo',['../struct_f_error_response_dto.html#a984f93721b5a17bc2d3133d8126bc810',1,'FErrorResponseDto']]],
-  ['muteexpiresat_864',['MuteExpiresAt',['../struct_f_channel_response_dto.html#ab084032cdef730ca70af4721e7a6bd0a',1,'FChannelResponseDto']]]
+  ['lastactive_907',['LastActive',['../struct_f_own_user_dto.html#a6e7489704b99675256d6cf72b07aad8e',1,'FOwnUserDto::LastActive()'],['../struct_f_user_object_dto.html#a48f70bbeae9663fcd229b04e33f8b0d6',1,'FUserObjectDto::LastActive()'],['../struct_f_user.html#a434112e6a7a328b26a6937018bde5c34',1,'FUser::LastActive()']]],
+  ['lastmessageat_908',['LastMessageAt',['../struct_f_channel_response_dto.html#a69a3ac5a0c316f4f2bd2c48a7e2d8bd5',1,'FChannelResponseDto::LastMessageAt()'],['../struct_f_channel_properties.html#a67a3101fb4b8e7b66113bded70335d16',1,'FChannelProperties::LastMessageAt()']]],
+  ['latestreactions_909',['LatestReactions',['../struct_f_message_dto.html#a8113f65457346f85e2cde5158b0e7183',1,'FMessageDto::LatestReactions()'],['../struct_f_reaction_group.html#a8e1dc034c0c1401a8cae04993ea638ad',1,'FReactionGroup::LatestReactions()']]],
+  ['limit_910',['Limit',['../struct_f_channel_pagination_options.html#a48dd49833c62f90a5c37fedd6f5b1c52',1,'FChannelPaginationOptions']]]
 ];

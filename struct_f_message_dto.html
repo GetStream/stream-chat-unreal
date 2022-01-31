@@ -123,7 +123,7 @@ FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="s
 <tr class="memdesc:ae091ffcdc7ef628f191ce7de4d68e6dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains provided slash command. <br /></td></tr>
 <tr class="separator:ae091ffcdc7ef628f191ce7de4d68e6dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a247fc682a7a7a24dd6376ed9d7af9c72"><td class="memItemLeft" align="right" valign="top"><a id="a247fc682a7a7a24dd6376ed9d7af9c72"></a>
-FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#a247fc682a7a7a24dd6376ed9d7af9c72">CreatedAt</a></td></tr>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#a247fc682a7a7a24dd6376ed9d7af9c72">CreatedAt</a> = FDateTime{0}</td></tr>
 <tr class="memdesc:a247fc682a7a7a24dd6376ed9d7af9c72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Date/time of creation. <br /></td></tr>
 <tr class="separator:a247fc682a7a7a24dd6376ed9d7af9c72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8c4a2805f662c12a7e09d0ee3e00d1d"><td class="memItemLeft" align="right" valign="top"><a id="ab8c4a2805f662c12a7e09d0ee3e00d1d"></a>
@@ -153,14 +153,14 @@ TArray&lt; <a class="el" href="struct_f_reaction_dto.html">FReactionDto</a> &gt;
 FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#a5120b8310d00c61c30d05b848764b259">ParentId</a></td></tr>
 <tr class="memdesc:a5120b8310d00c61c30d05b848764b259"><td class="mdescLeft">&#160;</td><td class="mdescRight">The ID of the parent message, if the message is a thread reply. <br /></td></tr>
 <tr class="separator:a5120b8310d00c61c30d05b848764b259"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae96097caea9a3ed132366c1bce3410c7"><td class="memItemLeft" align="right" valign="top">FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#ae96097caea9a3ed132366c1bce3410c7">PinExpires</a></td></tr>
+<tr class="memitem:ae96097caea9a3ed132366c1bce3410c7"><td class="memItemLeft" align="right" valign="top">FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#ae96097caea9a3ed132366c1bce3410c7">PinExpires</a> = FDateTime{0}</td></tr>
 <tr class="separator:ae96097caea9a3ed132366c1bce3410c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1bb973eefdd96e99c2280c183beb8283"><td class="memItemLeft" align="right" valign="top"><a id="a1bb973eefdd96e99c2280c183beb8283"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#a1bb973eefdd96e99c2280c183beb8283">bPinned</a></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#a1bb973eefdd96e99c2280c183beb8283">bPinned</a> = false</td></tr>
 <tr class="memdesc:a1bb973eefdd96e99c2280c183beb8283"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true the message is pinned. <br /></td></tr>
 <tr class="separator:a1bb973eefdd96e99c2280c183beb8283"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c963cad79d30e7c78680264504b610e"><td class="memItemLeft" align="right" valign="top"><a id="a7c963cad79d30e7c78680264504b610e"></a>
-FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#a7c963cad79d30e7c78680264504b610e">PinnedAt</a></td></tr>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#a7c963cad79d30e7c78680264504b610e">PinnedAt</a> = FDateTime{0}</td></tr>
 <tr class="memdesc:a7c963cad79d30e7c78680264504b610e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserved field indicating when the message was pinned. <br /></td></tr>
 <tr class="separator:a7c963cad79d30e7c78680264504b610e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a03b589d76fad8b5693cc016a4d5be0"><td class="memItemLeft" align="right" valign="top"><a id="a8a03b589d76fad8b5693cc016a4d5be0"></a>
@@ -179,19 +179,19 @@ TMap&lt; FName, int32 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a
 <tr class="memdesc:a6df0e4eab86c1a6d6dcd46c78ad6b85f"><td class="mdescLeft">&#160;</td><td class="mdescRight">A map describing the count of score of every reaction. <br /></td></tr>
 <tr class="separator:a6df0e4eab86c1a6d6dcd46c78ad6b85f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aabc995a1be48612d30c05572b297323a"><td class="memItemLeft" align="right" valign="top"><a id="aabc995a1be48612d30c05572b297323a"></a>
-uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#aabc995a1be48612d30c05572b297323a">ReplyCount</a></td></tr>
+uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#aabc995a1be48612d30c05572b297323a">ReplyCount</a> = 0</td></tr>
 <tr class="memdesc:aabc995a1be48612d30c05572b297323a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserved field indicating the number of replies for this message. <br /></td></tr>
 <tr class="separator:aabc995a1be48612d30c05572b297323a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38e6cb0b680005a5f3862d28188ce87e"><td class="memItemLeft" align="right" valign="top"><a id="a38e6cb0b680005a5f3862d28188ce87e"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#a38e6cb0b680005a5f3862d28188ce87e">bShadowed</a></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#a38e6cb0b680005a5f3862d28188ce87e">bShadowed</a> = false</td></tr>
 <tr class="memdesc:a38e6cb0b680005a5f3862d28188ce87e"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true the message is shadowed. <br /></td></tr>
 <tr class="separator:a38e6cb0b680005a5f3862d28188ce87e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acec263cb4e373dcd190bd79bd3e9ac6c"><td class="memItemLeft" align="right" valign="top"><a id="acec263cb4e373dcd190bd79bd3e9ac6c"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#acec263cb4e373dcd190bd79bd3e9ac6c">bShowInChannel</a></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#acec263cb4e373dcd190bd79bd3e9ac6c">bShowInChannel</a> = false</td></tr>
 <tr class="memdesc:acec263cb4e373dcd190bd79bd3e9ac6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether thread reply should be shown in the channel as well. <br /></td></tr>
 <tr class="separator:acec263cb4e373dcd190bd79bd3e9ac6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ddb89aa16bea4ecca7b829809050510"><td class="memItemLeft" align="right" valign="top"><a id="a8ddb89aa16bea4ecca7b829809050510"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#a8ddb89aa16bea4ecca7b829809050510">bSilent</a></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#a8ddb89aa16bea4ecca7b829809050510">bSilent</a> = false</td></tr>
 <tr class="memdesc:a8ddb89aa16bea4ecca7b829809050510"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true the message is silent. <br /></td></tr>
 <tr class="separator:a8ddb89aa16bea4ecca7b829809050510"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab03355da15a7b2cbdfd3e3b536732057"><td class="memItemLeft" align="right" valign="top"><a id="ab03355da15a7b2cbdfd3e3b536732057"></a>
@@ -207,7 +207,7 @@ TArray&lt; <a class="el" href="struct_f_user_object_dto.html">FUserObjectDto</a>
 <tr class="memdesc:a23146a584acafa6e7c0439f4351e209e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The message type. <br /></td></tr>
 <tr class="separator:a23146a584acafa6e7c0439f4351e209e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb10ccf5d7f6acaf5c51ca1b871041cf"><td class="memItemLeft" align="right" valign="top"><a id="acb10ccf5d7f6acaf5c51ca1b871041cf"></a>
-FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#acb10ccf5d7f6acaf5c51ca1b871041cf">UpdatedAt</a></td></tr>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#acb10ccf5d7f6acaf5c51ca1b871041cf">UpdatedAt</a> = FDateTime{0}</td></tr>
 <tr class="memdesc:acb10ccf5d7f6acaf5c51ca1b871041cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserved field indicating when the message was updated last time. <br /></td></tr>
 <tr class="separator:acb10ccf5d7f6acaf5c51ca1b871041cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c9a2ceefd25b236244a26d2e2d92a23"><td class="memItemLeft" align="right" valign="top"><a id="a1c9a2ceefd25b236244a26d2e2d92a23"></a>
@@ -275,7 +275,7 @@ FAdditionalFields&#160;</td><td class="memItemRight" valign="bottom"><b>Addition
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">FDateTime FMessageDto::PinExpires</td>
+          <td class="memname">FDateTime FMessageDto::PinExpires = FDateTime{0}</td>
         </tr>
       </table>
 </div><div class="memdoc">

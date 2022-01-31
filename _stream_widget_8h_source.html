@@ -111,40 +111,52 @@ $(document).ready(function(){initNavTree('_stream_widget_8h_source.html',''); in
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;protected:</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = &quot;On Theme&quot;))</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">void</span> OnTheme_BP(const UThemeDataAsset* Theme);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = &quot;On Channel&quot;))</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">void</span> OnChannel_BP();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    UPROPERTY(EditDefaultsOnly, Category = Defaults)</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">bool</span> bWantsTheme = false;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = &quot;On Client&quot;))</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">void</span> OnClient_BP();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = &quot;On Channel&quot;))</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> OnChannel_BP();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    UPROPERTY(EditDefaultsOnly, Category = Defaults)</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">bool</span> bWantsChannel = false;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    UPROPERTY(BlueprintReadOnly, Transient, Category = Stream)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="class_u_channel_context_widget.html">UChannelContextWidget</a>* ChannelContext;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    UPROPERTY(BlueprintReadOnly, Transient, Category = Stream)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="class_u_chat_channel.html">UChatChannel</a>* Channel;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;private:</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    virtual <span class="keywordtype">bool</span> Initialize() override;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="comment">// Don&#39;t allow (pre)construction. This should all be done in OnSetup()</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    virtual <span class="keywordtype">void</span> NativeConstruct() override final;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    virtual <span class="keywordtype">void</span> NativePreConstruct() override final;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    virtual <span class="keywordtype">void</span> OnSetup()</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">bool</span> bWantsTheme = false;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    UPROPERTY(EditDefaultsOnly, Category = Defaults)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">bool</span> bWantsClient = false;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    UPROPERTY(EditDefaultsOnly, Category = Defaults)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">bool</span> bWantsChannel = false;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    UPROPERTY(EditDefaultsOnly, Category = Defaults)</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">bool</span> bAutoSetup = false;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    UPROPERTY(BlueprintReadOnly, Transient, Category = Stream)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="class_u_stream_chat_client_component.html">UStreamChatClientComponent</a>* Client;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    UPROPERTY(BlueprintReadOnly, Transient, Category = Stream)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="class_u_channel_context_widget.html">UChannelContextWidget</a>* ChannelContext;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    UPROPERTY(BlueprintReadOnly, Transient, Category = Stream)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="class_u_chat_channel.html">UChatChannel</a>* Channel;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;private:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    virtual <span class="keywordtype">bool</span> Initialize() override;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTheme(<span class="keyword">const</span> UThemeDataAsset*)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnChannel()</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    {</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;};</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="comment">// Don&#39;t allow (pre)construction. This should all be done in OnSetup()</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    virtual <span class="keywordtype">void</span> NativeConstruct() override final;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    virtual <span class="keywordtype">void</span> NativePreConstruct() override final;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    virtual <span class="keywordtype">void</span> OnSetup()</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    }</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnTheme(<span class="keyword">const</span> UThemeDataAsset*)</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    }</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnClient()</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnChannel()</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    }</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;};</div>
 <div class="ttc" id="aclass_u_channel_context_widget_html"><div class="ttname"><a href="class_u_channel_context_widget.html">UChannelContextWidget</a></div><div class="ttdoc">Provide a reference to a UChatChannel to child widgets.</div><div class="ttdef"><b>Definition:</b> ChannelContextWidget.h:23</div></div>
-<div class="ttc" id="aclass_u_chat_channel_html"><div class="ttname"><a href="class_u_chat_channel.html">UChatChannel</a></div><div class="ttdoc">The client-side representation of a Stream Chat channel.</div><div class="ttdef"><b>Definition:</b> ChatChannel.h:64</div></div>
+<div class="ttc" id="aclass_u_chat_channel_html"><div class="ttname"><a href="class_u_chat_channel.html">UChatChannel</a></div><div class="ttdoc">The client-side representation of a Stream Chat channel.</div><div class="ttdef"><b>Definition:</b> ChatChannel.h:71</div></div>
+<div class="ttc" id="aclass_u_stream_chat_client_component_html"><div class="ttname"><a href="class_u_stream_chat_client_component.html">UStreamChatClientComponent</a></div><div class="ttdoc">A component which allows for connecting to the Stream Chat API. Should be added to a client-side acto...</div><div class="ttdef"><b>Definition:</b> StreamChatClientComponent.h:37</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

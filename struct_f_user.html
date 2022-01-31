@@ -111,10 +111,10 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_user.html#a3db093158b56bcbfd517b867e9d9a7ea">FUser</a> (const <a class="el" href="struct_f_user_object_dto.html">FUserObjectDto</a> &amp;)</td></tr>
 <tr class="memdesc:a3db093158b56bcbfd517b867e9d9a7ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert from UserObject. <br /></td></tr>
 <tr class="separator:a3db093158b56bcbfd517b867e9d9a7ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5f276d46b3692ebac3b30267e293d5e"><td class="memItemLeft" align="right" valign="top"><a id="ac5f276d46b3692ebac3b30267e293d5e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_user.html#ac5f276d46b3692ebac3b30267e293d5e">FUser</a> (const <a class="el" href="struct_f_own_user_dto.html">FOwnUserDto</a> &amp;)</td></tr>
-<tr class="memdesc:ac5f276d46b3692ebac3b30267e293d5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert from OwnUser. <br /></td></tr>
-<tr class="separator:ac5f276d46b3692ebac3b30267e293d5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d9bd51bd66f8e6ddecb0b50d773ec87"><td class="memItemLeft" align="right" valign="top"><a id="a3d9bd51bd66f8e6ddecb0b50d773ec87"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_user.html#a3d9bd51bd66f8e6ddecb0b50d773ec87">FUser</a> (const <a class="el" href="struct_f_own_user_dto.html">FOwnUserDto</a> &amp;, UUserManager *)</td></tr>
+<tr class="memdesc:a3d9bd51bd66f8e6ddecb0b50d773ec87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert from OwnUser. <br /></td></tr>
+<tr class="separator:a3d9bd51bd66f8e6ddecb0b50d773ec87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:affad061d1c703dc73c3a52cbe9dff52d"><td class="memItemLeft" align="right" valign="top"><a id="affad061d1c703dc73c3a52cbe9dff52d"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_user.html#affad061d1c703dc73c3a52cbe9dff52d">operator FUserObjectDto</a> () const</td></tr>
 <tr class="memdesc:affad061d1c703dc73c3a52cbe9dff52d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert to UserObject. <br /></td></tr>
@@ -150,6 +150,16 @@ FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href=
 FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_user.html#a434112e6a7a328b26a6937018bde5c34">LastActive</a> = FDateTime{0}</td></tr>
 <tr class="memdesc:a434112e6a7a328b26a6937018bde5c34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Date of last activity. <br /></td></tr>
 <tr class="separator:a434112e6a7a328b26a6937018bde5c34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbdf3cfb6fe413fe8ffbb830944bf2f9"><td class="memItemLeft" align="right" valign="top"><a id="adbdf3cfb6fe413fe8ffbb830944bf2f9"></a>
+int32&#160;</td><td class="memItemRight" valign="bottom"><b>TotalUnreadCount</b> = 0</td></tr>
+<tr class="separator:adbdf3cfb6fe413fe8ffbb830944bf2f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9eff7e0a96e7e68f3620c6d51a021609"><td class="memItemLeft" align="right" valign="top"><a id="a9eff7e0a96e7e68f3620c6d51a021609"></a>
+int32&#160;</td><td class="memItemRight" valign="bottom"><b>UnreadChannels</b> = 0</td></tr>
+<tr class="separator:a9eff7e0a96e7e68f3620c6d51a021609"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13d93a7637fd041be3404cd83b4410ef"><td class="memItemLeft" align="right" valign="top"><a id="a13d93a7637fd041be3404cd83b4410ef"></a>
+TArray&lt; FMutedUser &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_user.html#a13d93a7637fd041be3404cd83b4410ef">MutedUsers</a></td></tr>
+<tr class="memdesc:a13d93a7637fd041be3404cd83b4410ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Only populated for current user. <br /></td></tr>
+<tr class="separator:a13d93a7637fd041be3404cd83b4410ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93c3bd7ac953ce1bf092845e7fb43422"><td class="memItemLeft" align="right" valign="top"><a id="a93c3bd7ac953ce1bf092845e7fb43422"></a>
 FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_user.html#a93c3bd7ac953ce1bf092845e7fb43422">Name</a></td></tr>
 <tr class="memdesc:a93c3bd7ac953ce1bf092845e7fb43422"><td class="mdescLeft">&#160;</td><td class="mdescRight">The human-readable name of the user. <br /></td></tr>

@@ -103,79 +103,49 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_state.html#ae31619e08147a700841325ab17e04b1f">FChannelState</a> ()</td></tr>
 <tr class="memdesc:ae31619e08147a700841325ab17e04b1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Needed by USTRUCT system. Shouldn't be used directly. <br /></td></tr>
 <tr class="separator:ae31619e08147a700841325ab17e04b1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a702cd936e4a0d738bf1d39c24cbf1fb1"><td class="memItemLeft" align="right" valign="top"><a id="a702cd936e4a0d738bf1d39c24cbf1fb1"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_state.html#a702cd936e4a0d738bf1d39c24cbf1fb1">FChannelState</a> (const <a class="el" href="struct_f_channel_state_response_fields_dto.html">FChannelStateResponseFieldsDto</a> &amp;, UUserManager &amp;)</td></tr>
-<tr class="memdesc:a702cd936e4a0d738bf1d39c24cbf1fb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a channel state from a DTO from the API. <br /></td></tr>
-<tr class="separator:a702cd936e4a0d738bf1d39c24cbf1fb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ecc72832b9b850fb4944f2421336251"><td class="memItemLeft" align="right" valign="top"><a id="a9ecc72832b9b850fb4944f2421336251"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_state.html#a9ecc72832b9b850fb4944f2421336251">Merge</a> (const <a class="el" href="struct_f_channel_state_response_fields_dto.html">FChannelStateResponseFieldsDto</a> &amp;, UUserManager &amp;)</td></tr>
-<tr class="memdesc:a9ecc72832b9b850fb4944f2421336251"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merge new information from the API into this state. <br /></td></tr>
-<tr class="separator:a9ecc72832b9b850fb4944f2421336251"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb9757a317896b956350210536ffe9e5"><td class="memItemLeft" align="right" valign="top"><a id="acb9757a317896b956350210536ffe9e5"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_state.html#acb9757a317896b956350210536ffe9e5">FChannelState</a> (const <a class="el" href="struct_f_channel_state_response_fields_dto.html">FChannelStateResponseFieldsDto</a> &amp;, UUserManager *)</td></tr>
+<tr class="memdesc:acb9757a317896b956350210536ffe9e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a channel state from a DTO from the API. <br /></td></tr>
+<tr class="separator:acb9757a317896b956350210536ffe9e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ea3db97ae2b64801848d07a0671c9b3"><td class="memItemLeft" align="right" valign="top"><a id="a5ea3db97ae2b64801848d07a0671c9b3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_state.html#a5ea3db97ae2b64801848d07a0671c9b3">Append</a> (const <a class="el" href="struct_f_channel_state_response_fields_dto.html">FChannelStateResponseFieldsDto</a> &amp;, UUserManager *)</td></tr>
+<tr class="memdesc:a5ea3db97ae2b64801848d07a0671c9b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merge new information from the API into this state. <br /></td></tr>
+<tr class="separator:a5ea3db97ae2b64801848d07a0671c9b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a591082f72ff629a497d40ab526c79145"><td class="memItemLeft" align="right" valign="top"><a id="a591082f72ff629a497d40ab526c79145"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_state.html#a591082f72ff629a497d40ab526c79145">AddMessage</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;)</td></tr>
 <tr class="memdesc:a591082f72ff629a497d40ab526c79145"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locally add a message to this channel. <br /></td></tr>
 <tr class="separator:a591082f72ff629a497d40ab526c79145"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04fb577af6926071b31136b3816bfbe9"><td class="memItemLeft" align="right" valign="top"><a id="a04fb577af6926071b31136b3816bfbe9"></a>
-TArray&lt; <a class="el" href="struct_f_user_ref.html">FUserRef</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_state.html#a04fb577af6926071b31136b3816bfbe9">GetOtherMemberUsers</a> () const</td></tr>
-<tr class="memdesc:a04fb577af6926071b31136b3816bfbe9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get user information of channel members other than the currently logged-in user. <br /></td></tr>
-<tr class="separator:a04fb577af6926071b31136b3816bfbe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae81913aaa5b79bc052087b1969040870"><td class="memItemLeft" align="right" valign="top"><a id="ae81913aaa5b79bc052087b1969040870"></a>
 const TArray&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_state.html#ae81913aaa5b79bc052087b1969040870">GetMessages</a> () const</td></tr>
 <tr class="memdesc:ae81913aaa5b79bc052087b1969040870"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get all the messages of this channel. <br /></td></tr>
 <tr class="separator:ae81913aaa5b79bc052087b1969040870"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d408ab5707b05c780eb937cd965e43c"><td class="memItemLeft" align="right" valign="top"><a id="a4d408ab5707b05c780eb937cd965e43c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_state.html#a4d408ab5707b05c780eb937cd965e43c">IsMessageRead</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;) const</td></tr>
+<tr class="memdesc:a4d408ab5707b05c780eb937cd965e43c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Has message been read by everyone else? <br /></td></tr>
+<tr class="separator:a4d408ab5707b05c780eb937cd965e43c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0930d73fd962d4e4c109fb41cdef4624"><td class="memItemLeft" align="right" valign="top"><a id="a0930d73fd962d4e4c109fb41cdef4624"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_state.html#a0930d73fd962d4e4c109fb41cdef4624">MarkRead</a> ()</td></tr>
+<tr class="memdesc:a0930d73fd962d4e4c109fb41cdef4624"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark all messages in this channel as read by the current user. <br /></td></tr>
+<tr class="separator:a0930d73fd962d4e4c109fb41cdef4624"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa144fa0ffa10af7f750c79fb8eb96d7e"><td class="memItemLeft" align="right" valign="top"><a id="aa144fa0ffa10af7f750c79fb8eb96d7e"></a>
+int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_state.html#aa144fa0ffa10af7f750c79fb8eb96d7e">UnreadCount</a> () const</td></tr>
+<tr class="memdesc:aa144fa0ffa10af7f750c79fb8eb96d7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the count of unread messages for the current user in this channel. <br /></td></tr>
+<tr class="separator:aa144fa0ffa10af7f750c79fb8eb96d7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a00d8cfd2b2c323e61d310f402693897a"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_state.html#a00d8cfd2b2c323e61d310f402693897a">Type</a></td></tr>
-<tr class="separator:a00d8cfd2b2c323e61d310f402693897a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae833a4a885065e7427999fdad28a20b2"><td class="memItemLeft" align="right" valign="top"><a id="ae833a4a885065e7427999fdad28a20b2"></a>
-FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_state.html#ae833a4a885065e7427999fdad28a20b2">Id</a></td></tr>
-<tr class="memdesc:ae833a4a885065e7427999fdad28a20b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">An identifier for this channel. Not globally unique. A subset of the Cid. <br /></td></tr>
-<tr class="separator:ae833a4a885065e7427999fdad28a20b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6f7699e29a53476f1cee100642b9fdf"><td class="memItemLeft" align="right" valign="top"><a id="ad6f7699e29a53476f1cee100642b9fdf"></a>
-TArray&lt; <a class="el" href="struct_f_member.html">FMember</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_state.html#ad6f7699e29a53476f1cee100642b9fdf">Members</a></td></tr>
-<tr class="memdesc:ad6f7699e29a53476f1cee100642b9fdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">The members of this channel. <br /></td></tr>
-<tr class="separator:ad6f7699e29a53476f1cee100642b9fdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34e0b02f014506dd82c4290bfa369dad"><td class="memItemLeft" align="right" valign="top"><a id="a34e0b02f014506dd82c4290bfa369dad"></a>
-int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_state.html#a34e0b02f014506dd82c4290bfa369dad">WatcherCount</a></td></tr>
+int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_state.html#a34e0b02f014506dd82c4290bfa369dad">WatcherCount</a> = 0</td></tr>
 <tr class="memdesc:a34e0b02f014506dd82c4290bfa369dad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of channel watchers. <br /></td></tr>
 <tr class="separator:a34e0b02f014506dd82c4290bfa369dad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a650e3e80f253ac532da9bb95e9e4eb02"><td class="memItemLeft" align="right" valign="top"><a id="a650e3e80f253ac532da9bb95e9e4eb02"></a>
-FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_state.html#a650e3e80f253ac532da9bb95e9e4eb02">Name</a></td></tr>
-<tr class="memdesc:a650e3e80f253ac532da9bb95e9e4eb02"><td class="mdescLeft">&#160;</td><td class="mdescRight">The human-readable name of this channel. <br /></td></tr>
-<tr class="separator:a650e3e80f253ac532da9bb95e9e4eb02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade5dbc7dc5924d890563a11de57ea0bf"><td class="memItemLeft" align="right" valign="top"><a id="ade5dbc7dc5924d890563a11de57ea0bf"></a>
-FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_state.html#ade5dbc7dc5924d890563a11de57ea0bf">ImageUrl</a></td></tr>
-<tr class="memdesc:ade5dbc7dc5924d890563a11de57ea0bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">The URL of an image to show as the "profile-picture" of this channel. <br /></td></tr>
-<tr class="separator:ade5dbc7dc5924d890563a11de57ea0bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae41a4c7c19a41dee3eef480e77bc1195"><td class="memItemLeft" align="right" valign="top"><a id="ae41a4c7c19a41dee3eef480e77bc1195"></a>
-FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_state.html#ae41a4c7c19a41dee3eef480e77bc1195">Cid</a></td></tr>
-<tr class="memdesc:ae41a4c7c19a41dee3eef480e77bc1195"><td class="mdescLeft">&#160;</td><td class="mdescRight">The cid of this channel. <br /></td></tr>
-<tr class="separator:ae41a4c7c19a41dee3eef480e77bc1195"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64bc75377527ed41bebe32a2c34df044"><td class="memItemLeft" align="right" valign="top"><a id="a64bc75377527ed41bebe32a2c34df044"></a>
-<a class="el" href="struct_f_channel_config.html">FChannelConfig</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_state.html#a64bc75377527ed41bebe32a2c34df044">Config</a></td></tr>
-<tr class="memdesc:a64bc75377527ed41bebe32a2c34df044"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configuration of the channel (usually set via the dashboard) <br /></td></tr>
-<tr class="separator:a64bc75377527ed41bebe32a2c34df044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7eb3c589b1a6d6f35541df633ec8245d"><td class="memItemLeft" align="right" valign="top"><a id="a7eb3c589b1a6d6f35541df633ec8245d"></a>
+TArray&lt; <a class="el" href="struct_f_read.html">FRead</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_state.html#a7eb3c589b1a6d6f35541df633ec8245d">Read</a></td></tr>
+<tr class="memdesc:a7eb3c589b1a6d6f35541df633ec8245d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The read states of each user in this channel. <br /></td></tr>
+<tr class="separator:a7eb3c589b1a6d6f35541df633ec8245d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Encapsulates the local state of a channel. </p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a00d8cfd2b2c323e61d310f402693897a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00d8cfd2b2c323e61d310f402693897a">&#9670;&nbsp;</a></span>Type</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">FString FChannelState::Type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Type of channel, either built-in or custom </p><dl class="section see"><dt>See also</dt><dd><a href="https://getstream.io/chat/docs/other-rest/channel_features/">https://getstream.io/chat/docs/other-rest/channel_features/</a> </dd></dl>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
+</div><hr/>The documentation for this struct was generated from the following files:<ul>
 <li>Source/StreamChat/Public/Channel/<a class="el" href="_channel_state_8h_source.html">ChannelState.h</a></li>
 <li>Source/StreamChat/Private/Channel/ChannelState.cpp</li>
 </ul>

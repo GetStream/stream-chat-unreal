@@ -100,15 +100,18 @@ $(document).ready(function(){initNavTree('class_u_user_blueprint_library.html','
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a8186de45a6e57e7fc07621cc07f4d76f"><td class="memItemLeft" align="right" valign="top">static FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_user_blueprint_library.html#a8186de45a6e57e7fc07621cc07f4d76f">GenerateUserId</a> (const FString &amp;Name)</td></tr>
-<tr class="memdesc:a8186de45a6e57e7fc07621cc07f4d76f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generated a valid user ID from a human-readable name.  <a href="class_u_user_blueprint_library.html#a8186de45a6e57e7fc07621cc07f4d76f">More...</a><br /></td></tr>
-<tr class="separator:a8186de45a6e57e7fc07621cc07f4d76f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5b091487fa7372d7858b6bf1ff1a070"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_user_blueprint_library.html#ae5b091487fa7372d7858b6bf1ff1a070">GenerateUserId</a> (const FString &amp;Name, FString &amp;OutUserId)</td></tr>
+<tr class="memdesc:ae5b091487fa7372d7858b6bf1ff1a070"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a valid user ID from a human-readable name.  <a href="class_u_user_blueprint_library.html#ae5b091487fa7372d7858b6bf1ff1a070">More...</a><br /></td></tr>
+<tr class="separator:ae5b091487fa7372d7858b6bf1ff1a070"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acaf4b4354842911acf491c163f80280e"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_user_blueprint_library.html#acaf4b4354842911acf491c163f80280e">SanitizeName</a> (const FString &amp;Name, FString &amp;SanitizedName)</td></tr>
+<tr class="memdesc:acaf4b4354842911acf491c163f80280e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ensure a human readable user name is valid by removing bad characters.  <a href="class_u_user_blueprint_library.html#acaf4b4354842911acf491c163f80280e">More...</a><br /></td></tr>
+<tr class="separator:acaf4b4354842911acf491c163f80280e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Blueprint functions for the User struct. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8186de45a6e57e7fc07621cc07f4d76f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8186de45a6e57e7fc07621cc07f4d76f">&#9670;&nbsp;</a></span>GenerateUserId()</h2>
+<a id="ae5b091487fa7372d7858b6bf1ff1a070"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5b091487fa7372d7858b6bf1ff1a070">&#9670;&nbsp;</a></span>GenerateUserId()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -117,11 +120,21 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">FString UUserBlueprintLibrary::GenerateUserId </td>
+          <td class="memname">bool UUserBlueprintLibrary::GenerateUserId </td>
           <td>(</td>
           <td class="paramtype">const FString &amp;&#160;</td>
-          <td class="paramname"><em>Name</em></td><td>)</td>
+          <td class="paramname"><em>Name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">FString &amp;&#160;</td>
+          <td class="paramname"><em>OutUserId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -131,14 +144,59 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Generated a valid user ID from a human-readable name. </p>
+<p>Generate a valid user ID from a human-readable name. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">Name</td><td>User's human-readable name </td></tr>
+    <tr><td class="paramname">OutUserId</td><td>A valid UserId, with all disallowed characters replaced with '_' </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A valid UserId, with all disallowed characters replaced with '_' </dd></dl>
+
+</div>
+</div>
+<a id="acaf4b4354842911acf491c163f80280e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acaf4b4354842911acf491c163f80280e">&#9670;&nbsp;</a></span>SanitizeName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool UUserBlueprintLibrary::SanitizeName </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>Name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FString &amp;&#160;</td>
+          <td class="paramname"><em>SanitizedName</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Ensure a human readable user name is valid by removing bad characters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Name</td><td>User's human-readable name </td></tr>
+    <tr><td class="paramname">SanitizedName</td><td>A valid user name </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

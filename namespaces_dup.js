@@ -48,11 +48,11 @@ var namespaces_dup =
       [ "UEnumToString", "namespace_json_object_serialization.html#ab2314eaf58d04fedeca0de655bb8d965", null ],
       [ "UStructToJsonAttributes", "namespace_json_object_serialization.html#ac6ece5ebd6cb1cada8e3b949cdffbc31", null ]
     ] ],
-    [ "jwt", "namespacejwt.html", "namespacejwt" ],
     [ "Jwt", "namespace_jwt.html", [
       [ "Development", "namespace_jwt.html#a05e45338260d31b79d56b6083657ba75", null ],
       [ "GenerateJwt", "namespace_jwt.html#ac9d9c4f9a93ea0524a2925106acd60e6", null ]
     ] ],
+    [ "jwt", "namespacejwt.html", "namespacejwt" ],
     [ "NamingConventionConversion", null, [
       [ "ConvertNameToSnakeCase", "_naming_convention_conversion_8h.html#af7a7bed411d1595e3c9fdba16466b2d8", null ],
       [ "ConvertPropertyNameToSnakeCase", "_naming_convention_conversion_8h.html#a802e895661ebb7e2538cd9ae950cad0d", null ],
@@ -90,8 +90,10 @@ var namespaces_dup =
     ] ],
     [ "Util", "namespace_util.html", [
       [ "Convert", "namespace_util.html#a0cc92701804c45a7497b09167f24a477", null ],
+      [ "Convert", "namespace_util.html#a3873b27a49f53e3b7fc1aaded816c029", null ],
       [ "Convert", "namespace_util.html#a221af06feb04de09235dca7f71ea6185", null ],
       [ "Convert", "namespace_util.html#ada59455932cbafa6f8d8846603f02f09", null ],
+      [ "Convert", "namespace_util.html#a1c0e0e3021a878c6d9599d79a5208971", null ],
       [ "Convert", "namespace_util.html#a42beebc21f20dd2ae0fb00e868eb224a", null ],
       [ "Convert", "namespace_util.html#a2f571b909e92173f4e888245f7ed036b", null ]
     ] ],
@@ -116,6 +118,8 @@ var namespaces_dup =
     ] ],
     [ "WidgetUtil", null, [
       [ "ChooseColorForString", "_widget_util_8h.html#a5157d5c3f9d8aee0d1cb98145b5b3a63", null ],
+      [ "GetTypedChildWidget", "_widget_util_8h.html#a602b8696e04ec9d728e66fcd6f32337f", null ],
+      [ "GetTypedChildWidget", "_widget_util_8h.html#a5014e8e4fbb7574c59af2aba8c95589d", null ],
       [ "GetTypedParentWidget", "_widget_util_8h.html#ac8d62c6e2bf6a876c7902f5c2192dda1", null ],
       [ "GetTypedParentWidget", "_widget_util_8h.html#adcc75c7cc67a909ab3fb19021613846c", null ],
       [ "HashStringWithMax", "_widget_util_8h.html#a77edc7982255ce1c23232575f6f65d13", null ],

@@ -85,6 +85,7 @@ $(document).ready(function(){initNavTree('struct_f_message.html',''); initResiza
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="struct_f_message-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -101,12 +102,12 @@ $(document).ready(function(){initNavTree('struct_f_message.html',''); initResiza
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aff41682f391499ba3bb62240017d64df"><td class="memItemLeft" align="right" valign="top"><a id="aff41682f391499ba3bb62240017d64df"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message.html#aff41682f391499ba3bb62240017d64df">FMessage</a> ()</td></tr>
-<tr class="memdesc:aff41682f391499ba3bb62240017d64df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Needed by USTRUCT system. Shouldn't be used directly. <br /></td></tr>
+<tr class="memdesc:aff41682f391499ba3bb62240017d64df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default construct an invalid message. <br /></td></tr>
 <tr class="separator:aff41682f391499ba3bb62240017d64df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d8491db4adac716353389735cb38123"><td class="memItemLeft" align="right" valign="top"><a id="a3d8491db4adac716353389735cb38123"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message.html#a3d8491db4adac716353389735cb38123">FMessage</a> (UUserManager &amp;, const <a class="el" href="struct_f_message_dto.html">FMessageDto</a> &amp;)</td></tr>
-<tr class="memdesc:a3d8491db4adac716353389735cb38123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a message from a DTO from the API. <br /></td></tr>
-<tr class="separator:a3d8491db4adac716353389735cb38123"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e64696f404ed1586a13231e6ee7331c"><td class="memItemLeft" align="right" valign="top"><a id="a7e64696f404ed1586a13231e6ee7331c"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message.html#a7e64696f404ed1586a13231e6ee7331c">FMessage</a> (const <a class="el" href="struct_f_message_dto.html">FMessageDto</a> &amp;, UUserManager *)</td></tr>
+<tr class="memdesc:a7e64696f404ed1586a13231e6ee7331c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a message from a DTO from the API. <br /></td></tr>
+<tr class="separator:a7e64696f404ed1586a13231e6ee7331c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f18482b45463920b6cd94f44c155592"><td class="memItemLeft" align="right" valign="top"><a id="a2f18482b45463920b6cd94f44c155592"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message.html#a2f18482b45463920b6cd94f44c155592">FMessage</a> (const FString &amp;<a class="el" href="struct_f_message.html#ae3268aa0c96ae1b8e21368503000ebda">Text</a>)</td></tr>
 <tr class="memdesc:a2f18482b45463920b6cd94f44c155592"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new message from a message string. <br /></td></tr>
@@ -115,6 +116,12 @@ Public Member Functions</h2></td></tr>
 <a class="el" href="struct_f_message_request_dto.html">FMessageRequestDto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message.html#a84984fc8d09ddc31b4b178d15509b972">ToRequestDto</a> (const FString &amp;Cid) const</td></tr>
 <tr class="memdesc:a84984fc8d09ddc31b4b178d15509b972"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a message into a create/update request for sending to the API. <br /></td></tr>
 <tr class="separator:a84984fc8d09ddc31b4b178d15509b972"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a18799149a353a4c86c8c3804a00be010"><td class="memItemLeft" align="right" valign="top"><a id="a18799149a353a4c86c8c3804a00be010"></a>
+static TArray&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>FromSearchResults</b> (const TArray&lt; <a class="el" href="struct_f_search_result_dto.html">FSearchResultDto</a> &gt; &amp;)</td></tr>
+<tr class="separator:a18799149a353a4c86c8c3804a00be010"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -158,15 +165,20 @@ TOptional&lt; FDateTime &gt;&#160;</td><td class="memItemRight" valign="bottom">
 <a class="el" href="struct_f_reactions.html">FReactions</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message.html#ad74d421c350e96e2b487b3ffd361934a">Reactions</a></td></tr>
 <tr class="memdesc:ad74d421c350e96e2b487b3ffd361934a"><td class="mdescLeft">&#160;</td><td class="mdescRight">All reactions of this message, grouped by their type. <br /></td></tr>
 <tr class="separator:ad74d421c350e96e2b487b3ffd361934a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c0672618e1b1e95f5a99bb6286434ab"><td class="memItemLeft" align="right" valign="top"><a id="a0c0672618e1b1e95f5a99bb6286434ab"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>bIsRead</b> = false</td></tr>
-<tr class="separator:a0c0672618e1b1e95f5a99bb6286434ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63796defb157e51b8fad7328a3656a5c"><td class="memItemLeft" align="right" valign="top"><a id="a63796defb157e51b8fad7328a3656a5c"></a>
+FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message.html#a63796defb157e51b8fad7328a3656a5c">ParentId</a></td></tr>
+<tr class="memdesc:a63796defb157e51b8fad7328a3656a5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty if not a reply in a thread. <br /></td></tr>
+<tr class="separator:a63796defb157e51b8fad7328a3656a5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a679b6941706ff597bad744b971785da7"><td class="memItemLeft" align="right" valign="top"><a id="a679b6941706ff597bad744b971785da7"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>bIsSilent</b> = false</td></tr>
 <tr class="separator:a679b6941706ff597bad744b971785da7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41a5ea714fd618fb8afd2aa677692777"><td class="memItemLeft" align="right" valign="top"><a id="a41a5ea714fd618fb8afd2aa677692777"></a>
-FAdditionalFields&#160;</td><td class="memItemRight" valign="bottom"><b>AdditionalFields</b></td></tr>
-<tr class="separator:a41a5ea714fd618fb8afd2aa677692777"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10689717c2aee4a96a85ef83f4be9858"><td class="memItemLeft" align="right" valign="top"><a id="a10689717c2aee4a96a85ef83f4be9858"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message.html#a10689717c2aee4a96a85ef83f4be9858">bIsShadowed</a> = false</td></tr>
+<tr class="memdesc:a10689717c2aee4a96a85ef83f4be9858"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the message was shadowed or not. <br /></td></tr>
+<tr class="separator:a10689717c2aee4a96a85ef83f4be9858"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee0fb2fb84ea72749f57f2bcfab083e8"><td class="memItemLeft" align="right" valign="top"><a id="aee0fb2fb84ea72749f57f2bcfab083e8"></a>
+FAdditionalFields&#160;</td><td class="memItemRight" valign="bottom"><b>ExtraData</b></td></tr>
+<tr class="separator:aee0fb2fb84ea72749f57f2bcfab083e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents a Stream Chat message. </p>

@@ -99,48 +99,66 @@ $(document).ready(function(){initNavTree('_util_8h_source.html',''); initResizab
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>OutT<span class="keyword">&gt;</span>(Input);</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> OutT, <span class="keyword">typename</span> InT&gt;</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="namespace_util.html#a42beebc21f20dd2ae0fb00e868eb224a">   24</a></span>&#160;FORCEINLINE TOptional&lt;OutT&gt; <a class="code" href="namespace_util.html#a0cc92701804c45a7497b09167f24a477">Convert</a>(<span class="keyword">const</span> TOptional&lt;InT&gt;&amp; Input)</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> OutT, <span class="keyword">typename</span> InT, <span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="namespace_util.html#a3873b27a49f53e3b7fc1aaded816c029">   24</a></span>&#160;FORCEINLINE OutT <a class="code" href="namespace_util.html#a0cc92701804c45a7497b09167f24a477">Convert</a>(<span class="keyword">const</span> InT&amp; Input, TArgs... Args)</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">if</span> (Input.IsSet())</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordflow">return</span> TOptional&lt;OutT&gt;{<span class="keyword">static_cast&lt;</span>OutT<span class="keyword">&gt;</span>(Input.GetValue())};</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    }</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">return</span> {};</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> OutT, <span class="keyword">typename</span> InT&gt;</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="namespace_util.html#a221af06feb04de09235dca7f71ea6185">   35</a></span>&#160;FORCEINLINE TOptional&lt;OutT&gt; <a class="code" href="namespace_util.html#a0cc92701804c45a7497b09167f24a477">Convert</a>(<span class="keyword">const</span> InT* Input)</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> (Input != <span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">return</span> TOptional&lt;OutT&gt;{<span class="keyword">static_cast&lt;</span>OutT<span class="keyword">&gt;</span>(*Input)};</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">return</span> {};</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> OutT, <span class="keyword">typename</span> InT&gt;</div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="namespace_util.html#a2f571b909e92173f4e888245f7ed036b">   46</a></span>&#160;FORCEINLINE TOptional&lt;TArray&lt;OutT&gt;&gt; <a class="code" href="namespace_util.html#a0cc92701804c45a7497b09167f24a477">Convert</a>(<span class="keyword">const</span> TOptional&lt;TArray&lt;InT&gt;&gt;&amp; Input)</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;{</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">if</span> (Input.IsSet())</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">return</span> TOptional&lt;TArray&lt;OutT&gt;&gt;{Util::Convert&lt;OutT, InT&gt;(Input.GetValue())};</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordflow">return</span> {};</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> OutT, <span class="keyword">typename</span> InT&gt;</div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="namespace_util.html#ada59455932cbafa6f8d8846603f02f09">   57</a></span>&#160;FORCEINLINE TArray&lt;OutT&gt; <a class="code" href="namespace_util.html#a0cc92701804c45a7497b09167f24a477">Convert</a>(<span class="keyword">const</span> TArray&lt;InT&gt;&amp; Input)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;{</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    TArray&lt;OutT&gt; Output;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    Output.Reserve(Input.Num());</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> InT&amp; Value : Input)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        Output.Emplace(<span class="keyword">static_cast&lt;</span>OutT<span class="keyword">&gt;</span>(Value));</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">return</span> Output;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}    <span class="comment">// namespace Util</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">return</span> OutT{Input, Args...};</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> OutT, <span class="keyword">typename</span> InT&gt;</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="namespace_util.html#a42beebc21f20dd2ae0fb00e868eb224a">   31</a></span>&#160;FORCEINLINE TOptional&lt;OutT&gt; <a class="code" href="namespace_util.html#a0cc92701804c45a7497b09167f24a477">Convert</a>(<span class="keyword">const</span> TOptional&lt;InT&gt;&amp; Input)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;{</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">if</span> (Input.IsSet())</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">return</span> TOptional&lt;OutT&gt;{<span class="keyword">static_cast&lt;</span>OutT<span class="keyword">&gt;</span>(Input.GetValue())};</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> OutT, <span class="keyword">typename</span> InT&gt;</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="namespace_util.html#a221af06feb04de09235dca7f71ea6185">   42</a></span>&#160;FORCEINLINE TOptional&lt;OutT&gt; <a class="code" href="namespace_util.html#a0cc92701804c45a7497b09167f24a477">Convert</a>(<span class="keyword">const</span> InT* Input)</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;{</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">if</span> (Input != <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">return</span> TOptional&lt;OutT&gt;{<span class="keyword">static_cast&lt;</span>OutT<span class="keyword">&gt;</span>(*Input)};</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> OutT, <span class="keyword">typename</span> InT&gt;</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="namespace_util.html#a2f571b909e92173f4e888245f7ed036b">   53</a></span>&#160;FORCEINLINE TOptional&lt;TArray&lt;OutT&gt;&gt; <a class="code" href="namespace_util.html#a0cc92701804c45a7497b09167f24a477">Convert</a>(<span class="keyword">const</span> TOptional&lt;TArray&lt;InT&gt;&gt;&amp; Input)</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;{</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">if</span> (Input.IsSet())</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">return</span> TOptional&lt;TArray&lt;OutT&gt;&gt;{Util::Convert&lt;OutT, InT&gt;(Input.GetValue())};</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">return</span> {};</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> OutT, <span class="keyword">typename</span> InT&gt;</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="namespace_util.html#ada59455932cbafa6f8d8846603f02f09">   64</a></span>&#160;FORCEINLINE TArray&lt;OutT&gt; <a class="code" href="namespace_util.html#a0cc92701804c45a7497b09167f24a477">Convert</a>(<span class="keyword">const</span> TArray&lt;InT&gt;&amp; Input)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;{</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    TArray&lt;OutT&gt; Output;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    Output.Reserve(Input.Num());</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> InT&amp; Value : Input)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        Output.Emplace(<span class="keyword">static_cast&lt;</span>OutT<span class="keyword">&gt;</span>(Value));</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">return</span> Output;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> OutT, <span class="keyword">typename</span> InT, <span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="namespace_util.html#a1c0e0e3021a878c6d9599d79a5208971">   77</a></span>&#160;FORCEINLINE TArray&lt;OutT&gt; <a class="code" href="namespace_util.html#a0cc92701804c45a7497b09167f24a477">Convert</a>(<span class="keyword">const</span> TArray&lt;InT&gt;&amp; Input, TArgs... Args)</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;{</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    TArray&lt;OutT&gt; Output;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    Output.Reserve(Input.Num());</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> InT&amp; Value : Input)</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        Output.Emplace(OutT{Value, Args...});</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">return</span> Output;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;}    <span class="comment">// namespace Util</span></div>
 <div class="ttc" id="anamespace_util_html"><div class="ttname"><a href="namespace_util.html">Util</a></div><div class="ttdoc">Helpers for DTO conversion.</div><div class="ttdef"><b>Definition:</b> Util.h:14</div></div>
 <div class="ttc" id="anamespace_util_html_a0cc92701804c45a7497b09167f24a477"><div class="ttname"><a href="namespace_util.html#a0cc92701804c45a7497b09167f24a477">Util::Convert</a></div><div class="ttdeci">FORCEINLINE OutT Convert(const InT &amp;Input)</div><div class="ttdoc">Map from one type to an another using direct initialization.</div><div class="ttdef"><b>Definition:</b> Util.h:17</div></div>
 </div><!-- fragment --></div><!-- contents -->

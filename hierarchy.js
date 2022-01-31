@@ -15,6 +15,8 @@ var hierarchy =
     [ "FChannelConfigWithInfoDto", "struct_f_channel_config_with_info_dto.html", null ],
     [ "FChannelGetOrCreateRequestDto", "struct_f_channel_get_or_create_request_dto.html", null ],
     [ "FChannelMemberDto", "struct_f_channel_member_dto.html", null ],
+    [ "FChannelPaginationOptions", "struct_f_channel_pagination_options.html", null ],
+    [ "FChannelProperties", "struct_f_channel_properties.html", null ],
     [ "FChannelRequestDto", "struct_f_channel_request_dto.html", null ],
     [ "FChannelResponseDto", "struct_f_channel_response_dto.html", null ],
     [ "FChannelSortOption", "struct_f_channel_sort_option.html", null ],
@@ -30,12 +32,15 @@ var hierarchy =
           [ "FMessageDeletedEvent", "struct_f_message_deleted_event.html", null ],
           [ "FMessageNewEvent", "struct_f_message_new_event.html", null ],
           [ "FMessageUpdatedEvent", "struct_f_message_updated_event.html", null ],
+          [ "FNotificationMessageNewEvent", "struct_f_notification_message_new_event.html", null ],
           [ "FReactionEvent", "struct_f_reaction_event.html", [
             [ "FReactionDeletedEvent", "struct_f_reaction_deleted_event.html", null ],
             [ "FReactionNewEvent", "struct_f_reaction_new_event.html", null ],
             [ "FReactionUpdatedEvent", "struct_f_reaction_updated_event.html", null ]
           ] ]
         ] ],
+        [ "FMessageReadEvent", "struct_f_message_read_event.html", null ],
+        [ "FNotificationMarkReadEvent", "struct_f_notification_mark_read_event.html", null ],
         [ "FTypingStartEvent", "struct_f_typing_start_event.html", null ],
         [ "FTypingStopEvent", "struct_f_typing_stop_event.html", null ]
       ] ],
@@ -54,17 +59,19 @@ var hierarchy =
       [ "FConnectionChangedEvent", "struct_f_connection_changed_event.html", null ],
       [ "FConnectionRecoveredEvent", "struct_f_connection_recovered_event.html", null ]
     ] ],
+    [ "FMarkReadRequestDto", "struct_f_mark_read_request_dto.html", null ],
+    [ "FMarkReadResponseDto", "struct_f_mark_read_response_dto.html", null ],
     [ "FMember", "struct_f_member.html", null ],
     [ "FMessage", "struct_f_message.html", null ],
     [ "FMessageDto", "struct_f_message_dto.html", [
       [ "FSearchResultMessageDto", "struct_f_search_result_message_dto.html", null ]
     ] ],
+    [ "FMessagePaginationOptions", "struct_f_message_pagination_options.html", null ],
     [ "FMessagePaginationParamsRequestDto", "struct_f_message_pagination_params_request_dto.html", null ],
     [ "FMessageRequestDto", "struct_f_message_request_dto.html", null ],
     [ "FMessageResponseDto", "struct_f_message_response_dto.html", null ],
     [ "FMessageSortOption", "struct_f_message_sort_option.html", null ],
     [ "FOwnUserDto", "struct_f_own_user_dto.html", null ],
-    [ "FPaginationOptions", "struct_f_pagination_options.html", null ],
     [ "FPaginationParamsRequestDto", "struct_f_pagination_params_request_dto.html", null ],
     [ "FQueryChannelsRequestDto", "struct_f_query_channels_request_dto.html", null ],
     [ "FReaction", "struct_f_reaction.html", null ],
@@ -73,6 +80,7 @@ var hierarchy =
     [ "FReactionRequestDto", "struct_f_reaction_request_dto.html", null ],
     [ "FReactionResponseDto", "struct_f_reaction_response_dto.html", null ],
     [ "FReactions", "struct_f_reactions.html", null ],
+    [ "FRead", "struct_f_read.html", null ],
     [ "FReadDto", "struct_f_read_dto.html", null ],
     [ "FSearchRequestDto", "struct_f_search_request_dto.html", null ],
     [ "FSearchResponseDto", "struct_f_search_response_dto.html", null ],
@@ -84,7 +92,9 @@ var hierarchy =
     [ "FSortParamRequestDto", "struct_f_sort_param_request_dto.html", null ],
     [ "FUpdateMessageRequestDto", "struct_f_update_message_request_dto.html", null ],
     [ "FUser", "struct_f_user.html", null ],
+    [ "FUserMuteDto", "struct_f_user_mute_dto.html", null ],
     [ "FUserObjectDto", "struct_f_user_object_dto.html", null ],
+    [ "FUserPaginationOptions", "struct_f_user_pagination_options.html", null ],
     [ "FUserRef", "struct_f_user_ref.html", null ],
     [ "jwt::header< json_traits >", "classjwt_1_1header.html", [
       [ "jwt::decoded_jwt< json_traits >", "classjwt_1_1decoded__jwt.html", null ]
@@ -112,6 +122,7 @@ var hierarchy =
     [ "UAdditionalFieldsBlueprintLibrary", "class_u_additional_fields_blueprint_library.html", null ],
     [ "UBottomReactionWidget", "class_u_bottom_reaction_widget.html", null ],
     [ "UChannelContextWidget", "class_u_channel_context_widget.html", null ],
+    [ "UChannelPropertiesBlueprintLibrary", "class_u_channel_properties_blueprint_library.html", null ],
     [ "UChatChannel", "class_u_chat_channel.html", null ],
     [ "UHeaderWidget", "class_u_header_widget.html", null ],
     [ "UIconButton", "class_u_icon_button.html", null ],
