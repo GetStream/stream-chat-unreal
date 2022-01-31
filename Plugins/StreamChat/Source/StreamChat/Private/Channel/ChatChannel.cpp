@@ -23,6 +23,7 @@
 #include "Request/Reaction/ReactionRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
+#include "Response/Message/SearchResponseDto.h"
 #include "TimerManager.h"
 #include "User/UserManager.h"
 #include "Util.h"
