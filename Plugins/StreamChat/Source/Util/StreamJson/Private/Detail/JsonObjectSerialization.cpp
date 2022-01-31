@@ -132,6 +132,19 @@ bool JsonObjectSerialization::UStructToJsonAttributes(
             }
         }
 
+        // Skip serializing zeroed date/times
+        if (const FStructProperty* StructProperty = CastField<FStructProperty>(Property))
+        {
+            static const FName NAME_DateTime(TEXT("DateTime"));
+            if (StructProperty->Struct->GetFName() == NAME_DateTime)
+            {
+                if (const FDateTime* DateTime = static_cast<const FDateTime*>(Value); DateTime->GetTicks() == 0)
+                {
+                    continue;
+                }
+            }
+        }
+
         // convert the property to a FJsonValue
         TSharedPtr<FJsonValue> JsonValue = FJsonObjectConverter::UPropertyToJsonValue(Property, Value, 0, SkipFlags, &Callback);
         if (!JsonValue.IsValid())
