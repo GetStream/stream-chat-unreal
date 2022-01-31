@@ -92,8 +92,8 @@ private:
 #pragma region Event
     /** @name Event
      *  Send, subscribe and unsubscribe to events
+     *  @{
      */
-    ///@{
 
 public:
     /// Send a custom event on this channel
@@ -154,8 +154,8 @@ public:
 #pragma region Message
     /** @name Message
      *  Paginate, send, update and delete messages.
+     *  @{
      */
-    ///@{
 
 public:
     /**
@@ -312,8 +312,8 @@ private:
 #pragma region Reaction
     /** @name Reaction
      *  Send and delete reactions.
+     *  @{
      */
-    ///@{
 
 public:
     /**
@@ -345,8 +345,8 @@ private:
 
 #pragma region Typing
     /** @name Typing
+     *  @{
      */
-    ///@{
 
 public:
     /**
