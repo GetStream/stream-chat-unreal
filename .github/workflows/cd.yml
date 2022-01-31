@@ -230,5 +230,5 @@ jobs:
           generateReleaseNotes: true
           draft: true
           tag: v${{ env.VERSION }}
-          artifacts: "*.zip,*.tar"
+          artifacts: "*.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
