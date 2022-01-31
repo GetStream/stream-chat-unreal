@@ -63,6 +63,7 @@ public:
      * @param ConnectionId Websocket connection ID to interact with.
      * @param ChannelId A unique identifier for the channel.
      * @param Flags Additional actions to perform, like watch, or fetch presence. @see EChannelFlags
+     * @param Data Properties to set on the channel
      * @param MessagePagination Pagination details for returned messages.
      * @see https://getstream.io/chat/docs/other-rest/channel_pagination/
      * @param MemberPagination Pagination details for returned members.
@@ -130,7 +131,24 @@ public:
         TOptional<uint32> Offset = {},
         TOptional<FString> Next = {}) const;
 
-    void MarkChannelRead(TCallback<FMarkReadResponseDto> Callback, const FString& Type, const FString& ChannelId, const TOptional<FString>& MessageId = {});
+    /**
+     * @brief Mark all messages of all channels as read
+     * @param Callback Called when response is received
+     */
+    void MarkChannelsRead(TCallback<FMarkReadResponseDto> Callback) const;
+
+    /**
+     * @brief Mark messages of a channel as read
+     * @param Callback Called when response is received
+     * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
+     * @param ChannelId A unique identifier for the channel
+     * @param MessageId (optional) ID of the message that is considered last read by client
+     */
+    void MarkChannelRead(
+        TCallback<FMarkReadResponseDto> Callback,
+        const FString& ChannelType,
+        const FString& ChannelId,
+        const TOptional<FString>& MessageId = {}) const;
 
     ///@}
 #pragma endregion Channels
@@ -255,7 +273,7 @@ private:
 
     void AddAuth(FRequestBuilder&, const FString& Token) const;
     void OnRequest(FRequestBuilder&) const;
-    void OnError(const FHttpResponse&, FRequestBuilder&);
+    void OnError(const FHttpResponse&, FRequestBuilder&) const;
 
     TSharedPtr<FTokenManager> TokenManager;
     FString ApiKey;
