@@ -50,6 +50,7 @@ var hierarchy =
     [ "FChatSocketEvents", "class_f_chat_socket_events.html", null ],
     [ "FCommandDto", "struct_f_command_dto.html", null ],
     [ "FConnectRequestDto", "struct_f_connect_request_dto.html", null ],
+    [ "FDeleteChannelResponseDto", "struct_f_delete_channel_response_dto.html", null ],
     [ "FDeviceFieldsDto", "struct_f_device_fields_dto.html", null ],
     [ "FErrorResponseDto", "struct_f_error_response_dto.html", null ],
     [ "FEventDto", "struct_f_event_dto.html", null ],

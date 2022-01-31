@@ -106,6 +106,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a803db813b8cd5ba95b694b942938924a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#a803db813b8cd5ba95b694b942938924a">QueryChannel</a> (TCallback&lt; <a class="el" href="struct_f_channel_state_response_dto.html">FChannelStateResponseDto</a> &gt; Callback, const FString &amp;ChannelType, const FString &amp;ConnectionId, <a class="el" href="group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898">EChannelFlags</a> Flags=<a class="el" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d">EChannelFlags::State</a>, const <a class="el" href="struct_f_channel_request_dto.html">FChannelRequestDto</a> &amp;Data={}, const TOptional&lt; FString &gt; &amp;ChannelId={}, const TOptional&lt; <a class="el" href="struct_f_message_pagination_params_request_dto.html">FMessagePaginationParamsRequestDto</a> &gt; MessagePagination={}, const TOptional&lt; <a class="el" href="struct_f_pagination_params_request_dto.html">FPaginationParamsRequestDto</a> &gt; MemberPagination={}, const TOptional&lt; <a class="el" href="struct_f_pagination_params_request_dto.html">FPaginationParamsRequestDto</a> &gt; WatcherPagination={}) const</td></tr>
 <tr class="memdesc:a803db813b8cd5ba95b694b942938924a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get messages, members or other channel fields. Creates the channel if not yet created.  <a href="class_f_chat_api.html#a803db813b8cd5ba95b694b942938924a">More...</a><br /></td></tr>
 <tr class="separator:a803db813b8cd5ba95b694b942938924a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ca6cd752cac6a894ab8037bdc81435b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#a6ca6cd752cac6a894ab8037bdc81435b">DeleteChannel</a> (TCallback&lt; <a class="el" href="struct_f_delete_channel_response_dto.html">FDeleteChannelResponseDto</a> &gt; Callback, const FString &amp;ChannelType, const FString &amp;ChannelId, bool bHardDelete=false) const</td></tr>
+<tr class="memdesc:a6ca6cd752cac6a894ab8037bdc81435b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get messages, members or other channel fields. Creates the channel if not yet created.  <a href="class_f_chat_api.html#a6ca6cd752cac6a894ab8037bdc81435b">More...</a><br /></td></tr>
+<tr class="separator:a6ca6cd752cac6a894ab8037bdc81435b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab076264d85519a0d9404b992df7c4ce4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#ab076264d85519a0d9404b992df7c4ce4">QueryChannels</a> (TCallback&lt; <a class="el" href="struct_f_channels_response_dto.html">FChannelsResponseDto</a> &gt; Callback, const FString &amp;ConnectionId, <a class="el" href="group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898">EChannelFlags</a> Flags=<a class="el" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d">EChannelFlags::State</a>|<a class="el" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898af20658650d987d31063b593c05980397">EChannelFlags::Watch</a>, const TOptional&lt; TSharedRef&lt; FJsonObject &gt;&gt; &amp;Filter={}, const TArray&lt; <a class="el" href="struct_f_sort_param_request_dto.html">FSortParamRequestDto</a> &gt; &amp;SortOptions={}, TOptional&lt; uint32 &gt; MemberLimit={}, TOptional&lt; uint32 &gt; MessageLimit={}, TOptional&lt; uint32 &gt; Limit={}, TOptional&lt; uint32 &gt; Offset={}) const</td></tr>
 <tr class="memdesc:ab076264d85519a0d9404b992df7c4ce4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query channels with filter query.  <a href="class_f_chat_api.html#ab076264d85519a0d9404b992df7c4ce4">More...</a><br /></td></tr>
 <tr class="separator:ab076264d85519a0d9404b992df7c4ce4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,6 +157,57 @@ static TSharedRef&lt; <a class="el" href="class_f_chat_api.html">FChatApi</a> &g
 <div class="textblock"><p>All Stream Chat REST API requests can be made via this object. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://getstream.io/chat/docs/rest/">https://getstream.io/chat/docs/rest/</a> </dd></dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6ca6cd752cac6a894ab8037bdc81435b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ca6cd752cac6a894ab8037bdc81435b">&#9670;&nbsp;</a></span>DeleteChannel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FChatApi::DeleteChannel </td>
+          <td>(</td>
+          <td class="paramtype">TCallback&lt; <a class="el" href="struct_f_delete_channel_response_dto.html">FDeleteChannelResponseDto</a> &gt;&#160;</td>
+          <td class="paramname"><em>Callback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ChannelType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ChannelId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bHardDelete</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get messages, members or other channel fields. Creates the channel if not yet created. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
+    <tr><td class="paramname">ChannelType</td><td>Name of built-in or custom channel type (e.g. messaging, team, livestream) </td></tr>
+    <tr><td class="paramname">ChannelId</td><td>A unique identifier for the channel </td></tr>
+    <tr><td class="paramname">bHardDelete</td><td>By default, messages are soft deleted, which means they are removed from client but are still available via server-side export functions. By setting bHardDelete to true, you can hard delete messages, which deletes them from everywhere. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ae5a2afce79f513753908df1a2a113737"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae5a2afce79f513753908df1a2a113737">&#9670;&nbsp;</a></span>DeleteMessage()</h2>
 

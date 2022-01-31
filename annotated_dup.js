@@ -54,6 +54,7 @@ var annotated_dup =
     [ "FConnectionChangedEvent", "struct_f_connection_changed_event.html", "struct_f_connection_changed_event" ],
     [ "FConnectionRecoveredEvent", "struct_f_connection_recovered_event.html", null ],
     [ "FConnectRequestDto", "struct_f_connect_request_dto.html", "struct_f_connect_request_dto" ],
+    [ "FDeleteChannelResponseDto", "struct_f_delete_channel_response_dto.html", "struct_f_delete_channel_response_dto" ],
     [ "FDeviceFieldsDto", "struct_f_device_fields_dto.html", "struct_f_device_fields_dto" ],
     [ "FErrorResponseDto", "struct_f_error_response_dto.html", "struct_f_error_response_dto" ],
     [ "FEventDto", "struct_f_event_dto.html", "struct_f_event_dto" ],

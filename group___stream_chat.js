@@ -84,6 +84,7 @@ var group___stream_chat =
       [ "WatcherCount", "struct_f_channel_state.html#a34e0b02f014506dd82c4290bfa369dad", null ]
     ] ],
     [ "UChatChannel", "class_u_chat_channel.html", [
+      [ "Delete", "class_u_chat_channel.html#a4ec147de704979b2fa60b2c9b917bf46", null ],
       [ "DeleteMessage", "class_u_chat_channel.html#acd8d28c0f92e5aa93f9498a0307fe871", null ],
       [ "DeleteReaction", "class_u_chat_channel.html#ac60976fa7382c9c22cb41ca570610bcf", null ],
       [ "GetMessages", "class_u_chat_channel.html#acfdb55f36b049e167a608b0ca3744f6e", null ],

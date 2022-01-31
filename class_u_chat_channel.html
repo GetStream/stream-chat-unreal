@@ -84,6 +84,7 @@ $(document).ready(function(){initNavTree('class_u_chat_channel.html',''); initRe
 
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="class_u_chat_channel-members.html">List of all members</a>  </div>
@@ -101,6 +102,9 @@ $(document).ready(function(){initNavTree('class_u_chat_channel.html',''); initRe
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a4ec147de704979b2fa60b2c9b917bf46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a4ec147de704979b2fa60b2c9b917bf46">Delete</a> (TFunction&lt; void()&gt; Callback={}, bool bHardDelete=false) const</td></tr>
+<tr class="memdesc:a4ec147de704979b2fa60b2c9b917bf46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete this channel from the server.  <a href="class_u_chat_channel.html#a4ec147de704979b2fa60b2c9b917bf46">More...</a><br /></td></tr>
+<tr class="separator:a4ec147de704979b2fa60b2c9b917bf46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Event</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Send, subscribe and unsubscribe to events </p>
 </div></td></tr>
@@ -229,6 +233,43 @@ FTypingIndicatorDelegate&#160;</td><td class="memItemRight" valign="bottom"><a c
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The client-side representation of a Stream Chat channel. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a4ec147de704979b2fa60b2c9b917bf46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ec147de704979b2fa60b2c9b917bf46">&#9670;&nbsp;</a></span>Delete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UChatChannel::Delete </td>
+          <td>(</td>
+          <td class="paramtype">TFunction&lt; void()&gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bHardDelete</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Delete this channel from the server. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
+    <tr><td class="paramname">bHardDelete</td><td>By default, messages are soft deleted, which means they are removed from client but are still available via server-side export functions. By setting bHardDelete to true, you can hard delete messages, which deletes them from everywhere. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="acd8d28c0f92e5aa93f9498a0307fe871"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acd8d28c0f92e5aa93f9498a0307fe871">&#9670;&nbsp;</a></span>DeleteMessage()</h2>
 

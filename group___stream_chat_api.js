@@ -1,6 +1,7 @@
 var group___stream_chat_api =
 [
     [ "FChatApi", "class_f_chat_api.html", [
+      [ "DeleteChannel", "class_f_chat_api.html#a6ca6cd752cac6a894ab8037bdc81435b", null ],
       [ "DeleteMessage", "class_f_chat_api.html#ae5a2afce79f513753908df1a2a113737", null ],
       [ "DeleteReaction", "class_f_chat_api.html#a087fe492162348826a07657a604f033a", null ],
       [ "MarkChannelRead", "class_f_chat_api.html#a7be93c8b0e61e4cd25f8d83549027a4d", null ],

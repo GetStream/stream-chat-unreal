@@ -183,6 +183,7 @@ var group___stream_chat_dto =
       [ "MuteExpiresAt", "struct_f_channel_response_dto.html#ab084032cdef730ca70af4721e7a6bd0a", null ],
       [ "OwnCapabilities", "struct_f_channel_response_dto.html#adb6e23ef5d4c0e7ed20e77e4f55c66d1", null ],
       [ "Team", "struct_f_channel_response_dto.html#ab59e272ddf5f0622b41c56f6ddcc148b", null ],
+      [ "TruncatedAt", "struct_f_channel_response_dto.html#a0c573685f908f41944fd258b604f6221", null ],
       [ "Type", "struct_f_channel_response_dto.html#a1bcdfa99b130d95ce575a330f803a35a", null ],
       [ "UpdatedAt", "struct_f_channel_response_dto.html#a786811ed6f94bf063ae668df96da9fb1", null ]
     ] ],
@@ -204,6 +205,10 @@ var group___stream_chat_dto =
       [ "Read", "struct_f_channel_state_response_fields_dto.html#a5b74faf2666b551290631b2afd074147", null ],
       [ "WatcherCount", "struct_f_channel_state_response_fields_dto.html#a9ae31539fe472c2d60bbe51874f5cdcc", null ],
       [ "Watchers", "struct_f_channel_state_response_fields_dto.html#a18e92da00a9e350e5ac8ded8fbd33adb", null ]
+    ] ],
+    [ "FDeleteChannelResponseDto", "struct_f_delete_channel_response_dto.html", [
+      [ "Channel", "struct_f_delete_channel_response_dto.html#ae42dae80f414433587d81184c5ed7a5e", null ],
+      [ "Duration", "struct_f_delete_channel_response_dto.html#aea4fb03995ef92196d3e9cffd783630e", null ]
     ] ],
     [ "FMarkReadResponseDto", "struct_f_mark_read_response_dto.html", [
       [ "Duration", "struct_f_mark_read_response_dto.html#aa9e1e16ddfff71e0c4d4d5951adc0de0", null ],
