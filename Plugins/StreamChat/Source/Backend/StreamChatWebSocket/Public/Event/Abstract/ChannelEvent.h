@@ -9,7 +9,7 @@
 
 /**
  * @brief Represents an event that happened in a Stream channel
- * @see https://getstream.io/chat/docs/other-rest/event_object/#event-object
+ * @see https://getstream.io/chat/docs/unreal/event_object/#event-object
  * @ingroup StreamChatWebSocket
  */
 USTRUCT()

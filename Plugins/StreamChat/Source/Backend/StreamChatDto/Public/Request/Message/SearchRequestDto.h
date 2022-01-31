@@ -13,7 +13,7 @@ struct FSortParamRequestDto;
 /**
  * @brief #/components/schemas/SearchRequest
  * @ingroup StreamChatDto
- * @see https://getstream.io/chat/docs/other-rest/search/
+ * @see https://getstream.io/chat/docs/unreal/search/
  */
 USTRUCT()
 struct STREAMCHATDTO_API FSearchRequestDto

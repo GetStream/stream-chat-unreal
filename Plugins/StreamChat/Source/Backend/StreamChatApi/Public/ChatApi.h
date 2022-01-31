@@ -65,7 +65,7 @@ public:
      * @param Flags Additional actions to perform, like watch, or fetch presence. @see EChannelFlags
      * @param Data Properties to set on the channel
      * @param MessagePagination Pagination details for returned messages.
-     * @see https://getstream.io/chat/docs/other-rest/channel_pagination/
+     * @see https://getstream.io/chat/docs/unreal/channel_pagination/
      * @param MemberPagination Pagination details for returned members.
      * @param WatcherPagination Pagination details for returned watchers/
      */
@@ -95,7 +95,7 @@ public:
      * @param ConnectionId Websocket connection ID to interact with.
      * @param Filter The query filters to use. You can query on any of the custom fields you've defined on the Channel.
      * You can also filter other built-in channel fields,
-     * @see https://getstream.io/chat/docs/other-rest/query_channels/#channel-queryable-built-in-fields
+     * @see https://getstream.io/chat/docs/unreal/query_channels/#channel-queryable-built-in-fields
      * @param SortOptions The sorting used for the channels matching the filters.
      * Sorting is based on field and direction, multiple sorting options can be provided.
      * @param MemberLimit How many members should be included for each channel (Max 100)
@@ -121,7 +121,7 @@ public:
      *
      * ChannelFilter is required, and a minimum of either a query or message filter
      *
-     * @see https://getstream.io/chat/docs/other-rest/search/
+     * @see https://getstream.io/chat/docs/unreal/search/
      * @param Callback Called when response is received
      * @param Query Search phrase
      * @param ChannelFilter Channel filter conditions
@@ -258,6 +258,26 @@ public:
      *  https://getstream.io/chat/docs/rest/#Users
      *  @{
      */
+
+    /**
+     * @brief Query channels with filter query
+     * @param ConnectionId Websocket connection ID to interact with.
+     * @param bPresence Get updates when the user goes offline/online
+     * @param Filter Conditions to use to filter the users, @see https://getstream.io/chat/docs/unreal/query_users
+     * @param SortOptions The sorting used for the users matching the filters.
+     * Sorting is based on field and direction, multiple sorting options can be provided.
+     * @param Limit The number of users to return
+     * @param Offset The pagination offset
+     * @param Callback Called when response is received
+     */
+    void QueryUsers(
+        TCallback<FChannelsResponseDto> Callback,
+        const FString& ConnectionId,
+        bool bPresence = true,
+        const TOptional<TSharedRef<FJsonObject>>& Filter = {},
+        const TArray<FSortParamRequestDto>& SortOptions = {},
+        TOptional<uint32> Limit = {},
+        TOptional<uint32> Offset = {}) const;
 
     ///@}
 #pragma endregion Users

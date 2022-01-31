@@ -221,7 +221,7 @@ public:
      * @param Callback Called when response is received.
      * @param Flags Additional actions to perform, like watch, or fetch presence. @see EChannelFlags
      * @param MessagePagination Pagination details for returned messages.
-     * @see https://getstream.io/chat/docs/other-rest/channel_pagination/
+     * @see https://getstream.io/chat/docs/unreal/channel_pagination/
      * @param MemberPagination Pagination details for returned members.
      * @param WatcherPagination Pagination details for returned watchers/
      */

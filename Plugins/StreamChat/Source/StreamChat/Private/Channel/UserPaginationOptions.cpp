@@ -4,5 +4,22 @@
 
 FUserPaginationOptions::operator FPaginationParamsRequestDto() const
 {
-    return FPaginationParamsRequestDto{static_cast<uint32>(FMath::Max(0, Limit)), Offset};
+    FPaginationParamsRequestDto Dto{static_cast<uint32>(FMath::Max(0, Limit)), Offset};
+    if (!IdGt.IsEmpty())
+    {
+        Dto.SetIdGt(IdGt);
+    }
+    if (!IdGte.IsEmpty())
+    {
+        Dto.SetIdGte(IdGte);
+    }
+    if (!IdLt.IsEmpty())
+    {
+        Dto.SetIdLt(IdLt);
+    }
+    if (!IdLte.IsEmpty())
+    {
+        Dto.SetIdLte(IdLte);
+    }
+    return Dto;
 }

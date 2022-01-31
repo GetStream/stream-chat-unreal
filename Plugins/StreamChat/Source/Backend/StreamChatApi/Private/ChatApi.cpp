@@ -11,6 +11,7 @@
 #include "Request/Message/SendMessageRequestDto.h"
 #include "Request/Message/UpdateMessageRequestDto.h"
 #include "Request/Reaction/SendReactionRequestDto.h"
+#include "Request/User/QueryUsersRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/Channel/DeleteChannelResponseDto.h"
@@ -48,6 +49,29 @@ TSharedRef<FChatApi> FChatApi::Create(const FString& InApiKey, const FString& In
     Api->Client->OnRequestDelegate.AddSP(Api, &FChatApi::OnRequest);
     Api->Client->OnErrorDelegate.AddSP(Api, &FChatApi::OnError);
     return Api;
+}
+
+void FChatApi::QueryUsers(
+    TCallback<FChannelsResponseDto> Callback,
+    const FString& ConnectionId,
+    const bool bPresence,
+    const TOptional<TSharedRef<FJsonObject>>& Filter,
+    const TArray<FSortParamRequestDto>& SortOptions,
+    const TOptional<uint32> Limit,
+    const TOptional<uint32> Offset) const
+{
+    const FString Url = BuildUrl(TEXT("users"));
+
+    const FQueryUsersRequestDto Body{
+        ConnectionId,
+        Limit.Get(10),
+        Offset.Get(0),
+        Wrap(Filter),
+        bPresence,
+        SortOptions,
+    };
+
+    Client->Get(Url).Json(Body).Send(Callback);
 }
 
 FChatApi::FChatApi(const FString& InApiKey, const FString& InHost, const TSharedPtr<FTokenManager>& InTokenManager)
@@ -159,12 +183,16 @@ void FChatApi::QueryChannels(
     const TArray<FSortParamRequestDto>& SortOptions,
     const TOptional<uint32> MemberLimit,
     const TOptional<uint32> MessageLimit,
-    TOptional<uint32> Limit,
-    TOptional<uint32> Offset) const
+    const TOptional<uint32> Limit,
+    const TOptional<uint32> Offset) const
 {
     const FString Url = BuildUrl(TEXT("channels"));
 
-    FQueryChannelsRequestDto Body{
+    const FQueryChannelsRequestDto Body{
+        Limit.Get(10),
+        Offset.Get(0),
+        MessageLimit.Get(25),
+        MemberLimit.Get(100),
         ConnectionId,
         Wrap(Filter),
         EnumHasAnyFlags(Flags, EChannelFlags::Presence),
@@ -172,22 +200,6 @@ void FChatApi::QueryChannels(
         EnumHasAnyFlags(Flags, EChannelFlags::State),
         EnumHasAnyFlags(Flags, EChannelFlags::Watch),
     };
-    if (MemberLimit.IsSet())
-    {
-        Body.SetMemberLimit(MemberLimit.GetValue());
-    }
-    if (MessageLimit.IsSet())
-    {
-        Body.SetMemberLimit(MessageLimit.GetValue());
-    }
-    if (Limit.IsSet())
-    {
-        Body.SetLimit(Limit.GetValue());
-    }
-    if (Offset.IsSet())
-    {
-        Body.SetOffset(Offset.GetValue());
-    }
 
     Client->Post(Url).Json(Body).Send(Callback);
 }
