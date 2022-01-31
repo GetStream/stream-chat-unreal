@@ -52,7 +52,7 @@ TSharedRef<FChatApi> FChatApi::Create(const FString& InApiKey, const FString& In
 }
 
 void FChatApi::QueryUsers(
-    TCallback<FChannelsResponseDto> Callback,
+    const TCallback<FUsersResponseDto> Callback,
     const FString& ConnectionId,
     const bool bPresence,
     const TOptional<TSharedRef<FJsonObject>>& Filter,
