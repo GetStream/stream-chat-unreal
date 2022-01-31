@@ -225,13 +225,19 @@ void FChatApi::SearchMessages(
     Client->Get(Url).Query({{TEXT("payload"), Payload}}).Send(Callback);
 }
 
+void FChatApi::MarkChannelsRead(const TCallback<FMarkReadResponseDto> Callback) const
+{
+    const FString Url = BuildUrl(TEXT("channels/read"));
+    Client->Post(Url).Send(Callback);
+}
+
 void FChatApi::MarkChannelRead(
     const TCallback<FMarkReadResponseDto> Callback,
-    const FString& Type,
+    const FString& ChannelType,
     const FString& ChannelId,
-    const TOptional<FString>& MessageId)
+    const TOptional<FString>& MessageId) const
 {
-    const FString Path = FString::Printf(TEXT("channels/%s/%s/read"), *Type, *ChannelId);
+    const FString Path = FString::Printf(TEXT("channels/%s/%s/read"), *ChannelType, *ChannelId);
     const FString Url = BuildUrl(Path);
     FMarkReadRequestDto Body{};
     if (MessageId.IsSet())
@@ -276,7 +282,7 @@ void FChatApi::OnRequest(FRequestBuilder& Request) const
     AddAuth(Request, Token);
 }
 
-void FChatApi::OnError(const FHttpResponse& Response, FRequestBuilder& Request)
+void FChatApi::OnError(const FHttpResponse& Response, FRequestBuilder& Request) const
 {
     const FErrorResponseDto Error = Response.Json<FErrorResponseDto>();
     if (Error.IsTokenExpired())
