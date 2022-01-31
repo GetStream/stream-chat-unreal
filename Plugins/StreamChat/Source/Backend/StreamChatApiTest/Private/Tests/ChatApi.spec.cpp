@@ -3,10 +3,12 @@
 #include "ChatApi.h"
 
 #include "ConstantTokenProvider.h"
+#include "Dom/JsonObject.h"
 #include "IChatSocket.h"
 #include "Jwt.h"
 #include "Misc/AutomationTest.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
+#include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/Channel/DeleteChannelResponseDto.h"
 #include "TokenManager.h"
 
@@ -24,7 +26,7 @@ END_DEFINE_SPEC(FChatApiSpec)
 void FChatApiSpec::Define()
 {
     Describe(
-        "Create + remove channel",
+        "Channel",
         [=]
         {
             const FString Token = Jwt::Development(User.Id);
@@ -39,33 +41,82 @@ void FChatApiSpec::Define()
 
             AfterEach([=] { Socket->Disconnect(); });
 
-            LatentIt(
-                "should create a channel",
-                [=](const FDoneDelegate& TestDone)
+            Describe(
+                "Create",
+                [=]
                 {
-                    const auto Callback = [=](const FChannelStateResponseDto& Dto)
-                    {
-                        TestEqual("Response.Channel.Cid", Dto.Channel.Cid, TEXT("messaging:test-channel"));
-                        TestEqual("Response.Channel.Id", Dto.Channel.Id, ChannelId);
-                        TestEqual("No additional fields", Dto.Channel.AdditionalFields.GetFields().Num(), 0);
-                        TestDone.Execute();
-                    };
-                    Api->QueryChannel(Callback, ChannelType, Socket->GetConnectionId(), EChannelFlags::None, {}, ChannelId);
+                    LatentIt(
+                        "should create a channel",
+                        [=](const FDoneDelegate& TestDone)
+                        {
+                            const auto Callback = [=](const FChannelStateResponseDto& Dto)
+                            {
+                                TestEqual("Response.Channel.Cid", Dto.Channel.Cid, TEXT("messaging:test-channel"));
+                                TestEqual("Response.Channel.Id", Dto.Channel.Id, ChannelId);
+                                TestEqual("No additional fields", Dto.Channel.AdditionalFields.GetFields().Num(), 0);
+                                TestDone.Execute();
+                            };
+                            Api->QueryChannel(Callback, ChannelType, Socket->GetConnectionId(), EChannelFlags::None, {}, ChannelId);
+                        });
+
+                    LatentAfterEach(
+                        [=](const FDoneDelegate& TestDone)
+                        {
+                            const TSharedRef<FJsonObject> Filter = MakeShared<FJsonObject>();
+                            Filter->SetStringField(TEXT("id"), ChannelId);
+                            Api->QueryChannels(
+                                [=](const FChannelsResponseDto& Dto)
+                                {
+                                    TestEqual("One channel in response", Dto.Channels.Num(), 1);
+                                    TestDone.Execute();
+                                },
+                                Socket->GetConnectionId(),
+                                EChannelFlags::None,
+                                Filter);
+                        });
                 });
 
-            LatentIt(
-                "should delete channel",
-                [=](const FDoneDelegate& TestDone)
+            Describe(
+                "Delete",
+                [=]
                 {
-                    const auto Callback = [=](const FDeleteChannelResponseDto& Dto)
-                    {
-                        TestEqual("Response.Channel.Cid", Dto.Channel.Cid, TEXT("messaging:test-channel"));
-                        TestEqual("Response.Channel.Id", Dto.Channel.Id, TEXT("test-channel"));
-                        TestEqual("No additional fields", Dto.Channel.AdditionalFields.GetFields().Num(), 0);
-                        AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
-                        TestDone.Execute();
-                    };
-                    Api->DeleteChannel(Callback, ChannelType, ChannelId, true);
+                    LatentIt(
+                        "should delete channel",
+                        [=](const FDoneDelegate& TestDone)
+                        {
+                            const auto Callback = [=](const FDeleteChannelResponseDto& Dto)
+                            {
+                                TestEqual("Response.Channel.Cid", Dto.Channel.Cid, TEXT("messaging:test-channel"));
+                                TestEqual("Response.Channel.Id", Dto.Channel.Id, TEXT("test-channel"));
+                                TestEqual("No additional fields", Dto.Channel.AdditionalFields.GetFields().Num(), 0);
+                                AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
+                                TestDone.Execute();
+                            };
+                            Api->DeleteChannel(Callback, ChannelType, ChannelId, true);
+                        });
+
+                    LatentAfterEach(
+                        [=](const FDoneDelegate& TestDone)
+                        {
+                            const TSharedRef<FJsonObject> Filter = MakeShared<FJsonObject>();
+                            Filter->SetStringField(TEXT("id"), ChannelId);
+                            Api->QueryChannels(
+                                [=](const FChannelsResponseDto& Dto)
+                                {
+                                    if (Dto.Channels.Num() == 0)
+                                    {
+                                        TestEqual("No channels in response", Dto.Channels.Num(), 0);
+                                    }
+                                    else
+                                    {
+                                        AddInfo(FString::Printf(TEXT("%s"), *Dto.Channels[0].Channel.Id));
+                                    }
+                                    TestDone.Execute();
+                                },
+                                Socket->GetConnectionId(),
+                                EChannelFlags::None,
+                                Filter);
+                        });
                 });
         });
 }

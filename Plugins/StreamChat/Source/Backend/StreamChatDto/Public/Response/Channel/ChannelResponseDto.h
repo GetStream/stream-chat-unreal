@@ -107,6 +107,10 @@ struct FChannelResponseDto
     UPROPERTY()
     FDateTime UpdatedAt = FDateTime{0};
 
+    /// The date of channel deletion
+    UPROPERTY()
+    FDateTime TruncatedAt = FDateTime{0};
+
     UPROPERTY()
     FAdditionalFields AdditionalFields;
 };
