@@ -75,6 +75,14 @@ public:
     /// Create a new channel object
     static UChatChannel* Create(UObject* Outer, const TSharedRef<FChatApi>, const TSharedRef<IChatSocket>, const FChannelStateResponseFieldsDto&);
 
+    /**
+     * @brief Delete this channel from the server.
+     * @param Callback Called when response is received.
+     * @param bHardDelete By default, messages are soft deleted, which means they are removed from client but are still available via server-side export
+     * functions. By setting bHardDelete to true, you can hard delete messages, which deletes them from everywhere.
+     */
+    void Delete(TFunction<void()> Callback = {}, bool bHardDelete = false) const;
+
     /// The local static properties of the channel
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
     FChannelProperties Properties;

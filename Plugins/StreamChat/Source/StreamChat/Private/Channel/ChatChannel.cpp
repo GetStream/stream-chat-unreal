@@ -22,6 +22,7 @@
 #include "Request/Message/MessageRequestDto.h"
 #include "Request/Reaction/ReactionRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
+#include "Response/Channel/DeleteChannelResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
 #include "TimerManager.h"
@@ -62,6 +63,21 @@ UChatChannel* UChatChannel::Create(
     Channel->MessagesUpdated.Broadcast(Channel->State.GetMessages());
 
     return Channel;
+}
+
+void UChatChannel::Delete(TFunction<void()> Callback, const bool bHardDelete) const
+{
+    Api->DeleteChannel(
+        [Callback](const FDeleteChannelResponseDto&)
+        {
+            if (Callback)
+            {
+                Callback();
+            }
+        },
+        Properties.Type,
+        Properties.Id,
+        bHardDelete);
 }
 
 void UChatChannel::SendMessage(const FMessage& Message)

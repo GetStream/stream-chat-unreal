@@ -103,14 +103,7 @@ void FChatApiSpec::Define()
                             Api->QueryChannels(
                                 [=](const FChannelsResponseDto& Dto)
                                 {
-                                    if (Dto.Channels.Num() == 0)
-                                    {
-                                        TestEqual("No channels in response", Dto.Channels.Num(), 0);
-                                    }
-                                    else
-                                    {
-                                        AddInfo(FString::Printf(TEXT("%s"), *Dto.Channels[0].Channel.Id));
-                                    }
+                                    TestEqual("No channels in response", Dto.Channels.Num(), 0);
                                     TestDone.Execute();
                                 },
                                 Socket->GetConnectionId(),
