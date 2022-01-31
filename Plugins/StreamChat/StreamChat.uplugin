@@ -102,6 +102,16 @@
             ]
         },
         {
+            "Name": "StreamChatApiTest",
+            "Type": "Runtime",
+            "LoadingPhase": "Default",
+            "WhitelistPlatforms": [
+                "Win64",
+                "Linux",
+                "Mac"
+            ]
+        },
+        {
             "Name": "StreamChatWebSocket",
             "Type": "Runtime",
             "LoadingPhase": "Default",
