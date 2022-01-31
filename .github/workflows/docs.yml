@@ -5,7 +5,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - Plugins/StreamChat
+      - Plugins/StreamChat/**
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
