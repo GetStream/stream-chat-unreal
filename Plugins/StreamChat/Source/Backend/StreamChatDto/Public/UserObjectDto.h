@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "UserDto.h"
 
 #include "UserObjectDto.generated.h"
 
@@ -12,16 +13,9 @@
  * @ingroup StreamChatDto
  */
 USTRUCT(BlueprintType)
-struct STREAMCHATDTO_API FUserObjectDto
+struct STREAMCHATDTO_API FUserObjectDto : public FUserDto
 {
     GENERATED_BODY()
-
-    UPROPERTY()
-    FString Id;
-
-    /// Whether a user online or not
-    UPROPERTY(Transient)
-    bool bOnline = false;
 
     /// Date/time of creation
     UPROPERTY(Transient)
@@ -31,21 +25,19 @@ struct STREAMCHATDTO_API FUserObjectDto
     UPROPERTY(Transient)
     FDateTime UpdatedAt = FDateTime{0};
 
+    /// Date/time of deactivation
+    UPROPERTY(Transient)
+    FDateTime DeactivatedAt = FDateTime{0};
+
+    /// Date/time of deletion
+    UPROPERTY(Transient)
+    FDateTime DeletedAt = FDateTime{0};
+
     /// Date of last activity
     UPROPERTY(Transient)
     FDateTime LastActive = FDateTime{0};
 
-    /// Whether a user should appear online or not
-    UPROPERTY()
-    bool bInvisible = false;
-
-    // Not in the API spec, but common
-    UPROPERTY()
-    FString Name;
-
-    // Not in the API spec, but common
-    UPROPERTY()
-    FString Image;
-
-    // TODO rest of the fields
+    /// Whether a user is online or not
+    UPROPERTY(Transient)
+    bool bOnline = false;
 };

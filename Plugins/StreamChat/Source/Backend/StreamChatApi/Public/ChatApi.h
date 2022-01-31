@@ -8,8 +8,10 @@
 #include "Request/Channel/MessagePaginationParamsRequestDto.h"
 #include "Request/Channel/PaginationParamsRequestDto.h"
 #include "Request/SortParamRequestDto.h"
+#include "Request/User/UserObjectRequestDto.h"
 #include "StreamJson.h"
 
+struct FUpdateUsersResponseDto;
 class FHttpClient;
 class FRequestBuilder;
 class FTokenManager;
