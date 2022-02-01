@@ -261,7 +261,7 @@ public:
      */
 
     /**
-     * @brief Query channels with filter query
+     * @brief Search for users and see if they are online/offline
      * @param ConnectionId Websocket connection ID to interact with.
      * @param bPresence Get updates when the user goes offline/online
      * @param Filter Conditions to use to filter the users, @see https://getstream.io/chat/docs/unreal/query_users
