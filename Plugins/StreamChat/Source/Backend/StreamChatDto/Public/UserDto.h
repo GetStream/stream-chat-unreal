@@ -36,9 +36,6 @@ struct STREAMCHATDTO_API FUserDto
     UPROPERTY()
     FString Language;
 
-    UPROPERTY()
-    bool bPushNotifications = false;
-
     /// Revocation date for tokens
     UPROPERTY()
     FDateTime RevokeTokensIssuedBefore = FDateTime{0};
