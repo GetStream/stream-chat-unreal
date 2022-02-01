@@ -21,7 +21,6 @@ FUser::FUser(const FUserObjectDto& Dto)
     , BanExpires{Dto.BanExpires}
     , bBanned{Dto.bBanned}
     , Language{Dto.Language}
-    , bPushNotifications{Dto.bPushNotifications}
     , RevokeTokensIssuedBefore{Dto.RevokeTokensIssuedBefore}
     , Role{Dto.Role}
     , Teams{Dto.Teams}
@@ -43,7 +42,6 @@ FUser::FUser(const FOwnUserDto& Dto, UUserManager* UserManager)
     , BanExpires{Dto.BanExpires}
     , bBanned{Dto.bBanned}
     , Language{Dto.Language}
-    , bPushNotifications{Dto.bPushNotifications}
     , RevokeTokensIssuedBefore{Dto.RevokeTokensIssuedBefore}
     , Role{Dto.Role}
     , Teams{Dto.Teams}
@@ -70,7 +68,6 @@ FUser::operator FUserObjectDto() const
             bBanned,
             bInvisible,
             Language,
-            bPushNotifications,
             RevokeTokensIssuedBefore,
             Role,
             Teams,

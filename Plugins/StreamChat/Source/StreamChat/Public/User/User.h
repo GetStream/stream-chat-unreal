@@ -89,9 +89,6 @@ struct STREAMCHAT_API FUser
     UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|User", AdvancedDisplay)
     FString Language;
 
-    UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|User", AdvancedDisplay)
-    bool bPushNotifications = false;
-
     /// Revocation date for tokens
     UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|User", AdvancedDisplay)
     FDateTime RevokeTokensIssuedBefore = FDateTime{0};
