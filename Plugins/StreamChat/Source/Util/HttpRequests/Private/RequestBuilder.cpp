@@ -55,17 +55,17 @@ void FRequestBuilder::Send(const TFunction<void(const FHttpResponse&)> Callback)
     RetainedCallback = Callback;
     Client->OnRequestDelegate.Broadcast(*this);
     SendInternal();
-    UE_LOG(LogHttpClient, Log, TEXT("Sent HTTP request [Url=%s]"), *Request->GetURL());
+    UE_LOG(LogHttpClient, Verbose, TEXT("Sent HTTP request [Verb=%s, Url=%s]"), *Request->GetVerb(), *Request->GetURL());
     for (const FString& Header : Request->GetAllHeaders())
     {
-        UE_LOG(LogHttpClient, Log, TEXT("[Header=%s]"), *Header);
+        UE_LOG(LogHttpClient, Verbose, TEXT("[Header=%s]"), *Header);
     }
 }
 
 void FRequestBuilder::Resend()
 {
     SendInternal();
-    UE_LOG(LogHttpClient, Log, TEXT("Resent HTTP request [Url=%s]"), *Request->GetURL());
+    UE_LOG(LogHttpClient, Log, TEXT("Resent HTTP request [Verb=%s, Url=%s]"), *Request->GetVerb(), *Request->GetURL());
 }
 
 FRequestBuilder& FRequestBuilder::Json(const FString& Json)
@@ -73,7 +73,7 @@ FRequestBuilder& FRequestBuilder::Json(const FString& Json)
     Request->SetContentAsString(Json);
     Request->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
 
-    UE_LOG(LogHttpClient, Log, TEXT("Set request body [Json=%s]"), *Json);
+    UE_LOG(LogHttpClient, Verbose, TEXT("Set request body [Json=%s]"), *Json);
     return *this;
 }
 
@@ -84,7 +84,13 @@ void FRequestBuilder::SendInternal()
         {
             if (const FHttpResponse HttpResponse{Response}; HttpResponse.StatusCode >= 200 && HttpResponse.StatusCode < 300)
             {
-                UE_LOG(LogHttpClient, Log, TEXT("HTTP request succeeded [StatusCode=%d, Url=%s]"), HttpResponse.StatusCode, *OriginalRequest->GetURL());
+                UE_LOG(
+                    LogHttpClient,
+                    Log,
+                    TEXT("HTTP request succeeded [StatusCode=%d, Verb=%s, Url=%s]"),
+                    HttpResponse.StatusCode,
+                    *OriginalRequest->GetVerb(),
+                    *OriginalRequest->GetURL());
                 UE_LOG(LogHttpClient, VeryVerbose, TEXT("HTTP response [Body=%s]"), *HttpResponse.Text);
                 RequestBuilder.Client->OnResponseDelegate.Broadcast(HttpResponse);
                 if (RequestBuilder.RetainedCallback)
@@ -95,7 +101,12 @@ void FRequestBuilder::SendInternal()
             else
             {
                 UE_LOG(
-                    LogHttpClient, Error, TEXT("HTTP request returned an error [StatusCode=%d, Url=%s]"), HttpResponse.StatusCode, *OriginalRequest->GetURL());
+                    LogHttpClient,
+                    Error,
+                    TEXT("HTTP request returned an error [StatusCode=%d, Verb=%s, Url=%s]"),
+                    HttpResponse.StatusCode,
+                    *OriginalRequest->GetVerb(),
+                    *OriginalRequest->GetURL());
                 RequestBuilder.Client->OnErrorDelegate.Broadcast(HttpResponse, RequestBuilder);
             }
         });

@@ -29,31 +29,35 @@ void FChatApiSpec::Define()
     const FString Token = Jwt::Development(User.Id);
     TokenManager->SetTokenProvider(MakeUnique<FConstantTokenProvider>(Token), User.Id);
 
+    // Connect WebSocket
+    LatentBeforeEach(
+        [=](const FDoneDelegate& TestDone)
+        {
+            Socket = IChatSocket::Create(TokenManager, ApiKey, Host, User);
+            Socket->Connect([=](const FOwnUserDto&) { TestDone.Execute(); });
+        });
+
     Describe(
         "Channel",
         [=]
         {
+            // Create channel
             LatentBeforeEach(
                 [=](const FDoneDelegate& TestDone)
                 {
-                    Socket = IChatSocket::Create(TokenManager, ApiKey, Host, User);
-                    Socket->Connect([=](const FOwnUserDto&) { TestDone.Execute(); });
-                });
-
-            AfterEach([=] { Socket->Disconnect(); });
-
-            LatentIt(
-                "should create a channel",
-                [=](const FDoneDelegate& TestDone)
-                {
-                    const auto Callback = [=](const FChannelStateResponseDto& Dto)
-                    {
-                        TestEqual("Response.Channel.Cid", Dto.Channel.Cid, TEXT("messaging:test-channel"));
-                        TestEqual("Response.Channel.Id", Dto.Channel.Id, ChannelId);
-                        TestEqual("No additional fields", Dto.Channel.AdditionalFields.GetFields().Num(), 0);
-                        TestDone.Execute();
-                    };
-                    Api->QueryChannel(Callback, ChannelType, Socket->GetConnectionId(), EChannelFlags::None, {}, ChannelId);
+                    Api->QueryChannel(
+                        [=](const FChannelStateResponseDto& Dto)
+                        {
+                            TestEqual("Response.Channel.Cid", Dto.Channel.Cid, TEXT("messaging:test-channel"));
+                            TestEqual("Response.Channel.Id", Dto.Channel.Id, ChannelId);
+                            TestEqual("No additional fields", Dto.Channel.AdditionalFields.GetFields().Num(), 0);
+                            TestDone.Execute();
+                        },
+                        ChannelType,
+                        Socket->GetConnectionId(),
+                        EChannelFlags::None,
+                        {},
+                        ChannelId);
                 });
 
             LatentIt(
@@ -73,43 +77,10 @@ void FChatApiSpec::Define()
                         Filter);
                 });
 
-            LatentIt(
-                "should return some known users",
-                [=](const FDoneDelegate& TestDone)
-                {
-                    const auto Callback = [=](const FUsersResponseDto& Dto)
-                    {
-                        TestTrue("Users returned", Dto.Users.Num() > 0);
-                        const FUserResponseDto* FoundUser = Dto.Users.FindByPredicate([=](const FUserResponseDto& UserDto) { return UserDto.Id == User.Id; });
-                        TestNotNull("User found", FoundUser);
-                        if (FoundUser)
-                        {
-                            TestTrue("Online", FoundUser->bOnline);
-                            TestEqual("Role", FoundUser->Role, TEXT("user"));
-                            TestEqual("No additional fields", FoundUser->AdditionalFields.GetFields().Num(), 0);
-                        }
-                        TestDone.Execute();
-                    };
-                    Api->QueryUsers(Callback, ChannelType, false);
-                });
+            // AfterEach are executed in reverse order oft ad declaration...
 
-            LatentIt(
-                "should delete channel",
-                [=](const FDoneDelegate& TestDone)
-                {
-                    const auto Callback = [=](const FDeleteChannelResponseDto& Dto)
-                    {
-                        TestEqual("Response.Channel.Cid", Dto.Channel.Cid, TEXT("messaging:test-channel"));
-                        TestEqual("Response.Channel.Id", Dto.Channel.Id, TEXT("test-channel"));
-                        TestEqual("No additional fields", Dto.Channel.AdditionalFields.GetFields().Num(), 0);
-                        AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
-                        TestDone.Execute();
-                    };
-                    Api->DeleteChannel(Callback, ChannelType, ChannelId, true);
-                });
-
-            LatentIt(
-                "should find no channel",
+            // Check channel deleted
+            LatentAfterEach(
                 [=](const FDoneDelegate& TestDone)
                 {
                     const TSharedRef<FJsonObject> Filter = MakeShared<FJsonObject>();
@@ -124,5 +95,52 @@ void FChatApiSpec::Define()
                         EChannelFlags::None,
                         Filter);
                 });
+
+            // Delete channel
+            LatentAfterEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->DeleteChannel(
+                        [=](const FDeleteChannelResponseDto& Dto)
+                        {
+                            TestEqual("Response.Channel.Cid", Dto.Channel.Cid, TEXT("messaging:test-channel"));
+                            TestEqual("Response.Channel.Id", Dto.Channel.Id, TEXT("test-channel"));
+                            TestEqual("No additional fields", Dto.Channel.AdditionalFields.GetFields().Num(), 0);
+                            AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
+                            TestDone.Execute();
+                        },
+                        ChannelType,
+                        ChannelId);
+                });
         });
+
+    Describe(
+        "Users",
+        [=]
+        {
+            LatentIt(
+                "should return some known users",
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->QueryUsers(
+                        [=](const FUsersResponseDto& Dto)
+                        {
+                            TestTrue("Users returned", Dto.Users.Num() > 0);
+                            const FUserResponseDto* FoundUser =
+                                Dto.Users.FindByPredicate([=](const FUserResponseDto& UserDto) { return UserDto.Id == User.Id; });
+                            TestNotNull("User found", FoundUser);
+                            if (FoundUser)
+                            {
+                                TestTrue("Online", FoundUser->bOnline);
+                                TestEqual("Role", FoundUser->Role, TEXT("user"));
+                                TestEqual("No additional fields", FoundUser->AdditionalFields.GetFields().Num(), 0);
+                            }
+                            TestDone.Execute();
+                        },
+                        Socket->GetConnectionId(),
+                        false);
+                });
+        });
+
+    AfterEach([=] { Socket->Disconnect(); });
 }

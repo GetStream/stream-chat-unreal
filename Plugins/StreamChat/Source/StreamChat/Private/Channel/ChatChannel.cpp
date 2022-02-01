@@ -76,8 +76,7 @@ void UChatChannel::Delete(TFunction<void()> Callback, const bool bHardDelete) co
             }
         },
         Properties.Type,
-        Properties.Id,
-        bHardDelete);
+        Properties.Id);
 }
 
 void UChatChannel::SendMessage(const FMessage& Message)

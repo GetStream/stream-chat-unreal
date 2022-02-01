@@ -72,7 +72,8 @@ void FChatApi::QueryUsers(
         SortOptions,
     };
 
-    Client->Get(Url).Json(Body).Send(Callback);
+    const FString Payload = Json::Serialize(Body);
+    Client->Get(Url).Query({{TEXT("payload"), Payload}}).Send(Callback);
 }
 
 FChatApi::FChatApi(const FString& InApiKey, const FString& InHost, const TSharedPtr<FTokenManager>& InTokenManager)
@@ -116,11 +117,11 @@ void FChatApi::QueryChannel(
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
-void FChatApi::DeleteChannel(const TCallback<FDeleteChannelResponseDto> Callback, const FString& ChannelType, const FString& ChannelId, bool bHardDelete) const
+void FChatApi::DeleteChannel(const TCallback<FDeleteChannelResponseDto> Callback, const FString& ChannelType, const FString& ChannelId) const
 {
     const FString Path = FString::Printf(TEXT("channels/%s/%s"), *ChannelType, *ChannelId);
     const FString Url = BuildUrl(Path);
-    Client->Delete(Url).Query({{TEXT("hard_delete"), bHardDelete}}).Send(Callback);
+    Client->Delete(Url).Send(Callback);
 }
 
 void FChatApi::SendNewMessage(
