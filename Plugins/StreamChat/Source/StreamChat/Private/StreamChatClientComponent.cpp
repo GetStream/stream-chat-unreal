@@ -18,6 +18,7 @@
 #include "Response/Message/SearchResponseDto.h"
 #include "Response/User/UsersResponseDto.h"
 #include "StreamChatSettings.h"
+#include "Token.h"
 #include "TokenManager.h"
 #include "User/UserManager.h"
 #include "Util.h"
@@ -137,6 +138,14 @@ void UStreamChatClientComponent::ConnectUser(const FUser& User, TUniquePtr<IToke
 
 void UStreamChatClientComponent::ConnectUser(const FUser& User, const FString& Token, const TFunction<void(const FUserRef&)> Callback)
 {
+    TokenManager->SetTokenProvider(MakeUnique<FConstantTokenProvider>(FToken::Jwt(Token)), User.Id);
+    ConnectUserInternal(User, Callback);
+}
+
+void UStreamChatClientComponent::ConnectAnonymousUser(TFunction<void(const FUserRef&)> Callback)
+{
+    const FToken Token = FToken::Anonymous();
+    const FUser User;
     TokenManager->SetTokenProvider(MakeUnique<FConstantTokenProvider>(Token), User.Id);
     ConnectUserInternal(User, Callback);
 }

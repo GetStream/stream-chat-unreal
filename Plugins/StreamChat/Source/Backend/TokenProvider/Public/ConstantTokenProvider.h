@@ -3,13 +3,14 @@
 #pragma once
 
 #include "ITokenProvider.h"
+#include "Token.h"
 
 class TOKENPROVIDER_API FConstantTokenProvider final : public ITokenProvider
 {
 public:
-    explicit FConstantTokenProvider(const FString& InToken);
-    virtual FString LoadToken(const FString&, bool) const override;
+    explicit FConstantTokenProvider(const FToken& InToken);
+    virtual FToken LoadToken(const FString&, bool) const override;
 
 private:
-    FString Token;
+    FToken Token;
 };

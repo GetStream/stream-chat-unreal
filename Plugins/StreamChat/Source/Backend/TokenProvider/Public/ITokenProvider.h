@@ -3,10 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Token.h"
 
 class TOKENPROVIDER_API ITokenProvider
 {
 public:
     virtual ~ITokenProvider() = default;
-    virtual FString LoadToken(const FString& UserId, bool bRefresh = false) const = 0;
+    virtual FToken LoadToken(const FString& UserId, bool bRefresh = false) const = 0;
 };

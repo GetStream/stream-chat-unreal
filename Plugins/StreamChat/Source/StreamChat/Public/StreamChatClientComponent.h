@@ -60,6 +60,13 @@ public:
     void ConnectUser(const FUser& User, const FString& Token, TFunction<void(const FUserRef&)> Callback = {});
 
     /**
+     * @brief Create a connection to the API anonymously
+     * @param Callback Called when a response is received from the API
+     * @return Anonymous user info
+     */
+    void ConnectAnonymousUser(TFunction<void(const FUserRef&)> Callback = {});
+
+    /**
      * @brief Close the connection to the API and resets any state
      */
     void DisconnectUser();

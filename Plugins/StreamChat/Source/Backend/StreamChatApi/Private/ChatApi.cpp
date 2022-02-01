@@ -22,6 +22,7 @@
 #include "Response/Message/SearchResponseDto.h"
 #include "Response/Reaction/ReactionResponseDto.h"
 #include "Response/User/UsersResponseDto.h"
+#include "Token.h"
 #include "TokenManager.h"
 
 namespace
@@ -290,19 +291,19 @@ FString FChatApi::BuildUrl(const FString& Path) const
     return FString::Printf(TEXT("%s://%s/%s"), *Scheme, *Host, *Path);
 }
 
-void FChatApi::AddAuth(FRequestBuilder& Request, const FString& Token) const
+void FChatApi::AddAuth(FRequestBuilder& Request, const FToken& Token) const
 {
     Request
         .Header({
             {TEXT("stream-auth-type"), TEXT("jwt")},
-            {TEXT("Authorization"), Token},
+            {TEXT("Authorization"), Token.JwtString},
         })
         .Query({{TEXT("api_key"), ApiKey}});
 }
 
 void FChatApi::OnRequest(FRequestBuilder& Request) const
 {
-    const FString Token = TokenManager->LoadToken();
+    const FToken Token = TokenManager->LoadToken();
     AddAuth(Request, Token);
 }
 
@@ -311,7 +312,7 @@ void FChatApi::OnError(const FHttpResponse& Response, FRequestBuilder& Request) 
     const FErrorResponseDto Error = Response.Json<FErrorResponseDto>();
     if (Error.IsTokenExpired())
     {
-        const FString NewToken = TokenManager->LoadToken(true);
+        const FToken NewToken = TokenManager->LoadToken(true);
         AddAuth(Request, NewToken);
         Request.Resend();
     }

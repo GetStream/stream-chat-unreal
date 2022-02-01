@@ -13,7 +13,7 @@ void FTokenManager::Reset()
     TokenProvider.Reset();
 }
 
-FString FTokenManager::LoadToken(const bool bRefresh) const
+FToken FTokenManager::LoadToken(const bool bRefresh) const
 {
     return TokenProvider->LoadToken(UserId, bRefresh);
 }

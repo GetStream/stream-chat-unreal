@@ -2,11 +2,11 @@
 
 #include "ConstantTokenProvider.h"
 
-FConstantTokenProvider::FConstantTokenProvider(const FString& InToken) : Token(InToken)
+FConstantTokenProvider::FConstantTokenProvider(const FToken& InToken) : Token(InToken)
 {
 }
 
-FString FConstantTokenProvider::LoadToken(const FString&, bool) const
+FToken FConstantTokenProvider::LoadToken(const FString&, bool) const
 {
     return Token;
 }
