@@ -13,7 +13,6 @@
 #include "Engine/LatentActionManager.h"
 #include "Event/Channel/MessageNewEvent.h"
 #include "IChatSocket.h"
-#include "User/User.h"
 #include "User/UserRef.h"
 
 #include "StreamChatClientComponent.generated.h"
@@ -42,8 +41,7 @@ public:
     UStreamChatClientComponent();
 
     /**
-     * Create a connection to the API for the given user and using a custom token provider.
-
+     * @brief Create a connection to the API for the given user and using a custom token provider.
      * @param User Generally only the user id is required
      * @param TokenProvider Can be used to asynchronously generate tokens from your own backend
      * @param Callback Called when a response is received from the API
@@ -52,8 +50,7 @@ public:
     void ConnectUser(const FUser& User, TUniquePtr<ITokenProvider> TokenProvider, TFunction<void(const FUserRef&)> Callback = {});
 
     /**
-     * Create a connection to the API for the given user and credentials.
-
+     * @brief Create a connection to the API for the given user and credentials.
      * @param User Generally only the user id is required
      * @param Token A JWT token for the given user
      * @param Callback Called when a response is received from the API
@@ -62,13 +59,12 @@ public:
     void ConnectUser(const FUser& User, const FString& Token, TFunction<void(const FUserRef&)> Callback = {});
 
     /**
-     * Close the connection to the API and resets any state
+     * @brief Close the connection to the API and resets any state
      */
     void DisconnectUser();
 
     /**
-     * Query the API for all channels which match the given filter. Will also automatically watch all channels.
-     *
+     * @brief Query the API for all channels which match the given filter. Will also automatically watch all channels.
      * @param Callback Called when a response is received from the API
      * @param Filter The query filters to use. You can query on any of the custom fields you've defined on the Channel.
      * As a minimum, the filter should be something like: { members: { $in: [userID] } }
@@ -86,8 +82,7 @@ public:
         const FChannelPaginationOptions& PaginationOptions = {});
 
     /**
-    * Create a channel if it doesn't exist yet (if this user has the right permissions).
-
+     * @brief Create a channel if it doesn't exist yet (if this user has the right permissions).
      * @param ChannelProperties Properties of the channel to create
      * @param Callback Called when a response is received from the API
      * @return A channel object which can be used to interact with the channel
@@ -95,9 +90,8 @@ public:
     void CreateChannel(const FChannelProperties& ChannelProperties, TFunction<void(UChatChannel*)> Callback);
 
     /**
-    * Create a channel if it doesn't exist yet (if this user has the right permissions), get data about the channel
-    (including members, watchers and messages) and subscribe to future updates
-
+     * @brief Create a channel if it doesn't exist yet (if this user has the right permissions), get data about the channel (including members, watchers and
+     * messages) and subscribe to future updates
      * @param ChannelProperties Properties of the channel to watch
      * @param Callback Called when a response is received from the API
      * @return A channel object which can be used to interact with the channel
@@ -105,9 +99,8 @@ public:
     void WatchChannel(const FChannelProperties& ChannelProperties, TFunction<void(UChatChannel*)> Callback);
 
     /**
-    * Create a channel if it doesn't exist yet (if this user has the right permissions).
-    * Includes options to get data about the channel (including members, watchers and messages), subscribe to future updates.
-
+     * @brief Create a channel if it doesn't exist yet (if this user has the right permissions).
+     * Includes options to get data about the channel (including members, watchers and messages), subscribe to future updates.
      * @param Flags Get state, get presence and/or watch
      * @param ChannelProperties Properties of the channel to query
      * @param Callback Called when a response is received from the API
@@ -116,8 +109,25 @@ public:
     void QueryChannel(const FChannelProperties& ChannelProperties, const EChannelFlags Flags, TFunction<void(UChatChannel*)> Callback);
 
     /**
+     * @brief Search for users and see if they are online/offline
+     * @param bPresence Get updates when the user goes offline/online
+     * @param Filter Conditions to use to filter the users, @see https://getstream.io/chat/docs/unreal/query_users
+     * @param Sort The sorting used for the users matching the filters.
+     * Sorting is based on field and direction, multiple sorting options can be provided.
+     * @param Limit The number of users to return
+     * @param Offset The pagination offset
+     * @param Callback Called when response is received
+     */
+    void QueryUsers(
+        TFunction<void(const TArray<FUserRef>&)> Callback,
+        const FFilter& Filter = {},
+        const TArray<FUserSortOption>& Sort = {},
+        bool bPresence = true,
+        TOptional<uint32> Limit = {},
+        TOptional<uint32> Offset = {}) const;
+
+    /**
      * @brief Search all messages
-     *
      * A channel filter is required.
      * All other parameters are optional, but a minimum of either a query or message filter is additionally required
      *

@@ -115,3 +115,47 @@ struct FMessageSortOption
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat")
     ESortDirection Direction = ESortDirection::Descending;
 };
+
+/**
+ * @brief The desired sort field for user queries
+ * @ingroup StreamChat
+ */
+UENUM(BlueprintType)
+enum class EUserSortField : uint8
+{
+    /// User ID
+    Id,
+    /// Created at time
+    CreatedAt,
+    /// Updated at time
+    UpdatedAt,
+    /// When the user was last active
+    LastActive,
+    /// Any custom field that is attached to your message. Must fill CustomField.
+    Custom,
+};
+
+/**
+ * @brief The desired sort options for message queries
+ * @ingroup StreamChat
+ */
+USTRUCT(BlueprintType)
+struct FUserSortOption
+{
+    GENERATED_BODY()
+
+    /// Convert into a DTO for sending to the API
+    explicit operator FSortParamRequestDto() const;
+
+    /// Which field to sort by
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat")
+    EUserSortField Field = EUserSortField::CreatedAt;
+
+    /// Sort by this custom field. Only considered if "Field" is custom
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat")
+    FName CustomField;
+
+    /// The direction in which to sort
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat")
+    ESortDirection Direction = ESortDirection::Descending;
+};

@@ -20,3 +20,11 @@ FMessageSortOption::operator FSortParamRequestDto() const
         Direction == ESortDirection::Ascending ? 1 : -1,
     };
 }
+
+FUserSortOption::operator FSortParamRequestDto() const
+{
+    return {
+        Field == EUserSortField::Custom ? CustomField.ToString() : Json::Serialize(Field),
+        Direction == ESortDirection::Ascending ? 1 : -1,
+    };
+}

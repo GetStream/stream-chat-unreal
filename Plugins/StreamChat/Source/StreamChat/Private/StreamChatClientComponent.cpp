@@ -16,6 +16,7 @@
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
+#include "Response/User/UsersResponseDto.h"
 #include "StreamChatSettings.h"
 #include "TokenManager.h"
 #include "User/UserManager.h"
@@ -235,13 +236,40 @@ void UStreamChatClientComponent::QueryChannel(const FChannelProperties& ChannelP
         OptionalId);
 }
 
+void UStreamChatClientComponent::QueryUsers(
+    TFunction<void(const TArray<FUserRef>&)> Callback,
+    const FFilter& Filter,
+    const TArray<FUserSortOption>& Sort,
+    const bool bPresence,
+    const TOptional<uint32> Limit,
+    const TOptional<uint32> Offset) const
+{
+    Api->QueryUsers(
+        [Callback](const FUsersResponseDto& Dto)
+        {
+            if (Callback)
+            {
+                UUserManager* UserManager = UUserManager::Get();
+                TArray<FUserRef> Users;
+                Algo::Transform(Dto.Users, Users, [UserManager](const FUserResponseDto& UserResponseDto) { return UserManager->UpsertUser(UserResponseDto); });
+                Callback(Users);
+            }
+        },
+        Socket->GetConnectionId(),
+        bPresence,
+        Filter.ToJsonObject(),
+        Util::Convert<FSortParamRequestDto>(Sort),
+        Limit,
+        Offset);
+}
+
 void UStreamChatClientComponent::SearchMessages(
     TFunction<void(const TArray<FMessage>&)> Callback,
     const FFilter& ChannelFilter,
     const TOptional<FString>& Query,
     const TOptional<FFilter>& MessageFilter,
     const TArray<FMessageSortOption>& Sort,
-    TOptional<uint32> MessageLimit) const
+    const TOptional<uint32> MessageLimit) const
 {
     TOptional<TSharedRef<FJsonObject>> MessageFilterJson;
     if (MessageFilter.IsSet())
