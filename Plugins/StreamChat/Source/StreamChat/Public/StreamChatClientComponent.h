@@ -69,6 +69,7 @@ public:
     /**
      * @brief Close the connection to the API and resets any state
      */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client")
     void DisconnectUser();
 
     /**
@@ -199,10 +200,18 @@ public:
 
      * @param User Generally only the user id is required
      * @param Token A JWT token for the given user
-     * @param OutUser Latest info if the logged in user
+     * @param OutUser Latest info of the logged in user
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo))
     void ConnectUser(const FUser& User, const FString& Token, const UObject* WorldContextObject, FLatentActionInfo LatentInfo, FUserRef& OutUser);
+
+    /**
+     * Create a connection to the API anonymously
+
+     * @param OutUser Anonymous user info
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo))
+    void ConnectAnonymousUser(const UObject* WorldContextObject, FLatentActionInfo LatentInfo, FUserRef& OutUser);
 
     /**
      * Query the API for all channels which match the given filter. Will also automatically watch all channels.

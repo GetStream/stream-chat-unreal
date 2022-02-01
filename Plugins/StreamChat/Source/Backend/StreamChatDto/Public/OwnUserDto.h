@@ -33,6 +33,9 @@ struct STREAMCHATDTO_API FOwnUserDto : public FUserDto
     FDateTime LastActive = FDateTime{0};
 
     UPROPERTY(Transient)
+    int32 UnreadCount = -1;
+
+    UPROPERTY(Transient)
     int32 TotalUnreadCount = -1;
 
     UPROPERTY(Transient)

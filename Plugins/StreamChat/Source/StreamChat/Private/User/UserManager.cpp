@@ -13,9 +13,14 @@ UUserManager* UUserManager::Get()
     return GEngine->GetEngineSubsystem<UUserManager>();
 }
 
-void UUserManager::SetCurrentUser(const FUser& InCurrentUser)
+void UUserManager::SetCurrentUser(const FUserRef& InCurrentUser)
 {
-    CurrentUser = UpsertUser(InCurrentUser);
+    CurrentUser = InCurrentUser;
+}
+
+void UUserManager::ResetCurrentUser()
+{
+    CurrentUser = {};
 }
 
 const FUser& UUserManager::GetUser(const FUserRef& Ref)
@@ -38,9 +43,14 @@ FUserRef UUserManager::UpsertUser(const FUser& User)
     ensure(!User.Id.IsEmpty());
 
     const FUserRef Ref = FUserRef{User.Id, this};
-    if (FUser* FoundUser = Users.Find(User.Id); !FoundUser || FoundUser->UpdatedAt < User.UpdatedAt)
+    if (FUser* FoundUser = Users.Find(User.Id); !FoundUser)
     {
         Users.Add(User.Id, User);
+        OnUserUpdated(Ref).Broadcast();
+    }
+    else if (FoundUser->UpdatedAt <= User.UpdatedAt)
+    {
+        FoundUser->Update(User);
         OnUserUpdated(Ref).Broadcast();
     }
     return Ref;

@@ -36,6 +36,7 @@ FUser::FUser(const FOwnUserDto& Dto, UUserManager* UserManager)
     , CreatedAt(Dto.CreatedAt)
     , UpdatedAt{Dto.UpdatedAt}
     , LastActive{Dto.LastActive}
+    , UnreadCount(Dto.UnreadCount)
     , TotalUnreadCount(Dto.TotalUnreadCount)
     , UnreadChannels(Dto.UnreadChannels)
     , MutedUsers{Util::Convert<FMutedUser>(Dto.Mutes, UserManager)}
@@ -79,6 +80,47 @@ FUser::operator FUserObjectDto() const
         DeletedAt,
         LastActive,
         bOnline};
+}
+
+void FUser::Update(const FUser& User)
+{
+    // TODO Devices
+    // TODO Channel mutes
+    bBanned = User.bBanned;
+    bOnline = User.bOnline;
+    bInvisible = User.bInvisible;
+    MutedUsers = User.MutedUsers;
+    UnreadCount = User.UnreadCount;
+    TotalUnreadCount = User.TotalUnreadCount;
+
+    if (User.CreatedAt.GetTicks() != 0)
+    {
+        CreatedAt = User.CreatedAt;
+    }
+    if (User.UpdatedAt.GetTicks() != 0)
+    {
+        UpdatedAt = User.UpdatedAt;
+    }
+    if (User.LastActive.GetTicks() != 0)
+    {
+        LastActive = User.LastActive;
+    }
+    if (!User.Role.IsEmpty())
+    {
+        Role = User.Role;
+    }
+    if (!User.Language.IsEmpty())
+    {
+        Language = User.Language;
+    }
+    if (!User.Name.IsEmpty())
+    {
+        Name = User.Name;
+    }
+    if (!User.Image.IsEmpty())
+    {
+        Image = User.Image;
+    }
 }
 
 FUser::FUser(const FString& InId) : Id(InId)
