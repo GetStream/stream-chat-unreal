@@ -39,12 +39,13 @@ void UStreamChatClientComponent::BeginPlay()
 
 void UStreamChatClientComponent::ConnectUserInternal(const FUser& User, const TFunction<void(const FUserRef&)> Callback)
 {
-    UUserManager::Get()->SetCurrentUser(User);
+    const FUserRef Ref = UUserManager::Get()->UpsertUser(User);
     Socket = IChatSocket::Create(TokenManager.ToSharedRef(), ApiKey, GetDefault<UStreamChatSettings>()->Host, Util::Convert<FUserObjectDto>(User));
     Socket->Connect(
         [Callback](const FOwnUserDto& OwnUser)
         {
             const FUserRef Ref = UUserManager::Get()->UpsertUser(OwnUser);
+            UUserManager::Get()->SetCurrentUser(Ref);
             if (Callback)
             {
                 Callback(Ref);
@@ -104,6 +105,11 @@ void UStreamChatClientComponent::ConnectUser(
     TCallbackAction<FUserRef>::CreateLatentAction(WorldContextObject, LatentInfo, OutUser, [&](auto Callback) { ConnectUser(User, Token, Callback); });
 }
 
+void UStreamChatClientComponent::ConnectAnonymousUser(const UObject* WorldContextObject, const FLatentActionInfo LatentInfo, FUserRef& OutUser)
+{
+    TCallbackAction<FUserRef>::CreateLatentAction(WorldContextObject, LatentInfo, OutUser, [&](auto Callback) { ConnectAnonymousUser(Callback); });
+}
+
 void UStreamChatClientComponent::QueryChannels(
     const FFilter Filter,
     const TArray<FChannelSortOption>& SortOptions,
@@ -132,20 +138,35 @@ void UStreamChatClientComponent::WatchChannel(
 
 void UStreamChatClientComponent::ConnectUser(const FUser& User, TUniquePtr<ITokenProvider> TokenProvider, const TFunction<void(const FUserRef&)> Callback)
 {
+    if (UUserManager::Get()->GetCurrentUser().IsValid())
+    {
+        DisconnectUser();
+    }
+
     TokenManager->SetTokenProvider(MoveTemp(TokenProvider), User.Id);
     ConnectUserInternal(User, Callback);
 }
 
 void UStreamChatClientComponent::ConnectUser(const FUser& User, const FString& Token, const TFunction<void(const FUserRef&)> Callback)
 {
+    if (UUserManager::Get()->GetCurrentUser().IsValid())
+    {
+        DisconnectUser();
+    }
+
     TokenManager->SetTokenProvider(MakeUnique<FConstantTokenProvider>(FToken::Jwt(Token)), User.Id);
     ConnectUserInternal(User, Callback);
 }
 
-void UStreamChatClientComponent::ConnectAnonymousUser(TFunction<void(const FUserRef&)> Callback)
+void UStreamChatClientComponent::ConnectAnonymousUser(const TFunction<void(const FUserRef&)> Callback)
 {
+    if (UUserManager::Get()->GetCurrentUser().IsValid())
+    {
+        DisconnectUser();
+    }
+
     const FToken Token = FToken::Anonymous();
-    const FUser User;
+    const FUser User{TEXT("anonymous")};
     TokenManager->SetTokenProvider(MakeUnique<FConstantTokenProvider>(Token), User.Id);
     ConnectUserInternal(User, Callback);
 }
@@ -158,6 +179,7 @@ void UStreamChatClientComponent::DisconnectUser()
         Socket->Disconnect();
     }
     TokenManager->Reset();
+    UUserManager::Get()->ResetCurrentUser();
 }
 
 void UStreamChatClientComponent::QueryChannels(

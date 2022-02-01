@@ -20,7 +20,8 @@ class UUserManager final : public UEngineSubsystem
 public:
     static UUserManager* Get();
 
-    void SetCurrentUser(const FUser& InCurrentUser);
+    void SetCurrentUser(const FUserRef& InCurrentUser);
+    void ResetCurrentUser();
     const FUser& GetUser(const FUserRef&);
     bool HasUser(const FUserRef&) const;
     FUserRef UpsertUser(const FUser&);

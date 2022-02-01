@@ -34,6 +34,7 @@ struct STREAMCHAT_API FUser
 
     /// Generate initials from the user's name
     FString GetInitials(int32 Limit = 2) const;
+    void Update(const FUser& User);
 
     /// The id of this user
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat|User")
@@ -68,8 +69,13 @@ struct STREAMCHAT_API FUser
     FDateTime LastActive = FDateTime{0};
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
+    int32 UnreadCount = 0;
+
+    /// Only populated for current user
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
     int32 TotalUnreadCount = 0;
 
+    /// Only populated for current user
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
     int32 UnreadChannels = 0;
 

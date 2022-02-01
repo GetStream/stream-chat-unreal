@@ -19,7 +19,7 @@ void UProfilePicWidget::OnSetup()
     if (InitialsTextBlock)
     {
         // Always initialize avatar with initials, until real image downloads
-        InitialsTextBlock->SetText(FText::FromString(Initials));
+        InitialsTextBlock->SetText(FText::FromString(Initials.IsEmpty() ? TEXT("?") : Initials));
     }
 
     if (Image)
