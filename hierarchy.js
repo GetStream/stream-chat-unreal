@@ -72,9 +72,9 @@ var hierarchy =
     [ "FMessageRequestDto", "struct_f_message_request_dto.html", null ],
     [ "FMessageResponseDto", "struct_f_message_response_dto.html", null ],
     [ "FMessageSortOption", "struct_f_message_sort_option.html", null ],
-    [ "FOwnUserDto", "struct_f_own_user_dto.html", null ],
     [ "FPaginationParamsRequestDto", "struct_f_pagination_params_request_dto.html", null ],
     [ "FQueryChannelsRequestDto", "struct_f_query_channels_request_dto.html", null ],
+    [ "FQueryUsersRequestDto", "struct_f_query_users_request_dto.html", null ],
     [ "FReaction", "struct_f_reaction.html", null ],
     [ "FReactionDto", "struct_f_reaction_dto.html", null ],
     [ "FReactionGroup", "struct_f_reaction_group.html", null ],
@@ -93,10 +93,18 @@ var hierarchy =
     [ "FSortParamRequestDto", "struct_f_sort_param_request_dto.html", null ],
     [ "FUpdateMessageRequestDto", "struct_f_update_message_request_dto.html", null ],
     [ "FUser", "struct_f_user.html", null ],
+    [ "FUserDto", "struct_f_user_dto.html", [
+      [ "FOwnUserDto", "struct_f_own_user_dto.html", null ],
+      [ "FUserObjectDto", "struct_f_user_object_dto.html", [
+        [ "FUserResponseDto", "struct_f_user_response_dto.html", null ]
+      ] ],
+      [ "FUserObjectRequestDto", "struct_f_user_object_request_dto.html", null ]
+    ] ],
     [ "FUserMuteDto", "struct_f_user_mute_dto.html", null ],
-    [ "FUserObjectDto", "struct_f_user_object_dto.html", null ],
     [ "FUserPaginationOptions", "struct_f_user_pagination_options.html", null ],
     [ "FUserRef", "struct_f_user_ref.html", null ],
+    [ "FUserSortOption", "struct_f_user_sort_option.html", null ],
+    [ "FUsersResponseDto", "struct_f_users_response_dto.html", null ],
     [ "jwt::header< json_traits >", "classjwt_1_1header.html", [
       [ "jwt::decoded_jwt< json_traits >", "classjwt_1_1decoded__jwt.html", null ]
     ] ],

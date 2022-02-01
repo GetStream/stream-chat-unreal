@@ -127,21 +127,32 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a32bdbcb95a97bb017db3ebc6a5e1cb46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the component. Shouldn't be called directly. <br /></td></tr>
 <tr class="separator:a32bdbcb95a97bb017db3ebc6a5e1cb46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a772775375b6df48ed9280caa356dea13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#a772775375b6df48ed9280caa356dea13">ConnectUser</a> (const <a class="el" href="struct_f_user.html">FUser</a> &amp;User, TUniquePtr&lt; ITokenProvider &gt; TokenProvider, TFunction&lt; void(const <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;)&gt; Callback={})</td></tr>
+<tr class="memdesc:a772775375b6df48ed9280caa356dea13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a connection to the API for the given user and using a custom token provider.  <a href="class_u_stream_chat_client_component.html#a772775375b6df48ed9280caa356dea13">More...</a><br /></td></tr>
 <tr class="separator:a772775375b6df48ed9280caa356dea13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6229a8fcf989852a5abc72c04779b58"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#ac6229a8fcf989852a5abc72c04779b58">ConnectUser</a> (const <a class="el" href="struct_f_user.html">FUser</a> &amp;User, const FString &amp;Token, TFunction&lt; void(const <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;)&gt; Callback={})</td></tr>
+<tr class="memdesc:ac6229a8fcf989852a5abc72c04779b58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a connection to the API for the given user and credentials.  <a href="class_u_stream_chat_client_component.html#ac6229a8fcf989852a5abc72c04779b58">More...</a><br /></td></tr>
 <tr class="separator:ac6229a8fcf989852a5abc72c04779b58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1abed0a192360951268e62a6a78a8e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#ab1abed0a192360951268e62a6a78a8e7">DisconnectUser</a> ()</td></tr>
+<tr class="memitem:ab1abed0a192360951268e62a6a78a8e7"><td class="memItemLeft" align="right" valign="top"><a id="ab1abed0a192360951268e62a6a78a8e7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#ab1abed0a192360951268e62a6a78a8e7">DisconnectUser</a> ()</td></tr>
+<tr class="memdesc:ab1abed0a192360951268e62a6a78a8e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close the connection to the API and resets any state. <br /></td></tr>
 <tr class="separator:ab1abed0a192360951268e62a6a78a8e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70109502de94907851f19ae97fe02a8b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#a70109502de94907851f19ae97fe02a8b">QueryChannels</a> (TFunction&lt; void(const TArray&lt; <a class="el" href="class_u_chat_channel.html">UChatChannel</a> * &gt; &amp;)&gt; Callback, TOptional&lt; <a class="el" href="struct_f_filter.html">FFilter</a> &gt; Filter={}, const TArray&lt; <a class="el" href="struct_f_channel_sort_option.html">FChannelSortOption</a> &gt; &amp;SortOptions={}, const <a class="el" href="group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898">EChannelFlags</a> Flags=<a class="el" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d">EChannelFlags::State</a>|<a class="el" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898af20658650d987d31063b593c05980397">EChannelFlags::Watch</a>, const <a class="el" href="struct_f_channel_pagination_options.html">FChannelPaginationOptions</a> &amp;PaginationOptions={})</td></tr>
+<tr class="memdesc:a70109502de94907851f19ae97fe02a8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query the API for all channels which match the given filter. Will also automatically watch all channels.  <a href="class_u_stream_chat_client_component.html#a70109502de94907851f19ae97fe02a8b">More...</a><br /></td></tr>
 <tr class="separator:a70109502de94907851f19ae97fe02a8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a8eced83c1c5533f264b8e1c7b5c15e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#a2a8eced83c1c5533f264b8e1c7b5c15e">CreateChannel</a> (const <a class="el" href="struct_f_channel_properties.html">FChannelProperties</a> &amp;ChannelProperties, TFunction&lt; void(<a class="el" href="class_u_chat_channel.html">UChatChannel</a> *)&gt; Callback)</td></tr>
+<tr class="memdesc:a2a8eced83c1c5533f264b8e1c7b5c15e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a channel if it doesn't exist yet (if this user has the right permissions).  <a href="class_u_stream_chat_client_component.html#a2a8eced83c1c5533f264b8e1c7b5c15e">More...</a><br /></td></tr>
 <tr class="separator:a2a8eced83c1c5533f264b8e1c7b5c15e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a705b3527835b5c7354ee5eeb8859320a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#a705b3527835b5c7354ee5eeb8859320a">WatchChannel</a> (const <a class="el" href="struct_f_channel_properties.html">FChannelProperties</a> &amp;ChannelProperties, TFunction&lt; void(<a class="el" href="class_u_chat_channel.html">UChatChannel</a> *)&gt; Callback)</td></tr>
+<tr class="memdesc:a705b3527835b5c7354ee5eeb8859320a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a channel if it doesn't exist yet (if this user has the right permissions), get data about the channel (including members, watchers and messages) and subscribe to future updates.  <a href="class_u_stream_chat_client_component.html#a705b3527835b5c7354ee5eeb8859320a">More...</a><br /></td></tr>
 <tr class="separator:a705b3527835b5c7354ee5eeb8859320a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d324df894080737f8e915db575fed6d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#a4d324df894080737f8e915db575fed6d">QueryChannel</a> (const <a class="el" href="struct_f_channel_properties.html">FChannelProperties</a> &amp;ChannelProperties, const <a class="el" href="group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898">EChannelFlags</a> Flags, TFunction&lt; void(<a class="el" href="class_u_chat_channel.html">UChatChannel</a> *)&gt; Callback)</td></tr>
+<tr class="memdesc:a4d324df894080737f8e915db575fed6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a channel if it doesn't exist yet (if this user has the right permissions). Includes options to get data about the channel (including members, watchers and messages), subscribe to future updates.  <a href="class_u_stream_chat_client_component.html#a4d324df894080737f8e915db575fed6d">More...</a><br /></td></tr>
 <tr class="separator:a4d324df894080737f8e915db575fed6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f76b944317a89801ecef0c52ef7750b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#a4f76b944317a89801ecef0c52ef7750b">QueryUsers</a> (TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_user_ref.html">FUserRef</a> &gt; &amp;)&gt; Callback, const <a class="el" href="struct_f_filter.html">FFilter</a> &amp;Filter={}, const TArray&lt; <a class="el" href="struct_f_user_sort_option.html">FUserSortOption</a> &gt; &amp;Sort={}, bool bPresence=true, TOptional&lt; uint32 &gt; Limit={}, TOptional&lt; uint32 &gt; Offset={}) const</td></tr>
+<tr class="memdesc:a4f76b944317a89801ecef0c52ef7750b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for users and see if they are online/offline.  <a href="class_u_stream_chat_client_component.html#a4f76b944317a89801ecef0c52ef7750b">More...</a><br /></td></tr>
+<tr class="separator:a4f76b944317a89801ecef0c52ef7750b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a027a441d6ac2dcd7619f4f99a960f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#a8a027a441d6ac2dcd7619f4f99a960f9">SearchMessages</a> (TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;)&gt; Callback, const <a class="el" href="struct_f_filter.html">FFilter</a> &amp;ChannelFilter={}, const TOptional&lt; FString &gt; &amp;<a class="el" href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a66c1b4c7f3dc385b68a9fa903ccd016d">Query</a>={}, const TOptional&lt; <a class="el" href="struct_f_filter.html">FFilter</a> &gt; &amp;MessageFilter={}, const TArray&lt; <a class="el" href="struct_f_message_sort_option.html">FMessageSortOption</a> &gt; &amp;Sort={}, TOptional&lt; uint32 &gt; MessageLimit={}) const</td></tr>
-<tr class="memdesc:a8a027a441d6ac2dcd7619f4f99a960f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search all messages.  <a href="class_u_stream_chat_client_component.html#a8a027a441d6ac2dcd7619f4f99a960f9">More...</a><br /></td></tr>
+<tr class="memdesc:a8a027a441d6ac2dcd7619f4f99a960f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search all messages A channel filter is required. All other parameters are optional, but a minimum of either a query or message filter is additionally required.  <a href="class_u_stream_chat_client_component.html#a8a027a441d6ac2dcd7619f4f99a960f9">More...</a><br /></td></tr>
 <tr class="separator:a8a027a441d6ac2dcd7619f4f99a960f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa6f9c8a21ee1d6b4b6e582f4364f645"><td class="memItemLeft" align="right" valign="top"><a id="afa6f9c8a21ee1d6b4b6e582f4364f645"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateMessage</b> (const FString &amp;<a class="el" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa490aa6e856ccf208a054389e47ce0d06">Id</a>, const FString &amp;<a class="el" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa9dffbf69ffba8bc38bc4e01abf4b1675">Text</a>) const</td></tr>
@@ -282,7 +293,8 @@ FChannelsUpdatedDelegate&#160;</td><td class="memItemRight" valign="bottom"><a c
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create a connection to the API for the given user and credentials.</p>
+
+<p>Create a connection to the API for the given user and credentials. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">User</td><td>Generally only the user id is required </td></tr>
@@ -326,7 +338,8 @@ FChannelsUpdatedDelegate&#160;</td><td class="memItemRight" valign="bottom"><a c
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create a connection to the API for the given user and using a custom token provider.</p>
+
+<p>Create a connection to the API for the given user and using a custom token provider. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">User</td><td>Generally only the user id is required </td></tr>
@@ -364,7 +377,8 @@ FChannelsUpdatedDelegate&#160;</td><td class="memItemRight" valign="bottom"><a c
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create a channel if it doesn't exist yet (if this user has the right permissions).</p>
+
+<p>Create a channel if it doesn't exist yet (if this user has the right permissions). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ChannelProperties</td><td>Properties of the channel to create </td></tr>
@@ -373,24 +387,6 @@ FChannelsUpdatedDelegate&#160;</td><td class="memItemRight" valign="bottom"><a c
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A channel object which can be used to interact with the channel </dd></dl>
-
-</div>
-</div>
-<a id="ab1abed0a192360951268e62a6a78a8e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1abed0a192360951268e62a6a78a8e7">&#9670;&nbsp;</a></span>DisconnectUser()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void UStreamChatClientComponent::DisconnectUser </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Close the connection to the API and resets any state </p>
 
 </div>
 </div>
@@ -557,7 +553,8 @@ template&lt;class TEvent , class UserClass &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create a channel if it doesn't exist yet (if this user has the right permissions). Includes options to get data about the channel (including members, watchers and messages), subscribe to future updates.</p>
+
+<p>Create a channel if it doesn't exist yet (if this user has the right permissions). Includes options to get data about the channel (including members, watchers and messages), subscribe to future updates. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">Flags</td><td>Get state, get presence and/or watch </td></tr>
@@ -675,7 +672,8 @@ template&lt;class TEvent , class UserClass &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Query the API for all channels which match the given filter. Will also automatically watch all channels.</p>
+
+<p>Query the API for all channels which match the given filter. Will also automatically watch all channels. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">Callback</td><td>Called when a response is received from the API </td></tr>
@@ -687,6 +685,77 @@ template&lt;class TEvent , class UserClass &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An array of channel objects which can be used to interact with the channels </dd></dl>
+
+</div>
+</div>
+<a id="a4f76b944317a89801ecef0c52ef7750b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f76b944317a89801ecef0c52ef7750b">&#9670;&nbsp;</a></span>QueryUsers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UStreamChatClientComponent::QueryUsers </td>
+          <td>(</td>
+          <td class="paramtype">TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_user_ref.html">FUserRef</a> &gt; &amp;)&gt;&#160;</td>
+          <td class="paramname"><em>Callback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_f_filter.html">FFilter</a> &amp;&#160;</td>
+          <td class="paramname"><em>Filter</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; <a class="el" href="struct_f_user_sort_option.html">FUserSortOption</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Sort</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bPresence</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TOptional&lt; uint32 &gt;&#160;</td>
+          <td class="paramname"><em>Limit</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TOptional&lt; uint32 &gt;&#160;</td>
+          <td class="paramname"><em>Offset</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Search for users and see if they are online/offline. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bPresence</td><td>Get updates when the user goes offline/online </td></tr>
+    <tr><td class="paramname">Filter</td><td>Conditions to use to filter the users, </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://getstream.io/chat/docs/unreal/query_users">https://getstream.io/chat/docs/unreal/query_users</a> </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Sort</td><td>The sorting used for the users matching the filters. Sorting is based on field and direction, multiple sorting options can be provided. </td></tr>
+    <tr><td class="paramname">Limit</td><td>The number of users to return </td></tr>
+    <tr><td class="paramname">Offset</td><td>The pagination offset </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -740,8 +809,7 @@ template&lt;class TEvent , class UserClass &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Search all messages. </p>
-<p>A channel filter is required. All other parameters are optional, but a minimum of either a query or message filter is additionally required</p>
+<p>Search all messages A channel filter is required. All other parameters are optional, but a minimum of either a query or message filter is additionally required. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">Callback</td><td>Called when response is received </td></tr>
@@ -829,7 +897,8 @@ template&lt;class TEvent , class UserClass &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create a channel if it doesn't exist yet (if this user has the right permissions), get data about the channel (including members, watchers and messages) and subscribe to future updates</p>
+
+<p>Create a channel if it doesn't exist yet (if this user has the right permissions), get data about the channel (including members, watchers and messages) and subscribe to future updates. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ChannelProperties</td><td>Properties of the channel to watch </td></tr>

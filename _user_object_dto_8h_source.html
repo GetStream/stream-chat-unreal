@@ -92,44 +92,36 @@ $(document).ready(function(){initNavTree('_user_object_dto_8h_source.html',''); 
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;UserObjectDto.generated.h&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;USTRUCT(BlueprintType)</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="struct_f_user_object_dto.html">   15</a></span>&#160;struct STREAMCHATDTO_API <a class="code" href="struct_f_user_object_dto.html">FUserObjectDto</a></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    GENERATED_BODY()</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    FString <a class="code" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa490aa6e856ccf208a054389e47ce0d06">Id</a>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    UPROPERTY(Transient)</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="struct_f_user_object_dto.html#a2a6585584e72fea077387e8068eb3a55">   24</a></span>&#160;    bool bOnline = false;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    UPROPERTY(Transient)</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="struct_f_user_object_dto.html#ab13950f5a8cd648a10b3b6df9b84e9b7">   28</a></span>&#160;    FDateTime CreatedAt = FDateTime{0};</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    UPROPERTY(Transient)</div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="struct_f_user_object_dto.html#a304111061ebe054e72f5a7db864e22bd">   32</a></span>&#160;    FDateTime UpdatedAt = FDateTime{0};</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    UPROPERTY(Transient)</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="struct_f_user_object_dto.html#a48f70bbeae9663fcd229b04e33f8b0d6">   36</a></span>&#160;    FDateTime LastActive = FDateTime{0};</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="struct_f_user_object_dto.html#afc3e4b32981358c24743b05cd8e84351">   40</a></span>&#160;    bool bInvisible = false;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="comment">// Not in the API spec, but common</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    FString Name;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="comment">// Not in the API spec, but common</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    UPROPERTY()</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    FString Image;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="comment">// TODO rest of the fields</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;};</div>
-<div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8fa490aa6e856ccf208a054389e47ce0d06"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa490aa6e856ccf208a054389e47ce0d06">EMessageSortField::Id</a></div><div class="ttdeci">@ Id</div><div class="ttdoc">Message ID.</div></div>
-<div class="ttc" id="astruct_f_user_object_dto_html"><div class="ttname"><a href="struct_f_user_object_dto.html">FUserObjectDto</a></div><div class="ttdoc">#/components/schemas/UserObject Used in both requests and responses</div><div class="ttdef"><b>Definition:</b> UserObjectDto.h:16</div></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;UserDto.h&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;UserObjectDto.generated.h&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;USTRUCT(BlueprintType)</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="struct_f_user_object_dto.html">   16</a></span>&#160;struct STREAMCHATDTO_API <a class="code" href="struct_f_user_object_dto.html">FUserObjectDto</a> : public <a class="code" href="struct_f_user_dto.html">FUserDto</a></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    GENERATED_BODY()</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    UPROPERTY(Transient)</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="struct_f_user_object_dto.html#ab13950f5a8cd648a10b3b6df9b84e9b7">   22</a></span>&#160;    FDateTime CreatedAt = FDateTime{0};</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    UPROPERTY(Transient)</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="struct_f_user_object_dto.html#a304111061ebe054e72f5a7db864e22bd">   26</a></span>&#160;    FDateTime UpdatedAt = FDateTime{0};</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    UPROPERTY(Transient)</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="struct_f_user_object_dto.html#ad70f763df7deaaa8d4be9aad1679f0fd">   30</a></span>&#160;    FDateTime DeactivatedAt = FDateTime{0};</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    UPROPERTY(Transient)</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="struct_f_user_object_dto.html#a89bb9ea5b31f87b76505b3ee2375bb2b">   34</a></span>&#160;    FDateTime DeletedAt = FDateTime{0};</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    UPROPERTY(Transient)</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="struct_f_user_object_dto.html#a48f70bbeae9663fcd229b04e33f8b0d6">   38</a></span>&#160;    FDateTime LastActive = FDateTime{0};</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    UPROPERTY(Transient)</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="struct_f_user_object_dto.html#a2a6585584e72fea077387e8068eb3a55">   42</a></span>&#160;    bool bOnline = false;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;};</div>
+<div class="ttc" id="astruct_f_user_dto_html"><div class="ttname"><a href="struct_f_user_dto.html">FUserDto</a></div><div class="ttdoc">Common fields for users.</div><div class="ttdef"><b>Definition:</b> UserDto.h:16</div></div>
+<div class="ttc" id="astruct_f_user_object_dto_html"><div class="ttname"><a href="struct_f_user_object_dto.html">FUserObjectDto</a></div><div class="ttdoc">#/components/schemas/UserObject Used in both requests and responses</div><div class="ttdef"><b>Definition:</b> UserObjectDto.h:17</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

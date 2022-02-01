@@ -71,6 +71,12 @@ var group___stream_chat =
       [ "Direction", "struct_f_message_sort_option.html#a786c7589b83976fc38ef11de8ee28921", null ],
       [ "Field", "struct_f_message_sort_option.html#a181a0e55c38fd7536ef4f4e4e7591aa8", null ]
     ] ],
+    [ "FUserSortOption", "struct_f_user_sort_option.html", [
+      [ "operator FSortParamRequestDto", "struct_f_user_sort_option.html#a1516df48ea4a71b4559b9142e3bc6a45", null ],
+      [ "CustomField", "struct_f_user_sort_option.html#ae0bfa53ea80f6021f5eee25b5039a56b", null ],
+      [ "Direction", "struct_f_user_sort_option.html#a31d0863f1e6f10fd779a75770011deb8", null ],
+      [ "Field", "struct_f_user_sort_option.html#a38b0a420b442d82d1b5641b3959ceb79", null ]
+    ] ],
     [ "FChannelState", "struct_f_channel_state.html", [
       [ "FChannelState", "struct_f_channel_state.html#ae31619e08147a700841325ab17e04b1f", null ],
       [ "FChannelState", "struct_f_channel_state.html#acb9757a317896b956350210536ffe9e5", null ],
@@ -172,6 +178,10 @@ var group___stream_chat =
     ] ],
     [ "FUserPaginationOptions", "struct_f_user_pagination_options.html", [
       [ "operator FPaginationParamsRequestDto", "struct_f_user_pagination_options.html#af90e4cc7ae6bb6a7fcb4b705e3c7b699", null ],
+      [ "IdGt", "struct_f_user_pagination_options.html#a70b7617c7f1e346689d876bc3814f48d", null ],
+      [ "IdGte", "struct_f_user_pagination_options.html#ad1ea07c44e1044cb03d7982f34fdec1a", null ],
+      [ "IdLt", "struct_f_user_pagination_options.html#abdc21a3efebe1adab19b7f625e623f75", null ],
+      [ "IdLte", "struct_f_user_pagination_options.html#a164e1c6cc99f0a377c1a9f5623d32f78", null ],
       [ "Limit", "struct_f_user_pagination_options.html#af914e1ee229a436bf2967cd234bf9395", null ],
       [ "Offset", "struct_f_user_pagination_options.html#a5d0a702e113b20586495f0ff2e85b6e7", null ]
     ] ],
@@ -224,6 +234,7 @@ var group___stream_chat =
       [ "QueryChannel", "class_u_stream_chat_client_component.html#a4d324df894080737f8e915db575fed6d", null ],
       [ "QueryChannels", "class_u_stream_chat_client_component.html#a6a960c3c9631c36846e57bf5e183e0e8", null ],
       [ "QueryChannels", "class_u_stream_chat_client_component.html#a70109502de94907851f19ae97fe02a8b", null ],
+      [ "QueryUsers", "class_u_stream_chat_client_component.html#a4f76b944317a89801ecef0c52ef7750b", null ],
       [ "SearchMessages", "class_u_stream_chat_client_component.html#a8a027a441d6ac2dcd7619f4f99a960f9", null ],
       [ "Unsubscribe", "class_u_stream_chat_client_component.html#aef6c08642d4ed10c3c0de4dfba355e55", null ],
       [ "UpdateMessage", "class_u_stream_chat_client_component.html#afa6f9c8a21ee1d6b4b6e582f4364f645", null ],
@@ -285,5 +296,12 @@ var group___stream_chat =
       [ "System", "group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7aa45da96d0bf6575970f2d27af22be28a", null ],
       [ "Deleted", "group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a5fe6005bf6e415c950c011fb65f12b8f", null ]
     ] ],
-    [ "ESortDirection", "group___stream_chat.html#ga3b38841cfa7e76d2948c49d219950551", null ]
+    [ "ESortDirection", "group___stream_chat.html#ga3b38841cfa7e76d2948c49d219950551", null ],
+    [ "EUserSortField", "group___stream_chat.html#ga168ebbcdbfc643c147a18bf919d9a7a1", [
+      [ "Id", "group___stream_chat.html#gga168ebbcdbfc643c147a18bf919d9a7a1a490aa6e856ccf208a054389e47ce0d06", null ],
+      [ "CreatedAt", "group___stream_chat.html#gga168ebbcdbfc643c147a18bf919d9a7a1a46d295c8a97befd247d2d634ac8cc4b3", null ],
+      [ "UpdatedAt", "group___stream_chat.html#gga168ebbcdbfc643c147a18bf919d9a7a1a0b2a8a8fed13280ecd74f7545bc2b962", null ],
+      [ "LastActive", "group___stream_chat.html#gga168ebbcdbfc643c147a18bf919d9a7a1a00ced7fb1ad8328edf91ef4493b43c2e", null ],
+      [ "Custom", "group___stream_chat.html#gga168ebbcdbfc643c147a18bf919d9a7a1a90589c47f06eb971d548591f23c285af", null ]
+    ] ]
 ];

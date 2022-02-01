@@ -19,6 +19,7 @@ var class_u_stream_chat_client_component =
     [ "QueryChannel", "class_u_stream_chat_client_component.html#a4d324df894080737f8e915db575fed6d", null ],
     [ "QueryChannels", "class_u_stream_chat_client_component.html#a6a960c3c9631c36846e57bf5e183e0e8", null ],
     [ "QueryChannels", "class_u_stream_chat_client_component.html#a70109502de94907851f19ae97fe02a8b", null ],
+    [ "QueryUsers", "class_u_stream_chat_client_component.html#a4f76b944317a89801ecef0c52ef7750b", null ],
     [ "SearchMessages", "class_u_stream_chat_client_component.html#a8a027a441d6ac2dcd7619f4f99a960f9", null ],
     [ "Unsubscribe", "class_u_stream_chat_client_component.html#aef6c08642d4ed10c3c0de4dfba355e55", null ],
     [ "UpdateMessage", "class_u_stream_chat_client_component.html#afa6f9c8a21ee1d6b4b6e582f4364f645", null ],
