@@ -13,6 +13,7 @@
 #include "Engine/LatentActionManager.h"
 #include "Event/Channel/MessageNewEvent.h"
 #include "IChatSocket.h"
+#include "User/User.h"
 #include "User/UserRef.h"
 
 #include "StreamChatClientComponent.generated.h"
