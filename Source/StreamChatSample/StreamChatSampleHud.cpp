@@ -16,7 +16,7 @@ void AStreamChatSampleHud::BeginPlay()
     Super::BeginPlay();
 
     const FUser User{TEXT("jc")};
-    const FString Token{TEXT("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiamMifQ.2_5Hae3LKjVSfA0gQxXlZn54Bq6xDlhjPx2J7azUNB4")};
+    const FString Token = TEXT("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiamMifQ.2_5Hae3LKjVSfA0gQxXlZn54Bq6xDlhjPx2J7azUNB4");
     Client->ConnectUser(
         User,
         Token,

@@ -12,7 +12,6 @@ public class TokenProvider : ModuleRules
         PublicDependencyModuleNames.AddRange(new[] {
             "Core",
             "CoreUObject",
-            "Engine",
         });
     }
 }

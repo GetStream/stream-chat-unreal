@@ -26,7 +26,7 @@ END_DEFINE_SPEC(FChatApiSpec)
 
 void FChatApiSpec::Define()
 {
-    const FString Token = Jwt::Development(User.Id);
+    const FToken Token = FToken::Jwt(Jwt::Development(User.Id));
     TokenManager->SetTokenProvider(MakeUnique<FConstantTokenProvider>(Token), User.Id);
 
     // Connect WebSocket
