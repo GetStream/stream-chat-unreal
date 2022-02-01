@@ -84,14 +84,12 @@ public:
         const TOptional<FPaginationParamsRequestDto> WatcherPagination = {}) const;
 
     /**
-     * @brief Get messages, members or other channel fields. Creates the channel if not yet created.
+     * @brief Delete a channel. Messages are soft deleted.
      * @param Callback Called when response is received.
      * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
      * @param ChannelId A unique identifier for the channel
-     * @param bHardDelete By default, messages are soft deleted, which means they are removed from client but are still available via server-side export
-     * functions. By setting bHardDelete to true, you can hard delete messages, which deletes them from everywhere.
      */
-    void DeleteChannel(TCallback<FDeleteChannelResponseDto> Callback, const FString& ChannelType, const FString& ChannelId, bool bHardDelete = false) const;
+    void DeleteChannel(TCallback<FDeleteChannelResponseDto> Callback, const FString& ChannelType, const FString& ChannelId) const;
 
     /**
      * @brief Query channels with filter query

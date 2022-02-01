@@ -9,7 +9,7 @@
 
 class FHttpClient;
 
-DECLARE_LOG_CATEGORY_EXTERN(LogHttpClient, Log, All);
+DECLARE_LOG_CATEGORY_EXTERN(LogHttpClient, Verbose, All);
 
 class HTTPREQUESTS_API FRequestBuilder
 {
