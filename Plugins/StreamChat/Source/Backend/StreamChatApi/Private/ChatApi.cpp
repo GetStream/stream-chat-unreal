@@ -293,12 +293,23 @@ FString FChatApi::BuildUrl(const FString& Path) const
 
 void FChatApi::AddAuth(FRequestBuilder& Request, const FToken& Token) const
 {
-    Request
-        .Header({
-            {TEXT("stream-auth-type"), TEXT("jwt")},
-            {TEXT("Authorization"), Token.JwtString},
-        })
-        .Query({{TEXT("api_key"), ApiKey}});
+    const auto Headers = [&]() -> FQueryParameters
+    {
+        switch (Token.TokenType)
+        {
+            case ETokenType::Jwt:
+                return {
+                    {TEXT("stream-auth-type"), TEXT("jwt")},
+                    {TEXT("Authorization"), Token.JwtString},
+                };
+            case ETokenType::Anonymous:
+                return {
+                    {TEXT("stream-auth-type"), TEXT("anonymous")},
+                };
+        }
+        return {};
+    }();
+    Request.Header(Headers).Query({{TEXT("api_key"), ApiKey}});
 }
 
 void FChatApi::OnRequest(FRequestBuilder& Request) const

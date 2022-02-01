@@ -74,8 +74,19 @@ void FChatSocket::Disconnect()
 FString FChatSocket::BuildUrl(const bool bRefreshToken) const
 {
     const auto [TokenType, JwtString] = TokenManager->LoadToken(bRefreshToken);
-    return FString::Printf(
-        TEXT("wss://%s/connect?json=%s&api_key=%s&authorization=%s&stream-auth-type=jwt"), *Host, *ConnectionRequestJson, *ApiKey, *JwtString);
+    const FString Auth = [&]
+    {
+        switch (TokenType)
+        {
+            case ETokenType::Jwt:
+                return FString::Printf(TEXT("&authorization=%s&stream-auth-type=jwt"), *JwtString);
+            case ETokenType::Anonymous:
+                return FString::Printf(TEXT("&stream-auth-type=anonymous"));
+        }
+        return FString{};
+    }();
+
+    return FString::Printf(TEXT("wss://%s/connect?json=%s&api_key=%s%s"), *Host, *ConnectionRequestJson, *ApiKey, *Auth);
 }
 
 bool FChatSocket::IsConnected() const
