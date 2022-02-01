@@ -170,7 +170,7 @@ html {
 @media (prefers-color-scheme: dark) {
     html:not(.light-mode) {
         color-scheme: dark;
-        
+
         --primary-color: #1982d2;
         --primary-dark-color: #5ca8e2;
         --primary-light-color: #4779ac;
@@ -653,8 +653,8 @@ html.dark-mode iframe#MSearchResults {
         animation: ease-out 280ms slideInSearchResultsMobile;
     }
 
-    /* 
-     * Overwrites for fixing the searchbox on mobile in doxygen 1.9.2 
+    /*
+     * Overwrites for fixing the searchbox on mobile in doxygen 1.9.2
      */
     label.main-menu-btn ~ #searchBoxPos1 {
         top: 3px !important;

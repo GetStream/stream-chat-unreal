@@ -43,13 +43,13 @@ bump-version version:
     const fileName = './Plugins/StreamChat/StreamChat.uplugin';
     const data = fs.readFileSync(fileName);
     const file = JSON.parse(data);
-        
+
     // Bump version
     file.Version += 1;
 
     // Set version string
     file.VersionName = "{{version}}";
-        
+
     fs.writeFile(fileName, JSON.stringify(file, null, 4), function writeJSON(err) {
         if (err) return console.error(err);
         console.log("Writing to " + fileName);
@@ -58,7 +58,7 @@ bump-version version:
 create-release-branch version: (bump-version version)
     echo "Preparing release {{version}}"
 
-    git config --global user.name 'github-actions' 
+    git config --global user.name 'github-actions'
     git config --global user.email 'release@getstream.io'
     git checkout -q -b "release-{{version}}"
     git commit -am "Release: {{version}}"

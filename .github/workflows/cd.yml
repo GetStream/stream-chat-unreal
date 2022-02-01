@@ -25,7 +25,7 @@ jobs:
       matrix:
         platform: [Linux, Mac, "Win64"]
         what: [team-chat, jumpy-lion]
-        include: 
+        include:
           - what: team-chat
             map: /Game/TeamChatSample/Maps/TeamChatSample.TeamChatSample
           - what: jumpy-lion
@@ -36,7 +36,7 @@ jobs:
             path: MacNoEditor
           - platform: Win64
             path: WindowsNoEditor
-            
+
     name: 📦 Package ${{ matrix.what }} - ${{ matrix.platform }}
     runs-on: [self-hosted, 'UE_${{ matrix.platform }}']
 
@@ -65,10 +65,10 @@ jobs:
             sed 's/.*LogInit: Display: \(.*\): Warning: \(.*\)/::warning title=\1::\2/'
             sed 's/.*LogInit: Display: \(.*\): Error: \(.*\)/::error title=\1::\2/'
             sed 's/.*ERROR: \(.*\)/::error::\1/'
-        
+
       - name: 🔏 Codesign executable
         if: ${{ matrix.platform == 'Mac' }}
-        env: 
+        env:
           MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
           MACOS_CERTIFICATE_PWD: ${{ secrets.MACOS_CERTIFICATE_PWD }}
           MACOS_IDENTITY_ID: ${{ secrets.MACOS_IDENTITY_ID }}
@@ -99,7 +99,7 @@ jobs:
           echo -e "\n==> Fix rpaths"
           # These rpaths lead to invalid locations. They need to be removed, otherwise the notarized app won't pass the Gatekeeper.
           declare -a bad_exe_rpaths=(
-            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_4.27/Engine/Binaries/ThirdParty/PhysX3/Mac" 
+            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_4.27/Engine/Binaries/ThirdParty/PhysX3/Mac"
             "@loader_path/../../../../../../Engine/Binaries/ThirdParty/PhysX3/Mac"
             "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_4.27/Engine/Binaries/ThirdParty/Ogg/Mac"
             "@loader_path/../../../../../../Engine/Binaries/ThirdParty/Ogg/Mac"
@@ -112,8 +112,8 @@ jobs:
             echo "Removing bad rpath: $i"
             install_name_tool -delete_rpath "$i" $app/Contents/MacOS/$executable
           done
-          
-          find $app -name '*.dylib' -print0 | while IFS= read -r -d '' i; do 
+
+          find $app -name '*.dylib' -print0 | while IFS= read -r -d '' i; do
             if otool -l "$i" | grep -q LC_RPATH; then
               echo "--> Replace rpath for $i"
               install_name_tool -rpath /Volumes/Work/Perforce/UE4/Engine/Binaries/ThirdParty/PhysX3/Mac @loader_path $i
@@ -151,7 +151,7 @@ jobs:
           path: |
             ${{ matrix.what }}-${{ matrix.platform }}.zip
         name: 📁 Upload artifact
-     
+
       - uses: actions/upload-artifact@v2
         if: ${{ matrix.platform != 'Mac' }}
         with:
@@ -212,7 +212,7 @@ jobs:
 
       - name: 📥 Download
         uses: actions/download-artifact@v2
-      
+
       - name: 📇 Zip
         run: |
           # move macOS zips
