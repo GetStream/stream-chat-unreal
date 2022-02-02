@@ -112,6 +112,11 @@ void UStreamChatClientComponent::ConnectAnonymousUser(const UObject* WorldContex
     TCallbackAction<FUserRef>::CreateLatentAction(WorldContextObject, LatentInfo, OutUser, [&](auto Callback) { ConnectAnonymousUser(Callback); });
 }
 
+void UStreamChatClientComponent::ConnectGuestUser(const FUser& User, const UObject* WorldContextObject, const FLatentActionInfo LatentInfo, FUserRef& OutUser)
+{
+    TCallbackAction<FUserRef>::CreateLatentAction(WorldContextObject, LatentInfo, OutUser, [&](auto Callback) { ConnectGuestUser(User, Callback); });
+}
+
 void UStreamChatClientComponent::QueryChannels(
     const FFilter Filter,
     const TArray<FChannelSortOption>& SortOptions,
@@ -131,7 +136,7 @@ void UStreamChatClientComponent::QueryChannels(
 void UStreamChatClientComponent::WatchChannel(
     const FChannelProperties& ChannelProperties,
     const UObject* WorldContextObject,
-    FLatentActionInfo LatentInfo,
+    const FLatentActionInfo LatentInfo,
     UChatChannel*& OutChannel)
 {
     TCallbackAction<UChatChannel*, UChatChannel*>::CreateLatentAction(

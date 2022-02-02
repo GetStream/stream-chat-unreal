@@ -67,7 +67,7 @@ public:
     void ConnectAnonymousUser(TFunction<void(const FUserRef&)> Callback = {});
 
     /**
-     * @brief Create a connection to the API anonymously
+     * @brief Create a connection to the API by creating a guest account
      * @param User Generally only the user id is required
      * @param Callback Called when a response is received from the API
      * @return Anonymous user info
@@ -99,7 +99,7 @@ public:
         const FChannelPaginationOptions& PaginationOptions = {});
 
     /**
-     * @brief Create a channel if it doesn't exist yet (if this user has the right permissions).
+     * @brief Create a channel if it does not exist yet (if this user has the right permissions).
      * @param ChannelProperties Properties of the channel to create
      * @param Callback Called when a response is received from the API
      * @return A channel object which can be used to interact with the channel
@@ -107,7 +107,7 @@ public:
     void CreateChannel(const FChannelProperties& ChannelProperties, TFunction<void(UChatChannel*)> Callback);
 
     /**
-     * @brief Create a channel if it doesn't exist yet (if this user has the right permissions), get data about the channel (including members, watchers and
+     * @brief Create a channel if it does not exist yet (if this user has the right permissions), get data about the channel (including members, watchers and
      * messages) and subscribe to future updates
      * @param ChannelProperties Properties of the channel to watch
      * @param Callback Called when a response is received from the API
@@ -116,7 +116,7 @@ public:
     void WatchChannel(const FChannelProperties& ChannelProperties, TFunction<void(UChatChannel*)> Callback);
 
     /**
-     * @brief Create a channel if it doesn't exist yet (if this user has the right permissions).
+     * @brief Create a channel if it does not exist yet (if this user has the right permissions).
      * Includes options to get data about the channel (including members, watchers and messages), subscribe to future updates.
      * @param Flags Get state, get presence and/or watch
      * @param ChannelProperties Properties of the channel to query
@@ -205,7 +205,6 @@ private:
 public:
     /**
      * Create a connection to the API for the given user and credentials.
-
      * @param User Generally only the user id is required
      * @param Token A JWT token for the given user
      * @param OutUser Latest info of the logged in user
@@ -215,11 +214,18 @@ public:
 
     /**
      * Create a connection to the API anonymously
-
      * @param OutUser Anonymous user info
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo))
     void ConnectAnonymousUser(const UObject* WorldContextObject, FLatentActionInfo LatentInfo, FUserRef& OutUser);
+
+    /**
+     * Create a connection to the API by creating a guest account
+     * @param User Generally only the user id is required
+     * @param OutUser Guest user info
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo))
+    void ConnectGuestUser(const FUser& User, const UObject* WorldContextObject, FLatentActionInfo LatentInfo, FUserRef& OutUser);
 
     /**
      * Query the API for all channels which match the given filter. Will also automatically watch all channels.
@@ -241,7 +247,7 @@ public:
         UPARAM(meta = (Bitmask, BitmaskEnum = EChannelFlags)) const int32 Flags = 3);
 
     /**
-    * Create a channel if it doesn't exist yet (if this user has the right permissions), get data about the channel
+    * Create a channel if it does not exist yet (if this user has the right permissions), get data about the channel
     (including members, watchers and messages) and subscribe to future updates
 
      * @param ChannelProperties Properties of the channel to watch
