@@ -153,7 +153,7 @@ void FChatApiSpec::Define()
                 "should create guest user",
                 [=](const FDoneDelegate& TestDone)
                 {
-                    const FUserObjectRequestDto GuestUserDto{TEXT("test-guest-user")};
+                    const FUserObjectRequestDto GuestUserDto{{TEXT("test-guest-user")}};
                     Api->CreateGuest(
                         GuestUserDto,
                         [=](const FGuestResponseDto& Dto)
