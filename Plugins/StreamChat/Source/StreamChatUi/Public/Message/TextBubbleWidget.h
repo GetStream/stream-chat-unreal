@@ -4,7 +4,7 @@
 
 #include "Channel/Message.h"
 #include "Components/Border.h"
-#include "Components/TextBlock.h"
+#include "Components/RichTextBlock.h"
 #include "CoreMinimal.h"
 #include "MessagePosition.h"
 #include "MessageSide.h"
@@ -27,7 +27,7 @@ public:
 
 protected:
     UPROPERTY(meta = (BindWidget))
-    UTextBlock* TextBlock;
+    URichTextBlock* TextBlock;
     UPROPERTY(meta = (BindWidget))
     UBorder* Border;
 
@@ -40,9 +40,7 @@ protected:
     UPROPERTY(EditAnywhere, Category = Bubble)
     UTexture2D* YouEndTexture;
     UPROPERTY(EditAnywhere, Category = Emoji)
-    FSlateFontInfo NormalFont;
-    UPROPERTY(EditAnywhere, Category = Emoji)
-    float SingleEmojiFontSize = 32.f;
+    FSlateFontInfo SingleEmojiFont;
     UPROPERTY(EditAnywhere, Category = Emoji)
     float SingleEmojiBorderStyle = 32.f;
 
@@ -59,7 +57,6 @@ private:
 
     UTexture2D* GetBubbleTexture() const;
     const FLinearColor& GetBubbleColor(const UThemeDataAsset*) const;
-    const FLinearColor& GetTextColor(const UThemeDataAsset*) const;
     FText GetText() const;
     bool IsSingleEmoji() const;
 };

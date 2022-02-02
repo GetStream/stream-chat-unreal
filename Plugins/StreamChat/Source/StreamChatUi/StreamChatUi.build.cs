@@ -16,7 +16,7 @@ public class StreamChatUi : ModuleRules
             "Http",
             "RenderCore",
             "RHI",
-            "Json"
+            "Json", "XmlParser"
         });
 
         PublicDependencyModuleNames.AddRange(new[] {

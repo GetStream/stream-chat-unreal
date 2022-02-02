@@ -23,6 +23,7 @@ FMessage::FMessage(const FMessageDto& Dto, UUserManager* UserManager)
     , ParentId{Dto.ParentId}
     , bIsSilent{Dto.bSilent}
     , bIsShadowed{Dto.bShadowed}
+    , Html{Dto.Html}
     , ExtraData{Dto.AdditionalFields}
 {
 }

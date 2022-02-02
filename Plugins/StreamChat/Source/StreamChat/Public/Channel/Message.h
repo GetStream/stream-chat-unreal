@@ -127,6 +127,10 @@ struct STREAMCHAT_API FMessage
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat|Message", AdvancedDisplay)
     bool bIsShadowed = false;
 
+    /// Contains HTML markup of the message
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
+    FString Html;
+
     UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|Message", AdvancedDisplay)
     FAdditionalFields ExtraData;
 

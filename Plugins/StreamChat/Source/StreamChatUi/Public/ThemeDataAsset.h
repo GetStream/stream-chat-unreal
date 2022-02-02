@@ -5,6 +5,7 @@
 #include "Components/Widget.h"
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
+#include "Engine/DataTable.h"
 
 #include "ThemeDataAsset.generated.h"
 
@@ -30,7 +31,7 @@ public:
     TMap<FName, FLinearColor> Palette;
 
     /// The default color of the text on an named avatar. Note that this will be ignored if "Colored Name" is true
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Bubble")
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Avatar")
     FName NamedAvatarTextColor = TEXT("text-high-emphasis");
 
     /// The bubble color of messages sent by the current user
@@ -42,13 +43,12 @@ public:
     /// The bubble color of messages which have been soft deleted
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Bubble")
     FName DeletedBubbleColor = TEXT("input-bg");
-
-    /// The color of the text of messages
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Bubble")
-    FName NormalMessageTextColor = TEXT("text-high-emphasis");
     /// The color of the text of messages which have been soft deleted
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Bubble")
     FName DeletedMessageTextColor = TEXT("text-low-emphasis");
+    /// The text style information for message bubbles
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Styles|Message Bubble")
+    UDataTable* BubbleTextStyleSet;
 
     /// The color of the background of the message composer
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Composer")
