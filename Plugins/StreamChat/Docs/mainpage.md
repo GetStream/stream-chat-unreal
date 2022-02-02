@@ -7,4 +7,4 @@ Welcome to the documentation of the Unreal C++ SDK for Stream Chat. Here you can
 - [GitHub repository](https://github.com/GetStream/stream-chat-unreal)
 - [Unreal SDK feature overview](https://getstream.io/chat/sdk/unreal)
 - [Unreal SDK tutorial](https://getstream.io/chat/unreal/tutorial)
-- [Unreal low-level client documentation](https://staging.getstream.io/chat/docs/unreal/?language=unreal)
+- [Unreal low-level client documentation](https://getstream.io/chat/docs/unreal/?language=unreal)
