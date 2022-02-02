@@ -4,7 +4,6 @@
 
 #include "Components/RichTextBlock.h"
 #include "CoreMinimal.h"
-#include "FastXml.h"
 #include "Framework/Text/IRichTextMarkupParser.h"
 #include "Framework/Text/IRichTextMarkupWriter.h"
 
@@ -28,6 +27,67 @@ private:
     FHtmlRichTextMarkupParser();
 };
 
+class FHtmlScanner
+{
+public:
+    explicit FHtmlScanner(const FString& InSource);
+
+    enum class ETokenType : uint8
+    {
+        LessThan,
+        GreaterThan,
+        Slash,
+        Equal,
+        String,
+        Identifier,
+        Content,
+        Eof,
+        Error
+    };
+
+    struct FToken
+    {
+        ETokenType Type;
+        FStringView Lexeme;
+    };
+
+    FToken ScanToken();
+
+private:
+    TCHAR Advance();
+    void SkipWhitespace();
+
+    bool IsAtEnd() const;
+    TCHAR Peek() const;
+
+    FToken MakeToken(ETokenType Type) const;
+
+    FToken String();
+    FToken Identifier();
+    FToken Content();
+
+    FStringView Source;
+    int32 Current = 0;
+    int32 Start = 0;
+    bool bInElement = false;
+};
+
+class FHtmlParser
+{
+public:
+    explicit FHtmlParser(const FString& Source);
+    void Advance();
+    bool AdvanceMatching(FHtmlScanner::ETokenType TokenType);
+
+    void Element();
+    void Attribute();
+    void Content();
+
+private:
+    FHtmlScanner Scanner;
+    FHtmlScanner::FToken Current;
+};
+
 class STREAMCHATUI_API FHtmlRichTextMarkupWriter final : public IRichTextMarkupWriter
 {
 public:
@@ -43,32 +103,6 @@ private:
 };
 
 #endif    // WITH_FANCY_TEXT
-
-class FHtmlParser final : public IFastXmlCallback
-{
-public:
-    explicit FHtmlParser(const FString& InInput);
-    virtual ~FHtmlParser() = default;
-    void Parse();
-
-    FString Output;
-    TArray<FTextLineParseResults> LineParseResults;
-
-private:
-    virtual bool ProcessXmlDeclaration(const TCHAR* ElementData, int32 XmlFileLineNumber) override;
-    virtual bool ProcessElement(const TCHAR* ElementName, const TCHAR* ElementData, int32 XmlFileLineNumber) override;
-    virtual bool ProcessAttribute(const TCHAR* AttributeName, const TCHAR* AttributeValue) override;
-    virtual bool ProcessClose(const TCHAR* Element) override;
-    virtual bool ProcessComment(const TCHAR* Comment) override;
-
-    int32 GetStartIndex(const TCHAR* Str) const;
-    int32 GetEndIndex(const TCHAR* Str) const;
-    FTextRunParseResults& LastRun();
-    FTextLineParseResults& LastResult();
-    TArray<FString> ElementStack;
-    FString Input;
-    TCHAR* InputPtr;
-};
 
 /**
  *
