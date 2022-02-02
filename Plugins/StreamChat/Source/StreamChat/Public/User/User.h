@@ -9,7 +9,9 @@
 #include "User.generated.h"
 
 struct FOwnUserDto;
+struct FUserDto;
 struct FUserObjectDto;
+struct FUserObjectRequestDto;
 
 /**
  * @brief A Stream Chat user
@@ -29,8 +31,12 @@ struct STREAMCHAT_API FUser
     explicit FUser(const FUserObjectDto&);
     /// Convert from OwnUser
     explicit FUser(const FOwnUserDto&, UUserManager*);
-    /// Convert to UserObject
+    /// Convert to UserDto
+    explicit operator FUserDto() const;
+    /// Convert to UserObjectDto
     explicit operator FUserObjectDto() const;
+    /// Convert to UserObjectRequestDto
+    explicit operator FUserObjectRequestDto() const;
 
     /// Generate initials from the user's name
     FString GetInitials(int32 Limit = 2) const;

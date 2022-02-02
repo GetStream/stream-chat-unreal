@@ -7,11 +7,14 @@
 #include "IChatSocket.h"
 #include "Jwt.h"
 #include "Misc/AutomationTest.h"
+#include "Request/User/UserObjectRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/Channel/DeleteChannelResponseDto.h"
+#include "Response/User/GuestResponseDto.h"
 #include "Response/User/UsersResponseDto.h"
 #include "TokenManager.h"
+#include "User/User.h"
 
 BEGIN_DEFINE_SPEC(FChatApiSpec, "StreamChat.ChatApi", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)
 const FString ApiKey = TEXT("kmajgxb2rk4p");
@@ -139,6 +142,31 @@ void FChatApiSpec::Define()
                         },
                         Socket->GetConnectionId(),
                         false);
+                });
+        });
+
+    Describe(
+        "Guest",
+        [=]
+        {
+            LatentIt(
+                "should create guest user",
+                [=](const FDoneDelegate& TestDone)
+                {
+                    const FUserObjectRequestDto GuestUserDto{TEXT("test-guest-user")};
+                    Api->CreateGuest(
+                        GuestUserDto,
+                        [=](const FGuestResponseDto& Dto)
+                        {
+                            // Check for "guest-{uuid}-test-guest-user
+                            const FRegexPattern Pattern{TEXT("guest-[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}-test-guest-user")};
+                            FRegexMatcher Regex{Pattern, Dto.User.Id};
+                            TestTrue("Guest generated", Regex.FindNext());
+                            TestFalse("Online", Dto.User.bOnline);
+                            TestEqual("Role", Dto.User.Role, TEXT("guest"));
+                            TestEqual("No additional fields", Dto.User.AdditionalFields.GetFields().Num(), 0);
+                            TestDone.Execute();
+                        });
                 });
         });
 

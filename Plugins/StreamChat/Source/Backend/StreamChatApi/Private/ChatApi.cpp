@@ -11,6 +11,7 @@
 #include "Request/Message/SendMessageRequestDto.h"
 #include "Request/Message/UpdateMessageRequestDto.h"
 #include "Request/Reaction/SendReactionRequestDto.h"
+#include "Request/User/GuestRequestDto.h"
 #include "Request/User/QueryUsersRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
@@ -21,6 +22,7 @@
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
 #include "Response/Reaction/ReactionResponseDto.h"
+#include "Response/User/GuestResponseDto.h"
 #include "Response/User/UsersResponseDto.h"
 #include "Token.h"
 #include "TokenManager.h"
@@ -44,6 +46,11 @@ FJsonObjectWrapper Wrap(const TOptional<TSharedRef<FJsonObject>>& JsonObject)
     return {};
 }
 }    // namespace
+
+FChatApi::FChatApi(const FString& InApiKey, const FString& InHost, const TSharedPtr<FTokenManager>& InTokenManager)
+    : TokenManager(InTokenManager), ApiKey(InApiKey), Client(MakeShared<FHttpClient>()), Scheme(TEXT("https")), Host(InHost)
+{
+}
 
 TSharedRef<FChatApi> FChatApi::Create(const FString& InApiKey, const FString& InHost, const TSharedPtr<FTokenManager>& InTokenManager)
 {
@@ -77,9 +84,11 @@ void FChatApi::QueryUsers(
     Client->Get(Url).Query({{TEXT("payload"), Payload}}).Send(Callback);
 }
 
-FChatApi::FChatApi(const FString& InApiKey, const FString& InHost, const TSharedPtr<FTokenManager>& InTokenManager)
-    : TokenManager(InTokenManager), ApiKey(InApiKey), Client(MakeShared<FHttpClient>()), Scheme(TEXT("https")), Host(InHost)
+void FChatApi::CreateGuest(const FUserObjectRequestDto& User, const TCallback<FGuestResponseDto> Callback) const
 {
+    const FString Url = BuildUrl(TEXT("guest"));
+    const FGuestRequestDto Body{User};
+    Client->Post(Url).Json(Body).Send(Callback);
 }
 
 void FChatApi::QueryChannel(
