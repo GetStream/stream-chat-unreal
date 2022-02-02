@@ -19,6 +19,7 @@ struct FChannelStateResponseDto;
 struct FChannelsResponseDto;
 struct FDeleteChannelResponseDto;
 struct FEventResponseDto;
+struct FGuestResponseDto;
 struct FHttpResponse;
 struct FMarkReadRequestDto;
 struct FMarkReadResponseDto;
@@ -29,6 +30,7 @@ struct FReactionResponseDto;
 struct FSearchResponseDto;
 struct FToken;
 struct FUpdateUsersResponseDto;
+struct FUserObjectRequestDto;
 struct FUsersResponseDto;
 
 template <class T>
@@ -279,6 +281,8 @@ public:
         const TArray<FSortParamRequestDto>& SortOptions = {},
         TOptional<uint32> Limit = {},
         TOptional<uint32> Offset = {}) const;
+
+    void CreateGuest(const FUserObjectRequestDto& User, TCallback<FGuestResponseDto> Callback = {}) const;
 
     ///@}
 #pragma endregion Users

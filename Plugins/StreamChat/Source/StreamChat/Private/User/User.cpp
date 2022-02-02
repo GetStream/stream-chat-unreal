@@ -4,6 +4,7 @@
 
 #include "Algo/Transform.h"
 #include "OwnUserDto.h"
+#include "Request/User/UserObjectRequestDto.h"
 #include "UserObjectDto.h"
 #include "Util.h"
 
@@ -51,7 +52,7 @@ FUser::FUser(const FOwnUserDto& Dto, UUserManager* UserManager)
 {
 }
 
-FUser::operator FUserObjectDto() const
+FUser::operator FUserDto() const
 {
     FAdditionalFields AdditionalFields;
     if (!Name.IsEmpty())
@@ -63,23 +64,26 @@ FUser::operator FUserObjectDto() const
         AdditionalFields.SetString(TEXT("image"), Image);
     }
     return {
-        {
-            Id,
-            BanExpires,
-            bBanned,
-            bInvisible,
-            Language,
-            RevokeTokensIssuedBefore,
-            Role,
-            Teams,
-            AdditionalFields,
-        },
-        CreatedAt,
-        UpdatedAt,
-        DeactivatedAt,
-        DeletedAt,
-        LastActive,
-        bOnline};
+        Id,
+        BanExpires,
+        bBanned,
+        bInvisible,
+        Language,
+        RevokeTokensIssuedBefore,
+        Role,
+        Teams,
+        MoveTemp(AdditionalFields),
+    };
+}
+
+FUser::operator FUserObjectDto() const
+{
+    return {FUserDto(*this), CreatedAt, UpdatedAt, DeactivatedAt, DeletedAt, LastActive, bOnline};
+}
+
+FUser::operator FUserObjectRequestDto() const
+{
+    return {FUserDto(*this)};
 }
 
 void FUser::Update(const FUser& User)

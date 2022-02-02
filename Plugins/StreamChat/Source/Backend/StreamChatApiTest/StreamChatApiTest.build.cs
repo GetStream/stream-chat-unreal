@@ -16,7 +16,7 @@ public class StreamChatApiTest : ModuleRules
             "TokenProvider",
             "Jwt",
             "StreamJson",
-            "Json",
+            "Json", "StreamChat",
         });
 
         PublicDependencyModuleNames.AddRange(new[] {

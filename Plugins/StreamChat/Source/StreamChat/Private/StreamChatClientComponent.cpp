@@ -13,9 +13,11 @@
 #include "IChatSocket.h"
 #include "Jwt/Public/Jwt.h"
 #include "Request/Message/MessageRequestDto.h"
+#include "Request/User/UserObjectRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
+#include "Response/User/GuestResponseDto.h"
 #include "Response/User/UsersResponseDto.h"
 #include "StreamChatSettings.h"
 #include "Token.h"
@@ -39,16 +41,16 @@ void UStreamChatClientComponent::BeginPlay()
 
 void UStreamChatClientComponent::ConnectUserInternal(const FUser& User, const TFunction<void(const FUserRef&)> Callback)
 {
-    const FUserRef Ref = UUserManager::Get()->UpsertUser(User);
-    Socket = IChatSocket::Create(TokenManager.ToSharedRef(), ApiKey, GetDefault<UStreamChatSettings>()->Host, Util::Convert<FUserObjectDto>(User));
+    const FUserRef UserRef = UUserManager::Get()->UpsertUser(User);
+    Socket = IChatSocket::Create(TokenManager.ToSharedRef(), ApiKey, GetDefault<UStreamChatSettings>()->Host, FUserObjectDto(User));
     Socket->Connect(
         [Callback](const FOwnUserDto& OwnUser)
         {
-            const FUserRef Ref = UUserManager::Get()->UpsertUser(OwnUser);
-            UUserManager::Get()->SetCurrentUser(Ref);
+            const FUserRef OwnUserRef = UUserManager::Get()->UpsertUser(OwnUser);
+            UUserManager::Get()->SetCurrentUser(OwnUserRef);
             if (Callback)
             {
-                Callback(Ref);
+                Callback(OwnUserRef);
             }
         });
 
@@ -171,6 +173,27 @@ void UStreamChatClientComponent::ConnectAnonymousUser(const TFunction<void(const
     ConnectUserInternal(User, Callback);
 }
 
+void UStreamChatClientComponent::ConnectGuestUser(const FUser& User, TFunction<void(const FUserRef&)> Callback)
+{
+    const FToken AnonToken = FToken::Anonymous();
+    TokenManager->SetTokenProvider(MakeUnique<FConstantTokenProvider>(AnonToken), User.Id);
+
+    Api->CreateGuest(
+        FUserObjectRequestDto(User),
+        [WeakThis = TWeakObjectPtr<UStreamChatClientComponent>(this), Callback](const FGuestResponseDto& Response)
+        {
+            if (!WeakThis.IsValid())
+            {
+                return;
+            }
+
+            const FToken GuestToken = FToken::Jwt(Response.AccessToken);
+            const FUser GuestUser = *UUserManager::Get()->UpsertUser(Response.User);
+            WeakThis->TokenManager->SetTokenProvider(MakeUnique<FConstantTokenProvider>(GuestToken), GuestUser.Id);
+            WeakThis->ConnectUserInternal(GuestUser, Callback);
+        });
+}
+
 void UStreamChatClientComponent::DisconnectUser()
 {
     if (Socket)
@@ -244,7 +267,7 @@ void UStreamChatClientComponent::QueryChannel(const FChannelProperties& ChannelP
     check(Socket->IsConnected());
 
     const TOptional<FString> OptionalId = ChannelProperties.Id.IsEmpty() ? TOptional<FString>{} : ChannelProperties.Id;
-    const FChannelRequestDto Data = Util::Convert<FChannelRequestDto>(ChannelProperties);
+    const FChannelRequestDto Data(ChannelProperties);
     Api->QueryChannel(
         [WeakThis = TWeakObjectPtr<UStreamChatClientComponent>(this), Callback](const FChannelStateResponseDto& Dto)
         {

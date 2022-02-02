@@ -67,6 +67,14 @@ public:
     void ConnectAnonymousUser(TFunction<void(const FUserRef&)> Callback = {});
 
     /**
+     * @brief Create a connection to the API anonymously
+     * @param User Generally only the user id is required
+     * @param Callback Called when a response is received from the API
+     * @return Anonymous user info
+     */
+    void ConnectGuestUser(const FUser& User, TFunction<void(const FUserRef&)> Callback = {});
+
+    /**
      * @brief Close the connection to the API and resets any state
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client")
