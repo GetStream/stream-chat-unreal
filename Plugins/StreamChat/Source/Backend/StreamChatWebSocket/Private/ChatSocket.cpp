@@ -73,10 +73,9 @@ void FChatSocket::Disconnect()
 
 FString FChatSocket::BuildUrl(const bool bRefreshToken) const
 {
-    const auto [TokenType, JwtString] = TokenManager->LoadToken(bRefreshToken);
     const FString Auth = [&]
     {
-        switch (TokenType)
+        switch (const auto [TokenType, JwtString] = TokenManager->LoadToken(bRefreshToken); TokenType)
         {
             case ETokenType::Jwt:
                 return FString::Printf(TEXT("&authorization=%s&stream-auth-type=jwt"), *JwtString);
