@@ -20,20 +20,29 @@ void UTextBubbleWidget::Setup(const FMessage& InMessage, const EMessageSide InSi
 
 void UTextBubbleWidget::OnSetup()
 {
-    const bool bSingleEmoji = IsSingleEmoji();
     if (TextBlock)
     {
         TextBlock->SetText(GetText());
+    }
+}
 
-        if (bSingleEmoji)
+void UTextBubbleWidget::OnTheme(const UThemeDataAsset* Theme)
+{
+    const bool bSingleEmoji = IsSingleEmoji();
+    if (TextBlock)
+    {
+        if (Message.Type == EMessageType::Deleted)
         {
-            FSlateFontInfo LargeFont{NormalFont};
-            LargeFont.Size = SingleEmojiFontSize;
-            TextBlock->SetFont(LargeFont);
+            TextBlock->SetDefaultColorAndOpacity(Theme->GetPaletteColor(Theme->DeletedMessageTextColor));
+        }
+        else if (bSingleEmoji)
+        {
+            TextBlock->SetDefaultFont(SingleEmojiFont);
         }
         else
         {
-            TextBlock->SetFont(NormalFont);
+            TextBlock->ClearAllDefaultStyleOverrides();
+            TextBlock->SetTextStyleSet(Theme->BubbleTextStyleSet);
         }
     }
 
@@ -52,17 +61,6 @@ void UTextBubbleWidget::OnSetup()
             Border->Background.DrawAs = ESlateBrushDrawType::Box;
             Border->SetBrushFromTexture(GetBubbleTexture());
         }
-    }
-}
-
-void UTextBubbleWidget::OnTheme(const UThemeDataAsset* Theme)
-{
-    if (TextBlock)
-    {
-        TextBlock->SetColorAndOpacity(GetTextColor(Theme));
-    }
-    if (Border)
-    {
         Border->SetBrushColor(GetBubbleColor(Theme));
     }
 }
@@ -108,29 +106,20 @@ const FLinearColor& UTextBubbleWidget::GetBubbleColor(const UThemeDataAsset* The
     return Theme->GetPaletteColor(Theme->YouBubbleColor);
 }
 
-const FLinearColor& UTextBubbleWidget::GetTextColor(const UThemeDataAsset* Theme) const
-{
-    if (Message.Type == EMessageType::Deleted)
-    {
-        return Theme->GetPaletteColor(Theme->DeletedMessageTextColor);
-    }
-    return Theme->GetPaletteColor(Theme->NormalMessageTextColor);
-}
-
 FText UTextBubbleWidget::GetText() const
 {
     if (Message.Type == EMessageType::Deleted)
     {
         return FText::FromString(TEXT("Message deleted"));
     }
-    return FText::FromString(Message.Text);
+    return FText::FromString(Message.Html);
 }
 
 bool UTextBubbleWidget::IsSingleEmoji() const
 {
     const TSharedRef<FSlateFontCache> FontCache = FSlateApplication::Get().GetRenderer()->GetFontCache();
     const FShapedGlyphSequenceRef Shaped =
-        FontCache->ShapeUnidirectionalText(Message.Text, NormalFont, 1.f, TextBiDi::ETextDirection::LeftToRight, ETextShapingMethod::Auto);
+        FontCache->ShapeUnidirectionalText(Message.Text, SingleEmojiFont, 1.f, TextBiDi::ETextDirection::LeftToRight, ETextShapingMethod::Auto);
     const bool bIsSingleMulticharacterGlyph = Shaped->GetGlyphsToRender().Num() == 1 && Shaped->GetGlyphsToRender()[0].NumCharactersInGlyph > 1;
     return bIsSingleMulticharacterGlyph;
 }
