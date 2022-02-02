@@ -1,5 +1,6 @@
 var class_f_chat_api =
 [
+    [ "CreateGuest", "class_f_chat_api.html#a54fd85024043f905f2cbe3435d3fce77", null ],
     [ "DeleteChannel", "class_f_chat_api.html#a3f4429d796bd260cb3e0b151efb40390", null ],
     [ "DeleteMessage", "class_f_chat_api.html#ae5a2afce79f513753908df1a2a113737", null ],
     [ "DeleteReaction", "class_f_chat_api.html#a087fe492162348826a07657a604f033a", null ],

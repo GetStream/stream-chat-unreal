@@ -7,6 +7,7 @@ var group___stream_chat_dto =
       [ "Mutes", "struct_f_own_user_dto.html#a23002586c3718527bbe15599d06c0ce2", null ],
       [ "TotalUnreadCount", "struct_f_own_user_dto.html#a3648f7815f324571dde0e3ddc07f7b08", null ],
       [ "UnreadChannels", "struct_f_own_user_dto.html#a965c872cad22ec7b96aa5a73e0d08130", null ],
+      [ "UnreadCount", "struct_f_own_user_dto.html#a7de49c0ab3e83fd05960a30e4d9f53ae", null ],
       [ "UpdatedAt", "struct_f_own_user_dto.html#a5fd4834a192f266a7ec91bfc0bbe34e7", null ]
     ] ],
     [ "FChannelGetOrCreateRequestDto", "struct_f_channel_get_or_create_request_dto.html", [
@@ -118,6 +119,9 @@ var group___stream_chat_dto =
     [ "FSortParamRequestDto", "struct_f_sort_param_request_dto.html", [
       [ "Direction", "struct_f_sort_param_request_dto.html#ad985cc56d9bd5d10a61ad5cf91d831ef", null ],
       [ "Field", "struct_f_sort_param_request_dto.html#ad7226d64a55a3f75028dfa8f0d0a94dd", null ]
+    ] ],
+    [ "FGuestRequestDto", "struct_f_guest_request_dto.html", [
+      [ "User", "struct_f_guest_request_dto.html#a14e80f222490577e66eb6547ee9df793", null ]
     ] ],
     [ "FQueryUsersRequestDto", "struct_f_query_users_request_dto.html", [
       [ "SetIdGt", "struct_f_query_users_request_dto.html#a5164663b722c4e1b19a10be712e8be08", null ],
@@ -323,6 +327,11 @@ var group___stream_chat_dto =
       [ "Duration", "struct_f_reaction_response_dto.html#ac474dfa81a5179e6f351cd651b808c47", null ],
       [ "Message", "struct_f_reaction_response_dto.html#af1bd70d1f81b649f191c1fccb0a33657", null ],
       [ "Reaction", "struct_f_reaction_response_dto.html#a5b12d890af1faa6f371f5cac54da379d", null ]
+    ] ],
+    [ "FGuestResponseDto", "struct_f_guest_response_dto.html", [
+      [ "AccessToken", "struct_f_guest_response_dto.html#ab5eb3c1d97bb8b476cfa71f876ac6a35", null ],
+      [ "Duration", "struct_f_guest_response_dto.html#a582a598f3ecbefe837f9fa5588b352ae", null ],
+      [ "User", "struct_f_guest_response_dto.html#af66b79092c71b84ab03b393080adb7d6", null ]
     ] ],
     [ "FUserResponseDto", "struct_f_user_response_dto.html", [
       [ "bShadowBanned", "struct_f_user_response_dto.html#ae286ca7866b252d1f81bac175132cb78", null ]

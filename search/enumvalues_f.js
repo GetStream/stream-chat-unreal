@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['text_1071',['Text',['../group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa9dffbf69ffba8bc38bc4e01abf4b1675',1,'ChannelSortOption.h']]],
-  ['type_1072',['Type',['../group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508',1,'ChannelSortOption.h']]]
+  ['sending_1090',['Sending',['../group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91ae4b0c2b6d59cb4cf3e169a9886008087',1,'Message.h']]],
+  ['sent_1091',['Sent',['../group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91a7f8c0283f16925caed8e632086b81b9c',1,'Message.h']]],
+  ['state_1092',['State',['../group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d',1,'ChannelFlags.h']]],
+  ['system_1093',['System',['../group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7aa45da96d0bf6575970f2d27af22be28a',1,'Message.h']]]
 ];

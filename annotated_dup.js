@@ -60,6 +60,8 @@ var annotated_dup =
     [ "FEventDto", "struct_f_event_dto.html", "struct_f_event_dto" ],
     [ "FEventResponseDto", "struct_f_event_response_dto.html", "struct_f_event_response_dto" ],
     [ "FFilter", "struct_f_filter.html", "struct_f_filter" ],
+    [ "FGuestRequestDto", "struct_f_guest_request_dto.html", "struct_f_guest_request_dto" ],
+    [ "FGuestResponseDto", "struct_f_guest_response_dto.html", "struct_f_guest_response_dto" ],
     [ "FHealthCheckEvent", "struct_f_health_check_event.html", "struct_f_health_check_event" ],
     [ "FLocalEvent", "struct_f_local_event.html", "struct_f_local_event" ],
     [ "FMarkReadRequestDto", "struct_f_mark_read_request_dto.html", "struct_f_mark_read_request_dto" ],

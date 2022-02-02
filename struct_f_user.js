@@ -5,7 +5,10 @@ var struct_f_user =
     [ "FUser", "struct_f_user.html#a3db093158b56bcbfd517b867e9d9a7ea", null ],
     [ "FUser", "struct_f_user.html#a3d9bd51bd66f8e6ddecb0b50d773ec87", null ],
     [ "GetInitials", "struct_f_user.html#a58dfd9a7274d80577b49c767840067d3", null ],
+    [ "operator FUserDto", "struct_f_user.html#ab702eb2a7904d2b130a75efd5ba5c636", null ],
     [ "operator FUserObjectDto", "struct_f_user.html#affad061d1c703dc73c3a52cbe9dff52d", null ],
+    [ "operator FUserObjectRequestDto", "struct_f_user.html#a5836dc51a24eb37cc5db5342f3b62889", null ],
+    [ "Update", "struct_f_user.html#acc6397345b58ee0253a259c1f5e29758", null ],
     [ "BanExpires", "struct_f_user.html#a7c6905c0374bd38c926c50be07a01bc8", null ],
     [ "bBanned", "struct_f_user.html#adb815a310fc4a1bb89b454adf075450d", null ],
     [ "bInvisible", "struct_f_user.html#a73e81750f09c7f54f9fd810f53196421", null ],
@@ -24,5 +27,6 @@ var struct_f_user =
     [ "Teams", "struct_f_user.html#a352048f005fa9060e99d11f368ed9875", null ],
     [ "TotalUnreadCount", "struct_f_user.html#adbdf3cfb6fe413fe8ffbb830944bf2f9", null ],
     [ "UnreadChannels", "struct_f_user.html#a9eff7e0a96e7e68f3620c6d51a021609", null ],
+    [ "UnreadCount", "struct_f_user.html#ad90587a3bef0d5ed648e654948828941", null ],
     [ "UpdatedAt", "struct_f_user.html#a121e1d3c57557c18449da3eb4df549ed", null ]
 ];

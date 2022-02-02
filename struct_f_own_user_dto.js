@@ -6,5 +6,6 @@ var struct_f_own_user_dto =
     [ "Mutes", "struct_f_own_user_dto.html#a23002586c3718527bbe15599d06c0ce2", null ],
     [ "TotalUnreadCount", "struct_f_own_user_dto.html#a3648f7815f324571dde0e3ddc07f7b08", null ],
     [ "UnreadChannels", "struct_f_own_user_dto.html#a965c872cad22ec7b96aa5a73e0d08130", null ],
+    [ "UnreadCount", "struct_f_own_user_dto.html#a7de49c0ab3e83fd05960a30e4d9f53ae", null ],
     [ "UpdatedAt", "struct_f_own_user_dto.html#a5fd4834a192f266a7ec91bfc0bbe34e7", null ]
 ];

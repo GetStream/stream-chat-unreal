@@ -220,6 +220,10 @@ var group___stream_chat =
       [ "TEventDelegateUObjectMethodPtr", "class_u_stream_chat_client_component.html#a2d3d87a8196b5b1e53a6f1bb02a7547d", null ],
       [ "TEventMulticastDelegate", "class_u_stream_chat_client_component.html#aeaac251987fde4f7b63336a7395a307b", null ],
       [ "UStreamChatClientComponent", "class_u_stream_chat_client_component.html#a32bdbcb95a97bb017db3ebc6a5e1cb46", null ],
+      [ "ConnectAnonymousUser", "class_u_stream_chat_client_component.html#acff32121d75eca129de69f76e351cc92", null ],
+      [ "ConnectAnonymousUser", "class_u_stream_chat_client_component.html#a137af7f2bf4a48b1a0c1e75e04d2af3c", null ],
+      [ "ConnectGuestUser", "class_u_stream_chat_client_component.html#af908d5e4824f9feeb71f945b570f2d2f", null ],
+      [ "ConnectGuestUser", "class_u_stream_chat_client_component.html#ac2bbdb1a7df673dbaecfd8e8c28d6fc3", null ],
       [ "ConnectUser", "class_u_stream_chat_client_component.html#a6fd4aeacd878fb2c6b3c5d4a9934922a", null ],
       [ "ConnectUser", "class_u_stream_chat_client_component.html#ac6229a8fcf989852a5abc72c04779b58", null ],
       [ "ConnectUser", "class_u_stream_chat_client_component.html#a772775375b6df48ed9280caa356dea13", null ],
@@ -297,6 +301,10 @@ var group___stream_chat =
       [ "Deleted", "group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a5fe6005bf6e415c950c011fb65f12b8f", null ]
     ] ],
     [ "ESortDirection", "group___stream_chat.html#ga3b38841cfa7e76d2948c49d219950551", null ],
+    [ "ETokenType", "group___stream_chat.html#ga640e62db05d42071eaabcd5a151510b1", [
+      [ "Jwt", "group___stream_chat.html#gga640e62db05d42071eaabcd5a151510b1a74334b5d32b155ab49dac2d3507ea99f", null ],
+      [ "Anonymous", "group___stream_chat.html#gga640e62db05d42071eaabcd5a151510b1a7079c72c21415131774625ba1d64f4b0", null ]
+    ] ],
     [ "EUserSortField", "group___stream_chat.html#ga168ebbcdbfc643c147a18bf919d9a7a1", [
       [ "Id", "group___stream_chat.html#gga168ebbcdbfc643c147a18bf919d9a7a1a490aa6e856ccf208a054389e47ce0d06", null ],
       [ "CreatedAt", "group___stream_chat.html#gga168ebbcdbfc643c147a18bf919d9a7a1a46d295c8a97befd247d2d634ac8cc4b3", null ],

@@ -132,6 +132,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac6229a8fcf989852a5abc72c04779b58"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#ac6229a8fcf989852a5abc72c04779b58">ConnectUser</a> (const <a class="el" href="struct_f_user.html">FUser</a> &amp;User, const FString &amp;Token, TFunction&lt; void(const <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;)&gt; Callback={})</td></tr>
 <tr class="memdesc:ac6229a8fcf989852a5abc72c04779b58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a connection to the API for the given user and credentials.  <a href="class_u_stream_chat_client_component.html#ac6229a8fcf989852a5abc72c04779b58">More...</a><br /></td></tr>
 <tr class="separator:ac6229a8fcf989852a5abc72c04779b58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a137af7f2bf4a48b1a0c1e75e04d2af3c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#a137af7f2bf4a48b1a0c1e75e04d2af3c">ConnectAnonymousUser</a> (TFunction&lt; void(const <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;)&gt; Callback={})</td></tr>
+<tr class="memdesc:a137af7f2bf4a48b1a0c1e75e04d2af3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a connection to the API anonymously.  <a href="class_u_stream_chat_client_component.html#a137af7f2bf4a48b1a0c1e75e04d2af3c">More...</a><br /></td></tr>
+<tr class="separator:a137af7f2bf4a48b1a0c1e75e04d2af3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2bbdb1a7df673dbaecfd8e8c28d6fc3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#ac2bbdb1a7df673dbaecfd8e8c28d6fc3">ConnectGuestUser</a> (const <a class="el" href="struct_f_user.html">FUser</a> &amp;User, TFunction&lt; void(const <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;)&gt; Callback={})</td></tr>
+<tr class="memdesc:ac2bbdb1a7df673dbaecfd8e8c28d6fc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a connection to the API by creating a guest account.  <a href="class_u_stream_chat_client_component.html#ac2bbdb1a7df673dbaecfd8e8c28d6fc3">More...</a><br /></td></tr>
+<tr class="separator:ac2bbdb1a7df673dbaecfd8e8c28d6fc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1abed0a192360951268e62a6a78a8e7"><td class="memItemLeft" align="right" valign="top"><a id="ab1abed0a192360951268e62a6a78a8e7"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#ab1abed0a192360951268e62a6a78a8e7">DisconnectUser</a> ()</td></tr>
 <tr class="memdesc:ab1abed0a192360951268e62a6a78a8e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close the connection to the API and resets any state. <br /></td></tr>
@@ -140,13 +146,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memdesc:a70109502de94907851f19ae97fe02a8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query the API for all channels which match the given filter. Will also automatically watch all channels.  <a href="class_u_stream_chat_client_component.html#a70109502de94907851f19ae97fe02a8b">More...</a><br /></td></tr>
 <tr class="separator:a70109502de94907851f19ae97fe02a8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a8eced83c1c5533f264b8e1c7b5c15e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#a2a8eced83c1c5533f264b8e1c7b5c15e">CreateChannel</a> (const <a class="el" href="struct_f_channel_properties.html">FChannelProperties</a> &amp;ChannelProperties, TFunction&lt; void(<a class="el" href="class_u_chat_channel.html">UChatChannel</a> *)&gt; Callback)</td></tr>
-<tr class="memdesc:a2a8eced83c1c5533f264b8e1c7b5c15e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a channel if it doesn't exist yet (if this user has the right permissions).  <a href="class_u_stream_chat_client_component.html#a2a8eced83c1c5533f264b8e1c7b5c15e">More...</a><br /></td></tr>
+<tr class="memdesc:a2a8eced83c1c5533f264b8e1c7b5c15e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a channel if it does not exist yet (if this user has the right permissions).  <a href="class_u_stream_chat_client_component.html#a2a8eced83c1c5533f264b8e1c7b5c15e">More...</a><br /></td></tr>
 <tr class="separator:a2a8eced83c1c5533f264b8e1c7b5c15e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a705b3527835b5c7354ee5eeb8859320a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#a705b3527835b5c7354ee5eeb8859320a">WatchChannel</a> (const <a class="el" href="struct_f_channel_properties.html">FChannelProperties</a> &amp;ChannelProperties, TFunction&lt; void(<a class="el" href="class_u_chat_channel.html">UChatChannel</a> *)&gt; Callback)</td></tr>
-<tr class="memdesc:a705b3527835b5c7354ee5eeb8859320a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a channel if it doesn't exist yet (if this user has the right permissions), get data about the channel (including members, watchers and messages) and subscribe to future updates.  <a href="class_u_stream_chat_client_component.html#a705b3527835b5c7354ee5eeb8859320a">More...</a><br /></td></tr>
+<tr class="memdesc:a705b3527835b5c7354ee5eeb8859320a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a channel if it does not exist yet (if this user has the right permissions), get data about the channel (including members, watchers and messages) and subscribe to future updates.  <a href="class_u_stream_chat_client_component.html#a705b3527835b5c7354ee5eeb8859320a">More...</a><br /></td></tr>
 <tr class="separator:a705b3527835b5c7354ee5eeb8859320a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d324df894080737f8e915db575fed6d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#a4d324df894080737f8e915db575fed6d">QueryChannel</a> (const <a class="el" href="struct_f_channel_properties.html">FChannelProperties</a> &amp;ChannelProperties, const <a class="el" href="group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898">EChannelFlags</a> Flags, TFunction&lt; void(<a class="el" href="class_u_chat_channel.html">UChatChannel</a> *)&gt; Callback)</td></tr>
-<tr class="memdesc:a4d324df894080737f8e915db575fed6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a channel if it doesn't exist yet (if this user has the right permissions). Includes options to get data about the channel (including members, watchers and messages), subscribe to future updates.  <a href="class_u_stream_chat_client_component.html#a4d324df894080737f8e915db575fed6d">More...</a><br /></td></tr>
+<tr class="memdesc:a4d324df894080737f8e915db575fed6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a channel if it does not exist yet (if this user has the right permissions). Includes options to get data about the channel (including members, watchers and messages), subscribe to future updates.  <a href="class_u_stream_chat_client_component.html#a4d324df894080737f8e915db575fed6d">More...</a><br /></td></tr>
 <tr class="separator:a4d324df894080737f8e915db575fed6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f76b944317a89801ecef0c52ef7750b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#a4f76b944317a89801ecef0c52ef7750b">QueryUsers</a> (TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_user_ref.html">FUserRef</a> &gt; &amp;)&gt; Callback, const <a class="el" href="struct_f_filter.html">FFilter</a> &amp;Filter={}, const TArray&lt; <a class="el" href="struct_f_user_sort_option.html">FUserSortOption</a> &gt; &amp;Sort={}, bool bPresence=true, TOptional&lt; uint32 &gt; Limit={}, TOptional&lt; uint32 &gt; Offset={}) const</td></tr>
 <tr class="memdesc:a4f76b944317a89801ecef0c52ef7750b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for users and see if they are online/offline.  <a href="class_u_stream_chat_client_component.html#a4f76b944317a89801ecef0c52ef7750b">More...</a><br /></td></tr>
@@ -165,6 +171,10 @@ const TArray&lt; <a class="el" href="class_u_chat_channel.html">UChatChannel</a>
 <tr class="separator:a4f8f4ebe58908f59fac7872026f37fef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6fd4aeacd878fb2c6b3c5d4a9934922a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#a6fd4aeacd878fb2c6b3c5d4a9934922a">ConnectUser</a> (const <a class="el" href="struct_f_user.html">FUser</a> &amp;User, const FString &amp;Token, const UObject *WorldContextObject, FLatentActionInfo LatentInfo, <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;OutUser)</td></tr>
 <tr class="separator:a6fd4aeacd878fb2c6b3c5d4a9934922a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acff32121d75eca129de69f76e351cc92"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#acff32121d75eca129de69f76e351cc92">ConnectAnonymousUser</a> (const UObject *WorldContextObject, FLatentActionInfo LatentInfo, <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;OutUser)</td></tr>
+<tr class="separator:acff32121d75eca129de69f76e351cc92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af908d5e4824f9feeb71f945b570f2d2f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#af908d5e4824f9feeb71f945b570f2d2f">ConnectGuestUser</a> (const <a class="el" href="struct_f_user.html">FUser</a> &amp;User, const UObject *WorldContextObject, FLatentActionInfo LatentInfo, <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;OutUser)</td></tr>
+<tr class="separator:af908d5e4824f9feeb71f945b570f2d2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a960c3c9631c36846e57bf5e183e0e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#a6a960c3c9631c36846e57bf5e183e0e8">QueryChannels</a> (<a class="el" href="struct_f_filter.html">FFilter</a> Filter, const TArray&lt; <a class="el" href="struct_f_channel_sort_option.html">FChannelSortOption</a> &gt; &amp;SortOptions, const UObject *WorldContextObject, FLatentActionInfo LatentInfo, TArray&lt; <a class="el" href="class_u_chat_channel.html">UChatChannel</a> * &gt; &amp;OutChannels, UPARAM(meta=(Bitmask, BitmaskEnum=<a class="el" href="group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898">EChannelFlags</a>)) const int32 Flags=3)</td></tr>
 <tr class="separator:a6a960c3c9631c36846e57bf5e183e0e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa78cae04fd73d3df82ef147487a5a71c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#aa78cae04fd73d3df82ef147487a5a71c">WatchChannel</a> (const <a class="el" href="struct_f_channel_properties.html">FChannelProperties</a> &amp;ChannelProperties, const UObject *WorldContextObject, FLatentActionInfo LatentInfo, <a class="el" href="class_u_chat_channel.html">UChatChannel</a> *&amp;OutChannel)</td></tr>
@@ -207,6 +217,158 @@ FChannelsUpdatedDelegate&#160;</td><td class="memItemRight" valign="bottom"><a c
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A component which allows for connecting to the Stream Chat API. Should be added to a client-side actor, e.g. HUD. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="acff32121d75eca129de69f76e351cc92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acff32121d75eca129de69f76e351cc92">&#9670;&nbsp;</a></span>ConnectAnonymousUser() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UStreamChatClientComponent::ConnectAnonymousUser </td>
+          <td>(</td>
+          <td class="paramtype">const UObject *&#160;</td>
+          <td class="paramname"><em>WorldContextObject</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FLatentActionInfo&#160;</td>
+          <td class="paramname"><em>LatentInfo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>OutUser</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Create a connection to the API anonymously </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">OutUser</td><td>Anonymous user info </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a137af7f2bf4a48b1a0c1e75e04d2af3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a137af7f2bf4a48b1a0c1e75e04d2af3c">&#9670;&nbsp;</a></span>ConnectAnonymousUser() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UStreamChatClientComponent::ConnectAnonymousUser </td>
+          <td>(</td>
+          <td class="paramtype">TFunction&lt; void(const <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;)&gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a connection to the API anonymously. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Callback</td><td>Called when a response is received from the API </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Anonymous user info </dd></dl>
+
+</div>
+</div>
+<a id="af908d5e4824f9feeb71f945b570f2d2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af908d5e4824f9feeb71f945b570f2d2f">&#9670;&nbsp;</a></span>ConnectGuestUser() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UStreamChatClientComponent::ConnectGuestUser </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_f_user.html">FUser</a> &amp;&#160;</td>
+          <td class="paramname"><em>User</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const UObject *&#160;</td>
+          <td class="paramname"><em>WorldContextObject</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FLatentActionInfo&#160;</td>
+          <td class="paramname"><em>LatentInfo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>OutUser</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Create a connection to the API by creating a guest account </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">User</td><td>Generally only the user id is required </td></tr>
+    <tr><td class="paramname">OutUser</td><td>Guest user info </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac2bbdb1a7df673dbaecfd8e8c28d6fc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2bbdb1a7df673dbaecfd8e8c28d6fc3">&#9670;&nbsp;</a></span>ConnectGuestUser() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UStreamChatClientComponent::ConnectGuestUser </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_f_user.html">FUser</a> &amp;&#160;</td>
+          <td class="paramname"><em>User</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TFunction&lt; void(const <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;)&gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a connection to the API by creating a guest account. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">User</td><td>Generally only the user id is required </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when a response is received from the API </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Anonymous user info </dd></dl>
+
+</div>
+</div>
 <a id="a6fd4aeacd878fb2c6b3c5d4a9934922a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6fd4aeacd878fb2c6b3c5d4a9934922a">&#9670;&nbsp;</a></span>ConnectUser() <span class="overload">[1/3]</span></h2>
 
@@ -250,12 +412,11 @@ FChannelsUpdatedDelegate&#160;</td><td class="memItemRight" valign="bottom"><a c
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create a connection to the API for the given user and credentials.</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Create a connection to the API for the given user and credentials. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">User</td><td>Generally only the user id is required </td></tr>
     <tr><td class="paramname">Token</td><td>A JWT token for the given user </td></tr>
-    <tr><td class="paramname">OutUser</td><td>Latest info if the logged in user </td></tr>
+    <tr><td class="paramname">OutUser</td><td>Latest info of the logged in user </td></tr>
   </table>
   </dd>
 </dl>
@@ -378,7 +539,7 @@ FChannelsUpdatedDelegate&#160;</td><td class="memItemRight" valign="bottom"><a c
       </table>
 </div><div class="memdoc">
 
-<p>Create a channel if it doesn't exist yet (if this user has the right permissions). </p>
+<p>Create a channel if it does not exist yet (if this user has the right permissions). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ChannelProperties</td><td>Properties of the channel to create </td></tr>
@@ -554,7 +715,7 @@ template&lt;class TEvent , class UserClass &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Create a channel if it doesn't exist yet (if this user has the right permissions). Includes options to get data about the channel (including members, watchers and messages), subscribe to future updates. </p>
+<p>Create a channel if it does not exist yet (if this user has the right permissions). Includes options to get data about the channel (including members, watchers and messages), subscribe to future updates. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">Flags</td><td>Get state, get presence and/or watch </td></tr>
@@ -861,7 +1022,7 @@ template&lt;class TEvent , class UserClass &gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create a channel if it doesn't exist yet (if this user has the right permissions), get data about the channel (including members, watchers and messages) and subscribe to future updates</p>
+<p>Create a channel if it does not exist yet (if this user has the right permissions), get data about the channel (including members, watchers and messages) and subscribe to future updates</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ChannelProperties</td><td>Properties of the channel to watch </td></tr>
@@ -898,7 +1059,7 @@ template&lt;class TEvent , class UserClass &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Create a channel if it doesn't exist yet (if this user has the right permissions), get data about the channel (including members, watchers and messages) and subscribe to future updates. </p>
+<p>Create a channel if it does not exist yet (if this user has the right permissions), get data about the channel (including members, watchers and messages) and subscribe to future updates. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ChannelProperties</td><td>Properties of the channel to watch </td></tr>
