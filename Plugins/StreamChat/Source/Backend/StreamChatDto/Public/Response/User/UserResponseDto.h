@@ -8,7 +8,7 @@
 #include "UserResponseDto.generated.h"
 
 /**
- * @brief #/components/schemas/UsersResponse
+ * @brief #/components/schemas/UserResponse
  * @ingroup StreamChatDto
  */
 USTRUCT()
