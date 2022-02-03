@@ -25,7 +25,11 @@ public:
 
 private:
     FHtmlRichTextMarkupParser();
+
+    static FString MakeRunName(TSet<FStringView>& ElementNames);
 };
+
+#endif    // WITH_FANCY_TEXT
 
 class FHtmlScanner
 {
@@ -52,6 +56,8 @@ public:
     };
 
     FToken ScanToken();
+    int32 Start = 0;
+    int32 Current = 0;
 
 private:
     TCHAR Advance();
@@ -67,11 +73,17 @@ private:
     FToken Content();
 
     FStringView Source;
-    int32 Current = 0;
-    int32 Start = 0;
     bool bInElement = false;
 };
 
+/**
+ * @brief Parses a subset of XHTML
+ * Does NOT support:
+ * - empty attribute syntax
+ * - unquoted attribute value syntax
+ * - single-quoted attribute value syntax
+ * - void elements without the trailing slash
+ */
 class FHtmlParser
 {
 public:
@@ -81,12 +93,20 @@ public:
         TMap<FStringView, FStringView> Attributes;
     };
 
+    using FCallbackFn = TFunctionRef<void(const FStringView& Content, const FHtmlParser& Parser)>;
+
     // Initialize with source string. Doesn't take ownership of string, so caller must ensure it stays in memory.
     // Callback is called on each content chunk as it is found, along with the stack of surrounding element names
-    explicit FHtmlParser(const FString& Source, TFunctionRef<void(const FStringView& Content, const TArray<FElement>& ElementStack)> InCallback);
+    explicit FHtmlParser(const FString& Source, FCallbackFn InCallback);
 
     // Parse the source string. Returns success.
     bool Parse();
+
+    int32 Line = 0;
+    int32 ParagraphStartIndex = 0;
+    int32 ParagraphEndIndex = 0;
+    TArray<FElement> ElementStack;
+    FHtmlScanner Scanner;
 
 private:
     void Advance();
@@ -95,27 +115,12 @@ private:
     bool Element();
     bool Attribute();
     bool Content();
-    TFunctionRef<void(const FStringView& Content, const TArray<FElement>& ElementStack)> Callback;
-    FHtmlScanner Scanner;
+    bool EmptyContent();
+    void CloseElement();
+    FCallbackFn Callback;
     FHtmlScanner::FToken Current;
-    TArray<FElement> ElementStack;
+    int32 ElementCount = 0;
 };
-
-class STREAMCHATUI_API FHtmlRichTextMarkupWriter final : public IRichTextMarkupWriter
-{
-public:
-    static TSharedRef<FHtmlRichTextMarkupWriter> GetStaticInstance();
-
-    /**
-     * Write the provided array of line and run info, producing an output string containing the markup needed to persist the run layouts
-     */
-    virtual void Write(const TArray<FRichTextLine>& InLines, FString& Output) override;
-
-private:
-    FHtmlRichTextMarkupWriter();
-};
-
-#endif    // WITH_FANCY_TEXT
 
 /**
  *
@@ -125,6 +130,9 @@ class STREAMCHATUI_API UHtmlTextBlock final : public URichTextBlock
 {
     GENERATED_BODY()
 
+public:
+    const FString& GetLastParseResult() const;
+
+private:
     virtual TSharedPtr<IRichTextMarkupParser> CreateMarkupParser() override;
-    virtual TSharedPtr<IRichTextMarkupWriter> CreateMarkupWriter() override;
 };

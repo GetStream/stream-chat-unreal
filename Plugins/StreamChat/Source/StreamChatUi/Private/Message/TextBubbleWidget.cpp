@@ -112,7 +112,11 @@ FText UTextBubbleWidget::GetText() const
     {
         return FText::FromString(TEXT("Message deleted"));
     }
-    return FText::FromString(Message.Html);
+    if (!Message.Html.IsEmpty())
+    {
+        return FText::FromString(Message.Html);
+    }
+    return FText::FromString(Message.Text);
 }
 
 bool UTextBubbleWidget::IsSingleEmoji() const

@@ -81,4 +81,6 @@ private:
     virtual void OnChannel()
     {
     }
+
+    UThemeDataAsset* DefaultTheme;
 };
