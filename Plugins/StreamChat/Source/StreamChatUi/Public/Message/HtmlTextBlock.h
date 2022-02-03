@@ -34,8 +34,8 @@ public:
 
     enum class ETokenType : uint8
     {
-        LessThan,
-        GreaterThan,
+        AngleOpen,
+        AngleClose,
         Slash,
         Equal,
         String,
@@ -75,17 +75,30 @@ private:
 class FHtmlParser
 {
 public:
-    explicit FHtmlParser(const FString& Source);
+    struct FElement
+    {
+        FStringView Name;
+        TMap<FStringView, FStringView> Attributes;
+    };
+
+    // Initialize with source string. Doesn't take ownership of string, so caller must ensure it stays in memory.
+    // Callback is called on each content chunk as it is found, along with the stack of surrounding element names
+    explicit FHtmlParser(const FString& Source, TFunctionRef<void(const FStringView& Content, const TArray<FElement>& ElementStack)> InCallback);
+
+    // Parse the source string. Returns success.
+    bool Parse();
+
+private:
     void Advance();
     bool AdvanceMatching(FHtmlScanner::ETokenType TokenType);
 
-    void Element();
-    void Attribute();
-    void Content();
-
-private:
+    bool Element();
+    bool Attribute();
+    bool Content();
+    TFunctionRef<void(const FStringView& Content, const TArray<FElement>& ElementStack)> Callback;
     FHtmlScanner Scanner;
     FHtmlScanner::FToken Current;
+    TArray<FElement> ElementStack;
 };
 
 class STREAMCHATUI_API FHtmlRichTextMarkupWriter final : public IRichTextMarkupWriter

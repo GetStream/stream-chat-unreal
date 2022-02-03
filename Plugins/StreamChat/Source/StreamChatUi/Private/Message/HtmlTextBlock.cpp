@@ -10,22 +10,12 @@ TSharedRef<FHtmlRichTextMarkupParser> FHtmlRichTextMarkupParser::GetStaticInstan
 
 void FHtmlRichTextMarkupParser::Process(TArray<FTextLineParseResults>& Results, const FString& Input, FString& Output)
 {
-    FHtmlParser Parser(Input);
-    while (true)
-    {
-        if (Parser.AdvanceMatching(FHtmlScanner::ETokenType::LessThan))
-        {
-            Parser.Element();
-        }
-        else if (Parser.AdvanceMatching(FHtmlScanner::ETokenType::Content))
-        {
-            Parser.Content();
-        }
-        else if (Parser.AdvanceMatching(FHtmlScanner::ETokenType::Eof))
-        {
-            break;
-        }
-    }
+    FHtmlParser Parser(
+        Input,
+        [](const FStringView& Content, const TArray<FHtmlParser::FElement>& ElementStack) {
+
+        });
+    Parser.Parse();
 }
 
 FHtmlRichTextMarkupParser::FHtmlRichTextMarkupParser()
@@ -80,10 +70,10 @@ FHtmlScanner ::FToken FHtmlScanner::ScanToken()
     {
         case TEXT('<'):
             bInElement = true;
-            return MakeToken(ETokenType::LessThan);
+            return MakeToken(ETokenType::AngleOpen);
         case TEXT('>'):
             bInElement = false;
-            return MakeToken(ETokenType::GreaterThan);
+            return MakeToken(ETokenType::AngleClose);
         case TEXT('/'):
             return MakeToken(ETokenType::Slash);
         case TEXT('='):
@@ -159,10 +149,22 @@ FHtmlScanner::FToken FHtmlScanner::Content()
     return MakeToken(ETokenType::Content);
 }
 
-FHtmlParser::FHtmlParser(const FString& Source) : Scanner(FHtmlScanner(Source))
+FHtmlParser::FHtmlParser(const FString& Source, TFunctionRef<void(const FStringView& Content, const TArray<FElement>& ElementStack)> InCallback)
+    : Callback(MoveTemp(InCallback)), Scanner(FHtmlScanner(Source))
 {
     // Prime
     Advance();
+}
+
+bool FHtmlParser::Parse()
+{
+    // Should only have one root element
+    if (AdvanceMatching(FHtmlScanner::ETokenType::AngleOpen))
+    {
+        return Element();
+    }
+
+    return false;
 }
 
 void FHtmlParser::Advance()
@@ -188,70 +190,101 @@ bool FHtmlParser::AdvanceMatching(const FHtmlScanner::ETokenType TokenType)
     return true;
 }
 
-void FHtmlParser::Element()
+bool FHtmlParser::Element()
 {
-    ensure(Current.Type == FHtmlScanner::ETokenType::Identifier);
-    // TODO Do something with Current
+    check(Current.Type == FHtmlScanner::ETokenType::Identifier);
+    ElementStack.Push(FElement{Current.Lexeme});
     Advance();
 
+    // Parse attributes
     while (true)
     {
-        Attribute();
-        if (AdvanceMatching(FHtmlScanner::ETokenType::GreaterThan))
+        if (!Attribute())
+        {
+            return false;
+        }
+        if (AdvanceMatching(FHtmlScanner::ETokenType::AngleClose))
         {
             break;
         }
     }
-    if (AdvanceMatching(FHtmlScanner::ETokenType::Content))
+
+    // Parse content
+    if (Current.Type == FHtmlScanner::ETokenType::Content)
     {
-        Content();
+        if (!Content())
+        {
+            return false;
+        }
     }
-    else if (AdvanceMatching(FHtmlScanner::ETokenType::LessThan))
+
+    if (AdvanceMatching(FHtmlScanner::ETokenType::AngleOpen))
     {
+        // Parse ending tag
         if (AdvanceMatching(FHtmlScanner::ETokenType::Slash))
         {
-            ensure(Current.Type == FHtmlScanner::ETokenType::Identifier);
-            Advance();
-            // TODO Do something with Current
-            ensure(Current.Type == FHtmlScanner::ETokenType::GreaterThan);
-            Advance();
-            if (AdvanceMatching(FHtmlScanner::ETokenType::Content))
+            if (!AdvanceMatching(FHtmlScanner::ETokenType::Identifier))
             {
-                Content();
+                return false;
+            }
+            ElementStack.Pop();
+            if (!AdvanceMatching(FHtmlScanner::ETokenType::AngleClose))
+            {
+                return false;
             }
         }
         else
         {
-            ensure(Current.Type == FHtmlScanner::ETokenType::GreaterThan);
-            Advance();
+            // Parse child element
+            if (!Element())
+            {
+                return false;
+            }
+
+            // Parse content after child element
+            if (Current.Type == FHtmlScanner::ETokenType::Content)
+            {
+                if (!Content())
+                {
+                    return false;
+                }
+            }
         }
     }
     else
     {
-        ensure(false);
+        return false;
     }
+
+    return true;
 }
 
-void FHtmlParser::Attribute()
+bool FHtmlParser::Attribute()
 {
+    const FHtmlScanner::FToken Name = Current;
     if (AdvanceMatching(FHtmlScanner::ETokenType::Identifier))
     {
-        ensure(Current.Type == FHtmlScanner::ETokenType::Equal);
-        Advance();
-        const FHtmlScanner::FToken Name = Current;
-        ensure(Current.Type == FHtmlScanner::ETokenType::String);
+        if (!AdvanceMatching(FHtmlScanner::ETokenType::Equal))
+        {
+            return false;
+        }
         const FHtmlScanner::FToken Value = Current;
-        Advance();
+        if (!AdvanceMatching(FHtmlScanner::ETokenType::String))
+        {
+            return false;
+        }
 
-        // TODO Do something with Current
+        ElementStack.Last().Attributes.Add(Name.Lexeme, Value.Lexeme.LeftChop(1).RightChop(1));
     }
+    return true;
 }
 
-void FHtmlParser::Content()
+bool FHtmlParser::Content()
 {
-    ensure(Current.Type == FHtmlScanner::ETokenType::Content);
-    // TODO Do something with Current
+    check(Current.Type == FHtmlScanner::ETokenType::Content);
+    Callback(Current.Lexeme, ElementStack);
     Advance();
+    return true;
 }
 
 TSharedRef<FHtmlRichTextMarkupWriter> FHtmlRichTextMarkupWriter::GetStaticInstance()
