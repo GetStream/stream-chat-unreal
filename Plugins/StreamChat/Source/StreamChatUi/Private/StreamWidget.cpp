@@ -4,6 +4,7 @@
 
 #include "Context/ChannelContextWidget.h"
 #include "Context/ClientContextWidget.h"
+#include "Context/ThemeContextWidget.h"
 #include "ThemeDataAsset.h"
 
 void UStreamWidget::Setup()
@@ -34,15 +35,10 @@ void UStreamWidget::NativePreConstruct()
 {
     if (bWantsTheme)
     {
-        if (const UThemeDataAsset* Theme = UThemeDataAsset::Get(this))
-        {
-            OnTheme(Theme);
-            OnTheme_BP(Theme);
-        }
-        else
-        {
-            UE_LOG(LogTemp, Warning, TEXT("bWantsTheme is true, but widget doesn't have a ThemeContextWidget in the parent tree."))
-        }
+        UThemeDataAsset* Theme = UThemeDataAsset::Get(this);
+        Theme = Theme ? Theme : GetDefault<UThemeContextWidget>()->Theme;
+        OnTheme(Theme);
+        OnTheme_BP(Theme);
     }
     if (bWantsClient)
     {

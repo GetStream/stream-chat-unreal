@@ -22,7 +22,7 @@ class STREAMCHATUI_API UMessageWidget final : public UStreamWidget
     GENERATED_BODY()
 
 public:
-    explicit UMessageWidget(const FObjectInitializer& ObjectInitializer);
+    explicit UMessageWidget();
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(const FMessage& InMessage, EMessageSide InSide, EMessagePosition InPosition);
 

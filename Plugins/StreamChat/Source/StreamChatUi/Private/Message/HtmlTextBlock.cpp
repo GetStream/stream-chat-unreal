@@ -2,6 +2,9 @@
 
 #include "Message/HtmlTextBlock.h"
 
+#include "Algo/Transform.h"
+#include "Widgets/Text/SRichTextBlock.h"
+
 TSharedRef<FHtmlRichTextMarkupParser> FHtmlRichTextMarkupParser::GetStaticInstance()
 {
     static TSharedRef<FHtmlRichTextMarkupParser> Parser = MakeShareable(new FHtmlRichTextMarkupParser());
@@ -12,14 +15,44 @@ void FHtmlRichTextMarkupParser::Process(TArray<FTextLineParseResults>& Results, 
 {
     FHtmlParser Parser(
         Input,
-        [](const FStringView& Content, const TArray<FHtmlParser::FElement>& ElementStack) {
+        [&](const FStringView& Content, const FHtmlParser& Self)
+        {
+            if (!Results.IsValidIndex(Self.Line))
+            {
+                Results.Add(FTextLineParseResults{{Self.ParagraphStartIndex, INDEX_NONE}});
+            }
+            // Keep overwriting end index with each iteration, eventually leaving the correct result
+            Results[Self.Line].Range.EndIndex = Input.Len();
 
+            TSet<FStringView> ElementNames;
+            Algo::Transform(Self.ElementStack, ElementNames, [](auto&& Element) { return Element.Name; });
+            const FString Name = MakeRunName(ElementNames);
+
+            // ContentRange indexes into the Output string
+            const FTextRange ContentRange{Output.Len(), Output.Len() + Content.Len()};
+            const FTextRunParseResults Run{Name, ContentRange, ContentRange};
+
+            Results[Self.Line].Runs.Add(Run);
+
+            Output.Append(Content);
         });
     Parser.Parse();
 }
 
 FHtmlRichTextMarkupParser::FHtmlRichTextMarkupParser()
 {
+}
+
+FString FHtmlRichTextMarkupParser::MakeRunName(TSet<FStringView>& ElementNames)
+{
+    ElementNames.Remove(TEXT("p"));
+    if (ElementNames.Num() == 0)
+    {
+        return TEXT("Default");
+    }
+
+    ElementNames.Sort([](const FStringView& A, const FStringView& B) { return A.Compare(B) < 0; });
+    return FString::Join(ElementNames, TEXT("_"));
 }
 
 FHtmlScanner::FHtmlScanner(const FString& InSource) : Source(InSource)
@@ -149,8 +182,7 @@ FHtmlScanner::FToken FHtmlScanner::Content()
     return MakeToken(ETokenType::Content);
 }
 
-FHtmlParser::FHtmlParser(const FString& Source, TFunctionRef<void(const FStringView& Content, const TArray<FElement>& ElementStack)> InCallback)
-    : Callback(MoveTemp(InCallback)), Scanner(FHtmlScanner(Source))
+FHtmlParser::FHtmlParser(const FString& Source, FCallbackFn InCallback) : Scanner(FHtmlScanner(Source)), Callback(MoveTemp(InCallback))
 {
     // Prime
     Advance();
@@ -192,16 +224,32 @@ bool FHtmlParser::AdvanceMatching(const FHtmlScanner::ETokenType TokenType)
 
 bool FHtmlParser::Element()
 {
+    // Parse start tag <a>
     check(Current.Type == FHtmlScanner::ETokenType::Identifier);
+    // Any <p> will implicitly close any open <p>, hence increment line number
+    if (Current.Lexeme.Equals(TEXT("p")) && ElementCount > 0)
+    {
+        ParagraphEndIndex = ParagraphStartIndex;
+        ParagraphStartIndex = Scanner.Start;
+        ++Line;
+    }
     ElementStack.Push(FElement{Current.Lexeme});
     Advance();
 
-    // Parse attributes
+    // Parse attributes a="b" c="d"
     while (true)
     {
         if (!Attribute())
         {
             return false;
+        }
+        if (AdvanceMatching(FHtmlScanner::ETokenType::Slash))
+        {
+            // Parse void elements <a/>
+            if (!EmptyContent())
+            {
+                return false;
+            }
         }
         if (AdvanceMatching(FHtmlScanner::ETokenType::AngleClose))
         {
@@ -209,54 +257,52 @@ bool FHtmlParser::Element()
         }
     }
 
-    // Parse content
-    if (Current.Type == FHtmlScanner::ETokenType::Content)
+    while (true)
     {
-        if (!Content())
+        // Inside an element we can either have content or other tags
+        switch (Current.Type)
         {
-            return false;
-        }
-    }
-
-    if (AdvanceMatching(FHtmlScanner::ETokenType::AngleOpen))
-    {
-        // Parse ending tag
-        if (AdvanceMatching(FHtmlScanner::ETokenType::Slash))
-        {
-            if (!AdvanceMatching(FHtmlScanner::ETokenType::Identifier))
-            {
-                return false;
-            }
-            ElementStack.Pop();
-            if (!AdvanceMatching(FHtmlScanner::ETokenType::AngleClose))
-            {
-                return false;
-            }
-        }
-        else
-        {
-            // Parse child element
-            if (!Element())
-            {
-                return false;
-            }
-
-            // Parse content after child element
-            if (Current.Type == FHtmlScanner::ETokenType::Content)
-            {
+            case FHtmlScanner::ETokenType::Content:
                 if (!Content())
                 {
                     return false;
                 }
-            }
+                break;
+            case FHtmlScanner::ETokenType::AngleOpen:
+                Advance();
+
+                // Parse ending tag </a>
+                if (AdvanceMatching(FHtmlScanner::ETokenType::Slash))
+                {
+                    if (!AdvanceMatching(FHtmlScanner::ETokenType::Identifier))
+                    {
+                        return false;
+                    }
+                    if (!AdvanceMatching(FHtmlScanner::ETokenType::AngleClose))
+                    {
+                        return false;
+                    }
+                    CloseElement();
+                    return true;
+                }
+
+                // Parse child element
+                if (!Element())
+                {
+                    return false;
+                }
+                break;
+            default:
+                return false;
         }
     }
-    else
-    {
-        return false;
-    }
+}
 
-    return true;
+void FHtmlParser::CloseElement()
+{
+    ++ElementCount;
+
+    ElementStack.Pop();
 }
 
 bool FHtmlParser::Attribute()
@@ -282,156 +328,19 @@ bool FHtmlParser::Attribute()
 bool FHtmlParser::Content()
 {
     check(Current.Type == FHtmlScanner::ETokenType::Content);
-    Callback(Current.Lexeme, ElementStack);
+    Callback(Current.Lexeme, *this);
     Advance();
     return true;
 }
 
-TSharedRef<FHtmlRichTextMarkupWriter> FHtmlRichTextMarkupWriter::GetStaticInstance()
+bool FHtmlParser::EmptyContent()
 {
-    static TSharedRef<FHtmlRichTextMarkupWriter> Parser = MakeShareable(new FHtmlRichTextMarkupWriter());
-    return Parser;
+    Callback({}, *this);
+    CloseElement();
+    return true;
 }
-
-void FHtmlRichTextMarkupWriter::Write(const TArray<FRichTextLine>& InLines, FString& Output)
-{
-}
-
-FHtmlRichTextMarkupWriter::FHtmlRichTextMarkupWriter()
-{
-}
-
-// void FHtmlScanner::Parse()
-// {
-//     if (Input.Len() == 0)
-//     {
-//         return;
-//     }
-//
-//     FText ErrorMsg;
-//     int32 ErrorLine = 0;
-//     if (!FFastXml::ParseXmlFile(this, nullptr, InputPtr, nullptr, false, false, ErrorMsg, ErrorLine))
-//     {
-//     }
-//
-//     if (LastResult().Range.EndIndex == INDEX_NONE)
-//     {
-//         LastResult().Range.EndIndex = LastRun().OriginalRange.EndIndex;
-//     }
-// }
-//
-// bool FHtmlScanner::ProcessXmlDeclaration(const TCHAR* ElementData, int32 XmlFileLineNumber)
-// {
-//     UE_LOG(LogTemp, Log, TEXT("%s"), ElementData);
-//     return true;
-// }
-//
-// bool FHtmlScanner::ProcessElement(const TCHAR* ElementName, const TCHAR* ElementData, int32 XmlFileLineNumber)
-// {
-//     // -1 to include <
-//     const int32 StartIndex = GetStartIndex(ElementName) - 1;
-//     const FTextRange ElementRange{StartIndex, INDEX_NONE};
-//     const bool bIsP = FCString::Strcmp(ElementName, TEXT("p")) == 0;
-//     if (bIsP)
-//     {
-//         LineParseResults.Add(FTextLineParseResults{ElementRange});
-//     }
-//     else
-//     {
-//         ElementStack.Push(ElementName);
-//     }
-//
-//     const FString RunName = [&]() -> FString
-//     {
-//         // Generate combination of outer elements
-//         TArray RunNames{ElementStack};
-//         RunNames.Sort();
-//         return FString::Join(RunNames, TEXT("_"));
-//     }();
-//
-//     // Overwrite run name if empty
-//     if (LastResult().Runs.Num() > 0 && LastRun().ContentRange.IsEmpty() && LastRun().OriginalRange.EndIndex == INDEX_NONE)
-//     {
-//         LastRun().Name = RunName;
-//     }
-//     else
-//     {
-//         // Close last run
-//         if (LastResult().Runs.Num() > 0)
-//         {
-//             const int32 End = GetEndIndex(ElementName);
-//             LastRun().ContentRange.EndIndex = End;
-//             LastRun().OriginalRange.EndIndex = End;
-//         }
-//         LastResult().Runs.Add(FTextRunParseResults{RunName, ElementRange});
-//     }
-//
-//     if (ElementData)
-//     {
-//         LastRun().ContentRange = FTextRange{GetStartIndex(ElementData), GetEndIndex(ElementData)};
-//         Output.Append(ElementData);
-//     }
-//
-//     return true;
-// }
-//
-// bool FHtmlScanner::ProcessAttribute(const TCHAR* AttributeName, const TCHAR* AttributeValue)
-// {
-//     UE_LOG(LogTemp, Log, TEXT("%s: %s"), AttributeName, AttributeValue);
-//     return true;
-// }
-//
-// bool FHtmlScanner::ProcessClose(const TCHAR* Element)
-// {
-//     // +1 to include >
-//     const int32 End = GetEndIndex(Element) + 1;
-//     LastRun().OriginalRange.EndIndex = End;
-//     if (FCString::Strcmp(Element, TEXT("p")) == 0)
-//     {
-//         LastResult().Range.EndIndex = End;
-//     }
-//     else
-//     {
-//         ElementStack.Pop();
-//     }
-//     return true;
-// }
-//
-// bool FHtmlScanner::ProcessComment(const TCHAR* Comment)
-// {
-//     return true;
-// }
-//
-// int32 FHtmlScanner::GetStartIndex(const TCHAR* Str) const
-// {
-//     return Str - InputPtr;
-// }
-//
-// int32 FHtmlScanner::GetEndIndex(const TCHAR* Str) const
-// {
-//     return GetStartIndex(Str) + FCString::Strlen(Str);
-// }
-//
-// FTextRunParseResults& FHtmlScanner::LastRun()
-// {
-//     return LastResult().Runs.Last();
-// }
-//
-// FTextLineParseResults& FHtmlScanner::LastResult()
-// {
-//     if (LineParseResults.Num() == 0)
-//     {
-//         LineParseResults.Add(FTextLineParseResults{{0, INDEX_NONE}});
-//     }
-//     return LineParseResults.Last();
-// }
 
 TSharedPtr<IRichTextMarkupParser> UHtmlTextBlock::CreateMarkupParser()
 {
     return FHtmlRichTextMarkupParser::GetStaticInstance();
-}
-
-TSharedPtr<IRichTextMarkupWriter> UHtmlTextBlock::CreateMarkupWriter()
-{
-    return FHtmlRichTextMarkupWriter::GetStaticInstance();
 }

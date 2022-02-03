@@ -8,7 +8,7 @@
 #include "Components/Spacer.h"
 #include "Components/VerticalBoxSlot.h"
 
-UMessageWidget::UMessageWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
+UMessageWidget::UMessageWidget()
 {
     // Ensure hovering events are fired
     UUserWidget::SetVisibility(ESlateVisibility::Visible);

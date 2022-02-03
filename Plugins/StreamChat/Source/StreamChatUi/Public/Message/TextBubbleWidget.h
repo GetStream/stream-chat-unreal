@@ -4,8 +4,8 @@
 
 #include "Channel/Message.h"
 #include "Components/Border.h"
-#include "Components/RichTextBlock.h"
 #include "CoreMinimal.h"
+#include "HtmlTextBlock.h"
 #include "MessagePosition.h"
 #include "MessageSide.h"
 #include "StreamWidget.h"
@@ -27,7 +27,7 @@ public:
 
 protected:
     UPROPERTY(meta = (BindWidget))
-    URichTextBlock* TextBlock;
+    UHtmlTextBlock* TextBlock;
     UPROPERTY(meta = (BindWidget))
     UBorder* Border;
 
