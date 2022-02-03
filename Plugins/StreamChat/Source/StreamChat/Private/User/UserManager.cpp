@@ -40,7 +40,10 @@ const FUserRef& UUserManager::GetCurrentUser() const
 
 FUserRef UUserManager::UpsertUser(const FUser& User)
 {
-    ensure(!User.Id.IsEmpty());
+    if (User.Id.IsEmpty())
+    {
+        return {};
+    }
 
     const FUserRef Ref = FUserRef{User.Id, this};
     if (FUser* FoundUser = Users.Find(User.Id); !FoundUser)

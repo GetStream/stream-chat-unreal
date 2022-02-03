@@ -84,4 +84,6 @@ bool JsonObjectStringToUStruct(const FString& JsonString, OutStructType* OutStru
     }
     return true;
 }
+
+static bool ParseIso8601(const TCHAR* DateTimeString, FDateTime& OutDateTime);
 };    // namespace JsonObjectDeserialization

@@ -399,7 +399,7 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
                 // it anyway since we're handling the other keywords
                 DateTimeOut = FDateTime::UtcNow();
             }
-            else if (FDateTime::ParseIso8601(*DateString, DateTimeOut))
+            else if (JsonObjectDeserialization::ParseIso8601(*DateString, DateTimeOut))
             {
                 // ok
             }
@@ -686,4 +686,194 @@ bool JsonObjectDeserialization::JsonObjectStringToJsonObject(const FString& Json
 {
     const TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(JsonString);
     return FJsonSerializer::Deserialize(JsonReader, OutObject) && OutObject.IsValid();
+}
+
+// Fixes bug when milliseconds rounds up to 1000
+bool JsonObjectDeserialization::ParseIso8601(const TCHAR* DateTimeString, FDateTime& OutDateTime)
+{
+    // DateOnly: YYYY-MM-DD
+    // DateTime: YYYY-mm-ddTHH:MM:SS(.sss)(Z|+hh:mm|+hhmm|-hh:mm|-hhmm)
+
+    const TCHAR* Ptr = DateTimeString;
+    TCHAR* Next = nullptr;
+
+    int32 Year = 0, Month = 0, Day = 0;
+    int32 Hour = 0, Minute = 0, Second = 0, Millisecond = 0;
+    int32 TzHour = 0, TzMinute = 0;
+
+    // get date
+    Year = FCString::Strtoi(Ptr, &Next, 10);
+
+    if ((Next <= Ptr) || (*Next == TEXT('\0')))
+    {
+        return false;
+    }
+
+    Ptr = Next + 1;    // skip separator
+    Month = FCString::Strtoi(Ptr, &Next, 10);
+
+    if ((Next <= Ptr) || (*Next == TEXT('\0')))
+    {
+        return false;
+    }
+
+    Ptr = Next + 1;    // skip separator
+    Day = FCString::Strtoi(Ptr, &Next, 10);
+
+    if (Next <= Ptr)
+    {
+        return false;
+    }
+
+    // check whether this is date and time
+    if (*Next == TEXT('T'))
+    {
+        Ptr = Next + 1;
+
+        // parse time
+        Hour = FCString::Strtoi(Ptr, &Next, 10);
+
+        if ((Next <= Ptr) || (*Next == TEXT('\0')))
+        {
+            return false;
+        }
+
+        Ptr = Next + 1;    // skip separator
+        Minute = FCString::Strtoi(Ptr, &Next, 10);
+
+        if ((Next <= Ptr) || (*Next == TEXT('\0')))
+        {
+            return false;
+        }
+
+        Ptr = Next + 1;    // skip separator
+        Second = FCString::Strtoi(Ptr, &Next, 10);
+
+        if (Next <= Ptr)
+        {
+            return false;
+        }
+
+        // check for milliseconds
+        if (*Next == TEXT('.'))
+        {
+            Ptr = Next + 1;
+
+            int64 MillisecondTemp = FCString::Strtoi64(Ptr, &Next, 10);
+
+            // We support up to 18 digits to avoid rounding issue with 19 digits
+            if ((Next <= Ptr) || (Next > Ptr + 18))
+            {
+                return false;
+            }
+
+            int32 Digits = UE_PTRDIFF_TO_INT32(Next - Ptr);
+
+            if (Digits < 3)
+            {
+                // multiplying to account for the missing digits (would be zeros), ie 2020-08-24T05:56:14.4 should result in 400ms
+                for (; Digits < 3; ++Digits)
+                {
+                    MillisecondTemp *= 10;
+                }
+            }
+            else if (Digits > 3)
+            {
+                // converting to milliseconds with rounding up -> 2020-08-24T05:56:14.459826919 will result in 460ms.
+                int64 Divisor = 1;
+                for (; Digits > 3; --Digits)
+                {
+                    Divisor *= 10;
+                }
+
+                MillisecondTemp = (MillisecondTemp + (Divisor >> 1)) / Divisor;
+            }
+
+            Millisecond = static_cast<int32>(MillisecondTemp);
+            if (Millisecond == 1000)
+            {
+                ++Second;
+                Millisecond = 0;
+                if (Second == 60)
+                {
+                    ++Minute;
+                    Second = 0;
+                    if (Minute == 60)
+                    {
+                        ++Hour;
+                        Minute = 0;
+                        if (Hour == 24)
+                        {
+                            ++Day;
+                            Hour = 0;
+                            if (!FDateTime::Validate(Year, Month, Day, Hour, Minute, Second, Millisecond))
+                            {
+                                ++Month;
+                                Day = 1;
+                                if (Month == 13)
+                                {
+                                    ++Year;
+                                    Month = 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // see if the timezone offset is included
+        if (*Next == TEXT('+') || *Next == TEXT('-'))
+        {
+            // include the separator since it's + or -
+            Ptr = Next;
+
+            // parse the timezone offset
+            TzHour = FCString::Strtoi(Ptr, &Next, 10);
+
+            if (Next - Ptr == 3)    // for "+/-hh:mm" and "+/-hh" cases
+            {
+                if (*Next != TEXT('\0'))    // "+/-hh:mm"
+                {
+                    if (*Next != TEXT(':'))
+                    {
+                        return false;
+                    }
+                    Ptr = Next + 1;    // skip colon
+                    TzMinute = FCString::Strtoi(Ptr, &Next, 10);
+                }
+            }
+            else if (Next - Ptr == 5)    // for "+/-hhmm" case
+            {
+                TzMinute = TzHour % 100;
+                TzHour /= 100;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else if ((*Next != TEXT('\0')) && (*Next != TEXT('Z')))
+        {
+            return false;
+        }
+    }
+    else if (*Next != TEXT('\0'))
+    {
+        return false;
+    }
+
+    if (!FDateTime::Validate(Year, Month, Day, Hour, Minute, Second, Millisecond))
+    {
+        return false;
+    }
+
+    FDateTime Final(Year, Month, Day, Hour, Minute, Second, Millisecond);
+
+    // adjust for the timezone (bringing the DateTime into UTC)
+    int32 TzOffsetMinutes = (TzHour < 0) ? TzHour * 60 - TzMinute : TzHour * 60 + TzMinute;
+    Final -= FTimespan::FromMinutes(TzOffsetMinutes);
+    OutDateTime = Final;
+
+    return true;
 }
