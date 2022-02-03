@@ -1,5 +1,15 @@
 var NAVTREEINDEX2 =
 {
+"group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a5fe6005bf6e415c950c011fb65f12b8f":[1,4,28,5],
+"group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a902b0d55fddef6f8d651fe1035b7d4bd":[1,4,28,2],
+"group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7aa45da96d0bf6575970f2d27af22be28a":[1,4,28,4],
+"group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7ad2203cb1237cb6460cbad94564e39345":[1,4,28,0],
+"group___stream_chat_api.html":[1,0],
+"group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898":[1,0,1],
+"group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a39244fc52637db27b1844770e7b0bd17":[1,0,1,3],
+"group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d":[1,0,1,1],
+"group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a6adf97f83acf6453d4a6a4b1070f3754":[1,0,1,0],
+"group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898af20658650d987d31063b593c05980397":[1,0,1,2],
 "group___stream_chat_api_test.html":[1,1],
 "group___stream_chat_dto.html":[1,2],
 "group___stream_chat_dto.html#ga25892b8ff165ca27984b03e49e9899a5":[1,2,47],
@@ -239,15 +249,5 @@ var NAVTREEINDEX2 =
 "struct_f_channel_properties.html#a1a2427653bacade21ea4777ab2e0726f":[1,4,2,19],
 "struct_f_channel_properties.html#a1fd2b51b68b8ce926483a882a76e6ab2":[1,4,2,25],
 "struct_f_channel_properties.html#a215200abff9a415d6d7f127f01b2f319":[1,4,2,4],
-"struct_f_channel_properties.html#a2448f8bda77f37fddae01d0efd3f26ef":[1,4,2,30],
-"struct_f_channel_properties.html#a286ed2118348493688651864471a4638":[1,4,2,27],
-"struct_f_channel_properties.html#a36adf7490c27fde5e2c2c4665c477e00":[1,4,2,3],
-"struct_f_channel_properties.html#a3a9a1363d52137e419657965e73d4cc8":[1,4,2,13],
-"struct_f_channel_properties.html#a514bd2b7fb82e715a7a9a39cc6af9276":[1,4,2,15],
-"struct_f_channel_properties.html#a5204b02127fb53c81616f9a3ca0a95e9":[1,4,2,9],
-"struct_f_channel_properties.html#a567900ccd18561d70152fbf7821a6c09":[1,4,2,0],
-"struct_f_channel_properties.html#a60899bb9734ad17f0f6f4aa685c0504f":[1,4,2,7],
-"struct_f_channel_properties.html#a677042bf535d27f43488560aeef7f1ac":[1,4,2,5],
-"struct_f_channel_properties.html#a67a3101fb4b8e7b66113bded70335d16":[1,4,2,26],
-"struct_f_channel_properties.html#a67e0af32d8a6908dfd6e7562518191de":[1,4,2,24]
+"struct_f_channel_properties.html#a2448f8bda77f37fddae01d0efd3f26ef":[1,4,2,30]
 };

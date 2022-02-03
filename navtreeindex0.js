@@ -1,5 +1,15 @@
 var NAVTREEINDEX0 =
 {
+"":[2,0,0],
+"":[2,0,1],
+"":[2,0,2],
+"":[2,0,8,2],
+"":[2,0,9],
+"":[2,0,10],
+"":[2,0,11],
+"":[2,0,12],
+"":[2,0,14],
+"":[2,0,15],
 "_chat_socket_detail_8h.html#a88503cc4cb8d427bd0f6aeea70034487":[2,0,0,5],
 "_chat_socket_detail_8h.html#ab99e650bd6688297b7c18f4d14182486":[2,0,0,3],
 "_chat_socket_detail_8h.html#ac014e6328b1932f81f68a157cfa4e808":[2,0,0,2],
@@ -239,15 +249,5 @@ var NAVTREEINDEX0 =
 "class_u_stream_chat_client_component.html#af011c46e90b9370774d1339f605463a6":[1,4,20,29],
 "class_u_stream_chat_client_component.html#af908d5e4824f9feeb71f945b570f2d2f":[1,4,20,7],
 "class_u_stream_chat_client_component.html#afa6f9c8a21ee1d6b4b6e582f4364f645":[1,4,20,26],
-"class_u_stream_chat_settings.html":[1,4,21],
-"class_u_stream_chat_settings.html#a3c81992e541233efc646aa7f44b6ac92":[1,4,21,0],
-"class_u_stream_chat_web_socket_settings.html":[1,3,22],
-"class_u_stream_chat_web_socket_settings.html#a2e31687ed8205ec1591eac7330a6d791":[1,3,22,2],
-"class_u_stream_chat_web_socket_settings.html#a98e82c0ce75de05fb64dcfedae112f31":[1,3,22,1],
-"class_u_stream_chat_web_socket_settings.html#af1b97fc79a2d50ced03f42403e7454eb":[1,3,22,0],
-"class_u_typing_indicator_widget.html":[3,0,104],
-"class_u_typing_indicator_widget.html#a742627bb8d570386c50db1d09f681f49":[3,0,104,1],
-"class_u_typing_indicator_widget.html#a7c3668b1b7ea75a10de6bf9b2207f036":[3,0,104,2],
-"class_u_typing_indicator_widget.html#a8cbe1dceb87b212ef71a3ddaca0a6b5b":[3,0,104,0],
-"class_u_typing_indicator_widget.html#abd6dbae61d4e4590473469f395bbccbd":[3,0,104,3]
+"class_u_stream_chat_settings.html":[1,4,21]
 };

@@ -1,5 +1,15 @@
 var NAVTREEINDEX3 =
 {
+"struct_f_channel_properties.html#a286ed2118348493688651864471a4638":[1,4,2,27],
+"struct_f_channel_properties.html#a36adf7490c27fde5e2c2c4665c477e00":[1,4,2,3],
+"struct_f_channel_properties.html#a3a9a1363d52137e419657965e73d4cc8":[1,4,2,13],
+"struct_f_channel_properties.html#a514bd2b7fb82e715a7a9a39cc6af9276":[1,4,2,15],
+"struct_f_channel_properties.html#a5204b02127fb53c81616f9a3ca0a95e9":[1,4,2,9],
+"struct_f_channel_properties.html#a567900ccd18561d70152fbf7821a6c09":[1,4,2,0],
+"struct_f_channel_properties.html#a60899bb9734ad17f0f6f4aa685c0504f":[1,4,2,7],
+"struct_f_channel_properties.html#a677042bf535d27f43488560aeef7f1ac":[1,4,2,5],
+"struct_f_channel_properties.html#a67a3101fb4b8e7b66113bded70335d16":[1,4,2,26],
+"struct_f_channel_properties.html#a67e0af32d8a6908dfd6e7562518191de":[1,4,2,24],
 "struct_f_channel_properties.html#a6f790c40747c427d016a47b6ace2c97e":[1,4,2,17],
 "struct_f_channel_properties.html#a722832bdd545f17cd652c002752e70f7":[1,4,2,10],
 "struct_f_channel_properties.html#a73faf453dcdd3b1416ff1df77e8b84e2":[1,4,2,8],
@@ -239,15 +249,5 @@ var NAVTREEINDEX3 =
 "struct_f_message_request_dto.html#ad618a0e17f84e1bf126de384e52d89cd":[1,2,10,6],
 "struct_f_message_request_dto.html#ae0b0f7beeda13c97104f3fd3498d9425":[1,2,10,1],
 "struct_f_message_response_dto.html":[1,2,34],
-"struct_f_message_response_dto.html#a69c1e2774940626aa3c58dd7b779d39d":[1,2,34,0],
-"struct_f_message_response_dto.html#a99578bd5358a470c7d32372a89a1c1c9":[1,2,34,1],
-"struct_f_message_sort_option.html":[1,4,5],
-"struct_f_message_sort_option.html#a181a0e55c38fd7536ef4f4e4e7591aa8":[1,4,5,3],
-"struct_f_message_sort_option.html#a67a67d08eadecef2ba1fce4c5df90f49":[1,4,5,0],
-"struct_f_message_sort_option.html#a786c7589b83976fc38ef11de8ee28921":[1,4,5,2],
-"struct_f_message_sort_option.html#adfe6d2966056fdfda51665b25306ada9":[1,4,5,1],
-"struct_f_message_updated_event.html":[1,3,9],
-"struct_f_notification_mark_read_event.html":[1,3,18],
-"struct_f_notification_mark_read_event.html#a1a5d4c17bbdbe75fbf331df38ed53116":[1,3,18,3],
-"struct_f_notification_mark_read_event.html#a83e080d5da79fc027ab030f08e4994ff":[1,3,18,1]
+"struct_f_message_response_dto.html#a69c1e2774940626aa3c58dd7b779d39d":[1,2,34,0]
 };

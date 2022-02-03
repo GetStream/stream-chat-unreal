@@ -1,5 +1,15 @@
 var NAVTREEINDEX1 =
 {
+"class_u_stream_chat_settings.html#a3c81992e541233efc646aa7f44b6ac92":[1,4,21,0],
+"class_u_stream_chat_web_socket_settings.html":[1,3,22],
+"class_u_stream_chat_web_socket_settings.html#a2e31687ed8205ec1591eac7330a6d791":[1,3,22,2],
+"class_u_stream_chat_web_socket_settings.html#a98e82c0ce75de05fb64dcfedae112f31":[1,3,22,1],
+"class_u_stream_chat_web_socket_settings.html#af1b97fc79a2d50ced03f42403e7454eb":[1,3,22,0],
+"class_u_typing_indicator_widget.html":[3,0,104],
+"class_u_typing_indicator_widget.html#a742627bb8d570386c50db1d09f681f49":[3,0,104,1],
+"class_u_typing_indicator_widget.html#a7c3668b1b7ea75a10de6bf9b2207f036":[3,0,104,2],
+"class_u_typing_indicator_widget.html#a8cbe1dceb87b212ef71a3ddaca0a6b5b":[3,0,104,0],
+"class_u_typing_indicator_widget.html#abd6dbae61d4e4590473469f395bbccbd":[3,0,104,3],
 "class_u_user_blueprint_library.html":[1,4,22],
 "classes.html":[3,1],
 "classjwt_1_1base.html":[3,0,0,2],
@@ -239,15 +249,5 @@ var NAVTREEINDEX1 =
 "group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91ae4b0c2b6d59cb4cf3e169a9886008087":[1,4,26,0],
 "group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91affbb410a55bb31f801dea6387e2745ac":[1,4,26,3],
 "group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a25d8df6e580905091a0d5ef5b9e05bf0":[1,4,28,3],
-"group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a446700a09f499c4dd922bfa13b27479d":[1,4,28,1],
-"group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a5fe6005bf6e415c950c011fb65f12b8f":[1,4,28,5],
-"group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a902b0d55fddef6f8d651fe1035b7d4bd":[1,4,28,2],
-"group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7aa45da96d0bf6575970f2d27af22be28a":[1,4,28,4],
-"group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7ad2203cb1237cb6460cbad94564e39345":[1,4,28,0],
-"group___stream_chat_api.html":[1,0],
-"group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898":[1,0,1],
-"group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a39244fc52637db27b1844770e7b0bd17":[1,0,1,3],
-"group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d":[1,0,1,1],
-"group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a6adf97f83acf6453d4a6a4b1070f3754":[1,0,1,0],
-"group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898af20658650d987d31063b593c05980397":[1,0,1,2]
+"group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a446700a09f499c4dd922bfa13b27479d":[1,4,28,1]
 };
