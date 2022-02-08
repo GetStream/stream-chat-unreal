@@ -80,7 +80,6 @@ FString FHtmlRichTextMarkupParser::MakeRunName(TSet<FStringView>& ElementNames)
         return TEXT("Default");
     }
 
-    ElementNames.Sort([](const FStringView& A, const FStringView& B) { return A.Compare(B) < 0; });
     return FString::Join(ElementNames, TEXT("_"));
 }
 
