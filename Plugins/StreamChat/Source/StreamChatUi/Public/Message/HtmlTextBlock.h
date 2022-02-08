@@ -5,7 +5,7 @@
 #include "Components/RichTextBlock.h"
 #include "CoreMinimal.h"
 #include "Framework/Text/IRichTextMarkupParser.h"
-#include "Framework/Text/IRichTextMarkupWriter.h"
+#include "Styling/SlateStyle.h"
 
 #include "HtmlTextBlock.generated.h"
 
@@ -122,17 +122,31 @@ private:
     int32 ElementCount = 0;
 };
 
+class FComboSlateStyleSet final : public FSlateStyleSet
+{
+public:
+    explicit FComboSlateStyleSet(const FName& InStyleSetName) : FSlateStyleSet(InStyleSetName)
+    {
+    }
+
+    virtual const FSlateWidgetStyle* GetWidgetStyleInternal(const FName DesiredTypeName, const FName StyleName) const override;
+
+private:
+    const TSharedRef<FSlateWidgetStyle>* GetComboStyle(const FName& StyleName);
+};
+
 /**
  *
  */
-UCLASS()
-class STREAMCHATUI_API UHtmlTextBlock final : public URichTextBlock
+UCLASS() class STREAMCHATUI_API UHtmlTextBlock final : public URichTextBlock
 {
     GENERATED_BODY()
 
-public:
-    const FString& GetLastParseResult() const;
+protected:
+    UPROPERTY(EditAnywhere, Category = Appearance)
+    TMap<FName, FTextBlockStyle> TextStyles;
 
 private:
     virtual TSharedPtr<IRichTextMarkupParser> CreateMarkupParser() override;
+    virtual void UpdateStyleData() override;
 };
