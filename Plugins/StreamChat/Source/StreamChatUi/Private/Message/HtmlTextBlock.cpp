@@ -5,6 +5,34 @@
 #include "Algo/Transform.h"
 #include "Widgets/Text/SRichTextBlock.h"
 
+namespace
+{
+constexpr TCHAR ParagraphTag[] = TEXT("p");
+constexpr TCHAR LineBreakTag[] = TEXT("br");
+
+template <class ObjectType>
+struct TFDeferredDeleter final : FDeferredCleanupInterface
+{
+    explicit TFDeferredDeleter(ObjectType* InInnerObjectToDelete) : InnerObjectToDelete(InInnerObjectToDelete)
+    {
+    }
+
+    virtual ~TFDeferredDeleter() override
+    {
+        delete InnerObjectToDelete;
+    }
+
+private:
+    ObjectType* InnerObjectToDelete;
+};
+
+template <class ObjectType>
+FORCEINLINE SharedPointerInternals::FRawPtrProxy<ObjectType> MakeShareableDeferredCleanup(ObjectType* InObject)
+{
+    return MakeShareable(InObject, [](ObjectType* ObjectToDelete) { BeginCleanup(new TFDeferredDeleter<ObjectType>(ObjectToDelete)); });
+}
+}    // namespace
+
 TSharedRef<FHtmlRichTextMarkupParser> FHtmlRichTextMarkupParser::GetStaticInstance()
 {
     static TSharedRef<FHtmlRichTextMarkupParser> Parser = MakeShareable(new FHtmlRichTextMarkupParser());
@@ -45,7 +73,8 @@ FHtmlRichTextMarkupParser::FHtmlRichTextMarkupParser()
 
 FString FHtmlRichTextMarkupParser::MakeRunName(TSet<FStringView>& ElementNames)
 {
-    ElementNames.Remove(TEXT("p"));
+    ElementNames.Remove(ParagraphTag);
+    ElementNames.Remove(LineBreakTag);
     if (ElementNames.Num() == 0)
     {
         return TEXT("Default");
@@ -89,7 +118,7 @@ void FHtmlScanner::SkipWhitespace()
     }
 }
 
-FHtmlScanner ::FToken FHtmlScanner::ScanToken()
+FHtmlScanner::FToken FHtmlScanner::ScanToken()
 {
     SkipWhitespace();
     Start = Current;
@@ -196,6 +225,11 @@ bool FHtmlParser::Parse()
         return Element();
     }
 
+    if (Current.Type == FHtmlScanner::ETokenType::Content)
+    {
+        // Fallback to display exact text
+        return Content();
+    }
     return false;
 }
 
@@ -227,7 +261,8 @@ bool FHtmlParser::Element()
     // Parse start tag <a>
     check(Current.Type == FHtmlScanner::ETokenType::Identifier);
     // Any <p> will implicitly close any open <p>, hence increment line number
-    if (Current.Lexeme.Equals(TEXT("p")) && ElementCount > 0)
+    // <br> always starts new line
+    if ((Current.Lexeme.Equals(ParagraphTag) || Current.Lexeme.Equals(LineBreakTag)) && ElementCount > 0)
     {
         ParagraphEndIndex = ParagraphStartIndex;
         ParagraphStartIndex = Scanner.Start;
@@ -340,7 +375,110 @@ bool FHtmlParser::EmptyContent()
     return true;
 }
 
+const FSlateWidgetStyle* FComboSlateStyleSet::GetWidgetStyleInternal(const FName DesiredTypeName, const FName StyleName) const
+{
+    const TSharedRef<FSlateWidgetStyle>* StylePtr = WidgetStyleValues.Find(StyleName);
+
+    if (!StylePtr)
+    {
+        StylePtr = const_cast<FComboSlateStyleSet*>(this)->GetComboStyle(StyleName);    // sorry :(
+        if (!StylePtr)
+        {
+            Log(Warning,
+                FText::Format(
+                    FText::FromString(TEXT("Unable to find Slate Widget Style '{0}'. Using {1} defaults instead.")),
+                    FText::FromName(StyleName),
+                    FText::FromName(DesiredTypeName)));
+            return nullptr;
+        }
+    }
+
+    const TSharedRef<FSlateWidgetStyle> Style = *StylePtr;
+
+    if (Style->GetTypeName() != DesiredTypeName)
+    {
+        Log(Error,
+            FText::Format(
+                FText::FromString(TEXT("The Slate Widget Style '{0}' is not of the desired type. Desired: '{1}', Actual: '{2}'")),
+                FText::FromName(StyleName),
+                FText::FromName(DesiredTypeName),
+                FText::FromName(Style->GetTypeName())));
+        return nullptr;
+    }
+
+    return &Style.Get();
+}
+
+template <class T, class U>
+void OverwriteNonDefault(const U& Default, U& Target, const U& New, T U::*MemPtr)
+{
+    if (New.*MemPtr != Default.*MemPtr)
+    {
+        Target.*MemPtr = New.*MemPtr;
+    }
+}
+
+const TSharedRef<FSlateWidgetStyle>* FComboSlateStyleSet::GetComboStyle(const FName& StyleName)
+{
+    const TSharedRef<FSlateWidgetStyle>* DefaultPtr = WidgetStyleValues.Find(TEXT("Default"));
+    if (!DefaultPtr)
+    {
+        return nullptr;
+    }
+    const TSharedRef<FTextBlockStyle> Default = StaticCastSharedRef<FTextBlockStyle>(*DefaultPtr);
+
+    TArray<FString> Tags;
+    StyleName.ToString().ParseIntoArray(Tags, TEXT("_"));
+
+    const TSharedRef<FTextBlockStyle> ComboStyle = MakeShared<FTextBlockStyle>(*Default);
+    for (const FString& Tag : Tags)
+    {
+        const TSharedRef<FSlateWidgetStyle>* StylePtr = WidgetStyleValues.Find(FName(Tag));
+        if (!StylePtr)
+        {
+            return nullptr;
+        }
+        const TSharedRef<FTextBlockStyle> Style = StaticCastSharedRef<FTextBlockStyle>(*StylePtr);
+        if (Style->Font.Size != Default->Font.Size)
+        {
+            ComboStyle->Font.Size = Style->Font.Size;
+        }
+        OverwriteNonDefault(Default->Font, ComboStyle->Font, Style->Font, &FSlateFontInfo::FontObject);
+        OverwriteNonDefault(Default->Font, ComboStyle->Font, Style->Font, &FSlateFontInfo::FontMaterial);
+        OverwriteNonDefault(Default->Font, ComboStyle->Font, Style->Font, &FSlateFontInfo::CompositeFont);
+        OverwriteNonDefault(Default->Font, ComboStyle->Font, Style->Font, &FSlateFontInfo::TypefaceFontName);
+        OverwriteNonDefault(Default->Font, ComboStyle->Font, Style->Font, &FSlateFontInfo::Size);
+        OverwriteNonDefault(Default->Font, ComboStyle->Font, Style->Font, &FSlateFontInfo::LetterSpacing);
+        // OverwriteNonDefault(Default->Font, ComboStyle->Font, Style->Font, &FSlateFontInfo::OutlineSettings);
+
+        OverwriteNonDefault(*Default, *ComboStyle, *Style, &FTextBlockStyle::ColorAndOpacity);
+        OverwriteNonDefault(*Default, *ComboStyle, *Style, &FTextBlockStyle::ShadowOffset);
+        OverwriteNonDefault(*Default, *ComboStyle, *Style, &FTextBlockStyle::ShadowColorAndOpacity);
+        OverwriteNonDefault(*Default, *ComboStyle, *Style, &FTextBlockStyle::SelectedBackgroundColor);
+        OverwriteNonDefault(*Default, *ComboStyle, *Style, &FTextBlockStyle::HighlightColor);
+        OverwriteNonDefault(*Default, *ComboStyle, *Style, &FTextBlockStyle::HighlightShape);
+        OverwriteNonDefault(*Default, *ComboStyle, *Style, &FTextBlockStyle::StrikeBrush);
+        OverwriteNonDefault(*Default, *ComboStyle, *Style, &FTextBlockStyle::UnderlineBrush);
+    }
+    return &WidgetStyleValues.Add(StyleName, ComboStyle);
+}
+
 TSharedPtr<IRichTextMarkupParser> UHtmlTextBlock::CreateMarkupParser()
 {
     return FHtmlRichTextMarkupParser::GetStaticInstance();
+}
+
+void UHtmlTextBlock::UpdateStyleData()
+{
+    StyleInstance = MakeShareableDeferredCleanup(new FComboSlateStyleSet(TEXT("HtmlTextStyle")));
+
+    for (const auto& [Name, Style] : TextStyles)
+    {
+        if (Name == TEXT("Default"))
+        {
+            DefaultTextStyle = Style;
+        }
+
+        StyleInstance->Set(Name, Style);
+    }
 }
