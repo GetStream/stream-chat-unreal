@@ -3,9 +3,9 @@
 #pragma once
 
 #include "Channel/Message.h"
+#include "Common/Html/HtmlTextBlock.h"
 #include "Components/Border.h"
 #include "CoreMinimal.h"
-#include "Common/Html/HtmlTextBlock.h"
 #include "MessagePosition.h"
 #include "MessageSide.h"
 #include "StreamWidget.h"
