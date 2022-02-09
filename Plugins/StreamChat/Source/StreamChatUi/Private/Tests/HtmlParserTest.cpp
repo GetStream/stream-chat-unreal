@@ -180,6 +180,44 @@ bool FHtmlParserTest::RunTest(const FString& Parameters)
             });
         TestTrue("Parsed", Parser.Parse());
     }
+
+    // Newline
+    {
+        const FString Source{TEXT("<p>A<br/>B</p>")};
+        int32 Iteration = 0;
+        FHtmlParser Parser(
+            Source,
+            [&](const FStringView& Content, const FHtmlParser& Self)
+            {
+                switch (Iteration)
+                {
+                    case 0:
+                        TestTrue("Content", Content.Equals(TEXT("A")));
+                        TestEqual("ElementStackSize", Self.ElementStack.Num(), 1);
+                        TestTrue("ElementStack[0]", Self.ElementStack[0].Name.Equals(TEXT("p")));
+                        TestEqual("Attribs", Self.ElementStack[0].Attributes.Num(), 0);
+                        break;
+                    case 1:
+                        TestTrue("Content", Content.IsEmpty());
+                        TestEqual("ElementStackSize", Self.ElementStack.Num(), 2);
+                        TestTrue("ElementStack[0]", Self.ElementStack[0].Name.Equals(TEXT("p")));
+                        TestTrue("ElementStack[0]", Self.ElementStack[1].Name.Equals(TEXT("br")));
+                        TestEqual("Attribs", Self.ElementStack[0].Attributes.Num(), 0);
+                        TestEqual("Attribs", Self.ElementStack[1].Attributes.Num(), 0);
+                        break;
+                    case 2:
+                        TestTrue("Content", Content.Equals(TEXT("B")));
+                        TestEqual("ElementStackSize", Self.ElementStack.Num(), 1);
+                        TestTrue("ElementStack[0]", Self.ElementStack[0].Name.Equals(TEXT("p")));
+                        TestEqual("Attribs", Self.ElementStack[0].Attributes.Num(), 0);
+                        break;
+                    default:
+                        break;
+                }
+                ++Iteration;
+            });
+        TestTrue("Parsed", Parser.Parse());
+    }
     return true;
 }
 
@@ -191,12 +229,14 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(
 bool FHtmlRichTextMarkupParserTest::RunTest(const FString& Parameters)
 {
     const TSharedRef<FHtmlRichTextMarkupParser> Parser = FHtmlRichTextMarkupParser::GetStaticInstance();
-    // Simple
+    // Newline
     {
         FString Output;
-        const FString Input{TEXT("<p>Hi</p>")};
+        const FString Input{TEXT("<p>A<br/>B</p>")};
         TArray<FTextLineParseResults> Results;
         Parser->Process(Results, Input, Output);
+        TestEqual("Output", Output, TEXT("A\nB"));
+        TestEqual("Results", Results.Num(), 2);
     }
     return true;
 }

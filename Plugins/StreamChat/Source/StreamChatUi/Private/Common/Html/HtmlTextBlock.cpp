@@ -52,6 +52,10 @@ void FHtmlRichTextMarkupParser::Process(TArray<FTextLineParseResults>& Results, 
         {
             if (!Results.IsValidIndex(Self.Line))
             {
+                if (Self.Line > 0)
+                {
+                    Output.AppendChar(TEXT('\n'));
+                }
                 Results.Add(FTextLineParseResults{{Self.ParagraphStartIndex, INDEX_NONE}});
             }
             // Keep overwriting end index with each iteration, eventually leaving the correct result
