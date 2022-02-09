@@ -44,33 +44,36 @@ FHtmlScanner::FToken FHtmlScanner::ScanToken()
         return FToken{ETokenType::Eof};
     }
 
-    switch (const TCHAR Char = Advance())
+    const TCHAR Char = Advance();
+    if (bInTag)
     {
-        case TEXT('<'):
-            bInElement = true;
-            return MakeToken(ETokenType::AngleOpen);
-        case TEXT('>'):
-            bInElement = false;
-            return MakeToken(ETokenType::AngleClose);
-        case TEXT('/'):
-            return MakeToken(ETokenType::Slash);
-        case TEXT('='):
-            return MakeToken(ETokenType::Equal);
-        case TEXT('"'):
-            return String();
-        default:
+        switch (Char)
         {
-            if (!bInElement)
+            case TEXT('>'):
+                bInTag = false;
+                return MakeToken(ETokenType::AngleClose);
+            case TEXT('/'):
+                return MakeToken(ETokenType::Slash);
+            case TEXT('='):
+                return MakeToken(ETokenType::Equal);
+            case TEXT('"'):
+                return String();
+            default:
             {
-                return Content();
+                if (FChar::IsAlpha(Char))
+                {
+                    return Identifier();
+                }
+                return MakeToken(ETokenType::Error);
             }
-            if (FChar::IsAlpha(Char))
-            {
-                return Identifier();
-            }
-            return MakeToken(ETokenType::Error);
         }
     }
+    if (Char == TEXT('<'))
+    {
+        bInTag = true;
+        return MakeToken(ETokenType::AngleOpen);
+    }
+    return Content();
 }
 
 bool FHtmlScanner::IsAtEnd() const
