@@ -23,6 +23,12 @@ T* GetTypedChildWidget(const UWidget* Widget)
     return static_cast<T*>(GetTypedChildWidget(Widget, T::StaticClass()));
 }
 
+/**
+ * @brief Shorten an input string to fit in a given pixel width
+ * @param MaxWidth Available space for text to occupy, in pixels
+ * @param FontInfo Font style, size, for measuring text
+ * @return The input string, shortened and appended with ...
+ */
 FString TruncateWithEllipsis(const FString&, uint32 MaxWidth, const FSlateFontInfo& FontInfo);
 
 uint32 HashStringWithMax(const FString&, uint32 Max = 16);
