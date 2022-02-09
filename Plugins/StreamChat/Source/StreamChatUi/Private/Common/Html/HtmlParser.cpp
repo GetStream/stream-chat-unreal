@@ -184,13 +184,9 @@ bool FHtmlParser::Element()
 {
     // Parse start tag <a>
     check(Current.Type == FHtmlScanner::ETokenType::Identifier);
-    // Any <p> will implicitly close any open <p>, hence increment line number
-    // <br> always starts new line
-    if ((Current.Lexeme.Equals(ParagraphTag) || Current.Lexeme.Equals(LineBreakTag)) && ElementCount > 0)
+    if (Current.Lexeme.Equals(LineBreakTag))
     {
-        ParagraphEndIndex = ParagraphStartIndex;
-        ParagraphStartIndex = Scanner.Start;
-        ++Line;
+        Newline();
     }
     ElementStack.Push(FElement{Current.Lexeme});
     Advance();
@@ -256,9 +252,18 @@ bool FHtmlParser::Element()
 
 void FHtmlParser::CloseElement()
 {
-    ++ElementCount;
-
+    if (ElementStack.Last().Name.Equals(ParagraphTag))
+    {
+        Newline();
+    }
     ElementStack.Pop();
+}
+
+void FHtmlParser::Newline()
+{
+    ParagraphEndIndex = ParagraphStartIndex;
+    ParagraphStartIndex = Scanner.Start;
+    ++Line;
 }
 
 bool FHtmlParser::Attribute()

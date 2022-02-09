@@ -92,8 +92,8 @@ private:
     bool Content();
     bool EmptyContent();
     void CloseElement();
+    void Newline();
     FCallbackFn Callback;
     FHtmlScanner::FToken Current;
-    int32 ElementCount = 0;
     FHtmlScanner Scanner;
 };
