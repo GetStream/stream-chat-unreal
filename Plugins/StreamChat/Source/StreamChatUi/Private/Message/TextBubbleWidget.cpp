@@ -31,6 +31,8 @@ void UTextBubbleWidget::OnTheme(const UThemeDataAsset* Theme)
     const bool bSingleEmoji = IsSingleEmoji();
     if (TextBlock)
     {
+        TextBlock->SetTextStyles(Theme->BubbleTextStyles);
+
         if (Message.Type == EMessageType::Deleted)
         {
             TextBlock->SetDefaultColorAndOpacity(Theme->GetPaletteColor(Theme->DeletedMessageTextColor));
@@ -42,12 +44,13 @@ void UTextBubbleWidget::OnTheme(const UThemeDataAsset* Theme)
         else
         {
             TextBlock->ClearAllDefaultStyleOverrides();
-            TextBlock->SetTextStyleSet(Theme->BubbleTextStyleSet);
         }
     }
 
     if (Border)
     {
+        Border->SetBrushColor(GetBubbleColor(Theme));
+
         if (bSingleEmoji)
         {
             FSlateBrush None{};
@@ -61,7 +64,6 @@ void UTextBubbleWidget::OnTheme(const UThemeDataAsset* Theme)
             Border->Background.DrawAs = ESlateBrushDrawType::Box;
             Border->SetBrushFromTexture(GetBubbleTexture());
         }
-        Border->SetBrushColor(GetBubbleColor(Theme));
     }
 }
 
