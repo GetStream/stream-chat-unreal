@@ -85,5 +85,5 @@ bool JsonObjectStringToUStruct(const FString& JsonString, OutStructType* OutStru
     return true;
 }
 
-STREAMJSON_API static bool ParseIso8601(const TCHAR* DateTimeString, FDateTime& OutDateTime);
+STREAMJSON_API bool ParseIso8601(const TCHAR* DateTimeString, FDateTime& OutDateTime);
 };    // namespace JsonObjectDeserialization

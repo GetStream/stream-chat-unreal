@@ -263,14 +263,14 @@ void FHtmlParser::CloseElement()
 
 bool FHtmlParser::Attribute()
 {
-    const auto [Type, Name] = Current;
+    const auto [NameType, Name] = Current;
     if (AdvanceMatching(FHtmlScanner::ETokenType::Identifier))
     {
         if (!AdvanceMatching(FHtmlScanner::ETokenType::Equal))
         {
             return false;
         }
-        const auto [Type, Value] = Current;
+        const auto [ValueType, Value] = Current;
         if (!AdvanceMatching(FHtmlScanner::ETokenType::String))
         {
             return false;
