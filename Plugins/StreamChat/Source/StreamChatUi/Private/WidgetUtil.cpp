@@ -86,13 +86,15 @@ FString WidgetUtil::TruncateWithEllipsis(const FString& Input, const uint32 MaxW
     const TSharedRef<FSlateFontMeasure> Service = FSlateApplication::Get().GetRenderer()->GetFontMeasureService();
     if (Service->Measure(Input, FontInfo).X < MaxWidth)
     {
-        return Input;
+        int32 NewlineIndex;
+        const bool bHasNewline = Input.FindChar(TEXT('\n'), NewlineIndex);
+        return bHasNewline ? Input.Left(NewlineIndex) + TEXT("…") : Input;
     }
 
-    // Step forward as long as textWidth allows.
     int32 End, NewEnd = 0;
     bool bSingleWord = true;
     float TextSize;
+    // Step forward as long as MaxWidth allows.
     do
     {
         End = NewEnd;

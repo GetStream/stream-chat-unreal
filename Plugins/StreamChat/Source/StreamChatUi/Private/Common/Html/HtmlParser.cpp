@@ -128,7 +128,7 @@ FHtmlScanner::FToken FHtmlScanner::Content()
         Advance();
     }
     // Allow for a single whitespace as the start of a content
-    if (FChar::IsWhitespace(Source[Start - 1]))
+    if (Start > 0 && FChar::IsWhitespace(Source[Start - 1]))
     {
         --Start;
     }
