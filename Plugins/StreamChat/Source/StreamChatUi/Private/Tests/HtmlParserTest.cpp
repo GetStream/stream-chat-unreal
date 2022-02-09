@@ -166,6 +166,20 @@ bool FHtmlParserTest::RunTest(const FString& Parameters)
             });
         TestTrue("Parsed", Parser.Parse());
     }
+
+    // Equals signs
+    {
+        const FString Source{TEXT("<p>==very important== yep</p>")};
+        FHtmlParser Parser(
+            Source,
+            [&](const FStringView& Content, const FHtmlParser& Self)
+            {
+                TestTrue("Content", Content.Equals(TEXT("==very important== yep")));
+                TestEqual("ElementStackSize", Self.ElementStack.Num(), 1);
+                TestTrue("p", Self.ElementStack[0].Name.Equals(TEXT("p")));
+            });
+        TestTrue("Parsed", Parser.Parse());
+    }
     return true;
 }
 

@@ -69,7 +69,8 @@ void FHtmlRichTextMarkupParser::Process(TArray<FTextLineParseResults>& Results, 
 
             Output.Append(Content);
         });
-    Parser.Parse();
+    const bool bSuccess = Parser.Parse();
+    ensure(bSuccess);
 }
 
 FHtmlRichTextMarkupParser::FHtmlRichTextMarkupParser()

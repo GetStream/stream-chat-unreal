@@ -46,7 +46,7 @@ private:
     FToken Content();
 
     FStringView Source;
-    bool bInElement = false;
+    bool bInTag = false;
 };
 
 /**
