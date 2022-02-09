@@ -49,6 +49,9 @@ public:
     /// The text style information for message bubbles
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Styles|Message Bubble")
     UDataTable* BubbleTextStyleSet;
+    /// The text style information for message bubbles
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Styles|Message Bubble")
+    TMap<FName, FTextBlockStyle> BubbleTextStyles;
 
     /// The color of the background of the message composer
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Composer")
