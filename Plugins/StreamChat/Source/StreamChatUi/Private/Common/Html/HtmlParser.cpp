@@ -125,7 +125,7 @@ FHtmlScanner::FToken FHtmlScanner::Content()
         Advance();
     }
     // Allow for a single whitespace as the start of a content
-    if (FChar::IsWhitespace(Source[Start]))
+    if (FChar::IsWhitespace(Source[Start - 1]))
     {
         --Start;
     }
@@ -202,10 +202,7 @@ bool FHtmlParser::Element()
         if (AdvanceMatching(FHtmlScanner::ETokenType::Slash))
         {
             // Parse void elements <a/>
-            if (!EmptyContent())
-            {
-                return false;
-            }
+            return EmptyContent();
         }
         if (AdvanceMatching(FHtmlScanner::ETokenType::AngleClose))
         {
