@@ -96,6 +96,37 @@ bool FHtmlParserTest::RunTest(const FString& Parameters)
             });
         TestTrue("Parsed", Parser.Parse());
     }
+
+    // Spacing
+    {
+        const FString Source{TEXT("<p><del>no way</del> yes way</p>")};
+        int32 Iteration = 0;
+        FHtmlParser Parser(
+            Source,
+            [&](const FStringView& Content, const FHtmlParser& Self)
+            {
+                switch (Iteration)
+                {
+                    case 0:
+                        TestTrue("Content", Content.Equals(TEXT("no way")));
+                        TestEqual("ElementStackSize", Self.ElementStack.Num(), 2);
+                        TestTrue("ElementStack[0]", Self.ElementStack[0].Name.Equals(TEXT("p")));
+                        TestTrue("ElementStack[1]", Self.ElementStack[1].Name.Equals(TEXT("del")));
+                        TestEqual("Attribs", Self.ElementStack[0].Attributes.Num(), 0);
+                        break;
+                    case 1:
+                        TestTrue("Content", Content.Equals(TEXT(" yes way")));
+                        TestEqual("ElementStackSize", Self.ElementStack.Num(), 1);
+                        TestTrue("ElementStack[0]", Self.ElementStack[0].Name.Equals(TEXT("p")));
+                        TestEqual("Attribs", Self.ElementStack[0].Attributes.Num(), 0);
+                        break;
+                    default:
+                        break;
+                }
+                ++Iteration;
+            });
+        TestTrue("Parsed", Parser.Parse());
+    }
     return true;
 }
 

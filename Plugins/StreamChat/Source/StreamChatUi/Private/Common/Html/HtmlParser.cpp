@@ -124,6 +124,11 @@ FHtmlScanner::FToken FHtmlScanner::Content()
     {
         Advance();
     }
+    // Allow for a single whitespace as the start of a content
+    if (FChar::IsWhitespace(Source[Start]))
+    {
+        --Start;
+    }
     return MakeToken(ETokenType::Content);
 }
 
