@@ -290,5 +290,6 @@ bool FHtmlParser::EmptyContent()
 {
     Callback({}, *this);
     CloseElement();
+    AdvanceMatching(FHtmlScanner::ETokenType::AngleClose);
     return true;
 }

@@ -97,6 +97,45 @@ bool FHtmlParserTest::RunTest(const FString& Parameters)
         TestTrue("Parsed", Parser.Parse());
     }
 
+    // Nested void elements
+    {
+        const FString Source{TEXT("<p><strong>Hi</strong><br/><br/>friend</p>")};
+        int32 Iteration = 0;
+        FHtmlParser Parser(
+            Source,
+            [&](const FStringView& Content, const FHtmlParser& Self)
+            {
+                switch (Iteration)
+                {
+                    case 0:
+                        TestTrue("Content", Content.Equals(TEXT("Hi")));
+                        TestEqual("ElementStackSize", Self.ElementStack.Num(), 2);
+                        TestTrue("ElementStack[0]", Self.ElementStack[0].Name.Equals(TEXT("p")));
+                        TestTrue("ElementStack[1]", Self.ElementStack[1].Name.Equals(TEXT("strong")));
+                        TestEqual("Attribs", Self.ElementStack[0].Attributes.Num(), 0);
+                        break;
+                    case 1:
+                    case 2:
+                        TestTrue("Content", Content.IsEmpty());
+                        TestEqual("ElementStackSize", Self.ElementStack.Num(), 2);
+                        TestTrue("ElementStack[0]", Self.ElementStack[0].Name.Equals(TEXT("p")));
+                        TestTrue("ElementStack[1]", Self.ElementStack[1].Name.Equals(TEXT("br")));
+                        TestEqual("Attribs", Self.ElementStack[0].Attributes.Num(), 0);
+                        break;
+                    case 3:
+                        TestTrue("Content", Content.Equals(TEXT("friend")));
+                        TestEqual("ElementStackSize", Self.ElementStack.Num(), 1);
+                        TestTrue("ElementStack[0]", Self.ElementStack[0].Name.Equals(TEXT("p")));
+                        TestEqual("Attribs", Self.ElementStack[0].Attributes.Num(), 0);
+                        break;
+                    default:
+                        break;
+                }
+                ++Iteration;
+            });
+        TestTrue("Parsed", Parser.Parse());
+    }
+
     // Spacing
     {
         const FString Source{TEXT("<p><del>no way</del> yes way</p>")};

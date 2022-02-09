@@ -41,6 +41,11 @@ TSharedRef<FHtmlRichTextMarkupParser> FHtmlRichTextMarkupParser::GetStaticInstan
 
 void FHtmlRichTextMarkupParser::Process(TArray<FTextLineParseResults>& Results, const FString& Input, FString& Output)
 {
+    if (Input.IsEmpty())
+    {
+        return;
+    }
+
     FHtmlParser Parser(
         Input,
         [&](const FStringView& Content, const FHtmlParser& Self)
