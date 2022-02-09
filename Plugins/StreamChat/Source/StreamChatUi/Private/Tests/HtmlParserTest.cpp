@@ -1,7 +1,8 @@
 // Copyright 2021 Stream.IO, Inc. All Rights Reserved.
 
+#include "Common/Html/HtmlParser.h"
+#include "Common/Html/HtmlTextBlock.h"
 #include "CoreTypes.h"
-#include "Message/HtmlTextBlock.h"
 #include "Misc/AutomationTest.h"
 #include "WidgetUtil.h"
 
