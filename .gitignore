@@ -94,4 +94,4 @@ Plugins/Developer/*
 Content/Developers/*
 
 # Generated Docs
-**/html/*
+**/Docs/html/*
