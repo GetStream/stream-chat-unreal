@@ -4,6 +4,7 @@
 
 #include "Algo/Transform.h"
 #include "Common/Html/HtmlParser.h"
+#include "RenderingThread.h"
 #include "Widgets/Text/SRichTextBlock.h"
 
 namespace
