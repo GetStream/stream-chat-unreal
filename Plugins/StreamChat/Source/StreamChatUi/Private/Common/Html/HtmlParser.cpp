@@ -1,3 +1,5 @@
+// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+
 #include "Common/Html/HtmlParser.h"
 
 FHtmlScanner::FHtmlScanner(const FString& InSource) : Source(InSource)

@@ -4,6 +4,7 @@
 
 #include "Channel/Message.h"
 #include "Components/Image.h"
+#include "Components/TextBlock.h"
 #include "CoreMinimal.h"
 #include "StreamWidget.h"
 #include "TextBubbleWidget.h"
