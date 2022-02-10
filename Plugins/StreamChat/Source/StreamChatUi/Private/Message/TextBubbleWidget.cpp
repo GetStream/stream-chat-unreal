@@ -31,7 +31,7 @@ void UTextBubbleWidget::OnTheme(const UThemeDataAsset* Theme)
     const bool bSingleEmoji = IsSingleEmoji();
     if (TextBlock)
     {
-        TextBlock->SetTextStyles(Theme->BubbleTextStyles);
+        TextBlock->SetHtmlStyles(Theme->BubbleHtmlStyles);
 
         if (Message.Type == EMessageType::Deleted)
         {
