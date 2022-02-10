@@ -1,6 +1,5 @@
 var classjwt_1_1payload =
 [
-    [ "basic_claim_t", "classjwt_1_1payload.html#a1def9460d8de62feeaf3fca8239f17ff", null ],
     [ "get_audience", "classjwt_1_1payload.html#a0131e3f94dc5deaef9f2128e61675ef3", null ],
     [ "get_expires_at", "classjwt_1_1payload.html#adab036c2f63dad223d163ad6689938e5", null ],
     [ "get_id", "classjwt_1_1payload.html#a0cb0076f6d6ca4c8acb498076c8f5721", null ],
@@ -16,6 +15,5 @@ var classjwt_1_1payload =
     [ "has_issuer", "classjwt_1_1payload.html#a69dcb60e7108e6d124135e1a079943ca", null ],
     [ "has_not_before", "classjwt_1_1payload.html#a151f3aed388ffeba63e14379808f3e53", null ],
     [ "has_payload_claim", "classjwt_1_1payload.html#a3d7fce2a8b0ad4965671009baa619fa9", null ],
-    [ "has_subject", "classjwt_1_1payload.html#a3f9fd30aae3e7cb5fa4f5332cf9cc9e6", null ],
-    [ "payload_claims", "classjwt_1_1payload.html#a46501f428da206c7a4be2635fc4288c6", null ]
+    [ "has_subject", "classjwt_1_1payload.html#a3f9fd30aae3e7cb5fa4f5332cf9cc9e6", null ]
 ];

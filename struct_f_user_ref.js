@@ -8,6 +8,5 @@ var struct_f_user_ref =
     [ "operator!=", "struct_f_user_ref.html#a1009f5b8b72c9cc4ab52f4f7ae0343d7", null ],
     [ "operator*", "struct_f_user_ref.html#a075811eb0f53740e4d843685f8f031b3", null ],
     [ "operator->", "struct_f_user_ref.html#a47fd6c407c35ffbae1ea3b30c01d6925", null ],
-    [ "operator==", "struct_f_user_ref.html#a448939f19a97d325cda4e5eab587cf13", null ],
-    [ "UserId", "struct_f_user_ref.html#ac78ef25f5e4ff8f4f72805f8216d7cad", null ]
+    [ "operator==", "struct_f_user_ref.html#a448939f19a97d325cda4e5eab587cf13", null ]
 ];

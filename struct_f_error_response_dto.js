@@ -1,6 +1,5 @@
 var struct_f_error_response_dto =
 [
-    [ "IsTokenExpired", "struct_f_error_response_dto.html#a936207a0926b9c967fb14704f63b39f0", null ],
     [ "Code", "struct_f_error_response_dto.html#af07eba81182522634b54cd2089cfae46", null ],
     [ "Duration", "struct_f_error_response_dto.html#a1ab858457411848c082e4e52a438409b", null ],
     [ "Message", "struct_f_error_response_dto.html#a0319a7412e1281187789840ea2a74ec7", null ],

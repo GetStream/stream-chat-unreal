@@ -1,7 +1,6 @@
 var struct_f_message_dto =
 [
     [ "GetDeletedAt", "struct_f_message_dto.html#adfae68c3d22afccc25f0cb7c95849c25", null ],
-    [ "AdditionalFields", "struct_f_message_dto.html#a0a73d824ab7340510f7edecf46f43cdd", null ],
     [ "bPinned", "struct_f_message_dto.html#a1bb973eefdd96e99c2280c183beb8283", null ],
     [ "bShadowed", "struct_f_message_dto.html#a38e6cb0b680005a5f3862d28188ce87e", null ],
     [ "bShowInChannel", "struct_f_message_dto.html#acec263cb4e373dcd190bd79bd3e9ac6c", null ],
@@ -10,7 +9,6 @@ var struct_f_message_dto =
     [ "Command", "struct_f_message_dto.html#ae091ffcdc7ef628f191ce7de4d68e6dc", null ],
     [ "CreatedAt", "struct_f_message_dto.html#a247fc682a7a7a24dd6376ed9d7af9c72", null ],
     [ "Html", "struct_f_message_dto.html#ab8c4a2805f662c12a7e09d0ee3e00d1d", null ],
-    [ "I18n", "struct_f_message_dto.html#a251e92a998d5ca9a1d8a800781db960b", null ],
     [ "Id", "struct_f_message_dto.html#a8b60be6934fb0896392a6c229a8afb69", null ],
     [ "LatestReactions", "struct_f_message_dto.html#a8113f65457346f85e2cde5158b0e7183", null ],
     [ "MentionedUsers", "struct_f_message_dto.html#a3029015ca8796ddc74db3163b1ab1f8b", null ],

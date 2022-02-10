@@ -1,6 +1,5 @@
 var struct_f_user_dto =
 [
-    [ "AdditionalFields", "struct_f_user_dto.html#a15cc93c6452a47f3e7083611442b5210", null ],
     [ "BanExpires", "struct_f_user_dto.html#ab57d983041773f465a9096b6a4b52376", null ],
     [ "bBanned", "struct_f_user_dto.html#a53526facbe994dbb37b206805bf734af", null ],
     [ "bInvisible", "struct_f_user_dto.html#a4f1faf35f061f86a8fe192df346bcae1", null ],

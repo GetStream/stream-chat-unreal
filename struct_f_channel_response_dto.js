@@ -1,9 +1,7 @@
 var struct_f_channel_response_dto =
 [
-    [ "AdditionalFields", "struct_f_channel_response_dto.html#a805fd96db65d1e1cab81f4d23e252958", null ],
     [ "AutoTranslationLanguage", "struct_f_channel_response_dto.html#ab19afd64e7b5fabb2a59be6f62727526", null ],
     [ "bAutoTranslationEnabled", "struct_f_channel_response_dto.html#a04db63f9af490deb9b66315328a72be7", null ],
-    [ "bDisabled", "struct_f_channel_response_dto.html#a4dd2c9c9c07387987210436197b82afc", null ],
     [ "bFrozen", "struct_f_channel_response_dto.html#ab4bcd6cee8af9e4a6ac707e002810d7d", null ],
     [ "bHidden", "struct_f_channel_response_dto.html#a973ad9b6a6615208024d2d0102a98bef", null ],
     [ "bMuted", "struct_f_channel_response_dto.html#a8b27bdb8375fa2093b682f03d04167d2", null ],

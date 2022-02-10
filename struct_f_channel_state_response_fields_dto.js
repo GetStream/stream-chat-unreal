@@ -1,7 +1,6 @@
 var struct_f_channel_state_response_fields_dto =
 [
     [ "bHidden", "struct_f_channel_state_response_fields_dto.html#aa8fdc71f7ab33409959b1915de1645dd", null ],
-    [ "Channel", "struct_f_channel_state_response_fields_dto.html#aec536016ddffabcb8b788d5ecf439a6a", null ],
     [ "HideMessagesBefore", "struct_f_channel_state_response_fields_dto.html#a44d789546e795643cec7a70a2a4eab08", null ],
     [ "Members", "struct_f_channel_state_response_fields_dto.html#aade08f6425148020e4a6906f4c6524c3", null ],
     [ "Membership", "struct_f_channel_state_response_fields_dto.html#a05367b531eef390914364df0f42d5bc3", null ],

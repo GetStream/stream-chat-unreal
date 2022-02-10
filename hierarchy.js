@@ -58,6 +58,7 @@ var hierarchy =
     [ "FFilter", "struct_f_filter.html", null ],
     [ "FGuestRequestDto", "struct_f_guest_request_dto.html", null ],
     [ "FGuestResponseDto", "struct_f_guest_response_dto.html", null ],
+    [ "FHtmlParser", "class_f_html_parser.html", null ],
     [ "FLocalEvent", "struct_f_local_event.html", [
       [ "FConnectionChangedEvent", "struct_f_connection_changed_event.html", null ],
       [ "FConnectionRecoveredEvent", "struct_f_connection_recovered_event.html", null ]

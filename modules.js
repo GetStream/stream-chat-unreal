@@ -5,5 +5,5 @@ var modules =
     [ "DTO", "group___stream_chat_dto.html", "group___stream_chat_dto" ],
     [ "WebSocket", "group___stream_chat_web_socket.html", "group___stream_chat_web_socket" ],
     [ "Stream Chat", "group___stream_chat.html", "group___stream_chat" ],
-    [ "JSON", "group___stream_chat_json.html", null ]
+    [ "JSON", "group___stream_chat_json.html", "group___stream_chat_json" ]
 ];
