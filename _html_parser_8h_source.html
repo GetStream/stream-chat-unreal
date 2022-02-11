@@ -147,7 +147,7 @@ $(document).ready(function(){initNavTree('_html_parser_8h_source.html',''); init
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        TMap&lt;FStringView, FStringView&gt; Attributes;</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    };</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">using</span> FCallbackFn = TFunctionRef&lt;void(<span class="keyword">const</span> FStringView&amp; Content, <span class="keyword">const</span> <a class="code hl_class" href="class_f_html_parser.html">FHtmlParser</a>&amp; Parser)&gt;;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">using</span> FCallbackFn = TFunctionRef&lt;void(<span class="keyword">const</span> FString&amp; Content, <span class="keyword">const</span> <a class="code hl_class" href="class_f_html_parser.html">FHtmlParser</a>&amp; Parser)&gt;;</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="comment">// Initialize with source string. Doesn&#39;t take ownership of string, so caller must ensure it stays in memory.</span></div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="comment">// Callback is called on each content chunk as it is found, along with the stack of surrounding element names</span></div>
