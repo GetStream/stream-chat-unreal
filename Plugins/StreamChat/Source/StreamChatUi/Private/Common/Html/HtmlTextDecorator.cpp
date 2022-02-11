@@ -33,6 +33,12 @@ TSharedRef<ISlateRun> FHtmlTextDecorator::Create(
 
     FHyperlinkStyle HyperlinkStyle;
     HyperlinkStyle.SetTextStyle(Style->GetWidgetStyle<FTextBlockStyle>(Tag));
+    FButtonStyle ButtonStyle;
+    ButtonStyle.Normal.DrawAs = ESlateBrushDrawType::NoDrawType;
+    ButtonStyle.Hovered.DrawAs = ESlateBrushDrawType::NoDrawType;
+    ButtonStyle.Pressed.DrawAs = ESlateBrushDrawType::NoDrawType;
+    ButtonStyle.Disabled.DrawAs = ESlateBrushDrawType::NoDrawType;
+    HyperlinkStyle.SetUnderlineStyle(ButtonStyle);
     return FSlateHyperlinkRun::Create(
         RunInfo,
         InOutModelText,
