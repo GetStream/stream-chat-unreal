@@ -29,6 +29,8 @@ public:
     };
 
     FToken ScanToken();
+    const FString& GetOutput() const;
+    int32 PrevStart = 0;
     int32 Start = 0;
     int32 Current = 0;
 
@@ -37,7 +39,7 @@ private:
     void SkipWhitespace();
 
     bool IsAtEnd() const;
-    TCHAR Peek() const;
+    TCHAR Peek(int32 Offset = 0) const;
 
     FToken MakeToken(ETokenType Type) const;
 
@@ -45,7 +47,7 @@ private:
     FToken Identifier();
     FToken Content();
 
-    FStringView Source;
+    FString Source;
     bool bInTag = false;
 };
 
@@ -64,11 +66,10 @@ public:
     {
         FStringView Name;
         TMap<FStringView, FStringView> Attributes;
-        // From opening tag's < to >
-        FTextRange OpeningTagRange;
+        int32 OpeningTagStart;
     };
 
-    using FCallbackFn = TFunctionRef<void(const FString& Content, const FHtmlParser& Parser)>;
+    using FCallbackFn = TFunctionRef<void(const FHtmlParser& Parser)>;
 
     // Initialize with source string. Doesn't take ownership of string, so caller must ensure it stays in memory.
     // Callback is called on each content chunk as it is found, along with the stack of surrounding element names
@@ -77,14 +78,22 @@ public:
     // Parse the source string. Returns success.
     bool Parse();
 
-    FTextRange GetCurrentLexemeRange() const;
+    // The range of the content in the current run
+    // <strong>Hello<em> world</em</strong>
+    //         ^^^^^
+    FTextRange GetContentRange() const;
+    // The range from the start of the current element, to the end of the current content
+    // <strong>Hello<em> world</em</strong>
+    // ^^^^^^^^^^^^^
+    FTextRange GetOriginalRange() const;
+    FStringView GetContent() const;
+    const FString& GetOutput() const;
 
     static constexpr TCHAR ParagraphTag[] = TEXT("p");
     static constexpr TCHAR LineBreakTag[] = TEXT("br");
 
     int32 Line = 0;
     int32 ParagraphStartIndex = 0;
-    int32 ParagraphEndIndex = 0;
     TArray<FElement> ElementStack;
 
 private:
@@ -95,7 +104,7 @@ private:
     bool Attribute();
     bool Content();
     void CloseElement();
-    void Newline();
+    void Newline(uint32 Index);
     FCallbackFn Callback;
     FHtmlScanner::FToken Current;
     FHtmlScanner Scanner;

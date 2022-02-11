@@ -48,44 +48,45 @@ void FHtmlRichTextMarkupParser::Process(TArray<FTextLineParseResults>& Results, 
 
     FHtmlParser Parser(
         Input,
-        [&](const FString& Content, const FHtmlParser& Self)
+        [&](const FHtmlParser& Self)
         {
             while (!Results.IsValidIndex(Self.Line))
             {
-                if (Self.Line > 0)
-                {
-                    Output.AppendChar(TEXT('\n'));
-                }
                 Results.Add(FTextLineParseResults{{Self.ParagraphStartIndex, INDEX_NONE}});
+                if (Results.Num() > 1)
+                {
+                    Results.Last(1).Range.EndIndex = Self.ParagraphStartIndex;
+                }
             }
-            // Keep overwriting end index with each iteration, eventually leaving the correct result
-            Results[Self.Line].Range.EndIndex = Input.Len();
 
             TSet<FStringView> ElementNames;
             Algo::Transform(Self.ElementStack, ElementNames, [](auto&& Element) { return Element.Name; });
             const FString Name = MakeRunName(ElementNames);
 
-            const FTextRange ContentRange{Self.GetCurrentLexemeRange()};
-            const FTextRange OriginalRange = Name.IsEmpty() ? ContentRange : Self.ElementStack.Top().OpeningTagRange;
-            FTextRunParseResults Run{Name, OriginalRange, ContentRange};
+            FTextRunParseResults Run{Name, Self.GetOriginalRange(), Self.GetContentRange()};
 
+            // Metadata
             if (Self.ElementStack.Num() > 0)
             {
-                // TODO Do we need attributes from all nested elements (not just last)?
-                for (const auto& [AttribName, AttribValue] : Self.ElementStack.Last().Attributes)
+                for (const FHtmlParser::FElement& Elem : Self.ElementStack)
                 {
-                    const int32 BeginIndex = static_cast<int32>(AttribValue.GetData() - *Input);
-                    const int32 EndIndex = BeginIndex + AttribValue.Len();
-                    const FTextRange Range{BeginIndex, EndIndex};
-                    Run.MetaData.Add(FString{AttribName}, Range);
+                    for (const auto& [AttribName, AttribValue] : Elem.Attributes)
+                    {
+                        const int32 BeginIndex = static_cast<int32>(AttribValue.GetData() - *Self.GetOutput());
+                        const int32 EndIndex = BeginIndex + AttribValue.Len();
+                        const FTextRange Range{BeginIndex, EndIndex};
+                        Run.MetaData.Add(FString{AttribName}, Range);
+                    }
                 }
             }
 
             Results[Self.Line].Runs.Add(Run);
         });
     const bool bSuccess = Parser.Parse();
-    Output = Input;
     ensure(bSuccess);
+
+    Output = Parser.GetOutput();
+    Results.Last().Range.EndIndex = Output.Len();
 }
 
 FHtmlRichTextMarkupParser::FHtmlRichTextMarkupParser()
@@ -94,9 +95,6 @@ FHtmlRichTextMarkupParser::FHtmlRichTextMarkupParser()
 
 FString FHtmlRichTextMarkupParser::MakeRunName(TSet<FStringView>& ElementNames)
 {
-    ElementNames.Remove(FHtmlParser::ParagraphTag);
-    ElementNames.Remove(FHtmlParser::LineBreakTag);
-
     return FString::Join(ElementNames, TEXT("_"));
 }
 

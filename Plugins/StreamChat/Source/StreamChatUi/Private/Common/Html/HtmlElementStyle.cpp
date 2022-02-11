@@ -108,6 +108,7 @@ const FHtmlElementStyle* FHtmlElementStyles::GetStyle(const FName& Tag) const
     {
         return &H6;
     }
+
     UE_LOG(LogTemp, Warning, TEXT("Unhandled HTML tag [Tag: %s]"), *Tag.ToString());
     return nullptr;
 }
@@ -117,6 +118,11 @@ FTextBlockStyle FHtmlElementStyles::MakeCombinedStyle(const TArray<FName>& Tags)
     FTextBlockStyle Result{Default};
     for (const FName& Tag : Tags)
     {
+        if (Tag == TEXT("p") || Tag == TEXT("br"))
+        {
+            continue;
+        }
+
         if (const FHtmlElementStyle* Style = GetStyle(Tag))
         {
             Combine(Result, *Style);
