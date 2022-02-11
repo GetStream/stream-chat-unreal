@@ -1,6 +1,7 @@
 #include "Common/Html/HtmlTextDecorator.h"
 
 #include "Framework/Text/SlateHyperlinkRun.h"
+#include "Styling/ISlateStyle.h"
 
 bool FHtmlTextDecorator::Supports(const FTextRunParseResults& RunInfo, const FString& Text) const
 {
