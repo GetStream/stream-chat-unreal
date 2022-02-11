@@ -4,13 +4,15 @@
 
 bool FHtmlTextDecorator::Supports(const FTextRunParseResults& RunInfo, const FString& Text) const
 {
-    return RunInfo.Name == TEXT("a");
+    TArray<FString> Tags;
+    RunInfo.Name.ParseIntoArray(Tags, TEXT("_"));
+    return Tags.Contains(TEXT("a"));
 }
 
 TSharedRef<ISlateRun> FHtmlTextDecorator::Create(
     const TSharedRef<FTextLayout>& TextLayout,
     const FTextRunParseResults& TextRun,
-    const FString& OriginalText,
+    const FString& ProcessedText,
     const TSharedRef<FString>& InOutModelText,
     const ISlateStyle* Style)
 {
@@ -21,15 +23,14 @@ TSharedRef<ISlateRun> FHtmlTextDecorator::Create(
     for (const TPair<FString, FTextRange>& Pair : TextRun.MetaData)
     {
         const int32 Length = FMath::Max(0, Pair.Value.EndIndex - Pair.Value.BeginIndex);
-        RunInfo.MetaData.Add(Pair.Key, OriginalText.Mid(Pair.Value.BeginIndex, Length));
+        RunInfo.MetaData.Add(Pair.Key, ProcessedText.Mid(Pair.Value.BeginIndex, Length));
     }
 
     FTextRange ModelRange;
     ModelRange.BeginIndex = InOutModelText->Len();
-    *InOutModelText += OriginalText.Mid(TextRun.ContentRange.BeginIndex, TextRun.ContentRange.EndIndex - TextRun.ContentRange.BeginIndex);
+    *InOutModelText += ProcessedText.Mid(TextRun.ContentRange.BeginIndex, TextRun.ContentRange.EndIndex - TextRun.ContentRange.BeginIndex);
     ModelRange.EndIndex = InOutModelText->Len();
 
-    check(Tag == TEXT("a"));
     FHyperlinkStyle HyperlinkStyle;
     HyperlinkStyle.SetTextStyle(Style->GetWidgetStyle<FTextBlockStyle>(Tag));
     return FSlateHyperlinkRun::Create(

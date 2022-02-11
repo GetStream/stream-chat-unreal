@@ -39,6 +39,7 @@ void FHtmlScanner::SkipWhitespace()
 FHtmlScanner::FToken FHtmlScanner::ScanToken()
 {
     SkipWhitespace();
+    PrevStart = Start;
     Start = Current;
 
     if (IsAtEnd())
@@ -78,21 +79,26 @@ FHtmlScanner::FToken FHtmlScanner::ScanToken()
     return Content();
 }
 
+const FString& FHtmlScanner::GetOutput() const
+{
+    return Source;
+}
+
 bool FHtmlScanner::IsAtEnd() const
 {
     return Current == Source.Len();
 }
 
-TCHAR FHtmlScanner::Peek() const
+TCHAR FHtmlScanner::Peek(const int32 Offset) const
 {
-    return Source[Current];
+    return Source[Current - Offset];
 }
 
 FHtmlScanner::FToken FHtmlScanner::MakeToken(const ETokenType Type) const
 {
     return FToken{
         Type,
-        Source.Mid(Start, Current - Start),
+        FStringView(Source).Mid(Start, Current - Start),
     };
 }
 
@@ -123,12 +129,72 @@ FHtmlScanner::FToken FHtmlScanner::Identifier()
     return MakeToken(ETokenType::Identifier);
 }
 
+TCHAR Unescape(const FStringView& Str)
+{
+    switch (Str[0])
+    {
+        case TEXT('a'):
+            switch (Str[1])
+            {
+                case TEXT('p'):
+                    if (Str[2] == TEXT('o') && Str[3] == TEXT('s'))
+                    {
+                        return TEXT('\'');
+                    }
+                case TEXT('m'):
+                    if (Str[2] == TEXT('p'))
+                    {
+                        return TEXT('&');
+                    }
+                default:
+                    break;
+            }
+        case TEXT('q'):
+            if (Str[1] == TEXT('u') && Str[2] == TEXT('o') && Str[3] == TEXT('t'))
+            {
+                return TEXT('"');
+            }
+        case TEXT('g'):
+            if (Str[1] == TEXT('t'))
+            {
+                return TEXT('>');
+            }
+        case TEXT('l'):
+            if (Str[1] == TEXT('t'))
+            {
+                return TEXT('<');
+            }
+        default:
+            break;
+    }
+    return TEXT('?');
+}
+
 FHtmlScanner::FToken FHtmlScanner::Content()
 {
     while (!IsAtEnd() && Peek() != TEXT('<') && Peek() != TEXT('>') && Peek() != TEXT('"') && Peek() != TEXT('\''))
     {
-        Advance();
+        // Unescape
+        if (Peek(1) == TEXT('&'))
+        {
+            const int32 Amp = Current - 1;
+            int32 Len = 1;
+            while (Advance() != TEXT(';'))
+            {
+                ++Len;
+            }
+            const FStringView Escaped = FStringView(Source).Mid(Amp + 1, Len);
+            const TCHAR Unescaped = Unescape(Escaped);
+            Source.RemoveAt(Amp, Len + 1);
+            Current -= Len;
+            Source.InsertAt(Amp, Unescaped);
+        }
+        else
+        {
+            Advance();
+        }
     }
+
     // Allow for a single whitespace as the start of a content
     if (Start > 0 && FChar::IsWhitespace(Source[Start - 1]))
     {
@@ -159,9 +225,36 @@ bool FHtmlParser::Parse()
     return false;
 }
 
-FTextRange FHtmlParser::GetCurrentLexemeRange() const
+FTextRange FHtmlParser::GetContentRange() const
 {
-    return {Scanner.Start, Scanner.Current};
+    if (Current.Type == FHtmlScanner::ETokenType::Content)
+    {
+        return {Scanner.Start, Scanner.Current};
+    }
+    return {};
+}
+
+FTextRange FHtmlParser::GetOriginalRange() const
+{
+    if (ElementStack.Num() == 0)
+    {
+        return GetContentRange();
+    }
+    return {ElementStack.Top().OpeningTagStart, Scanner.Current};
+}
+
+FStringView FHtmlParser::GetContent() const
+{
+    if (Current.Type == FHtmlScanner::ETokenType::Content)
+    {
+        return Current.Lexeme;
+    }
+    return {};
+}
+
+const FString& FHtmlParser::GetOutput() const
+{
+    return Scanner.GetOutput();
 }
 
 void FHtmlParser::Advance()
@@ -193,14 +286,13 @@ bool FHtmlParser::Element()
     check(Current.Type == FHtmlScanner::ETokenType::Identifier);
     if (Current.Lexeme.Equals(LineBreakTag))
     {
-        Newline();
+        Newline(Scanner.PrevStart);
     }
     ElementStack.Push(FElement{Current.Lexeme});
-    ElementStack.Top().OpeningTagRange.BeginIndex = Scanner.Start - 1;
+    ElementStack.Top().OpeningTagStart = Scanner.PrevStart;
     Advance();
 
     // Parse attributes a="b" c="d"
-    bool bEmptyContent = false;
     while (true)
     {
         if (!Attribute())
@@ -211,25 +303,18 @@ bool FHtmlParser::Element()
         // Parse void elements <a/>
         if (AdvanceMatching(FHtmlScanner::ETokenType::Slash))
         {
+            Callback(*this);
             if (!AdvanceMatching(FHtmlScanner::ETokenType::AngleClose))
             {
                 return false;
             }
-            bEmptyContent = true;
-            break;
+            CloseElement();
+            return true;
         }
         if (AdvanceMatching(FHtmlScanner::ETokenType::AngleClose))
         {
             break;
         }
-    }
-
-    ElementStack.Top().OpeningTagRange.EndIndex = Scanner.Current;
-    if (bEmptyContent)
-    {
-        Callback({}, *this);
-        CloseElement();
-        return true;
     }
 
     while (true)
@@ -277,15 +362,14 @@ void FHtmlParser::CloseElement()
 {
     if (ElementStack.Last().Name.Equals(ParagraphTag))
     {
-        Newline();
+        Newline(Scanner.Start);
     }
     ElementStack.Pop();
 }
 
-void FHtmlParser::Newline()
+void FHtmlParser::Newline(const uint32 Index)
 {
-    ParagraphEndIndex = ParagraphStartIndex;
-    ParagraphStartIndex = Scanner.Start;
+    ParagraphStartIndex = Index;
     ++Line;
 }
 
@@ -312,13 +396,7 @@ bool FHtmlParser::Attribute()
 bool FHtmlParser::Content()
 {
     check(Current.Type == FHtmlScanner::ETokenType::Content);
-    FString Unescaped{Current.Lexeme};
-    Unescaped.ReplaceInline(TEXT("&apos;"), TEXT("'"));
-    Unescaped.ReplaceInline(TEXT("&quot;"), TEXT("\""));
-    Unescaped.ReplaceInline(TEXT("&gt;"), TEXT(">"));
-    Unescaped.ReplaceInline(TEXT("&lt;"), TEXT("<"));
-    Unescaped.ReplaceInline(TEXT("&amp;"), TEXT("&"));
-    Callback(Unescaped, *this);
+    Callback(*this);
     Advance();
     return true;
 }

@@ -12,7 +12,7 @@ public:
     virtual TSharedRef<ISlateRun> Create(
         const TSharedRef<FTextLayout>& TextLayout,
         const FTextRunParseResults& TextRun,
-        const FString& OriginalText,
+        const FString& ProcessedText,
         const TSharedRef<FString>& InOutModelText,
         const ISlateStyle* Style) override;
 };
