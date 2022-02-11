@@ -63,6 +63,7 @@ protected:
     FHtmlElementStyles Styles;
 
 private:
+    virtual void CreateDecorators(TArray<TSharedRef<ITextDecorator>>& OutDecorators) override;
     virtual TSharedPtr<IRichTextMarkupParser> CreateMarkupParser() override;
     virtual void UpdateStyleData() override;
 };
