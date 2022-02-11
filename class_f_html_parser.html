@@ -101,9 +101,9 @@ $(document).ready(function(){initNavTree('class_f_html_parser.html',''); initRes
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:aab6bd0772f69212e43cd9a14d4fc29c3"><td class="memItemLeft" align="right" valign="top"><a id="aab6bd0772f69212e43cd9a14d4fc29c3" name="aab6bd0772f69212e43cd9a14d4fc29c3"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>FCallbackFn</b> = TFunctionRef&lt; void(const FString &amp;Content, const <a class="el" href="class_f_html_parser.html">FHtmlParser</a> &amp;Parser)&gt;</td></tr>
-<tr class="separator:aab6bd0772f69212e43cd9a14d4fc29c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a918a84014a8bd395b8409211151c27f6"><td class="memItemLeft" align="right" valign="top"><a id="a918a84014a8bd395b8409211151c27f6" name="a918a84014a8bd395b8409211151c27f6"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>FCallbackFn</b> = TFunctionRef&lt; void(const <a class="el" href="class_f_html_parser.html">FHtmlParser</a> &amp;Parser)&gt;</td></tr>
+<tr class="separator:a918a84014a8bd395b8409211151c27f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -113,6 +113,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a24fe7588fda005b20542e81708c9dbbe"><td class="memItemLeft" align="right" valign="top"><a id="a24fe7588fda005b20542e81708c9dbbe" name="a24fe7588fda005b20542e81708c9dbbe"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>Parse</b> ()</td></tr>
 <tr class="separator:a24fe7588fda005b20542e81708c9dbbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c4a88ff0ff663d3da89b2a28f62ff16"><td class="memItemLeft" align="right" valign="top"><a id="a8c4a88ff0ff663d3da89b2a28f62ff16" name="a8c4a88ff0ff663d3da89b2a28f62ff16"></a>
+FTextRange&#160;</td><td class="memItemRight" valign="bottom"><b>GetContentRange</b> () const</td></tr>
+<tr class="separator:a8c4a88ff0ff663d3da89b2a28f62ff16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0e8722554e11bfc32540479071d5969"><td class="memItemLeft" align="right" valign="top"><a id="ae0e8722554e11bfc32540479071d5969" name="ae0e8722554e11bfc32540479071d5969"></a>
+FTextRange&#160;</td><td class="memItemRight" valign="bottom"><b>GetOriginalRange</b> () const</td></tr>
+<tr class="separator:ae0e8722554e11bfc32540479071d5969"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a999aaa1e37c13c15255a7f53c811d5d7"><td class="memItemLeft" align="right" valign="top"><a id="a999aaa1e37c13c15255a7f53c811d5d7" name="a999aaa1e37c13c15255a7f53c811d5d7"></a>
+FStringView&#160;</td><td class="memItemRight" valign="bottom"><b>GetContent</b> () const</td></tr>
+<tr class="separator:a999aaa1e37c13c15255a7f53c811d5d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ff77a5fc5f37ca9bdb15e2ec708a9f2"><td class="memItemLeft" align="right" valign="top"><a id="a1ff77a5fc5f37ca9bdb15e2ec708a9f2" name="a1ff77a5fc5f37ca9bdb15e2ec708a9f2"></a>
+const FString &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetOutput</b> () const</td></tr>
+<tr class="separator:a1ff77a5fc5f37ca9bdb15e2ec708a9f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -122,9 +134,6 @@ int32&#160;</td><td class="memItemRight" valign="bottom"><b>Line</b> = 0</td></t
 <tr class="memitem:aedb74518b35f3eabbc2dfa0923b3f6a0"><td class="memItemLeft" align="right" valign="top"><a id="aedb74518b35f3eabbc2dfa0923b3f6a0" name="aedb74518b35f3eabbc2dfa0923b3f6a0"></a>
 int32&#160;</td><td class="memItemRight" valign="bottom"><b>ParagraphStartIndex</b> = 0</td></tr>
 <tr class="separator:aedb74518b35f3eabbc2dfa0923b3f6a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c4998e5f58c33fbe49f085007d75fd3"><td class="memItemLeft" align="right" valign="top"><a id="a6c4998e5f58c33fbe49f085007d75fd3" name="a6c4998e5f58c33fbe49f085007d75fd3"></a>
-int32&#160;</td><td class="memItemRight" valign="bottom"><b>ParagraphEndIndex</b> = 0</td></tr>
-<tr class="separator:a6c4998e5f58c33fbe49f085007d75fd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b87cda258469bc4264c7c69a1d65610"><td class="memItemLeft" align="right" valign="top"><a id="a3b87cda258469bc4264c7c69a1d65610" name="a3b87cda258469bc4264c7c69a1d65610"></a>
 TArray&lt; FElement &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ElementStack</b></td></tr>
 <tr class="separator:a3b87cda258469bc4264c7c69a1d65610"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,7 +156,7 @@ static constexpr TCHAR&#160;</td><td class="memItemRight" valign="bottom"><b>Lin
 <li>void elements without the trailing slash </li>
 </ul>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
-<li>Source/StreamChatUi/Public/Common/Html/<a class="el" href="_html_parser_8h_source.html">HtmlParser.h</a></li>
+<li>Source/StreamChatUi/Private/Common/Html/<a class="el" href="_html_parser_8h_source.html">HtmlParser.h</a></li>
 <li>Source/StreamChatUi/Private/Common/Html/HtmlParser.cpp</li>
 </ul>
 </div><!-- contents -->
