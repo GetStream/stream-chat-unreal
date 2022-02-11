@@ -20,7 +20,7 @@ bool FHtmlParserTest::RunTest(const FString& Parameters)
         const FString Source{TEXT("<p>Hi</p>")};
         FHtmlParser Parser(
             Source,
-            [&](const FStringView& Content, const FHtmlParser& Self)
+            [&](const FString& Content, const FHtmlParser& Self)
             {
                 TestTrue("Content", Content.Equals(TEXT("Hi")));
                 TestEqual("ElementStackSize", Self.ElementStack.Num(), 1);
@@ -34,7 +34,7 @@ bool FHtmlParserTest::RunTest(const FString& Parameters)
         int32 Iteration = 0;
         FHtmlParser Parser(
             Source,
-            [&](const FStringView& Content, const FHtmlParser& Self)
+            [&](const FString& Content, const FHtmlParser& Self)
             {
                 switch (Iteration)
                 {
@@ -70,7 +70,7 @@ bool FHtmlParserTest::RunTest(const FString& Parameters)
         const FString Source{TEXT("<a href=\"https://getstream.io\">Hi</a>")};
         FHtmlParser Parser(
             Source,
-            [&](const FStringView& Content, const FHtmlParser& Self)
+            [&](const FString& Content, const FHtmlParser& Self)
             {
                 TestTrue("Content", Content.Equals(TEXT("Hi")));
                 TestEqual("ElementStackSize", Self.ElementStack.Num(), 1);
@@ -84,7 +84,7 @@ bool FHtmlParserTest::RunTest(const FString& Parameters)
         const FString Source{TEXT("<img src=\"img_girl.jpg\" alt=\"Girl in a jacket\" width=\"500\" height=\"600\"/>")};
         FHtmlParser Parser(
             Source,
-            [&](const FStringView& Content, const FHtmlParser& Self)
+            [&](const FString& Content, const FHtmlParser& Self)
             {
                 TestTrue("Content", Content.IsEmpty());
                 TestEqual("ElementStackSize", Self.ElementStack.Num(), 1);
@@ -103,7 +103,7 @@ bool FHtmlParserTest::RunTest(const FString& Parameters)
         int32 Iteration = 0;
         FHtmlParser Parser(
             Source,
-            [&](const FStringView& Content, const FHtmlParser& Self)
+            [&](const FString& Content, const FHtmlParser& Self)
             {
                 switch (Iteration)
                 {
@@ -142,7 +142,7 @@ bool FHtmlParserTest::RunTest(const FString& Parameters)
         int32 Iteration = 0;
         FHtmlParser Parser(
             Source,
-            [&](const FStringView& Content, const FHtmlParser& Self)
+            [&](const FString& Content, const FHtmlParser& Self)
             {
                 switch (Iteration)
                 {
@@ -172,7 +172,7 @@ bool FHtmlParserTest::RunTest(const FString& Parameters)
         const FString Source{TEXT("<p>==very important== yep</p>")};
         FHtmlParser Parser(
             Source,
-            [&](const FStringView& Content, const FHtmlParser& Self)
+            [&](const FString& Content, const FHtmlParser& Self)
             {
                 TestTrue("Content", Content.Equals(TEXT("==very important== yep")));
                 TestEqual("ElementStackSize", Self.ElementStack.Num(), 1);
@@ -187,7 +187,7 @@ bool FHtmlParserTest::RunTest(const FString& Parameters)
         int32 Iteration = 0;
         FHtmlParser Parser(
             Source,
-            [&](const FStringView& Content, const FHtmlParser& Self)
+            [&](const FString& Content, const FHtmlParser& Self)
             {
                 switch (Iteration)
                 {

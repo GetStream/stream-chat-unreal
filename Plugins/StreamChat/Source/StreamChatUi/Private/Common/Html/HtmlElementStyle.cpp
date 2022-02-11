@@ -108,6 +108,7 @@ const FHtmlElementStyle* FHtmlElementStyles::GetStyle(const FName& Tag) const
     {
         return &H6;
     }
+    UE_LOG(LogTemp, Warning, TEXT("Unhandled HTML tag [Tag: %s]"), *Tag.ToString());
     return nullptr;
 }
 

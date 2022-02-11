@@ -291,7 +291,13 @@ bool FHtmlParser::Attribute()
 bool FHtmlParser::Content()
 {
     check(Current.Type == FHtmlScanner::ETokenType::Content);
-    Callback(Current.Lexeme, *this);
+    FString Unescaped{Current.Lexeme};
+    Unescaped.ReplaceInline(TEXT("&apos;"), TEXT("'"));
+    Unescaped.ReplaceInline(TEXT("&quot;"), TEXT("\""));
+    Unescaped.ReplaceInline(TEXT("&gt;"), TEXT(">"));
+    Unescaped.ReplaceInline(TEXT("&lt;"), TEXT("<"));
+    Unescaped.ReplaceInline(TEXT("&amp;"), TEXT("&"));
+    Callback(Unescaped, *this);
     Advance();
     return true;
 }

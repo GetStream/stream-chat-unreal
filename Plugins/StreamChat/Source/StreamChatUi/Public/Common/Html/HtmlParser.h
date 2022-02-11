@@ -66,7 +66,7 @@ public:
         TMap<FStringView, FStringView> Attributes;
     };
 
-    using FCallbackFn = TFunctionRef<void(const FStringView& Content, const FHtmlParser& Parser)>;
+    using FCallbackFn = TFunctionRef<void(const FString& Content, const FHtmlParser& Parser)>;
 
     // Initialize with source string. Doesn't take ownership of string, so caller must ensure it stays in memory.
     // Callback is called on each content chunk as it is found, along with the stack of surrounding element names
