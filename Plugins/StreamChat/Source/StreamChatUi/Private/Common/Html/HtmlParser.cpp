@@ -159,6 +159,11 @@ bool FHtmlParser::Parse()
     return false;
 }
 
+FTextRange FHtmlParser::GetCurrentLexemeRange() const
+{
+    return {Scanner.Start, Scanner.Current};
+}
+
 void FHtmlParser::Advance()
 {
     while (true)
@@ -191,24 +196,40 @@ bool FHtmlParser::Element()
         Newline();
     }
     ElementStack.Push(FElement{Current.Lexeme});
+    ElementStack.Top().OpeningTagRange.BeginIndex = Scanner.Start - 1;
     Advance();
 
     // Parse attributes a="b" c="d"
+    bool bEmptyContent = false;
     while (true)
     {
         if (!Attribute())
         {
             return false;
         }
+
+        // Parse void elements <a/>
         if (AdvanceMatching(FHtmlScanner::ETokenType::Slash))
         {
-            // Parse void elements <a/>
-            return EmptyContent();
+            if (!AdvanceMatching(FHtmlScanner::ETokenType::AngleClose))
+            {
+                return false;
+            }
+            bEmptyContent = true;
+            break;
         }
         if (AdvanceMatching(FHtmlScanner::ETokenType::AngleClose))
         {
             break;
         }
+    }
+
+    ElementStack.Top().OpeningTagRange.EndIndex = Scanner.Current;
+    if (bEmptyContent)
+    {
+        Callback({}, *this);
+        CloseElement();
+        return true;
     }
 
     while (true)
@@ -299,13 +320,5 @@ bool FHtmlParser::Content()
     Unescaped.ReplaceInline(TEXT("&amp;"), TEXT("&"));
     Callback(Unescaped, *this);
     Advance();
-    return true;
-}
-
-bool FHtmlParser::EmptyContent()
-{
-    Callback({}, *this);
-    CloseElement();
-    AdvanceMatching(FHtmlScanner::ETokenType::AngleClose);
     return true;
 }

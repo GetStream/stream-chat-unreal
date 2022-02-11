@@ -4,6 +4,7 @@
 
 #include "Algo/Transform.h"
 #include "Common/Html/HtmlParser.h"
+#include "HtmlTextDecorator.h"
 #include "RenderingThread.h"
 #include "Widgets/Text/SRichTextBlock.h"
 
@@ -64,15 +65,26 @@ void FHtmlRichTextMarkupParser::Process(TArray<FTextLineParseResults>& Results, 
             Algo::Transform(Self.ElementStack, ElementNames, [](auto&& Element) { return Element.Name; });
             const FString Name = MakeRunName(ElementNames);
 
-            // ContentRange indexes into the Output string
-            const FTextRange ContentRange{Output.Len(), Output.Len() + Content.Len()};
-            const FTextRunParseResults Run{Name, ContentRange, ContentRange};
+            const FTextRange ContentRange{Self.GetCurrentLexemeRange()};
+            const FTextRange OriginalRange = Name.IsEmpty() ? ContentRange : Self.ElementStack.Top().OpeningTagRange;
+            FTextRunParseResults Run{Name, OriginalRange, ContentRange};
+
+            if (Self.ElementStack.Num() > 0)
+            {
+                // TODO Do we need attributes from all nested elements (not just last)?
+                for (const auto& [AttribName, AttribValue] : Self.ElementStack.Last().Attributes)
+                {
+                    const int32 BeginIndex = static_cast<int32>(AttribValue.GetData() - *Input);
+                    const int32 EndIndex = BeginIndex + AttribValue.Len();
+                    const FTextRange Range{BeginIndex, EndIndex};
+                    Run.MetaData.Add(FString{AttribName}, Range);
+                }
+            }
 
             Results[Self.Line].Runs.Add(Run);
-
-            Output.Append(Content);
         });
     const bool bSuccess = Parser.Parse();
+    Output = Input;
     ensure(bSuccess);
 }
 
@@ -115,6 +127,11 @@ void UHtmlTextBlock::SetHtmlStyles(const FHtmlElementStyles& InStyles)
         MyRichTextBlock->SetDecoratorStyleSet(StyleInstance.Get());
         ApplyUpdatedDefaultTextStyle();
     }
+}
+
+void UHtmlTextBlock::CreateDecorators(TArray<TSharedRef<ITextDecorator>>& OutDecorators)
+{
+    OutDecorators = {MakeShared<FHtmlTextDecorator>()};
 }
 
 TSharedPtr<IRichTextMarkupParser> UHtmlTextBlock::CreateMarkupParser()

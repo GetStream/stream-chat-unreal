@@ -218,6 +218,53 @@ bool FHtmlParserTest::RunTest(const FString& Parameters)
             });
         TestTrue("Parsed", Parser.Parse());
     }
+
+    // Unescape
+    {
+        const FString Source{TEXT("<p>A<br/><br/>&gt; B<br/><br/>C</p>")};
+        int32 Iteration = 0;
+        FHtmlParser Parser(
+            Source,
+            [&](const FString& Content, const FHtmlParser& Self)
+            {
+                switch (Iteration)
+                {
+                    case 0:
+                        TestTrue("Content", Content.Equals(TEXT("A")));
+                        TestEqual("ElementStackSize", Self.ElementStack.Num(), 1);
+                        TestTrue("ElementStack[0]", Self.ElementStack[0].Name.Equals(TEXT("p")));
+                        TestEqual("Attribs", Self.ElementStack[0].Attributes.Num(), 0);
+                        break;
+                    case 3:
+                        TestTrue("Content", Content.Equals(TEXT("> B")));
+                        TestEqual("ElementStackSize", Self.ElementStack.Num(), 1);
+                        TestTrue("ElementStack[0]", Self.ElementStack[0].Name.Equals(TEXT("p")));
+                        TestEqual("Attribs", Self.ElementStack[0].Attributes.Num(), 0);
+                        break;
+                    case 6:
+                        TestTrue("Content", Content.Equals(TEXT("C")));
+                        TestEqual("ElementStackSize", Self.ElementStack.Num(), 1);
+                        TestTrue("ElementStack[0]", Self.ElementStack[0].Name.Equals(TEXT("p")));
+                        TestEqual("Attribs", Self.ElementStack[0].Attributes.Num(), 0);
+                        break;
+                    case 1:
+                    case 2:
+                    case 4:
+                    case 5:
+                        TestTrue("Content", Content.IsEmpty());
+                        TestEqual("ElementStackSize", Self.ElementStack.Num(), 2);
+                        TestTrue("ElementStack[0]", Self.ElementStack[0].Name.Equals(TEXT("p")));
+                        TestTrue("ElementStack[0]", Self.ElementStack[1].Name.Equals(TEXT("br")));
+                        TestEqual("Attribs", Self.ElementStack[0].Attributes.Num(), 0);
+                        TestEqual("Attribs", Self.ElementStack[1].Attributes.Num(), 0);
+                        break;
+                    default:
+                        break;
+                }
+                ++Iteration;
+            });
+        TestTrue("Parsed", Parser.Parse());
+    }
     return true;
 }
 

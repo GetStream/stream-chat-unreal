@@ -64,6 +64,8 @@ public:
     {
         FStringView Name;
         TMap<FStringView, FStringView> Attributes;
+        // From opening tag's < to >
+        FTextRange OpeningTagRange;
     };
 
     using FCallbackFn = TFunctionRef<void(const FString& Content, const FHtmlParser& Parser)>;
@@ -74,6 +76,8 @@ public:
 
     // Parse the source string. Returns success.
     bool Parse();
+
+    FTextRange GetCurrentLexemeRange() const;
 
     static constexpr TCHAR ParagraphTag[] = TEXT("p");
     static constexpr TCHAR LineBreakTag[] = TEXT("br");
@@ -90,7 +94,6 @@ private:
     bool Element();
     bool Attribute();
     bool Content();
-    bool EmptyContent();
     void CloseElement();
     void Newline();
     FCallbackFn Callback;
