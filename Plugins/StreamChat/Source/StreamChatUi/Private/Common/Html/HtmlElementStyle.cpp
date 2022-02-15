@@ -2,6 +2,8 @@
 
 #include "Common/Html/HtmlElementStyle.h"
 
+#include "HtmlParser.h"
+
 void Combine(FTextBlockStyle& TargetTextBlockStyle, const FHtmlElementStyle& OverridingStyle)
 {
     if (OverridingStyle.bOverride_FontMaterial)
@@ -64,49 +66,53 @@ void Combine(FTextBlockStyle& TargetTextBlockStyle, const FHtmlElementStyle& Ove
 
 const FHtmlElementStyle* FHtmlElementStyles::GetStyle(const FName& Tag) const
 {
-    if (Tag == TEXT("A"))
+    if (Tag == HtmlTag::Anchor)
     {
         return &A;
     }
-    if (Tag == TEXT("strong"))
+    if (Tag == HtmlTag::Strong)
     {
         return &Strong;
     }
-    if (Tag == TEXT("em"))
+    if (Tag == HtmlTag::Emphasis)
     {
         return &Em;
     }
-    if (Tag == TEXT("Code"))
+    if (Tag == HtmlTag::InlineCode)
     {
         return &Code;
     }
-    if (Tag == TEXT("del"))
+    if (Tag == HtmlTag::DeletedText)
     {
         return &Del;
     }
-    if (Tag == TEXT("H1"))
+    if (Tag == HtmlTag::Heading1)
     {
         return &H1;
     }
-    if (Tag == TEXT("H2"))
+    if (Tag == HtmlTag::Heading2)
     {
         return &H2;
     }
-    if (Tag == TEXT("H3"))
+    if (Tag == HtmlTag::Heading3)
     {
         return &H3;
     }
-    if (Tag == TEXT("H4"))
+    if (Tag == HtmlTag::Heading4)
     {
         return &H4;
     }
-    if (Tag == TEXT("H5"))
+    if (Tag == HtmlTag::Heading5)
     {
         return &H5;
     }
-    if (Tag == TEXT("H6"))
+    if (Tag == HtmlTag::Heading6)
     {
         return &H6;
+    }
+    if (Tag == HtmlTag::ListItem)
+    {
+        return &Li;
     }
 
     UE_LOG(LogTemp, Warning, TEXT("Unhandled HTML tag [Tag: %s]"), *Tag.ToString());
@@ -118,7 +124,7 @@ FTextBlockStyle FHtmlElementStyles::MakeCombinedStyle(const TArray<FName>& Tags)
     FTextBlockStyle Result{Default};
     for (const FName& Tag : Tags)
     {
-        if (Tag == TEXT("p") || Tag == TEXT("br"))
+        if (Tag == HtmlTag::Paragraph || Tag == HtmlTag::LineBreak || Tag == HtmlTag::UnorderedList || Tag == HtmlTag::OrderedList)
         {
             continue;
         }

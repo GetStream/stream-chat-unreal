@@ -1,24 +1,26 @@
-#include "Common/Html/HtmlTextDecorator.h"
+#include "Common/Html/HtmlDecorators.h"
 
 #include "Framework/Text/SlateHyperlinkRun.h"
+#include "Framework/Text/SlateImageRun.h"
+#include "HtmlParser.h"
 #include "Styling/ISlateStyle.h"
 
-bool FHtmlTextDecorator::Supports(const FTextRunParseResults& RunInfo, const FString& Text) const
+bool FHtmlDecorator::Supports(const FTextRunParseResults& RunInfo, const FString& Text) const
 {
     TArray<FString> Tags;
     RunInfo.Name.ParseIntoArray(Tags, TEXT("_"));
-    return Tags.Contains(TEXT("a"));
+    return Tags.Contains(GetSupportedTag());
 }
 
-TSharedRef<ISlateRun> FHtmlTextDecorator::Create(
+TSharedRef<ISlateRun> FHtmlDecorator::Create(
     const TSharedRef<FTextLayout>& TextLayout,
     const FTextRunParseResults& TextRun,
     const FString& ProcessedText,
     const TSharedRef<FString>& InOutModelText,
     const ISlateStyle* Style)
 {
-    const FName Tag{TextRun.Name};
-    check(Style->HasWidgetStyle<FTextBlockStyle>(Tag));
+    const FName Tags{TextRun.Name};
+    check(Style->HasWidgetStyle<FTextBlockStyle>(Tags));
 
     FRunInfo RunInfo(TextRun.Name);
     for (const TPair<FString, FTextRange>& Pair : TextRun.MetaData)
@@ -32,8 +34,24 @@ TSharedRef<ISlateRun> FHtmlTextDecorator::Create(
     *InOutModelText += ProcessedText.Mid(TextRun.ContentRange.BeginIndex, TextRun.ContentRange.EndIndex - TextRun.ContentRange.BeginIndex);
     ModelRange.EndIndex = InOutModelText->Len();
 
+    return Create(Tags, RunInfo, ModelRange, InOutModelText, Style);
+}
+
+FString FHyperlinkHtmlDecorator::GetSupportedTag() const
+{
+    static FString SupportedTag = HtmlTag::Anchor.ToString();
+    return SupportedTag;
+}
+
+TSharedRef<ISlateRun> FHyperlinkHtmlDecorator::Create(
+    const FName& Tags,
+    const FRunInfo& RunInfo,
+    const FTextRange& ModelRange,
+    const TSharedRef<FString>& InOutModelText,
+    const ISlateStyle* Style)
+{
     FHyperlinkStyle HyperlinkStyle;
-    HyperlinkStyle.SetTextStyle(Style->GetWidgetStyle<FTextBlockStyle>(Tag));
+    HyperlinkStyle.SetTextStyle(Style->GetWidgetStyle<FTextBlockStyle>(Tags));
     FButtonStyle ButtonStyle;
     ButtonStyle.Normal.DrawAs = ESlateBrushDrawType::NoDrawType;
     ButtonStyle.Hovered.DrawAs = ESlateBrushDrawType::NoDrawType;
@@ -55,4 +73,21 @@ TSharedRef<ISlateRun> FHtmlTextDecorator::Create(
         FSlateHyperlinkRun::FOnGenerateTooltip(),
         FSlateHyperlinkRun::FOnGetTooltipText(),
         ModelRange);
+}
+
+FString FListItemHtmlDecorator::GetSupportedTag() const
+{
+    static FString SupportedTag = HtmlTag::ListItem.ToString();
+    return SupportedTag;
+}
+
+TSharedRef<ISlateRun> FListItemHtmlDecorator::Create(
+    const FName& Tags,
+    const FRunInfo& RunInfo,
+    const FTextRange& ModelRange,
+    const TSharedRef<FString>& InOutModelText,
+    const ISlateStyle* Style)
+{
+    const FInlineTextImageStyle& ImageStyle = Style->GetWidgetStyle<FInlineTextImageStyle>(Tags);
+    return FSlateImageRun::Create(RunInfo, InOutModelText, &ImageStyle.Image, ImageStyle.Baseline, ModelRange);
 }
