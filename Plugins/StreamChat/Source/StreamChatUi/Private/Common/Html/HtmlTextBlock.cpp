@@ -4,7 +4,7 @@
 
 #include "Algo/Transform.h"
 #include "Common/Html/HtmlParser.h"
-#include "HtmlTextDecorator.h"
+#include "HtmlDecorators.h"
 #include "RenderingThread.h"
 #include "Widgets/Text/SRichTextBlock.h"
 
@@ -31,6 +31,33 @@ FORCEINLINE SharedPointerInternals::FRawPtrProxy<ObjectType> MakeShareableDeferr
 {
     return MakeShareable(InObject, [](ObjectType* ObjectToDelete) { BeginCleanup(new TFDeferredDeleter<ObjectType>(ObjectToDelete)); });
 }
+
+TMap<FString, FTextRange> GenerateMetaData(const TArray<FHtmlParser::FElement>& ElementStack, const FString& OutputString)
+{
+    TMap<FString, FTextRange> MetaData;
+    if (ElementStack.Num() > 0)
+    {
+        for (const FHtmlParser::FElement& Elem : ElementStack)
+        {
+            for (const auto& [AttribName, AttribValue] : Elem.Attributes)
+            {
+                const int32 BeginIndex = static_cast<int32>(AttribValue.GetData() - *OutputString);
+                const int32 EndIndex = BeginIndex + AttribValue.Len();
+                const FTextRange Range{BeginIndex, EndIndex};
+                MetaData.Add(FString{AttribName}, Range);
+            }
+        }
+    }
+    return MetaData;
+}
+
+FString MakeRunName(const TArray<FHtmlParser::FElement>& ElementStack)
+{
+    TSet<FStringView> ElementNames;
+    Algo::Transform(ElementStack, ElementNames, [](auto&& Element) { return Element.Name; });
+    return FString::Join(ElementNames, TEXT("_"));
+}
+
 }    // namespace
 
 TSharedRef<FHtmlRichTextMarkupParser> FHtmlRichTextMarkupParser::GetStaticInstance()
@@ -59,29 +86,13 @@ void FHtmlRichTextMarkupParser::Process(TArray<FTextLineParseResults>& Results, 
                 }
             }
 
-            TSet<FStringView> ElementNames;
-            Algo::Transform(Self.ElementStack, ElementNames, [](auto&& Element) { return Element.Name; });
-            const FString Name = MakeRunName(ElementNames);
-
+            const FString Name = MakeRunName(Self.ElementStack);
             FTextRunParseResults Run{Name, Self.GetOriginalRange(), Self.GetContentRange()};
-
-            // Metadata
-            if (Self.ElementStack.Num() > 0)
-            {
-                for (const FHtmlParser::FElement& Elem : Self.ElementStack)
-                {
-                    for (const auto& [AttribName, AttribValue] : Elem.Attributes)
-                    {
-                        const int32 BeginIndex = static_cast<int32>(AttribValue.GetData() - *Self.GetOutput());
-                        const int32 EndIndex = BeginIndex + AttribValue.Len();
-                        const FTextRange Range{BeginIndex, EndIndex};
-                        Run.MetaData.Add(FString{AttribName}, Range);
-                    }
-                }
-            }
+            Run.MetaData = GenerateMetaData(Self.ElementStack, Self.GetOutput());
 
             Results[Self.Line].Runs.Add(Run);
         });
+
     const bool bSuccess = Parser.Parse();
     ensure(bSuccess);
 
@@ -93,25 +104,31 @@ FHtmlRichTextMarkupParser::FHtmlRichTextMarkupParser()
 {
 }
 
-FString FHtmlRichTextMarkupParser::MakeRunName(TSet<FStringView>& ElementNames)
-{
-    return FString::Join(ElementNames, TEXT("_"));
-}
-
 const FSlateWidgetStyle* FComboSlateStyleSet::GetWidgetStyleInternal(const FName DesiredTypeName, const FName StyleName) const
 {
-    if (const FSlateWidgetStyle* Style = CombinedStyleCache.Find(StyleName))
-    {
-        return Style;
-    }
-
     TArray<FString> Tags;
     StyleName.ToString().ParseIntoArray(Tags, TEXT("_"));
     TArray<FName> TagNames;
     Algo::Transform(Tags, TagNames, [](const FString& Str) { return FName{Str}; });
 
-    const FTextBlockStyle NewStyle = Styles.MakeCombinedStyle(TagNames);
-    return &CombinedStyleCache.Add(StyleName, NewStyle);
+    static FName TextBlockStyle{TEXT("FTextBlockStyle")};
+    static FName InlineTextImageStyle{TEXT("FInlineTextImageStyle")};
+    if (DesiredTypeName == TextBlockStyle)
+    {
+        if (const FSlateWidgetStyle* Style = CombinedStyleCache.Find(StyleName))
+        {
+            return Style;
+        }
+
+        const FTextBlockStyle NewStyle = Styles.MakeCombinedStyle(TagNames);
+        return &CombinedStyleCache.Add(StyleName, NewStyle);
+    }
+    if (DesiredTypeName == InlineTextImageStyle && TagNames.Contains("li"))
+    {
+        return &Styles.Bullet;
+    }
+
+    return nullptr;
 }
 
 void UHtmlTextBlock::SetHtmlStyles(const FHtmlElementStyles& InStyles)
@@ -129,7 +146,10 @@ void UHtmlTextBlock::SetHtmlStyles(const FHtmlElementStyles& InStyles)
 
 void UHtmlTextBlock::CreateDecorators(TArray<TSharedRef<ITextDecorator>>& OutDecorators)
 {
-    OutDecorators = {MakeShared<FHtmlTextDecorator>()};
+    OutDecorators = {
+        MakeShared<FHyperlinkHtmlDecorator>(),
+        MakeShared<FListItemHtmlDecorator>(),
+    };
 }
 
 TSharedPtr<IRichTextMarkupParser> UHtmlTextBlock::CreateMarkupParser()

@@ -173,4 +173,12 @@ struct FHtmlElementStyles
     /// Style for text surrounded with the <code> tag
     UPROPERTY(EditAnywhere, Category = Styles)
     FHtmlElementStyle Code;
+
+    /// Style for text surrounded with the <li> tag
+    UPROPERTY(EditAnywhere, Category = Styles)
+    FHtmlElementStyle Li;
+
+    /// Brush for bullet in unordered lists
+    UPROPERTY(EditAnywhere, Category = Styles)
+    FInlineTextImageStyle Bullet;
 };

@@ -313,6 +313,7 @@ bool FHtmlParser::Element()
             CloseElement();
             return true;
         }
+
         if (AdvanceMatching(FHtmlScanner::ETokenType::AngleClose))
         {
             break;
@@ -362,7 +363,7 @@ bool FHtmlParser::Element()
 
 void FHtmlParser::CloseElement()
 {
-    if (ElementStack.Last().Name.Equals(ParagraphTag))
+    if (ElementStack.Top().Name.Equals(ParagraphTag) || ElementStack.Top().Name.Equals(ListItemTag))
     {
         Newline(Scanner.Start);
     }

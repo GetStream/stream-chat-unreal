@@ -26,8 +26,6 @@ public:
 
 private:
     FHtmlRichTextMarkupParser();
-
-    static FString MakeRunName(TSet<FStringView>& ElementNames);
 };
 
 #endif    // WITH_FANCY_TEXT

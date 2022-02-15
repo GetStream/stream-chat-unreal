@@ -4,6 +4,26 @@
 
 #include "CoreMinimal.h"
 
+namespace HtmlTag
+{
+const FName Anchor{TEXT("a")};
+const FName Strong{TEXT("strong")};
+const FName Emphasis{TEXT("em")};
+const FName InlineCode{TEXT("code")};
+const FName DeletedText{TEXT("del")};
+const FName Heading1{TEXT("h1")};
+const FName Heading2{TEXT("h2")};
+const FName Heading3{TEXT("h3")};
+const FName Heading4{TEXT("h4")};
+const FName Heading5{TEXT("h5")};
+const FName Heading6{TEXT("h6")};
+const FName UnorderedList{TEXT("ul")};
+const FName OrderedList{TEXT("ol")};
+const FName ListItem{TEXT("li")};
+const FName Paragraph{TEXT("p")};
+const FName LineBreak{TEXT("br")};
+}    // namespace HtmlTag
+
 class FHtmlScanner
 {
 public:
@@ -91,6 +111,7 @@ public:
 
     static constexpr TCHAR ParagraphTag[] = TEXT("p");
     static constexpr TCHAR LineBreakTag[] = TEXT("br");
+    static constexpr TCHAR ListItemTag[] = TEXT("li");
 
     int32 Line = 0;
     int32 ParagraphStartIndex = 0;
