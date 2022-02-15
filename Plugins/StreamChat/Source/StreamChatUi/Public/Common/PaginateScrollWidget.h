@@ -28,13 +28,12 @@ public:
 
 protected:
     virtual void NativeOnInitialized() override;
-    virtual void OnPreConstruct() override;
 
     /// Attempts to maintain scroll location when replacing the children of the scroll box
     virtual void SetChildren(const TArray<UWidget*>&);
 
     /// Override with a function that performs the pagination API call
-    virtual void Paginate(EPaginationDirection Direction, TFunction<void()> Callback)
+    virtual void Paginate(EPaginationDirection Directions, TFunction<void()> Callback)
     {
     }
 
@@ -49,7 +48,7 @@ private:
     UFUNCTION()
     void OnUserScroll(float CurrentOffset);
     void SetPaginationRequestState(EHttpRequestState, EPaginationDirection);
-    EPaginationDirection GetDirection() const;
+    EPaginationDirection GetDirections() const;
 
     EPaginationDirection EndedPaginationDirections = EPaginationDirection::None;
     EHttpRequestState PaginationRequestState = EHttpRequestState::Ended;

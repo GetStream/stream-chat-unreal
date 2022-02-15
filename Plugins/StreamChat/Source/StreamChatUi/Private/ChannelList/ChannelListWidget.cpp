@@ -7,11 +7,15 @@
 UChannelListWidget::UChannelListWidget()
 {
     bWantsClient = true;
+    Limit = 10;
 }
 
 void UChannelListWidget::Paginate(const EPaginationDirection Direction, const TFunction<void()> Callback)
 {
-    // Client->QueryChannels();
+    if (EnumHasAnyFlags(Direction, EPaginationDirection::Bottom))
+    {
+        Client->QueryAdditionalChannels(Limit, Callback);
+    }
 }
 
 void UChannelListWidget::OnClient()
@@ -62,7 +66,17 @@ void UChannelListWidget::OnChannelsUpdated(const TArray<UChatChannel*>& InChanne
         Widget->Setup(InChannel);
         Widget->OnChannelStatusButtonClicked.AddDynamic(this, &UChannelListWidget::ChannelStatusClicked);
         Widgets.Add(Widget);
-        Widget->UpdateSelection(CurrentChannel);
     }
     SetChildren(Widgets);
+
+    // Needs theme so has to happen after adding to widget hierarchy
+    for (UWidget* Widget : Widgets)
+    {
+        UChannelStatusWidget* StatusWidget = static_cast<UChannelStatusWidget*>(Widget);
+        StatusWidget->UpdateSelection(CurrentChannel);
+        if (StatusWidget->IsForChannel(CurrentChannel))
+        {
+            ScrollBox->ScrollWidgetIntoView(StatusWidget);
+        }
+    }
 }

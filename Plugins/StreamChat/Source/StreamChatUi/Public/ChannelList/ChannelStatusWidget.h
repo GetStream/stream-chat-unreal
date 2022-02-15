@@ -28,6 +28,8 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void UpdateSelection(UChatChannel* SelectedChannel) const;
 
+    bool IsForChannel(const UChatChannel*) const;
+
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FChannelStatusButtonClicked, UChatChannel*, InChannel);
     UPROPERTY(BlueprintAssignable)
     FChannelStatusButtonClicked OnChannelStatusButtonClicked;

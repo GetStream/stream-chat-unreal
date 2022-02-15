@@ -13,12 +13,6 @@ void UPaginateScrollWidget::NativeOnInitialized()
     }
 }
 
-void UPaginateScrollWidget::OnPreConstruct()
-{
-    // Check if we need to already paginate content
-    OnUserScroll(ScrollBox->GetScrollOffset());
-}
-
 void UPaginateScrollWidget::SetChildren(const TArray<UWidget*>& Children)
 {
     if (!ScrollBox)
@@ -48,6 +42,9 @@ void UPaginateScrollWidget::SetChildren(const TArray<UWidget*>& Children)
         UWidget* Widget = ScrollBox->GetChildAt(Index);
         ScrollBox->ScrollWidgetIntoView(Widget, false, EDescendantScrollDestination::TopOrLeft, FirstLeadingEdge);
     }
+
+    // Check if we need to already paginate content
+    OnUserScroll(ScrollBox->GetScrollOffset());
 }
 
 void UPaginateScrollWidget::OnUserScroll(const float CurrentOffset)
@@ -57,37 +54,37 @@ void UPaginateScrollWidget::OnUserScroll(const float CurrentOffset)
         return;
     }
 
-    const EPaginationDirection Direction = GetDirection();
-    if (Direction == EPaginationDirection::None)
+    const EPaginationDirection Directions = GetDirections();
+    if (Directions == EPaginationDirection::None)
     {
         return;
     }
 
-    const bool bPaginationEnded = EnumHasAnyFlags(EndedPaginationDirections, Direction);
+    const bool bPaginationEnded = EnumHasAllFlags(EndedPaginationDirections, Directions);
     if (bPaginationEnded)
     {
         return;
     }
 
-    SetPaginationRequestState(EHttpRequestState::Started, Direction);
+    SetPaginationRequestState(EHttpRequestState::Started, Directions);
 
     const int32 OrigWidgetCount = ScrollBox->GetChildrenCount();
     Paginate(
-        Direction,
-        [WeakThis = TWeakObjectPtr<UPaginateScrollWidget>(this), Direction, OrigWidgetCount]
+        Directions,
+        [WeakThis = TWeakObjectPtr<UPaginateScrollWidget>(this), Directions, OrigWidgetCount]
         {
             if (!WeakThis.IsValid())
             {
                 return;
             }
-            const int32 DeltaMessageCount = WeakThis->ScrollBox->GetChildrenCount() - OrigWidgetCount;
-            if (DeltaMessageCount == 0 || DeltaMessageCount < WeakThis->Limit)
+            const int32 DeltaChildrenCount = WeakThis->ScrollBox->GetChildrenCount() - OrigWidgetCount;
+            if (DeltaChildrenCount == 0 || DeltaChildrenCount < WeakThis->Limit)
             {
                 // Don't need to paginate again in this direction in the future
-                WeakThis->EndedPaginationDirections |= Direction;
+                WeakThis->EndedPaginationDirections |= Directions;
             }
 
-            WeakThis->SetPaginationRequestState(EHttpRequestState::Ended, Direction);
+            WeakThis->SetPaginationRequestState(EHttpRequestState::Ended, Directions);
         });
 }
 
@@ -97,18 +94,19 @@ void UPaginateScrollWidget::SetPaginationRequestState(const EHttpRequestState Re
     OnPaginatingMessages.Broadcast(Direction, RequestState);
 }
 
-EPaginationDirection UPaginateScrollWidget::GetDirection() const
+EPaginationDirection UPaginateScrollWidget::GetDirections() const
 {
+    EPaginationDirection Directions = EPaginationDirection::None;
     if (ScrollBox)
     {
         if (ScrollBox->GetScrollOffset() < PaginateScrollThreshold)
         {
-            return EPaginationDirection::Top;
+            Directions |= EPaginationDirection::Top;
         }
         if (ScrollBox->GetScrollOffsetOfEnd() < PaginateScrollThreshold)
         {
-            return EPaginationDirection::Bottom;
+            Directions |= EPaginationDirection::Bottom;
         }
     }
-    return EPaginationDirection::None;
+    return Directions;
 }

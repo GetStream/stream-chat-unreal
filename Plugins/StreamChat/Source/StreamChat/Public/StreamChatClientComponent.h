@@ -130,11 +130,10 @@ public:
      * @brief Fetch more channels from the server.
      *
      * @attention Some messages must already have been fetched for this to do anything.
-     * @param Direction Top if the user is scrolling up, Bottom if the user is scrolling down
-     * @param Limit Number of messages returned is limited by this value. Maximum 200.
+     * @param Limit Number of channels returned is limited by this value. Maximum 30.
+     * @param Callback Called when a response is received from the backend
      */
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message")
-    void QueryAdditionalChannels(EPaginationDirection Direction = EPaginationDirection::Top, int32 Limit = 20);
+    void QueryAdditionalChannels(int32 Limit = 10, TFunction<void()> Callback = {});
 
     /**
      * @brief Search for users and see if they are online/offline
@@ -203,7 +202,7 @@ private:
     void OnUserPresenceChanged(const FUserPresenceChangedEvent&);
     void OnNewMessage(const FMessageNewEvent&);
 
-    void SetChannels(const TArray<UChatChannel*>& InChannels);
+    void AddChannels(const TArray<UChatChannel*>& InChannels);
 
     TSharedPtr<FTokenManager> TokenManager;
     TSharedPtr<FChatApi> Api;
