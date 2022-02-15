@@ -295,6 +295,10 @@ void UStreamChatClientComponent::QueryChannel(const FChannelProperties& ChannelP
         OptionalId);
 }
 
+void UStreamChatClientComponent::QueryAdditionalChannels(EPaginationDirection Direction, int32 Limit)
+{
+}
+
 void UStreamChatClientComponent::QueryUsers(
     TFunction<void(const TArray<FUserRef>&)> Callback,
     const FFilter& Filter,

@@ -197,8 +197,7 @@ public:
      * @param Direction Top if the user is scrolling up, Bottom if the user is scrolling down
      * @param Limit Number of messages returned is limited by this value. Maximum 200.
      */
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message")
-    void QueryAdditionalMessages(EPaginationDirection Direction = EPaginationDirection::Top, int32 Limit = 20);
+    void QueryAdditionalMessages(EPaginationDirection Direction = EPaginationDirection::Top, int32 Limit = 20, TFunction<void()> Callback = {});
 
     /**
      * @brief Manually mark all messages in this channel as read by the current user
@@ -290,11 +289,6 @@ public:
     UPROPERTY(BlueprintAssignable, Category = "Stream Chat|Channel")
     FUnreadChangedDelegate UnreadChanged;
 
-    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPaginatingMessagesDelegate, EPaginationDirection, Direction, EHttpRequestState, RequestState);
-    /// Fired during various stages of message pagination
-    UPROPERTY(BlueprintAssignable)
-    FPaginatingMessagesDelegate OnPaginatingMessages;
-
 private:
     void AddMessage(const FMessage&);
     void MarkRead(const TOptional<FString>& MessageId);
@@ -309,10 +303,6 @@ private:
     void OnMessageRead(const FMessageReadEvent&);
     void OnNotificationMessageRead(const FNotificationMarkReadEvent&);
     void UpdateUnread(const FUserRef& User, int32 UnreadCount, const FDateTime& LastRead);
-
-    void SetPaginationRequestState(EHttpRequestState, EPaginationDirection);
-    EPaginationDirection EndedPaginationDirections = EPaginationDirection::None;
-    EHttpRequestState PaginationRequestState = EHttpRequestState::Ended;
 
     ///@}
 #pragma endregion Message

@@ -180,24 +180,13 @@ void UChatChannel::DeleteMessage(const FMessage& Message)
     // TODO retry?
 }
 
-void UChatChannel::QueryAdditionalMessages(const EPaginationDirection Direction, int32 Limit)
+void UChatChannel::QueryAdditionalMessages(const EPaginationDirection Direction, const int32 Limit, const TFunction<void()> Callback)
 {
-    const bool bPaginationEnded = EnumHasAnyFlags(EndedPaginationDirections, Direction);
-    if (bPaginationEnded)
-    {
-        return;
-    }
-    if (PaginationRequestState == EHttpRequestState::Started)
-    {
-        return;
-    }
     const bool bChannelEmpty = State.GetMessages().Num() == 0;
     if (bChannelEmpty)
     {
         return;
     }
-
-    SetPaginationRequestState(EHttpRequestState::Started, Direction);
 
     const FMessagePaginationOptions MessagePagination = [&]
     {
@@ -214,25 +203,7 @@ void UChatChannel::QueryAdditionalMessages(const EPaginationDirection Direction,
         return Options;
     }();
 
-    const int32 OrigMessageCount = State.GetMessages().Num();
-    Query(
-        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Direction, Limit, OrigMessageCount]
-        {
-            if (!WeakThis.IsValid())
-            {
-                return;
-            }
-
-            const int32 DeltaMessageCount = WeakThis->State.GetMessages().Num() - OrigMessageCount;
-            if (DeltaMessageCount == 0 || DeltaMessageCount < Limit)
-            {
-                // Don't need to paginate again in this direction in the future
-                WeakThis->EndedPaginationDirections |= Direction;
-            }
-            WeakThis->SetPaginationRequestState(EHttpRequestState::Ended, Direction);
-        },
-        EChannelFlags::State,
-        MessagePagination);
+    Query(Callback, EChannelFlags::State, MessagePagination);
 }
 
 void UChatChannel::MarkRead(const TOptional<FMessage>& Message)
@@ -257,12 +228,6 @@ void UChatChannel::MarkRead(const TOptional<FString>& MessageId)
         State.MarkRead();
         UnreadChanged.Broadcast(0);
     }
-}
-
-void UChatChannel::SetPaginationRequestState(const EHttpRequestState RequestState, const EPaginationDirection Direction)
-{
-    PaginationRequestState = RequestState;
-    OnPaginatingMessages.Broadcast(Direction, RequestState);
 }
 
 const TArray<FMessage>& UChatChannel::GetMessages() const

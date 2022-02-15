@@ -3,9 +3,8 @@
 #pragma once
 
 #include "ChannelStatusWidget.h"
-#include "Components/PanelWidget.h"
+#include "Common/PaginateScrollWidget.h"
 #include "CoreMinimal.h"
-#include "StreamWidget.h"
 
 #include "ChannelListWidget.generated.h"
 
@@ -13,7 +12,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UChannelListWidget final : public UStreamWidget
+class STREAMCHATUI_API UChannelListWidget final : public UPaginateScrollWidget
 {
     GENERATED_BODY()
 
@@ -25,8 +24,7 @@ public:
     FChannelStatusClicked OnChannelStatusClicked;
 
 protected:
-    UPROPERTY(meta = (BindWidget))
-    UPanelWidget* ChannelList;
+    virtual void Paginate(const EPaginationDirection Direction, const TFunction<void()> Callback) override;
     UPROPERTY(EditAnywhere, NoClear, Category = Defaults)
     TSubclassOf<UChannelStatusWidget> ChannelStatusWidgetClass = UChannelStatusWidget::StaticClass();
 

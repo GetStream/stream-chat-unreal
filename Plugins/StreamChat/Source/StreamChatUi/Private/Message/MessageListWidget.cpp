@@ -36,11 +36,11 @@ void UMessageListWidget::NativeDestruct()
     Super::NativeDestruct();
 }
 
-void UMessageListWidget::Paginate()
+void UMessageListWidget::Paginate(const EPaginationDirection Direction, const TFunction<void()> Callback)
 {
     if (Channel)
     {
-        Channel->QueryAdditionalMessages();
+        Channel->QueryAdditionalMessages(Direction, Limit, Callback);
     }
 }
 
