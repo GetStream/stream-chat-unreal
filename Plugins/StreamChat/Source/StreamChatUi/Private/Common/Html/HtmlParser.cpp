@@ -76,6 +76,9 @@ FHtmlScanner::FToken FHtmlScanner::ScanToken()
         bInTag = true;
         return MakeToken(ETokenType::AngleOpen);
     }
+
+    // Backtrack. Content() needs to see advanced char
+    Current--;
     return Content();
 }
 
@@ -89,9 +92,9 @@ bool FHtmlScanner::IsAtEnd() const
     return Current == Source.Len();
 }
 
-TCHAR FHtmlScanner::Peek(const int32 Offset) const
+TCHAR FHtmlScanner::Peek() const
 {
-    return Source[Current - Offset];
+    return Source[Current];
 }
 
 FHtmlScanner::FToken FHtmlScanner::MakeToken(const ETokenType Type) const
@@ -175,24 +178,23 @@ FHtmlScanner::FToken FHtmlScanner::Content()
     while (!IsAtEnd() && Peek() != TEXT('<') && Peek() != TEXT('>') && Peek() != TEXT('"') && Peek() != TEXT('\''))
     {
         // Unescape
-        if (Peek(1) == TEXT('&'))
+        if (Peek() == TEXT('&'))
         {
-            const int32 Amp = Current - 1;
-            int32 Len = 1;
+            const int32 Amp = Current;
+            int32 Len = 0;
             while (Advance() != TEXT(';'))
             {
                 ++Len;
             }
             const FStringView Escaped = FStringView(Source).Mid(Amp + 1, Len);
             const TCHAR Unescaped = Unescape(Escaped);
+            // Remove including leading ampersand
             Source.RemoveAt(Amp, Len + 1);
-            Current -= Len;
             Source.InsertAt(Amp, Unescaped);
+            Current = Amp;
         }
-        else
-        {
-            Advance();
-        }
+
+        Advance();
     }
 
     // Allow for a single whitespace as the start of a content

@@ -39,7 +39,7 @@ private:
     void SkipWhitespace();
 
     bool IsAtEnd() const;
-    TCHAR Peek(int32 Offset = 0) const;
+    TCHAR Peek() const;
 
     FToken MakeToken(ETokenType Type) const;
 
