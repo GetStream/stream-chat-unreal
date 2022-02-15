@@ -34,16 +34,16 @@ bool FHtmlParserTest::RunTest(const FString& Parameters)
     }
     // Unescape
     {
-        const FString Source{TEXT("<p>&lt; hi &gt;</p>")};
+        const FString Source{TEXT("<p>&lt; hi &amp; bye &gt;</p>")};
         FHtmlParser Parser(
             Source,
             [&](const FHtmlParser& Self)
             {
-                TestTrue("Content", Self.GetContent().Equals(TEXT("< hi >")));
+                TestTrue("Content", Self.GetContent().Equals(TEXT("< hi & bye >")));
                 TestEqual("ContentRangeBegin", Self.GetContentRange().BeginIndex, 3);
-                TestEqual("ContentRangeEnd", Self.GetContentRange().EndIndex, 9);
+                TestEqual("ContentRangeEnd", Self.GetContentRange().EndIndex, 15);
                 TestEqual("OriginalRangeBegin", Self.GetOriginalRange().BeginIndex, 0);
-                TestEqual("OriginalRangeEnd", Self.GetOriginalRange().EndIndex, 9);
+                TestEqual("OriginalRangeEnd", Self.GetOriginalRange().EndIndex, 15);
                 TestEqual("ElementStackSize", Self.ElementStack.Num(), 1);
                 TestTrue("p", Self.ElementStack[0].Name.Equals(TEXT("p")));
             });
