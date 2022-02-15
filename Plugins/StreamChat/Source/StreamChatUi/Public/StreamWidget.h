@@ -57,30 +57,35 @@ protected:
 private:
     virtual bool Initialize() override;
 
-    // Don't allow (pre)construction. This should all be done in OnSetup()
+    // Don't allow (pre)construction. This should all be done in OnSetup or OnPreConstruct
     virtual void NativeConstruct() override final;
-
     virtual void NativePreConstruct() override final;
+
+    // Called after added to widget hierarchy and OnTheme, OnClient, OnChannel
+    virtual void OnPreConstruct()
+    {
+    }
 
     /// You should override this to perform all child widget initialization (e.g. text, image, etc + bound widgets).
     /// Widget bindings, defaults and setup properties will be valid here.
-    /// Only called once when widget is spawned, NOT when added to parent/viewport
+    /// Only called once when widget is spawned after Initialize, NOT when added to parent/viewport
     virtual void OnSetup()
     {
     }
 
-    /// Called with the current theme when it's available
+    /// Called with the current theme when it's available (in pre-construction)
     virtual void OnTheme(const UThemeDataAsset*)
     {
     }
-    /// Called when the chat client is available
+    /// Called when the chat client is available (in pre-construction)
     virtual void OnClient()
     {
     }
-    /// Called when the current chat channel is available
+    /// Called when the current chat channel is available (in pre-construction)
     virtual void OnChannel()
     {
     }
 
+    UPROPERTY()
     UThemeDataAsset* DefaultTheme;
 };

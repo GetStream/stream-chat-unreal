@@ -70,5 +70,6 @@ void UStreamWidget::NativePreConstruct()
             UE_LOG(LogTemp, Warning, TEXT("bWantsChannel is true, but widget doesn't have a ChannelContextWidget in the parent tree."))
         }
     }
+    OnPreConstruct();
     Super::NativePreConstruct();
 }
