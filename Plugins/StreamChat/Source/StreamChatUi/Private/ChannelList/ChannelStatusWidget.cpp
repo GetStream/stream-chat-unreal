@@ -21,12 +21,12 @@ void UChannelStatusWidget::Setup(UChatChannel* InChannel)
 
 void UChannelStatusWidget::UpdateSelection(UChatChannel* SelectedChannel) const
 {
-    if (!Button || !SelectedChannel)
+    if (!Button)
     {
         return;
     }
 
-    if (SelectedChannel->Properties.Cid == Channel->Properties.Cid)
+    if (IsForChannel(SelectedChannel))
     {
         Button->SetStyle(SelectedStyle);
     }
@@ -34,6 +34,11 @@ void UChannelStatusWidget::UpdateSelection(UChatChannel* SelectedChannel) const
     {
         Button->SetStyle(NormalStyle);
     }
+}
+
+bool UChannelStatusWidget::IsForChannel(const UChatChannel* QueryChannel) const
+{
+    return QueryChannel && Channel && QueryChannel->Properties.Cid == Channel->Properties.Cid;
 }
 
 void UChannelStatusWidget::OnSetup()

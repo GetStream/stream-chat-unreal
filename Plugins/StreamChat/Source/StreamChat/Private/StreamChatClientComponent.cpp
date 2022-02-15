@@ -91,9 +91,9 @@ void UStreamChatClientComponent::OnNewMessage(const FMessageNewEvent& Event)
     }
 }
 
-void UStreamChatClientComponent::SetChannels(const TArray<UChatChannel*>& InChannels)
+void UStreamChatClientComponent::AddChannels(const TArray<UChatChannel*>& InChannels)
 {
-    Channels = InChannels;
+    Channels.Append(InChannels);
     ChannelsUpdated.Broadcast(Channels);
 }
 
@@ -234,12 +234,23 @@ void UStreamChatClientComponent::QueryChannels(
                 return;
             }
 
+            // TODO Perf?
             TArray<UChatChannel*> NewChannels;
-            Algo::Transform(
-                Response.Channels,
-                NewChannels,
-                [WeakThis](const FChannelStateResponseFieldsDto& ResponseChannel) { return WeakThis->CreateChannelObject(ResponseChannel); });
-            WeakThis->SetChannels(NewChannels);
+            for (const FChannelStateResponseFieldsDto& ResponseChannel : Response.Channels)
+            {
+                const auto Pred = [&ResponseChannel, &NewChannels](const UChatChannel* Channel)
+                {
+                    return Channel->Properties.Cid == ResponseChannel.Channel.Cid;
+                };
+                if (!WeakThis->Channels.ContainsByPredicate(Pred))
+                {
+                    NewChannels.Add(WeakThis->CreateChannelObject(ResponseChannel));
+                }
+            }
+            if (NewChannels.Num() > 0)
+            {
+                WeakThis->AddChannels(NewChannels);
+            }
 
             if (Callback)
             {
@@ -295,8 +306,27 @@ void UStreamChatClientComponent::QueryChannel(const FChannelProperties& ChannelP
         OptionalId);
 }
 
-void UStreamChatClientComponent::QueryAdditionalChannels(EPaginationDirection Direction, int32 Limit)
+void UStreamChatClientComponent::QueryAdditionalChannels(const int32 Limit, const TFunction<void()> Callback)
 {
+    if (Channels.Num() == 0)
+    {
+        return;
+    }
+
+    const FChannelPaginationOptions ChannelPaginationOptions{Limit, Channels.Num()};
+
+    QueryChannels(
+        [Callback](const TArray<UChatChannel*>)
+        {
+            if (Callback)
+            {
+                Callback();
+            }
+        },
+        FFilter::In(TEXT("members"), {UUserManager::Get()->GetCurrentUser()->Id}),
+        {{EChannelSortField::LastMessageAt, ESortDirection::Descending}},
+        EChannelFlags::State | EChannelFlags::Watch,
+        ChannelPaginationOptions);
 }
 
 void UStreamChatClientComponent::QueryUsers(

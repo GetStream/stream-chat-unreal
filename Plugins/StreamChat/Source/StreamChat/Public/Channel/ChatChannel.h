@@ -196,6 +196,7 @@ public:
      * @attention Some messages must already have been fetched for this to do anything.
      * @param Direction Top if the user is scrolling up, Bottom if the user is scrolling down
      * @param Limit Number of messages returned is limited by this value. Maximum 200.
+     * @param Callback Called when a response is received from the backend
      */
     void QueryAdditionalMessages(EPaginationDirection Direction = EPaginationDirection::Top, int32 Limit = 20, TFunction<void()> Callback = {});
 
