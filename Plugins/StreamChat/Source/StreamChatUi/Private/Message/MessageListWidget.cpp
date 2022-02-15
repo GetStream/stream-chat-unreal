@@ -10,6 +10,29 @@ UMessageListWidget::UMessageListWidget()
 {
     bWantsChannel = true;
 }
+
+void UMessageListWidget::NativeOnInitialized()
+{
+    Super::NativeOnInitialized();
+    if (ScrollBox)
+    {
+        ScrollBox->OnUserScrolled.AddDynamic(this, &UMessageListWidget::OnUserScroll);
+    }
+}
+
+void UMessageListWidget::OnChannel()
+{
+    Channel->MessagesUpdated.AddDynamic(this, &UMessageListWidget::SetMessages);
+    Channel->MessageSent.AddDynamic(this, &UMessageListWidget::ScrollToBottom);
+
+    ChannelContext->OnStartEditMessage.AddDynamic(this, &UMessageListWidget::ScrollToBottom);
+
+    SetMessages(Channel->GetMessages());
+
+    // Check if we need to already paginate messages
+    OnUserScroll(ScrollBox->GetScrollOffset());
+}
+
 void UMessageListWidget::CreateMessageWidgets(const TArray<FMessage>& Messages)
 {
     if (!ScrollBox)
@@ -35,25 +58,6 @@ void UMessageListWidget::CreateMessageWidgets(const TArray<FMessage>& Messages)
         UMessageWidget* Widget = CreateMessageWidget(Message, Side, Position);
         ScrollBox->AddChild(Widget);
     }
-}
-
-void UMessageListWidget::NativeOnInitialized()
-{
-    Super::NativeOnInitialized();
-    if (ScrollBox)
-    {
-        ScrollBox->OnUserScrolled.AddDynamic(this, &UMessageListWidget::OnUserScroll);
-    }
-}
-
-void UMessageListWidget::OnChannel()
-{
-    Channel->MessagesUpdated.AddDynamic(this, &UMessageListWidget::SetMessages);
-    Channel->MessageSent.AddDynamic(this, &UMessageListWidget::ScrollToBottom);
-
-    ChannelContext->OnStartEditMessage.AddDynamic(this, &UMessageListWidget::ScrollToBottom);
-
-    SetMessages(Channel->GetMessages());
 }
 
 void UMessageListWidget::NativeDestruct()
