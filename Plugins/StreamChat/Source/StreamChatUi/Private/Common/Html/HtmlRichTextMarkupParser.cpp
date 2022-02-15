@@ -1,0 +1,75 @@
+// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+
+#include "Common/Html/HtmlRichTextMarkupParser.h"
+
+#include "Algo/Transform.h"
+#include "Common/Html/HtmlParser.h"
+
+namespace
+{
+TMap<FString, FTextRange> GenerateMetaData(const TArray<FHtmlParser::FElement>& ElementStack, const FString& OutputString)
+{
+    TMap<FString, FTextRange> MetaData;
+    if (ElementStack.Num() > 0)
+    {
+        for (const FHtmlParser::FElement& Elem : ElementStack)
+        {
+            for (const auto& [AttribName, AttribValue] : Elem.Attributes)
+            {
+                const int32 BeginIndex = static_cast<int32>(AttribValue.GetData() - *OutputString);
+                const int32 EndIndex = BeginIndex + AttribValue.Len();
+                const FTextRange Range{BeginIndex, EndIndex};
+                MetaData.Add(FString{AttribName}, Range);
+            }
+        }
+    }
+    return MetaData;
+}
+
+FString MakeRunName(const TArray<FHtmlParser::FElement>& ElementStack)
+{
+    TSet<FStringView> ElementNames;
+    Algo::Transform(ElementStack, ElementNames, [](auto&& Element) { return Element.Name; });
+    return FString::Join(ElementNames, TEXT("_"));
+}
+}    // namespace
+
+TSharedRef<FHtmlRichTextMarkupParser> FHtmlRichTextMarkupParser::GetStaticInstance()
+{
+    static TSharedRef<FHtmlRichTextMarkupParser> Parser = MakeShareable(new FHtmlRichTextMarkupParser());
+    return Parser;
+}
+
+void FHtmlRichTextMarkupParser::Process(TArray<FTextLineParseResults>& Results, const FString& Input, FString& Output)
+{
+    if (Input.IsEmpty())
+    {
+        return;
+    }
+
+    FHtmlParser Parser(
+        Input,
+        [&](const FHtmlParser& Self)
+        {
+            while (!Results.IsValidIndex(Self.Line))
+            {
+                Results.Add(FTextLineParseResults{{Self.ParagraphStartIndex, INDEX_NONE}});
+                if (Results.Num() > 1)
+                {
+                    Results.Last(1).Range.EndIndex = Self.ParagraphStartIndex;
+                }
+            }
+
+            const FString Name = MakeRunName(Self.ElementStack);
+            FTextRunParseResults Run{Name, Self.GetOriginalRange(), Self.GetContentRange()};
+            Run.MetaData = GenerateMetaData(Self.ElementStack, Self.GetOutput());
+
+            Results[Self.Line].Runs.Add(Run);
+        });
+
+    const bool bSuccess = Parser.Parse();
+    ensure(bSuccess);
+
+    Output = Parser.GetOutput();
+    Results.Last().Range.EndIndex = Output.Len();
+}
