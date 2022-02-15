@@ -5,6 +5,7 @@
 #include "Channel/ChannelPaginationOptions.h"
 #include "Channel/ChannelProperties.h"
 #include "Channel/ChannelSortOption.h"
+#include "Channel/ChatChannel.h"
 #include "Channel/Filter.h"
 #include "ChannelFlags.h"
 #include "ChatSocketEvents.h"
@@ -124,6 +125,16 @@ public:
      * @return A channel object which can be used to interact with the channel
      */
     void QueryChannel(const FChannelProperties& ChannelProperties, const EChannelFlags Flags, TFunction<void(UChatChannel*)> Callback);
+
+    /**
+     * @brief Fetch more channels from the server.
+     *
+     * @attention Some messages must already have been fetched for this to do anything.
+     * @param Direction Top if the user is scrolling up, Bottom if the user is scrolling down
+     * @param Limit Number of messages returned is limited by this value. Maximum 200.
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message")
+    void QueryAdditionalChannels(EPaginationDirection Direction = EPaginationDirection::Top, int32 Limit = 20);
 
     /**
      * @brief Search for users and see if they are online/offline

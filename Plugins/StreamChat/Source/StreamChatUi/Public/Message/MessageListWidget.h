@@ -27,7 +27,7 @@ public:
 protected:
     virtual void OnChannel() override;
     virtual void NativeDestruct() override;
-    virtual void Paginate() override;
+    virtual void Paginate(const EPaginationDirection Direction, const TFunction<void()> Callback) override;
 
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void CreateMessageWidgets(const TArray<FMessage>& Messages);

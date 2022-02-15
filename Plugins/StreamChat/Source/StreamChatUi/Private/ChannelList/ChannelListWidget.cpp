@@ -9,6 +9,11 @@ UChannelListWidget::UChannelListWidget()
     bWantsClient = true;
 }
 
+void UChannelListWidget::Paginate(const EPaginationDirection Direction, const TFunction<void()> Callback)
+{
+    // Client->QueryChannels();
+}
+
 void UChannelListWidget::OnClient()
 {
     Client->ChannelsUpdated.AddDynamic(this, &UChannelListWidget::OnChannelsUpdated);
@@ -22,7 +27,7 @@ void UChannelListWidget::ChannelStatusClicked(UChatChannel* ClickedChannel)
     }
     CurrentChannel = ClickedChannel;
 
-    for (UWidget* Child : ChannelList->GetAllChildren())
+    for (UWidget* Child : ScrollBox->GetAllChildren())
     {
         if (const UChannelStatusWidget* ChannelStatusWidget = Cast<UChannelStatusWidget>(Child))
         {
@@ -34,7 +39,7 @@ void UChannelListWidget::ChannelStatusClicked(UChatChannel* ClickedChannel)
 
 void UChannelListWidget::OnChannelsUpdated(const TArray<UChatChannel*>& InChannels)
 {
-    if (!ChannelList)
+    if (!ScrollBox)
     {
         return;
     }
@@ -49,13 +54,15 @@ void UChannelListWidget::OnChannelsUpdated(const TArray<UChatChannel*>& InChanne
         }
     }
 
-    ChannelList->ClearChildren();
+    TArray<UWidget*> Widgets;
+    Widgets.Reserve(InChannels.Num());
     for (UChatChannel* InChannel : InChannels)
     {
         UChannelStatusWidget* Widget = CreateWidget<UChannelStatusWidget>(this, ChannelStatusWidgetClass);
         Widget->Setup(InChannel);
         Widget->OnChannelStatusButtonClicked.AddDynamic(this, &UChannelListWidget::ChannelStatusClicked);
-        ChannelList->AddChild(Widget);
+        Widgets.Add(Widget);
         Widget->UpdateSelection(CurrentChannel);
     }
+    SetChildren(Widgets);
 }
