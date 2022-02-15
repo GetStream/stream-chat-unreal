@@ -154,6 +154,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>DisconnectUser</b> ()
 <tr class="memitem:a4d324df894080737f8e915db575fed6d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#a4d324df894080737f8e915db575fed6d">QueryChannel</a> (const <a class="el" href="struct_f_channel_properties.html">FChannelProperties</a> &amp;ChannelProperties, const <a class="el" href="group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898">EChannelFlags</a> Flags, TFunction&lt; void(<a class="el" href="class_u_chat_channel.html">UChatChannel</a> *)&gt; Callback)</td></tr>
 <tr class="memdesc:a4d324df894080737f8e915db575fed6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a channel if it does not exist yet (if this user has the right permissions). Includes options to get data about the channel (including members, watchers and messages), subscribe to future updates.  <a href="class_u_stream_chat_client_component.html#a4d324df894080737f8e915db575fed6d">More...</a><br /></td></tr>
 <tr class="separator:a4d324df894080737f8e915db575fed6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adba9ca31b5bd31c24da7bbb63a7cfc73"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#adba9ca31b5bd31c24da7bbb63a7cfc73">QueryAdditionalChannels</a> (int32 Limit=10, TFunction&lt; void()&gt; Callback={})</td></tr>
+<tr class="memdesc:adba9ca31b5bd31c24da7bbb63a7cfc73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch more channels from the server.  <a href="class_u_stream_chat_client_component.html#adba9ca31b5bd31c24da7bbb63a7cfc73">More...</a><br /></td></tr>
+<tr class="separator:adba9ca31b5bd31c24da7bbb63a7cfc73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f76b944317a89801ecef0c52ef7750b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#a4f76b944317a89801ecef0c52ef7750b">QueryUsers</a> (TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_user_ref.html">FUserRef</a> &gt; &amp;)&gt; Callback, const <a class="el" href="struct_f_filter.html">FFilter</a> &amp;Filter={}, const TArray&lt; <a class="el" href="struct_f_user_sort_option.html">FUserSortOption</a> &gt; &amp;Sort={}, bool bPresence=true, TOptional&lt; uint32 &gt; Limit={}, TOptional&lt; uint32 &gt; Offset={}) const</td></tr>
 <tr class="memdesc:a4f76b944317a89801ecef0c52ef7750b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search for users and see if they are online/offline.  <a href="class_u_stream_chat_client_component.html#a4f76b944317a89801ecef0c52ef7750b">More...</a><br /></td></tr>
 <tr class="separator:a4f76b944317a89801ecef0c52ef7750b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -680,6 +683,44 @@ template&lt;class TEvent , class UserClass &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A handle which can be used to unsubscribe from the event </dd></dl>
+
+</div>
+</div>
+<a id="adba9ca31b5bd31c24da7bbb63a7cfc73" name="adba9ca31b5bd31c24da7bbb63a7cfc73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adba9ca31b5bd31c24da7bbb63a7cfc73">&#9670;&nbsp;</a></span>QueryAdditionalChannels()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UStreamChatClientComponent::QueryAdditionalChannels </td>
+          <td>(</td>
+          <td class="paramtype">int32&#160;</td>
+          <td class="paramname"><em>Limit</em> = <code>10</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TFunction&lt; void()&gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetch more channels from the server. </p>
+<dl class="section attention"><dt>Attention</dt><dd>Some messages must already have been fetched for this to do anything. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Limit</td><td>Number of channels returned is limited by this value. Maximum 30. </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when a response is received from the backend </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

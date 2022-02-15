@@ -208,10 +208,9 @@ $(document).ready(function(){initNavTree('_chat_channel_8h_source.html',''); ini
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    UFUNCTION(BlueprintCallable, Category = &quot;Stream Chat|Channel|Message&quot;)</div>
 <div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keywordtype">void</span> DeleteMessage(const <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp; Message);</div>
 <div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    UFUNCTION(BlueprintCallable, Category = &quot;Stream Chat|Channel|Message&quot;)</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="keywordtype">void</span> QueryAdditionalMessages(EPaginationDirection Direction = EPaginationDirection::Top, int32 Limit = 20);</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="keywordtype">void</span> QueryAdditionalMessages(EPaginationDirection Direction = EPaginationDirection::Top, int32 Limit = 20, TFunction&lt;<span class="keywordtype">void</span>()&gt; Callback = {});</div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <span class="keywordtype">void</span> MarkRead(const TOptional&lt;<a class="code hl_struct" href="struct_f_message.html">FMessage</a>&gt;&amp; Message = {});</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <span class="keywordtype">void</span> MarkRead(<span class="keyword">const</span> TOptional&lt;FMessage&gt;&amp; Message = {});</div>
 <div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    UFUNCTION(BlueprintCallable, Category = <span class="stringliteral">&quot;Stream Chat|Channel|Message&quot;</span>, meta = (AutoCreateRefTerm = Message))</div>
 <div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    <span class="keywordtype">void</span> MarkRead(<span class="keyword">const</span> <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp; Message);</div>
 <div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
@@ -257,131 +256,123 @@ $(document).ready(function(){initNavTree('_chat_channel_8h_source.html',''); ini
 <div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    UPROPERTY(BlueprintAssignable, Category = &quot;Stream Chat|Channel&quot;)</div>
 <div class="line"><a id="l00291" name="l00291"></a><span class="lineno"><a class="line" href="class_u_chat_channel.html#a27bbbd985e7a329ac34e46cbad78477e">  291</a></span>    FUnreadChangedDelegate UnreadChanged;</div>
 <div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span> </div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPaginatingMessagesDelegate, EPaginationDirection, Direction, EHttpRequestState, RequestState);</div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    UPROPERTY(BlueprintAssignable)</div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno"><a class="line" href="class_u_chat_channel.html#ad7b70f55f9fc682f1a42281e56ed467b">  296</a></span>    FPaginatingMessagesDelegate OnPaginatingMessages;</div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span> </div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>private:</div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    <span class="keywordtype">void</span> AddMessage(const <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp;);</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    <span class="keywordtype">void</span> MarkRead(const TOptional&lt;FString&gt;&amp; MessageId);</div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    <span class="keywordtype">void</span> OnMessageUpdated(const <a class="code hl_struct" href="struct_f_message_updated_event.html">FMessageUpdatedEvent</a>&amp;);</div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    <span class="keywordtype">void</span> OnMessageDeleted(const <a class="code hl_struct" href="struct_f_message_deleted_event.html">FMessageDeletedEvent</a>&amp;);</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span> </div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    <span class="keywordtype">void</span> OnMessageNew(const <a class="code hl_struct" href="struct_f_message_new_event.html">FMessageNewEvent</a>&amp;);</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    <span class="keywordtype">void</span> OnNotificationMessageNew(const <a class="code hl_struct" href="struct_f_notification_message_new_event.html">FNotificationMessageNewEvent</a>&amp;);</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    <span class="keywordtype">void</span> HandleNewMessageEvent(const <a class="code hl_struct" href="struct_f_message_event.html">FMessageEvent</a>&amp;);</div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span> </div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    <span class="keywordtype">void</span> OnMessageRead(const <a class="code hl_struct" href="struct_f_message_read_event.html">FMessageReadEvent</a>&amp;);</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    <span class="keywordtype">void</span> OnNotificationMessageRead(const <a class="code hl_struct" href="struct_f_notification_mark_read_event.html">FNotificationMarkReadEvent</a>&amp;);</div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    <span class="keywordtype">void</span> UpdateUnread(const <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&amp; User, int32 UnreadCount, const FDateTime&amp; LastRead);</div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span> </div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    <span class="keywordtype">void</span> SetPaginationRequestState(EHttpRequestState, EPaginationDirection);</div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>    EPaginationDirection EndedPaginationDirections = EPaginationDirection::<a class="code hl_enumvalue" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a6adf97f83acf6453d4a6a4b1070f3754">None</a>;</div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>    EHttpRequestState PaginationRequestState = EHttpRequestState::Ended;</div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span> </div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span><span class="preprocessor">#pragma endregion Message</span></div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span><span class="preprocessor">#pragma region Reaction</span></div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>    UFUNCTION(BlueprintCallable, Category = <span class="stringliteral">&quot;Stream Chat|Channel|Reaction&quot;</span>)</div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    void SendReaction(const <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp; Message, const FName&amp; ReactionType, <span class="keywordtype">bool</span> bEnforceUnique = true);</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>private:</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    <span class="keywordtype">void</span> AddMessage(const <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp;);</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    <span class="keywordtype">void</span> MarkRead(const TOptional&lt;FString&gt;&amp; MessageId);</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span> </div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    <span class="keywordtype">void</span> OnMessageUpdated(const <a class="code hl_struct" href="struct_f_message_updated_event.html">FMessageUpdatedEvent</a>&amp;);</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <span class="keywordtype">void</span> OnMessageDeleted(const <a class="code hl_struct" href="struct_f_message_deleted_event.html">FMessageDeletedEvent</a>&amp;);</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span> </div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    <span class="keywordtype">void</span> OnMessageNew(const <a class="code hl_struct" href="struct_f_message_new_event.html">FMessageNewEvent</a>&amp;);</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    <span class="keywordtype">void</span> OnNotificationMessageNew(const <a class="code hl_struct" href="struct_f_notification_message_new_event.html">FNotificationMessageNewEvent</a>&amp;);</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    <span class="keywordtype">void</span> HandleNewMessageEvent(const <a class="code hl_struct" href="struct_f_message_event.html">FMessageEvent</a>&amp;);</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span> </div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    <span class="keywordtype">void</span> OnMessageRead(const <a class="code hl_struct" href="struct_f_message_read_event.html">FMessageReadEvent</a>&amp;);</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    <span class="keywordtype">void</span> OnNotificationMessageRead(const <a class="code hl_struct" href="struct_f_notification_mark_read_event.html">FNotificationMarkReadEvent</a>&amp;);</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    <span class="keywordtype">void</span> UpdateUnread(const <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&amp; User, int32 UnreadCount, const FDateTime&amp; LastRead);</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span><span class="preprocessor">#pragma endregion Message</span></div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span> </div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span><span class="preprocessor">#pragma region Reaction</span></div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>    UFUNCTION(BlueprintCallable, Category = <span class="stringliteral">&quot;Stream Chat|Channel|Reaction&quot;</span>)</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>    void SendReaction(const <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp; Message, const FName&amp; ReactionType, <span class="keywordtype">bool</span> bEnforceUnique = true);</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span> </div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>    UFUNCTION(BlueprintCallable, Category = &quot;Stream Chat|Channel|Reaction&quot;)</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    <span class="keywordtype">void</span> DeleteReaction(const <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp; Message, const <a class="code hl_struct" href="struct_f_reaction.html">FReaction</a>&amp; Reaction);</div>
 <div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span> </div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>    UFUNCTION(BlueprintCallable, Category = &quot;Stream Chat|Channel|Reaction&quot;)</div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>    <span class="keywordtype">void</span> DeleteReaction(const <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp; Message, const <a class="code hl_struct" href="struct_f_reaction.html">FReaction</a>&amp; Reaction);</div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span> </div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>private:</div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>    <span class="keywordtype">void</span> OnReactionNew(const <a class="code hl_struct" href="struct_f_reaction_new_event.html">FReactionNewEvent</a>&amp;);</div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>    <span class="keywordtype">void</span> OnReactionUpdated(const <a class="code hl_struct" href="struct_f_reaction_updated_event.html">FReactionUpdatedEvent</a>&amp;);</div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>    <span class="keywordtype">void</span> OnReactionDeleted(const <a class="code hl_struct" href="struct_f_reaction_deleted_event.html">FReactionDeletedEvent</a>&amp;);</div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span> </div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span><span class="preprocessor">#pragma endregion Reaction</span></div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span> </div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span><span class="preprocessor">#pragma region Typing</span></div>
-<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>    UFUNCTION(BlueprintCallable, Category = <span class="stringliteral">&quot;Stream Chat|Channel|Typing&quot;</span>, meta = (AdvancedDisplay = ParentMessageId))</div>
-<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>    <span class="keywordtype">void</span> KeyStroke(<span class="keyword">const</span> FString&amp; ParentMessageId = TEXT(<span class="stringliteral">&quot;&quot;</span>));</div>
-<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span> </div>
-<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>    UFUNCTION(BlueprintCallable, Category = <span class="stringliteral">&quot;Stream Chat|Channel|Typing&quot;</span>, meta = (AdvancedDisplay = ParentMessageId))</div>
-<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>    <span class="keywordtype">void</span> StopTyping(<span class="keyword">const</span> FString&amp; ParentMessageId = TEXT(<span class="stringliteral">&quot;&quot;</span>));</div>
-<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span> </div>
-<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTypingIndicatorDelegate, ETypingIndicatorState, TypingState, <span class="keyword">const</span> <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&amp;, User);</div>
-<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>    UPROPERTY(BlueprintAssignable)</div>
-<div class="line"><a id="l00378" name="l00378"></a><span class="lineno"><a class="line" href="class_u_chat_channel.html#a93d772ef1c497a17a5af73a0be954084">  378</a></span>    FTypingIndicatorDelegate OnTypingIndicator;</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>private:</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    <span class="keywordtype">void</span> OnReactionNew(const <a class="code hl_struct" href="struct_f_reaction_new_event.html">FReactionNewEvent</a>&amp;);</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    <span class="keywordtype">void</span> OnReactionUpdated(const <a class="code hl_struct" href="struct_f_reaction_updated_event.html">FReactionUpdatedEvent</a>&amp;);</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    <span class="keywordtype">void</span> OnReactionDeleted(const <a class="code hl_struct" href="struct_f_reaction_deleted_event.html">FReactionDeletedEvent</a>&amp;);</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span> </div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span><span class="preprocessor">#pragma endregion Reaction</span></div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span> </div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span><span class="preprocessor">#pragma region Typing</span></div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>    UFUNCTION(BlueprintCallable, Category = <span class="stringliteral">&quot;Stream Chat|Channel|Typing&quot;</span>, meta = (AdvancedDisplay = ParentMessageId))</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>    <span class="keywordtype">void</span> KeyStroke(<span class="keyword">const</span> FString&amp; ParentMessageId = TEXT(<span class="stringliteral">&quot;&quot;</span>));</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span> </div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>    UFUNCTION(BlueprintCallable, Category = <span class="stringliteral">&quot;Stream Chat|Channel|Typing&quot;</span>, meta = (AdvancedDisplay = ParentMessageId))</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>    <span class="keywordtype">void</span> StopTyping(<span class="keyword">const</span> FString&amp; ParentMessageId = TEXT(<span class="stringliteral">&quot;&quot;</span>));</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span> </div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTypingIndicatorDelegate, ETypingIndicatorState, TypingState, <span class="keyword">const</span> <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&amp;, User);</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>    UPROPERTY(BlueprintAssignable)</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno"><a class="line" href="class_u_chat_channel.html#a93d772ef1c497a17a5af73a0be954084">  369</a></span>    FTypingIndicatorDelegate OnTypingIndicator;</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span> </div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>private:</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>    <span class="keywordtype">void</span> SendStopTypingEvent(const FString&amp; ParentMessageId = TEXT(&quot;&quot;));</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>    <span class="keywordtype">void</span> OnTypingStart(const <a class="code hl_struct" href="struct_f_typing_start_event.html">FTypingStartEvent</a>&amp;);</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>    <span class="keywordtype">void</span> OnTypingStop(const <a class="code hl_struct" href="struct_f_typing_stop_event.html">FTypingStopEvent</a>&amp;);</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span> </div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    <span class="keywordtype">float</span> TypingTimeout = 2.f;</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>    TOptional&lt;FDateTime&gt; LastKeystrokeAt;</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>    FTimerHandle TypingTimerHandle;</div>
 <div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span> </div>
-<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>private:</div>
-<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>    <span class="keywordtype">void</span> SendStopTypingEvent(const FString&amp; ParentMessageId = TEXT(&quot;&quot;));</div>
-<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>    <span class="keywordtype">void</span> OnTypingStart(const <a class="code hl_struct" href="struct_f_typing_start_event.html">FTypingStartEvent</a>&amp;);</div>
-<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>    <span class="keywordtype">void</span> OnTypingStop(const <a class="code hl_struct" href="struct_f_typing_stop_event.html">FTypingStopEvent</a>&amp;);</div>
-<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span> </div>
-<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>    <span class="keywordtype">float</span> TypingTimeout = 2.f;</div>
-<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>    TOptional&lt;FDateTime&gt; LastKeystrokeAt;</div>
-<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>    FTimerHandle TypingTimerHandle;</div>
-<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span> </div>
-<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span><span class="preprocessor">#pragma endregion Typing</span></div>
-<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>};</div>
-<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span> </div>
-<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> TEvent&gt;</div>
-<div class="line"><a id="l00394" name="l00394"></a><span class="lineno"><a class="line" href="class_u_chat_channel.html#aed47eb30b9ab1fde4d67b88caa12d317">  394</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_u_chat_channel.html#aed47eb30b9ab1fde4d67b88caa12d317">UChatChannel::SendEvent</a>(<span class="keyword">const</span> TEvent&amp; Event)</div>
-<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>{</div>
-<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>    Api-&gt;SendChannelEvent(<a class="code hl_variable" href="class_u_chat_channel.html#a46b26554f5b94d80e50f6ffdf289e482">Properties</a>.<a class="code hl_variable" href="struct_f_channel_properties.html#a93cf3e0df56959f6e1bebf35f0461a47">Type</a>, <a class="code hl_variable" href="class_u_chat_channel.html#a46b26554f5b94d80e50f6ffdf289e482">Properties</a>.<a class="code hl_variable" href="struct_f_channel_properties.html#a1fd2b51b68b8ce926483a882a76e6ab2">Id</a>, Event);</div>
-<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>}</div>
-<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span> </div>
-<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> TEvent&gt;</div>
-<div class="line"><a id="l00400" name="l00400"></a><span class="lineno"><a class="line" href="class_u_chat_channel.html#a9351ad594e8f4a2af0876b4980594647">  400</a></span>FDelegateHandle <a class="code hl_function" href="class_u_chat_channel.html#a9351ad594e8f4a2af0876b4980594647">UChatChannel::On</a>(TEventDelegate&lt;TEvent&gt; Callback)</div>
-<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>{</div>
-<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>    <span class="keywordflow">return</span> Socket-&gt;Events().SubscribeLambda&lt;TEvent&gt;(</div>
-<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>        [<span class="keyword">this</span>, Callback](<span class="keyword">const</span> TEvent&amp; Event)</div>
-<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>        {</div>
-<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>            <span class="comment">// TODO static assert with nice error message</span></div>
-<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>            <span class="comment">// https://stackoverflow.com/questions/1005476/how-to-detect-whether-there-is-a-specific-member-variable-in-class</span></div>
-<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>            <span class="keywordflow">if</span> (Event.Cid == <a class="code hl_variable" href="class_u_chat_channel.html#a46b26554f5b94d80e50f6ffdf289e482">Properties</a>.<a class="code hl_variable" href="struct_f_channel_properties.html#a6f790c40747c427d016a47b6ace2c97e">Cid</a>)</div>
-<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>            {</div>
-<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>                Callback.ExecuteIfBound(Event);</div>
-<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>            }</div>
-<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>        });</div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span><span class="preprocessor">#pragma endregion Typing</span></div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>};</div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span> </div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> TEvent&gt;</div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno"><a class="line" href="class_u_chat_channel.html#aed47eb30b9ab1fde4d67b88caa12d317">  385</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_u_chat_channel.html#aed47eb30b9ab1fde4d67b88caa12d317">UChatChannel::SendEvent</a>(<span class="keyword">const</span> TEvent&amp; Event)</div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>{</div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>    Api-&gt;SendChannelEvent(<a class="code hl_variable" href="class_u_chat_channel.html#a46b26554f5b94d80e50f6ffdf289e482">Properties</a>.<a class="code hl_variable" href="struct_f_channel_properties.html#a93cf3e0df56959f6e1bebf35f0461a47">Type</a>, <a class="code hl_variable" href="class_u_chat_channel.html#a46b26554f5b94d80e50f6ffdf289e482">Properties</a>.<a class="code hl_variable" href="struct_f_channel_properties.html#a1fd2b51b68b8ce926483a882a76e6ab2">Id</a>, Event);</div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>}</div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span> </div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> TEvent&gt;</div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno"><a class="line" href="class_u_chat_channel.html#a9351ad594e8f4a2af0876b4980594647">  391</a></span>FDelegateHandle <a class="code hl_function" href="class_u_chat_channel.html#a9351ad594e8f4a2af0876b4980594647">UChatChannel::On</a>(TEventDelegate&lt;TEvent&gt; Callback)</div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>{</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>    <span class="keywordflow">return</span> Socket-&gt;Events().SubscribeLambda&lt;TEvent&gt;(</div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>        [<span class="keyword">this</span>, Callback](<span class="keyword">const</span> TEvent&amp; Event)</div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>        {</div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>            <span class="comment">// TODO static assert with nice error message</span></div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>            <span class="comment">// https://stackoverflow.com/questions/1005476/how-to-detect-whether-there-is-a-specific-member-variable-in-class</span></div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>            <span class="keywordflow">if</span> (Event.Cid == <a class="code hl_variable" href="class_u_chat_channel.html#a46b26554f5b94d80e50f6ffdf289e482">Properties</a>.<a class="code hl_variable" href="struct_f_channel_properties.html#a6f790c40747c427d016a47b6ace2c97e">Cid</a>)</div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>            {</div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>                Callback.ExecuteIfBound(Event);</div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>            }</div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>        });</div>
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>}</div>
+<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span> </div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> TEvent, <span class="keyword">class</span> UserClass&gt;</div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno"><a class="line" href="class_u_chat_channel.html#a9d6785286eccd01939f684c44101e396">  406</a></span><span class="keyword">typename</span> TEnableIf&lt;TIsDerivedFrom&lt;UserClass, UObject&gt;::IsDerived, FDelegateHandle&gt;<a class="code hl_variable" href="struct_f_chat_event.html#aff9733dcd2ce4163ecd5a27fee3e8d8d">::Type</a> <a class="code hl_function" href="class_u_chat_channel.html#a9351ad594e8f4a2af0876b4980594647">UChatChannel::On</a>(</div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>    UserClass* Obj,</div>
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>    TEventDelegateUObjectMethodPtr&lt;TEvent, UserClass&gt; Method)</div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>{</div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>    <span class="keyword">const</span> TEventDelegate&lt;TEvent&gt; Delegate = TEventDelegate&lt;TEvent&gt;::CreateUObject(Obj, Method);</div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>    <span class="keywordflow">return</span> On&lt;TEvent&gt;(Delegate);</div>
 <div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>}</div>
 <div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span> </div>
 <div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> TEvent, <span class="keyword">class</span> UserClass&gt;</div>
-<div class="line"><a id="l00415" name="l00415"></a><span class="lineno"><a class="line" href="class_u_chat_channel.html#a9d6785286eccd01939f684c44101e396">  415</a></span><span class="keyword">typename</span> TEnableIf&lt;TIsDerivedFrom&lt;UserClass, UObject&gt;::IsDerived, FDelegateHandle&gt;<a class="code hl_variable" href="struct_f_chat_event.html#aff9733dcd2ce4163ecd5a27fee3e8d8d">::Type</a> <a class="code hl_function" href="class_u_chat_channel.html#a9351ad594e8f4a2af0876b4980594647">UChatChannel::On</a>(</div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno"><a class="line" href="class_u_chat_channel.html#a73bff64fcd97a9cf60f023fc8abc7cb5">  415</a></span><span class="keyword">typename</span> TEnableIf&lt;!TIsDerivedFrom&lt;UserClass, UObject&gt;::IsDerived, FDelegateHandle&gt;<a class="code hl_variable" href="struct_f_chat_event.html#aff9733dcd2ce4163ecd5a27fee3e8d8d">::Type</a> <a class="code hl_function" href="class_u_chat_channel.html#a9351ad594e8f4a2af0876b4980594647">UChatChannel::On</a>(</div>
 <div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>    UserClass* Obj,</div>
-<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>    TEventDelegateUObjectMethodPtr&lt;TEvent, UserClass&gt; Method)</div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>    TEventDelegateSpMethodPtr&lt;TEvent, UserClass&gt; Method)</div>
 <div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>{</div>
-<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>    <span class="keyword">const</span> TEventDelegate&lt;TEvent&gt; Delegate = TEventDelegate&lt;TEvent&gt;::CreateUObject(Obj, Method);</div>
+<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>    <span class="keyword">const</span> TEventDelegate&lt;TEvent&gt; Delegate = TEventDelegate&lt;TEvent&gt;::CreateSP(Obj, Method);</div>
 <div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span>    <span class="keywordflow">return</span> On&lt;TEvent&gt;(Delegate);</div>
 <div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>}</div>
 <div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span> </div>
-<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> TEvent, <span class="keyword">class</span> UserClass&gt;</div>
-<div class="line"><a id="l00424" name="l00424"></a><span class="lineno"><a class="line" href="class_u_chat_channel.html#a73bff64fcd97a9cf60f023fc8abc7cb5">  424</a></span><span class="keyword">typename</span> TEnableIf&lt;!TIsDerivedFrom&lt;UserClass, UObject&gt;::IsDerived, FDelegateHandle&gt;<a class="code hl_variable" href="struct_f_chat_event.html#aff9733dcd2ce4163ecd5a27fee3e8d8d">::Type</a> <a class="code hl_function" href="class_u_chat_channel.html#a9351ad594e8f4a2af0876b4980594647">UChatChannel::On</a>(</div>
-<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>    UserClass* Obj,</div>
-<div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span>    TEventDelegateSpMethodPtr&lt;TEvent, UserClass&gt; Method)</div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span><span class="keyword">template</span> &lt;<span class="keyword">class </span>TEvent, <span class="keyword">typename</span> FunctorType, <span class="keyword">typename</span>... VarTypes&gt;</div>
+<div class="line"><a id="l00424" name="l00424"></a><span class="lineno"><a class="line" href="class_u_chat_channel.html#a14dc1b83dd8413eb75de2a9de6436a31">  424</a></span><span class="keyword">typename</span> TEnableIf&lt;TIsInvocable&lt;FunctorType, <span class="keyword">const</span> TEvent&amp;, VarTypes...&gt;::Value, FDelegateHandle&gt;<a class="code hl_variable" href="struct_f_chat_event.html#aff9733dcd2ce4163ecd5a27fee3e8d8d">::Type</a> <a class="code hl_function" href="class_u_chat_channel.html#a9351ad594e8f4a2af0876b4980594647">UChatChannel::On</a>(</div>
+<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>    FunctorType&amp;&amp; Functor,</div>
+<div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span>    VarTypes... Vars)</div>
 <div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span>{</div>
-<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span>    <span class="keyword">const</span> TEventDelegate&lt;TEvent&gt; Delegate = TEventDelegate&lt;TEvent&gt;::CreateSP(Obj, Method);</div>
+<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span>    <span class="keyword">const</span> TEventDelegate&lt;TEvent&gt; Delegate = TEventDelegate&lt;TEvent&gt;::CreateLambda(Forward&lt;FunctorType&gt;(Functor), Vars...);</div>
 <div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span>    <span class="keywordflow">return</span> On&lt;TEvent&gt;(Delegate);</div>
 <div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span>}</div>
 <div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span> </div>
-<div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span><span class="keyword">template</span> &lt;<span class="keyword">class </span>TEvent, <span class="keyword">typename</span> FunctorType, <span class="keyword">typename</span>... VarTypes&gt;</div>
-<div class="line"><a id="l00433" name="l00433"></a><span class="lineno"><a class="line" href="class_u_chat_channel.html#a14dc1b83dd8413eb75de2a9de6436a31">  433</a></span><span class="keyword">typename</span> TEnableIf&lt;TIsInvocable&lt;FunctorType, <span class="keyword">const</span> TEvent&amp;, VarTypes...&gt;::Value, FDelegateHandle&gt;<a class="code hl_variable" href="struct_f_chat_event.html#aff9733dcd2ce4163ecd5a27fee3e8d8d">::Type</a> <a class="code hl_function" href="class_u_chat_channel.html#a9351ad594e8f4a2af0876b4980594647">UChatChannel::On</a>(</div>
-<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span>    FunctorType&amp;&amp; Functor,</div>
-<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>    VarTypes... Vars)</div>
-<div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span>{</div>
-<div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span>    <span class="keyword">const</span> TEventDelegate&lt;TEvent&gt; Delegate = TEventDelegate&lt;TEvent&gt;::CreateLambda(Forward&lt;FunctorType&gt;(Functor), Vars...);</div>
-<div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span>    <span class="keywordflow">return</span> On&lt;TEvent&gt;(Delegate);</div>
-<div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span>}</div>
-<div class="line"><a id="l00440" name="l00440"></a><span class="lineno">  440</span> </div>
-<div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> TEvent&gt;</div>
-<div class="line"><a id="l00442" name="l00442"></a><span class="lineno"><a class="line" href="class_u_chat_channel.html#ad7a707550c3a5b6eb6a6a807ce541a21">  442</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="class_u_chat_channel.html#ad7a707550c3a5b6eb6a6a807ce541a21">UChatChannel::Unsubscribe</a>(<span class="keyword">const</span> FDelegateHandle Handle)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00443" name="l00443"></a><span class="lineno">  443</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00444" name="l00444"></a><span class="lineno">  444</span>    <span class="keywordflow">return</span> Socket-&gt;Events().Unsubscribe&lt;TEvent&gt;(Handle);</div>
-<div class="line"><a id="l00445" name="l00445"></a><span class="lineno">  445</span>}</div>
+<div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> TEvent&gt;</div>
+<div class="line"><a id="l00433" name="l00433"></a><span class="lineno"><a class="line" href="class_u_chat_channel.html#ad7a707550c3a5b6eb6a6a807ce541a21">  433</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="class_u_chat_channel.html#ad7a707550c3a5b6eb6a6a807ce541a21">UChatChannel::Unsubscribe</a>(<span class="keyword">const</span> FDelegateHandle Handle)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>    <span class="keywordflow">return</span> Socket-&gt;Events().Unsubscribe&lt;TEvent&gt;(Handle);</div>
+<div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span>}</div>
 <div class="ttc" id="aclass_f_chat_api_html"><div class="ttname"><a href="class_f_chat_api.html">FChatApi</a></div><div class="ttdoc">All Stream Chat REST API requests can be made via this object.</div><div class="ttdef"><b>Definition:</b> ChatApi.h:45</div></div>
 <div class="ttc" id="aclass_i_chat_socket_html"><div class="ttname"><a href="class_i_chat_socket.html">IChatSocket</a></div><div class="ttdoc">Interface to a Stream Chat WebSocket connection.</div><div class="ttdef"><b>Definition:</b> IChatSocket.h:17</div></div>
 <div class="ttc" id="aclass_u_chat_channel_html"><div class="ttname"><a href="class_u_chat_channel.html">UChatChannel</a></div><div class="ttdoc">The client-side representation of a Stream Chat channel.</div><div class="ttdef"><b>Definition:</b> ChatChannel.h:71</div></div>
 <div class="ttc" id="aclass_u_chat_channel_html_a46b26554f5b94d80e50f6ffdf289e482"><div class="ttname"><a href="class_u_chat_channel.html#a46b26554f5b94d80e50f6ffdf289e482">UChatChannel::Properties</a></div><div class="ttdeci">FChannelProperties Properties</div><div class="ttdoc">The local static properties of the channel.</div><div class="ttdef"><b>Definition:</b> ChatChannel.h:88</div></div>
-<div class="ttc" id="aclass_u_chat_channel_html_a9351ad594e8f4a2af0876b4980594647"><div class="ttname"><a href="class_u_chat_channel.html#a9351ad594e8f4a2af0876b4980594647">UChatChannel::On</a></div><div class="ttdeci">FDelegateHandle On(TEventDelegate&lt; TEvent &gt; Callback)</div><div class="ttdoc">Subscribe to a channel event using your own delegate object.</div><div class="ttdef"><b>Definition:</b> ChatChannel.h:400</div></div>
-<div class="ttc" id="aclass_u_chat_channel_html_ad7a707550c3a5b6eb6a6a807ce541a21"><div class="ttname"><a href="class_u_chat_channel.html#ad7a707550c3a5b6eb6a6a807ce541a21">UChatChannel::Unsubscribe</a></div><div class="ttdeci">bool Unsubscribe(FDelegateHandle) const</div><div class="ttdoc">Unsubscribe from a previously subscribed channel event.</div><div class="ttdef"><b>Definition:</b> ChatChannel.h:442</div></div>
-<div class="ttc" id="aclass_u_chat_channel_html_aed47eb30b9ab1fde4d67b88caa12d317"><div class="ttname"><a href="class_u_chat_channel.html#aed47eb30b9ab1fde4d67b88caa12d317">UChatChannel::SendEvent</a></div><div class="ttdeci">void SendEvent(const TEvent &amp;)</div><div class="ttdoc">Send a custom event on this channel.</div><div class="ttdef"><b>Definition:</b> ChatChannel.h:394</div></div>
-<div class="ttc" id="aclass_u_stream_chat_client_component_html"><div class="ttname"><a href="class_u_stream_chat_client_component.html">UStreamChatClientComponent</a></div><div class="ttdoc">A component which allows for connecting to the Stream Chat API. Should be added to a client-side acto...</div><div class="ttdef"><b>Definition:</b> StreamChatClientComponent.h:37</div></div>
+<div class="ttc" id="aclass_u_chat_channel_html_a9351ad594e8f4a2af0876b4980594647"><div class="ttname"><a href="class_u_chat_channel.html#a9351ad594e8f4a2af0876b4980594647">UChatChannel::On</a></div><div class="ttdeci">FDelegateHandle On(TEventDelegate&lt; TEvent &gt; Callback)</div><div class="ttdoc">Subscribe to a channel event using your own delegate object.</div><div class="ttdef"><b>Definition:</b> ChatChannel.h:391</div></div>
+<div class="ttc" id="aclass_u_chat_channel_html_ad7a707550c3a5b6eb6a6a807ce541a21"><div class="ttname"><a href="class_u_chat_channel.html#ad7a707550c3a5b6eb6a6a807ce541a21">UChatChannel::Unsubscribe</a></div><div class="ttdeci">bool Unsubscribe(FDelegateHandle) const</div><div class="ttdoc">Unsubscribe from a previously subscribed channel event.</div><div class="ttdef"><b>Definition:</b> ChatChannel.h:433</div></div>
+<div class="ttc" id="aclass_u_chat_channel_html_aed47eb30b9ab1fde4d67b88caa12d317"><div class="ttname"><a href="class_u_chat_channel.html#aed47eb30b9ab1fde4d67b88caa12d317">UChatChannel::SendEvent</a></div><div class="ttdeci">void SendEvent(const TEvent &amp;)</div><div class="ttdoc">Send a custom event on this channel.</div><div class="ttdef"><b>Definition:</b> ChatChannel.h:385</div></div>
+<div class="ttc" id="aclass_u_stream_chat_client_component_html"><div class="ttname"><a href="class_u_stream_chat_client_component.html">UStreamChatClientComponent</a></div><div class="ttdoc">A component which allows for connecting to the Stream Chat API. Should be added to a client-side acto...</div><div class="ttdef"><b>Definition:</b> StreamChatClientComponent.h:38</div></div>
 <div class="ttc" id="agroup___stream_chat_api_html_ga683630d96445bae6259c39daebb90898"><div class="ttname"><a href="group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898">EChannelFlags</a></div><div class="ttdeci">EChannelFlags</div><div class="ttdoc">Additional channel actions to perform when requesting channel data from API.</div><div class="ttdef"><b>Definition:</b> ChannelFlags.h:15</div></div>
 <div class="ttc" id="agroup___stream_chat_api_html_gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d"><div class="ttname"><a href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d">EChannelFlags::State</a></div><div class="ttdeci">@ State</div><div class="ttdoc">Refresh channel state.</div></div>
 <div class="ttc" id="agroup___stream_chat_api_html_gga683630d96445bae6259c39daebb90898a6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a6adf97f83acf6453d4a6a4b1070f3754">EChannelFlags::None</a></div><div class="ttdeci">@ None</div><div class="ttdoc">Do nothing.</div></div>

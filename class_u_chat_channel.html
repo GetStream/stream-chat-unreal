@@ -172,10 +172,6 @@ FMessageDelegate&#160;</td><td class="memItemRight" valign="bottom"><b>MessageRe
 FUnreadChangedDelegate&#160;</td><td class="memItemRight" valign="bottom"><b>UnreadChanged</b></td></tr>
 <tr class="memdesc:a27bbbd985e7a329ac34e46cbad78477e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when the unread count changes for the current user. <br /></td></tr>
 <tr class="separator:a27bbbd985e7a329ac34e46cbad78477e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7b70f55f9fc682f1a42281e56ed467b"><td class="memItemLeft" align="right" valign="top"><a id="ad7b70f55f9fc682f1a42281e56ed467b" name="ad7b70f55f9fc682f1a42281e56ed467b"></a>
-FPaginatingMessagesDelegate&#160;</td><td class="memItemRight" valign="bottom"><b>OnPaginatingMessages</b></td></tr>
-<tr class="memdesc:ad7b70f55f9fc682f1a42281e56ed467b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired during various stages of message pagination. <br /></td></tr>
-<tr class="separator:ad7b70f55f9fc682f1a42281e56ed467b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b55744dd39b09853302c5af29f2f4f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a9b55744dd39b09853302c5af29f2f4f2">SendMessage</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;Message)</td></tr>
 <tr class="memdesc:a9b55744dd39b09853302c5af29f2f4f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a message on this channel.  <a href="class_u_chat_channel.html#a9b55744dd39b09853302c5af29f2f4f2">More...</a><br /></td></tr>
 <tr class="separator:a9b55744dd39b09853302c5af29f2f4f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -185,9 +181,9 @@ FPaginatingMessagesDelegate&#160;</td><td class="memItemRight" valign="bottom"><
 <tr class="memitem:acd8d28c0f92e5aa93f9498a0307fe871"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#acd8d28c0f92e5aa93f9498a0307fe871">DeleteMessage</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;Message)</td></tr>
 <tr class="memdesc:acd8d28c0f92e5aa93f9498a0307fe871"><td class="mdescLeft">&#160;</td><td class="mdescRight">Soft delete a message in this channel.  <a href="class_u_chat_channel.html#acd8d28c0f92e5aa93f9498a0307fe871">More...</a><br /></td></tr>
 <tr class="separator:acd8d28c0f92e5aa93f9498a0307fe871"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50bf60993814bede80604b684bb4af4d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a50bf60993814bede80604b684bb4af4d">QueryAdditionalMessages</a> (EPaginationDirection Direction=EPaginationDirection::Top, int32 Limit=20)</td></tr>
-<tr class="memdesc:a50bf60993814bede80604b684bb4af4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch more messages from the server.  <a href="class_u_chat_channel.html#a50bf60993814bede80604b684bb4af4d">More...</a><br /></td></tr>
-<tr class="separator:a50bf60993814bede80604b684bb4af4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51c7135aad87cd3184dd8fe0f7733ff1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a51c7135aad87cd3184dd8fe0f7733ff1">QueryAdditionalMessages</a> (EPaginationDirection Direction=EPaginationDirection::Top, int32 Limit=20, TFunction&lt; void()&gt; Callback={})</td></tr>
+<tr class="memdesc:a51c7135aad87cd3184dd8fe0f7733ff1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch more messages from the server.  <a href="class_u_chat_channel.html#a51c7135aad87cd3184dd8fe0f7733ff1">More...</a><br /></td></tr>
+<tr class="separator:a51c7135aad87cd3184dd8fe0f7733ff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebd79c869ab9e0a304e7df8b48d42bfb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#aebd79c869ab9e0a304e7df8b48d42bfb">MarkRead</a> (const TOptional&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;Message={})</td></tr>
 <tr class="memdesc:aebd79c869ab9e0a304e7df8b48d42bfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manually mark all messages in this channel as read by the current user.  <a href="class_u_chat_channel.html#aebd79c869ab9e0a304e7df8b48d42bfb">More...</a><br /></td></tr>
 <tr class="separator:aebd79c869ab9e0a304e7df8b48d42bfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -619,8 +615,8 @@ template&lt;class TEvent , class UserClass &gt; </div>
 
 </div>
 </div>
-<a id="a50bf60993814bede80604b684bb4af4d" name="a50bf60993814bede80604b684bb4af4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50bf60993814bede80604b684bb4af4d">&#9670;&nbsp;</a></span>QueryAdditionalMessages()</h2>
+<a id="a51c7135aad87cd3184dd8fe0f7733ff1" name="a51c7135aad87cd3184dd8fe0f7733ff1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51c7135aad87cd3184dd8fe0f7733ff1">&#9670;&nbsp;</a></span>QueryAdditionalMessages()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -635,7 +631,13 @@ template&lt;class TEvent , class UserClass &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int32&#160;</td>
-          <td class="paramname"><em>Limit</em> = <code>20</code>&#160;</td>
+          <td class="paramname"><em>Limit</em> = <code>20</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TFunction&lt; void()&gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -651,6 +653,7 @@ template&lt;class TEvent , class UserClass &gt; </div>
   <table class="params">
     <tr><td class="paramname">Direction</td><td>Top if the user is scrolling up, Bottom if the user is scrolling down </td></tr>
     <tr><td class="paramname">Limit</td><td>Number of messages returned is limited by this value. Maximum 200. </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when a response is received from the backend </td></tr>
   </table>
   </dd>
 </dl>

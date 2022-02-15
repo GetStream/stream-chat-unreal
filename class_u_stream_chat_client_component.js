@@ -14,6 +14,7 @@ var class_u_stream_chat_client_component =
     [ "On", "class_u_stream_chat_client_component.html#a8faa7f538db03c650b73e9ac381eb15b", null ],
     [ "On", "class_u_stream_chat_client_component.html#a0c33fda79441595223429c1e769e320f", null ],
     [ "On", "class_u_stream_chat_client_component.html#a03464a6c70a6848cff3e0744099a7a86", null ],
+    [ "QueryAdditionalChannels", "class_u_stream_chat_client_component.html#adba9ca31b5bd31c24da7bbb63a7cfc73", null ],
     [ "QueryChannel", "class_u_stream_chat_client_component.html#a4d324df894080737f8e915db575fed6d", null ],
     [ "QueryChannels", "class_u_stream_chat_client_component.html#a6a960c3c9631c36846e57bf5e183e0e8", null ],
     [ "QueryChannels", "class_u_stream_chat_client_component.html#a70109502de94907851f19ae97fe02a8b", null ],
