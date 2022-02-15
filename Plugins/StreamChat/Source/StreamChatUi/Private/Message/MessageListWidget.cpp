@@ -11,15 +11,6 @@ UMessageListWidget::UMessageListWidget()
     bWantsChannel = true;
 }
 
-void UMessageListWidget::NativeOnInitialized()
-{
-    Super::NativeOnInitialized();
-    if (ScrollBox)
-    {
-        ScrollBox->OnUserScrolled.AddDynamic(this, &UMessageListWidget::OnUserScroll);
-    }
-}
-
 void UMessageListWidget::OnChannel()
 {
     Channel->MessagesUpdated.AddDynamic(this, &UMessageListWidget::SetMessages);
@@ -28,36 +19,6 @@ void UMessageListWidget::OnChannel()
     ChannelContext->OnStartEditMessage.AddDynamic(this, &UMessageListWidget::ScrollToBottom);
 
     SetMessages(Channel->GetMessages());
-
-    // Check if we need to already paginate messages
-    OnUserScroll(ScrollBox->GetScrollOffset());
-}
-
-void UMessageListWidget::CreateMessageWidgets(const TArray<FMessage>& Messages)
-{
-    if (!ScrollBox)
-    {
-        return;
-    }
-
-    ScrollBox->ClearChildren();
-
-    // A new stack is formed when:
-    // 1. A minute is passed between 2 messages sent from the same user.
-    // 2. Another users sends a message.
-    // TODO 3. A date stamp appears.
-    const int32 Last = Messages.Num() - 1;
-    for (int32 Index = 0; Index < Messages.Num(); ++Index)
-    {
-        const FMessage& Message = Messages[Index];
-        const EMessageSide Side = Message.User.IsCurrent() ? EMessageSide::Me : EMessageSide::You;
-        const EMessagePosition Position =
-            Index == Last || (Messages[Index + 1].CreatedAt - Message.CreatedAt > FTimespan::FromMinutes(1.) || Messages[Index + 1].User != Message.User)
-                ? EMessagePosition::End
-                : EMessagePosition::Opening;
-        UMessageWidget* Widget = CreateMessageWidget(Message, Side, Position);
-        ScrollBox->AddChild(Widget);
-    }
 }
 
 void UMessageListWidget::NativeDestruct()
@@ -75,6 +36,55 @@ void UMessageListWidget::NativeDestruct()
     Super::NativeDestruct();
 }
 
+void UMessageListWidget::Paginate()
+{
+    if (Channel)
+    {
+        Channel->QueryAdditionalMessages();
+    }
+}
+
+void UMessageListWidget::SetMessages(const TArray<FMessage>& Messages)
+{
+    if (!ScrollBox)
+    {
+        return;
+    }
+
+    CreateMessageWidgets(Messages);
+
+    Channel->MarkRead();
+}
+
+void UMessageListWidget::CreateMessageWidgets(const TArray<FMessage>& Messages)
+{
+    if (!ScrollBox)
+    {
+        return;
+    }
+
+    TArray<UWidget*> Widgets;
+    Widgets.Reserve(Messages.Num());
+
+    // A new stack is formed when:
+    // 1. A minute is passed between 2 messages sent from the same user.
+    // 2. Another users sends a message.
+    // TODO 3. A date stamp appears.
+    const int32 Last = Messages.Num() - 1;
+    for (int32 Index = 0; Index < Messages.Num(); ++Index)
+    {
+        const FMessage& Message = Messages[Index];
+        const EMessageSide Side = Message.User.IsCurrent() ? EMessageSide::Me : EMessageSide::You;
+        const EMessagePosition Position =
+            Index == Last || (Messages[Index + 1].CreatedAt - Message.CreatedAt > FTimespan::FromMinutes(1.) || Messages[Index + 1].User != Message.User)
+                ? EMessagePosition::End
+                : EMessagePosition::Opening;
+        UMessageWidget* Widget = CreateMessageWidget(Message, Side, Position);
+        Widgets.Add(Widget);
+    }
+    SetChildren(Widgets);
+}
+
 UMessageWidget* UMessageListWidget::CreateMessageWidget(const FMessage& Message, const EMessageSide Side, const EMessagePosition Position)
 {
     if (OnGetMessageWidgetEvent.IsBound())
@@ -86,50 +96,10 @@ UMessageWidget* UMessageListWidget::CreateMessageWidget(const FMessage& Message,
     return Widget;
 }
 
-void UMessageListWidget::SetMessages(const TArray<FMessage>& Messages)
-{
-    if (!ScrollBox)
-    {
-        return;
-    }
-
-    int32 FirstIndex;
-    float FirstLeadingEdge;
-    UUiBlueprintLibrary::GetFirstVisibleChildOfScrollBox(ScrollBox, FirstIndex, FirstLeadingEdge);
-    const int32 StartListLength = ScrollBox->GetChildrenCount();
-
-    CreateMessageWidgets(Messages);
-
-    // Try to maintain the position of all children
-    if (FirstIndex == INDEX_NONE)
-    {
-        ScrollBox->ScrollToEnd();
-    }
-    else
-    {
-        const int32 Index = ScrollBox->GetChildrenCount() - StartListLength + FirstIndex;
-        UWidget* Widget = ScrollBox->GetChildAt(Index);
-        ScrollBox->ScrollWidgetIntoView(Widget, false, EDescendantScrollDestination::TopOrLeft, FirstLeadingEdge);
-    }
-
-    Channel->MarkRead();
-}
-
-void UMessageListWidget::ScrollToBottom(const FMessage& Message)
+void UMessageListWidget::ScrollToBottom(const FMessage&)
 {
     if (ScrollBox)
     {
         ScrollBox->ScrollToEnd();
-    }
-}
-
-void UMessageListWidget::OnUserScroll(const float CurrentOffset)
-{
-    if (CurrentOffset < PaginateScrollThreshold)
-    {
-        if (Channel)
-        {
-            Channel->QueryAdditionalMessages();
-        }
     }
 }
