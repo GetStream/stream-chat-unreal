@@ -4,6 +4,7 @@
 
 #include "Algo/Transform.h"
 #include "HtmlDecorators.h"
+#include "HtmlParser.h"
 #include "HtmlRichTextMarkupParser.h"
 #include "RenderingThread.h"
 #include "Widgets/Text/SRichTextBlock.h"
@@ -52,9 +53,9 @@ const FSlateWidgetStyle* FHtmlSlateStyleSet::GetWidgetStyleInternal(const FName 
         const FTextBlockStyle NewStyle = Styles.MakeCombinedStyle(TagNames);
         return &CombinedStyleCache.Add(StyleName, NewStyle);
     }
-    if (DesiredTypeName == InlineTextImageStyle && TagNames.Contains("li"))
+    if (DesiredTypeName == InlineTextImageStyle && TagNames.Contains(HtmlTag::HorizontalRule))
     {
-        return &Styles.Bullet;
+        return &Styles.HorizontalRule;
     }
 
     return nullptr;
@@ -78,6 +79,7 @@ void UHtmlTextBlock::CreateDecorators(TArray<TSharedRef<ITextDecorator>>& OutDec
     OutDecorators = {
         MakeShared<FHyperlinkHtmlDecorator>(),
         MakeShared<FListItemHtmlDecorator>(),
+        MakeShared<FHorizontalRuleHtmlDecorator>(),
     };
 }
 

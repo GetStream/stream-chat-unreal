@@ -180,5 +180,5 @@ struct FHtmlElementStyles
 
     /// Brush for bullet in unordered lists
     UPROPERTY(EditAnywhere, Category = Styles)
-    FInlineTextImageStyle Bullet;
+    FInlineTextImageStyle HorizontalRule;
 };

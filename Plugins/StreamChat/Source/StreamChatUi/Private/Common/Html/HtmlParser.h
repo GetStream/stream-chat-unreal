@@ -22,6 +22,7 @@ const FName OrderedList{TEXT("ol")};
 const FName ListItem{TEXT("li")};
 const FName Paragraph{TEXT("p")};
 const FName LineBreak{TEXT("br")};
+const FName HorizontalRule{TEXT("hr")};
 }    // namespace HtmlTag
 
 class FHtmlScanner
@@ -108,10 +109,6 @@ public:
     FTextRange GetOriginalRange() const;
     FStringView GetContent() const;
     const FString& GetOutput() const;
-
-    static constexpr TCHAR ParagraphTag[] = TEXT("p");
-    static constexpr TCHAR LineBreakTag[] = TEXT("br");
-    static constexpr TCHAR ListItemTag[] = TEXT("li");
 
     int32 Line = 0;
     int32 ParagraphStartIndex = 0;
