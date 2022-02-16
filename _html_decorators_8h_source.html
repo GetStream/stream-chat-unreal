@@ -144,6 +144,17 @@ $(document).ready(function(){initNavTree('_html_decorators_8h_source.html',''); 
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    int32 LastChar = INDEX_NONE;</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    uint32 Order = 0;</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>};</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keyword">class </span>FHorizontalRuleHtmlDecorator final : <span class="keyword">public</span> FHtmlDecorator</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>{</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">virtual</span> FName GetSupportedTag() <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keyword">virtual</span> TSharedRef&lt;ISlateRun&gt; Create(</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keyword">const</span> FTextRunParseResults&amp; ParseResults,</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keyword">const</span> FRunInfo&amp; RunInfo,</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keyword">const</span> FTextRange&amp; ModelRange,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keyword">const</span> TSharedRef&lt;FString&gt;&amp; InOutModelText,</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keyword">const</span> ISlateStyle* Style) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>};</div>
 <div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8fa9dffbf69ffba8bc38bc4e01abf4b1675"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa9dffbf69ffba8bc38bc4e01abf4b1675">EMessageSortField::Text</a></div><div class="ttdeci">@ Text</div><div class="ttdoc">Text of the message.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
