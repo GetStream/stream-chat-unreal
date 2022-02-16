@@ -60,6 +60,12 @@ void FHtmlRichTextMarkupParser::Process(TArray<FTextLineParseResults>& Results, 
                 }
             }
 
+            // <br/> should only create line break. No content.
+            if (Self.ElementStack.Num() > 0 && FName(Self.ElementStack.Top().Name) == HtmlTag::LineBreak)
+            {
+                return;
+            }
+
             const FString Name = MakeRunName(Self.ElementStack);
             FTextRunParseResults Run{Name, Self.GetOriginalRange(), Self.GetContentRange()};
             Run.MetaData = GenerateMetaData(Self.ElementStack, Self.GetOutput());

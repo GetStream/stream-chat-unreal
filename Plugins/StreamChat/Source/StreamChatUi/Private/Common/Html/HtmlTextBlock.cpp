@@ -33,7 +33,7 @@ FORCEINLINE SharedPointerInternals::FRawPtrProxy<ObjectType> MakeShareableDeferr
 }
 }    // namespace
 
-const FSlateWidgetStyle* FComboSlateStyleSet::GetWidgetStyleInternal(const FName DesiredTypeName, const FName StyleName) const
+const FSlateWidgetStyle* FHtmlSlateStyleSet::GetWidgetStyleInternal(const FName DesiredTypeName, const FName StyleName) const
 {
     TArray<FString> Tags;
     StyleName.ToString().ParseIntoArray(Tags, TEXT("_"));
@@ -88,6 +88,6 @@ TSharedPtr<IRichTextMarkupParser> UHtmlTextBlock::CreateMarkupParser()
 
 void UHtmlTextBlock::UpdateStyleData()
 {
-    StyleInstance = MakeShareableDeferredCleanup(new FComboSlateStyleSet(TEXT("HtmlTextStyle"), Styles));
+    StyleInstance = MakeShareableDeferredCleanup(new FHtmlSlateStyleSet(TEXT("HtmlTextStyle"), Styles));
     DefaultTextStyle = Styles.Default;
 }
