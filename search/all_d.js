@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['name_0',['Name',['../struct_f_channel_config_with_info_dto.html#a4626e91eadbb418d1d9f4b91098cc011',1,'FChannelConfigWithInfoDto::Name()'],['../struct_f_user.html#a93c3bd7ac953ce1bf092845e7fb43422',1,'FUser::Name()']]],
-  ['name_1',['name',['../structjwt_1_1algorithm_1_1none.html#a8f34efd8955d3081f2189c07b9cec4ec',1,'jwt::algorithm::none::name()'],['../structjwt_1_1algorithm_1_1hmacsha.html#a2fd3ec7eadae1febc082d8cd66e3b48f',1,'jwt::algorithm::hmacsha::name()'],['../structjwt_1_1algorithm_1_1rsa.html#a533b279b12503e84d5a450acfe386ee2',1,'jwt::algorithm::rsa::name()'],['../structjwt_1_1algorithm_1_1ecdsa.html#aee414f0164c49a95d3cc06f7248a1c7b',1,'jwt::algorithm::ecdsa::name()'],['../structjwt_1_1algorithm_1_1pss.html#a8dd860877102b864b8a11de2336d57eb',1,'jwt::algorithm::pss::name()']]],
+  ['name_0',['name',['../structjwt_1_1algorithm_1_1none.html#a8f34efd8955d3081f2189c07b9cec4ec',1,'jwt::algorithm::none::name()'],['../structjwt_1_1algorithm_1_1hmacsha.html#a2fd3ec7eadae1febc082d8cd66e3b48f',1,'jwt::algorithm::hmacsha::name()'],['../structjwt_1_1algorithm_1_1rsa.html#a533b279b12503e84d5a450acfe386ee2',1,'jwt::algorithm::rsa::name()'],['../structjwt_1_1algorithm_1_1ecdsa.html#aee414f0164c49a95d3cc06f7248a1c7b',1,'jwt::algorithm::ecdsa::name()'],['../structjwt_1_1algorithm_1_1pss.html#a8dd860877102b864b8a11de2336d57eb',1,'jwt::algorithm::pss::name()']]],
+  ['name_1',['Name',['../struct_f_channel_config_with_info_dto.html#a4626e91eadbb418d1d9f4b91098cc011',1,'FChannelConfigWithInfoDto::Name()'],['../struct_f_user.html#a93c3bd7ac953ce1bf092845e7fb43422',1,'FUser::Name()']]],
   ['next_2',['Next',['../struct_f_search_response_dto.html#a395b784d43269ae08214835f537035c9',1,'FSearchResponseDto']]],
   ['none_3',['none',['../structjwt_1_1algorithm_1_1none.html',1,'jwt::algorithm']]],
   ['none_4',['None',['../group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a6adf97f83acf6453d4a6a4b1070f3754',1,'ChannelFlags.h']]],
