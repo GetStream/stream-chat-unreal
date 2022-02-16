@@ -62,16 +62,6 @@
             ]
         },
         {
-            "Name": "Jwt",
-            "Type": "Runtime",
-            "LoadingPhase": "Default",
-            "WhitelistPlatforms": [
-                "Win64",
-                "Linux",
-                "Mac"
-            ]
-        },
-        {
             "Name": "TokenProvider",
             "Type": "Runtime",
             "LoadingPhase": "Default",
