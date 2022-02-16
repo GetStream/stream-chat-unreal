@@ -1,7 +1,7 @@
 #include "Common/Html/HtmlDecorators.h"
 
 #include "Framework/Text/SlateHyperlinkRun.h"
-#include "Framework/Text/SlateImageRun.h"
+#include "Framework/Text/SlateTextRun.h"
 #include "HtmlParser.h"
 #include "Styling/ISlateStyle.h"
 
@@ -88,6 +88,8 @@ TSharedRef<ISlateRun> FListItemHtmlDecorator::Create(
     const TSharedRef<FString>& InOutModelText,
     const ISlateStyle* Style)
 {
-    const FInlineTextImageStyle& ImageStyle = Style->GetWidgetStyle<FInlineTextImageStyle>(Tags);
-    return FSlateImageRun::Create(RunInfo, InOutModelText, &ImageStyle.Image, ImageStyle.Baseline, ModelRange);
+    // This will do for now!
+    InOutModelText->InsertAt(0, TEXT(" • "));
+    const FTextBlockStyle TextBlockStyle = Style->GetWidgetStyle<FTextBlockStyle>(Tags);
+    return FSlateTextRun::Create(RunInfo, InOutModelText, TextBlockStyle);
 }

@@ -10,10 +10,10 @@
 
 #include "HtmlTextBlock.generated.h"
 
-class FComboSlateStyleSet final : public FSlateStyleSet
+class FHtmlSlateStyleSet final : public FSlateStyleSet
 {
 public:
-    explicit FComboSlateStyleSet(const FName& InStyleSetName, const FHtmlElementStyles& InStyles) : FSlateStyleSet{InStyleSetName}, Styles{InStyles}
+    explicit FHtmlSlateStyleSet(const FName& InStyleSetName, const FHtmlElementStyles& InStyles) : FSlateStyleSet{InStyleSetName}, Styles{InStyles}
     {
     }
 

@@ -1,7 +1,7 @@
 // Copyright 2021 Stream.IO, Inc. All Rights Reserved.
 
 #include "Common/Html/HtmlParser.h"
-#include "Common/Html/HtmlTextBlock.h"
+#include "Common/Html/HtmlRichTextMarkupParser.h"
 #include "CoreTypes.h"
 #include "Misc/AutomationTest.h"
 #include "WidgetUtil.h"
@@ -148,6 +148,7 @@ bool FHtmlParserTest::RunTest(const FString& Parameters)
                         TestEqual("ElementStackSize", Self.ElementStack.Num(), 1);
                         TestTrue("ElementStack[0]", Self.ElementStack[0].Name.Equals(TEXT("p")));
                         TestEqual("Attribs", Self.ElementStack[0].Attributes.Num(), 0);
+                        TestEqual("Line", Self.Line, 2);
                         break;
                     default:
                         break;
@@ -217,6 +218,7 @@ bool FHtmlParserTest::RunTest(const FString& Parameters)
                         TestEqual("ElementStackSize", Self.ElementStack.Num(), 1);
                         TestTrue("ElementStack[0]", Self.ElementStack[0].Name.Equals(TEXT("p")));
                         TestEqual("Attribs", Self.ElementStack[0].Attributes.Num(), 0);
+                        TestEqual("Line", Self.Line, 0);
                         break;
                     case 1:
                         TestTrue("Content", Self.GetContent().IsEmpty());
@@ -231,6 +233,7 @@ bool FHtmlParserTest::RunTest(const FString& Parameters)
                         TestEqual("ElementStackSize", Self.ElementStack.Num(), 1);
                         TestTrue("ElementStack[0]", Self.ElementStack[0].Name.Equals(TEXT("p")));
                         TestEqual("Attribs", Self.ElementStack[0].Attributes.Num(), 0);
+                        TestEqual("Line", Self.Line, 1);
                         break;
                     default:
                         break;
@@ -256,6 +259,7 @@ bool FHtmlParserTest::RunTest(const FString& Parameters)
                         TestTrue("ElementStack[0]", Self.ElementStack[0].Name.Equals(TEXT("p")));
                         TestEqual("Attribs", Self.ElementStack[0].Attributes.Num(), 0);
                         TestEqual("OpeningTagStart", Self.ElementStack[0].OpeningTagStart, 0);
+                        TestEqual("Line", Self.Line, 0);
                         break;
                     case 3:
                         TestTrue("Content", Self.GetContent().Equals(TEXT("> B")));
@@ -263,6 +267,7 @@ bool FHtmlParserTest::RunTest(const FString& Parameters)
                         TestTrue("ElementStack[0]", Self.ElementStack[0].Name.Equals(TEXT("p")));
                         TestEqual("Attribs", Self.ElementStack[0].Attributes.Num(), 0);
                         TestEqual("OpeningTagStart", Self.ElementStack[0].OpeningTagStart, 0);
+                        TestEqual("Line", Self.Line, 2);
                         break;
                     case 6:
                         TestTrue("Content", Self.GetContent().Equals(TEXT("C")));
@@ -270,6 +275,7 @@ bool FHtmlParserTest::RunTest(const FString& Parameters)
                         TestTrue("ElementStack[0]", Self.ElementStack[0].Name.Equals(TEXT("p")));
                         TestEqual("Attribs", Self.ElementStack[0].Attributes.Num(), 0);
                         TestEqual("OpeningTagStart", Self.ElementStack[0].OpeningTagStart, 0);
+                        TestEqual("Line", Self.Line, 4);
                         break;
                     case 1:
                     case 2:
