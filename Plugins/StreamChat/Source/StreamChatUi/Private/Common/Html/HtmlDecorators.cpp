@@ -1,29 +1,40 @@
 #include "Common/Html/HtmlDecorators.h"
 
+#include "Algo/Transform.h"
 #include "Framework/Text/SlateHyperlinkRun.h"
 #include "Framework/Text/SlateTextRun.h"
 #include "HtmlParser.h"
 #include "Styling/ISlateStyle.h"
 
+const TArray<FName>& FHtmlDecorator::GetTags(const FString& RunName) const
+{
+    if (TArray<FName>* Found = ParsedTagsCache.Find(RunName))
+    {
+        return *Found;
+    }
+    TArray<FString> Tags;
+    RunName.ParseIntoArray(Tags, TEXT("_"));
+    TArray<FName> TagNames;
+    Algo::Transform(Tags, TagNames, [](const FString& Str) { return FName(Str); });
+    return ParsedTagsCache.Add(RunName, TagNames);
+}
+
 bool FHtmlDecorator::Supports(const FTextRunParseResults& RunInfo, const FString& Text) const
 {
-    TArray<FString> Tags;
-    RunInfo.Name.ParseIntoArray(Tags, TEXT("_"));
-    return Tags.Contains(GetSupportedTag());
+    return GetTags(RunInfo.Name).Contains(GetSupportedTag());
 }
 
 TSharedRef<ISlateRun> FHtmlDecorator::Create(
     const TSharedRef<FTextLayout>& TextLayout,
-    const FTextRunParseResults& TextRun,
+    const FTextRunParseResults& ParseResults,
     const FString& ProcessedText,
     const TSharedRef<FString>& InOutModelText,
     const ISlateStyle* Style)
 {
-    const FName Tags{TextRun.Name};
-    check(Style->HasWidgetStyle<FTextBlockStyle>(Tags));
+    check(Style->HasWidgetStyle<FTextBlockStyle>(FName{ParseResults.Name}));
 
-    FRunInfo RunInfo(TextRun.Name);
-    for (const TPair<FString, FTextRange>& Pair : TextRun.MetaData)
+    FRunInfo RunInfo(ParseResults.Name);
+    for (const TPair<FString, FTextRange>& Pair : ParseResults.MetaData)
     {
         const int32 Length = FMath::Max(0, Pair.Value.EndIndex - Pair.Value.BeginIndex);
         RunInfo.MetaData.Add(Pair.Key, ProcessedText.Mid(Pair.Value.BeginIndex, Length));
@@ -31,27 +42,26 @@ TSharedRef<ISlateRun> FHtmlDecorator::Create(
 
     FTextRange ModelRange;
     ModelRange.BeginIndex = InOutModelText->Len();
-    *InOutModelText += ProcessedText.Mid(TextRun.ContentRange.BeginIndex, TextRun.ContentRange.EndIndex - TextRun.ContentRange.BeginIndex);
+    *InOutModelText += ProcessedText.Mid(ParseResults.ContentRange.BeginIndex, ParseResults.ContentRange.EndIndex - ParseResults.ContentRange.BeginIndex);
     ModelRange.EndIndex = InOutModelText->Len();
 
-    return Create(Tags, RunInfo, ModelRange, InOutModelText, Style);
+    return Create(ParseResults, RunInfo, ModelRange, InOutModelText, Style);
 }
 
-FString FHyperlinkHtmlDecorator::GetSupportedTag() const
+FName FHyperlinkHtmlDecorator::GetSupportedTag() const
 {
-    static FString SupportedTag = HtmlTag::Anchor.ToString();
-    return SupportedTag;
+    return HtmlTag::Anchor;
 }
 
 TSharedRef<ISlateRun> FHyperlinkHtmlDecorator::Create(
-    const FName& Tags,
+    const FTextRunParseResults& ParseResults,
     const FRunInfo& RunInfo,
     const FTextRange& ModelRange,
     const TSharedRef<FString>& InOutModelText,
     const ISlateStyle* Style)
 {
     FHyperlinkStyle HyperlinkStyle;
-    HyperlinkStyle.SetTextStyle(Style->GetWidgetStyle<FTextBlockStyle>(Tags));
+    HyperlinkStyle.SetTextStyle(Style->GetWidgetStyle<FTextBlockStyle>(FName{RunInfo.Name}));
     FButtonStyle ButtonStyle;
     ButtonStyle.Normal.DrawAs = ESlateBrushDrawType::NoDrawType;
     ButtonStyle.Hovered.DrawAs = ESlateBrushDrawType::NoDrawType;
@@ -75,21 +85,37 @@ TSharedRef<ISlateRun> FHyperlinkHtmlDecorator::Create(
         ModelRange);
 }
 
-FString FListItemHtmlDecorator::GetSupportedTag() const
+FName FListItemHtmlDecorator::GetSupportedTag() const
 {
-    static FString SupportedTag = HtmlTag::ListItem.ToString();
-    return SupportedTag;
+    return HtmlTag::ListItem;
 }
 
 TSharedRef<ISlateRun> FListItemHtmlDecorator::Create(
-    const FName& Tags,
+    const FTextRunParseResults& ParseResults,
     const FRunInfo& RunInfo,
     const FTextRange& ModelRange,
     const TSharedRef<FString>& InOutModelText,
     const ISlateStyle* Style)
 {
-    // This will do for now!
-    InOutModelText->InsertAt(0, TEXT(" • "));
-    const FTextBlockStyle TextBlockStyle = Style->GetWidgetStyle<FTextBlockStyle>(Tags);
+    if (GetTags(RunInfo.Name).Contains(HtmlTag::OrderedList))
+    {
+        if (ParseResults.ContentRange.BeginIndex > LastChar)
+        {
+            LastChar = ParseResults.ContentRange.BeginIndex;
+            ++Order;
+        }
+        else
+        {
+            LastChar = INDEX_NONE;
+            Order = 0;
+        }
+        InOutModelText->InsertAt(0, FString::Printf(TEXT("%2d. "), Order));
+    }
+    else
+    {
+        // This will do for now!
+        InOutModelText->InsertAt(0, TEXT(" • "));
+    }
+    const FTextBlockStyle TextBlockStyle = Style->GetWidgetStyle<FTextBlockStyle>(FName{RunInfo.Name});
     return FSlateTextRun::Create(RunInfo, InOutModelText, TextBlockStyle);
 }
