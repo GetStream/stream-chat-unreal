@@ -1,38 +1,5 @@
 var annotated_dup =
 [
-    [ "jwt", "namespacejwt.html", [
-      [ "algorithm", "namespacejwt_1_1algorithm.html", [
-        [ "ecdsa", "structjwt_1_1algorithm_1_1ecdsa.html", "structjwt_1_1algorithm_1_1ecdsa" ],
-        [ "es256", "structjwt_1_1algorithm_1_1es256.html", "structjwt_1_1algorithm_1_1es256" ],
-        [ "es384", "structjwt_1_1algorithm_1_1es384.html", "structjwt_1_1algorithm_1_1es384" ],
-        [ "es512", "structjwt_1_1algorithm_1_1es512.html", "structjwt_1_1algorithm_1_1es512" ],
-        [ "hmacsha", "structjwt_1_1algorithm_1_1hmacsha.html", "structjwt_1_1algorithm_1_1hmacsha" ],
-        [ "hs256", "structjwt_1_1algorithm_1_1hs256.html", "structjwt_1_1algorithm_1_1hs256" ],
-        [ "hs384", "structjwt_1_1algorithm_1_1hs384.html", "structjwt_1_1algorithm_1_1hs384" ],
-        [ "hs512", "structjwt_1_1algorithm_1_1hs512.html", "structjwt_1_1algorithm_1_1hs512" ],
-        [ "none", "structjwt_1_1algorithm_1_1none.html", "structjwt_1_1algorithm_1_1none" ],
-        [ "ps256", "structjwt_1_1algorithm_1_1ps256.html", "structjwt_1_1algorithm_1_1ps256" ],
-        [ "ps384", "structjwt_1_1algorithm_1_1ps384.html", "structjwt_1_1algorithm_1_1ps384" ],
-        [ "ps512", "structjwt_1_1algorithm_1_1ps512.html", "structjwt_1_1algorithm_1_1ps512" ],
-        [ "pss", "structjwt_1_1algorithm_1_1pss.html", "structjwt_1_1algorithm_1_1pss" ],
-        [ "rs256", "structjwt_1_1algorithm_1_1rs256.html", "structjwt_1_1algorithm_1_1rs256" ],
-        [ "rs384", "structjwt_1_1algorithm_1_1rs384.html", "structjwt_1_1algorithm_1_1rs384" ],
-        [ "rs512", "structjwt_1_1algorithm_1_1rs512.html", "structjwt_1_1algorithm_1_1rs512" ],
-        [ "rsa", "structjwt_1_1algorithm_1_1rsa.html", "structjwt_1_1algorithm_1_1rsa" ]
-      ] ],
-      [ "alphabet", "namespacejwt_1_1alphabet.html", [
-        [ "base64", "structjwt_1_1alphabet_1_1base64.html", null ],
-        [ "base64url", "structjwt_1_1alphabet_1_1base64url.html", null ]
-      ] ],
-      [ "base", "classjwt_1_1base.html", null ],
-      [ "basic_claim", "classjwt_1_1basic__claim.html", "classjwt_1_1basic__claim" ],
-      [ "builder", "classjwt_1_1builder.html", "classjwt_1_1builder" ],
-      [ "decoded_jwt", "classjwt_1_1decoded__jwt.html", "classjwt_1_1decoded__jwt" ],
-      [ "default_clock", "structjwt_1_1default__clock.html", null ],
-      [ "header", "classjwt_1_1header.html", "classjwt_1_1header" ],
-      [ "payload", "classjwt_1_1payload.html", "classjwt_1_1payload" ],
-      [ "verifier", "classjwt_1_1verifier.html", "classjwt_1_1verifier" ]
-    ] ],
     [ "FChannelConfig", "struct_f_channel_config.html", "struct_f_channel_config" ],
     [ "FChannelConfigWithInfoDto", "struct_f_channel_config_with_info_dto.html", "struct_f_channel_config_with_info_dto" ],
     [ "FChannelEvent", "struct_f_channel_event.html", "struct_f_channel_event" ],

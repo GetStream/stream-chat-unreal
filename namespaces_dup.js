@@ -16,10 +16,8 @@ var namespaces_dup =
       [ "UStructToJsonAttributes", "namespace_json_object_serialization.html#ac6ece5ebd6cb1cada8e3b949cdffbc31", null ]
     ] ],
     [ "Jwt", "namespace_jwt.html", [
-      [ "Development", "namespace_jwt.html#a05e45338260d31b79d56b6083657ba75", null ],
-      [ "GenerateJwt", "namespace_jwt.html#ac9d9c4f9a93ea0524a2925106acd60e6", null ]
+      [ "Development", "namespace_jwt.html#ae46dfb72a31d89e7cb2cdf66e534490a", null ]
     ] ],
-    [ "jwt", "namespacejwt.html", "namespacejwt" ],
     [ "Util", "namespace_util.html", [
       [ "Convert", "namespace_util.html#a0cc92701804c45a7497b09167f24a477", null ],
       [ "Convert", "namespace_util.html#a3873b27a49f53e3b7fc1aaded816c029", null ],

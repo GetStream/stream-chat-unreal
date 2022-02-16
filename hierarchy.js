@@ -1,16 +1,5 @@
 var hierarchy =
 [
-    [ "jwt::base", "classjwt_1_1base.html", null ],
-    [ "jwt::alphabet::base64", "structjwt_1_1alphabet_1_1base64.html", null ],
-    [ "jwt::alphabet::base64url", "structjwt_1_1alphabet_1_1base64url.html", null ],
-    [ "jwt::basic_claim< json_traits >", "classjwt_1_1basic__claim.html", null ],
-    [ "jwt::builder< json_traits >", "classjwt_1_1builder.html", null ],
-    [ "jwt::default_clock", "structjwt_1_1default__clock.html", null ],
-    [ "jwt::algorithm::ecdsa", "structjwt_1_1algorithm_1_1ecdsa.html", [
-      [ "jwt::algorithm::es256", "structjwt_1_1algorithm_1_1es256.html", null ],
-      [ "jwt::algorithm::es384", "structjwt_1_1algorithm_1_1es384.html", null ],
-      [ "jwt::algorithm::es512", "structjwt_1_1algorithm_1_1es512.html", null ]
-    ] ],
     [ "FChannelConfig", "struct_f_channel_config.html", null ],
     [ "FChannelConfigWithInfoDto", "struct_f_channel_config_with_info_dto.html", null ],
     [ "FChannelGetOrCreateRequestDto", "struct_f_channel_get_or_create_request_dto.html", null ],
@@ -108,29 +97,7 @@ var hierarchy =
     [ "FUserRef", "struct_f_user_ref.html", null ],
     [ "FUserSortOption", "struct_f_user_sort_option.html", null ],
     [ "FUsersResponseDto", "struct_f_users_response_dto.html", null ],
-    [ "jwt::header< json_traits >", "classjwt_1_1header.html", [
-      [ "jwt::decoded_jwt< json_traits >", "classjwt_1_1decoded__jwt.html", null ]
-    ] ],
-    [ "jwt::algorithm::hmacsha", "structjwt_1_1algorithm_1_1hmacsha.html", [
-      [ "jwt::algorithm::hs256", "structjwt_1_1algorithm_1_1hs256.html", null ],
-      [ "jwt::algorithm::hs384", "structjwt_1_1algorithm_1_1hs384.html", null ],
-      [ "jwt::algorithm::hs512", "structjwt_1_1algorithm_1_1hs512.html", null ]
-    ] ],
     [ "IChatSocket", "class_i_chat_socket.html", null ],
-    [ "jwt::algorithm::none", "structjwt_1_1algorithm_1_1none.html", null ],
-    [ "jwt::payload< json_traits >", "classjwt_1_1payload.html", [
-      [ "jwt::decoded_jwt< json_traits >", "classjwt_1_1decoded__jwt.html", null ]
-    ] ],
-    [ "jwt::algorithm::pss", "structjwt_1_1algorithm_1_1pss.html", [
-      [ "jwt::algorithm::ps256", "structjwt_1_1algorithm_1_1ps256.html", null ],
-      [ "jwt::algorithm::ps384", "structjwt_1_1algorithm_1_1ps384.html", null ],
-      [ "jwt::algorithm::ps512", "structjwt_1_1algorithm_1_1ps512.html", null ]
-    ] ],
-    [ "jwt::algorithm::rsa", "structjwt_1_1algorithm_1_1rsa.html", [
-      [ "jwt::algorithm::rs256", "structjwt_1_1algorithm_1_1rs256.html", null ],
-      [ "jwt::algorithm::rs384", "structjwt_1_1algorithm_1_1rs384.html", null ],
-      [ "jwt::algorithm::rs512", "structjwt_1_1algorithm_1_1rs512.html", null ]
-    ] ],
     [ "UAdditionalFieldsBlueprintLibrary", "class_u_additional_fields_blueprint_library.html", null ],
     [ "UBottomReactionWidget", "class_u_bottom_reaction_widget.html", null ],
     [ "UChannelContextWidget", "class_u_channel_context_widget.html", null ],
@@ -147,6 +114,5 @@ var hierarchy =
     [ "UStreamChatSettings", "class_u_stream_chat_settings.html", null ],
     [ "UStreamChatWebSocketSettings", "class_u_stream_chat_web_socket_settings.html", null ],
     [ "UTypingIndicatorWidget", "class_u_typing_indicator_widget.html", null ],
-    [ "UUserBlueprintLibrary", "class_u_user_blueprint_library.html", null ],
-    [ "jwt::verifier< Clock, json_traits >", "classjwt_1_1verifier.html", null ]
+    [ "UUserBlueprintLibrary", "class_u_user_blueprint_library.html", null ]
 ];

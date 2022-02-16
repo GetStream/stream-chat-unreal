@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.3"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Stream Chat Unreal SDK: Class Members - Functions</title>
+<title>Stream Chat Unreal SDK: Source/StreamChat/Public/User/Jwt.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -65,7 +65,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('functions_func_w.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('_jwt_8h_source.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -83,22 +83,29 @@ $(document).ready(function(){initNavTree('functions_func_w.html',''); initResiza
 </iframe>
 </div>
 
+<div class="header">
+  <div class="headertitle"><div class="title">Jwt.h</div></div>
+</div><!--header-->
 <div class="contents">
-&#160;
-
-<h3><a id="index_w" name="index_w"></a>- w -</h3><ul>
-<li>WatchChannel()&#160;:&#160;<a class="el" href="class_u_stream_chat_client_component.html#a705b3527835b5c7354ee5eeb8859320a">UStreamChatClientComponent</a></li>
-<li>with_audience()&#160;:&#160;<a class="el" href="classjwt_1_1verifier.html#a7cf070f76669f32c96e38ee4e9c5cb00">jwt::verifier&lt; Clock, json_traits &gt;</a></li>
-<li>with_claim()&#160;:&#160;<a class="el" href="classjwt_1_1verifier.html#a9ad51170089fb1566c5d97314cc33e41">jwt::verifier&lt; Clock, json_traits &gt;</a></li>
-<li>with_id()&#160;:&#160;<a class="el" href="classjwt_1_1verifier.html#af26d00278aca90b1c4ee80531aebb8ed">jwt::verifier&lt; Clock, json_traits &gt;</a></li>
-<li>with_issuer()&#160;:&#160;<a class="el" href="classjwt_1_1verifier.html#ad7cf48fc13d29bc59643379c891232cb">jwt::verifier&lt; Clock, json_traits &gt;</a></li>
-<li>with_subject()&#160;:&#160;<a class="el" href="classjwt_1_1verifier.html#a7ae6f50c039290ac6f87e7dda905c25c">jwt::verifier&lt; Clock, json_traits &gt;</a></li>
-</ul>
-</div><!-- contents -->
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright 2021 Stream.IO, Inc. All Rights Reserved.</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="namespace_jwt.html">   10</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespace_jwt.html">Jwt</a></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>STREAMCHAT_API FString <a class="code hl_function" href="namespace_jwt.html#ae46dfb72a31d89e7cb2cdf66e534490a">Development</a>(<span class="keyword">const</span> FString&amp; <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa4733e94f511132be01e92cc23c017d16">UserId</a>);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>}    <span class="comment">// namespace Jwt</span></div>
+<div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8fa4733e94f511132be01e92cc23c017d16"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa4733e94f511132be01e92cc23c017d16">EMessageSortField::UserId</a></div><div class="ttdeci">@ UserId</div><div class="ttdoc">The user ID of the user that sent the message.</div></div>
+<div class="ttc" id="anamespace_jwt_html"><div class="ttname"><a href="namespace_jwt.html">Jwt</a></div><div class="ttdoc">Utilities for JSON Web Token manipulation.</div><div class="ttdef"><b>Definition:</b> Jwt.h:11</div></div>
+<div class="ttc" id="anamespace_jwt_html_ae46dfb72a31d89e7cb2cdf66e534490a"><div class="ttname"><a href="namespace_jwt.html#ae46dfb72a31d89e7cb2cdf66e534490a">Jwt::Development</a></div><div class="ttdeci">STREAMCHAT_API FString Development(const FString &amp;UserId)</div><div class="ttdoc">Generate a JSON Web Token which can be used during development.</div><div class="ttdef"><b>Definition:</b> Jwt.cpp:7</div></div>
+</div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_20ea45809be488128d9196fc2ca964b5.html">StreamChat</a></li><li class="navelem"><a class="el" href="dir_a80e2c3d73be179cb8702e50d88d8258.html">Public</a></li><li class="navelem"><a class="el" href="dir_1b4ee6203055967dbf7bcababc3ae4d8.html">User</a></li><li class="navelem"><b>Jwt.h</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
