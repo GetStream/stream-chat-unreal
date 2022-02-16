@@ -5,7 +5,6 @@
 #include "ConstantTokenProvider.h"
 #include "Dom/JsonObject.h"
 #include "IChatSocket.h"
-#include "Jwt.h"
 #include "Misc/AutomationTest.h"
 #include "Request/User/UserObjectRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
@@ -14,6 +13,7 @@
 #include "Response/User/GuestResponseDto.h"
 #include "Response/User/UsersResponseDto.h"
 #include "TokenManager.h"
+#include "User/Jwt.h"
 #include "User/User.h"
 
 BEGIN_DEFINE_SPEC(FChatApiSpec, "StreamChat.ChatApi", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)

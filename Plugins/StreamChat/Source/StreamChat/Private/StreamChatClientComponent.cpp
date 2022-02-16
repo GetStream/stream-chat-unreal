@@ -11,7 +11,6 @@
 #include "Event/Client/ConnectionRecoveredEvent.h"
 #include "Event/User/UserPresenceChangedEvent.h"
 #include "IChatSocket.h"
-#include "Jwt/Public/Jwt.h"
 #include "Request/Message/MessageRequestDto.h"
 #include "Request/User/UserObjectRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
@@ -22,6 +21,7 @@
 #include "StreamChatSettings.h"
 #include "Token.h"
 #include "TokenManager.h"
+#include "User/Jwt.h"
 #include "User/UserManager.h"
 #include "Util.h"
 
