@@ -286,7 +286,7 @@ bool FHtmlParser::Element()
 {
     // Parse start tag <a>
     check(Current.Type == FHtmlScanner::ETokenType::Identifier);
-    if (Current.Lexeme.Equals(LineBreakTag))
+    if (FName(Current.Lexeme) == HtmlTag::LineBreak || FName(Current.Lexeme) == HtmlTag::HorizontalRule)
     {
         Newline(Scanner.PrevStart);
     }
@@ -363,7 +363,8 @@ bool FHtmlParser::Element()
 
 void FHtmlParser::CloseElement()
 {
-    if (ElementStack.Top().Name.Equals(ParagraphTag) || ElementStack.Top().Name.Equals(ListItemTag))
+    if (FName(ElementStack.Top().Name) == HtmlTag::Paragraph || FName(ElementStack.Top().Name) == HtmlTag::ListItem ||
+        FName(ElementStack.Top().Name) == HtmlTag::HorizontalRule)
     {
         Newline(Scanner.Start);
     }

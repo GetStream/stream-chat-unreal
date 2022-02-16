@@ -55,3 +55,14 @@ protected:
     int32 LastChar = INDEX_NONE;
     uint32 Order = 0;
 };
+class FHorizontalRuleHtmlDecorator final : public FHtmlDecorator
+{
+protected:
+    virtual FName GetSupportedTag() const override;
+    virtual TSharedRef<ISlateRun> Create(
+        const FTextRunParseResults& ParseResults,
+        const FRunInfo& RunInfo,
+        const FTextRange& ModelRange,
+        const TSharedRef<FString>& InOutModelText,
+        const ISlateStyle* Style) override;
+};

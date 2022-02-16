@@ -2,6 +2,7 @@
 
 #include "Algo/Transform.h"
 #include "Framework/Text/SlateHyperlinkRun.h"
+#include "Framework/Text/SlateImageRun.h"
 #include "Framework/Text/SlateTextRun.h"
 #include "HtmlParser.h"
 #include "Styling/ISlateStyle.h"
@@ -116,6 +117,27 @@ TSharedRef<ISlateRun> FListItemHtmlDecorator::Create(
         // This will do for now!
         InOutModelText->InsertAt(0, TEXT(" • "));
     }
-    const FTextBlockStyle TextBlockStyle = Style->GetWidgetStyle<FTextBlockStyle>(FName{RunInfo.Name});
+    const FTextBlockStyle& TextBlockStyle = Style->GetWidgetStyle<FTextBlockStyle>(FName{RunInfo.Name});
     return FSlateTextRun::Create(RunInfo, InOutModelText, TextBlockStyle);
+}
+
+FName FHorizontalRuleHtmlDecorator::GetSupportedTag() const
+{
+    return HtmlTag::HorizontalRule;
+}
+
+TSharedRef<ISlateRun> FHorizontalRuleHtmlDecorator::Create(
+    const FTextRunParseResults& ParseResults,
+    const FRunInfo& RunInfo,
+    const FTextRange& ModelRange,
+    const TSharedRef<FString>& InOutModelText,
+    const ISlateStyle* Style)
+{
+    FTextRange ImgRange;
+    ImgRange.BeginIndex = InOutModelText->Len();
+    *InOutModelText += TEXT('\x200B');    // Zero-Width Breaking Space
+    ImgRange.EndIndex = InOutModelText->Len();
+
+    const FInlineTextImageStyle& ImageStyle = Style->GetWidgetStyle<FInlineTextImageStyle>(FName{RunInfo.Name});
+    return FSlateImageRun::Create(RunInfo, InOutModelText, &ImageStyle.Image, ImageStyle.Baseline, ImgRange);
 }
