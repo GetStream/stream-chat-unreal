@@ -2,6 +2,7 @@
 
 #include "Common/PaginateScrollWidget.h"
 
+#include "TimerManager.h"
 #include "UiBlueprintLibrary.h"
 
 void UPaginateScrollWidget::OnPreConstruct()
