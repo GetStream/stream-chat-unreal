@@ -18,7 +18,8 @@
     "WhitelistPlatforms": [
         "Win64",
         "Mac",
-        "Linux"
+        "Linux",
+        "Android"
     ],
     "Modules": [
         {
@@ -28,7 +29,8 @@
             "WhitelistPlatforms": [
                 "Win64",
                 "Linux",
-                "Mac"
+                "Mac",
+                "Android"
             ]
         },
         {
@@ -38,7 +40,8 @@
             "WhitelistPlatforms": [
                 "Win64",
                 "Linux",
-                "Mac"
+                "Mac",
+                "Android"
             ]
         },
         {
@@ -48,7 +51,8 @@
             "WhitelistPlatforms": [
                 "Win64",
                 "Linux",
-                "Mac"
+                "Mac",
+                "Android"
             ]
         },
         {
@@ -58,7 +62,8 @@
             "WhitelistPlatforms": [
                 "Win64",
                 "Linux",
-                "Mac"
+                "Mac",
+                "Android"
             ]
         },
         {
@@ -68,7 +73,8 @@
             "WhitelistPlatforms": [
                 "Win64",
                 "Linux",
-                "Mac"
+                "Mac",
+                "Android"
             ]
         },
         {
@@ -78,7 +84,8 @@
             "WhitelistPlatforms": [
                 "Win64",
                 "Linux",
-                "Mac"
+                "Mac",
+                "Android"
             ]
         },
         {
@@ -88,7 +95,8 @@
             "WhitelistPlatforms": [
                 "Win64",
                 "Linux",
-                "Mac"
+                "Mac",
+                "Android"
             ]
         },
         {
@@ -98,7 +106,8 @@
             "WhitelistPlatforms": [
                 "Win64",
                 "Linux",
-                "Mac"
+                "Mac",
+                "Android"
             ]
         },
         {
@@ -108,7 +117,8 @@
             "WhitelistPlatforms": [
                 "Win64",
                 "Linux",
-                "Mac"
+                "Mac",
+                "Android"
             ]
         },
         {
@@ -118,7 +128,8 @@
             "WhitelistPlatforms": [
                 "Win64",
                 "Linux",
-                "Mac"
+                "Mac",
+                "Android"
             ]
         }
     ]
