@@ -59,15 +59,15 @@ protected:
 
 private:
     virtual void OnSetup() override;
-    virtual void OnTheme(const UThemeDataAsset*) override;
+    virtual void OnTheme() override;
 
     UFUNCTION()
     void OnButtonClicked();
 
     UTexture2D* GetButtonTexture() const;
     FMargin GetButtonMargin() const;
-    const FLinearColor& GetIconColor(const UThemeDataAsset* Theme) const;
-    const FLinearColor& GetTextColor(const UThemeDataAsset* Theme) const;
+    const FLinearColor& GetIconColor() const;
+    const FLinearColor& GetTextColor() const;
 
     UPROPERTY(EditAnywhere, Instanced, Category = Setup)
     UContextMenuAction* Action;

@@ -10,8 +10,6 @@
 
 #include "ChannelContextWidget.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FStartEditMessageDelegate, const FMessage&, Message);
-
 /**
  * @brief Provide a reference to a \ref UChatChannel to child widgets
  *
@@ -33,6 +31,7 @@ public:
     static UChatChannel* GetChannel(const UWidget* Widget);
     UChatChannel* GetChannel() const;
 
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FStartEditMessageDelegate, const FMessage&, Message);
     UPROPERTY(BlueprintAssignable)
     FStartEditMessageDelegate OnStartEditMessage;
 

@@ -61,7 +61,7 @@ protected:
 
 private:
     virtual void OnSetup() override;
-    virtual void OnTheme(const UThemeDataAsset*) override;
+    virtual void OnTheme() override;
 
     virtual void NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
     virtual void NativeOnMouseLeave(const FPointerEvent& InMouseEvent) override;

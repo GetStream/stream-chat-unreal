@@ -44,7 +44,7 @@ void UBottomReactionWidget::OnSetup()
     }
 }
 
-void UBottomReactionWidget::OnTheme(const UThemeDataAsset* Theme)
+void UBottomReactionWidget::OnTheme()
 {
     if (Border)
     {

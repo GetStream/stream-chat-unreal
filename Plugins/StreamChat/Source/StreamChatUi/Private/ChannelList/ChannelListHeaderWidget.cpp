@@ -9,7 +9,7 @@ UChannelListHeaderWidget::UChannelListHeaderWidget()
     bWantsTheme = true;
 }
 
-void UChannelListHeaderWidget::OnTheme(const UThemeDataAsset* Theme)
+void UChannelListHeaderWidget::OnTheme()
 {
     if (Icon)
     {

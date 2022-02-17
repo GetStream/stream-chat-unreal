@@ -24,7 +24,7 @@ void UChannelWidget::OnSetup()
     }
 }
 
-void UChannelWidget::OnTheme(const UThemeDataAsset* Theme)
+void UChannelWidget::OnTheme()
 {
     if (HeaderDivider)
     {

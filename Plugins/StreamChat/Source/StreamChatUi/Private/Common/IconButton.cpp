@@ -62,7 +62,7 @@ void UIconButton::NativeOnInitialized()
     }
 }
 
-void UIconButton::OnTheme(const UThemeDataAsset* Theme)
+void UIconButton::OnTheme()
 {
     const FSlateColor EnabledColor{Theme->GetPaletteColor(Theme->IconButtonEnabledBackgroundColor)};
     const FSlateColor DisabledColor{Theme->GetPaletteColor(Theme->IconButtonDisabledBackgroundColor)};

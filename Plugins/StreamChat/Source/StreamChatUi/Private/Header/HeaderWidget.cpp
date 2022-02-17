@@ -51,7 +51,7 @@ void UHeaderWidget::OnSetup()
     }
 }
 
-void UHeaderWidget::OnTheme(const UThemeDataAsset* Theme)
+void UHeaderWidget::OnTheme()
 {
     if (Border)
     {

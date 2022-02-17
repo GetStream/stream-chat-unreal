@@ -67,7 +67,7 @@ protected:
 
 private:
     virtual void OnSetup() override;
-    virtual void OnTheme(const UThemeDataAsset*) override;
+    virtual void OnTheme() override;
 
     virtual int32 NativePaint(
         const FPaintArgs& Args,

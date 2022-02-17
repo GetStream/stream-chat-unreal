@@ -46,7 +46,7 @@ void UReactionsTooltipWidget::OnSetup()
     }
 }
 
-void UReactionsTooltipWidget::OnTheme(const UThemeDataAsset* Theme)
+void UReactionsTooltipWidget::OnTheme()
 {
     if (BackgroundBorder)
     {

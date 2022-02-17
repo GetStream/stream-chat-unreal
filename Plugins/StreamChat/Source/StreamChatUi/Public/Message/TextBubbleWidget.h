@@ -53,10 +53,10 @@ protected:
 
 private:
     virtual void OnSetup() override;
-    virtual void OnTheme(const UThemeDataAsset*) override;
+    virtual void OnTheme() override;
 
     UTexture2D* GetBubbleTexture() const;
-    const FLinearColor& GetBubbleColor(const UThemeDataAsset*) const;
+    const FLinearColor& GetBubbleColor() const;
     FText GetText() const;
     bool IsSingleEmoji() const;
 };

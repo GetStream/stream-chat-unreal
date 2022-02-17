@@ -24,12 +24,20 @@ public:
     FChannelStatusClicked OnChannelStatusClicked;
 
 protected:
+    virtual void NativeDestruct() override;
     virtual void Paginate(const EPaginationDirection Direction, const TFunction<void()> Callback) override;
+
+    UPROPERTY(meta = (BindWidget))
+    UImage* Divider;
+
+    UPROPERTY(EditAnywhere, Category = Defaults)
+    bool bAutoSelectFirstChannel = true;
     UPROPERTY(EditAnywhere, NoClear, Category = Defaults)
     TSubclassOf<UChannelStatusWidget> ChannelStatusWidgetClass = UChannelStatusWidget::StaticClass();
 
 private:
     virtual void OnClient() override;
+    virtual void OnTheme() override;
 
     UFUNCTION()
     void ChannelStatusClicked(UChatChannel* ClickedChannel);
