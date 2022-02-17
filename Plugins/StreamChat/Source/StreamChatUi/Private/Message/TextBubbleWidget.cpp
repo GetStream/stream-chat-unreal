@@ -26,7 +26,7 @@ void UTextBubbleWidget::OnSetup()
     }
 }
 
-void UTextBubbleWidget::OnTheme(const UThemeDataAsset* Theme)
+void UTextBubbleWidget::OnTheme()
 {
     const bool bSingleEmoji = IsSingleEmoji();
     if (TextBlock)
@@ -49,7 +49,7 @@ void UTextBubbleWidget::OnTheme(const UThemeDataAsset* Theme)
 
     if (Border)
     {
-        Border->SetBrushColor(GetBubbleColor(Theme));
+        Border->SetBrushColor(GetBubbleColor());
 
         if (bSingleEmoji)
         {
@@ -95,7 +95,7 @@ UTexture2D* UTextBubbleWidget::GetBubbleTexture() const
     return nullptr;
 }
 
-const FLinearColor& UTextBubbleWidget::GetBubbleColor(const UThemeDataAsset* Theme) const
+const FLinearColor& UTextBubbleWidget::GetBubbleColor() const
 {
     if (Message.Type == EMessageType::Deleted)
     {

@@ -78,6 +78,10 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Icon Button")
     FName IconButtonDisabledBackgroundColor = TEXT("disabled");
 
+    // The background color of a button in the reaction picker when hovered/clicked
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Back Button")
+    FName BackButtonSelectedColor = TEXT("input-bg");
+
     /// The color of the timestamp text under a message stack
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Timestamp")
     FName TimestampTextColor = TEXT("text-low-emphasis");

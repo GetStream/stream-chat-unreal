@@ -44,7 +44,7 @@ void UTimestampWidget::OnSetup()
     }
 }
 
-void UTimestampWidget::OnTheme(const UThemeDataAsset* Theme)
+void UTimestampWidget::OnTheme()
 {
     if (UserTextBlock)
     {

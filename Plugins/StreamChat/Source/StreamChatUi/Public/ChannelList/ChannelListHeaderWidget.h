@@ -24,5 +24,5 @@ protected:
     UImage* Icon;
 
 private:
-    virtual void OnTheme(const UThemeDataAsset*) override;
+    virtual void OnTheme() override;
 };

@@ -45,7 +45,7 @@ void UMessageInputWidget::OnInputTextCommit(const FText& Text, ETextCommit::Type
     OnTextCommitted.Broadcast(Text, CommitMethod);
 }
 
-void UMessageInputWidget::OnTheme(const UThemeDataAsset* Theme)
+void UMessageInputWidget::OnTheme()
 {
     if (TextBox)
     {

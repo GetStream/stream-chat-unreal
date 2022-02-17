@@ -56,7 +56,7 @@ protected:
 private:
     virtual void SynchronizeProperties() override;
     virtual void NativeOnInitialized() override;
-    virtual void OnTheme(const UThemeDataAsset*) override;
+    virtual void OnTheme() override;
 
     UFUNCTION()
     void OnButtonClicked();

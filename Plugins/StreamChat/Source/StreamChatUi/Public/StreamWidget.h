@@ -23,7 +23,7 @@ public:
 protected:
     /// Called with the current theme when it's available. You need to enable WantsTheme for this to be fired.
     UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Theme"))
-    void OnTheme_BP(const UThemeDataAsset* Theme);
+    void OnTheme_BP();
     /// Called with the chat client when it's available. You need to enable WantsClient for this to be fired.
     UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Client"))
     void OnClient_BP();
@@ -53,6 +53,9 @@ protected:
     /// The channel if this widget is below a ChannelContextWidget in the hierarchy and if WantsChannel is true.
     UPROPERTY(BlueprintReadOnly, Transient, Category = Stream)
     UChatChannel* Channel;
+    /// The theme if this widget is below a ThemeContextWidget in the hierarchy and if WantsTheme is true.
+    UPROPERTY(BlueprintReadOnly, Transient, Category = Stream)
+    UThemeDataAsset* Theme;
 
 private:
     virtual bool Initialize() override;
@@ -73,8 +76,8 @@ private:
     {
     }
 
-    /// Called with the current theme when it's available (in pre-construction)
-    virtual void OnTheme(const UThemeDataAsset*)
+    /// Called with when the current theme is available (in pre-construction)
+    virtual void OnTheme()
     {
     }
     /// Called when the chat client is available (in pre-construction)
@@ -85,7 +88,4 @@ private:
     virtual void OnChannel()
     {
     }
-
-    UPROPERTY()
-    UThemeDataAsset* DefaultTheme;
 };

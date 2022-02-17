@@ -9,6 +9,7 @@
 UMessageListWidget::UMessageListWidget()
 {
     bWantsChannel = true;
+    PaginationDirection = EPaginationDirection::Top;
 }
 
 void UMessageListWidget::OnChannel()
@@ -40,7 +41,11 @@ void UMessageListWidget::Paginate(const EPaginationDirection Direction, const TF
 {
     if (Channel)
     {
-        Channel->QueryAdditionalMessages(Direction, Limit, Callback);
+        Channel->QueryAdditionalMessages(PaginationDirection, Limit, Callback);
+    }
+    else
+    {
+        Callback();
     }
 }
 

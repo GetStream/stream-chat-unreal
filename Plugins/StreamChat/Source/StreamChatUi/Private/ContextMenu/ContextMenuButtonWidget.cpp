@@ -56,7 +56,7 @@ void UContextMenuButtonWidget::OnSetup()
     }
 }
 
-void UContextMenuButtonWidget::OnTheme(const UThemeDataAsset* Theme)
+void UContextMenuButtonWidget::OnTheme()
 {
     if (TopBorderImage)
     {
@@ -77,12 +77,12 @@ void UContextMenuButtonWidget::OnTheme(const UThemeDataAsset* Theme)
 
     if (IconImage)
     {
-        IconImage->SetColorAndOpacity(GetIconColor(Theme));
+        IconImage->SetColorAndOpacity(GetIconColor());
     }
 
     if (TextBlock)
     {
-        TextBlock->SetColorAndOpacity(GetTextColor(Theme));
+        TextBlock->SetColorAndOpacity(GetTextColor());
     }
 }
 
@@ -122,7 +122,7 @@ FMargin UContextMenuButtonWidget::GetButtonMargin() const
     return {};
 }
 
-const FLinearColor& UContextMenuButtonWidget::GetIconColor(const UThemeDataAsset* Theme) const
+const FLinearColor& UContextMenuButtonWidget::GetIconColor() const
 {
     if (Action)
     {
@@ -137,7 +137,7 @@ const FLinearColor& UContextMenuButtonWidget::GetIconColor(const UThemeDataAsset
     return FLinearColor::Red;
 }
 
-const FLinearColor& UContextMenuButtonWidget::GetTextColor(const UThemeDataAsset* Theme) const
+const FLinearColor& UContextMenuButtonWidget::GetTextColor() const
 {
     if (Action)
     {

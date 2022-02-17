@@ -39,7 +39,7 @@ void UReactionPickerWidget::OnSetup()
     }
 }
 
-void UReactionPickerWidget::OnTheme(const UThemeDataAsset* Theme)
+void UReactionPickerWidget::OnTheme()
 {
     if (Border)
     {

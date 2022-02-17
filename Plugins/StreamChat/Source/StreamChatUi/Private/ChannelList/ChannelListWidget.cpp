@@ -3,24 +3,41 @@
 #include "ChannelList/ChannelListWidget.h"
 
 #include "StreamChatClientComponent.h"
+#include "ThemeDataAsset.h"
 
 UChannelListWidget::UChannelListWidget()
 {
     bWantsClient = true;
+    bWantsTheme = true;
     Limit = 10;
+}
+
+void UChannelListWidget::NativeDestruct()
+{
+    if (Client)
+    {
+        Client->ChannelsUpdated.RemoveDynamic(this, &UChannelListWidget::OnChannelsUpdated);
+    }
+    Super::NativeDestruct();
 }
 
 void UChannelListWidget::Paginate(const EPaginationDirection Direction, const TFunction<void()> Callback)
 {
-    if (EnumHasAnyFlags(Direction, EPaginationDirection::Bottom))
-    {
-        Client->QueryAdditionalChannels(Limit, Callback);
-    }
+    Client->QueryAdditionalChannels(Limit, Callback);
 }
 
 void UChannelListWidget::OnClient()
 {
     Client->ChannelsUpdated.AddDynamic(this, &UChannelListWidget::OnChannelsUpdated);
+    OnChannelsUpdated(Client->GetChannels());
+}
+
+void UChannelListWidget::OnTheme()
+{
+    if (Divider)
+    {
+        Divider->SetColorAndOpacity(Theme->GetPaletteColor(Theme->TeamChatDividerColor));
+    }
 }
 
 void UChannelListWidget::ChannelStatusClicked(UChatChannel* ClickedChannel)
@@ -43,19 +60,16 @@ void UChannelListWidget::ChannelStatusClicked(UChatChannel* ClickedChannel)
 
 void UChannelListWidget::OnChannelsUpdated(const TArray<UChatChannel*>& InChannels)
 {
-    if (!ScrollBox)
+    if (!ScrollBox || InChannels.Num() == 0)
     {
         return;
     }
 
-    if (!CurrentChannel)
+    if (!CurrentChannel && bAutoSelectFirstChannel)
     {
         // Select first channel. TODO support channel pagination
-        if (InChannels.Num() > 0)
-        {
-            CurrentChannel = InChannels[0];
-            OnChannelStatusClicked.Broadcast(CurrentChannel);
-        }
+        CurrentChannel = InChannels[0];
+        OnChannelStatusClicked.Broadcast(CurrentChannel);
     }
 
     TArray<UWidget*> Widgets;

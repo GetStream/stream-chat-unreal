@@ -29,7 +29,7 @@ void UReactionPickerButtonWidget::OnSetup()
     }
 }
 
-void UReactionPickerButtonWidget::OnTheme(const UThemeDataAsset* Theme)
+void UReactionPickerButtonWidget::OnTheme()
 {
     if (Button)
     {

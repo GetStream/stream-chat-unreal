@@ -70,7 +70,7 @@ void UChannelStatusWidget::OnSetup()
     ChannelTitleAvailableSpace = -1.f;
 }
 
-void UChannelStatusWidget::OnTheme(const UThemeDataAsset* Theme)
+void UChannelStatusWidget::OnTheme()
 {
     NormalStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusNormalBackgroundColor)};
     NormalStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusSelectedBackgroundColor)};
@@ -90,7 +90,7 @@ void UChannelStatusWidget::OnTheme(const UThemeDataAsset* Theme)
 
     if (TitleTextBlock)
     {
-        const FName Color{Channel->Properties.bMuted ? Theme->ChannelStatusMutedTitleTextColor : Theme->ChannelStatusTitleTextColor};
+        const FName Color{Channel && Channel->Properties.bMuted ? Theme->ChannelStatusMutedTitleTextColor : Theme->ChannelStatusTitleTextColor};
         TitleTextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Color));
     }
 

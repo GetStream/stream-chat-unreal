@@ -21,8 +21,14 @@ class STREAMCHATUI_API UClientContextWidget final : public UContextWidget
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(UStreamChatClientComponent* InClient);
+    static UClientContextWidget* Get(const UWidget* Widget);
     static UStreamChatClientComponent* GetClient(const UWidget* Widget);
     UStreamChatClientComponent* GetClient() const;
+
+    // TODO A back stack container widget might one day make sense
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE(FBackDelegate);
+    UPROPERTY(BlueprintAssignable)
+    FBackDelegate OnBack;
 
 private:
     UPROPERTY(Transient)

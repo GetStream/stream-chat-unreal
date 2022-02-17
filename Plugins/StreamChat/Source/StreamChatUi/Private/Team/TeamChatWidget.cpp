@@ -31,7 +31,7 @@ void UTeamChatWidget::OnSetup()
     }
 }
 
-void UTeamChatWidget::OnTheme(const UThemeDataAsset* Theme)
+void UTeamChatWidget::OnTheme()
 {
     if (MessageListContainer)
     {
@@ -41,12 +41,9 @@ void UTeamChatWidget::OnTheme(const UThemeDataAsset* Theme)
     {
         ChannelListContainer->SetBrushColor(Theme->GetPaletteColor(Theme->ChannelListContainerBackgroundColor));
     }
-    for (UImage* Divider : {HorizontalDivider, VerticalDivider})
+    if (Divider)
     {
-        if (Divider)
-        {
-            Divider->SetColorAndOpacity(Theme->GetPaletteColor(Theme->TeamChatDividerColor));
-        }
+        Divider->SetColorAndOpacity(Theme->GetPaletteColor(Theme->TeamChatDividerColor));
     }
 }
 

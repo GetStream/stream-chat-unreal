@@ -35,10 +35,10 @@ void UStreamWidget::NativePreConstruct()
 {
     if (bWantsTheme)
     {
-        UThemeDataAsset* Theme = UThemeDataAsset::Get(this);
+        Theme = UThemeDataAsset::Get(this);
         Theme = Theme ? Theme : GetDefault<UThemeContextWidget>()->Theme;
-        OnTheme(Theme);
-        OnTheme_BP(Theme);
+        OnTheme();
+        OnTheme_BP();
     }
     if (bWantsClient)
     {

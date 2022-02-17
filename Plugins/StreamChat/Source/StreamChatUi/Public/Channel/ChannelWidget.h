@@ -31,5 +31,5 @@ protected:
 
 private:
     virtual void OnSetup() override;
-    virtual void OnTheme(const UThemeDataAsset*) override;
+    virtual void OnTheme() override;
 };

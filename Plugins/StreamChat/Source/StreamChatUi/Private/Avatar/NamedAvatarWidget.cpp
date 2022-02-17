@@ -38,7 +38,7 @@ void UNamedAvatarWidget::OnSetup()
     }
 }
 
-void UNamedAvatarWidget::OnTheme(const UThemeDataAsset* Theme)
+void UNamedAvatarWidget::OnTheme()
 {
     if (!User.IsCurrent() && Theme->bColoredName)
     {

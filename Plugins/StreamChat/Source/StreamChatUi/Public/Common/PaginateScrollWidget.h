@@ -27,7 +27,8 @@ public:
     FPaginatingMessagesDelegate OnPaginatingMessages;
 
 protected:
-    virtual void NativeOnInitialized() override;
+    virtual void OnPreConstruct() override;
+    virtual void NativeDestruct() override;
 
     /// Attempts to maintain scroll location when replacing the children of the scroll box
     virtual void SetChildren(const TArray<UWidget*>&);
@@ -43,6 +44,10 @@ protected:
     // If the scroll offset is below this value, then new messages will be fetched
     UPROPERTY(EditDefaultsOnly, Category = Defaults)
     float PaginateScrollThreshold = 100.f;
+
+    // The end of the scroll box which causes pagination to be triggered
+    UPROPERTY(EditDefaultsOnly, Category = Defaults)
+    EPaginationDirection PaginationDirection = EPaginationDirection::Bottom;
 
 private:
     UFUNCTION()
