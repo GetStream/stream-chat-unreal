@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"struct_f_own_user_dto.html#aeb65b4d943936fc88226896a49b1204a":[1,2,1,0],
 "struct_f_pagination_params_request_dto.html":[1,2,6],
 "struct_f_query_channels_request_dto.html":[1,2,7],
 "struct_f_query_channels_request_dto.html#a52c3d27d3b098cf35a1729cc48cb9589":[1,2,7,4],

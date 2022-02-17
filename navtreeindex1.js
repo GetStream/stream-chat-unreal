@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"struct_f_channel_config.html#a76cf64aba0f2bcf871e5f8f7dc4ad7d6":[1,4,0,5],
 "struct_f_channel_config.html#a7a73894ffb3d50cfbd9d584c8082cdac":[1,4,0,6],
 "struct_f_channel_config.html#a827dbd180caef61e6be67884d847d4a2":[1,4,0,4],
 "struct_f_channel_config.html#a9ec94d8165b823256e58c90d6aa6036d":[1,4,0,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "struct_f_own_user_dto.html":[1,2,1],
 "struct_f_own_user_dto.html#a3e2b24c7a14520e9fc51d48b4f8caf51":[1,2,1,1],
 "struct_f_own_user_dto.html#a5fd4834a192f266a7ec91bfc0bbe34e7":[1,2,1,3],
-"struct_f_own_user_dto.html#a6e7489704b99675256d6cf72b07aad8e":[1,2,1,2],
-"struct_f_own_user_dto.html#aeb65b4d943936fc88226896a49b1204a":[1,2,1,0]
+"struct_f_own_user_dto.html#a6e7489704b99675256d6cf72b07aad8e":[1,2,1,2]
 };

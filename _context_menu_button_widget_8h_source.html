@@ -145,15 +145,15 @@ $(document).ready(function(){initNavTree('_context_menu_button_widget_8h_source.
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>private:</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    virtual <span class="keywordtype">void</span> OnSetup() override;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    virtual <span class="keywordtype">void</span> OnTheme(const UThemeDataAsset*) override;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    virtual <span class="keywordtype">void</span> OnTheme() override;</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    UFUNCTION()</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordtype">void</span> OnButtonClicked();</div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    UTexture2D* GetButtonTexture() const;</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    FMargin GetButtonMargin() const;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    const FLinearColor&amp; GetIconColor(const UThemeDataAsset* Theme) const;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    const FLinearColor&amp; GetTextColor(const UThemeDataAsset* Theme) const;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    const FLinearColor&amp; GetIconColor() const;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    const FLinearColor&amp; GetTextColor() const;</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    UPROPERTY(EditAnywhere, Instanced, Category = Setup)</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    UContextMenuAction* Action;</div>

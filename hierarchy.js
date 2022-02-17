@@ -99,6 +99,7 @@ var hierarchy =
     [ "FUsersResponseDto", "struct_f_users_response_dto.html", null ],
     [ "IChatSocket", "class_i_chat_socket.html", null ],
     [ "UAdditionalFieldsBlueprintLibrary", "class_u_additional_fields_blueprint_library.html", null ],
+    [ "UBackButton", "class_u_back_button.html", null ],
     [ "UBottomReactionWidget", "class_u_bottom_reaction_widget.html", null ],
     [ "UChannelContextWidget", "class_u_channel_context_widget.html", null ],
     [ "UChannelPropertiesBlueprintLibrary", "class_u_channel_properties_blueprint_library.html", null ],
