@@ -19,7 +19,8 @@
         "Win64",
         "Mac",
         "Linux",
-        "Android"
+        "Android",
+        "IOS"
     ],
     "Modules": [
         {
@@ -30,7 +31,8 @@
                 "Win64",
                 "Linux",
                 "Mac",
-                "Android"
+                "Android",
+                "IOS"
             ]
         },
         {
@@ -41,7 +43,8 @@
                 "Win64",
                 "Linux",
                 "Mac",
-                "Android"
+                "Android",
+                "IOS"
             ]
         },
         {
@@ -52,7 +55,8 @@
                 "Win64",
                 "Linux",
                 "Mac",
-                "Android"
+                "Android",
+                "IOS"
             ]
         },
         {
@@ -63,7 +67,8 @@
                 "Win64",
                 "Linux",
                 "Mac",
-                "Android"
+                "Android",
+                "IOS"
             ]
         },
         {
@@ -74,7 +79,8 @@
                 "Win64",
                 "Linux",
                 "Mac",
-                "Android"
+                "Android",
+                "IOS"
             ]
         },
         {
@@ -85,7 +91,8 @@
                 "Win64",
                 "Linux",
                 "Mac",
-                "Android"
+                "Android",
+                "IOS"
             ]
         },
         {
@@ -96,7 +103,8 @@
                 "Win64",
                 "Linux",
                 "Mac",
-                "Android"
+                "Android",
+                "IOS"
             ]
         },
         {
@@ -107,7 +115,8 @@
                 "Win64",
                 "Linux",
                 "Mac",
-                "Android"
+                "Android",
+                "IOS"
             ]
         },
         {
@@ -118,7 +127,8 @@
                 "Win64",
                 "Linux",
                 "Mac",
-                "Android"
+                "Android",
+                "IOS"
             ]
         },
         {
@@ -129,7 +139,8 @@
                 "Win64",
                 "Linux",
                 "Mac",
-                "Android"
+                "Android",
+                "IOS"
             ]
         }
     ]

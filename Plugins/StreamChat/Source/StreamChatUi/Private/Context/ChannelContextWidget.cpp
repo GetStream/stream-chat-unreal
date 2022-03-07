@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 // Fill out your copyright notice in the Description page of Project Settings.
 
