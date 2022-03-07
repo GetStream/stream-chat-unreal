@@ -9,7 +9,6 @@ public class StreamChat : ModuleRules
 	public StreamChat(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-		CppStandard = CppStandardVersion.Cpp17;
 
 		PrivateDependencyModuleNames.AddRange(new[]
 		{
