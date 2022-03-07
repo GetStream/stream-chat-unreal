@@ -17,5 +17,9 @@ struct FReactionNewEvent : public FReactionEvent
 {
     GENERATED_BODY()
 
-    inline static FName StaticType = TEXT("reaction.new");
+    static FName StaticType()
+    {
+        static const FName Type{TEXT("reaction.new")};
+        return Type;
+    }
 };

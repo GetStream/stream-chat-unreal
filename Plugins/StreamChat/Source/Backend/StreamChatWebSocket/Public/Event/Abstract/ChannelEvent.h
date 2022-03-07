@@ -17,6 +17,13 @@ struct FChannelEvent : public FChatEvent
 {
     GENERATED_BODY()
 
+    explicit FChannelEvent() = default;
+
+    explicit FChannelEvent(const FName& Type, const FDateTime& CreatedAt, const FString& ChannelId, const FString& ChannelType, const FString& Cid)
+        : FChatEvent(Type, CreatedAt), ChannelId(ChannelId), ChannelType(ChannelType), Cid(Cid)
+    {
+    }
+
     UPROPERTY()
     FString ChannelId;
 

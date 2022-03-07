@@ -16,6 +16,11 @@ struct FChatEvent
 {
     GENERATED_BODY()
 
+    FChatEvent() = default;
+    FChatEvent(const FName& Type, const FDateTime& CreatedAt) : Type(Type), CreatedAt(CreatedAt)
+    {
+    }
+
     /// Event type
     UPROPERTY()
     FName Type;

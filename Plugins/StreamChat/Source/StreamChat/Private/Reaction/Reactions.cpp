@@ -16,10 +16,10 @@ FReactions FReactions::CollectReactions(
 {
     FReactions Result;
     // Assume ReactionCounts has all reaction types
-    for (auto [Type, Count] : ReactionCounts)
+    for (const auto& Count : ReactionCounts)
     {
-        const int32 Score = ReactionScores.FindRef(Type);
-        Result.ReactionGroups.Emplace(Type, FReactionGroup{Type, Count, Score});
+        const int32 Score = ReactionScores.FindRef(Count.Key);
+        Result.ReactionGroups.Emplace(Count.Key, FReactionGroup{Count.Key, Count.Value, Score});
     }
 
     for (const FReactionDto& Latest : LatestReactions)
@@ -36,24 +36,24 @@ FReactions FReactions::CollectReactions(
 TMap<FName, int32> FReactions::GetScores() const
 {
     TMap<FName, int32> Result;
-    for (auto [Type, Group] : ReactionGroups)
+    for (const auto& Group : ReactionGroups)
     {
-        Result.Emplace(Type, Group.TotalScore);
+        Result.Emplace(Group.Key, Group.Value.TotalScore);
     }
     return Result;
 }
 
 void FReactions::AddReaction(const FReaction& Reaction)
 {
-    auto& [Type, Count, TotalScore, LatestReactions, OwnReactions] = ReactionGroups.FindOrAdd(Reaction.Type);
+    auto& Group = ReactionGroups.FindOrAdd(Reaction.Type);
     // Latest reactions are ordered reverse-chronologically
-    LatestReactions.Insert(Reaction, 0);
-    ++Count;
-    ++TotalScore;
-    if (Type == NAME_None)
+    Group.LatestReactions.Insert(Reaction, 0);
+    ++Group.Count;
+    ++Group.TotalScore;
+    if (Group.Type == NAME_None)
     {
         // First reaction of this type
-        Type = Reaction.Type;
+        Group.Type = Reaction.Type;
         ReactionGroups.KeySort(FNameLexicalLess());
     }
 }
@@ -97,15 +97,15 @@ bool FReactions::IsEmpty() const
 
 void FReactions::UpdateOwnReactions()
 {
-    for (auto& [Type, Group] : ReactionGroups)
+    for (auto& Group : ReactionGroups)
     {
-        if (const FReaction* OwnReaction = Group.LatestReactions.FindByPredicate([](const FReaction& R) { return R.User.IsCurrent(); }))
+        if (const FReaction* OwnReaction = Group.Value.LatestReactions.FindByPredicate([](const FReaction& R) { return R.User.IsCurrent(); }))
         {
-            Group.OwnReaction.Emplace(*OwnReaction);
+            Group.Value.OwnReaction.Emplace(*OwnReaction);
         }
         else
         {
-            Group.OwnReaction.Reset();
+            Group.Value.OwnReaction.Reset();
         }
     }
 }

@@ -17,7 +17,11 @@ struct FNotificationMessageNewEvent : public FMessageEvent
 {
     GENERATED_BODY()
 
-    inline static FName StaticType = TEXT("notification.message_new");
+    static FName StaticType()
+    {
+        static const FName Type{TEXT("notification.message_new")};
+        return Type;
+    }
 
     // Not in spec, but mentioned in docs
     UPROPERTY()

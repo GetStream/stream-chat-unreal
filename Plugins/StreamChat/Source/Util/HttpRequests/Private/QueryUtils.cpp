@@ -34,7 +34,8 @@ TMap<FString, FString> ParseQueryString(const FStringView& QueryString)
         TEXT("&"),
         [&Result](const FStringView Token)
         {
-            if (int32 EqualsIndex; Token.FindChar(TEXT('='), EqualsIndex))
+            int32 EqualsIndex;
+            if (Token.FindChar(TEXT('='), EqualsIndex))
             {
                 const FStringView Key = Token.Left(EqualsIndex);
                 const FStringView Value = Token.RightChop(EqualsIndex + 1);

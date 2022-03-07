@@ -52,7 +52,8 @@ void UBottomReactionWidget::OnTheme()
     }
     if (Button)
     {
-        if (const EMessageSide Side = GetSide(); Side == EMessageSide::Me)
+        const EMessageSide Side = GetSide();
+        if (Side == EMessageSide::Me)
         {
             Button->WidgetStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->MeBottomReactionColor)};
             Button->WidgetStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->MeBottomReactionColor)};

@@ -80,8 +80,8 @@ void UStreamChatClientComponent::OnUserPresenceChanged(const FUserPresenceChange
 void UStreamChatClientComponent::OnNewMessage(const FMessageNewEvent& Event)
 {
     // Maintain order by most recent message
-    if (const int32 Index = Channels.IndexOfByPredicate([&Event](const UChatChannel* Channel) { return Channel->Properties.Id == Event.ChannelId; });
-        Index != 0)
+    const int32 Index = Channels.IndexOfByPredicate([&Event](const UChatChannel* Channel) { return Channel->Properties.Id == Event.ChannelId; });
+    if (Index != 0)
     {
         // We could sort the entire array, but moving the channel to the first position should be enough
         UChatChannel* Channel = Channels[Index];

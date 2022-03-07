@@ -51,7 +51,8 @@ void UReactionPickerWidget::OnReactionButtonClicked(const FName& ReactionType)
 {
     if (ensure(Channel))
     {
-        if (const TOptional<FReaction> OwnReaction = Message.Reactions.GetOwnReaction(ReactionType); OwnReaction.IsSet())
+        const TOptional<FReaction> OwnReaction = Message.Reactions.GetOwnReaction(ReactionType);
+        if (OwnReaction.IsSet())
         {
             Channel->DeleteReaction(Message, OwnReaction.GetValue());
         }

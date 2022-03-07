@@ -18,7 +18,23 @@ struct FTypingStartEvent : public FChannelEvent
 {
     GENERATED_BODY()
 
-    inline static FName StaticType = TEXT("typing.start");
+    explicit FTypingStartEvent() = default;
+    explicit FTypingStartEvent(
+        const FDateTime& CreatedAt,
+        const FString& ChannelId,
+        const FString& ChannelType,
+        const FString& Cid,
+        const FString& ParentId,
+        const FUserObjectDto& User)
+        : FChannelEvent(StaticType(), CreatedAt, ChannelId, ChannelType, Cid), ParentId(ParentId), User(User)
+    {
+    }
+
+    static FName StaticType()
+    {
+        static const FName Type{TEXT("typing.start")};
+        return Type;
+    }
 
     UPROPERTY()
     FString ParentId;

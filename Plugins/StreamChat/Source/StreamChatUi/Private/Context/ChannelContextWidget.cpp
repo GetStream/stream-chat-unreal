@@ -18,8 +18,8 @@ UChannelContextWidget* UChannelContextWidget::Get(const UWidget* Widget)
         return nullptr;
     }
 
-    if (UChannelContextWidget* ContextWidget = WidgetUtil::GetTypedParentWidget<UChannelContextWidget>(Widget);
-        ensureAlwaysMsgf(ContextWidget, TEXT("Need to wrap the channel UI with a ChannelContextWidget")))
+    UChannelContextWidget* ContextWidget = WidgetUtil::GetTypedParentWidget<UChannelContextWidget>(Widget);
+    if (ensureAlwaysMsgf(ContextWidget, TEXT("Need to wrap the channel UI with a ChannelContextWidget")))
     {
         return ContextWidget;
     }

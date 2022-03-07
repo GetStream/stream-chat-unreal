@@ -19,7 +19,11 @@ struct FNotificationMarkReadEvent : public FChannelEvent
 {
     GENERATED_BODY()
 
-    inline static FName StaticType = TEXT("notification.mark_read");
+    static FName StaticType()
+    {
+        static const FName Type{TEXT("notification.mark_read")};
+        return Type;
+    }
 
     UPROPERTY()
     int32 TotalUnreadCount = -1;

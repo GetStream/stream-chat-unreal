@@ -18,7 +18,11 @@ struct FMessageReadEvent : public FChannelEvent
 {
     GENERATED_BODY()
 
-    inline static FName StaticType = TEXT("message.read");
+    static FName StaticType()
+    {
+        static const FName Type{TEXT("message.read")};
+        return Type;
+    }
 
     UPROPERTY()
     FUserObjectDto User;

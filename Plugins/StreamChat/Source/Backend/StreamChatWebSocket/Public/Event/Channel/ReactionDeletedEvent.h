@@ -17,5 +17,9 @@ struct FReactionDeletedEvent : public FReactionEvent
 {
     GENERATED_BODY()
 
-    inline static FName StaticType = TEXT("reaction.deleted");
+    static FName StaticType()
+    {
+        static const FName Type{TEXT("reaction.deleted")};
+        return Type;
+    }
 };

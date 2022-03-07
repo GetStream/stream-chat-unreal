@@ -343,7 +343,6 @@ void UChatChannel::DeleteReaction(const FMessage& Message, const FReaction& Reac
     NewMessage.Reactions.UpdateOwnReactions();
 
     AddMessage(NewMessage);
-
     Api->DeleteReaction(Message.Id, Reaction.Type);
 }
 
@@ -360,7 +359,10 @@ void UChatChannel::KeyStroke(const FString& ParentMessageId)
         UE_LOG(LogTemp, Log, TEXT("Start typing"));
         const FUser& CurrentUser = *UUserManager::Get()->GetCurrentUser();
         SendEvent(FTypingStartEvent{
-            {{FTypingStartEvent::StaticType, Now}, Properties.Id, Properties.Type, Properties.Cid},
+            Now,
+            Properties.Id,
+            Properties.Type,
+            Properties.Cid,
             ParentMessageId,
             Util::Convert<FUserObjectDto>(CurrentUser),
         });
@@ -406,7 +408,10 @@ void UChatChannel::SendStopTypingEvent(const FString& ParentMessageId)
     const FUser& CurrentUser = *UUserManager::Get()->GetCurrentUser();
     UE_LOG(LogTemp, Log, TEXT("Stop typing"));
     SendEvent(FTypingStopEvent{
-        {{FTypingStopEvent::StaticType, FDateTime::UtcNow()}, Properties.Id, Properties.Type, Properties.Cid},
+        FDateTime::UtcNow(),
+        Properties.Id,
+        Properties.Type,
+        Properties.Cid,
         ParentMessageId,
         Util::Convert<FUserObjectDto>(CurrentUser),
     });

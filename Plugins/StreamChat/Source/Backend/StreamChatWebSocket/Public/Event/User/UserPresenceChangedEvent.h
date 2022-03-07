@@ -18,7 +18,11 @@ struct FUserPresenceChangedEvent : public FChatEvent
 {
     GENERATED_BODY()
 
-    inline static FName StaticType = TEXT("user.presence.changed");
+    static FName StaticType()
+    {
+        static const FName Type{TEXT("user.presence.changed")};
+        return Type;
+    }
 
     UPROPERTY()
     FUserObjectDto User;

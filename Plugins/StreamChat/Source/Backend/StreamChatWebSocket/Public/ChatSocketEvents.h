@@ -77,7 +77,7 @@ bool FChatSocketEvents::Unsubscribe(const FDelegateHandle DelegateHandle)
 template <class TEvent>
 void FChatSocketEvents::Broadcast(const TEvent& Event)
 {
-    const FName EventType{TEvent::StaticType};
+    const FName EventType{TEvent::StaticType()};
     const FEventSubscriptionPtr* SubPtr = Subscriptions.Find(EventType);
     if (!SubPtr)
     {

@@ -41,8 +41,8 @@ const FSlateWidgetStyle* FHtmlSlateStyleSet::GetWidgetStyleInternal(const FName 
     TArray<FName> TagNames;
     Algo::Transform(Tags, TagNames, [](const FString& Str) { return FName{Str}; });
 
-    static FName TextBlockStyle{TEXT("FTextBlockStyle")};
-    static FName InlineTextImageStyle{TEXT("FInlineTextImageStyle")};
+    static const FName TextBlockStyle{TEXT("FTextBlockStyle")};
+    static const FName InlineTextImageStyle{TEXT("FInlineTextImageStyle")};
     if (DesiredTypeName == TextBlockStyle)
     {
         if (const FSlateWidgetStyle* Style = CombinedStyleCache.Find(StyleName))

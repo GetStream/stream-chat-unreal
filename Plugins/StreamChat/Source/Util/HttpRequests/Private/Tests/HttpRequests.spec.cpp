@@ -65,14 +65,14 @@ void FHttpRequestsSpec::Define()
                             {
                                 TestEqual("Response code", Response.StatusCode, 200);
 
-                                const auto [UserId, Id, Title, Body] = Response.Json<FJsonPlaceholderPost>();
+                                const FJsonPlaceholderPost Post = Response.Json<FJsonPlaceholderPost>();
 
-                                TestEqual("UserId", UserId, 1);
-                                TestEqual("Id", Id, 1);
-                                TestEqual("Title", Title, TEXT("sunt aut facere repellat provident occaecati excepturi optio reprehenderit"));
+                                TestEqual("UserId", Post.UserId, 1);
+                                TestEqual("Id", Post.Id, 1);
+                                TestEqual("Title", Post.Title, TEXT("sunt aut facere repellat provident occaecati excepturi optio reprehenderit"));
                                 TestEqual(
                                     "Body",
-                                    Body,
+                                    Post.Body,
                                     TEXT("quia et suscipit\n"
                                          "suscipit recusandae consequuntur expedita et cum\n"
                                          "reprehenderit molestiae ut ut quas totam\n"
@@ -103,12 +103,12 @@ void FHttpRequestsSpec::Define()
                                 AddInfo(Response.Text);
                                 TestEqual("Response code", Response.StatusCode, 201);
 
-                                const auto [UserId, Id, Title, Body] = Response.Json<FJsonPlaceholderPost>();
+                                const FJsonPlaceholderPost Post = Response.Json<FJsonPlaceholderPost>();
 
-                                TestEqual("UserId", UserId, FakeUserId);
-                                TestEqual("Id", Id, 101);
-                                TestEqual("Title", Title, FakeTitle);
-                                TestEqual("Body", Body, FakeBody);
+                                TestEqual("UserId", Post.UserId, FakeUserId);
+                                TestEqual("Id", Post.Id, 101);
+                                TestEqual("Title", Post.Title, FakeTitle);
+                                TestEqual("Body", Post.Body, FakeBody);
 
                                 TestDone.Execute();
                             });

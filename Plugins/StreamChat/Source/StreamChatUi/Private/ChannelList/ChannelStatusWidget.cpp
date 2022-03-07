@@ -111,7 +111,8 @@ int32 UChannelStatusWidget::NativePaint(
 {
     if (RecentMessageTextBlock)
     {
-        if (const float AvailableSpace = RecentMessageTextBlock->GetTickSpaceGeometry().GetLocalSize().X; AvailableSpace != RecentMessageAvailableSpace)
+        const float AvailableSpace = RecentMessageTextBlock->GetTickSpaceGeometry().GetLocalSize().X;
+        if (AvailableSpace != RecentMessageAvailableSpace)
         {
             RecentMessageAvailableSpace = AvailableSpace;
             UpdateRecentMessageText();
@@ -120,7 +121,8 @@ int32 UChannelStatusWidget::NativePaint(
 
     if (TitleTextBlock)
     {
-        if (const float AvailableSpace = TitleTextBlock->GetTickSpaceGeometry().GetLocalSize().X; AvailableSpace != ChannelTitleAvailableSpace)
+        const float AvailableSpace = TitleTextBlock->GetTickSpaceGeometry().GetLocalSize().X;
+        if (AvailableSpace != ChannelTitleAvailableSpace)
         {
             ChannelTitleAvailableSpace = AvailableSpace;
             UpdateChannelTitleText();

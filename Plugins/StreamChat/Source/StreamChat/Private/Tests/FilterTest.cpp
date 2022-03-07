@@ -50,20 +50,20 @@ bool FConvertFilterToJsonTest::RunTest(const FString& Parameters)
         TestEqual("$ne", Json, ExpectedJson);
     }
     {
-        const FFilter Filter = FFilter::In(TEXT("key"), TArray{1, 2, 4});
+        const FFilter Filter = FFilter::In(TEXT("key"), TArray<int32>{1, 2, 4});
         const FString Json = Filter.ToJson();
         const FString ExpectedJson{TEXT(R"({"key":{"$in":[1,2,4]}})")};
         TestEqual("$in", Json, ExpectedJson);
     }
     {
-        const FFilter Filter = FFilter::NotIn(TEXT("key"), TArray{3, 5, 7});
+        const FFilter Filter = FFilter::NotIn(TEXT("key"), TArray<int32>{3, 5, 7});
         const FString Json = Filter.ToJson();
         const FString ExpectedJson{TEXT(R"({"key":{"$nin":[3,5,7]}})")};
         TestEqual("$nin", Json, ExpectedJson);
     }
     {
         const FFilter Filter = FFilter::And({
-            FFilter::In(TEXT("key"), TArray{1, 2, 4}),
+            FFilter::In(TEXT("key"), TArray<int32>{1, 2, 4}),
             FFilter::Equal(TEXT("some_other_key"), 10),
         });
         const FString Json = Filter.ToJson();
@@ -72,7 +72,7 @@ bool FConvertFilterToJsonTest::RunTest(const FString& Parameters)
     }
     {
         const FFilter Filter = FFilter::Or({
-            FFilter::In(TEXT("key"), TArray{1, 2, 4}),
+            FFilter::In(TEXT("key"), TArray<int32>{1, 2, 4}),
             FFilter::Equal(TEXT("key2"), 10),
         });
         const FString Json = Filter.ToJson();
@@ -81,7 +81,7 @@ bool FConvertFilterToJsonTest::RunTest(const FString& Parameters)
     }
     {
         const FFilter Filter = FFilter::Nor({
-            FFilter::In(TEXT("key"), TArray{1, 2, 4}),
+            FFilter::In(TEXT("key"), TArray<int32>{1, 2, 4}),
             FFilter::Equal(TEXT("key2"), 10),
         });
         const FString Json = Filter.ToJson();

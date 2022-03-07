@@ -60,8 +60,8 @@ void FChannelState::AddMessage(const FMessage& Message)
 {
     // TODO Threads
     // TODO Quoting
-
-    if (const int32 Index = Messages.FindLastByPredicate([&](const FMessage& M) { return M.Id == Message.Id; }); Index != INDEX_NONE)
+    const int32 Index = Messages.FindLastByPredicate([&](const FMessage& M) { return M.Id == Message.Id; });
+    if (Index != INDEX_NONE)
     {
         Messages[Index] = Message;
     }

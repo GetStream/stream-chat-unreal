@@ -32,10 +32,10 @@ void UMessageReactionsWidget::OnSetup()
             return;
         }
 
-        for (const auto& [Type, Group] : Message.Reactions.GetReactionGroups())
+        for (const auto& Group : Message.Reactions.GetReactionGroups())
         {
             UBottomReactionWidget* Widget = CreateWidget<UBottomReactionWidget>(this, BottomReactionWidgetClass);
-            Widget->Setup(Group);
+            Widget->Setup(Group.Value);
             Widget->OnBottomReactionClickedNative.AddLambda(
                 [this](const FReactionGroup& Reaction)
                 {

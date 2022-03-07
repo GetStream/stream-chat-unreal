@@ -32,7 +32,8 @@ TOptional<FString> FAdditionalFields::GetString(const FName& Field) const
 {
     if (const TSharedPtr<FJsonValue>* JsonValue = Inner.Find(Field))
     {
-        if (FString OutString; JsonValue->Get()->TryGetString(OutString))
+        FString OutString;
+        if (JsonValue->Get()->TryGetString(OutString))
         {
             return {OutString};
         }
@@ -44,7 +45,8 @@ TOptional<bool> FAdditionalFields::GetBool(const FName& Field) const
 {
     if (const TSharedPtr<FJsonValue>* JsonValue = Inner.Find(Field))
     {
-        if (bool OutBool; JsonValue->Get()->TryGetBool(OutBool))
+        bool OutBool;
+        if (JsonValue->Get()->TryGetBool(OutBool))
         {
             return {OutBool};
         }
@@ -57,9 +59,11 @@ TOptional<FDateTime> FAdditionalFields::Get(const FName& Field) const
 {
     if (const TSharedPtr<FJsonValue>* JsonValue = Inner.Find(Field))
     {
-        if (FString OutString; JsonValue->Get()->TryGetString(OutString))
+        FString OutString;
+        if (JsonValue->Get()->TryGetString(OutString))
         {
-            if (FDateTime Date; FDateTime::ParseIso8601(*OutString, Date))
+            FDateTime Date;
+            if (FDateTime::ParseIso8601(*OutString, Date))
             {
                 return {Date};
             }

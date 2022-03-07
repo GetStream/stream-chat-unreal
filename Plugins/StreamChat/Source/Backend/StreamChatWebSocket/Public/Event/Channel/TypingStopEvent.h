@@ -17,8 +17,24 @@ USTRUCT()
 struct FTypingStopEvent : public FChannelEvent
 {
     GENERATED_BODY()
+    explicit FTypingStopEvent() = default;
 
-    inline static FName StaticType = TEXT("typing.stop");
+    FTypingStopEvent(
+        const FDateTime& CreatedAt,
+        const FString& ChannelId,
+        const FString& ChannelType,
+        const FString& Cid,
+        const FString& ParentId,
+        const FUserObjectDto& User)
+        : FChannelEvent(StaticType(), CreatedAt, ChannelId, ChannelType, Cid), ParentId(ParentId), User(User)
+    {
+    }
+
+    static FName StaticType()
+    {
+        static const FName Type{TEXT("typing.stop")};
+        return Type;
+    }
 
     UPROPERTY()
     FString ParentId;

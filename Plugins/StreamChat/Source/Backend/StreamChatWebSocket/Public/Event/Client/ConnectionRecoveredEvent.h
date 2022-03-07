@@ -17,5 +17,14 @@ struct FConnectionRecoveredEvent : public FLocalEvent
 {
     GENERATED_BODY()
 
-    inline static FName StaticType = TEXT("connection.recovered");
+    explicit FConnectionRecoveredEvent() : FLocalEvent{StaticType()}
+    {
+        ;
+    };
+
+    static FName StaticType()
+    {
+        static const FName Type{TEXT("connection.recovered")};
+        return Type;
+    }
 };

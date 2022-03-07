@@ -17,7 +17,11 @@ struct FMessageUpdatedEvent : public FMessageEvent
 {
     GENERATED_BODY()
 
-    inline static FName StaticType = TEXT("message.updated");
+    static FName StaticType()
+    {
+        static const FName Type{TEXT("message.updated")};
+        return Type;
+    }
 
     // TODO everything else
 };

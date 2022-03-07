@@ -76,7 +76,8 @@ void UMessageComposerWidget::EditMessage(const FMessage& Message)
 
 void UMessageComposerWidget::OnInputTextChanged(const FText& Text)
 {
-    if (UChatChannel* Channel = UChannelContextWidget::GetChannel(this); ensure(Channel))
+    UChatChannel* Channel = UChannelContextWidget::GetChannel(this);
+    if (ensure(Channel))
     {
         Channel->KeyStroke();
     }

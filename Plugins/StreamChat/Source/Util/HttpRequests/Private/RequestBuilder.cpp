@@ -30,9 +30,9 @@ FRequestBuilder::FRequestBuilder(const TSharedRef<const FHttpClient>& InClient, 
 
 FRequestBuilder& FRequestBuilder::Header(const FQueryParameters& Headers)
 {
-    for (auto [Key, Value] : Headers)
+    for (const auto& Header : Headers)
     {
-        Request->SetHeader(Key, Value.ToString());
+        Request->SetHeader(Header.Key, Header.Value.ToString());
     }
     return *this;
 }
@@ -82,7 +82,8 @@ void FRequestBuilder::SendInternal()
     Request->OnProcessRequestComplete().BindLambda(
         [RequestBuilder = *this](const FHttpRequestPtr OriginalRequest, const FHttpResponsePtr Response, bool bConnectedSuccessfully) mutable
         {
-            if (const FHttpResponse HttpResponse{Response}; HttpResponse.StatusCode >= 200 && HttpResponse.StatusCode < 300)
+            const FHttpResponse HttpResponse{Response};
+            if (HttpResponse.StatusCode >= 200 && HttpResponse.StatusCode < 300)
             {
                 UE_LOG(
                     LogHttpClient,

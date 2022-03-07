@@ -33,7 +33,8 @@ TSharedRef<SWidget> UContextWidget::RebuildWidget()
     // Add any existing content to the new slate box
     if (GetChildrenCount() > 0)
     {
-        if (const UPanelSlot* ContentSlot = GetContentSlot(); ContentSlot->Content)
+        const UPanelSlot* ContentSlot = GetContentSlot();
+        if (ContentSlot->Content)
         {
             MyBox->SetContent(ContentSlot->Content->TakeWidget());
         }

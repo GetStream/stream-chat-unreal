@@ -18,7 +18,11 @@ struct FHealthCheckEvent : public FChatEvent
 {
     GENERATED_BODY()
 
-    inline static FName StaticType = TEXT("health.check");
+    static FName StaticType()
+    {
+        static const FName Type{TEXT("health.check")};
+        return Type;
+    }
 
     UPROPERTY()
     FString ConnectionId;

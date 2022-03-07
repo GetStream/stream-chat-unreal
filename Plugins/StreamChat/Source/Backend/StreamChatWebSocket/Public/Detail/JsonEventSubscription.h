@@ -45,7 +45,7 @@ bool TJsonEventSubscription<T>::OnMessage(const TSharedRef<FJsonObject>& JsonObj
     {
         return false;
     }
-    check(OutStruct.Type == T::StaticType);
+    check(OutStruct.Type == T::StaticType());
 
     Delegate.Broadcast(OutStruct);
     return true;

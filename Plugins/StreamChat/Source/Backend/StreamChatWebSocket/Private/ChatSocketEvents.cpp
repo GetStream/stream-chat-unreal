@@ -8,9 +8,9 @@
 int32 FChatSocketEvents::UnsubscribeAll(UObject* Object)
 {
     int32 Total = 0;
-    for (auto& [EventName, Subscription] : Subscriptions)
+    for (const auto& Subscription : Subscriptions)
     {
-        Total += Subscription->Unsubscribe(Object);
+        Total += Subscription.Value->Unsubscribe(Object);
     }
     return Total;
 }

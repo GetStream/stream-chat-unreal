@@ -17,7 +17,11 @@ struct FMessageDeletedEvent : public FMessageEvent
 {
     GENERATED_BODY()
 
-    inline static FName StaticType = TEXT("message.deleted");
+    static FName StaticType()
+    {
+        static const FName Type{TEXT("message.deleted")};
+        return Type;
+    }
 
     UPROPERTY()
     bool bHardDelete = false;

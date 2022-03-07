@@ -75,10 +75,11 @@ FString FChatSocket::BuildUrl(const bool bRefreshToken) const
 {
     const FString Auth = [&]
     {
-        switch (const auto [TokenType, JwtString] = TokenManager->LoadToken(bRefreshToken); TokenType)
+        const FToken Token = TokenManager->LoadToken(bRefreshToken);
+        switch (Token.TokenType)
         {
             case ETokenType::Jwt:
-                return FString::Printf(TEXT("&authorization=%s&stream-auth-type=jwt"), *JwtString);
+                return FString::Printf(TEXT("&authorization=%s&stream-auth-type=jwt"), *Token.JwtString);
             case ETokenType::Anonymous:
                 return FString::Printf(TEXT("&stream-auth-type=anonymous"));
         }
@@ -202,7 +203,8 @@ void FChatSocket::HandleWebSocketMessage(const FString& JsonString)
     FString Type;
     if (!JsonObject->TryGetStringField(TEXT("type"), Type))
     {
-        if (const TSharedPtr<FJsonObject>* ErrorJsonObject; JsonObject->TryGetObjectField(TEXT("error"), ErrorJsonObject))
+        const TSharedPtr<FJsonObject>* ErrorJsonObject;
+        if (JsonObject->TryGetObjectField(TEXT("error"), ErrorJsonObject))
         {
             FErrorResponseDto ErrorResponse;
             if (JsonObjectDeserialization::JsonObjectToUStruct(ErrorJsonObject->ToSharedRef(), &ErrorResponse))
@@ -228,7 +230,7 @@ void FChatSocket::HandleChatError(const FErrorResponseDto& Error)
 {
     if (Error.IsTokenExpired())
     {
-        UE_LOG(LogChatSocket, Warning, TEXT("WebSocket token expired [Message=%s]"), Error.Code, *Error.Message);
+        UE_LOG(LogChatSocket, Warning, TEXT("WebSocket token expired [Message=%s]"), *Error.Message);
         Reconnect(true);
         return;
     }
@@ -372,12 +374,12 @@ void FChatSocket::SetConnectionState(const EConnectionState NewState)
 
     if (bWasOnline != bOnline)
     {
-        Events().Broadcast(FConnectionChangedEvent{{{FConnectionChangedEvent::StaticType, bOnline}}});
+        Events().Broadcast(FConnectionChangedEvent{bOnline});
 
         if (bOnline && IsConnected())
         {
             UE_LOG(LogChatSocket, Log, TEXT("Connection recovered"));
-            Events().Broadcast(FConnectionRecoveredEvent{{{FConnectionRecoveredEvent::StaticType}}});
+            Events().Broadcast(FConnectionRecoveredEvent{});
         }
     }
 }

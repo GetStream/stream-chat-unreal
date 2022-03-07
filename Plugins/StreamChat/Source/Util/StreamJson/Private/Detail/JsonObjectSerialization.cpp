@@ -35,8 +35,8 @@ TSharedPtr<FJsonValue> ApplyNamingConventionToValue(FProperty* Property, const v
         }
         // Intentionally exclude the JSON Object wrapper, which specifically needs to export JSON in an object
         // representation instead of a string
-        if (UScriptStruct::ICppStructOps* TheCppStructOps = StructProperty->Struct->GetCppStructOps();
-            StructProperty->Struct != FJsonObjectWrapper::StaticStruct() && TheCppStructOps && TheCppStructOps->HasExportTextItem())
+        UScriptStruct::ICppStructOps* TheCppStructOps = StructProperty->Struct->GetCppStructOps();
+        if (StructProperty->Struct != FJsonObjectWrapper::StaticStruct() && TheCppStructOps && TheCppStructOps->HasExportTextItem())
         {
             FString OutValueStr;
             TheCppStructOps->ExportTextItem(OutValueStr, Value, nullptr, nullptr, PPF_None, nullptr);
@@ -82,7 +82,8 @@ bool JsonObjectSerialization::UStructToJsonAttributes(
 
     if (StructDefinition == FJsonObjectWrapper::StaticStruct())
     {
-        if (const FJsonObjectWrapper* ProxyObject = static_cast<const FJsonObjectWrapper*>(Struct); ProxyObject->JsonObject.IsValid())
+        const FJsonObjectWrapper* ProxyObject = static_cast<const FJsonObjectWrapper*>(Struct);
+        if (ProxyObject->JsonObject.IsValid())
         {
             OutJsonAttributes = ProxyObject->JsonObject->Values;
         }
@@ -117,7 +118,8 @@ bool JsonObjectSerialization::UStructToJsonAttributes(
         // Skip serializing empty arrays
         if (const FArrayProperty* ArrayProperty = CastField<FArrayProperty>(Property))
         {
-            if (const FScriptArrayHelper ArrayHelper{ArrayProperty, Value}; ArrayHelper.Num() == 0)
+            const FScriptArrayHelper ArrayHelper{ArrayProperty, Value};
+            if (ArrayHelper.Num() == 0)
             {
                 continue;
             }
@@ -138,7 +140,8 @@ bool JsonObjectSerialization::UStructToJsonAttributes(
             static const FName NAME_DateTime(TEXT("DateTime"));
             if (StructProperty->Struct->GetFName() == NAME_DateTime)
             {
-                if (const FDateTime* DateTime = static_cast<const FDateTime*>(Value); DateTime->GetTicks() == 0)
+                const FDateTime* DateTime = static_cast<const FDateTime*>(Value);
+                if (DateTime->GetTicks() == 0)
                 {
                     continue;
                 }
