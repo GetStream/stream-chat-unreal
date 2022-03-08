@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [Linux, Mac, "Win64"]
+        platform: [Linux, Mac, "Win64", Android, IOS]
         what: [team-chat, jumpy-lion]
         include:
           - what: team-chat
@@ -36,6 +36,11 @@ jobs:
             path: MacNoEditor
           - platform: Win64
             path: WindowsNoEditor
+          - platform: Android
+            path: Android_Multi
+          - platform: IOS
+            path: IOS
+
 
     name: 📦 Package ${{ matrix.what }} - ${{ matrix.platform }}
     runs-on: [self-hosted, 'UE_${{ matrix.platform }}']
