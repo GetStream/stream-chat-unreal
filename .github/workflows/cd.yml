@@ -100,6 +100,18 @@ jobs:
             sed 's/.*LogInit: Display: \(.*\): Error: \(.*\)/::error title=\1::\2/'
             sed 's/.*ERROR: \(.*\)/::error::\1/'
 
+      - name: Rename package
+        if: ${{ matrix.platform == 'IOS' }}
+        run: |
+          build_config=${{ github.event.inputs.build-configuration }}
+          if [ -z "${build_config}" ]; then build_config=Shipping; fi
+          echo Using build configuration: $build_config
+
+          app=${{ matrix.what }}.ipa
+          executable=StreamChatSample-${{ matrix.platform }}-$build_config
+          echo -e "\n==> Rename to $app"
+          mv dist/${{ matrix.path }}/$executable.ipa $app
+
       - name: 🔏 Codesign executable
         if: ${{ matrix.platform == 'Mac' }}
         env:
@@ -117,14 +129,20 @@ jobs:
           mv dist/${{ matrix.path }}/$executable.app $app
 
           echo -e "\n==> Set up cert"
-          echo $MACOS_CERTIFICATE | base64 --decode > certificate.p12
-          security delete-keychain build.keychain
-          security create-keychain -p qwerty build.keychain
-          security default-keychain -s build.keychain
-          security unlock-keychain -p qwerty build.keychain
-          security import certificate.p12 -k build.keychain -P $MACOS_CERTIFICATE_PWD -T /usr/bin/codesign
-          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k qwerty build.keychain
-          security list-keychains -s `security list-keychains | xargs` build.keychain
+          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+          # import certificate and provisioning profile from secrets
+          echo -n "$MACOS_CERTIFICATE" | base64 --decode --output $CERTIFICATE_PATH
+
+          # create temporary keychain
+          security create-keychain -p qwerty $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p qwerty $KEYCHAIN_PATH
+
+          # import certificate to keychain
+          security import $CERTIFICATE_PATH -P "$MACOS_CERTIFICATE_PWD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
 
           echo -e "\n==> Remove RadioEffectComponent"
           rm -rf $app/Contents/Resources/RadioEffectUnit.component
@@ -162,7 +180,7 @@ jobs:
         run: ditto -V -c -k --sequesterRsrc --keepParent "${{ matrix.what }}.app" "${{ matrix.what }}-${{ matrix.platform }}.zip"
 
       - uses: actions/upload-artifact@v2
-        if: ${{ matrix.platform == 'Mac' }}
+        if: ${{ matrix.platform == 'Mac' && matrix.platform != 'IOS'  }}
         with:
           name: ${{ matrix.what }}-${{ matrix.platform }}
           path: |
@@ -170,13 +188,22 @@ jobs:
         name: 📁 Upload artifact
 
       - uses: actions/upload-artifact@v2
-        if: ${{ matrix.platform != 'Mac' }}
+        if: ${{ matrix.platform != 'Mac' && matrix.platform != 'IOS' }}
         with:
           name: ${{ matrix.what }}-${{ matrix.platform }}
           path: |
             dist/${{ matrix.path }}
             !**/Manifest_NonUFSFiles*.txt
         name: 📁 Upload artifact
+
+      - name: 'Upload app to TestFlight'
+        if: ${{ matrix.platform == 'IOS' }}
+        uses: apple-actions/upload-testflight-build@v1
+        with:
+          app-path: '${{ matrix.what }}.ipa'
+          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
+          api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
 
   plugin:
     name: 🔌 Package plugin
