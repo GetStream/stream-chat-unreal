@@ -94,12 +94,16 @@ jobs:
           fi
 
           build_config=${{ github.event.inputs.build-configuration }}
-          if [ -z ${buil_config+x} ]; then build_config=Shipping; fi
+          if [ -z ${build_config+x} ]; then build_config=Shipping; fi
 
           # -package needed to create ipa/apk
           # -distribution needed to use non-dev certificate
 
-          ue4 package $build_config -package -distribution -platform=${{ matrix.platform }} -mapstocook=${{ matrix.map }} |
+          if [ "${{ matrix.platform == 'IOS' }}" = true ] ; then
+            MAYBE_DISTRIBUTION=-distribution
+          fi
+
+          ue4 package $build_config -package $MAYBE_DISTRIBUTION -platform=${{ matrix.platform }} -mapstocook=${{ matrix.map }} |
             sed 's/.*LogInit: Display: \(.*\): Warning: \(.*\)/::warning title=\1::\2/'
             sed 's/.*LogInit: Display: \(.*\): Error: \(.*\)/::error title=\1::\2/'
             sed 's/.*ERROR: \(.*\)/::error::\1/'
@@ -107,6 +111,8 @@ jobs:
       - name: Rename package
         if: ${{ matrix.platform == 'IOS' }}
         run: |
+          find dist
+
           build_config=${{ github.event.inputs.build-configuration }}
           if [ -z "${build_config}" ]; then build_config=Shipping; fi
           echo Using build configuration: $build_config
