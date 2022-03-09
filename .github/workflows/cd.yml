@@ -95,7 +95,7 @@ jobs:
 
           build_config=${{ github.event.inputs.build-configuration }}
           if [ -z ${buil_config+x} ]; then build_config=Shipping; fi
-          ue4 package $build_config -platform=${{ matrix.platform }} -mapstocook=${{ matrix.map }} |
+          ue4 package $build_config -package -platform=${{ matrix.platform }} -mapstocook=${{ matrix.map }} |
             sed 's/.*LogInit: Display: \(.*\): Warning: \(.*\)/::warning title=\1::\2/'
             sed 's/.*LogInit: Display: \(.*\): Error: \(.*\)/::error title=\1::\2/'
             sed 's/.*ERROR: \(.*\)/::error::\1/'
