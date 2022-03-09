@@ -197,7 +197,7 @@ jobs:
 
   plugin:
     name: 🔌 Package plugin
-    runs-on: [self-hosted]
+    runs-on: [self-hosted, UE_IOS]
 
     steps:
       - uses: actions/checkout@v2
