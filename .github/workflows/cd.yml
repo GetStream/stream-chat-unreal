@@ -37,7 +37,7 @@ jobs:
           - platform: Win64
             path: WindowsNoEditor
           - platform: Android
-            path: Android_Multi
+            path: Android
           - platform: IOS
             path: IOS
 
