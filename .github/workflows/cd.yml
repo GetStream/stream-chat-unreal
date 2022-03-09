@@ -111,14 +111,12 @@ jobs:
       - name: Rename package
         if: ${{ matrix.platform == 'IOS' }}
         run: |
-          find dist
-
           build_config=${{ github.event.inputs.build-configuration }}
           if [ -z "${build_config}" ]; then build_config=Shipping; fi
           echo Using build configuration: $build_config
 
           app=${{ matrix.what }}.ipa
-          executable=StreamChatSample-${{ matrix.platform }}-$build_config
+          executable=Distro_StreamChatSample-${{ matrix.platform }}-$build_config
           echo -e "\n==> Rename to $app"
           mv dist/${{ matrix.path }}/$executable.ipa $app
 
