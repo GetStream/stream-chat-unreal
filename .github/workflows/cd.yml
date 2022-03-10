@@ -268,6 +268,8 @@ jobs:
             zip -r "${i%/}.zip" "$i"
           done
 
+          find .
+
       - name: 🚀 Create GitHub release
         uses: ncipollo/release-action@v1
         with:
@@ -280,7 +282,7 @@ jobs:
       - name: 'Upload iOS app to TestFlight'
         uses: apple-actions/upload-testflight-build@v1
         with:
-          app-path: 'team-chat.ipa'
+          app-path: './team-chat.ipa'
           issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
           api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
           api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
