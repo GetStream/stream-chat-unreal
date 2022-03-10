@@ -63,16 +63,16 @@ jobs:
           lfs: true
 
       - name: Generate bundle version
-        if: ${{ matrix.platform == 'IOS' }}
-        shell: node {0}
-        run: |
-          const fs = require('fs');
-          const fileName = './Plugins/StreamChat/StreamChat.uplugin';
-          const data = fs.readFileSync(fileName);
-          const file = JSON.parse(data);
-          const bundleVersion = `0.${file.Version + 1`;
-          fs.writeFileSync('./Config/Build/IOS/StreamChatSample.PackageVersionCounter', bundleVersion);
-          console.log(`Generated bundle version ${bundleVersion}`);
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const fs = require('fs');
+            const fileName = './Plugins/StreamChat/StreamChat.uplugin';
+            const data = fs.readFileSync(fileName);
+            const file = JSON.parse(data);
+            const bundleVersion = `0.${file.Version + 1}`;
+            fs.writeFileSync('./Config/Build/IOS/StreamChatSample.PackageVersionCounter', bundleVersion);
+            console.log(`Generated bundle version ${bundleVersion}`);
 
       - name: Install iOS certificate and provisioning profile
         if: ${{ matrix.platform == 'IOS' }}
