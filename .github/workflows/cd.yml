@@ -71,7 +71,7 @@ jobs:
             const fileName = './Plugins/StreamChat/StreamChat.uplugin';
             const data = fs.readFileSync(fileName);
             const file = JSON.parse(data);
-            const bundleVersion = `0.${file.Version + 1}`;
+            const bundleVersion = `0.${file.Version + 11}`;
             fs.mkdirSync('./Config/Build/IOS', { recursive: true });
             fs.writeFileSync('./Config/Build/IOS/StreamChatSample.PackageVersionCounter', bundleVersion);
             console.log(`Generated bundle version ${bundleVersion}`);
@@ -261,8 +261,11 @@ jobs:
           script: |
             // Getting the release version from the PR source branch
             // Source branch looks like this: release-1.0.0
-            const ref = "${{ github.event.inputs.force-release }}" || (context.payload.pull_request ? context.payload.pull_request.head.ref : context.ref);
-            const version = ref.split('-')[1];
+            let version = "${{ github.event.inputs.force-release }}";
+            if (!version) {
+              const ref = context.payload.pull_request ? context.payload.pull_request.head.ref : context.ref;
+              version = ref.split('-')[1];
+            }
             console.log("Detected version " + version);
             core.exportVariable('VERSION', version);
 
