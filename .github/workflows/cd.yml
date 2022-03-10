@@ -17,6 +17,11 @@ on:
           - Development
           - Shipping
           - Test
+      force-release:
+        description: 'Force release'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   samples:
@@ -25,6 +30,12 @@ jobs:
       matrix:
         platform: [Linux, Mac, "Win64", Android, IOS]
         what: [team-chat, jumpy-lion]
+        exclude:
+          # exclude Jumpy Lion on mobile
+          - platform: Android
+            what: jumpy-lion
+          - platform: IOS
+            what: jumpy-lion
         include:
           - what: team-chat
             map: /Game/TeamChatSample/Maps/TeamChatSample.TeamChatSample
@@ -108,18 +119,6 @@ jobs:
             sed 's/.*LogInit: Display: \(.*\): Error: \(.*\)/::error title=\1::\2/'
             sed 's/.*ERROR: \(.*\)/::error::\1/'
 
-      - name: Rename package
-        if: ${{ matrix.platform == 'IOS' }}
-        run: |
-          build_config=${{ github.event.inputs.build-configuration }}
-          if [ -z "${build_config}" ]; then build_config=Shipping; fi
-          echo Using build configuration: $build_config
-
-          app=${{ matrix.what }}.ipa
-          executable=Distro_StreamChatSample-${{ matrix.platform }}-$build_config
-          echo -e "\n==> Rename to $app"
-          mv dist/${{ matrix.path }}/$executable.ipa $app
-
       - name: 🔏 Codesign executable
         if: ${{ matrix.platform == 'Mac' }}
         env:
@@ -188,7 +187,7 @@ jobs:
         run: ditto -V -c -k --sequesterRsrc --keepParent "${{ matrix.what }}.app" "${{ matrix.what }}-${{ matrix.platform }}.zip"
 
       - uses: actions/upload-artifact@v2
-        if: ${{ matrix.platform == 'Mac' && matrix.platform != 'IOS'  }}
+        if: ${{ matrix.platform == 'Mac' }}
         with:
           name: ${{ matrix.what }}-${{ matrix.platform }}
           path: |
@@ -196,22 +195,13 @@ jobs:
         name: 📁 Upload artifact
 
       - uses: actions/upload-artifact@v2
-        if: ${{ matrix.platform != 'Mac' && matrix.platform != 'IOS' }}
+        if: ${{ matrix.platform != 'Mac' }}
         with:
           name: ${{ matrix.what }}-${{ matrix.platform }}
           path: |
             dist/${{ matrix.path }}
             !**/Manifest_NonUFSFiles*.txt
         name: 📁 Upload artifact
-
-      - name: 'Upload app to TestFlight'
-        if: ${{ matrix.platform == 'IOS' }}
-        uses: apple-actions/upload-testflight-build@v1
-        with:
-          app-path: '${{ matrix.what }}.ipa'
-          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
-          api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
-          api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
 
   plugin:
     name: 🔌 Package plugin
@@ -246,7 +236,7 @@ jobs:
 
   release:
     name: 🚀 Release
-    if: startsWith(github.head_ref, 'release-') || startsWith(github.ref_name, 'release-')
+    if: startsWith(github.head_ref, 'release-') || startsWith(github.ref_name, 'release-') || ${{ github.event.inputs.build-configuration }}
     needs: [samples, plugin]
     runs-on: ubuntu-latest
 
@@ -267,6 +257,8 @@ jobs:
 
       - name: 📇 Zip
         run: |
+          # move iOS IPA
+          find . -type f -name "*.ipa" -exec mv -i {} .\release.ipa \;
           # move macOS zips
           find . -type f -name "*.zip" -exec mv -i {} . \;
           # delete empty directories
@@ -276,6 +268,8 @@ jobs:
             zip -r "${i%/}.zip" "$i"
           done
 
+          find .
+
       - name: 🚀 Create GitHub release
         uses: ncipollo/release-action@v1
         with:
@@ -284,3 +278,11 @@ jobs:
           tag: v${{ env.VERSION }}
           artifacts: "*.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 'Upload iOS app to TestFlight'
+        uses: apple-actions/upload-testflight-build@v1
+        with:
+          app-path: 'release.ipa'
+          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
+          api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
