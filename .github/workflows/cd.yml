@@ -72,8 +72,8 @@ jobs:
             const data = fs.readFileSync(fileName);
             const file = JSON.parse(data);
             const bundleVersion = `0.${file.Version + 11}`;
-            fs.mkdirSync('./Config/Build/IOS', { recursive: true });
-            fs.writeFileSync('./Config/Build/IOS/StreamChatSample.PackageVersionCounter', bundleVersion);
+            fs.mkdirSync('./Build/IOS', { recursive: true });
+            fs.writeFileSync('./Build/IOS/StreamChatSample.PackageVersionCounter', bundleVersion);
             console.log(`Generated bundle version ${bundleVersion}`);
 
       - name: Install iOS certificate and provisioning profile
