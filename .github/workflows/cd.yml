@@ -20,6 +20,7 @@ on:
       force-release:
         description: 'Force release with version'
         required: false
+        default: ''
         type: string
 
 jobs:
@@ -260,7 +261,7 @@ jobs:
           script: |
             // Getting the release version from the PR source branch
             // Source branch looks like this: release-1.0.0
-            const ref = "${{ github.event.inputs.force-release }}" ?? (context.payload.pull_request ? context.payload.pull_request.head.ref : context.ref);
+            const ref = "${{ github.event.inputs.force-release }}" || (context.payload.pull_request ? context.payload.pull_request.head.ref : context.ref);
             const version = ref.split('-')[1];
             console.log("Detected version " + version);
             core.exportVariable('VERSION', version);
