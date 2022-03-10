@@ -269,33 +269,6 @@ jobs:
             console.log("Detected version " + version);
             core.exportVariable('VERSION', version);
 
-            const convertVersionToInt32 = function (version) {
-              // Split a given version string into three parts.
-              let parts = version.split(".");
-              // Check if we got exactly three parts, otherwise throw an error.
-              if (parts.length !== 3) {
-                throw new Error("Received invalid version string");
-              }
-              // Make sure that no part is larger than 1023 or else it
-              // won't fit into a 32-bit integer.
-              parts.forEach((part) => {
-                if (part >= 1024) {
-                  throw new Error(`Version string invalid, ${part} is too large`);
-                }
-              });
-              // Let's create a new number which we will return later on
-              let numericVersion = 0;
-              // Shift all parts either 0, 10 or 20 bits to the left.
-              for (let i = 2; i >= 0; i--) {
-                numericVersion |= parts[2 - i] << (i * 10);
-              }
-              return numericVersion;
-            };
-
-            const intVersion = convertVersionToInt32(version);
-            const bundleVersion = `0.${intVersion}`;
-            console.log("Generated iOS bundle version " + bundleVersion);
-
       - name: 📥 Download
         uses: actions/download-artifact@v2
 
