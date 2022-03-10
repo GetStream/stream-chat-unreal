@@ -238,7 +238,7 @@ jobs:
     name: 🚀 Release
     if: startsWith(github.head_ref, 'release-') || startsWith(github.ref_name, 'release-') || ${{ github.event.inputs.build-configuration }}
     needs: [samples, plugin]
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
       - name: 🔎 Determine version
@@ -258,7 +258,7 @@ jobs:
       - name: 📇 Zip
         run: |
           # move iOS IPA
-          find . -type f -name "*.ipa" -exec mv -i {} .\release.ipa \;
+          find . -type f -name "*.ipa" -exec mv -i {} .\team-chat.ipa \;
           # move macOS zips
           find . -type f -name "*.zip" -exec mv -i {} . \;
           # delete empty directories
@@ -267,8 +267,6 @@ jobs:
           for i in */; do
             zip -r "${i%/}.zip" "$i"
           done
-
-          find .
 
       - name: 🚀 Create GitHub release
         uses: ncipollo/release-action@v1
@@ -282,7 +280,7 @@ jobs:
       - name: 'Upload iOS app to TestFlight'
         uses: apple-actions/upload-testflight-build@v1
         with:
-          app-path: 'release.ipa'
+          app-path: 'team-chat.ipa'
           issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
           api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
           api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
