@@ -63,6 +63,7 @@ jobs:
           lfs: true
 
       - name: Generate bundle version
+        if: ${{ matrix.platform == 'IOS' }}
         uses: actions/github-script@v5
         with:
           script: |
@@ -71,6 +72,7 @@ jobs:
             const data = fs.readFileSync(fileName);
             const file = JSON.parse(data);
             const bundleVersion = `0.${file.Version + 1}`;
+            fs.mkdirSync('./Config/Build/IOS', { recursive: true });
             fs.writeFileSync('./Config/Build/IOS/StreamChatSample.PackageVersionCounter', bundleVersion);
             console.log(`Generated bundle version ${bundleVersion}`);
 
