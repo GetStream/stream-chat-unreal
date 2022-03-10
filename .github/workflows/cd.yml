@@ -258,7 +258,7 @@ jobs:
       - name: 📇 Zip
         run: |
           # move iOS IPA
-          find . -type f -name "*.ipa" -exec mv -i {} .\team-chat.ipa \;
+          find . -type f -name "*.ipa" -exec mv -i {} ./team-chat.ipa \;
           # move macOS zips
           find . -type f -name "*.zip" -exec mv -i {} . \;
           # delete empty directories
@@ -267,8 +267,6 @@ jobs:
           for i in */; do
             zip -r "${i%/}.zip" "$i"
           done
-
-          find .
 
       - name: 🚀 Create GitHub release
         uses: ncipollo/release-action@v1
