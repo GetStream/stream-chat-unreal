@@ -18,10 +18,9 @@ on:
           - Shipping
           - Test
       force-release:
-        description: 'Force release'
+        description: 'Force release with version'
         required: false
-        default: false
-        type: boolean
+        type: string
 
 jobs:
   samples:
@@ -250,7 +249,7 @@ jobs:
 
   release:
     name: 🚀 Release
-    if: startsWith(github.head_ref, 'release-') || startsWith(github.ref_name, 'release-') || ${{ github.event.inputs.build-configuration }}
+    if: startsWith(github.head_ref, 'release-') || startsWith(github.ref_name, 'release-') || ${{ github.event.inputs.force-release }}
     needs: [samples, plugin]
     runs-on: macos-latest
 
@@ -261,7 +260,7 @@ jobs:
           script: |
             // Getting the release version from the PR source branch
             // Source branch looks like this: release-1.0.0
-            const ref = context.payload.pull_request ? context.payload.pull_request.head.ref : context.ref;
+            const ref = "${{ github.event.inputs.force-release }}" ?? (context.payload.pull_request ? context.payload.pull_request.head.ref : context.ref);
             const version = ref.split('-')[1];
             console.log("Detected version " + version);
             core.exportVariable('VERSION', version);
