@@ -2,6 +2,8 @@
 
 #include "StreamJsonField.h"
 
+#include "Dom/JsonObject.h"
+
 template <>
 void JsonField::Serialize<uint32>(const TOptional<uint32>& Field, const FString& FieldName, FJsonObject& JsonObject)
 {
