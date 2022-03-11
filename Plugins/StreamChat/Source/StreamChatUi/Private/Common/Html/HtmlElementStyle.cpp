@@ -4,6 +4,24 @@
 
 #include "HtmlParser.h"
 
+FHtmlElementStyle::FHtmlElementStyle()
+    : bOverride_FontObject(0)
+    , bOverride_FontMaterial(0)
+    , bOverride_OutlineSettings(0)
+    , bOverride_TypefaceFontName(0)
+    , bOverride_Size(0)
+    , bOverride_LetterSpacing(0)
+    , bOverride_ColorAndOpacity(0)
+    , bOverride_ShadowOffset(0)
+    , bOverride_ShadowColorAndOpacity(0)
+    , bOverride_SelectedBackgroundColor(0)
+    , bOverride_HighlightColor(0)
+    , bOverride_HighlightShape(0)
+    , bOverride_StrikeBrush(0)
+    , bOverride_UnderlineBrush(0)
+{
+}
+
 void Combine(FTextBlockStyle& TargetTextBlockStyle, const FHtmlElementStyle& OverridingStyle)
 {
     if (OverridingStyle.bOverride_FontMaterial)

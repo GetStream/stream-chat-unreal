@@ -95,8 +95,12 @@ jobs:
           files: report.xml
 
   build-samples:
-    name: 🤡 Build samples
-    runs-on: [self-hosted]
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [Linux, Mac, "Win64", Android, IOS]
+    name: 🤡 Build samples ${{ matrix.platform }}
+    runs-on: [self-hosted, 'UE_${{ matrix.platform }}']
 
     steps:
       - uses: actions/checkout@v2
@@ -104,5 +108,16 @@ jobs:
         with:
           lfs: true
 
-      - name: 🔨 Build sample projects
-        run: ue4 build -NoPCH -NoSharedPCH -DisableUnity
+      - name: 🔨 Build
+        run: |
+          ue4 build -NoPCH -NoSharedPCH -DisableUnity -platform=${{ matrix.platform }} \
+            | sed -e 's/.*LogInit: Display: \(.*\): Warning: \(.*\)/::warning title=\1::\2/' \
+            -e 's/.*LogInit: Display: \(.*\): Error: \(.*\)/::error title=\1::\2/' \
+            -e 's/.*ERROR: \(.*\)/::error::\1/'
+
+      - name: 🧑‍🍳 Cook
+        run: |
+          ue4 uat BuildCookRun -project=$PWD/StreamChatSample.uproject -cook -skipstage -targetplatform=${{ matrix.platform }} \
+            | sed -e 's/.*LogInit: Display: \(.*\): Warning: \(.*\)/::warning title=\1::\2/' \
+            -e 's/.*LogInit: Display: \(.*\): Error: \(.*\)/::error title=\1::\2/' \
+            -e 's/.*ERROR: \(.*\)/::error::\1/'

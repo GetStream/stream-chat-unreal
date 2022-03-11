@@ -17,7 +17,7 @@ struct FDeviceFieldsDto
     GENERATED_BODY()
 
     UPROPERTY()
-    EPushProvider PushProvider;
+    EPushProvider PushProvider = EPushProvider::Firebase;
 
     UPROPERTY()
     FString Id;
