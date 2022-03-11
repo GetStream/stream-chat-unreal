@@ -109,9 +109,11 @@ jobs:
           lfs: true
 
       - name: 🔨 Build
+        shell: bash
         run: |
           ue4 build -NoPCH -NoSharedPCH -DisableUnity -platform=${{ matrix.platform }} | sed -e 's/.*LogInit: Display: \(.*\): Warning: \(.*\)/::warning title=\1::\2/' -e 's/.*LogInit: Display: \(.*\): Error: \(.*\)/::error title=\1::\2/' -e 's/.*ERROR: \(.*\)/::error::\1/'
 
       - name: 🧑‍🍳 Cook
+        shell: bash
         run: |
           ue4 uat BuildCookRun -project=$PWD/StreamChatSample.uproject -cook -skipstage -targetplatform=${{ matrix.platform }} | sed -e 's/.*LogInit: Display: \(.*\): Warning: \(.*\)/::warning title=\1::\2/' -e 's/.*LogInit: Display: \(.*\): Error: \(.*\)/::error title=\1::\2/' -e 's/.*ERROR: \(.*\)/::error::\1/'
