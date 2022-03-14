@@ -25,6 +25,7 @@ struct FUserRef;
 struct FChannelStateResponseFieldsDto;
 struct FConnectionRecoveredEvent;
 struct FMessage;
+struct FDevice;
 struct FUserPresenceChangedEvent;
 
 /**
@@ -192,6 +193,12 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client")
     void RemoveDevice(const FString& DeviceId) const;
+
+    /**
+     * @brief Returns a list of all available devices
+     * @param Callback Called when response is received
+     */
+    void ListDevices(TFunction<void(TArray<FDevice>)> Callback) const;
 
     UPROPERTY(EditAnywhere, Config, Category = "Stream Chat", meta = (DisplayName = "API Key"))
     FString ApiKey;

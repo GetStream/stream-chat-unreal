@@ -6,7 +6,7 @@
 
 #include "PushProvider.generated.h"
 
-UENUM()
+UENUM(BlueprintType)
 enum class EPushProvider : uint8
 {
     Firebase,
