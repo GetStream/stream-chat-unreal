@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Response/ResponseDto.h"
 #include "UserResponseDto.h"
 
 #include "UsersResponseDto.generated.h"
@@ -12,13 +13,9 @@
  * @ingroup StreamChatDto
  */
 USTRUCT()
-struct FUsersResponseDto
+struct FUsersResponseDto : public FResponseDto
 {
     GENERATED_BODY()
-
-    /// Duration of the request in human-readable format
-    UPROPERTY()
-    FString Duration;
 
     /// List of found users
     UPROPERTY()

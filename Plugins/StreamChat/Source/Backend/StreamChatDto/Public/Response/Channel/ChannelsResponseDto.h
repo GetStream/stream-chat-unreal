@@ -4,6 +4,7 @@
 
 #include "ChannelStateResponseFieldsDto.h"
 #include "CoreMinimal.h"
+#include "Response/ResponseDto.h"
 
 #include "ChannelsResponseDto.generated.h"
 
@@ -12,15 +13,11 @@
  * @ingroup StreamChatDto
  */
 USTRUCT()
-struct FChannelsResponseDto
+struct FChannelsResponseDto : public FResponseDto
 {
     GENERATED_BODY()
 
     /// List of channels
     UPROPERTY()
     TArray<FChannelStateResponseFieldsDto> Channels;
-
-    /// Duration of the request in human-readable format
-    UPROPERTY()
-    FString Duration;
 };

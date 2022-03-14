@@ -22,6 +22,7 @@ struct FDeleteChannelResponseDto;
 struct FEventResponseDto;
 struct FGuestResponseDto;
 struct FHttpResponse;
+struct FListDevicesResponseDto;
 struct FMarkReadRequestDto;
 struct FMarkReadResponseDto;
 struct FMessageRequestDto;
@@ -309,6 +310,12 @@ public:
      * @param Callback Called when response is received
      */
     void RemoveDevice(const FString& DeviceId, TCallback<FResponseDto> Callback = {}) const;
+
+    /**
+     * @brief Returns a list of all available devices
+     * @param Callback Called when response is received
+     */
+    void ListDevices(TCallback<FListDevicesResponseDto> Callback = {}) const;
 
     ///@}
 #pragma endregion Devices

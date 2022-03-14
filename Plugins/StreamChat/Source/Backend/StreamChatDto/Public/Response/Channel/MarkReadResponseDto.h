@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Response/Event/EventDto.h"
+#include "Response/ResponseDto.h"
 
 #include "MarkReadResponseDto.generated.h"
 
@@ -12,13 +13,9 @@
  * @ingroup StreamChatDto
  */
 USTRUCT()
-struct FMarkReadResponseDto
+struct FMarkReadResponseDto : public FResponseDto
 {
     GENERATED_BODY()
-
-    /// Duration of the request in human-readable format
-    UPROPERTY()
-    FString Duration;
 
     /// Mark read event
     UPROPERTY()

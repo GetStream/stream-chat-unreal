@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "ReactionDto.h"
 #include "Response/Message/MessageDto.h"
+#include "Response/ResponseDto.h"
 
 #include "ReactionResponseDto.generated.h"
 
@@ -13,13 +14,9 @@
  * @ingroup StreamChatDto
  */
 USTRUCT()
-struct FReactionResponseDto
+struct FReactionResponseDto : public FResponseDto
 {
     GENERATED_BODY()
-
-    /// Duration of the request in human-readable format
-    UPROPERTY()
-    FString Duration;
 
     UPROPERTY()
     FMessageDto Message;
