@@ -12,6 +12,7 @@
 #include "Request/Message/SendMessageRequestDto.h"
 #include "Request/Message/UpdateMessageRequestDto.h"
 #include "Request/Moderation/BanRequestDto.h"
+#include "Request/Moderation/QueryBannedUsersRequestDto.h"
 #include "Request/Reaction/SendReactionRequestDto.h"
 #include "Request/User/GuestRequestDto.h"
 #include "Request/User/QueryUsersRequestDto.h"
@@ -24,6 +25,7 @@
 #include "Response/Event/EventResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
+#include "Response/Moderation/QueryBannedUsersResponseDto.h"
 #include "Response/Reaction/ReactionResponseDto.h"
 #include "Response/ResponseDto.h"
 #include "Response/User/GuestResponseDto.h"
@@ -98,6 +100,41 @@ void FChatApi::UnbanUser(const FString TargetUserId, const FString Type, const F
     }
 
     Client->Delete(Url).Query(Query).Send(Callback);
+}
+
+void FChatApi::QueryBannedUsers(
+    const TOptional<TSharedRef<FJsonObject>>& Filter,
+    const TArray<FSortParamRequestDto>& SortOptions,
+    const TOptional<FDateTime> CreatedAtAfterOrEqual,
+    const TOptional<FDateTime> CreatedAtAfter,
+    const TOptional<FDateTime> CreatedAtBeforeOrEqual,
+    const TOptional<FDateTime> CreatedAtBefore,
+    const TOptional<uint32> Limit,
+    const TOptional<uint32> Offset,
+    const TCallback<FQueryBannedUsersResponseDto> Callback) const
+{
+    const FString Url = BuildUrl(TEXT("query_banned_users"));
+    FQueryBannedUsersRequestDto Body{Limit, Offset, Wrap(Filter)};
+    Body.SetSort(SortOptions);
+    if (CreatedAtAfterOrEqual.IsSet())
+    {
+        Body.SetCreatedAtAfterOrEqual(CreatedAtAfterOrEqual.GetValue());
+    }
+    if (CreatedAtAfter.IsSet())
+    {
+        Body.SetCreatedAtAfter(CreatedAtAfter.GetValue());
+    }
+    if (CreatedAtBeforeOrEqual.IsSet())
+    {
+        Body.SetCreatedAtBeforeOrEqual(CreatedAtBeforeOrEqual.GetValue());
+    }
+    if (CreatedAtBefore.IsSet())
+    {
+        Body.SetCreatedAtBefore(CreatedAtBefore.GetValue());
+    }
+
+    const FString Payload = Json::Serialize(Body);
+    Client->Get(Url).Query({{TEXT("payload"), Payload}}).Send(Callback);
 }
 
 void FChatApi::QueryUsers(

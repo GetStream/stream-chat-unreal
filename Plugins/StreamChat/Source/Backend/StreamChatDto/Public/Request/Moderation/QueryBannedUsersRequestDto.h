@@ -2,48 +2,34 @@
 
 #pragma once
 
-#include "AdditionalFields.h"
 #include "CoreMinimal.h"
+#include "Request/PaginatedRequest.h"
 
 #include "QueryBannedUsersRequestDto.generated.h"
 
+struct FSortParamRequestDto;
 /**
  * @brief #/components/schemas/QueryBannedUsersRequest
  * @ingroup StreamChatDto
  * @see https://getstream.io/chat/docs/unreal/moderation/
  */
 USTRUCT()
-struct STREAMCHATDTO_API FQueryBannedUsersRequestDto
+struct STREAMCHATDTO_API FQueryBannedUsersRequestDto : public FPaginatedRequest
 {
     GENERATED_BODY()
 
-    /// Timeout of ban in minutes. User will be unbanned after this period of time
-    void SetTimeout(float);
+    FQueryBannedUsersRequestDto() = default;
 
-    /// ID of user to ban
-    UPROPERTY()
-    FString TargetUserId;
+    FQueryBannedUsersRequestDto(const TOptional<uint32>& Limit, const TOptional<uint32>& Offset, const FJsonObjectWrapper& Filter);
 
-    /// Channel type to ban user in (not serialized if empty)
-    UPROPERTY()
-    FString Type;
+    void SetCreatedAtAfter(const FDateTime&);
 
-    /// Channel ID to ban user in (not serialized if empty)
-    UPROPERTY()
-    FString Id;
+    void SetCreatedAtAfterOrEqual(const FDateTime&);
 
-    /// Ban reason (not serialized if empty)
-    UPROPERTY()
-    FString Reason;
+    void SetCreatedAtBefore(const FDateTime&);
 
-    /// Whether to perform shadow ban or not
-    UPROPERTY()
-    bool bShadow = false;
+    void SetCreatedAtBeforeOrEqual(const FDateTime&);
 
-    /// Whether to perform IP ban or not
-    UPROPERTY()
-    bool bIpBan = false;
-
-    UPROPERTY()
-    FAdditionalFields AdditionalFields;
+    /// Sort parameters. Cannot be used with non-zero offset
+    void SetSort(const TArray<FSortParamRequestDto>&);
 };
