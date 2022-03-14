@@ -11,6 +11,7 @@
 #include "Request/Message/SearchRequestDto.h"
 #include "Request/Message/SendMessageRequestDto.h"
 #include "Request/Message/UpdateMessageRequestDto.h"
+#include "Request/Moderation/BanRequestDto.h"
 #include "Request/Reaction/SendReactionRequestDto.h"
 #include "Request/User/GuestRequestDto.h"
 #include "Request/User/QueryUsersRequestDto.h"
@@ -61,6 +62,26 @@ TSharedRef<FChatApi> FChatApi::Create(const FString& InApiKey, const FString& In
     Api->Client->OnRequestDelegate.AddSP(Api, &FChatApi::OnRequest);
     Api->Client->OnErrorDelegate.AddSP(Api, &FChatApi::OnError);
     return Api;
+}
+
+void FChatApi::BanUser(
+    const FString TargetUserId,
+    FString Type,
+    FString Id,
+    TOptional<float> Timeout,
+    FString Reason,
+    bool bShadow,
+    bool bIpBan,
+    const TCallback<FResponseDto> Callback) const
+{
+    const FString Url = BuildUrl(TEXT("moderation/ban"));
+    FBanRequestDto Body{TargetUserId, Type, Id, Reason, bShadow, bIpBan};
+    if (Timeout.IsSet())
+    {
+        Body.SetTimeout(Timeout.GetValue());
+    }
+
+    Client->Post(Url).Json(Body).Send(Callback);
 }
 
 void FChatApi::QueryUsers(
