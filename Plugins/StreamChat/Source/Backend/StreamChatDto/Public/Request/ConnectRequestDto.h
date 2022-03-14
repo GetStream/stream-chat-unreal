@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "DeviceFieldsDto.h"
+#include "Device/DeviceFieldsDto.h"
 #include "UserObjectDto.h"
 
 #include "ConnectRequestDto.generated.h"

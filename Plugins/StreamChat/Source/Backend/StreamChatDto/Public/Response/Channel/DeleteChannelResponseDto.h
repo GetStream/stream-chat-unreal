@@ -4,6 +4,7 @@
 
 #include "ChannelResponseDto.h"
 #include "CoreMinimal.h"
+#include "Response/ResponseDto.h"
 
 #include "DeleteChannelResponseDto.generated.h"
 
@@ -12,14 +13,10 @@
  * @ingroup StreamChatDto
  */
 USTRUCT()
-struct FDeleteChannelResponseDto
+struct FDeleteChannelResponseDto : public FResponseDto
 {
     GENERATED_BODY()
 
     UPROPERTY()
     FChannelResponseDto Channel;
-
-    /// Duration of the request in human-readable format
-    UPROPERTY()
-    FString Duration;
 };

@@ -6,7 +6,7 @@
 #include "Request/Channel/ChannelGetOrCreateRequestDto.h"
 #include "Request/Channel/MarkReadRequestDto.h"
 #include "Request/Channel/QueryChannelsRequestDto.h"
-#include "Request/DeviceFieldsDto.h"
+#include "Request/Device/DeviceFieldsDto.h"
 #include "Request/Event/SendEventRequest.h"
 #include "Request/Message/SearchRequestDto.h"
 #include "Request/Message/SendMessageRequestDto.h"
@@ -18,6 +18,7 @@
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/Channel/DeleteChannelResponseDto.h"
 #include "Response/Channel/MarkReadResponseDto.h"
+#include "Response/Device/ListDevicesResponseDto.h"
 #include "Response/ErrorResponseDto.h"
 #include "Response/Event/EventResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
@@ -104,6 +105,12 @@ void FChatApi::RemoveDevice(const FString& DeviceId, const TCallback<FResponseDt
 {
     const FString Url = BuildUrl(TEXT("devices"));
     Client->Delete(Url).Query({{TEXT("id"), DeviceId}}).Send(Callback);
+}
+
+void FChatApi::ListDevices(const TCallback<FListDevicesResponseDto> Callback) const
+{
+    const FString Url = BuildUrl(TEXT("devices"));
+    Client->Get(Url).Send(Callback);
 }
 
 void FChatApi::QueryChannel(

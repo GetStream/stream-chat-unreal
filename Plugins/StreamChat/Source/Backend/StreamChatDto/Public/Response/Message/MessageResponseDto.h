@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "MessageDto.h"
+#include "Response/ResponseDto.h"
 
 #include "MessageResponseDto.generated.h"
 
@@ -12,13 +13,9 @@
  * @ingroup StreamChatDto
  */
 USTRUCT()
-struct FMessageResponseDto
+struct FMessageResponseDto : public FResponseDto
 {
     GENERATED_BODY()
-
-    /// Duration of the request in human-readable format
-    UPROPERTY()
-    FString Duration;
 
     UPROPERTY()
     FMessageDto Message;

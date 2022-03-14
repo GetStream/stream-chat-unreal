@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Response/ResponseDto.h"
 #include "UserObjectDto.h"
 
 #include "GuestResponseDto.generated.h"
@@ -12,17 +13,13 @@
  * @ingroup StreamChatDto
  */
 USTRUCT()
-struct FGuestResponseDto
+struct FGuestResponseDto : public FResponseDto
 {
     GENERATED_BODY()
 
     /// Authentication token to use for guest user
     UPROPERTY()
     FString AccessToken;
-
-    /// Duration of the request in human-readable format
-    UPROPERTY()
-    FString Duration;
 
     /// Created user object
     UPROPERTY()

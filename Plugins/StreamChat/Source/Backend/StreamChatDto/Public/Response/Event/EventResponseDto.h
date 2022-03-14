@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "EventDto.h"
+#include "Response/ResponseDto.h"
 
 #include "EventResponseDto.generated.h"
 
@@ -12,13 +13,9 @@
  * @ingroup StreamChatDto
  */
 USTRUCT()
-struct FEventResponseDto
+struct FEventResponseDto : public FResponseDto
 {
     GENERATED_BODY()
-
-    /// Duration of the request in human-readable format
-    UPROPERTY()
-    FString Duration;
 
     UPROPERTY()
     FEventDto Event;

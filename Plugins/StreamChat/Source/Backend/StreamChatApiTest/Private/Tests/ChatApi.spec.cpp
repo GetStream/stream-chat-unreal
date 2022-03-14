@@ -6,11 +6,12 @@
 #include "Dom/JsonObject.h"
 #include "IChatSocket.h"
 #include "Misc/AutomationTest.h"
-#include "Request/PushProvider.h"
+#include "PushProvider.h"
 #include "Request/User/UserObjectRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/Channel/DeleteChannelResponseDto.h"
+#include "Response/Device/ListDevicesResponseDto.h"
 #include "Response/ResponseDto.h"
 #include "Response/User/GuestResponseDto.h"
 #include "Response/User/UsersResponseDto.h"
@@ -24,6 +25,7 @@ const FString Host = TEXT("chat.stream-io-api.com");
 const FUserObjectDto User{FUserDto{TEXT("TestUser")}};
 const FString ChannelId = TEXT("test-channel");
 const FString ChannelType = TEXT("messaging");
+const FString DeviceId = TEXT("random-device-id");
 const TSharedRef<FTokenManager> TokenManager = MakeShared<FTokenManager>();
 const TSharedRef<FChatApi> Api = FChatApi::Create(ApiKey, Host, TokenManager);
 TSharedPtr<IChatSocket> Socket;
@@ -199,7 +201,7 @@ void FChatApiSpec::Define()
                 [=](const FDoneDelegate& TestDone)
                 {
                     Api->AddDevice(
-                        TEXT("random-device-id"),
+                        DeviceId,
                         EPushProvider::Firebase,
                         [=](const FResponseDto& Dto)
                         {
@@ -213,10 +215,22 @@ void FChatApiSpec::Define()
                 [=](const FDoneDelegate& TestDone)
                 {
                     Api->RemoveDevice(
-                        TEXT("random-device-id"),
+                        DeviceId,
                         [=](const FResponseDto& Dto)
                         {
                             TestTrue("Response received", Dto.Duration.Len() > 0);
+                            TestDone.Execute();
+                        });
+                });
+
+            // List devices
+            LatentAfterEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->ListDevices(
+                        [=](const FListDevicesResponseDto& Dto)
+                        {
+                            TestEqual("Device exists", Dto.Devices[0].Id, DeviceId);
                             TestDone.Execute();
                         });
                 });

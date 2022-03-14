@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Response/ResponseDto.h"
 #include "SearchResultDto.h"
 #include "SearchWarningDto.h"
 
@@ -13,13 +14,9 @@
  * @ingroup StreamChatDto
  */
 USTRUCT()
-struct FSearchResponseDto
+struct FSearchResponseDto : public FResponseDto
 {
     GENERATED_BODY()
-
-    /// Duration of the request in human-readable format
-    UPROPERTY()
-    FString Duration;
 
     /// Value to pass to the next search query in order to paginate
     UPROPERTY()
