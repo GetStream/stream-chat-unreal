@@ -27,6 +27,7 @@ struct FMarkReadRequestDto;
 struct FMarkReadResponseDto;
 struct FMessageRequestDto;
 struct FMessageResponseDto;
+struct FQueryBannedUsersResponseDto;
 struct FReactionRequestDto;
 struct FReactionResponseDto;
 struct FResponseDto;
@@ -86,6 +87,31 @@ public:
      * @param Callback Called when response is received.
      */
     void UnbanUser(const FString TargetUserId, FString Type = {}, FString Id = {}, TCallback<FResponseDto> Callback = {}) const;
+
+    /**
+     * @brief Find and filter channel scoped or global user bans
+     * @see https://getstream.io/chat/docs/unreal/moderation/#query-bans-endpoint
+     * @param Filter Conditions to use to filter the banned users
+     * @param SortOptions The sorting used for the banned users matching the filters.
+     * Sorting is based on field and direction, multiple sorting options can be provided.
+     * @param CreatedAtAfterOrEqual Paginate using the created_at field
+     * @param CreatedAtAfter Paginate using the created_at field
+     * @param CreatedAtBeforeOrEqual Paginate using the created_at field
+     * @param CreatedAtBefore Paginate using the created_at field
+     * @param Limit The number of banned users to return
+     * @param Offset The pagination offset
+     * @param Callback Called when response is received.
+     */
+    void QueryBannedUsers(
+        const TOptional<TSharedRef<FJsonObject>>& Filter = {},
+        const TArray<FSortParamRequestDto>& SortOptions = {},
+        const TOptional<FDateTime> CreatedAtAfterOrEqual = {},
+        const TOptional<FDateTime> CreatedAtAfter = {},
+        const TOptional<FDateTime> CreatedAtBeforeOrEqual = {},
+        const TOptional<FDateTime> CreatedAtBefore = {},
+        TOptional<uint32> Limit = {},
+        TOptional<uint32> Offset = {},
+        TCallback<FQueryBannedUsersResponseDto> Callback = {}) const;
 ///@}
 #pragma endregion Moderation
 
