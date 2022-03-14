@@ -55,7 +55,29 @@ public:
      *  @{
      */
 
-    ///@}
+    /**
+     * @brief Users can be banned from an app entirely or from a channel.
+     * When a user is banned, they will not be allowed to post messages until the ban is
+     * removed or expired but will be able to connect to Chat and to channels as before.
+     * @param TargetUserId ID of user to ban
+     * @param Type Channel type to ban user in (optional, ban is app-wide otherwise)
+     * @param Id Channel ID to ban user in (optional, ban is app-wide otherwise)
+     * @param Timeout Timeout of ban in minutes. User will be unbanned after this period of time (optional)
+     * @param Reason Ban reason (optional)
+     * @param bShadow Whether to perform shadow ban or not
+     * @param bIpBan Whether to perform IP ban or not
+     * @param Callback Called when response is received.
+     */
+    void BanUser(
+        const FString TargetUserId,
+        FString Type = {},
+        FString Id = {},
+        TOptional<float> Timeout = {},
+        FString Reason = {},
+        bool bShadow = false,
+        bool bIpBan = false,
+        TCallback<FResponseDto> Callback = {}) const;
+///@}
 #pragma endregion Moderation
 
 #pragma region Channels
@@ -166,7 +188,7 @@ public:
         const TOptional<FString>& MessageId = {},
         TCallback<FMarkReadResponseDto> Callback = {}) const;
 
-    ///@}
+///@}
 #pragma endregion Channels
 
 #pragma region Messages
@@ -228,7 +250,7 @@ public:
      */
     void DeleteReaction(const FString& MessageId, const FName& Type, TCallback<FReactionResponseDto> Callback = {}) const;
 
-    ///@}
+///@}
 #pragma endregion Messages
 
 #pragma region Events
@@ -247,16 +269,16 @@ public:
     template <class TEvent>
     void SendChannelEvent(const FString& ChannelType, const FString& ChannelId, const TEvent&, TCallback<FEventResponseDto> Callback = {});
 
-    ///@}
+///@}
 #pragma endregion Events
 
 #pragma region Files
-    /** @name Files
-     *  https://getstream.io/chat/docs/rest/#Files
-     *  @{
-     */
+/** @name Files
+ *  https://getstream.io/chat/docs/rest/#Files
+ *  @{
+ */
 
-    ///@}
+///@}
 #pragma endregion Files
 
 #pragma region Users
@@ -287,7 +309,7 @@ public:
 
     void CreateGuest(const FUserObjectRequestDto& User, TCallback<FGuestResponseDto> Callback = {}) const;
 
-    ///@}
+///@}
 #pragma endregion Users
 
 #pragma region Devices
@@ -317,7 +339,7 @@ public:
      */
     void ListDevices(TCallback<FListDevicesResponseDto> Callback = {}) const;
 
-    ///@}
+///@}
 #pragma endregion Devices
 
 private:
