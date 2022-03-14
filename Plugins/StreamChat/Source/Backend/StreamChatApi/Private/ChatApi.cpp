@@ -113,11 +113,11 @@ void FChatApi::QueryUsers(
 
     const FQueryUsersRequestDto Body{
         ConnectionId,
-        Limit.Get(10),
-        Offset.Get(0),
-        Wrap(Filter),
         bPresence,
         SortOptions,
+        Limit,
+        Offset,
+        Wrap(Filter),
     };
 
     const FString Payload = Json::Serialize(Body);
@@ -260,16 +260,16 @@ void FChatApi::QueryChannels(
     const FString Url = BuildUrl(TEXT("channels"));
 
     const FQueryChannelsRequestDto Body{
-        Limit.Get(10),
-        Offset.Get(0),
         MessageLimit.Get(25),
         MemberLimit.Get(100),
         ConnectionId,
-        Wrap(Filter),
         EnumHasAnyFlags(Flags, EChannelFlags::Presence),
         SortOptions,
         EnumHasAnyFlags(Flags, EChannelFlags::State),
         EnumHasAnyFlags(Flags, EChannelFlags::Watch),
+        Limit,
+        Offset,
+        Wrap(Filter),
     };
 
     Client->Post(Url).Json(Body).Send(Callback);
@@ -286,9 +286,7 @@ void FChatApi::SearchMessages(
     const TCallback<FSearchResponseDto> Callback) const
 {
     const FString Url = BuildUrl(TEXT("search"));
-    FSearchRequestDto Body{
-        Wrap(ChannelFilter),
-    };
+    FSearchRequestDto Body{MessageLimit, Offset, Wrap(ChannelFilter)};
     if (Query.IsSet())
     {
         Body.SetQuery(Query.GetValue());
@@ -300,14 +298,6 @@ void FChatApi::SearchMessages(
     if (Sort.Num() > 0)
     {
         Body.SetSort(Sort);
-    }
-    if (MessageLimit.IsSet())
-    {
-        Body.SetMessageLimit(MessageLimit.GetValue());
-    }
-    if (Offset.IsSet())
-    {
-        Body.SetOffset(Offset.GetValue());
     }
     if (Next.IsSet())
     {

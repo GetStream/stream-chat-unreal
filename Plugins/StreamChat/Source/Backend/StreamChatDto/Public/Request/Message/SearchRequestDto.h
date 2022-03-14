@@ -4,7 +4,7 @@
 
 #include "AdditionalFields.h"
 #include "CoreMinimal.h"
-#include "JsonObjectWrapper.h"
+#include "Request/PaginatedRequest.h"
 
 #include "SearchRequestDto.generated.h"
 
@@ -16,9 +16,12 @@ struct FSortParamRequestDto;
  * @see https://getstream.io/chat/docs/unreal/search/
  */
 USTRUCT()
-struct STREAMCHATDTO_API FSearchRequestDto
+struct STREAMCHATDTO_API FSearchRequestDto : public FPaginatedRequest
 {
     GENERATED_BODY()
+
+    FSearchRequestDto() = default;
+    explicit FSearchRequestDto(const TOptional<uint32>& Limit, const TOptional<uint32>& Offset, const FJsonObjectWrapper& Filter);
 
     /// Search phrase
     void SetQuery(const FString&);
@@ -26,16 +29,8 @@ struct STREAMCHATDTO_API FSearchRequestDto
     void SetMessageFilter(const TSharedRef<FJsonObject>&);
     /// Sort parameters. Cannot be used with non-zero offset
     void SetSort(const TArray<FSortParamRequestDto>&);
-    /// Number of messages to return
-    void SetMessageLimit(int32);
-    /// Pagination offset. Cannot be used with sort or next.
-    void SetOffset(int32);
     /// Pagination parameter. Cannot be used with non-zero offset
     void SetNext(const FString&);
-
-    // Channel filter conditions
-    UPROPERTY()
-    FJsonObjectWrapper FilterConditions;
 
     UPROPERTY()
     FAdditionalFields AdditionalFields;
