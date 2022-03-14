@@ -49,18 +49,21 @@ void FChatApiSpec::Define()
                 [=](const FDoneDelegate& TestDone)
                 {
                     Api->QueryChannel(
+                        ChannelType,
+                        Socket->GetConnectionId(),
+                        EChannelFlags::None,
+                        {},
+                        ChannelId,
+                        {},
+                        {},
+                        {},
                         [=](const FChannelStateResponseDto& Dto)
                         {
                             TestEqual("Response.Channel.Cid", Dto.Channel.Cid, TEXT("messaging:test-channel"));
                             TestEqual("Response.Channel.Id", Dto.Channel.Id, ChannelId);
                             TestEqual("No additional fields", Dto.Channel.AdditionalFields.GetFields().Num(), 0);
                             TestDone.Execute();
-                        },
-                        ChannelType,
-                        Socket->GetConnectionId(),
-                        EChannelFlags::None,
-                        {},
-                        ChannelId);
+                        });
                 });
 
             LatentIt(
@@ -70,14 +73,19 @@ void FChatApiSpec::Define()
                     const TSharedRef<FJsonObject> Filter = MakeShared<FJsonObject>();
                     Filter->SetStringField(TEXT("id"), ChannelId);
                     Api->QueryChannels(
+                        Socket->GetConnectionId(),
+                        EChannelFlags::None,
+                        Filter,
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
                         [=](const FChannelsResponseDto& Dto)
                         {
                             TestEqual("One channel in response", Dto.Channels.Num(), 1);
                             TestDone.Execute();
-                        },
-                        Socket->GetConnectionId(),
-                        EChannelFlags::None,
-                        Filter);
+                        });
                 });
 
             // AfterEach are executed in reverse order oft ad declaration...
@@ -89,14 +97,19 @@ void FChatApiSpec::Define()
                     const TSharedRef<FJsonObject> Filter = MakeShared<FJsonObject>();
                     Filter->SetStringField(TEXT("id"), ChannelId);
                     Api->QueryChannels(
+                        Socket->GetConnectionId(),
+                        EChannelFlags::None,
+                        Filter,
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
                         [=](const FChannelsResponseDto& Dto)
                         {
                             TestEqual("No channels in response", Dto.Channels.Num(), 0);
                             TestDone.Execute();
-                        },
-                        Socket->GetConnectionId(),
-                        EChannelFlags::None,
-                        Filter);
+                        });
                 });
 
             // Delete channel
@@ -104,6 +117,8 @@ void FChatApiSpec::Define()
                 [=](const FDoneDelegate& TestDone)
                 {
                     Api->DeleteChannel(
+                        ChannelType,
+                        ChannelId,
                         [=](const FDeleteChannelResponseDto& Dto)
                         {
                             TestEqual("Response.Channel.Cid", Dto.Channel.Cid, TEXT("messaging:test-channel"));
@@ -111,9 +126,7 @@ void FChatApiSpec::Define()
                             TestEqual("No additional fields", Dto.Channel.AdditionalFields.GetFields().Num(), 0);
                             AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
                             TestDone.Execute();
-                        },
-                        ChannelType,
-                        ChannelId);
+                        });
                 });
         });
 
@@ -126,6 +139,12 @@ void FChatApiSpec::Define()
                 [=](const FDoneDelegate& TestDone)
                 {
                     Api->QueryUsers(
+                        Socket->GetConnectionId(),
+                        false,
+                        {},
+                        {},
+                        {},
+                        {},
                         [=](const FUsersResponseDto& Dto)
                         {
                             TestTrue("Users returned", Dto.Users.Num() > 0);
@@ -139,9 +158,7 @@ void FChatApiSpec::Define()
                                 TestEqual("No additional fields", FoundUser->AdditionalFields.GetFields().Num(), 0);
                             }
                             TestDone.Execute();
-                        },
-                        Socket->GetConnectionId(),
-                        false);
+                        });
                 });
         });
 

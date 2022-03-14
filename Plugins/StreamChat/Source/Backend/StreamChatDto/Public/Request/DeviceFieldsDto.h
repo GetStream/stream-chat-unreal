@@ -9,6 +9,7 @@
 
 /**
  * @brief #/components/schemas/DeviceFields
+ * Also used as CreateDeviceRequest
  * @ingroup StreamChatDto
  */
 USTRUCT()
