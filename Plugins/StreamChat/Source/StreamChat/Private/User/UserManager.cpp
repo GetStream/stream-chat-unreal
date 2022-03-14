@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #include "User/UserManager.h"
 
@@ -46,7 +46,8 @@ FUserRef UUserManager::UpsertUser(const FUser& User)
     }
 
     const FUserRef Ref = FUserRef{User.Id, this};
-    if (FUser* FoundUser = Users.Find(User.Id); !FoundUser)
+    FUser* FoundUser = Users.Find(User.Id);
+    if (!FoundUser)
     {
         Users.Add(User.Id, User);
         OnUserUpdated(Ref).Broadcast();

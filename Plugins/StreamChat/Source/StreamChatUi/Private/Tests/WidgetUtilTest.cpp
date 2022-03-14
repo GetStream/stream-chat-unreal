@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #include "CoreTypes.h"
 #include "Misc/AutomationTest.h"
@@ -31,9 +31,9 @@ bool FHashStringMaxText::RunTest(const FString& Parameters)
     constexpr float ExpectedFrequency = 26.f * 26.f / Max;
     constexpr uint32 MinFreq = static_cast<uint32>(0.8f * ExpectedFrequency);
     constexpr uint32 MaxFreq = static_cast<uint32>(1.2f * ExpectedFrequency);
-    for (auto [Key, Value] : Histogram)
+    for (const auto& Bucket : Histogram)
     {
-        AddInfo(FString::Printf(TEXT("%d: %d"), Key, Value));
+        AddInfo(FString::Printf(TEXT("%d: %d"), Bucket.Key, Bucket.Value));
     }
     TestTrue(TEXT("Not too infrequent"), Histogram[0] > MinFreq);
     TestTrue(TEXT("Not too frequent"), Histogram[Max - 1] < MaxFreq);

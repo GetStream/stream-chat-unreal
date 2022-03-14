@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -17,7 +17,7 @@ struct FDeviceFieldsDto
     GENERATED_BODY()
 
     UPROPERTY()
-    EPushProvider PushProvider;
+    EPushProvider PushProvider = EPushProvider::Firebase;
 
     UPROPERTY()
     FString Id;

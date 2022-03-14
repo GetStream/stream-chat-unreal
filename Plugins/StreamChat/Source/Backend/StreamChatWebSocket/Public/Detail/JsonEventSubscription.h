@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -45,7 +45,7 @@ bool TJsonEventSubscription<T>::OnMessage(const TSharedRef<FJsonObject>& JsonObj
     {
         return false;
     }
-    check(OutStruct.Type == T::StaticType);
+    check(OutStruct.Type == T::StaticType());
 
     Delegate.Broadcast(OutStruct);
     return true;

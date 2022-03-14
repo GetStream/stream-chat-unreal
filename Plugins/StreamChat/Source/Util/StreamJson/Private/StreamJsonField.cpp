@@ -1,8 +1,8 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #include "StreamJsonField.h"
 
-#include "Serialization/JsonSerializer.h"
+#include "Dom/JsonObject.h"
 
 template <>
 void JsonField::Serialize<uint32>(const TOptional<uint32>& Field, const FString& FieldName, FJsonObject& JsonObject)
@@ -34,7 +34,8 @@ void JsonField::Serialize<FDateTime>(const TOptional<FDateTime>& Field, const FS
 template <>
 void JsonField::Deserialize<uint32>(const FJsonObject& JsonObject, const FString& FieldName, TOptional<uint32>& Field)
 {
-    if (uint32 Number; JsonObject.TryGetNumberField(FieldName, Number))
+    uint32 Number;
+    if (JsonObject.TryGetNumberField(FieldName, Number))
     {
         Field.Emplace(Number);
     }
@@ -43,9 +44,11 @@ void JsonField::Deserialize<uint32>(const FJsonObject& JsonObject, const FString
 template <>
 void JsonField::Deserialize<FDateTime>(const FJsonObject& JsonObject, const FString& FieldName, TOptional<FDateTime>& Field)
 {
-    if (FString DateString; JsonObject.TryGetStringField(FieldName, DateString))
+    FString DateString;
+    if (JsonObject.TryGetStringField(FieldName, DateString))
     {
-        if (FDateTime Date; FDateTime::ParseIso8601(*DateString, Date))
+        FDateTime Date;
+        if (FDateTime::ParseIso8601(*DateString, Date))
         {
             Field.Emplace(Date);
         }

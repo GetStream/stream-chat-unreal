@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -33,9 +33,11 @@ void STREAMJSON_API Serialize(const TOptional<FDateTime>& Field, const FString& 
 template <class T>
 void Deserialize(const FJsonObject& JsonObject, const FString& FieldName, TOptional<T>& Field)
 {
-    if (const TSharedPtr<FJsonObject>* InnerJsonObject; JsonObjectSerialization::TryGetObjectField(JsonObject, FieldName, InnerJsonObject))
+    const TSharedPtr<FJsonObject>* InnerJsonObject;
+    if (JsonObjectSerialization::TryGetObjectField(JsonObject, FieldName, InnerJsonObject))
     {
-        if (T OutStruct; JsonObjectDeserialization::JsonObjectToUStruct(JsonObject, OutStruct))
+        T OutStruct;
+        if (JsonObjectDeserialization::JsonObjectToUStruct(JsonObject, OutStruct))
         {
             Field.Emplace(OutStruct);
         }

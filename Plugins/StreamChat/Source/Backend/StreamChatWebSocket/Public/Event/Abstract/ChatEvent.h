@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -15,6 +15,11 @@ USTRUCT()
 struct FChatEvent
 {
     GENERATED_BODY()
+
+    FChatEvent() = default;
+    FChatEvent(const FName& Type, const FDateTime& CreatedAt) : Type(Type), CreatedAt(CreatedAt)
+    {
+    }
 
     /// Event type
     UPROPERTY()

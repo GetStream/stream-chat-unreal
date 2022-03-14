@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #include "Reaction/MessageReactionsWidget.h"
 
@@ -32,10 +32,10 @@ void UMessageReactionsWidget::OnSetup()
             return;
         }
 
-        for (const auto& [Type, Group] : Message.Reactions.GetReactionGroups())
+        for (const auto& Group : Message.Reactions.GetReactionGroups())
         {
             UBottomReactionWidget* Widget = CreateWidget<UBottomReactionWidget>(this, BottomReactionWidgetClass);
-            Widget->Setup(Group);
+            Widget->Setup(Group.Value);
             Widget->OnBottomReactionClickedNative.AddLambda(
                 [this](const FReactionGroup& Reaction)
                 {

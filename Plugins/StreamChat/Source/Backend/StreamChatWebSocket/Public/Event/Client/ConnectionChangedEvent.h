@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -15,9 +15,18 @@
 USTRUCT()
 struct FConnectionChangedEvent : public FLocalEvent
 {
+    explicit FConnectionChangedEvent() = default;
+    explicit FConnectionChangedEvent(const bool bOnline) : FLocalEvent{StaticType()}, bOnline(bOnline)
+    {
+    }
+
     GENERATED_BODY()
 
-    inline static FName StaticType = TEXT("connection.changed");
+    static FName StaticType()
+    {
+        static const FName Type{TEXT("connection.changed")};
+        return Type;
+    }
 
     UPROPERTY()
     bool bOnline = false;

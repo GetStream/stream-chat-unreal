@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -321,6 +321,8 @@ private:
 template <class TEvent>
 void FChatApi::SendChannelEvent(const FString& ChannelType, const FString& ChannelId, const TEvent& Event, const TCallback<FEventResponseDto> Callback)
 {
-    static_assert(TIsSame<decltype(TEvent::StaticType), FName>::Value, "TEvent must have a FName member 'StaticType' to use with SendChannelEvent.");
+    static_assert(
+        TIsSame<decltype(TEvent::StaticType()), decltype(TEvent::StaticType())>::Value,
+        "TEvent must have a static method 'StaticType' which returns a FName to use with SendChannelEvent.");
     SendChannelEventInternal(ChannelType, ChannelId, JsonObject::UStructToJsonObject<TEvent>(Event), Callback);
 }

@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #include "Detail/JsonObjectDeserialization.h"
 
@@ -634,8 +634,8 @@ bool JsonAttributesToUStructWithContainer(
 
         if (JsonValue->IsValid() && !(*JsonValue)->IsNull())
         {
-            if (void* Value = Property->ContainerPtrToValuePtr<uint8>(OutStruct);
-                !JsonValueToFPropertyWithContainer(*JsonValue, Property, Value, ContainerStruct, Container))
+            void* Value = Property->ContainerPtrToValuePtr<uint8>(OutStruct);
+            if (!JsonValueToFPropertyWithContainer(*JsonValue, Property, Value, ContainerStruct, Container))
             {
                 UE_LOG(LogJson, Error, TEXT("JsonObjectToUStruct - Unable to parse %s.%s from JSON"), *StructDefinition->GetName(), *Property->GetName());
                 return false;
@@ -657,7 +657,8 @@ bool JsonAttributesToUStructWithContainer(
         {
             for (FAdditionalFields* Fields : AdditionalFields)
             {
-                if (const TSharedPtr<FJsonValue>* Value = JsonAttributes.Find(UnclaimedName); Value && Value->IsValid())
+                const TSharedPtr<FJsonValue>* Value = JsonAttributes.Find(UnclaimedName);
+                if (Value && Value->IsValid())
                 {
                     Fields->SetJsonValue(FName(UnclaimedName), Value->ToSharedRef());
                 }

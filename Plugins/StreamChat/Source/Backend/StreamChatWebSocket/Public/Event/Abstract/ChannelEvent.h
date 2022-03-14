@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -16,6 +16,13 @@ USTRUCT()
 struct FChannelEvent : public FChatEvent
 {
     GENERATED_BODY()
+
+    explicit FChannelEvent() = default;
+
+    explicit FChannelEvent(const FName& Type, const FDateTime& CreatedAt, const FString& ChannelId, const FString& ChannelType, const FString& Cid)
+        : FChatEvent(Type, CreatedAt), ChannelId(ChannelId), ChannelType(ChannelType), Cid(Cid)
+    {
+    }
 
     UPROPERTY()
     FString ChannelId;

@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #include "Common/Html/HtmlParser.h"
 #include "Common/Html/HtmlRichTextMarkupParser.h"
@@ -340,17 +340,12 @@ bool FHtmlRichTextMarkupParserTest::RunTest(const FString& Parameters)
         TestEqual("Results[0].RunContentEnd", Results[0].Runs[0].ContentRange.EndIndex, 4);
         TestEqual("Results[1].Begin", Results[1].Range.BeginIndex, 4);
         TestEqual("Results[1].End", Results[1].Range.EndIndex, 14);
-        TestEqual("Results[1].Runs", Results[1].Runs.Num(), 2);
-        TestEqual("Results[1].Run[0]Name", Results[1].Runs[0].Name, TEXT("p_br"));
-        TestEqual("Results[1].Run[0]OriginalStart", Results[1].Runs[0].OriginalRange.BeginIndex, 4);
-        TestEqual("Results[1].Run[0]OriginalEnd", Results[1].Runs[0].OriginalRange.EndIndex, 9);
-        TestEqual("Results[1].Run[0]ContentStart", Results[1].Runs[0].ContentRange.BeginIndex, INDEX_NONE);
-        TestEqual("Results[1].Run[0]ContentEnd", Results[1].Runs[0].ContentRange.EndIndex, INDEX_NONE);
-        TestEqual("Results[1].Run[1]Name", Results[1].Runs[1].Name, TEXT("p"));
-        TestEqual("Results[1].Run[1]OriginalStart", Results[1].Runs[1].OriginalRange.BeginIndex, 0);
-        TestEqual("Results[1].Run[1]OriginalEnd", Results[1].Runs[1].OriginalRange.EndIndex, 10);
-        TestEqual("Results[1].Run[1]ContentStart", Results[1].Runs[1].ContentRange.BeginIndex, 9);
-        TestEqual("Results[1].Run[1]ContentEnd", Results[1].Runs[1].ContentRange.EndIndex, 10);
+        TestEqual("Results[1].Runs", Results[1].Runs.Num(), 1);
+        TestEqual("Results[1].Name", Results[1].Runs[0].Name, TEXT("p"));
+        TestEqual("Results[1].OriginalStart", Results[1].Runs[0].OriginalRange.BeginIndex, 0);
+        TestEqual("Results[1].OriginalEnd", Results[1].Runs[0].OriginalRange.EndIndex, 10);
+        TestEqual("Results[1].ContentStart", Results[1].Runs[0].ContentRange.BeginIndex, 9);
+        TestEqual("Results[1].ContentEnd", Results[1].Runs[0].ContentRange.EndIndex, 10);
     }
     // Newline
     {

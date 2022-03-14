@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #include "Reaction/ReactionPickerWidget.h"
 
@@ -51,7 +51,8 @@ void UReactionPickerWidget::OnReactionButtonClicked(const FName& ReactionType)
 {
     if (ensure(Channel))
     {
-        if (const TOptional<FReaction> OwnReaction = Message.Reactions.GetOwnReaction(ReactionType); OwnReaction.IsSet())
+        const TOptional<FReaction> OwnReaction = Message.Reactions.GetOwnReaction(ReactionType);
+        if (OwnReaction.IsSet())
         {
             Channel->DeleteReaction(Message, OwnReaction.GetValue());
         }

@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -15,6 +15,29 @@ USTRUCT()
 struct STREAMCHATDTO_API FUserDto
 {
     GENERATED_BODY()
+
+    explicit FUserDto() = default;
+    explicit FUserDto(
+        const FString& Id,
+        const FDateTime& BanExpires = FDateTime{0},
+        const bool bBanned = false,
+        const bool bInvisible = false,
+        const FString& Language = {},
+        const FDateTime& RevokeTokensIssuedBefore = FDateTime{0},
+        const FString& Role = {},
+        const TArray<FString>& Teams = {},
+        const FAdditionalFields& AdditionalFields = {})
+        : Id(Id)
+        , BanExpires(BanExpires)
+        , bBanned(bBanned)
+        , bInvisible(bInvisible)
+        , Language(Language)
+        , RevokeTokensIssuedBefore(RevokeTokensIssuedBefore)
+        , Role(Role)
+        , Teams(Teams)
+        , AdditionalFields(AdditionalFields)
+    {
+    }
 
     /// Unique user identifier
     UPROPERTY()

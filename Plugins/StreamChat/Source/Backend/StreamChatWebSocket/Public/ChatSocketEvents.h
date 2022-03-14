@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -77,7 +77,7 @@ bool FChatSocketEvents::Unsubscribe(const FDelegateHandle DelegateHandle)
 template <class TEvent>
 void FChatSocketEvents::Broadcast(const TEvent& Event)
 {
-    const FName EventType{TEvent::StaticType};
+    const FName EventType{TEvent::StaticType()};
     const FEventSubscriptionPtr* SubPtr = Subscriptions.Find(EventType);
     if (!SubPtr)
     {

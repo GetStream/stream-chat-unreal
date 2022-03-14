@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #include "Channel/ChannelProperties.h"
 
@@ -54,11 +54,11 @@ FChannelProperties FChannelProperties::WithType(const FString& InType)
 
 TArray<FUserRef> FChannelProperties::GetOtherMemberUsers() const
 {
-    constexpr auto NotCurrentUser = [](const FMember& M)
+    const auto NotCurrentUser = [](const FMember& M)
     {
         return !M.User.IsCurrent();
     };
-    constexpr auto ToUser = [](const FMember& M)
+    const auto ToUser = [](const FMember& M)
     {
         return M.User;
     };

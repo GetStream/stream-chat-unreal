@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -18,7 +18,11 @@ struct FUserPresenceChangedEvent : public FChatEvent
 {
     GENERATED_BODY()
 
-    inline static FName StaticType = TEXT("user.presence.changed");
+    static FName StaticType()
+    {
+        static const FName Type{TEXT("user.presence.changed")};
+        return Type;
+    }
 
     UPROPERTY()
     FUserObjectDto User;

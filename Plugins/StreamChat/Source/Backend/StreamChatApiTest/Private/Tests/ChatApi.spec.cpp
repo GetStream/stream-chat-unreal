@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #include "ChatApi.h"
 
@@ -19,7 +19,7 @@
 BEGIN_DEFINE_SPEC(FChatApiSpec, "StreamChat.ChatApi", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)
 const FString ApiKey = TEXT("kmajgxb2rk4p");
 const FString Host = TEXT("chat.stream-io-api.com");
-const FUserObjectDto User{{TEXT("TestUser")}};
+const FUserObjectDto User{FUserDto{TEXT("TestUser")}};
 const FString ChannelId = TEXT("test-channel");
 const FString ChannelType = TEXT("messaging");
 const TSharedRef<FTokenManager> TokenManager = MakeShared<FTokenManager>();
@@ -153,7 +153,7 @@ void FChatApiSpec::Define()
                 "should create guest user",
                 [=](const FDoneDelegate& TestDone)
                 {
-                    const FUserObjectRequestDto GuestUserDto{{TEXT("test-guest-user")}};
+                    const FUserObjectRequestDto GuestUserDto{FUserDto{TEXT("test-guest-user")}};
                     Api->CreateGuest(
                         GuestUserDto,
                         [=](const FGuestResponseDto& Dto)

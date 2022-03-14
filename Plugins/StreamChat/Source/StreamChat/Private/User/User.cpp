@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #include "User/User.h"
 
@@ -63,7 +63,7 @@ FUser::operator FUserDto() const
     {
         AdditionalFields.SetString(TEXT("image"), Image);
     }
-    return {
+    return FUserDto{
         Id,
         BanExpires,
         bBanned,
@@ -78,12 +78,12 @@ FUser::operator FUserDto() const
 
 FUser::operator FUserObjectDto() const
 {
-    return {FUserDto(*this), CreatedAt, UpdatedAt, DeactivatedAt, DeletedAt, LastActive, bOnline};
+    return FUserObjectDto{FUserDto{*this}, CreatedAt, UpdatedAt, DeactivatedAt, DeletedAt, LastActive, bOnline};
 }
 
 FUser::operator FUserObjectRequestDto() const
 {
-    return {FUserDto(*this)};
+    return FUserObjectRequestDto{FUserDto{*this}};
 }
 
 void FUser::Update(const FUser& User)

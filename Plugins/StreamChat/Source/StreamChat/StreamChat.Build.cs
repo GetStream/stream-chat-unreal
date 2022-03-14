@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 // Copyright Stream.IO, Inc. All Rights Reserved.
 
@@ -9,7 +9,6 @@ public class StreamChat : ModuleRules
 	public StreamChat(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-		CppStandard = CppStandardVersion.Cpp17;
 
 		PrivateDependencyModuleNames.AddRange(new[]
 		{

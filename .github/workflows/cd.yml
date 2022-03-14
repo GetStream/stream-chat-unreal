@@ -17,14 +17,25 @@ on:
           - Development
           - Shipping
           - Test
+      force-release:
+        description: 'Force release with version'
+        required: false
+        default: ''
+        type: string
 
 jobs:
   samples:
     strategy:
       fail-fast: false
       matrix:
-        platform: [Linux, Mac, "Win64"]
+        platform: [Linux, Mac, "Win64", Android, IOS]
         what: [team-chat, jumpy-lion]
+        exclude:
+          # exclude Jumpy Lion on mobile
+          - platform: Android
+            what: jumpy-lion
+          - platform: IOS
+            what: jumpy-lion
         include:
           - what: team-chat
             map: /Game/TeamChatSample/Maps/TeamChatSample.TeamChatSample
@@ -36,6 +47,11 @@ jobs:
             path: MacNoEditor
           - platform: Win64
             path: WindowsNoEditor
+          - platform: Android
+            path: Android
+          - platform: IOS
+            path: IOS
+
 
     name: 📦 Package ${{ matrix.what }} - ${{ matrix.platform }}
     runs-on: [self-hosted, 'UE_${{ matrix.platform }}']
@@ -45,6 +61,49 @@ jobs:
         name: 🛒 Checkout
         with:
           lfs: true
+
+      - name: Generate bundle version
+        if: ${{ matrix.platform == 'IOS' }}
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const fs = require('fs');
+            const fileName = './Plugins/StreamChat/StreamChat.uplugin';
+            const data = fs.readFileSync(fileName);
+            const file = JSON.parse(data);
+            const bundleVersion = `0.${file.Version + 11}`;
+            fs.mkdirSync('./Build/IOS', { recursive: true });
+            fs.writeFileSync('./Build/IOS/StreamChatSample.PackageVersionCounter', bundleVersion);
+            console.log(`Generated bundle version ${bundleVersion}`);
+
+      - name: Install iOS certificate and provisioning profile
+        if: ${{ matrix.platform == 'IOS' }}
+        env:
+          IOS_CERTIFICATE: ${{ secrets.IOS_CERTIFICATE }}
+          MACOS_CERTIFICATE_PWD: ${{ secrets.MACOS_CERTIFICATE_PWD }}
+          IOS_PROVISION_PROFILE: ${{ secrets.IOS_PROVISION_PROFILE }}
+        run: |
+          # create variables
+          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+          PP_PATH=$RUNNER_TEMP/build_pp.mobileprovision
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+          # import certificate and provisioning profile from secrets
+          echo -n "$IOS_CERTIFICATE" | base64 --decode --output $CERTIFICATE_PATH
+          echo -n "$IOS_PROVISION_PROFILE" | base64 --decode --output $PP_PATH
+
+          # create temporary keychain
+          security create-keychain -p qwerty $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p qwerty $KEYCHAIN_PATH
+
+          # import certificate to keychain
+          security import $CERTIFICATE_PATH -P "$MACOS_CERTIFICATE_PWD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
+
+          # apply provisioning profile
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp $PP_PATH ~/Library/MobileDevice/Provisioning\ Profiles
 
       - name: 📦 Package
         shell: bash
@@ -60,11 +119,16 @@ jobs:
           fi
 
           build_config=${{ github.event.inputs.build-configuration }}
-          if [ -z ${buil_config+x} ]; then build_config=Shipping; fi
-          ue4 package $build_config -platform=${{ matrix.platform }} -mapstocook=${{ matrix.map }} |
-            sed 's/.*LogInit: Display: \(.*\): Warning: \(.*\)/::warning title=\1::\2/'
-            sed 's/.*LogInit: Display: \(.*\): Error: \(.*\)/::error title=\1::\2/'
-            sed 's/.*ERROR: \(.*\)/::error::\1/'
+          if [ -z ${build_config+x} ]; then build_config=Shipping; fi
+
+          # -package needed to create ipa/apk
+          # -distribution needed to use non-dev certificate
+
+          if [ "${{ matrix.platform == 'IOS' }}" = true ] ; then
+            MAYBE_DISTRIBUTION=-distribution
+          fi
+
+          ue4 package $build_config -package $MAYBE_DISTRIBUTION -platform=${{ matrix.platform }} -mapstocook=${{ matrix.map }} | sed -e 's/.*LogInit: Display: \(.*\): Warning: \(.*\)/::warning title=\1::\2/' -e 's/.*LogInit: Display: \(.*\): Error: \(.*\)/::error title=\1::\2/' -e 's/.*ERROR: \(.*\)/::error::\1/'
 
       - name: 🔏 Codesign executable
         if: ${{ matrix.platform == 'Mac' }}
@@ -83,35 +147,24 @@ jobs:
           mv dist/${{ matrix.path }}/$executable.app $app
 
           echo -e "\n==> Set up cert"
-          echo $MACOS_CERTIFICATE | base64 --decode > certificate.p12
-          security delete-keychain build.keychain
-          security create-keychain -p qwerty build.keychain
-          security default-keychain -s build.keychain
-          security unlock-keychain -p qwerty build.keychain
-          security import certificate.p12 -k build.keychain -P $MACOS_CERTIFICATE_PWD -T /usr/bin/codesign
-          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k qwerty build.keychain
-          security list-keychains -s `security list-keychains | xargs` build.keychain
+          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+          # import certificate and provisioning profile from secrets
+          echo -n "$MACOS_CERTIFICATE" | base64 --decode --output $CERTIFICATE_PATH
+
+          # create temporary keychain
+          security create-keychain -p qwerty $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p qwerty $KEYCHAIN_PATH
+
+          # import certificate to keychain
+          security import $CERTIFICATE_PATH -P "$MACOS_CERTIFICATE_PWD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
 
           echo -e "\n==> Remove RadioEffectComponent"
           rm -rf $app/Contents/Resources/RadioEffectUnit.component
           rm -rf $app/Contents/UE4/Engine/Build
-
-          echo -e "\n==> Fix rpaths"
-          # These rpaths lead to invalid locations. They need to be removed, otherwise the notarized app won't pass the Gatekeeper.
-          declare -a bad_exe_rpaths=(
-            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_4.27/Engine/Binaries/ThirdParty/PhysX3/Mac"
-            "@loader_path/../../../../../../Engine/Binaries/ThirdParty/PhysX3/Mac"
-            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_4.27/Engine/Binaries/ThirdParty/Ogg/Mac"
-            "@loader_path/../../../../../../Engine/Binaries/ThirdParty/Ogg/Mac"
-            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_4.27/Engine/Binaries/ThirdParty/Vorbis/Mac"
-            "@loader_path/../../../../../../Engine/Binaries/ThirdParty/Vorbis/Mac"
-            "@executable_path/../../../"
-          )
-
-          for i in "${bad_exe_rpaths[@]}"; do
-            echo "Removing bad rpath: $i"
-            install_name_tool -delete_rpath "$i" $app/Contents/MacOS/$executable
-          done
 
           find $app -name '*.dylib' -print0 | while IFS= read -r -d '' i; do
             if otool -l "$i" | grep -q LC_RPATH; then
@@ -163,7 +216,7 @@ jobs:
 
   plugin:
     name: 🔌 Package plugin
-    runs-on: [self-hosted]
+    runs-on: [self-hosted, UE_IOS]
 
     steps:
       - uses: actions/checkout@v2
@@ -194,9 +247,9 @@ jobs:
 
   release:
     name: 🚀 Release
-    if: startsWith(github.head_ref, 'release-') || startsWith(github.ref_name, 'release-')
+    if: ${{ startsWith(github.head_ref, 'release-') || startsWith(github.ref_name, 'release-') || github.event.inputs.force-release != '' }}
     needs: [samples, plugin]
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, UE_Mac]
 
     steps:
       - name: 🔎 Determine version
@@ -205,8 +258,11 @@ jobs:
           script: |
             // Getting the release version from the PR source branch
             // Source branch looks like this: release-1.0.0
-            const ref = context.payload.pull_request ? context.payload.pull_request.head.ref : context.ref;
-            const version = ref.split('-')[1];
+            let version = "${{ github.event.inputs.force-release }}";
+            if (!version) {
+              const ref = context.payload.pull_request ? context.payload.pull_request.head.ref : context.ref;
+              version = ref.split('-')[1];
+            }
             console.log("Detected version " + version);
             core.exportVariable('VERSION', version);
 
@@ -215,6 +271,8 @@ jobs:
 
       - name: 📇 Zip
         run: |
+          # move iOS IPA
+          find . -type f -name "*.ipa" -exec mv -i {} ./team-chat.ipa \;
           # move macOS zips
           find . -type f -name "*.zip" -exec mv -i {} . \;
           # delete empty directories
@@ -232,3 +290,11 @@ jobs:
           tag: v${{ env.VERSION }}
           artifacts: "*.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 'Upload iOS app to TestFlight'
+        uses: apple-actions/upload-testflight-build@v1
+        with:
+          app-path: './team-chat.ipa'
+          issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+          api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
+          api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}

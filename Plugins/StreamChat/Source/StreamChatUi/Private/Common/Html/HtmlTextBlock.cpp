@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #include "Common/Html/HtmlTextBlock.h"
 
@@ -41,8 +41,8 @@ const FSlateWidgetStyle* FHtmlSlateStyleSet::GetWidgetStyleInternal(const FName 
     TArray<FName> TagNames;
     Algo::Transform(Tags, TagNames, [](const FString& Str) { return FName{Str}; });
 
-    static FName TextBlockStyle{TEXT("FTextBlockStyle")};
-    static FName InlineTextImageStyle{TEXT("FInlineTextImageStyle")};
+    static const FName TextBlockStyle{TEXT("FTextBlockStyle")};
+    static const FName InlineTextImageStyle{TEXT("FInlineTextImageStyle")};
     if (DesiredTypeName == TextBlockStyle)
     {
         if (const FSlateWidgetStyle* Style = CombinedStyleCache.Find(StyleName))

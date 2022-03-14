@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -77,7 +77,8 @@ TOptional<T> FAdditionalFields::GetNumber(const FName& Field) const
 {
     if (const TSharedPtr<FJsonValue>* JsonValue = Inner.Find(Field))
     {
-        if (T OutNumber; JsonValue->Get()->TryGetNumber(OutNumber))
+        T OutNumber;
+        if (JsonValue->Get()->TryGetNumber(OutNumber))
         {
             return {OutNumber};
         }
@@ -90,7 +91,8 @@ TOptional<T> FAdditionalFields::Get(const FName& Field) const
 {
     if (const TSharedPtr<FJsonValue>* JsonValue = Inner.Find(Field))
     {
-        if (const TSharedPtr<FJsonObject>* OutObject; JsonValue->Get()->TryGetObject(OutObject))
+        const TSharedPtr<FJsonObject>* OutObject;
+        if (JsonValue->Get()->TryGetObject(OutObject))
         {
             T OutStruct;
             if (JsonObjectDeserialization::JsonObjectToUStruct(OutObject->ToSharedRef(), &OutStruct))

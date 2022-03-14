@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -10,7 +10,7 @@ namespace Detail
 template <class TEvent>
 TJsonEventSubscription<TEvent>& GetSubscription(TMap<FName, FEventSubscriptionPtr>& Subscriptions)
 {
-    const FName& EventType = TEvent::StaticType;
+    const FName& EventType = TEvent::StaticType();
     const FEventSubscriptionPtr* Existing = Subscriptions.Find(EventType);
     const FEventSubscriptionPtr& Subscription = Existing ? *Existing : Subscriptions.Emplace(EventType, MakeShared<TJsonEventSubscription<TEvent>>());
     return StaticCast<TJsonEventSubscription<TEvent>&>(*Subscription);

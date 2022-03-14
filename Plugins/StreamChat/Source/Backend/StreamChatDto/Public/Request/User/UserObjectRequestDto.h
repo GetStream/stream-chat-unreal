@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -15,4 +15,10 @@ USTRUCT()
 struct FUserObjectRequestDto : public FUserDto
 {
     GENERATED_BODY()
+    explicit FUserObjectRequestDto() = default;
+
+    explicit FUserObjectRequestDto(const FUserDto& UserDto) : FUserDto{UserDto}
+    {
+        ;
+    };
 };

@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -16,6 +16,25 @@ USTRUCT(BlueprintType)
 struct STREAMCHATDTO_API FUserObjectDto : public FUserDto
 {
     GENERATED_BODY()
+
+    explicit FUserObjectDto() = default;
+    explicit FUserObjectDto(
+        const FUserDto& UserDto,
+        const FDateTime& CreatedAt = FDateTime{0},
+        const FDateTime& UpdatedAt = FDateTime{0},
+        const FDateTime& DeactivatedAt = FDateTime{0},
+        const FDateTime& DeletedAt = FDateTime{0},
+        const FDateTime& LastActive = FDateTime{0},
+        const bool bOnline = false)
+        : FUserDto{UserDto}
+        , CreatedAt{CreatedAt}
+        , UpdatedAt{UpdatedAt}
+        , DeactivatedAt{DeactivatedAt}
+        , DeletedAt{DeletedAt}
+        , LastActive{LastActive}
+        , bOnline(bOnline)
+    {
+    }
 
     /// Date/time of creation
     UPROPERTY(Transient)

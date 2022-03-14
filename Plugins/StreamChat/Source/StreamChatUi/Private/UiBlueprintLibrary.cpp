@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #include "UiBlueprintLibrary.h"
 
@@ -18,7 +18,8 @@ void UUiBlueprintLibrary::AddContextMenu(UWidget* Widget, const FPointerEvent& I
     // Right clicked, so summon a context menu if the cursor is within the widget
     const FWidgetPath WidgetPath = InMouseEvent.GetEventPath() != nullptr ? *InMouseEvent.GetEventPath() : FWidgetPath();
 
-    if (const TSharedPtr<SWidget> MenuContentWidget = Widget->TakeWidget(); MenuContentWidget.IsValid())
+    const TSharedPtr<SWidget> MenuContentWidget = Widget->TakeWidget();
+    if (MenuContentWidget.IsValid())
     {
         static constexpr bool bFocusImmediately = true;
         TSharedPtr<IMenu> ContextMenu = FSlateApplication::Get().PushMenu(
@@ -98,7 +99,8 @@ void UUiBlueprintLibrary::GetFirstVisibleChildOfScrollBox(UScrollBox* ScrollBox,
         ->ArrangeChildren(Geo, ArrangedChildren);
     for (int32 Index = 0; Index < ArrangedChildren.Num(); ++Index)
     {
-        if (const float Local = Geo.AbsoluteToLocal(ArrangedChildren[Index].Geometry.GetAbsolutePosition()).Y; Local > 0.f)
+        const float Local = Geo.AbsoluteToLocal(ArrangedChildren[Index].Geometry.GetAbsolutePosition()).Y;
+        if (Local > 0.f)
         {
             OutIndex = Index;
             OutLeadingEdge = Local;

@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #include "Reaction/BottomReactionWidget.h"
 
@@ -52,7 +52,8 @@ void UBottomReactionWidget::OnTheme()
     }
     if (Button)
     {
-        if (const EMessageSide Side = GetSide(); Side == EMessageSide::Me)
+        const EMessageSide Side = GetSide();
+        if (Side == EMessageSide::Me)
         {
             Button->WidgetStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->MeBottomReactionColor)};
             Button->WidgetStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->MeBottomReactionColor)};

@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -17,7 +17,11 @@ struct FMessageUpdatedEvent : public FMessageEvent
 {
     GENERATED_BODY()
 
-    inline static FName StaticType = TEXT("message.updated");
+    static FName StaticType()
+    {
+        static const FName Type{TEXT("message.updated")};
+        return Type;
+    }
 
     // TODO everything else
 };

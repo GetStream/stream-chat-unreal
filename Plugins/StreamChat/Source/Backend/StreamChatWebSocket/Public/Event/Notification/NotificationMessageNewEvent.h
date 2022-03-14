@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -17,7 +17,11 @@ struct FNotificationMessageNewEvent : public FMessageEvent
 {
     GENERATED_BODY()
 
-    inline static FName StaticType = TEXT("notification.message_new");
+    static FName StaticType()
+    {
+        static const FName Type{TEXT("notification.message_new")};
+        return Type;
+    }
 
     // Not in spec, but mentioned in docs
     UPROPERTY()

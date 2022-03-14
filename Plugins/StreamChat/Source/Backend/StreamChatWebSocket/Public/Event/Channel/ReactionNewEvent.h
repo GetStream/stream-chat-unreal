@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -17,5 +17,9 @@ struct FReactionNewEvent : public FReactionEvent
 {
     GENERATED_BODY()
 
-    inline static FName StaticType = TEXT("reaction.new");
+    static FName StaticType()
+    {
+        static const FName Type{TEXT("reaction.new")};
+        return Type;
+    }
 };

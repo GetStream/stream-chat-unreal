@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #include "Common/Html/HtmlParser.h"
 
@@ -379,14 +379,14 @@ void FHtmlParser::Newline(const uint32 Index)
 
 bool FHtmlParser::Attribute()
 {
-    const auto [NameType, Name] = Current;
+    const FStringView Name = Current.Lexeme;
     if (AdvanceMatching(FHtmlScanner::ETokenType::Identifier))
     {
         if (!AdvanceMatching(FHtmlScanner::ETokenType::Equal))
         {
             return false;
         }
-        const auto [ValueType, Value] = Current;
+        const FStringView Value = Current.Lexeme;
         if (!AdvanceMatching(FHtmlScanner::ETokenType::String))
         {
             return false;

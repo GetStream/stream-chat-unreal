@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #include "Common/Html/HtmlRichTextMarkupParser.h"
 
@@ -14,12 +14,12 @@ TMap<FString, FTextRange> GenerateMetaData(const TArray<FHtmlParser::FElement>& 
     {
         for (const FHtmlParser::FElement& Elem : ElementStack)
         {
-            for (const auto& [AttribName, AttribValue] : Elem.Attributes)
+            for (const auto& Attrib : Elem.Attributes)
             {
-                const int32 BeginIndex = static_cast<int32>(AttribValue.GetData() - *OutputString);
-                const int32 EndIndex = BeginIndex + AttribValue.Len();
+                const int32 BeginIndex = static_cast<int32>(Attrib.Value.GetData() - *OutputString);
+                const int32 EndIndex = BeginIndex + Attrib.Value.Len();
                 const FTextRange Range{BeginIndex, EndIndex};
-                MetaData.Add(FString{AttribName}, Range);
+                MetaData.Add(FString{Attrib.Key}, Range);
             }
         }
     }

@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -12,10 +12,11 @@ USTRUCT(BlueprintType)
 struct FHtmlElementStyle
 {
     GENERATED_BODY()
+    FHtmlElementStyle();
 
     /** The font object (valid when used from UMG or a Slate widget style asset) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SlateStyleRules, meta = (AllowedClasses = "Font", DisplayName = "Font Family", editcondition = "bOverride_FontObject"))
-    const UObject* FontObject;
+    const UObject* FontObject = nullptr;
 
     /** The name of the font to use from the default typeface (None will use the first entry) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SlateStyleRules, meta = (DisplayName = "Typeface", editcondition = "bOverride_TypefaceFontName"))
@@ -47,7 +48,7 @@ struct FHtmlElementStyle
 
     /** The material to use when rendering this font */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SlateStyleRules, meta = (AllowedClasses = "MaterialInterface", editcondition = "bOverride_FontMaterial"))
-    UObject* FontMaterial;
+    UObject* FontMaterial = nullptr;
 
     /** Settings for applying an outline to a font */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SlateStyleRules, meta = (editcondition = "bOverride_OutlineSettings"))
@@ -55,11 +56,11 @@ struct FHtmlElementStyle
 
     /** How much should the shadow be offset? An offset of 0 implies no shadow. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Appearance, meta = (editcondition = "bOverride_ShadowOffset"))
-    FVector2D ShadowOffset;
+    FVector2D ShadowOffset = FVector2D::ZeroVector;
 
     /** The color and opacity of the shadow */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Appearance, meta = (editcondition = "bOverride_ShadowColorAndOpacity"))
-    FLinearColor ShadowColorAndOpacity;
+    FLinearColor ShadowColorAndOpacity = FLinearColor{ForceInit};
 
     /** The background color of selected text */
     UPROPERTY(EditAnywhere, Category = Appearance, meta = (editcondition = "bOverride_SelectedBackgroundColor"))
@@ -67,7 +68,7 @@ struct FHtmlElementStyle
 
     /** The color of highlighted text */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Appearance, meta = (editcondition = "bOverride_HighlightColor"))
-    FLinearColor HighlightColor;
+    FLinearColor HighlightColor = FLinearColor{ForceInit};
 
     /** The shape of highlighted text */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Appearance, meta = (editcondition = "bOverride_HighlightShape"))

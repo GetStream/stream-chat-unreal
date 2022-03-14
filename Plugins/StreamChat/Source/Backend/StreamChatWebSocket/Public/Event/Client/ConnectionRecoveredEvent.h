@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -17,5 +17,14 @@ struct FConnectionRecoveredEvent : public FLocalEvent
 {
     GENERATED_BODY()
 
-    inline static FName StaticType = TEXT("connection.recovered");
+    explicit FConnectionRecoveredEvent() : FLocalEvent{StaticType()}
+    {
+        ;
+    };
+
+    static FName StaticType()
+    {
+        static const FName Type{TEXT("connection.recovered")};
+        return Type;
+    }
 };

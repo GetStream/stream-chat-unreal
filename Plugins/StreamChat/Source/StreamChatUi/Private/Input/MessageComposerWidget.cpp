@@ -1,4 +1,4 @@
-// Copyright 2021 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
 #include "Input/MessageComposerWidget.h"
 
@@ -76,7 +76,8 @@ void UMessageComposerWidget::EditMessage(const FMessage& Message)
 
 void UMessageComposerWidget::OnInputTextChanged(const FText& Text)
 {
-    if (UChatChannel* Channel = UChannelContextWidget::GetChannel(this); ensure(Channel))
+    UChatChannel* Channel = UChannelContextWidget::GetChannel(this);
+    if (ensure(Channel))
     {
         Channel->KeyStroke();
     }
