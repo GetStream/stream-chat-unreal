@@ -119,7 +119,8 @@ jobs:
           fi
 
           build_config=${{ github.event.inputs.build-configuration }}
-          if [ -z ${build_config+x} ]; then build_config=Shipping; fi
+          if [ -z "$build_config" ]; then build_config=Shipping; fi
+          echo Using build configuration: $build_config
 
           # -package needed to create ipa/apk
           # -distribution needed to use non-dev certificate
@@ -138,7 +139,7 @@ jobs:
           MACOS_IDENTITY_ID: ${{ secrets.MACOS_IDENTITY_ID }}
         run: |
           build_config=${{ github.event.inputs.build-configuration }}
-          if [ -z "${build_config}" ]; then build_config=Shipping; fi
+          if [ -z "$build_config" ]; then build_config=Shipping; fi
           echo Using build configuration: $build_config
 
           app=${{ matrix.what }}.app
