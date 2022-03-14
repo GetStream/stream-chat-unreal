@@ -19,29 +19,29 @@ struct STREAMCHAT_API FDevice
     explicit FDevice(const FDeviceDto&, UUserManager*);
 
     /// Date/time of creation
-    UPROPERTY()
+    UPROPERTY(BlueprintReadOnly, Category = "Stream|Device")
     FDateTime CreatedAt = FDateTime{0};
 
     /// Date/time of the last update
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Stream|Device")
     FDateTime UpdatedAt = FDateTime{0};
 
     /// Whether device is disabled on not
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Stream|Device")
     bool bDisabled = false;
 
     /// Reason explaining why device had been disabled
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Stream|Device")
     FString DisabledReason;
 
     /// Device ID
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Stream|Device")
     FString Id;
 
     /// Push provider
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Stream|Device")
     EPushProvider PushProvider = EPushProvider::Firebase;
 
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Stream|Device")
     FUserRef User;
 };
