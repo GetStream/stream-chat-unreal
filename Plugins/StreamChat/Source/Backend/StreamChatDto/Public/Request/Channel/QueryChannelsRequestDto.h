@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "JsonObjectWrapper.h"
+#include "Request/PaginatedRequest.h"
 #include "Request/SortParamRequestDto.h"
 
 #include "QueryChannelsRequestDto.generated.h"
@@ -14,17 +14,22 @@
  * @ingroup StreamChatDto
  */
 USTRUCT()
-struct STREAMCHATDTO_API FQueryChannelsRequestDto
+struct STREAMCHATDTO_API FQueryChannelsRequestDto : public FPaginatedRequest
 {
     GENERATED_BODY()
 
-    /// The number of channels to return (max is 30)
-    UPROPERTY()
-    uint32 Limit = 10;
-
-    /// The offset (max is 1000)
-    UPROPERTY()
-    uint32 Offset = 0;
+    FQueryChannelsRequestDto() = default;
+    explicit FQueryChannelsRequestDto(
+        const uint32 MessageLimit,
+        const uint32 MemberLimit,
+        const FString& ConnectionId,
+        const bool bPresence,
+        const TArray<FSortParamRequestDto>& Sort,
+        const bool bState,
+        const bool bWatch,
+        const TOptional<uint32>& Limit,
+        const TOptional<uint32>& Offset,
+        const FJsonObjectWrapper& Filter);
 
     UPROPERTY()
     uint32 MessageLimit = 25;
@@ -36,9 +41,6 @@ struct STREAMCHATDTO_API FQueryChannelsRequestDto
     /// WebSocket connection ID to interact with
     UPROPERTY()
     FString ConnectionId;
-
-    UPROPERTY()
-    FJsonObjectWrapper FilterConditions;
 
     /// Fetch user presence info
     UPROPERTY()

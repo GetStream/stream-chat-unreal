@@ -4,7 +4,7 @@
 
 #include "AdditionalFields.h"
 #include "CoreMinimal.h"
-#include "JsonObjectWrapper.h"
+#include "Request/PaginatedRequest.h"
 #include "Request/SortParamRequestDto.h"
 
 #include "QueryUsersRequestDto.generated.h"
@@ -15,9 +15,18 @@
  * @ingroup StreamChatDto
  */
 USTRUCT()
-struct STREAMCHATDTO_API FQueryUsersRequestDto
+struct STREAMCHATDTO_API FQueryUsersRequestDto : public FPaginatedRequest
 {
     GENERATED_BODY()
+
+    FQueryUsersRequestDto() = default;
+    explicit FQueryUsersRequestDto(
+        const FString& ConnectionId,
+        const bool bPresence,
+        const TArray<FSortParamRequestDto>& Sort,
+        const TOptional<uint32>& Limit,
+        const TOptional<uint32>& Offset,
+        const FJsonObjectWrapper& Filter);
 
     /// Matches IDs that are greater than the specified ID
     void SetIdGt(const FString&);
@@ -34,18 +43,6 @@ struct STREAMCHATDTO_API FQueryUsersRequestDto
     /// WebSocket connection ID to interact with
     UPROPERTY()
     FString ConnectionId;
-
-    /// Number of records to return
-    UPROPERTY()
-    uint32 Limit = 30;
-
-    /// Number of records to offset
-    /// Note - The offset limit is set to 1000.
-    UPROPERTY()
-    uint32 Offset = 0;
-
-    UPROPERTY()
-    FJsonObjectWrapper FilterConditions;
 
     /// Fetch user presence info
     /// You can subscribe to presence status of at most 30 users using this method.
