@@ -8,5 +8,6 @@ var searchData=
   ['pinnedmessages_5',['PinnedMessages',['../struct_f_channel_state_response_fields_dto.html#a5b4f37965b296d2085b9c240f46d8489',1,'FChannelStateResponseFieldsDto']]],
   ['presence_6',['Presence',['../group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a39244fc52637db27b1844770e7b0bd17',1,'ChannelFlags.h']]],
   ['previous_7',['Previous',['../struct_f_search_response_dto.html#aa39c5dee375726e63535e520faa7e997',1,'FSearchResponseDto']]],
-  ['properties_8',['Properties',['../class_u_chat_channel.html#a46b26554f5b94d80e50f6ffdf289e482',1,'UChatChannel']]]
+  ['properties_8',['Properties',['../class_u_chat_channel.html#a46b26554f5b94d80e50f6ffdf289e482',1,'UChatChannel']]],
+  ['pushprovider_9',['PushProvider',['../struct_f_device_dto.html#a0a6028f47684ed142dc2791a8b3e87d7',1,'FDeviceDto::PushProvider()'],['../struct_f_device.html#ac4a5c6ebb6a2a33cac57d77555d09323',1,'FDevice::PushProvider()']]]
 ];

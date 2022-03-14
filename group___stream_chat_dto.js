@@ -139,8 +139,7 @@ var group___stream_chat_dto =
       [ "UpdatedAt", "struct_f_channel_response_dto.html#a786811ed6f94bf063ae668df96da9fb1", null ]
     ] ],
     [ "FChannelsResponseDto", "struct_f_channels_response_dto.html", [
-      [ "Channels", "struct_f_channels_response_dto.html#a4b777aae4d2ba3c06387b5fe8c5bbb16", null ],
-      [ "Duration", "struct_f_channels_response_dto.html#ad1ef8a02172056bd1ee22828239f54c8", null ]
+      [ "Channels", "struct_f_channels_response_dto.html#a4b777aae4d2ba3c06387b5fe8c5bbb16", null ]
     ] ],
     [ "FChannelStateResponseDto", "struct_f_channel_state_response_dto.html", [
       [ "Duration", "struct_f_channel_state_response_dto.html#a31d383c9dc1f6a722aff18287f1ece55", null ]
@@ -156,14 +155,22 @@ var group___stream_chat_dto =
       [ "WatcherCount", "struct_f_channel_state_response_fields_dto.html#a9ae31539fe472c2d60bbe51874f5cdcc", null ],
       [ "Watchers", "struct_f_channel_state_response_fields_dto.html#a18e92da00a9e350e5ac8ded8fbd33adb", null ]
     ] ],
-    [ "FDeleteChannelResponseDto", "struct_f_delete_channel_response_dto.html", [
-      [ "Duration", "struct_f_delete_channel_response_dto.html#aea4fb03995ef92196d3e9cffd783630e", null ]
-    ] ],
+    [ "FDeleteChannelResponseDto", "struct_f_delete_channel_response_dto.html", null ],
     [ "FMarkReadResponseDto", "struct_f_mark_read_response_dto.html", [
-      [ "Duration", "struct_f_mark_read_response_dto.html#aa9e1e16ddfff71e0c4d4d5951adc0de0", null ],
       [ "Event", "struct_f_mark_read_response_dto.html#ac8677611f8336265807c6c3028f78dc2", null ]
     ] ],
     [ "FReadDto", "struct_f_read_dto.html", null ],
+    [ "FDeviceDto", "struct_f_device_dto.html", [
+      [ "bDisabled", "struct_f_device_dto.html#a6e4202accd12e263a0941f90572365af", null ],
+      [ "CreatedAt", "struct_f_device_dto.html#a0fc6bb626869bcc01b646228bfd0dc23", null ],
+      [ "DisabledReason", "struct_f_device_dto.html#abaa10defcfbb994cdf75788626c1de93", null ],
+      [ "Id", "struct_f_device_dto.html#a507e8d30a9cec6684e689fce23737cd3", null ],
+      [ "PushProvider", "struct_f_device_dto.html#a0a6028f47684ed142dc2791a8b3e87d7", null ],
+      [ "UpdatedAt", "struct_f_device_dto.html#a0e607ed347cbb4cc72e86b026f75b9d4", null ]
+    ] ],
+    [ "FListDevicesResponseDto", "struct_f_list_devices_response_dto.html", [
+      [ "Devices", "struct_f_list_devices_response_dto.html#af897e7e50561ce763e9d526cc8ffaf05", null ]
+    ] ],
     [ "FErrorResponseDto", "struct_f_error_response_dto.html", [
       [ "Code", "struct_f_error_response_dto.html#af07eba81182522634b54cd2089cfae46", null ],
       [ "Duration", "struct_f_error_response_dto.html#a1ab858457411848c082e4e52a438409b", null ],
@@ -175,9 +182,7 @@ var group___stream_chat_dto =
       [ "CreatedAt", "struct_f_event_dto.html#ab9e5c08b9bae6f1d32e85469b4184a6b", null ],
       [ "Type", "struct_f_event_dto.html#ac675828a3e845f64223826687b7417c2", null ]
     ] ],
-    [ "FEventResponseDto", "struct_f_event_response_dto.html", [
-      [ "Duration", "struct_f_event_response_dto.html#a1dd14fe88f84c7f08cbcc12589fa6bd1", null ]
-    ] ],
+    [ "FEventResponseDto", "struct_f_event_response_dto.html", null ],
     [ "FCommandDto", "struct_f_command_dto.html", null ],
     [ "FMessageDto", "struct_f_message_dto.html", [
       [ "GetDeletedAt", "struct_f_message_dto.html#adfae68c3d22afccc25f0cb7c95849c25", null ],
@@ -208,11 +213,8 @@ var group___stream_chat_dto =
       [ "UpdatedAt", "struct_f_message_dto.html#acb10ccf5d7f6acaf5c51ca1b871041cf", null ],
       [ "User", "struct_f_message_dto.html#a1c9a2ceefd25b236244a26d2e2d92a23", null ]
     ] ],
-    [ "FMessageResponseDto", "struct_f_message_response_dto.html", [
-      [ "Duration", "struct_f_message_response_dto.html#a69c1e2774940626aa3c58dd7b779d39d", null ]
-    ] ],
+    [ "FMessageResponseDto", "struct_f_message_response_dto.html", null ],
     [ "FSearchResponseDto", "struct_f_search_response_dto.html", [
-      [ "Duration", "struct_f_search_response_dto.html#a48220736cac12f275410226a4fe25523", null ],
       [ "Next", "struct_f_search_response_dto.html#a395b784d43269ae08214835f537035c9", null ],
       [ "Previous", "struct_f_search_response_dto.html#aa39c5dee375726e63535e520faa7e997", null ],
       [ "Results", "struct_f_search_response_dto.html#abe613a54f138e87dee7a225708d447e7", null ],
@@ -234,19 +236,18 @@ var group___stream_chat_dto =
       [ "Type", "struct_f_reaction_dto.html#af1d7c759248b6bb12e95836cdb53d3b3", null ],
       [ "UpdatedAt", "struct_f_reaction_dto.html#ada1593510df6132189078068b128cb13", null ]
     ] ],
-    [ "FReactionResponseDto", "struct_f_reaction_response_dto.html", [
-      [ "Duration", "struct_f_reaction_response_dto.html#ac474dfa81a5179e6f351cd651b808c47", null ]
+    [ "FReactionResponseDto", "struct_f_reaction_response_dto.html", null ],
+    [ "FResponseDto", "struct_f_response_dto.html", [
+      [ "Duration", "struct_f_response_dto.html#a0fb9b30ff5ec56d24d83d1d86594792a", null ]
     ] ],
     [ "FGuestResponseDto", "struct_f_guest_response_dto.html", [
       [ "AccessToken", "struct_f_guest_response_dto.html#ab5eb3c1d97bb8b476cfa71f876ac6a35", null ],
-      [ "Duration", "struct_f_guest_response_dto.html#a582a598f3ecbefe837f9fa5588b352ae", null ],
       [ "User", "struct_f_guest_response_dto.html#af66b79092c71b84ab03b393080adb7d6", null ]
     ] ],
     [ "FUserResponseDto", "struct_f_user_response_dto.html", [
       [ "bShadowBanned", "struct_f_user_response_dto.html#ae286ca7866b252d1f81bac175132cb78", null ]
     ] ],
     [ "FUsersResponseDto", "struct_f_users_response_dto.html", [
-      [ "Duration", "struct_f_users_response_dto.html#a7d8acf070d5a3ba1fb4c65009afc8f40", null ],
       [ "Users", "struct_f_users_response_dto.html#a2157dd14f2adb812f9ed91bbba4db3d2", null ]
     ] ],
     [ "FUserDto", "struct_f_user_dto.html", [

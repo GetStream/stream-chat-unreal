@@ -180,6 +180,7 @@ var group___stream_chat =
     [ "UReactionsBlueprintLibrary", "class_u_reactions_blueprint_library.html", null ],
     [ "UStreamChatClientComponent", "class_u_stream_chat_client_component.html", [
       [ "UStreamChatClientComponent", "class_u_stream_chat_client_component.html#a32bdbcb95a97bb017db3ebc6a5e1cb46", null ],
+      [ "AddDevice", "class_u_stream_chat_client_component.html#a85afc44dd2f2691a19964721f09bad49", null ],
       [ "ConnectAnonymousUser", "class_u_stream_chat_client_component.html#acff32121d75eca129de69f76e351cc92", null ],
       [ "ConnectAnonymousUser", "class_u_stream_chat_client_component.html#a137af7f2bf4a48b1a0c1e75e04d2af3c", null ],
       [ "ConnectGuestUser", "class_u_stream_chat_client_component.html#af908d5e4824f9feeb71f945b570f2d2f", null ],
@@ -189,6 +190,7 @@ var group___stream_chat =
       [ "ConnectUser", "class_u_stream_chat_client_component.html#a772775375b6df48ed9280caa356dea13", null ],
       [ "CreateChannel", "class_u_stream_chat_client_component.html#a2a8eced83c1c5533f264b8e1c7b5c15e", null ],
       [ "DisconnectUser", "class_u_stream_chat_client_component.html#ab1abed0a192360951268e62a6a78a8e7", null ],
+      [ "ListDevices", "class_u_stream_chat_client_component.html#a0f03f8337f0c164ca3dbcfbc7736a4dd", null ],
       [ "On", "class_u_stream_chat_client_component.html#a7d38cc193bb913b0aa09b8269e6bbe4b", null ],
       [ "On", "class_u_stream_chat_client_component.html#a8faa7f538db03c650b73e9ac381eb15b", null ],
       [ "On", "class_u_stream_chat_client_component.html#a0c33fda79441595223429c1e769e320f", null ],
@@ -198,6 +200,7 @@ var group___stream_chat =
       [ "QueryChannels", "class_u_stream_chat_client_component.html#a6a960c3c9631c36846e57bf5e183e0e8", null ],
       [ "QueryChannels", "class_u_stream_chat_client_component.html#a70109502de94907851f19ae97fe02a8b", null ],
       [ "QueryUsers", "class_u_stream_chat_client_component.html#a4f76b944317a89801ecef0c52ef7750b", null ],
+      [ "RemoveDevice", "class_u_stream_chat_client_component.html#a31f65a566b8ad470d0fd0ac93b7c6da3", null ],
       [ "SearchMessages", "class_u_stream_chat_client_component.html#a8a027a441d6ac2dcd7619f4f99a960f9", null ],
       [ "WatchChannel", "class_u_stream_chat_client_component.html#aa78cae04fd73d3df82ef147487a5a71c", null ],
       [ "WatchChannel", "class_u_stream_chat_client_component.html#a705b3527835b5c7354ee5eeb8859320a", null ],

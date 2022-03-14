@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['markchannelread_0',['MarkChannelRead',['../class_f_chat_api.html#a7be93c8b0e61e4cd25f8d83549027a4d',1,'FChatApi']]],
-  ['markchannelsread_1',['MarkChannelsRead',['../class_f_chat_api.html#ab7a253a05479ae8a4922e48a078e225d',1,'FChatApi']]],
+  ['markchannelread_0',['MarkChannelRead',['../class_f_chat_api.html#ac79a995b3863ea72fd2a08f699e89cbe',1,'FChatApi']]],
+  ['markchannelsread_1',['MarkChannelsRead',['../class_f_chat_api.html#a32d254330486c4a731e0173a6dd9015d',1,'FChatApi']]],
   ['markread_2',['MarkRead',['../struct_f_channel_state.html#a0930d73fd962d4e4c109fb41cdef4624',1,'FChannelState::MarkRead()'],['../class_u_chat_channel.html#aebd79c869ab9e0a304e7df8b48d42bfb',1,'UChatChannel::MarkRead(const TOptional&lt; FMessage &gt; &amp;Message={})'],['../class_u_chat_channel.html#a4c14c007dc5cae06c50b45fd747bf13b',1,'UChatChannel::MarkRead(const FMessage &amp;Message)']]],
   ['maxmessagelength_3',['MaxMessageLength',['../struct_f_channel_config_with_info_dto.html#aa2bc3d201f463d6fcbc9c6663540b5bc',1,'FChannelConfigWithInfoDto::MaxMessageLength()'],['../struct_f_channel_config.html#acfe8ce287eb5822f04155b1f19342fa6',1,'FChannelConfig::MaxMessageLength()']]],
   ['membercount_4',['MemberCount',['../struct_f_channel_response_dto.html#a2714513279ea7382e16fc78ab3c1c00b',1,'FChannelResponseDto::MemberCount()'],['../struct_f_channel_properties.html#a286ed2118348493688651864471a4638',1,'FChannelProperties::MemberCount()']]],
