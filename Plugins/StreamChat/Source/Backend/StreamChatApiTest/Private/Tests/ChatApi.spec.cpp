@@ -6,10 +6,12 @@
 #include "Dom/JsonObject.h"
 #include "IChatSocket.h"
 #include "Misc/AutomationTest.h"
+#include "Request/PushProvider.h"
 #include "Request/User/UserObjectRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/Channel/DeleteChannelResponseDto.h"
+#include "Response/ResponseDto.h"
 #include "Response/User/GuestResponseDto.h"
 #include "Response/User/UsersResponseDto.h"
 #include "TokenManager.h"
@@ -88,7 +90,7 @@ void FChatApiSpec::Define()
                         });
                 });
 
-            // AfterEach are executed in reverse order oft ad declaration...
+            // AfterEach are executed in reverse order of declaration...
 
             // Check channel deleted
             LatentAfterEach(
@@ -143,11 +145,12 @@ void FChatApiSpec::Define()
                         false,
                         {},
                         {},
-                        {},
+                        100,
                         {},
                         [=](const FUsersResponseDto& Dto)
                         {
                             TestTrue("Users returned", Dto.Users.Num() > 0);
+                            AddInfo(FString::Printf(TEXT("%s"), *Dto.Users[0].Id));
                             const FUserResponseDto* FoundUser =
                                 Dto.Users.FindByPredicate([=](const FUserResponseDto& UserDto) { return UserDto.Id == User.Id; });
                             TestNotNull("User found", FoundUser);
@@ -182,6 +185,38 @@ void FChatApiSpec::Define()
                             TestFalse("Online", Dto.User.bOnline);
                             TestEqual("Role", Dto.User.Role, TEXT("guest"));
                             TestEqual("No additional fields", Dto.User.AdditionalFields.GetFields().Num(), 0);
+                            TestDone.Execute();
+                        });
+                });
+        });
+
+    Describe(
+        "Device",
+        [=]
+        {
+            LatentIt(
+                "should add device",
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->AddDevice(
+                        TEXT("random-device-id"),
+                        EPushProvider::Firebase,
+                        [=](const FResponseDto& Dto)
+                        {
+                            TestTrue("Response received", Dto.Duration.Len() > 0);
+                            TestDone.Execute();
+                        });
+                });
+
+            // Remove device
+            LatentAfterEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->RemoveDevice(
+                        TEXT("random-device-id"),
+                        [=](const FResponseDto& Dto)
+                        {
+                            TestTrue("Response received", Dto.Duration.Len() > 0);
                             TestDone.Execute();
                         });
                 });
