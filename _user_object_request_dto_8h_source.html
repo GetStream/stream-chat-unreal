@@ -87,7 +87,7 @@ $(document).ready(function(){initNavTree('_user_object_request_dto_8h_source.htm
   <div class="headertitle"><div class="title">UserObjectRequestDto.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright 2021 Stream.IO, Inc. All Rights Reserved.</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright 2022 Stream.IO, Inc. All Rights Reserved.</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
@@ -100,7 +100,13 @@ $(document).ready(function(){initNavTree('_user_object_request_dto_8h_source.htm
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="struct_f_user_object_request_dto.html">   15</a></span>struct <a class="code hl_struct" href="struct_f_user_object_request_dto.html">FUserObjectRequestDto</a> : public <a class="code hl_struct" href="struct_f_user_dto.html">FUserDto</a></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    GENERATED_BODY()</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>};</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">explicit</span> <a class="code hl_struct" href="struct_f_user_object_request_dto.html">FUserObjectRequestDto</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">explicit</span> <a class="code hl_struct" href="struct_f_user_object_request_dto.html">FUserObjectRequestDto</a>(<span class="keyword">const</span> <a class="code hl_struct" href="struct_f_user_dto.html">FUserDto</a>&amp; UserDto) : <a class="code hl_struct" href="struct_f_user_dto.html">FUserDto</a>{UserDto}</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        ;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    };</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>};</div>
 <div class="ttc" id="astruct_f_user_dto_html"><div class="ttname"><a href="struct_f_user_dto.html">FUserDto</a></div><div class="ttdoc">Common fields for users.</div><div class="ttdef"><b>Definition:</b> UserDto.h:16</div></div>
 <div class="ttc" id="astruct_f_user_object_request_dto_html"><div class="ttname"><a href="struct_f_user_object_request_dto.html">FUserObjectRequestDto</a></div><div class="ttdoc">#/components/schemas/UserObjectRequest</div><div class="ttdef"><b>Definition:</b> UserObjectRequestDto.h:16</div></div>
 </div><!-- fragment --></div><!-- contents -->

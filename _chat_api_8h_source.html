@@ -87,7 +87,7 @@ $(document).ready(function(){initNavTree('_chat_api_8h_source.html',''); initRes
   <div class="headertitle"><div class="title">ChatApi.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright 2021 Stream.IO, Inc. All Rights Reserved.</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright 2022 Stream.IO, Inc. All Rights Reserved.</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
@@ -252,9 +252,11 @@ $(document).ready(function(){initNavTree('_chat_api_8h_source.html',''); initRes
 <div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> TEvent&gt;</div>
 <div class="line"><a id="l00322" name="l00322"></a><span class="lineno"><a class="line" href="class_f_chat_api.html#a2eac1e34b8f4d2b6f1f26eaadc46d9bb">  322</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="class_f_chat_api.html#a2eac1e34b8f4d2b6f1f26eaadc46d9bb">FChatApi::SendChannelEvent</a>(<span class="keyword">const</span> FString&amp; ChannelType, <span class="keyword">const</span> FString&amp; ChannelId, <span class="keyword">const</span> TEvent&amp; Event, <span class="keyword">const</span> TCallback&lt;FEventResponseDto&gt; Callback)</div>
 <div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>{</div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    <span class="keyword">static_assert</span>(TIsSame&lt;<span class="keyword">decltype</span>(TEvent::StaticType), FName&gt;::Value, <span class="stringliteral">&quot;TEvent must have a FName member &#39;StaticType&#39; to use with SendChannelEvent.&quot;</span>);</div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>    SendChannelEventInternal(ChannelType, ChannelId, JsonObject::UStructToJsonObject&lt;TEvent&gt;(Event), Callback);</div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>}</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    <span class="keyword">static_assert</span>(</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        TIsSame&lt;<span class="keyword">decltype</span>(TEvent::StaticType()), <span class="keyword">decltype</span>(TEvent::StaticType())&gt;::Value,</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        <span class="stringliteral">&quot;TEvent must have a static method &#39;StaticType&#39; which returns a FName to use with SendChannelEvent.&quot;</span>);</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    SendChannelEventInternal(ChannelType, ChannelId, JsonObject::UStructToJsonObject&lt;TEvent&gt;(Event), Callback);</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>}</div>
 <div class="ttc" id="aclass_f_chat_api_html"><div class="ttname"><a href="class_f_chat_api.html">FChatApi</a></div><div class="ttdoc">All Stream Chat REST API requests can be made via this object.</div><div class="ttdef"><b>Definition:</b> ChatApi.h:45</div></div>
 <div class="ttc" id="aclass_f_chat_api_html_a2eac1e34b8f4d2b6f1f26eaadc46d9bb"><div class="ttname"><a href="class_f_chat_api.html#a2eac1e34b8f4d2b6f1f26eaadc46d9bb">FChatApi::SendChannelEvent</a></div><div class="ttdeci">void SendChannelEvent(const FString &amp;ChannelType, const FString &amp;ChannelId, const TEvent &amp;, TCallback&lt; FEventResponseDto &gt; Callback={})</div><div class="ttdoc">Send a custom or built-in event on this channel.</div><div class="ttdef"><b>Definition:</b> ChatApi.h:322</div></div>
 <div class="ttc" id="agroup___stream_chat_api_html_ga683630d96445bae6259c39daebb90898"><div class="ttname"><a href="group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898">EChannelFlags</a></div><div class="ttdeci">EChannelFlags</div><div class="ttdoc">Additional channel actions to perform when requesting channel data from API.</div><div class="ttdef"><b>Definition:</b> ChannelFlags.h:15</div></div>

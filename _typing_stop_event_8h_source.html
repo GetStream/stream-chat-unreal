@@ -87,7 +87,7 @@ $(document).ready(function(){initNavTree('_typing_stop_event_8h_source.html','')
   <div class="headertitle"><div class="title">TypingStopEvent.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright 2021 Stream.IO, Inc. All Rights Reserved.</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright 2022 Stream.IO, Inc. All Rights Reserved.</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
@@ -101,15 +101,32 @@ $(document).ready(function(){initNavTree('_typing_stop_event_8h_source.html','')
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="struct_f_typing_stop_event.html">   17</a></span>struct <a class="code hl_struct" href="struct_f_typing_stop_event.html">FTypingStopEvent</a> : public <a class="code hl_struct" href="struct_f_channel_event.html">FChannelEvent</a></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    GENERATED_BODY()</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">inline</span> <span class="keyword">static</span> FName StaticType = TEXT(<span class="stringliteral">&quot;typing.stop&quot;</span>);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    UPROPERTY()</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    FString <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faafaa6abc71ded82c59c64411193549cd">ParentId</a>;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    UPROPERTY()</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_struct" href="struct_f_user_object_dto.html">FUserObjectDto</a> User;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>};</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">explicit</span> <a class="code hl_struct" href="struct_f_typing_stop_event.html">FTypingStopEvent</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_struct" href="struct_f_typing_stop_event.html">FTypingStopEvent</a>(</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keyword">const</span> FDateTime&amp; CreatedAt,</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keyword">const</span> FString&amp; ChannelId,</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keyword">const</span> FString&amp; ChannelType,</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keyword">const</span> FString&amp; Cid,</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keyword">const</span> FString&amp; <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faafaa6abc71ded82c59c64411193549cd">ParentId</a>,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keyword">const</span> <a class="code hl_struct" href="struct_f_user_object_dto.html">FUserObjectDto</a>&amp; User)</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        : <a class="code hl_struct" href="struct_f_channel_event.html">FChannelEvent</a>(StaticType(), CreatedAt, ChannelId, ChannelType, Cid), <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faafaa6abc71ded82c59c64411193549cd">ParentId</a>(<a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faafaa6abc71ded82c59c64411193549cd">ParentId</a>), User(User)</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    }</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">static</span> FName StaticType()</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keyword">static</span> <span class="keyword">const</span> FName <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">Type</a>{TEXT(<span class="stringliteral">&quot;typing.stop&quot;</span>)};</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">Type</a>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    }</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    UPROPERTY()</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    FString <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faafaa6abc71ded82c59c64411193549cd">ParentId</a>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    UPROPERTY()</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_struct" href="struct_f_user_object_dto.html">FUserObjectDto</a> User;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>};</div>
+<div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">EMessageSortField::Type</a></div><div class="ttdeci">@ Type</div><div class="ttdoc">Type of the message.</div></div>
 <div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8faafaa6abc71ded82c59c64411193549cd"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faafaa6abc71ded82c59c64411193549cd">EMessageSortField::ParentId</a></div><div class="ttdeci">@ ParentId</div><div class="ttdoc">The parent message ID (if the message is a reply)</div></div>
 <div class="ttc" id="astruct_f_channel_event_html"><div class="ttname"><a href="struct_f_channel_event.html">FChannelEvent</a></div><div class="ttdoc">Represents an event that happened in a Stream channel.</div><div class="ttdef"><b>Definition:</b> ChannelEvent.h:17</div></div>
 <div class="ttc" id="astruct_f_typing_stop_event_html"><div class="ttname"><a href="struct_f_typing_stop_event.html">FTypingStopEvent</a></div><div class="ttdoc">A user stoped typing.</div><div class="ttdef"><b>Definition:</b> TypingStopEvent.h:18</div></div>

@@ -87,7 +87,7 @@ $(document).ready(function(){initNavTree('_health_check_event_8h_source.html',''
   <div class="headertitle"><div class="title">HealthCheckEvent.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright 2021 Stream.IO, Inc. All Rights Reserved.</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright 2022 Stream.IO, Inc. All Rights Reserved.</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
@@ -102,16 +102,21 @@ $(document).ready(function(){initNavTree('_health_check_event_8h_source.html',''
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    GENERATED_BODY()</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">inline</span> <span class="keyword">static</span> FName StaticType = TEXT(<span class="stringliteral">&quot;health.check&quot;</span>);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    UPROPERTY()</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    FString ConnectionId;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    UPROPERTY()</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_struct" href="struct_f_own_user_dto.html">FOwnUserDto</a> Me;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="comment">// TODO everything else</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>};</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">static</span> FName StaticType()</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keyword">static</span> <span class="keyword">const</span> FName <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">Type</a>{TEXT(<span class="stringliteral">&quot;health.check&quot;</span>)};</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">Type</a>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    }</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    UPROPERTY()</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    FString ConnectionId;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    UPROPERTY()</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_struct" href="struct_f_own_user_dto.html">FOwnUserDto</a> Me;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="comment">// TODO everything else</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>};</div>
+<div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">EMessageSortField::Type</a></div><div class="ttdeci">@ Type</div><div class="ttdoc">Type of the message.</div></div>
 <div class="ttc" id="astruct_f_chat_event_html"><div class="ttname"><a href="struct_f_chat_event.html">FChatEvent</a></div><div class="ttdoc">Represents an event that happened in Stream Chat.</div><div class="ttdef"><b>Definition:</b> ChatEvent.h:16</div></div>
 <div class="ttc" id="astruct_f_health_check_event_html"><div class="ttname"><a href="struct_f_health_check_event.html">FHealthCheckEvent</a></div><div class="ttdoc">Sent periodically from the API to indicate a healthy connection.</div><div class="ttdef"><b>Definition:</b> HealthCheckEvent.h:18</div></div>
 <div class="ttc" id="astruct_f_own_user_dto_html"><div class="ttname"><a href="struct_f_own_user_dto.html">FOwnUserDto</a></div><div class="ttdoc">#/components/schemas/OwnUser</div><div class="ttdef"><b>Definition:</b> OwnUserDto.h:16</div></div>
