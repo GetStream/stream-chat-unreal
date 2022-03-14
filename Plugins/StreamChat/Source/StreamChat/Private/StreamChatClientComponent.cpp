@@ -15,12 +15,14 @@
 #include "Request/User/UserObjectRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
+#include "Response/Device/ListDevicesResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
 #include "Response/User/GuestResponseDto.h"
 #include "Response/User/UsersResponseDto.h"
 #include "StreamChatSettings.h"
 #include "Token.h"
 #include "TokenManager.h"
+#include "User/Device.h"
 #include "User/Jwt.h"
 #include "User/UserManager.h"
 #include "Util.h"
@@ -403,6 +405,19 @@ void UStreamChatClientComponent::AddDevice(const FString& DeviceId, const EPushP
 void UStreamChatClientComponent::RemoveDevice(const FString& DeviceId) const
 {
     Api->RemoveDevice(DeviceId);
+}
+
+void UStreamChatClientComponent::ListDevices(TFunction<void(TArray<FDevice>)> Callback) const
+{
+    Api->ListDevices(
+        [Callback](const FListDevicesResponseDto& Dto)
+        {
+            if (Callback)
+            {
+                const TArray<FDevice> Devices = Util::Convert<FDevice>(Dto.Devices, UUserManager::Get());
+                Callback(Devices);
+            }
+        });
 }
 
 const TArray<UChatChannel*>& UStreamChatClientComponent::GetChannels() const

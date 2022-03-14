@@ -6,8 +6,11 @@
 
 FMutedUser::FMutedUser() = default;
 
-FMutedUser::FMutedUser(const FUserMuteDto& Dto, UUserManager* UserManager) : CreatedAt{Dto.CreatedAt}, UpdatedAt{Dto.UpdatedAt}, Expires{Dto.Expires}
-// , Target{UserManager.UpsertUser(Dto.Target)}
-// , User{UserManager.UpsertUser(Dto.User)}
+FMutedUser::FMutedUser(const FUserMuteDto& Dto, UUserManager* UserManager)
+    : CreatedAt{Dto.CreatedAt}
+    , UpdatedAt{Dto.UpdatedAt}
+    , Expires{Dto.Expires}
+    , Target{UserManager->UpsertUser(Dto.Target)}
+    , User{UserManager->UpsertUser(Dto.User)}
 {
 }

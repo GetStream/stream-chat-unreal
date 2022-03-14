@@ -3,43 +3,45 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "PushProvider.h"
+#include "Response/Device/DeviceDto.h"
+#include "UserRef.h"
 
-#include "DeviceDto.generated.h"
+#include "Device.generated.h"
 
 /**
- * @brief #/components/schemas/Response
- * @ingroup StreamChatDto
+ * @brief A push notification device
  */
 USTRUCT(BlueprintType)
-struct STREAMCHATDTO_API FDeviceDto
+struct STREAMCHAT_API FDevice
 {
     GENERATED_BODY()
+    FDevice() = default;
+    explicit FDevice(const FDeviceDto&, UUserManager*);
 
     /// Date/time of creation
     UPROPERTY()
     FDateTime CreatedAt = FDateTime{0};
 
     /// Date/time of the last update
-    UPROPERTY()
+    UPROPERTY(BlueprintReadOnly)
     FDateTime UpdatedAt = FDateTime{0};
 
     /// Whether device is disabled on not
-    UPROPERTY()
+    UPROPERTY(BlueprintReadOnly)
     bool bDisabled = false;
 
     /// Reason explaining why device had been disabled
-    UPROPERTY()
+    UPROPERTY(BlueprintReadOnly)
     FString DisabledReason;
 
     /// Device ID
-    UPROPERTY()
+    UPROPERTY(BlueprintReadOnly)
     FString Id;
 
     /// Push provider
-    UPROPERTY()
+    UPROPERTY(BlueprintReadOnly)
     EPushProvider PushProvider = EPushProvider::Firebase;
 
-    UPROPERTY()
-    FString UserId;
+    UPROPERTY(BlueprintReadOnly)
+    FUserRef User;
 };
