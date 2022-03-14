@@ -84,6 +84,22 @@ void FChatApi::BanUser(
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
+void FChatApi::UnbanUser(const FString TargetUserId, const FString Type, const FString Id, const TCallback<FResponseDto> Callback) const
+{
+    const FString Url = BuildUrl(TEXT("moderation/ban"));
+    FQueryParameters Query{{TEXT("target_user_id"), TargetUserId}};
+    if (!Type.IsEmpty())
+    {
+        Query.Add(TEXT("type"), Type);
+    }
+    if (!Id.IsEmpty())
+    {
+        Query.Add(TEXT("id"), Id);
+    }
+
+    Client->Delete(Url).Query(Query).Send(Callback);
+}
+
 void FChatApi::QueryUsers(
     const FString& ConnectionId,
     const bool bPresence,

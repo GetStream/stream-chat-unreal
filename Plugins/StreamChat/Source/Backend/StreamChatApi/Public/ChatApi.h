@@ -77,6 +77,15 @@ public:
         bool bShadow = false,
         bool bIpBan = false,
         TCallback<FResponseDto> Callback = {}) const;
+
+    /**
+     * @brief Removes previously applied ban
+     * @param TargetUserId ID of user to unban
+     * @param Type Channel type to unban user in (optional, unban is app-wide otherwise)
+     * @param Id Channel ID to unban user in (optional, unban is app-wide otherwise)
+     * @param Callback Called when response is received.
+     */
+    void UnbanUser(const FString TargetUserId, FString Type = {}, FString Id = {}, TCallback<FResponseDto> Callback = {}) const;
 ///@}
 #pragma endregion Moderation
 
