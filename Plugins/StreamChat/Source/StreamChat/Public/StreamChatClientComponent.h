@@ -12,10 +12,8 @@
 #include "Components/ActorComponent.h"
 #include "CoreMinimal.h"
 #include "Engine/LatentActionManager.h"
-#include "Event/Channel/MessageNewEvent.h"
 #include "IChatSocket.h"
 #include "User/User.h"
-#include "User/UserRef.h"
 
 #include "StreamChatClientComponent.generated.h"
 
@@ -23,6 +21,7 @@ class FChatApi;
 class FTokenManager;
 class ITokenProvider;
 class UChatChannel;
+struct FUserRef;
 struct FChannelStateResponseFieldsDto;
 struct FConnectionRecoveredEvent;
 struct FMessage;
@@ -173,15 +172,26 @@ public:
         const TArray<FMessageSortOption>& Sort = {},
         TOptional<uint32> MessageLimit = {}) const;
 
-    // TODO does this need to be exposed?
-    void UpdateMessage(const FString& Id, const FString& Text) const;
-    void DeleteMessage(const FString& Id) const;
-
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Client")
     const TArray<UChatChannel*>& GetChannels() const;
 
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Client")
     static FString DevToken(const FString& UserId);
+
+    /**
+     * @brief Registering a device associates it with a user and tells the push provider to send new message notifications to the device.
+     * @param DeviceId Device-specific identifier
+     * @param PushProvider Which provider to use for push notifications
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client")
+    void AddDevice(const FString& DeviceId, EPushProvider PushProvider) const;
+
+    /**
+     * @brief Unregistering a device removes the device from the user and stops further new message notifications.
+     * @param DeviceId Device-specific identifier
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client")
+    void RemoveDevice(const FString& DeviceId) const;
 
     UPROPERTY(EditAnywhere, Config, Category = "Stream Chat", meta = (DisplayName = "API Key"))
     FString ApiKey;

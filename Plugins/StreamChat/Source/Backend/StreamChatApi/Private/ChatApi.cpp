@@ -6,6 +6,7 @@
 #include "Request/Channel/ChannelGetOrCreateRequestDto.h"
 #include "Request/Channel/MarkReadRequestDto.h"
 #include "Request/Channel/QueryChannelsRequestDto.h"
+#include "Request/DeviceFieldsDto.h"
 #include "Request/Event/SendEventRequest.h"
 #include "Request/Message/SearchRequestDto.h"
 #include "Request/Message/SendMessageRequestDto.h"
@@ -22,6 +23,7 @@
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
 #include "Response/Reaction/ReactionResponseDto.h"
+#include "Response/ResponseDto.h"
 #include "Response/User/GuestResponseDto.h"
 #include "Response/User/UsersResponseDto.h"
 #include "Token.h"
@@ -61,13 +63,13 @@ TSharedRef<FChatApi> FChatApi::Create(const FString& InApiKey, const FString& In
 }
 
 void FChatApi::QueryUsers(
-    const TCallback<FUsersResponseDto> Callback,
     const FString& ConnectionId,
     const bool bPresence,
     const TOptional<TSharedRef<FJsonObject>>& Filter,
     const TArray<FSortParamRequestDto>& SortOptions,
     const TOptional<uint32> Limit,
-    const TOptional<uint32> Offset) const
+    const TOptional<uint32> Offset,
+    const TCallback<FUsersResponseDto> Callback) const
 {
     const FString Url = BuildUrl(TEXT("users"));
 
@@ -91,8 +93,20 @@ void FChatApi::CreateGuest(const FUserObjectRequestDto& User, const TCallback<FG
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
+void FChatApi::AddDevice(const FString& DeviceId, const EPushProvider PushProvider, const TCallback<FResponseDto> Callback) const
+{
+    const FString Url = BuildUrl(TEXT("devices"));
+    const FDeviceFieldsDto Body{PushProvider, DeviceId};
+    Client->Post(Url).Json(Body).Send(Callback);
+}
+
+void FChatApi::RemoveDevice(const FString& DeviceId, const TCallback<FResponseDto> Callback) const
+{
+    const FString Url = BuildUrl(TEXT("devices"));
+    Client->Delete(Url).Query({{TEXT("id"), DeviceId}}).Send(Callback);
+}
+
 void FChatApi::QueryChannel(
-    const TCallback<FChannelStateResponseDto> Callback,
     const FString& ChannelType,
     const FString& ConnectionId,
     const EChannelFlags Flags,
@@ -100,7 +114,8 @@ void FChatApi::QueryChannel(
     const TOptional<FString>& ChannelId,
     const TOptional<FMessagePaginationParamsRequestDto> MessagePagination,
     const TOptional<FPaginationParamsRequestDto> MemberPagination,
-    const TOptional<FPaginationParamsRequestDto> WatcherPagination) const
+    const TOptional<FPaginationParamsRequestDto> WatcherPagination,
+    const TCallback<FChannelStateResponseDto> Callback) const
 {
     const FString ChannelPath = !ChannelId.IsSet() ? ChannelType : FString::Printf(TEXT("%s/%s"), *ChannelType, *ChannelId.GetValue());
     const FString Path = FString::Printf(TEXT("channels/%s/query"), *ChannelPath);
@@ -127,7 +142,7 @@ void FChatApi::QueryChannel(
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
-void FChatApi::DeleteChannel(const TCallback<FDeleteChannelResponseDto> Callback, const FString& ChannelType, const FString& ChannelId) const
+void FChatApi::DeleteChannel(const FString& ChannelType, const FString& ChannelId, const TCallback<FDeleteChannelResponseDto> Callback) const
 {
     const FString Path = FString::Printf(TEXT("channels/%s/%s"), *ChannelType, *ChannelId);
     const FString Url = BuildUrl(Path);
@@ -188,7 +203,6 @@ void FChatApi::DeleteReaction(const FString& MessageId, const FName& Type, const
 }
 
 void FChatApi::QueryChannels(
-    const TCallback<FChannelsResponseDto> Callback,
     const FString& ConnectionId,
     const EChannelFlags Flags,
     const TOptional<TSharedRef<FJsonObject>>& Filter,
@@ -196,7 +210,8 @@ void FChatApi::QueryChannels(
     const TOptional<uint32> MemberLimit,
     const TOptional<uint32> MessageLimit,
     const TOptional<uint32> Limit,
-    const TOptional<uint32> Offset) const
+    const TOptional<uint32> Offset,
+    const TCallback<FChannelsResponseDto> Callback) const
 {
     const FString Url = BuildUrl(TEXT("channels"));
 
@@ -217,14 +232,14 @@ void FChatApi::QueryChannels(
 }
 
 void FChatApi::SearchMessages(
-    const TCallback<FSearchResponseDto> Callback,
     const TSharedRef<FJsonObject>& ChannelFilter,
     const TOptional<FString>& Query,
     const TOptional<TSharedRef<FJsonObject>>& MessageFilter,
     const TArray<FSortParamRequestDto>& Sort,
     TOptional<uint32> MessageLimit,
     TOptional<uint32> Offset,
-    TOptional<FString> Next) const
+    TOptional<FString> Next,
+    const TCallback<FSearchResponseDto> Callback) const
 {
     const FString Url = BuildUrl(TEXT("search"));
     FSearchRequestDto Body{
@@ -266,10 +281,10 @@ void FChatApi::MarkChannelsRead(const TCallback<FMarkReadResponseDto> Callback) 
 }
 
 void FChatApi::MarkChannelRead(
-    const TCallback<FMarkReadResponseDto> Callback,
     const FString& ChannelType,
     const FString& ChannelId,
-    const TOptional<FString>& MessageId) const
+    const TOptional<FString>& MessageId,
+    const TCallback<FMarkReadResponseDto> Callback) const
 {
     const FString Path = FString::Printf(TEXT("channels/%s/%s/read"), *ChannelType, *ChannelId);
     const FString Url = BuildUrl(Path);

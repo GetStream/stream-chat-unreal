@@ -13,6 +13,7 @@
 class FHttpClient;
 class FRequestBuilder;
 class FTokenManager;
+enum class EPushProvider : uint8;
 struct FChannelResponseDto;
 struct FChannelSortOption;
 struct FChannelStateResponseDto;
@@ -27,6 +28,7 @@ struct FMessageRequestDto;
 struct FMessageResponseDto;
 struct FReactionRequestDto;
 struct FReactionResponseDto;
+struct FResponseDto;
 struct FSearchResponseDto;
 struct FToken;
 struct FUpdateUsersResponseDto;
@@ -63,7 +65,6 @@ public:
 
     /**
      * @brief Get messages, members or other channel fields. Creates the channel if not yet created.
-     * @param Callback Called when response is received.
      * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
      * @param ConnectionId Websocket connection ID to interact with.
      * @param ChannelId A unique identifier for the channel.
@@ -73,9 +74,9 @@ public:
      * @see https://getstream.io/chat/docs/unreal/channel_pagination/
      * @param MemberPagination Pagination details for returned members.
      * @param WatcherPagination Pagination details for returned watchers/
+     * @param Callback Called when response is received.
      */
     void QueryChannel(
-        TCallback<FChannelStateResponseDto> Callback,
         const FString& ChannelType,
         const FString& ConnectionId,
         EChannelFlags Flags = EChannelFlags::State,
@@ -83,15 +84,16 @@ public:
         const TOptional<FString>& ChannelId = {},
         const TOptional<FMessagePaginationParamsRequestDto> MessagePagination = {},
         const TOptional<FPaginationParamsRequestDto> MemberPagination = {},
-        const TOptional<FPaginationParamsRequestDto> WatcherPagination = {}) const;
+        const TOptional<FPaginationParamsRequestDto> WatcherPagination = {},
+        TCallback<FChannelStateResponseDto> Callback = {}) const;
 
     /**
      * @brief Delete a channel. Messages are soft deleted.
-     * @param Callback Called when response is received.
      * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
      * @param ChannelId A unique identifier for the channel
+     * @param Callback Called when response is received.
      */
-    void DeleteChannel(TCallback<FDeleteChannelResponseDto> Callback, const FString& ChannelType, const FString& ChannelId) const;
+    void DeleteChannel(const FString& ChannelType, const FString& ChannelId, TCallback<FDeleteChannelResponseDto> Callback = {}) const;
 
     /**
      * @brief Query channels with filter query
@@ -109,7 +111,6 @@ public:
      * @param Callback Called when response is received
      */
     void QueryChannels(
-        TCallback<FChannelsResponseDto> Callback,
         const FString& ConnectionId,
         EChannelFlags Flags = EChannelFlags::State | EChannelFlags::Watch,
         const TOptional<TSharedRef<FJsonObject>>& Filter = {},
@@ -117,7 +118,8 @@ public:
         TOptional<uint32> MemberLimit = {},
         TOptional<uint32> MessageLimit = {},
         TOptional<uint32> Limit = {},
-        TOptional<uint32> Offset = {}) const;
+        TOptional<uint32> Offset = {},
+        TCallback<FChannelsResponseDto> Callback = {}) const;
 
     /**
      * @brief Search all messages
@@ -125,7 +127,6 @@ public:
      * ChannelFilter is required, and a minimum of either a query or message filter
      *
      * @see https://getstream.io/chat/docs/unreal/search/
-     * @param Callback Called when response is received
      * @param Query Search phrase
      * @param ChannelFilter Channel filter conditions
      * @param MessageFilter Message filter conditions
@@ -133,35 +134,36 @@ public:
      * @param MessageLimit Number of messages to return
      * @param Offset Pagination offset. Cannot be used with sort or next
      * @param Next Pagination parameter. Cannot be used with non-zero offset
+     * @param Callback Called when response is received
      */
     void SearchMessages(
-        TCallback<FSearchResponseDto> Callback,
         const TSharedRef<FJsonObject>& ChannelFilter,
         const TOptional<FString>& Query = {},
         const TOptional<TSharedRef<FJsonObject>>& MessageFilter = {},
         const TArray<FSortParamRequestDto>& Sort = {},
         TOptional<uint32> MessageLimit = {},
         TOptional<uint32> Offset = {},
-        TOptional<FString> Next = {}) const;
+        TOptional<FString> Next = {},
+        TCallback<FSearchResponseDto> Callback = {}) const;
 
     /**
      * @brief Mark all messages of all channels as read
      * @param Callback Called when response is received
      */
-    void MarkChannelsRead(TCallback<FMarkReadResponseDto> Callback) const;
+    void MarkChannelsRead(TCallback<FMarkReadResponseDto> Callback = {}) const;
 
     /**
      * @brief Mark messages of a channel as read
-     * @param Callback Called when response is received
      * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
      * @param ChannelId A unique identifier for the channel
      * @param MessageId (optional) ID of the message that is considered last read by client
+     * @param Callback Called when response is received
      */
     void MarkChannelRead(
-        TCallback<FMarkReadResponseDto> Callback,
         const FString& ChannelType,
         const FString& ChannelId,
-        const TOptional<FString>& MessageId = {}) const;
+        const TOptional<FString>& MessageId = {},
+        TCallback<FMarkReadResponseDto> Callback = {}) const;
 
     ///@}
 #pragma endregion Channels
@@ -274,13 +276,13 @@ public:
      * @param Callback Called when response is received
      */
     void QueryUsers(
-        TCallback<FUsersResponseDto> Callback,
         const FString& ConnectionId,
         bool bPresence = true,
         const TOptional<TSharedRef<FJsonObject>>& Filter = {},
         const TArray<FSortParamRequestDto>& SortOptions = {},
         TOptional<uint32> Limit = {},
-        TOptional<uint32> Offset = {}) const;
+        TOptional<uint32> Offset = {},
+        TCallback<FUsersResponseDto> Callback = {}) const;
 
     void CreateGuest(const FUserObjectRequestDto& User, TCallback<FGuestResponseDto> Callback = {}) const;
 
@@ -292,6 +294,21 @@ public:
      *  https://getstream.io/chat/docs/rest/#Devices
      *  @{
      */
+
+    /**
+     * @brief Registering a device associates it with a user and tells the push provider to send new message notifications to the device.
+     * @param DeviceId Device-specific identifier
+     * @param PushProvider Which provider to use for push notifications
+     * @param Callback Called when response is received
+     */
+    void AddDevice(const FString& DeviceId, EPushProvider PushProvider, TCallback<FResponseDto> Callback = {}) const;
+
+    /**
+     * @brief Unregistering a device removes the device from the user and stops further new message notifications.
+     * @param DeviceId Device-specific identifier
+     * @param Callback Called when response is received
+     */
+    void RemoveDevice(const FString& DeviceId, TCallback<FResponseDto> Callback = {}) const;
 
     ///@}
 #pragma endregion Devices

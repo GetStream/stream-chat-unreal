@@ -8,10 +8,10 @@
 #include "Channel/Filter.h"
 #include "ChatApi.h"
 #include "ConstantTokenProvider.h"
+#include "Event/Channel/MessageNewEvent.h"
 #include "Event/Client/ConnectionRecoveredEvent.h"
 #include "Event/User/UserPresenceChangedEvent.h"
 #include "IChatSocket.h"
-#include "Request/Message/MessageRequestDto.h"
 #include "Request/User/UserObjectRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
@@ -227,6 +227,14 @@ void UStreamChatClientComponent::QueryChannels(
     }
 
     Api->QueryChannels(
+        Socket->GetConnectionId(),
+        Flags,
+        FilterJson,
+        Util::Convert<FSortParamRequestDto>(SortOptions),
+        {},
+        {},
+        PaginationOptions.Limit,
+        PaginationOptions.Offset,
         [WeakThis = TWeakObjectPtr<UStreamChatClientComponent>(this), Callback](const FChannelsResponseDto& Response)
         {
             if (!WeakThis.IsValid())
@@ -256,15 +264,7 @@ void UStreamChatClientComponent::QueryChannels(
             {
                 Callback(NewChannels);
             }
-        },
-        Socket->GetConnectionId(),
-        Flags,
-        FilterJson,
-        Util::Convert<FSortParamRequestDto>(SortOptions),
-        {},
-        {},
-        PaginationOptions.Limit,
-        PaginationOptions.Offset);
+        });
 }
 
 void UStreamChatClientComponent::CreateChannel(const FChannelProperties& ChannelProperties, const TFunction<void(UChatChannel*)> Callback)
@@ -285,6 +285,14 @@ void UStreamChatClientComponent::QueryChannel(const FChannelProperties& ChannelP
     const TOptional<FString> OptionalId = ChannelProperties.Id.IsEmpty() ? TOptional<FString>{} : ChannelProperties.Id;
     const FChannelRequestDto Data(ChannelProperties);
     Api->QueryChannel(
+        ChannelProperties.Type,
+        Socket->GetConnectionId(),
+        Flags,
+        Data,
+        OptionalId,
+        {},
+        {},
+        {},
         [WeakThis = TWeakObjectPtr<UStreamChatClientComponent>(this), Callback](const FChannelStateResponseDto& Dto)
         {
             if (!WeakThis.IsValid())
@@ -298,12 +306,7 @@ void UStreamChatClientComponent::QueryChannel(const FChannelProperties& ChannelP
             {
                 Callback(Channel);
             }
-        },
-        ChannelProperties.Type,
-        Socket->GetConnectionId(),
-        Flags,
-        Data,
-        OptionalId);
+        });
 }
 
 void UStreamChatClientComponent::QueryAdditionalChannels(const int32 Limit, const TFunction<void()> Callback)
@@ -338,6 +341,12 @@ void UStreamChatClientComponent::QueryUsers(
     const TOptional<uint32> Offset) const
 {
     Api->QueryUsers(
+        Socket->GetConnectionId(),
+        bPresence,
+        Filter.ToJsonObject(),
+        Util::Convert<FSortParamRequestDto>(Sort),
+        Limit,
+        Offset,
         [Callback](const FUsersResponseDto& Dto)
         {
             if (Callback)
@@ -347,13 +356,7 @@ void UStreamChatClientComponent::QueryUsers(
                 Algo::Transform(Dto.Users, Users, [UserManager](const FUserResponseDto& UserResponseDto) { return UserManager->UpsertUser(UserResponseDto); });
                 Callback(Users);
             }
-        },
-        Socket->GetConnectionId(),
-        bPresence,
-        Filter.ToJsonObject(),
-        Util::Convert<FSortParamRequestDto>(Sort),
-        Limit,
-        Offset);
+        });
 }
 
 void UStreamChatClientComponent::SearchMessages(
@@ -371,18 +374,20 @@ void UStreamChatClientComponent::SearchMessages(
     }
 
     Api->SearchMessages(
+        ChannelFilter.ToJsonObject(),
+        Query,
+        MessageFilterJson,
+        Util::Convert<FSortParamRequestDto>(Sort),
+        MessageLimit,
+        {},
+        {},
         [Callback](const FSearchResponseDto& Response)
         {
             if (Callback)
             {
                 Callback(FMessage::FromSearchResults(Response.Results));
             }
-        },
-        ChannelFilter.ToJsonObject(),
-        Query,
-        MessageFilterJson,
-        Util::Convert<FSortParamRequestDto>(Sort),
-        MessageLimit);
+        });
 }
 
 FString UStreamChatClientComponent::DevToken(const FString& UserId)
@@ -390,20 +395,14 @@ FString UStreamChatClientComponent::DevToken(const FString& UserId)
     return Jwt::Development(UserId);
 }
 
-void UStreamChatClientComponent::UpdateMessage(const FString& Id, const FString& Text) const
+void UStreamChatClientComponent::AddDevice(const FString& DeviceId, const EPushProvider PushProvider) const
 {
-    // TODO Can we return something from ConnectUser() that is required for this function to prevent ordering ambiguity?
-    check(Socket->IsConnected());
-
-    Api->UpdateMessage(FMessageRequestDto{Id, Text});
+    Api->AddDevice(DeviceId, PushProvider);
 }
 
-void UStreamChatClientComponent::DeleteMessage(const FString& Id) const
+void UStreamChatClientComponent::RemoveDevice(const FString& DeviceId) const
 {
-    // TODO Can we return something from ConnectUser() that is required for this function to prevent ordering ambiguity?
-    check(Socket->IsConnected());
-
-    Api->DeleteMessage(Id);
+    Api->RemoveDevice(DeviceId);
 }
 
 const TArray<UChatChannel*>& UStreamChatClientComponent::GetChannels() const

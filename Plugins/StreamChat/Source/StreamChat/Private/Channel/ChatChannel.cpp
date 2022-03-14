@@ -68,15 +68,15 @@ UChatChannel* UChatChannel::Create(
 void UChatChannel::Delete(TFunction<void()> Callback, const bool bHardDelete) const
 {
     Api->DeleteChannel(
+        Properties.Type,
+        Properties.Id,
         [Callback](const FDeleteChannelResponseDto&)
         {
             if (Callback)
             {
                 Callback();
             }
-        },
-        Properties.Type,
-        Properties.Id);
+        });
 }
 
 void UChatChannel::SendMessage(const FMessage& Message)
@@ -222,7 +222,7 @@ void UChatChannel::MarkRead(const TOptional<FString>& MessageId)
 {
     if (Properties.Config.bReadEvents && State.UnreadCount() > 0)
     {
-        Api->MarkChannelRead({}, Properties.Type, Properties.Id, MessageId);
+        Api->MarkChannelRead(Properties.Type, Properties.Id, MessageId);
 
         // Clear unread count straight away locally
         State.MarkRead();
@@ -243,6 +243,14 @@ void UChatChannel::Query(
     const TOptional<FUserPaginationOptions> WatcherPagination)
 {
     Api->QueryChannel(
+        Properties.Type,
+        Socket->GetConnectionId(),
+        Flags,
+        {},
+        Properties.Id,
+        Util::Convert<FMessagePaginationParamsRequestDto>(MessagePagination),
+        Util::Convert<FPaginationParamsRequestDto>(MemberPagination),
+        Util::Convert<FPaginationParamsRequestDto>(WatcherPagination),
         [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback](const FChannelStateResponseDto& Dto)
         {
             if (!WeakThis.IsValid())
@@ -256,15 +264,7 @@ void UChatChannel::Query(
             {
                 Callback();
             }
-        },
-        Properties.Type,
-        Socket->GetConnectionId(),
-        Flags,
-        {},
-        Properties.Id,
-        Util::Convert<FMessagePaginationParamsRequestDto>(MessagePagination),
-        Util::Convert<FPaginationParamsRequestDto>(MemberPagination),
-        Util::Convert<FPaginationParamsRequestDto>(WatcherPagination));
+        });
 }
 
 void UChatChannel::SearchMessages(
@@ -281,6 +281,13 @@ void UChatChannel::SearchMessages(
     }
 
     Api->SearchMessages(
+        FFilter::Equal(TEXT("cid"), Properties.Cid).ToJsonObject(),
+        Query,
+        MessageFilterJson,
+        Util::Convert<FSortParamRequestDto>(Sort),
+        MessageLimit,
+        {},
+        {},
         [Callback](const FSearchResponseDto& Response)
         {
             // Don't add the messages to this channel's state, just return
@@ -288,12 +295,7 @@ void UChatChannel::SearchMessages(
             {
                 Callback(FMessage::FromSearchResults(Response.Results));
             }
-        },
-        FFilter::Equal(TEXT("cid"), Properties.Cid).ToJsonObject(),
-        Query,
-        MessageFilterJson,
-        Util::Convert<FSortParamRequestDto>(Sort),
-        MessageLimit);
+        });
 }
 
 void UChatChannel::SearchMessages(
