@@ -431,6 +431,17 @@ void UChatChannel::OnTypingStop(const FTypingStopEvent& Event)
     OnTypingIndicator.Broadcast(ETypingIndicatorState::StopTyping, User);
 }
 
+void UChatChannel::BanMember(const FUserRef& User, const float Timeout, const FString Reason, const bool bShadow, const bool bIpBan) const
+{
+    const TOptional<float> OptionalTimeout = Timeout > 0.f ? Timeout : TOptional<float>{};
+    Api->BanUser(User->Id, Properties.Type, Properties.Id, OptionalTimeout, Reason, bShadow, bIpBan);
+}
+
+void UChatChannel::UnbanMember(const FUserRef& User) const
+{
+    Api->UnbanUser(User->Id, Properties.Type, Properties.Id);
+}
+
 void UChatChannel::MergeState(const FChannelStateResponseFieldsDto& Dto)
 {
     check(!Properties.Cid.IsEmpty());
