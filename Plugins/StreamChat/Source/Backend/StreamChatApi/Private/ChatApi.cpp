@@ -103,7 +103,7 @@ void FChatApi::UnbanUser(const FString TargetUserId, const FString Type, const F
 }
 
 void FChatApi::QueryBannedUsers(
-    const TOptional<TSharedRef<FJsonObject>>& Filter,
+    const TSharedRef<FJsonObject>& Filter,
     const TArray<FSortParamRequestDto>& SortOptions,
     const TOptional<FDateTime> CreatedAtAfterOrEqual,
     const TOptional<FDateTime> CreatedAtAfter,

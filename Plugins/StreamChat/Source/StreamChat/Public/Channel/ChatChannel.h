@@ -14,8 +14,8 @@
 #include "IChatSocket.h"
 #include "Message.h"
 #include "MessagePaginationOptions.h"
+#include "User/UserPaginationOptions.h"
 #include "User/UserRef.h"
-#include "UserPaginationOptions.h"
 
 #include "ChatChannel.generated.h"
 

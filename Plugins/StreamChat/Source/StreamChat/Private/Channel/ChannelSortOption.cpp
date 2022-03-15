@@ -28,3 +28,11 @@ FUserSortOption::operator FSortParamRequestDto() const
         Direction == ESortDirection::Ascending ? 1 : -1,
     };
 }
+
+FBanSortOption::operator FSortParamRequestDto() const
+{
+    return {
+        Json::Serialize(Field),
+        Direction == ESortDirection::Ascending ? 1 : -1,
+    };
+}

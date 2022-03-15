@@ -13,10 +13,12 @@
 #include "CoreMinimal.h"
 #include "Engine/LatentActionManager.h"
 #include "IChatSocket.h"
+#include "Moderation/BanPaginationOptions.h"
 #include "User/User.h"
 
 #include "StreamChatClientComponent.generated.h"
 
+struct FBan;
 class FChatApi;
 class FTokenManager;
 class ITokenProvider;
@@ -385,7 +387,20 @@ private:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client|Moderation")
     void ShadowUnbanUser(const FUserRef& User) const;
 
-    void QueryBannedUsers()
+    /**
+     * @brief Find and filter channel-scoped or global user bans
+     * @see https://getstream.io/chat/docs/unreal/moderation/#query-bans-endpoint
+     * @param Filter Conditions to use to filter the banned users
+     * @param SortOptions The sorting used for the banned users matching the filters.
+     * Sorting is based on field and direction, multiple sorting options can be provided.
+     * @param PaginationOptions Pagination for bans can be done in two ways: using offset/limit or using the "created_at" field.
+     * @param Callback Called when response is received.
+     */
+    void QueryBannedUsers(
+        const FFilter& Filter,
+        const TArray<FBanSortOption>& SortOptions = {},
+        const TOptional<FBanPaginationOptions> PaginationOptions = {},
+        TCallback<TArray<FBan>> Callback = {});
 
     ///@}
 #pragma endregion Moderation
