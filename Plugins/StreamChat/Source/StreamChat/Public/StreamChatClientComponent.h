@@ -385,6 +385,8 @@ private:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client|Moderation")
     void ShadowUnbanUser(const FUserRef& User) const;
 
+    void QueryBannedUsers()
+
     ///@}
 #pragma endregion Moderation
 };
