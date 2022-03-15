@@ -2,6 +2,7 @@
 
 #include "ChatApi.h"
 
+#include "Channel/Filter.h"
 #include "ConstantTokenProvider.h"
 #include "Dom/JsonObject.h"
 #include "IChatSocket.h"
@@ -12,6 +13,8 @@
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/Channel/DeleteChannelResponseDto.h"
 #include "Response/Device/ListDevicesResponseDto.h"
+#include "Response/Moderation/BanResponseDto.h"
+#include "Response/Moderation/QueryBannedUsersResponseDto.h"
 #include "Response/ResponseDto.h"
 #include "Response/User/GuestResponseDto.h"
 #include "Response/User/UsersResponseDto.h"
@@ -23,9 +26,12 @@ BEGIN_DEFINE_SPEC(FChatApiSpec, "StreamChat.ChatApi", EAutomationTestFlags::Prod
 const FString ApiKey = TEXT("kmajgxb2rk4p");
 const FString Host = TEXT("chat.stream-io-api.com");
 const FUserObjectDto User{FUserDto{TEXT("TestUser")}};
-const FString ChannelId = TEXT("test-channel");
 const FString ChannelType = TEXT("messaging");
+const FString NewChannelId = TEXT("test-channel");
+const FString ChannelId = TEXT("unrealdevs");
+const FString Cid = FString::Printf(TEXT("%s:%s"), *ChannelType, *ChannelId);
 const FString DeviceId = TEXT("random-device-id");
+const FString BanUserId = TEXT("tutorial-unreal");
 const TSharedRef<FTokenManager> TokenManager = MakeShared<FTokenManager>();
 const TSharedRef<FChatApi> Api = FChatApi::Create(ApiKey, Host, TokenManager);
 TSharedPtr<IChatSocket> Socket;
@@ -57,14 +63,14 @@ void FChatApiSpec::Define()
                         Socket->GetConnectionId(),
                         EChannelFlags::None,
                         {},
-                        ChannelId,
+                        NewChannelId,
                         {},
                         {},
                         {},
                         [=](const FChannelStateResponseDto& Dto)
                         {
-                            TestEqual("Response.Channel.Cid", Dto.Channel.Cid, TEXT("messaging:test-channel"));
-                            TestEqual("Response.Channel.Id", Dto.Channel.Id, ChannelId);
+                            TestEqual("Response.Channel.Cid", Dto.Channel.Cid, Cid);
+                            TestEqual("Response.Channel.Id", Dto.Channel.Id, NewChannelId);
                             TestEqual("No additional fields", Dto.Channel.AdditionalFields.GetFields().Num(), 0);
                             TestDone.Execute();
                         });
@@ -75,7 +81,7 @@ void FChatApiSpec::Define()
                 [=](const FDoneDelegate& TestDone)
                 {
                     const TSharedRef<FJsonObject> Filter = MakeShared<FJsonObject>();
-                    Filter->SetStringField(TEXT("id"), ChannelId);
+                    Filter->SetStringField(TEXT("id"), NewChannelId);
                     Api->QueryChannels(
                         Socket->GetConnectionId(),
                         EChannelFlags::None,
@@ -99,7 +105,7 @@ void FChatApiSpec::Define()
                 [=](const FDoneDelegate& TestDone)
                 {
                     const TSharedRef<FJsonObject> Filter = MakeShared<FJsonObject>();
-                    Filter->SetStringField(TEXT("id"), ChannelId);
+                    Filter->SetStringField(TEXT("id"), NewChannelId);
                     Api->QueryChannels(
                         Socket->GetConnectionId(),
                         EChannelFlags::None,
@@ -122,11 +128,11 @@ void FChatApiSpec::Define()
                 {
                     Api->DeleteChannel(
                         ChannelType,
-                        ChannelId,
+                        NewChannelId,
                         [=](const FDeleteChannelResponseDto& Dto)
                         {
-                            TestEqual("Response.Channel.Cid", Dto.Channel.Cid, TEXT("messaging:test-channel"));
-                            TestEqual("Response.Channel.Id", Dto.Channel.Id, TEXT("test-channel"));
+                            TestEqual("Response.Channel.Cid", Dto.Channel.Cid, Cid);
+                            TestEqual("Response.Channel.Id", Dto.Channel.Id, NewChannelId);
                             TestEqual("No additional fields", Dto.Channel.AdditionalFields.GetFields().Num(), 0);
                             AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
                             TestDone.Execute();
@@ -231,6 +237,89 @@ void FChatApiSpec::Define()
                         [=](const FListDevicesResponseDto& Dto)
                         {
                             TestEqual("Device exists", Dto.Devices[0].Id, DeviceId);
+                            TestDone.Execute();
+                        });
+                });
+        });
+
+    Describe(
+        "Ban",
+        [=]
+        {
+            // Ban user
+            LatentBeforeEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->BanUser(
+                        BanUserId,
+                        ChannelType,
+                        ChannelId,
+                        {},
+                        {},
+                        {},
+                        {},
+                        [=](const FResponseDto& Dto)
+                        {
+                            TestTrue("Response received", Dto.Duration.Len() > 0);
+                            TestDone.Execute();
+                        });
+                });
+
+            // User was banned
+            LatentBeforeEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->QueryBannedUsers(
+                        FFilter::Equal(TEXT("channel_cid"), Cid).ToJsonObject(),
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        [=](const FQueryBannedUsersResponseDto& Dto)
+                        {
+                            const FBanResponseDto* Ban = Dto.Bans.FindByPredicate([&](const FBanResponseDto& B) { return B.User.Id == BanUserId; });
+                            TestNotNull("User was banned", Ban);
+                            TestEqual("Banned in channel", Ban->Channel.Cid, Cid);
+                            TestTrue("Banned recently", FDateTime::UtcNow() - Ban->CreatedAt < FTimespan::FromMinutes(1.f));
+                            TestDone.Execute();
+                        });
+                });
+
+            // Unban user
+            LatentBeforeEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->UnbanUser(
+                        User.Id,
+                        ChannelType,
+                        ChannelId,
+                        [=](const FResponseDto& Dto)
+                        {
+                            TestTrue("Response received", Dto.Duration.Len() > 0);
+                            TestDone.Execute();
+                        });
+                });
+
+            // User was unbanned
+            LatentIt(
+                "should ban user globally",
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->QueryBannedUsers(
+                        FFilter::Equal(TEXT("channel_cid"), Cid).ToJsonObject(),
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        [=](const FQueryBannedUsersResponseDto& Dto)
+                        {
+                            TestFalse("User was unbanned", Dto.Bans.ContainsByPredicate([&](const FBanResponseDto& Ban) { return Ban.User.Id == BanUserId; }));
                             TestDone.Execute();
                         });
                 });
