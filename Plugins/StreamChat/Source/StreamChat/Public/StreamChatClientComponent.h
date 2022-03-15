@@ -356,11 +356,10 @@ private:
      * @param User User to ban
      * @param Timeout Timeout of ban in minutes. User will be unbanned after this period of time (unlimited if negative)
      * @param Reason Ban reason (optional)
-     * @param bShadow Whether to perform shadow ban or not
      * @param bIpBan Whether to perform IP ban or not
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client|Moderation")
-    void BanUser(const FUserRef& User, float Timeout = -1.f, FString Reason = TEXT(""), bool bShadow = false, bool bIpBan = false) const;
+    void BanUser(const FUserRef& User, float Timeout = -1.f, FString Reason = TEXT(""), bool bIpBan = false) const;
 
     /**
      * @brief Remove previously applied app-wide ban
@@ -368,6 +367,23 @@ private:
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client|Moderation")
     void UnbanUser(const FUserRef& User) const;
+
+    /**
+     * @brief Shadow ban a user from app entirely
+     * When a user is banned, they will not be allowed to post messages until the ban is
+     * removed or expired but will be able to connect to Chat and to channels as before.
+     * @param User User to ban
+     * @param Timeout Timeout of ban in minutes. User will be unbanned after this period of time (unlimited if negative)
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client|Moderation")
+    void ShadowBanUser(const FUserRef& User, float Timeout = -1.f) const;
+
+    /**
+     * @brief Remove previously applied app-wide shadow ban
+     * @param User User to unban
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client|Moderation")
+    void ShadowUnbanUser(const FUserRef& User) const;
 
     ///@}
 #pragma endregion Moderation
