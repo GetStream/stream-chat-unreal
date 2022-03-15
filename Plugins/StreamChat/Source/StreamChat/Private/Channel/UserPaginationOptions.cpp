@@ -1,6 +1,6 @@
 // Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
-#include "Channel/UserPaginationOptions.h"
+#include "User/UserPaginationOptions.h"
 
 FUserPaginationOptions::operator FPaginationParamsRequestDto() const
 {

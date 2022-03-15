@@ -136,7 +136,7 @@ enum class EUserSortField : uint8
 };
 
 /**
- * @brief The desired sort options for message queries
+ * @brief The desired sort options for user queries
  * @ingroup StreamChat
  */
 USTRUCT(BlueprintType)
@@ -154,6 +154,46 @@ struct FUserSortOption
     /// Sort by this custom field. Only considered if "Field" is custom
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat")
     FName CustomField;
+
+    /// The direction in which to sort
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat")
+    ESortDirection Direction = ESortDirection::Descending;
+};
+
+/**
+ * @brief The desired sort field for ban queries
+ * @ingroup StreamChat
+ */
+UENUM(BlueprintType)
+enum class EBanSortField : uint8
+{
+    /// The channel CID for the ban. When this parameter is not provided, both global and channel bans will be returned.
+    ChannelCid,
+    /// The ID of the banned user
+    UserId,
+    /// The date of the ban expiration
+    Expired,
+    /// The date of the ban creation
+    CreatedAt,
+    /// The ID of the user that created the ban
+    BannedById,
+};
+
+/**
+ * @brief The desired sort options for ban queries
+ * @ingroup StreamChat
+ */
+USTRUCT(BlueprintType)
+struct FBanSortOption
+{
+    GENERATED_BODY()
+
+    /// Convert into a DTO for sending to the API
+    explicit operator FSortParamRequestDto() const;
+
+    /// Which field to sort by
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat")
+    EBanSortField Field = EBanSortField::CreatedAt;
 
     /// The direction in which to sort
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat")

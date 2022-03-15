@@ -17,6 +17,7 @@
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/Device/ListDevicesResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
+#include "Response/Moderation/QueryBannedUsersResponseDto.h"
 #include "Response/User/GuestResponseDto.h"
 #include "Response/User/UsersResponseDto.h"
 #include "StreamChatSettings.h"
@@ -165,6 +166,46 @@ void UStreamChatClientComponent::ShadowBanUser(const FUserRef& User, const float
 void UStreamChatClientComponent::ShadowUnbanUser(const FUserRef& User) const
 {
     Api->UnbanUser(User->Id);
+}
+
+void UStreamChatClientComponent::QueryBannedUsers(
+    const FFilter& Filter,
+    const TArray<FBanSortOption>& SortOptions,
+    const TOptional<FBanPaginationOptions> PaginationOptions,
+    TCallback<TArray<FBan>> Callback)
+{
+    TOptional<FDateTime> CreatedAtAfterOrEqual;
+    TOptional<FDateTime> CreatedAtAfter;
+    TOptional<FDateTime> CreatedAtBeforeOrEqual;
+    TOptional<FDateTime> CreatedAtBefore;
+    TOptional<uint32> Limit;
+    TOptional<uint32> Offset;
+    if (PaginationOptions.IsSet())
+    {
+        CreatedAtAfterOrEqual = PaginationOptions.GetValue().CreatedAtAfterOrEqual;
+        CreatedAtAfter = PaginationOptions.GetValue().CreatedAtAfter;
+        CreatedAtBeforeOrEqual = PaginationOptions.GetValue().CreatedAtBeforeOrEqual;
+        CreatedAtBefore = PaginationOptions.GetValue().CreatedAtBefore;
+        Limit = PaginationOptions.GetValue().Limit;
+        Offset = PaginationOptions.GetValue().Offset;
+    }
+    Api->QueryBannedUsers(
+        Filter.ToJsonObject(),
+        Util::Convert<FSortParamRequestDto>(SortOptions),
+        CreatedAtAfterOrEqual,
+        CreatedAtAfter,
+        CreatedAtBeforeOrEqual,
+        CreatedAtBefore,
+        Limit,
+        Offset,
+        [WeakThis = TWeakObjectPtr<UStreamChatClientComponent>(this), Callback](const FQueryBannedUsersResponseDto& Dto)
+        {
+            if (Callback)
+            {
+                const TArray<FBan> Bans = Util::Convert<FBan>(Dto.Bans, UUserManager::Get());
+                Callback(Bans);
+            }
+        });
 }
 
 void UStreamChatClientComponent::ConnectUser(const FUser& User, TUniquePtr<ITokenProvider> TokenProvider, const TFunction<void(const FUserRef&)> Callback)
