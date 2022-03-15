@@ -17,13 +17,13 @@ struct STREAMCHAT_API FBan
 {
     GENERATED_BODY()
     FBan() = default;
-    explicit FBan(const FBanResponseDto&, UStreamChatClientComponent*, UUserManager*);
+    explicit FBan(const FBanResponseDto&, UUserManager*);
 
     UPROPERTY(BlueprintReadOnly, Category = "Stream|Moderation")
     FUserRef BannedBy;
 
     UPROPERTY(BlueprintReadOnly, Category = "Stream|Moderation")
-    UChatChannel* Channel;
+    FChannelProperties Channel;
 
     /// Date/time of creation
     UPROPERTY(BlueprintReadOnly, Category = "Stream|Moderation")
@@ -33,7 +33,7 @@ struct STREAMCHAT_API FBan
     FDateTime Expires = FDateTime{0};
 
     UPROPERTY(BlueprintReadOnly, Category = "Stream|Moderation")
-    bool bShadow;
+    bool bShadow = false;
 
     UPROPERTY(BlueprintReadOnly, Category = "Stream|Moderation")
     FUserRef User;
