@@ -9,32 +9,39 @@
 
 FChannelProperties::FChannelProperties() = default;
 
-FChannelProperties::FChannelProperties(const FChannelStateResponseFieldsDto& Dto, UUserManager* UserManager)
-    : Type{Dto.Channel.Type}
-    , Id{Dto.Channel.Id}
-    , Cid{Dto.Channel.Cid}
-    , Config{Dto.Channel.Config}
-    , MemberCount{Dto.Channel.MemberCount}
+FChannelProperties::FChannelProperties(const FChannelResponseDto& Dto, UUserManager* UserManager)
+    : Type{Dto.Type}
+    , Id{Dto.Id}
+    , Cid{Dto.Cid}
+    , Config{Dto.Config}
+    , MemberCount{Dto.MemberCount}
     , Members{Util::Convert<FMember>(Dto.Members, UserManager)}
-    // For whatever reason the Dto.Channel.Members field is always empty. Use the outer field instead
-    , Cooldown{Dto.Channel.Cooldown}
-    , CreatedAt{Dto.Channel.CreatedAt}
-    , UpdatedAt{Dto.Channel.UpdatedAt}
-    , DeletedAt{Dto.Channel.DeletedAt}
-    , LastMessageAt{Dto.Channel.LastMessageAt}
-    , CreatedBy{UserManager->UpsertUser(Dto.Channel.CreatedBy)}
-    , bDisabled{Dto.Channel.bDisabled}
-    , bFrozen{Dto.Channel.bFrozen}
-    , bHidden{Dto.Channel.bHidden}
-    , bMuted{Dto.Channel.bMuted}
-    , MuteExpiresAt{Dto.Channel.MuteExpiresAt}
-    , HideMessagesBefore{Dto.Channel.HideMessagesBefore}
-    , OwnCapabilities{Dto.Channel.OwnCapabilities}
-    , bAutoTranslationEnabled{Dto.Channel.bAutoTranslationEnabled}
-    , AutoTranslationLanguage{Dto.Channel.AutoTranslationLanguage}
-    , Team{Dto.Channel.Team}
-    , ExtraData(Dto.Channel.AdditionalFields)
+    , Cooldown{Dto.Cooldown}
+    , CreatedAt{Dto.CreatedAt}
+    , UpdatedAt{Dto.UpdatedAt}
+    , DeletedAt{Dto.DeletedAt}
+    , LastMessageAt{Dto.LastMessageAt}
+    , CreatedBy{UserManager->UpsertUser(Dto.CreatedBy)}
+    , bDisabled{Dto.bDisabled}
+    , bFrozen{Dto.bFrozen}
+    , bHidden{Dto.bHidden}
+    , bMuted{Dto.bMuted}
+    , MuteExpiresAt{Dto.MuteExpiresAt}
+    , HideMessagesBefore{Dto.HideMessagesBefore}
+    , OwnCapabilities{Dto.OwnCapabilities}
+    , bAutoTranslationEnabled{Dto.bAutoTranslationEnabled}
+    , AutoTranslationLanguage{Dto.AutoTranslationLanguage}
+    , Team{Dto.Team}
+    , ExtraData(Dto.AdditionalFields)
 {
+}
+
+FChannelProperties::FChannelProperties(const FChannelStateResponseFieldsDto& Dto, UUserManager* UserManager) : FChannelProperties{Dto.Channel, UserManager}
+{
+    if (Members.Num() == 0 && Dto.Members.Num() > 0)
+    {
+        Members = Util::Convert<FMember>(Dto.Members, UserManager);
+    }
 }
 
 FChannelProperties::operator FChannelRequestDto() const
