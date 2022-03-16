@@ -12,6 +12,7 @@
 #include "Event/Client/ConnectionRecoveredEvent.h"
 #include "Event/User/UserPresenceChangedEvent.h"
 #include "IChatSocket.h"
+#include "Moderation/Ban.h"
 #include "Request/User/UserObjectRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
