@@ -2,7 +2,7 @@ var searchData=
 [
   ['banexpires_0',['BanExpires',['../struct_f_user_dto.html#ab57d983041773f465a9096b6a4b52376',1,'FUserDto::BanExpires()'],['../struct_f_user.html#a7c6905c0374bd38c926c50be07a01bc8',1,'FUser::BanExpires()'],['../struct_f_channel_member_dto.html#afed0bc6a60945c300b2b377d46a7b9b2',1,'FChannelMemberDto::BanExpires()']]],
   ['bannedbyid_1',['BannedById',['../group___stream_chat.html#ggad83c2a39fafdf07b890e3260924f9f56a26e02bb8f81ec5a4d22cb8e3a8a8faf9',1,'ChannelSortOption.h']]],
-  ['banuser_2',['BanUser',['../class_f_chat_api.html#a21c40fc796694612e17e5aba9849bf8c',1,'FChatApi']]],
+  ['banuser_2',['BanUser',['../class_f_chat_api.html#ab4b1b5e1f15beca96a6f437aa75362aa',1,'FChatApi']]],
   ['bautotranslationenabled_3',['bAutoTranslationEnabled',['../struct_f_channel_properties.html#af3bc793bbb7a10fcfc9275428ae5a541',1,'FChannelProperties::bAutoTranslationEnabled()'],['../struct_f_channel_response_dto.html#a04db63f9af490deb9b66315328a72be7',1,'FChannelResponseDto::bAutoTranslationEnabled()']]],
   ['bbanned_4',['bBanned',['../struct_f_user_dto.html#a53526facbe994dbb37b206805bf734af',1,'FUserDto::bBanned()'],['../struct_f_user.html#adb815a310fc4a1bb89b454adf075450d',1,'FUser::bBanned()'],['../struct_f_channel_member_dto.html#aab296a1b6d951f6586ac2e3a0cbac723',1,'FChannelMemberDto::bBanned()']]],
   ['bconnectevents_5',['bConnectEvents',['../struct_f_channel_config_with_info_dto.html#ac2fdf620cec2671911215c684b700c81',1,'FChannelConfigWithInfoDto::bConnectEvents()'],['../struct_f_channel_config.html#a33d98925e9b39e797d8bb366d1514e5c',1,'FChannelConfig::bConnectEvents()']]],

@@ -11,6 +11,8 @@ var class_u_stream_chat_client_component =
     [ "ConnectUser", "class_u_stream_chat_client_component.html#a772775375b6df48ed9280caa356dea13", null ],
     [ "CreateChannel", "class_u_stream_chat_client_component.html#a2a8eced83c1c5533f264b8e1c7b5c15e", null ],
     [ "DisconnectUser", "class_u_stream_chat_client_component.html#ab1abed0a192360951268e62a6a78a8e7", null ],
+    [ "FlagMessage", "class_u_stream_chat_client_component.html#a089db8cda3d789e88b98cce3397f9f7e", null ],
+    [ "FlagUser", "class_u_stream_chat_client_component.html#a9d08485ee0259efb2098a591554553b3", null ],
     [ "ListDevices", "class_u_stream_chat_client_component.html#a0f03f8337f0c164ca3dbcfbc7736a4dd", null ],
     [ "On", "class_u_stream_chat_client_component.html#a7d38cc193bb913b0aa09b8269e6bbe4b", null ],
     [ "On", "class_u_stream_chat_client_component.html#a8faa7f538db03c650b73e9ac381eb15b", null ],

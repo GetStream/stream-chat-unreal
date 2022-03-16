@@ -49,6 +49,8 @@ var hierarchy =
     [ "FErrorResponseDto", "struct_f_error_response_dto.html", null ],
     [ "FEventDto", "struct_f_event_dto.html", null ],
     [ "FFilter", "struct_f_filter.html", null ],
+    [ "FFlagDto", "struct_f_flag_dto.html", null ],
+    [ "FFlagRequestDto", "struct_f_flag_request_dto.html", null ],
     [ "FGuestRequestDto", "struct_f_guest_request_dto.html", null ],
     [ "FHtmlParser", "class_f_html_parser.html", null ],
     [ "FLocalEvent", "struct_f_local_event.html", [
@@ -83,6 +85,7 @@ var hierarchy =
       [ "FChannelsResponseDto", "struct_f_channels_response_dto.html", null ],
       [ "FDeleteChannelResponseDto", "struct_f_delete_channel_response_dto.html", null ],
       [ "FEventResponseDto", "struct_f_event_response_dto.html", null ],
+      [ "FFlagResponseDto", "struct_f_flag_response_dto.html", null ],
       [ "FGuestResponseDto", "struct_f_guest_response_dto.html", null ],
       [ "FListDevicesResponseDto", "struct_f_list_devices_response_dto.html", null ],
       [ "FMarkReadResponseDto", "struct_f_mark_read_response_dto.html", null ],
