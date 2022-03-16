@@ -202,6 +202,22 @@ public:
      */
     void ListDevices(TFunction<void(TArray<FDevice>)> Callback) const;
 
+    /**
+     * @brief Flag message for moderation
+     *
+     * @param Message A reference to an existing message
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message")
+    void FlagMessage(const FMessage& Message);
+
+    /**
+     * @brief Unflag a flagged message
+     *
+     * @param Message A reference to an existing message
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message")
+    void UnflagMessage(const FMessage& Message);
+
     UPROPERTY(EditAnywhere, Config, Category = "Stream Chat", meta = (DisplayName = "API Key"))
     FString ApiKey;
 

@@ -484,6 +484,16 @@ void UStreamChatClientComponent::ListDevices(TFunction<void(TArray<FDevice>)> Ca
         });
 }
 
+void UStreamChatClientComponent::FlagMessage(const FMessage& Message)
+{
+    Api->Flag(Message.Id);
+}
+
+void UStreamChatClientComponent::UnflagMessage(const FMessage& Message)
+{
+    Api->Unflag(Message.Id);
+}
+
 const TArray<UChatChannel*>& UStreamChatClientComponent::GetChannels() const
 {
     return Channels;
