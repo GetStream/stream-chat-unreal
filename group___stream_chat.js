@@ -25,7 +25,7 @@ var group___stream_chat =
     ] ],
     [ "FChannelProperties", "struct_f_channel_properties.html", [
       [ "FChannelProperties", "struct_f_channel_properties.html#a567900ccd18561d70152fbf7821a6c09", null ],
-      [ "FChannelProperties", "struct_f_channel_properties.html#aa8ea8b9b34df881cc536ef8fde358858", null ],
+      [ "FChannelProperties", "struct_f_channel_properties.html#af6ea8e85c71cab2485110efe45c23802", null ],
       [ "GetOtherMemberUsers", "struct_f_channel_properties.html#a215200abff9a415d6d7f127f01b2f319", null ],
       [ "operator FChannelRequestDto", "struct_f_channel_properties.html#a677042bf535d27f43488560aeef7f1ac", null ],
       [ "SetMembers", "struct_f_channel_properties.html#a73faf453dcdd3b1416ff1df77e8b84e2", null ],
@@ -70,6 +70,11 @@ var group___stream_chat =
       [ "CustomField", "struct_f_user_sort_option.html#ae0bfa53ea80f6021f5eee25b5039a56b", null ],
       [ "Direction", "struct_f_user_sort_option.html#a31d0863f1e6f10fd779a75770011deb8", null ],
       [ "Field", "struct_f_user_sort_option.html#a38b0a420b442d82d1b5641b3959ceb79", null ]
+    ] ],
+    [ "FBanSortOption", "struct_f_ban_sort_option.html", [
+      [ "operator FSortParamRequestDto", "struct_f_ban_sort_option.html#a33e0b771cad573c77a5d27dd7aae126d", null ],
+      [ "Direction", "struct_f_ban_sort_option.html#a93f7b8ad11924fe14cc08b41ceee5d90", null ],
+      [ "Field", "struct_f_ban_sort_option.html#a96ce562f99e0c8ebceed4d5ed7576efc", null ]
     ] ],
     [ "FChannelState", "struct_f_channel_state.html", [
       [ "FChannelState", "struct_f_channel_state.html#ae31619e08147a700841325ab17e04b1f", null ],
@@ -151,7 +156,7 @@ var group___stream_chat =
       [ "FRead", "struct_f_read.html#a85e9f883b0ea4330c9292b8fe1c3c291", null ],
       [ "User", "struct_f_read.html#a79a699d416a8a243f98fc66e3d294d82", null ]
     ] ],
-    [ "FUserPaginationOptions", "struct_f_user_pagination_options.html", null ],
+    [ "FBanPaginationOptions", "struct_f_ban_pagination_options.html", null ],
     [ "FReaction", "struct_f_reaction.html", [
       [ "CreatedAt", "struct_f_reaction.html#a0e769fe1b38e5122e985ab2a817aa25f", null ],
       [ "MessageId", "struct_f_reaction.html#aed5d244bc9019cede9664e3151873bc3", null ],
@@ -210,7 +215,15 @@ var group___stream_chat =
       [ "Host", "class_u_stream_chat_settings.html#a3c81992e541233efc646aa7f44b6ac92", null ]
     ] ],
     [ "UUserBlueprintLibrary", "class_u_user_blueprint_library.html", null ],
+    [ "FUserPaginationOptions", "struct_f_user_pagination_options.html", null ],
     [ "UAdditionalFieldsBlueprintLibrary", "class_u_additional_fields_blueprint_library.html", null ],
+    [ "EBanSortField", "group___stream_chat.html#gad83c2a39fafdf07b890e3260924f9f56", [
+      [ "EBanSortField::ChannelCid", "group___stream_chat.html#ggad83c2a39fafdf07b890e3260924f9f56aab9a84720cb59d32b0f65cabe317c4ab", null ],
+      [ "EBanSortField::UserId", "group___stream_chat.html#ggad83c2a39fafdf07b890e3260924f9f56a4733e94f511132be01e92cc23c017d16", null ],
+      [ "EBanSortField::Expired", "group___stream_chat.html#ggad83c2a39fafdf07b890e3260924f9f56a24fe48030f7d3097d5882535b04c3fa8", null ],
+      [ "EBanSortField::CreatedAt", "group___stream_chat.html#ggad83c2a39fafdf07b890e3260924f9f56a46d295c8a97befd247d2d634ac8cc4b3", null ],
+      [ "EBanSortField::BannedById", "group___stream_chat.html#ggad83c2a39fafdf07b890e3260924f9f56a26e02bb8f81ec5a4d22cb8e3a8a8faf9", null ]
+    ] ],
     [ "EChannelSortField", "group___stream_chat.html#ga898a433fd419f8f469a04c180ca52965", null ],
     [ "EFilterOperator", "group___stream_chat.html#ga5f415eaba7bb8ad8ae40f5b8b3eb69b5", [
       [ "EFilterOperator::Equal", "group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5af5f286e73bda105e538310b3190f75c5", null ],

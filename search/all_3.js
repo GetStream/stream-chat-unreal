@@ -10,7 +10,7 @@ var searchData=
   ['deleting_7',['Deleting',['../group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91affbb410a55bb31f801dea6387e2745ac',1,'Message.h']]],
   ['development_8',['Development',['../namespace_jwt.html#ae46dfb72a31d89e7cb2cdf66e534490a',1,'Jwt']]],
   ['devices_9',['Devices',['../struct_f_list_devices_response_dto.html#af897e7e50561ce763e9d526cc8ffaf05',1,'FListDevicesResponseDto']]],
-  ['direction_10',['Direction',['../struct_f_user_sort_option.html#a31d0863f1e6f10fd779a75770011deb8',1,'FUserSortOption::Direction()'],['../struct_f_message_sort_option.html#a786c7589b83976fc38ef11de8ee28921',1,'FMessageSortOption::Direction()'],['../struct_f_channel_sort_option.html#ab7463c8d9a16af5932a719ff4906e25a',1,'FChannelSortOption::Direction()']]],
+  ['direction_10',['Direction',['../struct_f_channel_sort_option.html#ab7463c8d9a16af5932a719ff4906e25a',1,'FChannelSortOption::Direction()'],['../struct_f_ban_sort_option.html#a93f7b8ad11924fe14cc08b41ceee5d90',1,'FBanSortOption::Direction()'],['../struct_f_user_sort_option.html#a31d0863f1e6f10fd779a75770011deb8',1,'FUserSortOption::Direction()'],['../struct_f_message_sort_option.html#a786c7589b83976fc38ef11de8ee28921',1,'FMessageSortOption::Direction()']]],
   ['disabledreason_11',['DisabledReason',['../struct_f_device_dto.html#abaa10defcfbb994cdf75788626c1de93',1,'FDeviceDto::DisabledReason()'],['../struct_f_device.html#a768f6f913144024226797cbfe2bdcc87',1,'FDevice::DisabledReason()']]],
   ['disconnectuser_12',['DisconnectUser',['../class_u_stream_chat_client_component.html#ab1abed0a192360951268e62a6a78a8e7',1,'UStreamChatClientComponent']]],
   ['dto_13',['DTO',['../group___stream_chat_dto.html',1,'']]],

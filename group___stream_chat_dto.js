@@ -26,9 +26,7 @@ var group___stream_chat_dto =
       [ "bState", "struct_f_query_channels_request_dto.html#a82b00c38b719ff5ac4a8e621a689ed29", null ],
       [ "bWatch", "struct_f_query_channels_request_dto.html#a6ce1221876ebf9d627d41ad0f2b5eab0", null ],
       [ "ConnectionId", "struct_f_query_channels_request_dto.html#a6e40b7fa50ee64ea80e3fb57249f6a9e", null ],
-      [ "Limit", "struct_f_query_channels_request_dto.html#a52c3d27d3b098cf35a1729cc48cb9589", null ],
       [ "MemberLimit", "struct_f_query_channels_request_dto.html#adbb13a036f065d223c52abf3c1306bd1", null ],
-      [ "Offset", "struct_f_query_channels_request_dto.html#a8ba2fa642f6e7baaafd88a696d03d50d", null ],
       [ "Sort", "struct_f_query_channels_request_dto.html#ad3bc9151f4d3c44a2e5c194b54e4d178", null ]
     ] ],
     [ "FConnectRequestDto", "struct_f_connect_request_dto.html", null ],
@@ -43,9 +41,7 @@ var group___stream_chat_dto =
     ] ],
     [ "FSearchRequestDto", "struct_f_search_request_dto.html", [
       [ "SetMessageFilter", "struct_f_search_request_dto.html#a48751be54ced0a597229f7ef6517be4e", null ],
-      [ "SetMessageLimit", "struct_f_search_request_dto.html#a14cb75555eddceb1ec41c8b9de29b2eb", null ],
       [ "SetNext", "struct_f_search_request_dto.html#a1a43fcf0bc2950a1c0c763c9dc29e578", null ],
-      [ "SetOffset", "struct_f_search_request_dto.html#a1e147980e0ec17fa656a2a4a3cb6f605", null ],
       [ "SetQuery", "struct_f_search_request_dto.html#a7ec9ff14613f4e47dc9efcaf576ddb36", null ],
       [ "SetSort", "struct_f_search_request_dto.html#a275f6f92187f191be212b5621524a525", null ]
     ] ],
@@ -55,6 +51,22 @@ var group___stream_chat_dto =
     ] ],
     [ "FUpdateMessageRequestDto", "struct_f_update_message_request_dto.html", [
       [ "Message", "struct_f_update_message_request_dto.html#a612cb7398288222720cf5a575c2a8312", null ]
+    ] ],
+    [ "FBanRequestDto", "struct_f_ban_request_dto.html", [
+      [ "SetTimeout", "struct_f_ban_request_dto.html#a3589c8bde7a45a62de7ccc94d8f9e25e", null ],
+      [ "bIpBan", "struct_f_ban_request_dto.html#a0cbfd4dc504415e875f0ec9817d40525", null ],
+      [ "bShadow", "struct_f_ban_request_dto.html#a51f2d10db52f41d3c1cc4729fae6e511", null ],
+      [ "Id", "struct_f_ban_request_dto.html#a2cdb985aad634118b4c17c139b50b122", null ],
+      [ "Reason", "struct_f_ban_request_dto.html#a2ddbee797dadf056f2891b4f2ff66f95", null ],
+      [ "TargetUserId", "struct_f_ban_request_dto.html#a7105907af4cbf189d7120bb7db0da318", null ],
+      [ "Type", "struct_f_ban_request_dto.html#a25120bf3356c025f7a359aeada0d3c4d", null ]
+    ] ],
+    [ "FQueryBannedUsersRequestDto", "struct_f_query_banned_users_request_dto.html", [
+      [ "SetSort", "struct_f_query_banned_users_request_dto.html#aba1e4707d82c6a190a982af6c31682fd", null ]
+    ] ],
+    [ "FPaginatedRequest", "struct_f_paginated_request.html", [
+      [ "SetLimit", "struct_f_paginated_request.html#a1e01e73e18a2bb22d8b9884f35a1030d", null ],
+      [ "SetOffset", "struct_f_paginated_request.html#a156d316464d715fdac1a7c8db4e9e748", null ]
     ] ],
     [ "FReactionRequestDto", "struct_f_reaction_request_dto.html", [
       [ "MessageId", "struct_f_reaction_request_dto.html#a3943076267a1a7b9ba02ac951ea0929b", null ],
@@ -74,8 +86,6 @@ var group___stream_chat_dto =
       [ "SetIdLte", "struct_f_query_users_request_dto.html#a60b358bb789aefc7c022914d5a07efa3", null ],
       [ "bPresence", "struct_f_query_users_request_dto.html#a1960e921ae5675c7a24e5a5ea31c153f", null ],
       [ "ConnectionId", "struct_f_query_users_request_dto.html#a118f82af5a7401cd2fef58164de64f81", null ],
-      [ "Limit", "struct_f_query_users_request_dto.html#acd8ebc7d0597b22d71363e4d087d6951", null ],
-      [ "Offset", "struct_f_query_users_request_dto.html#a1c16723a5e0378cb08aa577b14622923", null ],
       [ "Sort", "struct_f_query_users_request_dto.html#a720e455cf1fded70c7c648d208c6e2dc", null ]
     ] ],
     [ "FUserObjectRequestDto", "struct_f_user_object_request_dto.html", null ],
@@ -229,6 +239,8 @@ var group___stream_chat_dto =
       [ "WarningCode", "struct_f_search_warning_dto.html#acced1c2ebb582cde35cb01f0da0354d0", null ],
       [ "WarningDescription", "struct_f_search_warning_dto.html#a2a869f9170376cf1c2587bcffc824cdb", null ]
     ] ],
+    [ "FBanResponseDto", "struct_f_ban_response_dto.html", null ],
+    [ "FQueryBannedUsersResponseDto", "struct_f_query_banned_users_response_dto.html", null ],
     [ "FReactionDto", "struct_f_reaction_dto.html", [
       [ "CreatedAt", "struct_f_reaction_dto.html#a7401f203ba997a9de1d51ebd1a623189", null ],
       [ "MessageId", "struct_f_reaction_dto.html#aa7bda7f33579bc13a3c659e31c801604", null ],

@@ -1,10 +1,7 @@
 var searchData=
 [
-  ['unreadcount_0',['UnreadCount',['../struct_f_channel_state.html#aa144fa0ffa10af7f750c79fb8eb96d7e',1,'FChannelState']]],
-  ['unsubscribe_1',['Unsubscribe',['../class_u_chat_channel.html#ad7a707550c3a5b6eb6a6a807ce541a21',1,'UChatChannel']]],
-  ['updatemessage_2',['UpdateMessage',['../class_f_chat_api.html#a67c9b887d5a0ef287f8f99372381e64f',1,'FChatApi::UpdateMessage()'],['../class_u_chat_channel.html#ab5573d2437ef706d2bd0a4c3baff7cda',1,'UChatChannel::UpdateMessage()']]],
-  ['updateownreactions_3',['UpdateOwnReactions',['../struct_f_reactions.html#a435e43e2152577fab466e969af059c7a',1,'FReactions']]],
-  ['ustreamchatclientcomponent_4',['UStreamChatClientComponent',['../class_u_stream_chat_client_component.html#a32bdbcb95a97bb017db3ebc6a5e1cb46',1,'UStreamChatClientComponent']]],
-  ['ustructtojsonattributes_5',['UStructToJsonAttributes',['../namespace_json_object_serialization.html#ac6ece5ebd6cb1cada8e3b949cdffbc31',1,'JsonObjectSerialization']]],
-  ['ustructtojsonobject_6',['UStructToJsonObject',['../namespace_json_object.html#a60b6f2811146e94a037e5be463889220',1,'JsonObject::UStructToJsonObject(const UStruct *StructDefinition, const void *Struct, ENamingConvention NamingConvention=ENamingConvention::SnakeCase)'],['../namespace_json_object.html#a5dea55afe2ca68491b1715287928658e',1,'JsonObject::UStructToJsonObject(const T &amp;Struct, ENamingConvention NamingConvention=ENamingConvention::SnakeCase)']]]
+  ['tojson_0',['ToJson',['../struct_f_filter.html#aa52c9cb0eb701056f78d8bd80a826b88',1,'FFilter']]],
+  ['tojsonobject_1',['ToJsonObject',['../struct_f_filter.html#a1ddb00aef77d3d4830fd8118cf2c8b6e',1,'FFilter']]],
+  ['tojsonobjectwrapper_2',['ToJsonObjectWrapper',['../struct_f_filter.html#a16457125e8f93e3cba9f91564a5bff6c',1,'FFilter']]],
+  ['torequestdto_3',['ToRequestDto',['../struct_f_message.html#a84984fc8d09ddc31b4b178d15509b972',1,'FMessage']]]
 ];

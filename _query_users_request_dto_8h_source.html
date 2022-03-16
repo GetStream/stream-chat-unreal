@@ -93,46 +93,46 @@ $(document).ready(function(){initNavTree('_query_users_request_dto_8h_source.htm
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;AdditionalFields.h&quot;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;JsonObjectWrapper.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;Request/PaginatedRequest.h&quot;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;Request/SortParamRequestDto.h&quot;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;QueryUsersRequestDto.generated.h&quot;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>USTRUCT()</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="struct_f_query_users_request_dto.html">   18</a></span>struct STREAMCHATDTO_API <a class="code hl_struct" href="struct_f_query_users_request_dto.html">FQueryUsersRequestDto</a></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="struct_f_query_users_request_dto.html">   18</a></span>struct STREAMCHATDTO_API <a class="code hl_struct" href="struct_f_query_users_request_dto.html">FQueryUsersRequestDto</a> : public <a class="code hl_struct" href="struct_f_paginated_request.html">FPaginatedRequest</a></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    GENERATED_BODY()</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordtype">void</span> SetIdGt(<span class="keyword">const</span> FString&amp;);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordtype">void</span> SetIdGte(<span class="keyword">const</span> FString&amp;);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordtype">void</span> SetIdLt(<span class="keyword">const</span> FString&amp;);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_struct" href="struct_f_query_users_request_dto.html">FQueryUsersRequestDto</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">explicit</span> <a class="code hl_struct" href="struct_f_query_users_request_dto.html">FQueryUsersRequestDto</a>(</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keyword">const</span> FString&amp; ConnectionId,</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keyword">const</span> <span class="keywordtype">bool</span> bPresence,</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keyword">const</span> TArray&lt;FSortParamRequestDto&gt;&amp; Sort,</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keyword">const</span> TOptional&lt;uint32&gt;&amp; Limit,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keyword">const</span> TOptional&lt;uint32&gt;&amp; Offset,</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keyword">const</span> FJsonObjectWrapper&amp; Filter);</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordtype">void</span> SetIdLte(<span class="keyword">const</span> FString&amp;);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordtype">void</span> SetIdGt(<span class="keyword">const</span> FString&amp;);</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    UPROPERTY()</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="struct_f_query_users_request_dto.html#a118f82af5a7401cd2fef58164de64f81">   36</a></span>    FString ConnectionId;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    UPROPERTY()</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="struct_f_query_users_request_dto.html#acd8ebc7d0597b22d71363e4d087d6951">   40</a></span>    uint32 Limit = 30;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordtype">void</span> SetIdGte(<span class="keyword">const</span> FString&amp;);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">void</span> SetIdLt(<span class="keyword">const</span> FString&amp;);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">void</span> SetIdLte(<span class="keyword">const</span> FString&amp;);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    UPROPERTY()</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="struct_f_query_users_request_dto.html#a1c16723a5e0378cb08aa577b14622923">   45</a></span>    uint32 Offset = 0;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="struct_f_query_users_request_dto.html#a118f82af5a7401cd2fef58164de64f81">   45</a></span>    FString ConnectionId;</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    UPROPERTY()</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    FJsonObjectWrapper FilterConditions;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    UPROPERTY()</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="struct_f_query_users_request_dto.html#a1960e921ae5675c7a24e5a5ea31c153f">   53</a></span>    <span class="keywordtype">bool</span> bPresence = true;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    UPROPERTY()</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="struct_f_query_users_request_dto.html#a1960e921ae5675c7a24e5a5ea31c153f">   50</a></span>    <span class="keywordtype">bool</span> bPresence = true;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    UPROPERTY()</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="struct_f_query_users_request_dto.html#a720e455cf1fded70c7c648d208c6e2dc">   54</a></span>    TArray&lt;<a class="code hl_struct" href="struct_f_sort_param_request_dto.html">FSortParamRequestDto</a>&gt; Sort = {{TEXT(<span class="stringliteral">&quot;created_at&quot;</span>), -1}, {TEXT(<span class="stringliteral">&quot;id&quot;</span>), -1}};</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    UPROPERTY()</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="struct_f_query_users_request_dto.html#a720e455cf1fded70c7c648d208c6e2dc">   57</a></span>    TArray&lt;<a class="code hl_struct" href="struct_f_sort_param_request_dto.html">FSortParamRequestDto</a>&gt; Sort = {{TEXT(<span class="stringliteral">&quot;created_at&quot;</span>), -1}, {TEXT(<span class="stringliteral">&quot;id&quot;</span>), -1}};</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    UPROPERTY()</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    FAdditionalFields AdditionalFields;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>};</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    FAdditionalFields AdditionalFields;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>};</div>
+<div class="ttc" id="astruct_f_paginated_request_html"><div class="ttname"><a href="struct_f_paginated_request.html">FPaginatedRequest</a></div><div class="ttdoc">#/components/schemas/SortParamRequest</div><div class="ttdef"><b>Definition:</b> PaginatedRequest.h:17</div></div>
 <div class="ttc" id="astruct_f_query_users_request_dto_html"><div class="ttname"><a href="struct_f_query_users_request_dto.html">FQueryUsersRequestDto</a></div><div class="ttdoc">#/components/schemas/QueryUsersRequest</div><div class="ttdef"><b>Definition:</b> QueryUsersRequestDto.h:19</div></div>
 <div class="ttc" id="astruct_f_sort_param_request_dto_html"><div class="ttname"><a href="struct_f_sort_param_request_dto.html">FSortParamRequestDto</a></div><div class="ttdoc">#/components/schemas/SortParamRequest</div><div class="ttdef"><b>Definition:</b> SortParamRequestDto.h:15</div></div>
 </div><!-- fragment --></div><!-- contents -->

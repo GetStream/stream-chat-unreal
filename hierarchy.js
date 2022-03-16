@@ -1,5 +1,10 @@
 var hierarchy =
 [
+    [ "FBan", "struct_f_ban.html", null ],
+    [ "FBanPaginationOptions", "struct_f_ban_pagination_options.html", null ],
+    [ "FBanRequestDto", "struct_f_ban_request_dto.html", null ],
+    [ "FBanResponseDto", "struct_f_ban_response_dto.html", null ],
+    [ "FBanSortOption", "struct_f_ban_sort_option.html", null ],
     [ "FChannelConfig", "struct_f_channel_config.html", null ],
     [ "FChannelConfigWithInfoDto", "struct_f_channel_config_with_info_dto.html", null ],
     [ "FChannelGetOrCreateRequestDto", "struct_f_channel_get_or_create_request_dto.html", null ],
@@ -60,9 +65,13 @@ var hierarchy =
     [ "FMessagePaginationParamsRequestDto", "struct_f_message_pagination_params_request_dto.html", null ],
     [ "FMessageRequestDto", "struct_f_message_request_dto.html", null ],
     [ "FMessageSortOption", "struct_f_message_sort_option.html", null ],
+    [ "FPaginatedRequest", "struct_f_paginated_request.html", [
+      [ "FQueryBannedUsersRequestDto", "struct_f_query_banned_users_request_dto.html", null ],
+      [ "FQueryChannelsRequestDto", "struct_f_query_channels_request_dto.html", null ],
+      [ "FQueryUsersRequestDto", "struct_f_query_users_request_dto.html", null ],
+      [ "FSearchRequestDto", "struct_f_search_request_dto.html", null ]
+    ] ],
     [ "FPaginationParamsRequestDto", "struct_f_pagination_params_request_dto.html", null ],
-    [ "FQueryChannelsRequestDto", "struct_f_query_channels_request_dto.html", null ],
-    [ "FQueryUsersRequestDto", "struct_f_query_users_request_dto.html", null ],
     [ "FReaction", "struct_f_reaction.html", null ],
     [ "FReactionDto", "struct_f_reaction_dto.html", null ],
     [ "FReactionGroup", "struct_f_reaction_group.html", null ],
@@ -78,11 +87,11 @@ var hierarchy =
       [ "FListDevicesResponseDto", "struct_f_list_devices_response_dto.html", null ],
       [ "FMarkReadResponseDto", "struct_f_mark_read_response_dto.html", null ],
       [ "FMessageResponseDto", "struct_f_message_response_dto.html", null ],
+      [ "FQueryBannedUsersResponseDto", "struct_f_query_banned_users_response_dto.html", null ],
       [ "FReactionResponseDto", "struct_f_reaction_response_dto.html", null ],
       [ "FSearchResponseDto", "struct_f_search_response_dto.html", null ],
       [ "FUsersResponseDto", "struct_f_users_response_dto.html", null ]
     ] ],
-    [ "FSearchRequestDto", "struct_f_search_request_dto.html", null ],
     [ "FSearchResultDto", "struct_f_search_result_dto.html", null ],
     [ "FSearchWarningDto", "struct_f_search_warning_dto.html", null ],
     [ "FSendEventRequestDto", "struct_f_send_event_request_dto.html", null ],

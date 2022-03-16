@@ -6,7 +6,5 @@ var struct_f_query_users_request_dto =
     [ "SetIdLte", "struct_f_query_users_request_dto.html#a60b358bb789aefc7c022914d5a07efa3", null ],
     [ "bPresence", "struct_f_query_users_request_dto.html#a1960e921ae5675c7a24e5a5ea31c153f", null ],
     [ "ConnectionId", "struct_f_query_users_request_dto.html#a118f82af5a7401cd2fef58164de64f81", null ],
-    [ "Limit", "struct_f_query_users_request_dto.html#acd8ebc7d0597b22d71363e4d087d6951", null ],
-    [ "Offset", "struct_f_query_users_request_dto.html#a1c16723a5e0378cb08aa577b14622923", null ],
     [ "Sort", "struct_f_query_users_request_dto.html#a720e455cf1fded70c7c648d208c6e2dc", null ]
 ];

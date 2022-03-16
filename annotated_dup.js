@@ -1,5 +1,10 @@
 var annotated_dup =
 [
+    [ "FBan", "struct_f_ban.html", "struct_f_ban" ],
+    [ "FBanPaginationOptions", "struct_f_ban_pagination_options.html", null ],
+    [ "FBanRequestDto", "struct_f_ban_request_dto.html", "struct_f_ban_request_dto" ],
+    [ "FBanResponseDto", "struct_f_ban_response_dto.html", null ],
+    [ "FBanSortOption", "struct_f_ban_sort_option.html", "struct_f_ban_sort_option" ],
     [ "FChannelConfig", "struct_f_channel_config.html", "struct_f_channel_config" ],
     [ "FChannelConfigWithInfoDto", "struct_f_channel_config_with_info_dto.html", "struct_f_channel_config_with_info_dto" ],
     [ "FChannelEvent", "struct_f_channel_event.html", "struct_f_channel_event" ],
@@ -53,7 +58,10 @@ var annotated_dup =
     [ "FNotificationMarkReadEvent", "struct_f_notification_mark_read_event.html", null ],
     [ "FNotificationMessageNewEvent", "struct_f_notification_message_new_event.html", null ],
     [ "FOwnUserDto", "struct_f_own_user_dto.html", "struct_f_own_user_dto" ],
+    [ "FPaginatedRequest", "struct_f_paginated_request.html", "struct_f_paginated_request" ],
     [ "FPaginationParamsRequestDto", "struct_f_pagination_params_request_dto.html", null ],
+    [ "FQueryBannedUsersRequestDto", "struct_f_query_banned_users_request_dto.html", "struct_f_query_banned_users_request_dto" ],
+    [ "FQueryBannedUsersResponseDto", "struct_f_query_banned_users_response_dto.html", null ],
     [ "FQueryChannelsRequestDto", "struct_f_query_channels_request_dto.html", "struct_f_query_channels_request_dto" ],
     [ "FQueryUsersRequestDto", "struct_f_query_users_request_dto.html", "struct_f_query_users_request_dto" ],
     [ "FReaction", "struct_f_reaction.html", "struct_f_reaction" ],
