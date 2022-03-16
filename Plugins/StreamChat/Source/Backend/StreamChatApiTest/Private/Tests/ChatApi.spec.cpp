@@ -28,6 +28,7 @@ const FString Host = TEXT("chat.stream-io-api.com");
 const FUserObjectDto User{FUserDto{TEXT("TestUser")}};
 const FString ChannelType = TEXT("messaging");
 const FString NewChannelId = TEXT("test-channel");
+const FString NewCid = FString::Printf(TEXT("%s:%s"), *ChannelType, *NewChannelId);
 const FString ChannelId = TEXT("unrealdevs");
 const FString Cid = FString::Printf(TEXT("%s:%s"), *ChannelType, *ChannelId);
 const FString DeviceId = TEXT("random-device-id");
@@ -69,7 +70,7 @@ void FChatApiSpec::Define()
                         {},
                         [=](const FChannelStateResponseDto& Dto)
                         {
-                            TestEqual("Response.Channel.Cid", Dto.Channel.Cid, Cid);
+                            TestEqual("Response.Channel.Cid", Dto.Channel.Cid, NewCid);
                             TestEqual("Response.Channel.Id", Dto.Channel.Id, NewChannelId);
                             TestEqual("No additional fields", Dto.Channel.AdditionalFields.GetFields().Num(), 0);
                             TestDone.Execute();
@@ -131,7 +132,7 @@ void FChatApiSpec::Define()
                         NewChannelId,
                         [=](const FDeleteChannelResponseDto& Dto)
                         {
-                            TestEqual("Response.Channel.Cid", Dto.Channel.Cid, Cid);
+                            TestEqual("Response.Channel.Cid", Dto.Channel.Cid, NewCid);
                             TestEqual("Response.Channel.Id", Dto.Channel.Id, NewChannelId);
                             TestEqual("No additional fields", Dto.Channel.AdditionalFields.GetFields().Num(), 0);
                             AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
