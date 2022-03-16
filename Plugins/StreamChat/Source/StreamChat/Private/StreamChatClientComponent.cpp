@@ -489,9 +489,9 @@ void UStreamChatClientComponent::FlagMessage(const FMessage& Message)
     Api->Flag(Message.Id);
 }
 
-void UStreamChatClientComponent::UnflagMessage(const FMessage& Message)
+void UStreamChatClientComponent::FlagUser(const FUserRef& User)
 {
-    Api->Unflag(Message.Id);
+    Api->Flag({}, User->Id);
 }
 
 const TArray<UChatChannel*>& UStreamChatClientComponent::GetChannels() const

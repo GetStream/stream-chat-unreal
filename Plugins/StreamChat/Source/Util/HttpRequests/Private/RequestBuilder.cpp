@@ -92,7 +92,7 @@ void FRequestBuilder::SendInternal()
                     HttpResponse.StatusCode,
                     *OriginalRequest->GetVerb(),
                     *OriginalRequest->GetURL());
-                UE_LOG(LogHttpClient, VeryVerbose, TEXT("HTTP response [Body=%s]"), *HttpResponse.Text);
+                UE_LOG(LogHttpClient, Verbose, TEXT("HTTP response [Body=%s]"), *HttpResponse.Text);
                 RequestBuilder.Client->OnResponseDelegate.Broadcast(HttpResponse);
                 if (RequestBuilder.RetainedCallback)
                 {
