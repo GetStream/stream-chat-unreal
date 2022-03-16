@@ -211,12 +211,12 @@ public:
     void FlagMessage(const FMessage& Message);
 
     /**
-     * @brief Unflag a flagged message
+     * @brief Flag user for moderation
      *
-     * @param Message A reference to an existing message
+     * @param User A reference to a user
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message")
-    void UnflagMessage(const FMessage& Message);
+    void FlagUser(const FUserRef& User);
 
     UPROPERTY(EditAnywhere, Config, Category = "Stream Chat", meta = (DisplayName = "API Key"))
     FString ApiKey;

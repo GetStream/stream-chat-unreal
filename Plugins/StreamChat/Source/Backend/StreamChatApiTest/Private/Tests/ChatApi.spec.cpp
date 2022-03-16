@@ -8,12 +8,15 @@
 #include "IChatSocket.h"
 #include "Misc/AutomationTest.h"
 #include "PushProvider.h"
+#include "Request/Message/MessageRequestDto.h"
 #include "Request/User/UserObjectRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/Channel/DeleteChannelResponseDto.h"
 #include "Response/Device/ListDevicesResponseDto.h"
+#include "Response/Message/MessageResponseDto.h"
 #include "Response/Moderation/BanResponseDto.h"
+#include "Response/Moderation/FlagResponseDto.h"
 #include "Response/Moderation/QueryBannedUsersResponseDto.h"
 #include "Response/ResponseDto.h"
 #include "Response/User/GuestResponseDto.h"
@@ -27,12 +30,15 @@ const FString ApiKey = TEXT("kmajgxb2rk4p");
 const FString Host = TEXT("chat.stream-io-api.com");
 const FUserObjectDto User{FUserDto{TEXT("TestUser")}};
 const FString ChannelType = TEXT("messaging");
-const FString NewChannelId = TEXT("test-channel");
-const FString NewCid = FString::Printf(TEXT("%s:%s"), *ChannelType, *NewChannelId);
 const FString ChannelId = TEXT("unrealdevs");
 const FString Cid = FString::Printf(TEXT("%s:%s"), *ChannelType, *ChannelId);
+const FString NewChannelId = TEXT("test-channel");
+const FString NewCid = FString::Printf(TEXT("%s:%s"), *ChannelType, *NewChannelId);
 const FString DeviceId = TEXT("random-device-id");
 const FString BanUserId = TEXT("tutorial-unreal");
+const FString Text{TEXT("My test message!")};
+FString MessageId;
+
 const TSharedRef<FTokenManager> TokenManager = MakeShared<FTokenManager>();
 const TSharedRef<FChatApi> Api = FChatApi::Create(ApiKey, Host, TokenManager);
 TSharedPtr<IChatSocket> Socket;
@@ -322,6 +328,60 @@ void FChatApiSpec::Define()
                         {
                             const FBanResponseDto* Ban = Dto.Bans.FindByPredicate([&](const FBanResponseDto& B) { return B.User.Id == BanUserId; });
                             TestNull("User was unbanned", Ban);
+                            TestDone.Execute();
+                        });
+                });
+        });
+
+    Describe(
+        "Flag",
+        [=]
+        {
+            // Create message
+            LatentBeforeEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    FMessageRequestDto Request;
+                    Request.Cid = Cid;
+                    Request.Text = Text;
+                    Api->SendNewMessage(
+                        ChannelType,
+                        ChannelId,
+                        Request,
+                        false,
+                        [=](const FMessageResponseDto& Dto)
+                        {
+                            TestEqual("Message text is same as input", Dto.Message.Text, Text);
+                            MessageId = Dto.Message.Id;
+                            TestDone.Execute();
+                        });
+                });
+
+            LatentIt(
+                "Flag message",
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->Flag(
+                        MessageId,
+                        {},
+                        [=](const FFlagResponseDto& Dto)
+                        {
+                            TestEqual("Message ID matches query", Dto.Flag.TargetMessageId, MessageId);
+                            TestDone.Execute();
+                        });
+                });
+
+            // Delete message
+            LatentAfterEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->DeleteMessage(
+                        MessageId,
+                        true,
+                        [=](const FMessageResponseDto& Dto)
+                        {
+                            TestEqual("Message text is same as input", Dto.Message.Text, Text);
+                            TestEqual("Message is deleted", Dto.Message.Type, EMessageTypeDto::Deleted);
                             TestDone.Execute();
                         });
                 });

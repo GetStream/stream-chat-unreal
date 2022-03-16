@@ -122,14 +122,6 @@ public:
      */
     void Flag(const FString& TargetMessageId = {}, const FString& TargetUserId = {}, TCallback<FFlagResponseDto> Callback = {}) const;
 
-    /**
-     * @brief Remove flag state from a previously flagged user or message
-     * @param TargetMessageId ID of message to unflag (optional)
-     * @param TargetUserId ID of user to unflag (optional)
-     * @param Callback Called when response is received.
-     */
-    void Unflag(const FString& TargetMessageId = {}, const FString& TargetUserId = {}, TCallback<FFlagResponseDto> Callback = {}) const;
-
 ///@}
 #pragma endregion Moderation
 

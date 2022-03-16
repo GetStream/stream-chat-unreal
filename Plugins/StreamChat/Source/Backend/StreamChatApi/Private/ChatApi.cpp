@@ -146,10 +146,6 @@ void FChatApi::Flag(const FString& TargetMessageId, const FString& TargetUserId,
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
-void FChatApi::Unflag(const FString& TargetMessageId, const FString& TargetUserId, TCallback<FFlagResponseDto> Callback) const
-{
-}
-
 void FChatApi::QueryUsers(
     const FString& ConnectionId,
     const bool bPresence,
