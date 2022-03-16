@@ -10,6 +10,7 @@
 #include "Request/SortParamRequestDto.h"
 #include "StreamJson.h"
 
+struct FFlagResponseDto;
 class FHttpClient;
 class FRequestBuilder;
 class FTokenManager;
@@ -70,11 +71,11 @@ public:
      * @param Callback Called when response is received.
      */
     void BanUser(
-        const FString TargetUserId,
-        FString Type = {},
-        FString Id = {},
+        const FString& TargetUserId,
+        const FString& Type = {},
+        const FString& Id = {},
         TOptional<float> Timeout = {},
-        FString Reason = {},
+        const FString& Reason = {},
         bool bShadow = false,
         bool bIpBan = false,
         TCallback<FResponseDto> Callback = {}) const;
@@ -86,7 +87,7 @@ public:
      * @param Id Channel ID to unban user in (optional, unban is app-wide otherwise)
      * @param Callback Called when response is received.
      */
-    void UnbanUser(const FString TargetUserId, FString Type = {}, FString Id = {}, TCallback<FResponseDto> Callback = {}) const;
+    void UnbanUser(const FString& TargetUserId, const FString& Type = {}, const FString& Id = {}, TCallback<FResponseDto> Callback = {}) const;
 
     /**
      * @brief Find and filter channel scoped or global user bans
@@ -112,6 +113,23 @@ public:
         TOptional<uint32> Limit = {},
         TOptional<uint32> Offset = {},
         TCallback<FQueryBannedUsersResponseDto> Callback = {}) const;
+
+    /**
+     * @brief Flag a user or message
+     * @param TargetMessageId ID of message to flag (optional)
+     * @param TargetUserId ID of user to flag (optional)
+     * @param Callback Called when response is received.
+     */
+    void Flag(const FString& TargetMessageId = {}, const FString& TargetUserId = {}, TCallback<FFlagResponseDto> Callback = {}) const;
+
+    /**
+     * @brief Remove flag state from a previously flagged user or message
+     * @param TargetMessageId ID of message to unflag (optional)
+     * @param TargetUserId ID of user to unflag (optional)
+     * @param Callback Called when response is received.
+     */
+    void Unflag(const FString& TargetMessageId = {}, const FString& TargetUserId = {}, TCallback<FFlagResponseDto> Callback = {}) const;
+
 ///@}
 #pragma endregion Moderation
 

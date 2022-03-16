@@ -12,6 +12,7 @@
 #include "Request/Message/SendMessageRequestDto.h"
 #include "Request/Message/UpdateMessageRequestDto.h"
 #include "Request/Moderation/BanRequestDto.h"
+#include "Request/Moderation/FlagRequestDto.h"
 #include "Request/Moderation/QueryBannedUsersRequestDto.h"
 #include "Request/Reaction/SendReactionRequestDto.h"
 #include "Request/User/GuestRequestDto.h"
@@ -25,6 +26,7 @@
 #include "Response/Event/EventResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
+#include "Response/Moderation/FlagResponseDto.h"
 #include "Response/Moderation/QueryBannedUsersResponseDto.h"
 #include "Response/Reaction/ReactionResponseDto.h"
 #include "Response/ResponseDto.h"
@@ -67,11 +69,11 @@ TSharedRef<FChatApi> FChatApi::Create(const FString& InApiKey, const FString& In
 }
 
 void FChatApi::BanUser(
-    const FString TargetUserId,
-    FString Type,
-    FString Id,
+    const FString& TargetUserId,
+    const FString& Type,
+    const FString& Id,
     TOptional<float> Timeout,
-    FString Reason,
+    const FString& Reason,
     bool bShadow,
     bool bIpBan,
     const TCallback<FResponseDto> Callback) const
@@ -86,7 +88,7 @@ void FChatApi::BanUser(
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
-void FChatApi::UnbanUser(const FString TargetUserId, const FString Type, const FString Id, const TCallback<FResponseDto> Callback) const
+void FChatApi::UnbanUser(const FString& TargetUserId, const FString& Type, const FString& Id, const TCallback<FResponseDto> Callback) const
 {
     const FString Url = BuildUrl(TEXT("moderation/ban"));
     FQueryParameters Query{{TEXT("target_user_id"), TargetUserId}};
@@ -135,6 +137,17 @@ void FChatApi::QueryBannedUsers(
 
     const FString Payload = Json::Serialize(Body);
     Client->Get(Url).Query({{TEXT("payload"), Payload}}).Send(Callback);
+}
+
+void FChatApi::Flag(const FString& TargetMessageId, const FString& TargetUserId, TCallback<FFlagResponseDto> Callback) const
+{
+    const FString Url = BuildUrl(TEXT("moderation/flag"));
+    const FFlagRequestDto Body{TargetMessageId, TargetUserId};
+    Client->Post(Url).Json(Body).Send(Callback);
+}
+
+void FChatApi::Unflag(const FString& TargetMessageId, const FString& TargetUserId, TCallback<FFlagResponseDto> Callback) const
+{
 }
 
 void FChatApi::QueryUsers(
