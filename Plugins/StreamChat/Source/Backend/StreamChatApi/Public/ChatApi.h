@@ -10,7 +10,6 @@
 #include "Request/SortParamRequestDto.h"
 #include "StreamJson.h"
 
-struct FFlagResponseDto;
 class FHttpClient;
 class FRequestBuilder;
 class FTokenManager;
@@ -21,6 +20,7 @@ struct FChannelStateResponseDto;
 struct FChannelsResponseDto;
 struct FDeleteChannelResponseDto;
 struct FEventResponseDto;
+struct FFlagResponseDto;
 struct FGuestResponseDto;
 struct FHttpResponse;
 struct FListDevicesResponseDto;
@@ -28,6 +28,7 @@ struct FMarkReadRequestDto;
 struct FMarkReadResponseDto;
 struct FMessageRequestDto;
 struct FMessageResponseDto;
+struct FMuteUserResponseDto;
 struct FQueryBannedUsersResponseDto;
 struct FReactionRequestDto;
 struct FReactionResponseDto;
@@ -121,6 +122,14 @@ public:
      * @param Callback Called when response is received.
      */
     void Flag(const FString& TargetMessageId = {}, const FString& TargetUserId = {}, TCallback<FFlagResponseDto> Callback = {}) const;
+
+    /**
+     * @brief Mute a user
+     * @param TargetUserIds User IDs to mute
+     * @param Timeout Duration of mute in minutes (optional)
+     * @param Callback Called when response is received.
+     */
+    void MuteUser(const TArray<FString>& TargetUserIds, TOptional<float> Timeout = {}, TCallback<FMuteUserResponseDto> Callback = {}) const;
 
 ///@}
 #pragma endregion Moderation

@@ -202,22 +202,6 @@ public:
      */
     void ListDevices(TFunction<void(TArray<FDevice>)> Callback) const;
 
-    /**
-     * @brief Flag message for moderation
-     *
-     * @param Message A reference to an existing message
-     */
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message")
-    void FlagMessage(const FMessage& Message);
-
-    /**
-     * @brief Flag user for moderation
-     *
-     * @param User A reference to a user
-     */
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message")
-    void FlagUser(const FUserRef& User);
-
     UPROPERTY(EditAnywhere, Config, Category = "Stream Chat", meta = (DisplayName = "API Key"))
     FString ApiKey;
 
@@ -417,6 +401,39 @@ private:
         const TArray<FBanSortOption>& SortOptions = {},
         const TOptional<FBanPaginationOptions> PaginationOptions = {},
         TCallback<TArray<FBan>> Callback = {});
+
+    /**
+     * @brief Flag message for moderation
+     *
+     * @param Message A reference to an existing message
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client")
+    void FlagMessage(const FMessage& Message);
+
+    /**
+     * @brief Flag user for moderation
+     *
+     * @param User A reference to a user
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client")
+    void FlagUser(const FUserRef& User);
+
+    /**
+     * @brief Mute the given user
+     * @param Timeout Timeout of ban in minutes. User will be unbanned after this period of time (unlimited if negative)
+     *
+     * @param User A reference to a user
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client")
+    void MuteUser(const FUserRef& User, float Timeout = -1.f);
+
+    /**
+     * @brief Unmute a previously muted user
+     *
+     * @param User A reference to a user
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client")
+    void UnmuteUser(const FUserRef& User);
 
     ///@}
 #pragma endregion Moderation

@@ -494,6 +494,17 @@ void UStreamChatClientComponent::FlagUser(const FUserRef& User)
     Api->Flag({}, User->Id);
 }
 
+void UStreamChatClientComponent::MuteUser(const FUserRef& User, const float Timeout)
+{
+    const TOptional<float> OptionalTimeout = Timeout > 0.f ? Timeout : TOptional<float>{};
+    Api->MuteUser({User->Id}, OptionalTimeout);
+}
+
+void UStreamChatClientComponent::UnmuteUser(const FUserRef& User)
+{
+    // Api->UnmuteUser(User->Id);
+}
+
 const TArray<UChatChannel*>& UStreamChatClientComponent::GetChannels() const
 {
     return Channels;
