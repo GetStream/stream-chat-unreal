@@ -502,7 +502,7 @@ void UStreamChatClientComponent::MuteUser(const FUserRef& User, const float Time
 
 void UStreamChatClientComponent::UnmuteUser(const FUserRef& User)
 {
-    // Api->UnmuteUser(User->Id);
+    Api->UnmuteUser({User->Id});
 }
 
 const TArray<UChatChannel*>& UStreamChatClientComponent::GetChannels() const

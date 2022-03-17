@@ -131,6 +131,13 @@ public:
      */
     void MuteUser(const TArray<FString>& TargetUserIds, TOptional<float> Timeout = {}, TCallback<FMuteUserResponseDto> Callback = {}) const;
 
+    /**
+     * @brief Unmute a previously muted user
+     * @param TargetUserIds User IDs to unmute
+     * @param Callback Called when response is received.
+     */
+    void UnmuteUser(const TArray<FString>& TargetUserIds, TCallback<FResponseDto> Callback = {}) const;
+
 ///@}
 #pragma endregion Moderation
 
