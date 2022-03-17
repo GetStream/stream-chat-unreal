@@ -13,6 +13,7 @@
 #include "Request/Message/UpdateMessageRequestDto.h"
 #include "Request/Moderation/BanRequestDto.h"
 #include "Request/Moderation/FlagRequestDto.h"
+#include "Request/Moderation/MuteUserRequestDto.h"
 #include "Request/Moderation/QueryBannedUsersRequestDto.h"
 #include "Request/Reaction/SendReactionRequestDto.h"
 #include "Request/User/GuestRequestDto.h"
@@ -27,6 +28,7 @@
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
 #include "Response/Moderation/FlagResponseDto.h"
+#include "Response/Moderation/MuteUserResponseDto.h"
 #include "Response/Moderation/QueryBannedUsersResponseDto.h"
 #include "Response/Reaction/ReactionResponseDto.h"
 #include "Response/ResponseDto.h"
@@ -143,6 +145,17 @@ void FChatApi::Flag(const FString& TargetMessageId, const FString& TargetUserId,
 {
     const FString Url = BuildUrl(TEXT("moderation/flag"));
     const FFlagRequestDto Body{TargetMessageId, TargetUserId};
+    Client->Post(Url).Json(Body).Send(Callback);
+}
+
+void FChatApi::MuteUser(const TArray<FString>& TargetUserIds, TOptional<float> Timeout, TCallback<FMuteUserResponseDto> Callback) const
+{
+    const FString Url = BuildUrl(TEXT("moderation/mute"));
+    FMuteUserRequestDto Body{TargetUserIds};
+    if (Timeout.IsSet())
+    {
+        Body.SetTimeout(Timeout.GetValue());
+    }
     Client->Post(Url).Json(Body).Send(Callback);
 }
 

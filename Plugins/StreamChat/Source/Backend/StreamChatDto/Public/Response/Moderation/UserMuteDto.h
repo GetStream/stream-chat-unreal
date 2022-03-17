@@ -11,8 +11,8 @@
  * @brief #/components/schemas/UserMute
  * @ingroup StreamChatDto
  */
-USTRUCT(BlueprintType)
-struct STREAMCHATDTO_API FUserMuteDto
+USTRUCT()
+struct FUserMuteDto
 {
     GENERATED_BODY()
 
@@ -24,15 +24,15 @@ struct STREAMCHATDTO_API FUserMuteDto
     UPROPERTY()
     FDateTime Expires = FDateTime{0};
 
-    /// User who's muted
+    // User who's muted
     UPROPERTY()
     FUserObjectDto Target;
 
     /// Date/time of the last update
-    UPROPERTY(Transient)
+    UPROPERTY()
     FDateTime UpdatedAt = FDateTime{0};
 
-    /// Owner of channel mute
+    // Owner of mute
     UPROPERTY()
     FUserObjectDto User;
 };

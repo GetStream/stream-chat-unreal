@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UserMuteDto.h"
+#include "Response/Moderation/UserMuteDto.h"
 
 #include "OwnUserDto.generated.h"
 
