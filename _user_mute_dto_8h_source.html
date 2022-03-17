@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.3"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Stream Chat Unreal SDK: Source/Backend/StreamChatDto/Public/UserMuteDto.h Source File</title>
+<title>Stream Chat Unreal SDK: Source/Backend/StreamChatDto/Public/Response/Moderation/UserMuteDto.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -96,8 +96,8 @@ $(document).ready(function(){initNavTree('_user_mute_dto_8h_source.html',''); in
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;UserMuteDto.generated.h&quot;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>USTRUCT(BlueprintType)</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="struct_f_user_mute_dto.html">   15</a></span>struct STREAMCHATDTO_API <a class="code hl_struct" href="struct_f_user_mute_dto.html">FUserMuteDto</a></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>USTRUCT()</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="struct_f_user_mute_dto.html">   15</a></span>struct <a class="code hl_struct" href="struct_f_user_mute_dto.html">FUserMuteDto</a></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    GENERATED_BODY()</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
@@ -108,14 +108,16 @@ $(document).ready(function(){initNavTree('_user_mute_dto_8h_source.html',''); in
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    UPROPERTY()</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="struct_f_user_mute_dto.html#aa47d1fa9636bc88340e444109f895190">   25</a></span>    FDateTime Expires = FDateTime{0};</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="comment">// User who&#39;s muted</span></div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    UPROPERTY()</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="struct_f_user_mute_dto.html#a4532955058796c5dfc851a942321d0e1">   29</a></span>    <a class="code hl_struct" href="struct_f_user_object_dto.html">FUserObjectDto</a> Target;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_struct" href="struct_f_user_object_dto.html">FUserObjectDto</a> Target;</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    UPROPERTY(Transient)</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    UPROPERTY()</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="struct_f_user_mute_dto.html#ad88dfb7b1e6bcb516bc4b28a277f8cf6">   33</a></span>    FDateTime UpdatedAt = FDateTime{0};</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="comment">// Owner of mute</span></div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    UPROPERTY()</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="struct_f_user_mute_dto.html#a8e1701a3712671822019027c2e8b6e1a">   37</a></span>    <a class="code hl_struct" href="struct_f_user_object_dto.html">FUserObjectDto</a> User;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_struct" href="struct_f_user_object_dto.html">FUserObjectDto</a> User;</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>};</div>
 <div class="ttc" id="astruct_f_user_mute_dto_html"><div class="ttname"><a href="struct_f_user_mute_dto.html">FUserMuteDto</a></div><div class="ttdoc">#/components/schemas/UserMute</div><div class="ttdef"><b>Definition:</b> UserMuteDto.h:16</div></div>
 <div class="ttc" id="astruct_f_user_object_dto_html"><div class="ttname"><a href="struct_f_user_object_dto.html">FUserObjectDto</a></div><div class="ttdoc">#/components/schemas/UserObject Used in both requests and responses</div><div class="ttdef"><b>Definition:</b> UserObjectDto.h:17</div></div>
@@ -124,7 +126,7 @@ $(document).ready(function(){initNavTree('_user_mute_dto_8h_source.html',''); in
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_ef27fdf878b16ab0377cf4c038024140.html">Backend</a></li><li class="navelem"><a class="el" href="dir_e4f9a574774ec3115806abbafd3904c4.html">StreamChatDto</a></li><li class="navelem"><a class="el" href="dir_38ed0c9b42b0aed9ed6d05d62f905e1f.html">Public</a></li><li class="navelem"><b>UserMuteDto.h</b></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_ef27fdf878b16ab0377cf4c038024140.html">Backend</a></li><li class="navelem"><a class="el" href="dir_e4f9a574774ec3115806abbafd3904c4.html">StreamChatDto</a></li><li class="navelem"><a class="el" href="dir_38ed0c9b42b0aed9ed6d05d62f905e1f.html">Public</a></li><li class="navelem"><a class="el" href="dir_ab6d3c24b76194ff450e54bab1e22914.html">Response</a></li><li class="navelem"><a class="el" href="dir_03d26d84a9097b91baba2f7f79a1717f.html">Moderation</a></li><li class="navelem"><b>UserMuteDto.h</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>

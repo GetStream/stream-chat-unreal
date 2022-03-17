@@ -115,6 +115,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7b94fa410465c09fcd55f9bd4eecfb33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#a7b94fa410465c09fcd55f9bd4eecfb33">Flag</a> (const FString &amp;TargetMessageId={}, const FString &amp;TargetUserId={}, TCallback&lt; <a class="el" href="struct_f_flag_response_dto.html">FFlagResponseDto</a> &gt; Callback={}) const</td></tr>
 <tr class="memdesc:a7b94fa410465c09fcd55f9bd4eecfb33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag a user or message.  <a href="class_f_chat_api.html#a7b94fa410465c09fcd55f9bd4eecfb33">More...</a><br /></td></tr>
 <tr class="separator:a7b94fa410465c09fcd55f9bd4eecfb33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3fa6b188c1fddc877a78ef8e609e7ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#ac3fa6b188c1fddc877a78ef8e609e7ce">MuteUser</a> (const TArray&lt; FString &gt; &amp;TargetUserIds, TOptional&lt; float &gt; Timeout={}, TCallback&lt; <a class="el" href="struct_f_mute_user_response_dto.html">FMuteUserResponseDto</a> &gt; Callback={}) const</td></tr>
+<tr class="memdesc:ac3fa6b188c1fddc877a78ef8e609e7ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mute a user.  <a href="class_f_chat_api.html#ac3fa6b188c1fddc877a78ef8e609e7ce">More...</a><br /></td></tr>
+<tr class="separator:ac3fa6b188c1fddc877a78ef8e609e7ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f4d1a4dd1f5e5c25543d01bfea3f0f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#a2f4d1a4dd1f5e5c25543d01bfea3f0f5">UnmuteUser</a> (const TArray&lt; FString &gt; &amp;TargetUserIds, TCallback&lt; <a class="el" href="struct_f_response_dto.html">FResponseDto</a> &gt; Callback={}) const</td></tr>
+<tr class="memdesc:a2f4d1a4dd1f5e5c25543d01bfea3f0f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unmute a previously muted user.  <a href="class_f_chat_api.html#a2f4d1a4dd1f5e5c25543d01bfea3f0f5">More...</a><br /></td></tr>
+<tr class="separator:a2f4d1a4dd1f5e5c25543d01bfea3f0f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Channels</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p ><a href="https://getstream.io/chat/docs/rest/#Channels">https://getstream.io/chat/docs/rest/#Channels</a> </p>
 </div></td></tr>
@@ -589,6 +595,50 @@ static TSharedRef&lt; <a class="el" href="class_f_chat_api.html">FChatApi</a> &g
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">Callback</td><td>Called when response is received </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac3fa6b188c1fddc877a78ef8e609e7ce" name="ac3fa6b188c1fddc877a78ef8e609e7ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3fa6b188c1fddc877a78ef8e609e7ce">&#9670;&nbsp;</a></span>MuteUser()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FChatApi::MuteUser </td>
+          <td>(</td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>TargetUserIds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TOptional&lt; float &gt;&#160;</td>
+          <td class="paramname"><em>Timeout</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TCallback&lt; <a class="el" href="struct_f_mute_user_response_dto.html">FMuteUserResponseDto</a> &gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mute a user. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TargetUserIds</td><td>User IDs to mute </td></tr>
+    <tr><td class="paramname">Timeout</td><td>Duration of mute in minutes (optional) </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1294,6 +1344,43 @@ template&lt;class TEvent &gt; </div>
     <tr><td class="paramname">TargetUserId</td><td>ID of user to unban </td></tr>
     <tr><td class="paramname">Type</td><td>Channel type to unban user in (optional, unban is app-wide otherwise) </td></tr>
     <tr><td class="paramname">Id</td><td>Channel ID to unban user in (optional, unban is app-wide otherwise) </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a2f4d1a4dd1f5e5c25543d01bfea3f0f5" name="a2f4d1a4dd1f5e5c25543d01bfea3f0f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f4d1a4dd1f5e5c25543d01bfea3f0f5">&#9670;&nbsp;</a></span>UnmuteUser()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FChatApi::UnmuteUser </td>
+          <td>(</td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>TargetUserIds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TCallback&lt; <a class="el" href="struct_f_response_dto.html">FResponseDto</a> &gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unmute a previously muted user. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TargetUserIds</td><td>User IDs to unmute </td></tr>
     <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
   </table>
   </dd>

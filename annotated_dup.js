@@ -58,6 +58,8 @@ var annotated_dup =
     [ "FMessageResponseDto", "struct_f_message_response_dto.html", null ],
     [ "FMessageSortOption", "struct_f_message_sort_option.html", "struct_f_message_sort_option" ],
     [ "FMessageUpdatedEvent", "struct_f_message_updated_event.html", null ],
+    [ "FMuteUserRequestDto", "struct_f_mute_user_request_dto.html", "struct_f_mute_user_request_dto" ],
+    [ "FMuteUserResponseDto", "struct_f_mute_user_response_dto.html", "struct_f_mute_user_response_dto" ],
     [ "FNotificationMarkReadEvent", "struct_f_notification_mark_read_event.html", null ],
     [ "FNotificationMessageNewEvent", "struct_f_notification_message_new_event.html", null ],
     [ "FOwnUserDto", "struct_f_own_user_dto.html", "struct_f_own_user_dto" ],

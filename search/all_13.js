@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['target_0',['Target',['../struct_f_user_mute_dto.html#a4532955058796c5dfc851a942321d0e1',1,'FUserMuteDto']]],
+  ['targetids_0',['TargetIds',['../struct_f_mute_user_request_dto.html#a9ffef028d2507bb5d73fb7e93dfe3648',1,'FMuteUserRequestDto']]],
   ['targetmessageid_1',['TargetMessageId',['../struct_f_flag_request_dto.html#a1c18b9004f6e1c8bb9dc1151f3135ea4',1,'FFlagRequestDto']]],
   ['targetuserid_2',['TargetUserId',['../struct_f_ban_request_dto.html#a7105907af4cbf189d7120bb7db0da318',1,'FBanRequestDto::TargetUserId()'],['../struct_f_flag_request_dto.html#a0084634d43a100ad0339747db5e5d569',1,'FFlagRequestDto::TargetUserId()']]],
   ['team_3',['Team',['../struct_f_channel_request_dto.html#a2650ccaee9b077567f2c2d87895abdd6',1,'FChannelRequestDto::Team()'],['../struct_f_channel_response_dto.html#ab59e272ddf5f0622b41c56f6ddcc148b',1,'FChannelResponseDto::Team()'],['../struct_f_channel_properties.html#af26b1f684be19fc24e302247c156550d',1,'FChannelProperties::Team()']]],

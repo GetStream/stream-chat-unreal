@@ -65,6 +65,10 @@ var group___stream_chat_dto =
       [ "TargetMessageId", "struct_f_flag_request_dto.html#a1c18b9004f6e1c8bb9dc1151f3135ea4", null ],
       [ "TargetUserId", "struct_f_flag_request_dto.html#a0084634d43a100ad0339747db5e5d569", null ]
     ] ],
+    [ "FMuteUserRequestDto", "struct_f_mute_user_request_dto.html", [
+      [ "SetTimeout", "struct_f_mute_user_request_dto.html#aec6a22c8bea61e4509925ad0fba53bfa", null ],
+      [ "TargetIds", "struct_f_mute_user_request_dto.html#a9ffef028d2507bb5d73fb7e93dfe3648", null ]
+    ] ],
     [ "FQueryBannedUsersRequestDto", "struct_f_query_banned_users_request_dto.html", [
       [ "SetSort", "struct_f_query_banned_users_request_dto.html#aba1e4707d82c6a190a982af6c31682fd", null ]
     ] ],
@@ -252,7 +256,17 @@ var group___stream_chat_dto =
       [ "UpdatedAt", "struct_f_flag_dto.html#a0fc05c7d6c5644058b66406d097acfb7", null ]
     ] ],
     [ "FFlagResponseDto", "struct_f_flag_response_dto.html", null ],
+    [ "FMuteUserResponseDto", "struct_f_mute_user_response_dto.html", [
+      [ "Mute", "struct_f_mute_user_response_dto.html#a713f2b3602f621d70f70331cbc0d7fb2", null ],
+      [ "Mutes", "struct_f_mute_user_response_dto.html#a022ae3bc6a7d5593c22d11a4a3fbf08a", null ],
+      [ "OwnUser", "struct_f_mute_user_response_dto.html#a2c966a3996b74ae9ae5dbbcd2fa75694", null ]
+    ] ],
     [ "FQueryBannedUsersResponseDto", "struct_f_query_banned_users_response_dto.html", null ],
+    [ "FUserMuteDto", "struct_f_user_mute_dto.html", [
+      [ "CreatedAt", "struct_f_user_mute_dto.html#a3312526b344734dad969c4f2d1afc213", null ],
+      [ "Expires", "struct_f_user_mute_dto.html#aa47d1fa9636bc88340e444109f895190", null ],
+      [ "UpdatedAt", "struct_f_user_mute_dto.html#ad88dfb7b1e6bcb516bc4b28a277f8cf6", null ]
+    ] ],
     [ "FReactionDto", "struct_f_reaction_dto.html", [
       [ "CreatedAt", "struct_f_reaction_dto.html#a7401f203ba997a9de1d51ebd1a623189", null ],
       [ "MessageId", "struct_f_reaction_dto.html#aa7bda7f33579bc13a3c659e31c801604", null ],
@@ -283,13 +297,6 @@ var group___stream_chat_dto =
       [ "RevokeTokensIssuedBefore", "struct_f_user_dto.html#a739ec7a197f0b56b74e1d3cae92bb9d2", null ],
       [ "Role", "struct_f_user_dto.html#a296194a8d3462bc0e0750e12acceeb65", null ],
       [ "Teams", "struct_f_user_dto.html#a3bba47a1d2d2275de05647fb5067a750", null ]
-    ] ],
-    [ "FUserMuteDto", "struct_f_user_mute_dto.html", [
-      [ "CreatedAt", "struct_f_user_mute_dto.html#a3312526b344734dad969c4f2d1afc213", null ],
-      [ "Expires", "struct_f_user_mute_dto.html#aa47d1fa9636bc88340e444109f895190", null ],
-      [ "Target", "struct_f_user_mute_dto.html#a4532955058796c5dfc851a942321d0e1", null ],
-      [ "UpdatedAt", "struct_f_user_mute_dto.html#ad88dfb7b1e6bcb516bc4b28a277f8cf6", null ],
-      [ "User", "struct_f_user_mute_dto.html#a8e1701a3712671822019027c2e8b6e1a", null ]
     ] ],
     [ "FUserObjectDto", "struct_f_user_object_dto.html", [
       [ "bOnline", "struct_f_user_object_dto.html#a2a6585584e72fea077387e8068eb3a55", null ],

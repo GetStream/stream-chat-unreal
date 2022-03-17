@@ -24,7 +24,7 @@ var searchData=
   ['setoffset_21',['SetOffset',['../struct_f_paginated_request.html#a156d316464d715fdac1a7c8db4e9e748',1,'FPaginatedRequest']]],
   ['setquery_22',['SetQuery',['../struct_f_search_request_dto.html#a7ec9ff14613f4e47dc9efcaf576ddb36',1,'FSearchRequestDto']]],
   ['setsort_23',['SetSort',['../struct_f_search_request_dto.html#a275f6f92187f191be212b5621524a525',1,'FSearchRequestDto::SetSort()'],['../struct_f_query_banned_users_request_dto.html#aba1e4707d82c6a190a982af6c31682fd',1,'FQueryBannedUsersRequestDto::SetSort()']]],
-  ['settimeout_24',['SetTimeout',['../struct_f_ban_request_dto.html#a3589c8bde7a45a62de7ccc94d8f9e25e',1,'FBanRequestDto']]],
+  ['settimeout_24',['SetTimeout',['../struct_f_ban_request_dto.html#a3589c8bde7a45a62de7ccc94d8f9e25e',1,'FBanRequestDto::SetTimeout()'],['../struct_f_mute_user_request_dto.html#aec6a22c8bea61e4509925ad0fba53bfa',1,'FMuteUserRequestDto::SetTimeout()']]],
   ['sort_25',['Sort',['../struct_f_query_channels_request_dto.html#ad3bc9151f4d3c44a2e5c194b54e4d178',1,'FQueryChannelsRequestDto::Sort()'],['../struct_f_query_users_request_dto.html#a720e455cf1fded70c7c648d208c6e2dc',1,'FQueryUsersRequestDto::Sort()']]],
   ['state_26',['State',['../class_u_chat_channel.html#ab615cb29d3090b13947e83132c4e0fcd',1,'UChatChannel::State()'],['../struct_f_message.html#af393eb1e750acd7b49b997c7e1b0ab3b',1,'FMessage::State()'],['../group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d',1,'State():&#160;ChannelFlags.h']]],
   ['statuscode_27',['StatusCode',['../struct_f_error_response_dto.html#aafe32e1c980d05d7d6321eaeda5cadca',1,'FErrorResponseDto']]],

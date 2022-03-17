@@ -67,6 +67,7 @@ var hierarchy =
     [ "FMessagePaginationParamsRequestDto", "struct_f_message_pagination_params_request_dto.html", null ],
     [ "FMessageRequestDto", "struct_f_message_request_dto.html", null ],
     [ "FMessageSortOption", "struct_f_message_sort_option.html", null ],
+    [ "FMuteUserRequestDto", "struct_f_mute_user_request_dto.html", null ],
     [ "FPaginatedRequest", "struct_f_paginated_request.html", [
       [ "FQueryBannedUsersRequestDto", "struct_f_query_banned_users_request_dto.html", null ],
       [ "FQueryChannelsRequestDto", "struct_f_query_channels_request_dto.html", null ],
@@ -90,6 +91,7 @@ var hierarchy =
       [ "FListDevicesResponseDto", "struct_f_list_devices_response_dto.html", null ],
       [ "FMarkReadResponseDto", "struct_f_mark_read_response_dto.html", null ],
       [ "FMessageResponseDto", "struct_f_message_response_dto.html", null ],
+      [ "FMuteUserResponseDto", "struct_f_mute_user_response_dto.html", null ],
       [ "FQueryBannedUsersResponseDto", "struct_f_query_banned_users_response_dto.html", null ],
       [ "FReactionResponseDto", "struct_f_reaction_response_dto.html", null ],
       [ "FSearchResponseDto", "struct_f_search_response_dto.html", null ],

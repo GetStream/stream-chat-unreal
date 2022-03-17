@@ -175,12 +175,6 @@ const TArray&lt; <a class="el" href="class_u_chat_channel.html">UChatChannel</a>
 <tr class="memitem:a0f03f8337f0c164ca3dbcfbc7736a4dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#a0f03f8337f0c164ca3dbcfbc7736a4dd">ListDevices</a> (TFunction&lt; void(TArray&lt; <a class="el" href="struct_f_device.html">FDevice</a> &gt;)&gt; Callback) const</td></tr>
 <tr class="memdesc:a0f03f8337f0c164ca3dbcfbc7736a4dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a list of all available devices.  <a href="class_u_stream_chat_client_component.html#a0f03f8337f0c164ca3dbcfbc7736a4dd">More...</a><br /></td></tr>
 <tr class="separator:a0f03f8337f0c164ca3dbcfbc7736a4dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a089db8cda3d789e88b98cce3397f9f7e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#a089db8cda3d789e88b98cce3397f9f7e">FlagMessage</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;Message)</td></tr>
-<tr class="memdesc:a089db8cda3d789e88b98cce3397f9f7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag message for moderation.  <a href="class_u_stream_chat_client_component.html#a089db8cda3d789e88b98cce3397f9f7e">More...</a><br /></td></tr>
-<tr class="separator:a089db8cda3d789e88b98cce3397f9f7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d08485ee0259efb2098a591554553b3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#a9d08485ee0259efb2098a591554553b3">FlagUser</a> (const <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;User)</td></tr>
-<tr class="memdesc:a9d08485ee0259efb2098a591554553b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag user for moderation.  <a href="class_u_stream_chat_client_component.html#a9d08485ee0259efb2098a591554553b3">More...</a><br /></td></tr>
-<tr class="separator:a9d08485ee0259efb2098a591554553b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6fd4aeacd878fb2c6b3c5d4a9934922a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#a6fd4aeacd878fb2c6b3c5d4a9934922a">ConnectUser</a> (const <a class="el" href="struct_f_user.html">FUser</a> &amp;User, const FString &amp;Token, const UObject *WorldContextObject, FLatentActionInfo LatentInfo, <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;OutUser)</td></tr>
 <tr class="separator:a6fd4aeacd878fb2c6b3c5d4a9934922a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acff32121d75eca129de69f76e351cc92"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#acff32121d75eca129de69f76e351cc92">ConnectAnonymousUser</a> (const UObject *WorldContextObject, FLatentActionInfo LatentInfo, <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;OutUser)</td></tr>
@@ -597,58 +591,6 @@ FChannelsUpdatedDelegate&#160;</td><td class="memItemRight" valign="bottom"><b>C
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A channel object which can be used to interact with the channel </dd></dl>
-
-</div>
-</div>
-<a id="a089db8cda3d789e88b98cce3397f9f7e" name="a089db8cda3d789e88b98cce3397f9f7e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a089db8cda3d789e88b98cce3397f9f7e">&#9670;&nbsp;</a></span>FlagMessage()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void UStreamChatClientComponent::FlagMessage </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_f_message.html">FMessage</a> &amp;&#160;</td>
-          <td class="paramname"><em>Message</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Flag message for moderation. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">Message</td><td>A reference to an existing message </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a9d08485ee0259efb2098a591554553b3" name="a9d08485ee0259efb2098a591554553b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d08485ee0259efb2098a591554553b3">&#9670;&nbsp;</a></span>FlagUser()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void UStreamChatClientComponent::FlagUser </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;&#160;</td>
-          <td class="paramname"><em>User</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Flag user for moderation. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">User</td><td>A reference to a user </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
