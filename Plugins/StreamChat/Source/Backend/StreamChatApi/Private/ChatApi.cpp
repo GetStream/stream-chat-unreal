@@ -141,14 +141,14 @@ void FChatApi::QueryBannedUsers(
     Client->Get(Url).Query({{TEXT("payload"), Payload}}).Send(Callback);
 }
 
-void FChatApi::Flag(const FString& TargetMessageId, const FString& TargetUserId, TCallback<FFlagResponseDto> Callback) const
+void FChatApi::Flag(const FString& TargetMessageId, const FString& TargetUserId, const TCallback<FFlagResponseDto> Callback) const
 {
     const FString Url = BuildUrl(TEXT("moderation/flag"));
     const FFlagRequestDto Body{TargetMessageId, TargetUserId};
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
-void FChatApi::MuteUser(const TArray<FString>& TargetUserIds, TOptional<float> Timeout, TCallback<FMuteUserResponseDto> Callback) const
+void FChatApi::MuteUser(const TArray<FString>& TargetUserIds, TOptional<float> Timeout, const TCallback<FMuteUserResponseDto> Callback) const
 {
     const FString Url = BuildUrl(TEXT("moderation/mute"));
     FMuteUserRequestDto Body{TargetUserIds};
@@ -156,6 +156,13 @@ void FChatApi::MuteUser(const TArray<FString>& TargetUserIds, TOptional<float> T
     {
         Body.SetTimeout(Timeout.GetValue());
     }
+    Client->Post(Url).Json(Body).Send(Callback);
+}
+
+void FChatApi::UnmuteUser(const TArray<FString>& TargetUserIds, const TCallback<FResponseDto> Callback) const
+{
+    const FString Url = BuildUrl(TEXT("moderation/unmute"));
+    const FMuteUserRequestDto Body{TargetUserIds};
     Client->Post(Url).Json(Body).Send(Callback);
 }
 

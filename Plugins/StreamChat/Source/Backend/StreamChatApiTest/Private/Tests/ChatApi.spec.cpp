@@ -17,6 +17,7 @@
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Moderation/BanResponseDto.h"
 #include "Response/Moderation/FlagResponseDto.h"
+#include "Response/Moderation/MuteUserResponseDto.h"
 #include "Response/Moderation/QueryBannedUsersResponseDto.h"
 #include "Response/ResponseDto.h"
 #include "Response/User/GuestResponseDto.h"
@@ -244,6 +245,42 @@ void FChatApiSpec::Define()
                         [=](const FListDevicesResponseDto& Dto)
                         {
                             TestEqual("Device exists", Dto.Devices[0].Id, DeviceId);
+                            TestDone.Execute();
+                        });
+                });
+        });
+
+    Describe(
+        "Mute",
+        [=]
+        {
+            // Mute user
+            LatentBeforeEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->MuteUser(
+                        {BanUserId},
+                        {},
+                        [=](const FMuteUserResponseDto& Dto)
+                        {
+                            TestEqual("User muted", Dto.Mute.Target.Id, BanUserId);
+                            TestTrue(
+                                "User muted in own user",
+                                Dto.OwnUser.Mutes.ContainsByPredicate([&](const FUserMuteDto& Mute) { return Mute.Target.Id == BanUserId; }));
+                            TestDone.Execute();
+                        });
+                });
+
+            // Unmute user
+            LatentIt(
+                "should unmute user",
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->UnmuteUser(
+                        {BanUserId},
+                        [=](const FResponseDto& Dto)
+                        {
+                            TestTrue("Response received", Dto.Duration.Len() > 0);
                             TestDone.Execute();
                         });
                 });
