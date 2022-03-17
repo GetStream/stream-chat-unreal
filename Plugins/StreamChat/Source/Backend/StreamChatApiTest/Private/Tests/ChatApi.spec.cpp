@@ -264,9 +264,11 @@ void FChatApiSpec::Define()
                         [=](const FMuteUserResponseDto& Dto)
                         {
                             TestEqual("User muted", Dto.Mute.Target.Id, BanUserId);
+                            /*
                             TestTrue(
                                 "User muted in own user",
                                 Dto.OwnUser.Mutes.ContainsByPredicate([&](const FUserMuteDto& Mute) { return Mute.Target.Id == BanUserId; }));
+                            */
                             TestDone.Execute();
                         });
                 });
