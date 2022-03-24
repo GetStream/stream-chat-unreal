@@ -49,7 +49,7 @@ void FHtmlRichTextMarkupParser::Process(TArray<FTextLineParseResults>& Results, 
 
     FHtmlParser Parser(
         Input,
-        [&](const FHtmlParser& Self)
+        [&Results](const FHtmlParser& Self)
         {
             while (!Results.IsValidIndex(Self.Line))
             {

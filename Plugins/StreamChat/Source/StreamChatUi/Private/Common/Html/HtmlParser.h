@@ -90,7 +90,7 @@ public:
         int32 OpeningTagStart;
     };
 
-    using FCallbackFn = TFunctionRef<void(const FHtmlParser& Parser)>;
+    using FCallbackFn = TFunction<void(const FHtmlParser& Parser)>;
 
     // Initialize with source string. Doesn't take ownership of string, so caller must ensure it stays in memory.
     // Callback is called on each content chunk as it is found, along with the stack of surrounding element names
@@ -110,7 +110,7 @@ public:
     FStringView GetContent() const;
     const FString& GetOutput() const;
 
-    int32 Line = 0;
+    uint32 Line = 0;
     int32 ParagraphStartIndex = 0;
     TArray<FElement> ElementStack;
 
