@@ -74,8 +74,9 @@ void FHtmlRichTextMarkupParser::Process(TArray<FTextLineParseResults>& Results, 
         });
 
     const bool bSuccess = Parser.Parse();
-    ensure(bSuccess);
-
-    Output = Parser.GetOutput();
-    Results.Last().Range.EndIndex = Output.Len();
+    if (ensure(bSuccess))
+    {
+        Output = Parser.GetOutput();
+        Results.Last().Range.EndIndex = Output.Len();
+    }
 }

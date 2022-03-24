@@ -33,7 +33,7 @@ void UNamedAvatarWidget::OnSetup()
         }
         else
         {
-            TextBlock->SetText(FText::FromString(User->Name));
+            TextBlock->SetText(FText::FromString(User->Name.Len() > 0 ? User->Name : User->Id));
         }
     }
 }
