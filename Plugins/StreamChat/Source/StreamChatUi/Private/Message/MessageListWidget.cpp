@@ -4,7 +4,26 @@
 
 #include "Channel/ChatChannel.h"
 #include "Context/ChannelContextWidget.h"
-#include "UiBlueprintLibrary.h"
+
+namespace
+{
+bool IsEndOfMessageStack(const FMessage& CurrentMessage, const FMessage& NextMessage)
+{
+    // A new stack is formed when:
+    // 1. A minute is passed between 2 messages sent from the same user.
+    // 2. Another users sends a message.
+    // TODO 3. A date stamp appears.
+    if (NextMessage.CreatedAt - CurrentMessage.CreatedAt > FTimespan::FromMinutes(1.))
+    {
+        return true;
+    }
+    if (NextMessage.User != CurrentMessage.User)
+    {
+        return true;
+    }
+    return false;
+}
+}    // namespace
 
 UMessageListWidget::UMessageListWidget()
 {
@@ -71,20 +90,14 @@ void UMessageListWidget::CreateMessageWidgets(const TArray<FMessage>& Messages)
     TArray<UWidget*> Widgets;
     Widgets.Reserve(Messages.Num());
 
-    // A new stack is formed when:
-    // 1. A minute is passed between 2 messages sent from the same user.
-    // 2. Another users sends a message.
-    // TODO 3. A date stamp appears.
     const int32 Last = Messages.Num() - 1;
     for (int32 Index = 0; Index < Messages.Num(); ++Index)
     {
-        const FMessage& Message = Messages[Index];
-        const EMessageSide Side = Message.User.IsCurrent() ? EMessageSide::Me : EMessageSide::You;
+        const FMessage& CurrentMessage = Messages[Index];
+        const EMessageSide Side = CurrentMessage.User.IsCurrent() ? EMessageSide::Me : EMessageSide::You;
         const EMessagePosition Position =
-            Index == Last || (Messages[Index + 1].CreatedAt - Message.CreatedAt > FTimespan::FromMinutes(1.) || Messages[Index + 1].User != Message.User)
-                ? EMessagePosition::End
-                : EMessagePosition::Opening;
-        UMessageWidget* Widget = CreateMessageWidget(Message, Side, Position);
+            Index == Last || IsEndOfMessageStack(CurrentMessage, Messages[Index + 1]) ? EMessagePosition::End : EMessagePosition::Opening;
+        UMessageWidget* Widget = CreateMessageWidget(CurrentMessage, Side, Position);
         Widgets.Add(Widget);
     }
     SetChildren(Widgets);
@@ -94,7 +107,11 @@ UMessageWidget* UMessageListWidget::CreateMessageWidget(const FMessage& Message,
 {
     if (OnGetMessageWidgetEvent.IsBound())
     {
-        return OnGetMessageWidgetEvent.Execute(Message, Side, Position);
+        UMessageWidget* Widget = OnGetMessageWidgetEvent.Execute(Message, Side, Position);
+        if (Widget)
+        {
+            return Widget;
+        }
     }
     UMessageWidget* Widget = CreateWidget<UMessageWidget>(this, MessageWidgetClass);
     Widget->Setup(Message, Side, Position);

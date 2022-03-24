@@ -30,7 +30,7 @@ void UTimestampWidget::OnSetup()
         if (bShowUserName)
         {
             UserTextBlock->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
-            UserTextBlock->SetText(FText::FromString(Message.User->Name));
+            UserTextBlock->SetText(FText::FromString(Message.User->Name.Len() > 0 ? Message.User->Name : Message.User->Id));
         }
         else
         {
