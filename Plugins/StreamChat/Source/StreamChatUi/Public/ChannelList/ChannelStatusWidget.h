@@ -15,8 +15,8 @@
 /**
  *
  */
-UCLASS()
-class STREAMCHATUI_API UChannelStatusWidget final : public UStreamWidget
+UCLASS(Abstract)
+class STREAMCHATUI_API UChannelStatusWidget : public UStreamWidget
 {
     GENERATED_BODY()
 
@@ -28,7 +28,7 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void UpdateSelection(UChatChannel* SelectedChannel) const;
 
-    bool IsForChannel(const UChatChannel*) const;
+    virtual bool IsForChannel(const UChatChannel*) const;
 
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FChannelStatusButtonClicked, UChatChannel*, InChannel);
     UPROPERTY(BlueprintAssignable)
@@ -38,8 +38,8 @@ public:
     FChannelStatusButtonClickedNative OnChannelStatusButtonClickedNative;
 
 protected:
-    UPROPERTY(meta = (BindWidget))
-    UChannelContextWidget* ChannelContextProvider;
+    virtual void OnSetup() override;
+    virtual void OnTheme() override;
 
     UPROPERTY(meta = (BindWidget))
     UButton* Button;
@@ -48,49 +48,13 @@ protected:
     UTextBlock* TitleTextBlock;
 
     UPROPERTY(meta = (BindWidget))
-    UTextBlock* RecentMessageTextBlock;
-
-    UPROPERTY(meta = (BindWidget))
-    UAvatarWidget* Avatar;
-
-    UPROPERTY(meta = (BindWidget))
-    UTimestampWidget* Timestamp;
-
-    UPROPERTY(meta = (BindWidget))
-    UWidget* Notification;
-
-    UPROPERTY(meta = (BindWidget))
-    UTextBlock* NotificationTextBlock;
-
-    UPROPERTY(meta = (BindWidget))
     UImage* Divider;
 
 private:
-    virtual void OnSetup() override;
-    virtual void OnTheme() override;
-
-    virtual int32 NativePaint(
-        const FPaintArgs& Args,
-        const FGeometry& AllottedGeometry,
-        const FSlateRect& MyCullingRect,
-        FSlateWindowElementList& OutDrawElements,
-        int32 LayerId,
-        const FWidgetStyle& InWidgetStyle,
-        bool bParentEnabled) const override;
-
-    void UpdateChannelTitleText() const;
-    void UpdateRecentMessageText() const;
-
-    UFUNCTION()
-    void OnMessagesUpdated(const TArray<FMessage>& Messages);
-    UFUNCTION()
-    void OnUnreadChanged(int32 UnreadCount);
+    virtual FLinearColor GetTitleColor(UThemeDataAsset*);
 
     UFUNCTION()
     void OnButtonClicked();
-
-    mutable float RecentMessageAvailableSpace;
-    mutable float ChannelTitleAvailableSpace;
 
     FButtonStyle NormalStyle;
     FButtonStyle SelectedStyle;

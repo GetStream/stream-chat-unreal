@@ -38,36 +38,15 @@ void UChannelStatusWidget::UpdateSelection(UChatChannel* SelectedChannel) const
 
 bool UChannelStatusWidget::IsForChannel(const UChatChannel* QueryChannel) const
 {
-    return QueryChannel && Channel && QueryChannel->Properties.Cid == Channel->Properties.Cid;
+    return false;
 }
 
 void UChannelStatusWidget::OnSetup()
 {
-    if (ChannelContextProvider)
-    {
-        ChannelContextProvider->Setup(Channel);
-    }
-
-    if (Channel)
-    {
-        Channel->MessagesUpdated.AddDynamic(this, &UChannelStatusWidget::OnMessagesUpdated);
-        Channel->UnreadChanged.AddDynamic(this, &UChannelStatusWidget::OnUnreadChanged);
-        OnMessagesUpdated(Channel->GetMessages());
-        OnUnreadChanged(Channel->State.UnreadCount());
-    }
-
     if (Button)
     {
         Button->OnClicked.AddDynamic(this, &UChannelStatusWidget::OnButtonClicked);
     }
-
-    if (Channel && Avatar)
-    {
-        Avatar->Setup(Channel->Properties.GetOtherMemberUsers());
-    }
-
-    // Force update channel title
-    ChannelTitleAvailableSpace = -1.f;
 }
 
 void UChannelStatusWidget::OnTheme()
@@ -90,109 +69,13 @@ void UChannelStatusWidget::OnTheme()
 
     if (TitleTextBlock)
     {
-        const FName Color{Channel && Channel->Properties.bMuted ? Theme->ChannelStatusMutedTitleTextColor : Theme->ChannelStatusTitleTextColor};
-        TitleTextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Color));
-    }
-
-    if (RecentMessageTextBlock)
-    {
-        RecentMessageTextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Theme->ChannelStatusRecentMessageTextColor));
+        TitleTextBlock->SetColorAndOpacity(GetTitleColor(Theme));
     }
 }
 
-int32 UChannelStatusWidget::NativePaint(
-    const FPaintArgs& Args,
-    const FGeometry& AllottedGeometry,
-    const FSlateRect& MyCullingRect,
-    FSlateWindowElementList& OutDrawElements,
-    const int32 LayerId,
-    const FWidgetStyle& InWidgetStyle,
-    const bool bParentEnabled) const
+FLinearColor UChannelStatusWidget::GetTitleColor(UThemeDataAsset*)
 {
-    if (RecentMessageTextBlock)
-    {
-        const float AvailableSpace = RecentMessageTextBlock->GetTickSpaceGeometry().GetLocalSize().X;
-        if (AvailableSpace != RecentMessageAvailableSpace)
-        {
-            RecentMessageAvailableSpace = AvailableSpace;
-            UpdateRecentMessageText();
-        }
-    }
-
-    if (TitleTextBlock)
-    {
-        const float AvailableSpace = TitleTextBlock->GetTickSpaceGeometry().GetLocalSize().X;
-        if (AvailableSpace != ChannelTitleAvailableSpace)
-        {
-            ChannelTitleAvailableSpace = AvailableSpace;
-            UpdateChannelTitleText();
-        }
-    }
-
-    return Super::NativePaint(Args, AllottedGeometry, MyCullingRect, OutDrawElements, LayerId, InWidgetStyle, bParentEnabled);
-}
-
-void UChannelStatusWidget::UpdateChannelTitleText() const
-{
-    if (TitleTextBlock && Channel)
-    {
-        const FString Title = UUiBlueprintLibrary::GetChannelTitle(Channel);
-        const FString Shortened = WidgetUtil::TruncateWithEllipsis(Title, ChannelTitleAvailableSpace, TitleTextBlock->Font);
-        const FText Text = FText::FromString(Shortened);
-        TitleTextBlock->SetText(Text);
-    }
-}
-
-void UChannelStatusWidget::UpdateRecentMessageText() const
-{
-    if (RecentMessageTextBlock && Channel)
-    {
-        if (Channel->State.GetMessages().Num() > 0)
-        {
-            RecentMessageTextBlock->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
-            const FString LastText = Channel->State.GetMessages().Last().Text;
-            const FString Shortened = WidgetUtil::TruncateWithEllipsis(LastText, RecentMessageAvailableSpace, RecentMessageTextBlock->Font);
-            const FText Text = FText::FromString(Shortened);
-            RecentMessageTextBlock->SetText(Text);
-        }
-        else
-        {
-            RecentMessageTextBlock->SetVisibility(ESlateVisibility::Hidden);
-        }
-    }
-}
-
-void UChannelStatusWidget::OnMessagesUpdated(const TArray<FMessage>& Messages)
-{
-    if (Timestamp)
-    {
-        if (Messages.Num() > 0)
-        {
-            Timestamp->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
-            Timestamp->Setup(Messages.Last(), false, true);
-        }
-        else
-        {
-            Timestamp->SetVisibility(ESlateVisibility::Hidden);
-        }
-    }
-
-    // Force update recent message text
-    RecentMessageAvailableSpace = -1.f;
-}
-
-void UChannelStatusWidget::OnUnreadChanged(const int32 UnreadCount)
-{
-    if (Notification)
-    {
-        const ESlateVisibility Vis = UnreadCount > 0 ? ESlateVisibility::SelfHitTestInvisible : ESlateVisibility::Collapsed;
-        Notification->SetVisibility(Vis);
-    }
-    if (NotificationTextBlock)
-    {
-        const FText Text = UnreadCount > 9 ? FText::FromString(TEXT("9+")) : FText::AsNumber(UnreadCount);
-        NotificationTextBlock->SetText(Text);
-    }
+    return Theme->GetPaletteColor(Theme->ChannelStatusTitleTextColor);
 }
 
 void UChannelStatusWidget::OnButtonClicked()

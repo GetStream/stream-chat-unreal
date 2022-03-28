@@ -2,6 +2,7 @@
 
 #include "ChannelList/ChannelListWidget.h"
 
+#include "ChannelList/SummaryChannelStatusWidget.h"
 #include "StreamChatClientComponent.h"
 #include "ThemeDataAsset.h"
 
@@ -73,10 +74,19 @@ void UChannelListWidget::OnChannelsUpdated(const TArray<UChatChannel*>& InChanne
     }
 
     TArray<UWidget*> Widgets;
-    Widgets.Reserve(InChannels.Num());
+    Widgets.Reserve(InChannels.Num() + (bNewChatActive ? 1 : 0));
+
+    if (bNewChatActive)
+    {
+        UChannelStatusWidget* Widget = CreateWidget<UNewChatChannelStatusWidget>(this, ChannelStatusWidgetClass);
+        Widget->Setup(nullptr);
+        Widget->OnChannelStatusButtonClicked.AddDynamic(this, &UChannelListWidget::ChannelStatusClicked);
+        Widgets.Add(Widget);
+    }
+
     for (UChatChannel* InChannel : InChannels)
     {
-        UChannelStatusWidget* Widget = CreateWidget<UChannelStatusWidget>(this, ChannelStatusWidgetClass);
+        UChannelStatusWidget* Widget = CreateWidget<USummaryChannelStatusWidget>(this, ChannelStatusWidgetClass);
         Widget->Setup(InChannel);
         Widget->OnChannelStatusButtonClicked.AddDynamic(this, &UChannelListWidget::ChannelStatusClicked);
         Widgets.Add(Widget);
