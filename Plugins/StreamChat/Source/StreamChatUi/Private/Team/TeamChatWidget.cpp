@@ -55,7 +55,17 @@ void UTeamChatWidget::ChannelSelected(UChatChannel* SelectedChannel)
     }
 
     MessageListContainer->ClearChildren();
-    UChannelWidget* Widget = CreateWidget<UChannelWidget>(this, ChannelWidgetClass);
-    Widget->Setup(SelectedChannel);
-    MessageListContainer->AddChild(Widget);
+    if (SelectedChannel)
+    {
+        UChannelWidget* Widget = CreateWidget<UChannelWidget>(this, ChannelWidgetClass);
+        Widget->Setup(SelectedChannel);
+        MessageListContainer->AddChild(Widget);
+    }
+    else
+    {
+        // Null selected channel means new chat
+        UNewChatWidget* Widget = CreateWidget<UNewChatWidget>(this, ChannelWidgetClass);
+        Widget->Setup();
+        MessageListContainer->AddChild(Widget);
+    }
 }

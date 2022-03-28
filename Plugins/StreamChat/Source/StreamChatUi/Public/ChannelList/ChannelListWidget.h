@@ -2,9 +2,12 @@
 
 #pragma once
 
+#include "Channel/NewChatWidget.h"
 #include "ChannelStatusWidget.h"
 #include "Common/PaginateScrollWidget.h"
 #include "CoreMinimal.h"
+#include "NewChatChannelStatusWidget.h"
+#include "SummaryChannelStatusWidget.h"
 
 #include "ChannelListWidget.generated.h"
 
@@ -33,7 +36,9 @@ protected:
     UPROPERTY(EditAnywhere, Category = Defaults)
     bool bAutoSelectFirstChannel = true;
     UPROPERTY(EditAnywhere, NoClear, Category = Defaults)
-    TSubclassOf<UChannelStatusWidget> ChannelStatusWidgetClass = UChannelStatusWidget::StaticClass();
+    TSubclassOf<USummaryChannelStatusWidget> ChannelStatusWidgetClass = USummaryChannelStatusWidget::StaticClass();
+    UPROPERTY(EditAnywhere, NoClear, Category = Defaults)
+    TSubclassOf<UNewChatChannelStatusWidget> NewChatChannelStatusWidgetClass = UNewChatChannelStatusWidget::StaticClass();
 
 private:
     virtual void OnClient() override;
@@ -46,4 +51,6 @@ private:
 
     UPROPERTY(Transient)
     UChatChannel* CurrentChannel;
+
+    bool bNewChatActive = false;
 };

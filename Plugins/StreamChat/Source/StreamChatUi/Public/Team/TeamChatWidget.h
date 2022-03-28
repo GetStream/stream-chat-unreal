@@ -39,6 +39,8 @@ protected:
 
     UPROPERTY(EditAnywhere, NoClear, Category = Defaults)
     TSubclassOf<UChannelWidget> ChannelWidgetClass = UChannelWidget::StaticClass();
+    UPROPERTY(EditAnywhere, NoClear, Category = Defaults)
+    TSubclassOf<UNewChatWidget> NewChatWidgetClass = UNewChatWidget::StaticClass();
 
 private:
     virtual void OnSetup() override;
