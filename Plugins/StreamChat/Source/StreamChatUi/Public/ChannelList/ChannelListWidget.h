@@ -44,6 +44,9 @@ private:
     virtual void OnClient() override;
     virtual void OnTheme() override;
 
+    void RepopulateChannelList();
+    bool IsNewChatActive() const;
+
     UFUNCTION()
     void ChannelStatusClicked(UChatChannel* ClickedChannel);
     UFUNCTION()
@@ -56,5 +59,6 @@ private:
     UPROPERTY(Transient)
     UChatChannel* CurrentChannel;
 
-    bool bNewChatActive = false;
+    UPROPERTY(Transient)
+    UChatChannel* NewChatPreviousChannel;
 };

@@ -31,7 +31,8 @@ void UChannelListWidget::Paginate(const EPaginationDirection Direction, const TF
 void UChannelListWidget::OnClient()
 {
     Client->ChannelsUpdated.AddDynamic(this, &UChannelListWidget::OnChannelsUpdated);
-    OnChannelsUpdated(Client->GetChannels());
+
+    RepopulateChannelList();
 
     if (UClientContextWidget* Context = UClientContextWidget::Get(this))
     {
@@ -42,18 +43,25 @@ void UChannelListWidget::OnClient()
 
 void UChannelListWidget::OnBack()
 {
-    if (bNewChatActive)
+    if (IsNewChatActive())
     {
-        bNewChatActive = false;
-        OnChannelsUpdated(Client->GetChannels());
+        CurrentChannel = NewChatPreviousChannel;
+        OnChannelStatusClicked.Broadcast(CurrentChannel);
+        NewChatPreviousChannel = nullptr;
+        RepopulateChannelList();
     }
 }
 
 void UChannelListWidget::OnNewChat()
 {
-    check(!bNewChatActive);
-    bNewChatActive = true;
-    OnChannelsUpdated(Client->GetChannels());
+    if (IsNewChatActive())
+    {
+        return;
+    }
+    NewChatPreviousChannel = CurrentChannel;
+    CurrentChannel = nullptr;
+    OnChannelStatusClicked.Broadcast(CurrentChannel);
+    RepopulateChannelList();
 }
 
 void UChannelListWidget::OnTheme()
@@ -62,6 +70,16 @@ void UChannelListWidget::OnTheme()
     {
         Divider->SetColorAndOpacity(Theme->GetPaletteColor(Theme->TeamChatDividerColor));
     }
+}
+
+void UChannelListWidget::RepopulateChannelList()
+{
+    OnChannelsUpdated(Client->GetChannels());
+}
+
+bool UChannelListWidget::IsNewChatActive() const
+{
+    return NewChatPreviousChannel != nullptr;
 }
 
 void UChannelListWidget::ChannelStatusClicked(UChatChannel* ClickedChannel)
@@ -89,17 +107,17 @@ void UChannelListWidget::OnChannelsUpdated(const TArray<UChatChannel*>& InChanne
         return;
     }
 
-    if (!CurrentChannel && bAutoSelectFirstChannel)
+    if (!CurrentChannel && !IsNewChatActive() && bAutoSelectFirstChannel)
     {
         // Select first channel. TODO support channel pagination
-        CurrentChannel = InChannels[0];
+        CurrentChannel = Client->GetChannels()[0];
         OnChannelStatusClicked.Broadcast(CurrentChannel);
     }
 
     TArray<UWidget*> Widgets;
-    Widgets.Reserve(InChannels.Num() + (bNewChatActive ? 1 : 0));
+    Widgets.Reserve(InChannels.Num() + (IsNewChatActive() ? 1 : 0));
 
-    if (bNewChatActive)
+    if (IsNewChatActive())
     {
         UChannelStatusWidget* Widget = CreateWidget<UNewChatChannelStatusWidget>(this, NewChatChannelStatusWidgetClass);
         Widget->Setup(nullptr);
