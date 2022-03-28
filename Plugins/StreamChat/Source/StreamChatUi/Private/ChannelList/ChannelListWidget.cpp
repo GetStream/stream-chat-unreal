@@ -3,6 +3,7 @@
 #include "ChannelList/ChannelListWidget.h"
 
 #include "ChannelList/SummaryChannelStatusWidget.h"
+#include "Context/ClientContextWidget.h"
 #include "StreamChatClientComponent.h"
 #include "ThemeDataAsset.h"
 
@@ -30,6 +31,28 @@ void UChannelListWidget::Paginate(const EPaginationDirection Direction, const TF
 void UChannelListWidget::OnClient()
 {
     Client->ChannelsUpdated.AddDynamic(this, &UChannelListWidget::OnChannelsUpdated);
+    OnChannelsUpdated(Client->GetChannels());
+
+    if (UClientContextWidget* Context = UClientContextWidget::Get(this))
+    {
+        Context->OnBack.AddDynamic(this, &UChannelListWidget::OnBack);
+        Context->OnNewChat.AddDynamic(this, &UChannelListWidget::OnNewChat);
+    }
+}
+
+void UChannelListWidget::OnBack()
+{
+    if (bNewChatActive)
+    {
+        bNewChatActive = false;
+        OnChannelsUpdated(Client->GetChannels());
+    }
+}
+
+void UChannelListWidget::OnNewChat()
+{
+    check(!bNewChatActive);
+    bNewChatActive = true;
     OnChannelsUpdated(Client->GetChannels());
 }
 
@@ -78,7 +101,7 @@ void UChannelListWidget::OnChannelsUpdated(const TArray<UChatChannel*>& InChanne
 
     if (bNewChatActive)
     {
-        UChannelStatusWidget* Widget = CreateWidget<UNewChatChannelStatusWidget>(this, ChannelStatusWidgetClass);
+        UChannelStatusWidget* Widget = CreateWidget<UNewChatChannelStatusWidget>(this, NewChatChannelStatusWidgetClass);
         Widget->Setup(nullptr);
         Widget->OnChannelStatusButtonClicked.AddDynamic(this, &UChannelListWidget::ChannelStatusClicked);
         Widgets.Add(Widget);

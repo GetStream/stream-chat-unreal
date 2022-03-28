@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "Components/Button.h"
 #include "Components/Image.h"
 #include "CoreMinimal.h"
 #include "StreamWidget.h"
@@ -23,6 +24,13 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UImage* Icon;
 
+    UPROPERTY(meta = (BindWidget))
+    UButton* Button;
+
 private:
+    virtual void OnSetup() override;
     virtual void OnTheme() override;
+
+    UFUNCTION()
+    void OnButtonClick();
 };

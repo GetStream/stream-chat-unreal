@@ -30,6 +30,10 @@ public:
     UPROPERTY(BlueprintAssignable)
     FBackDelegate OnBack;
 
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE(FNewChatDelegate);
+    UPROPERTY(BlueprintAssignable)
+    FNewChatDelegate OnNewChat;
+
 private:
     UPROPERTY(Transient)
     UStreamChatClientComponent* Client;
