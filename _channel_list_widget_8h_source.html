@@ -91,48 +91,63 @@ $(document).ready(function(){initNavTree('_channel_list_widget_8h_source.html','
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;ChannelStatusWidget.h&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;Common/PaginateScrollWidget.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;ChannelListWidget.generated.h&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>UCLASS()</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>class STREAMCHATUI_API UChannelListWidget final : public UPaginateScrollWidget</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    GENERATED_BODY()</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>public:</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    UChannelListWidget();</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;Channel/NewChatWidget.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;ChannelStatusWidget.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;Common/PaginateScrollWidget.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;NewChatChannelStatusWidget.h&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;SummaryChannelStatusWidget.h&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;ChannelListWidget.generated.h&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>UCLASS()</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>class STREAMCHATUI_API UChannelListWidget final : public UPaginateScrollWidget</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    GENERATED_BODY()</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FChannelStatusClicked, <a class="code hl_class" href="class_u_chat_channel.html">UChatChannel</a>*, InChannel);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    UPROPERTY(BlueprintAssignable)</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    FChannelStatusClicked OnChannelStatusClicked;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>protected:</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    virtual <span class="keywordtype">void</span> NativeDestruct() override;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    virtual <span class="keywordtype">void</span> Paginate(const EPaginationDirection Direction, const TFunction&lt;<span class="keywordtype">void</span>()&gt; Callback) override;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    UPROPERTY(meta = (BindWidget))</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    UImage* Divider;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>public:</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    UChannelListWidget();</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FChannelStatusClicked, <a class="code hl_class" href="class_u_chat_channel.html">UChatChannel</a>*, InChannel);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    UPROPERTY(BlueprintAssignable)</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    FChannelStatusClicked OnChannelStatusClicked;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>protected:</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    virtual <span class="keywordtype">void</span> NativeDestruct() override;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    virtual <span class="keywordtype">void</span> Paginate(const EPaginationDirection Direction, const TFunction&lt;<span class="keywordtype">void</span>()&gt; Callback) override;</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    UPROPERTY(EditAnywhere, Category = Defaults)</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordtype">bool</span> bAutoSelectFirstChannel = true;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    UPROPERTY(EditAnywhere, NoClear, Category = Defaults)</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    TSubclassOf&lt;UChannelStatusWidget&gt; ChannelStatusWidgetClass = UChannelStatusWidget::StaticClass();</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>private:</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    virtual <span class="keywordtype">void</span> OnClient() override;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    virtual <span class="keywordtype">void</span> OnTheme() override;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    UFUNCTION()</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordtype">void</span> ChannelStatusClicked(<a class="code hl_class" href="class_u_chat_channel.html">UChatChannel</a>* ClickedChannel);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    UFUNCTION()</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">void</span> OnChannelsUpdated(const TArray&lt;<a class="code hl_class" href="class_u_chat_channel.html">UChatChannel</a>*&gt;&amp; InChannels);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    UPROPERTY(meta = (BindWidget))</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    UImage* Divider;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    UPROPERTY(EditAnywhere, Category = Defaults)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordtype">bool</span> bAutoSelectFirstChannel = true;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    UPROPERTY(EditAnywhere, NoClear, Category = Defaults)</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    TSubclassOf&lt;USummaryChannelStatusWidget&gt; ChannelStatusWidgetClass = USummaryChannelStatusWidget::StaticClass();</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    UPROPERTY(EditAnywhere, NoClear, Category = Defaults)</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    TSubclassOf&lt;UNewChatChannelStatusWidget&gt; NewChatChannelStatusWidgetClass = UNewChatChannelStatusWidget::StaticClass();</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>private:</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    virtual <span class="keywordtype">void</span> OnClient() override;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    virtual <span class="keywordtype">void</span> OnTheme() override;</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    UPROPERTY(Transient)</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_class" href="class_u_chat_channel.html">UChatChannel</a>* CurrentChannel;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>};</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordtype">void</span> RepopulateChannelList();</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordtype">bool</span> IsNewChatActive() const;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    UFUNCTION()</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordtype">void</span> ChannelStatusClicked(<a class="code hl_class" href="class_u_chat_channel.html">UChatChannel</a>* ClickedChannel);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    UFUNCTION()</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordtype">void</span> OnChannelsUpdated(const TArray&lt;<a class="code hl_class" href="class_u_chat_channel.html">UChatChannel</a>*&gt;&amp; InChannels);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    UFUNCTION()</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordtype">void</span> OnBack();</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    UFUNCTION()</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordtype">void</span> OnNewChat();</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    UPROPERTY(Transient)</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <a class="code hl_class" href="class_u_chat_channel.html">UChatChannel</a>* CurrentChannel;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    UPROPERTY(Transient)</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <a class="code hl_class" href="class_u_chat_channel.html">UChatChannel</a>* NewChatPreviousChannel;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>};</div>
 <div class="ttc" id="aclass_u_chat_channel_html"><div class="ttname"><a href="class_u_chat_channel.html">UChatChannel</a></div><div class="ttdoc">The client-side representation of a Stream Chat channel.</div><div class="ttdef"><b>Definition:</b> ChatChannel.h:71</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
