@@ -24,6 +24,8 @@ public:
     void Setup(const FUserRef& InUser);
 
 protected:
+    virtual void OnTheme() override;
+
     UPROPERTY(meta = (BindWidget))
     UAvatarWidget* Avatar;
 
@@ -32,7 +34,6 @@ protected:
 
 private:
     virtual void OnSetup() override;
-    virtual void OnTheme() override;
 
     FUserRef User;
 };

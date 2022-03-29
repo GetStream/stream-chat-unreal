@@ -17,6 +17,7 @@ class STREAMCHATUI_API USelectedContactWidget final : public UNamedAvatarWidget
     GENERATED_BODY()
 
 protected:
+    USelectedContactWidget();
     UPROPERTY(meta = (BindWidget))
     UBorder* Border;
 

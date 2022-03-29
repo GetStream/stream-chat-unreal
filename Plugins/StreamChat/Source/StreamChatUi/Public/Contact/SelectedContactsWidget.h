@@ -31,6 +31,15 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UWrapBox* WrapBox;
 
+    UPROPERTY(meta = (BindWidget))
+    UBorder* Border;
+
+    UPROPERTY(meta = (BindWidget))
+    UTextBlock* TextBlock;
+
+    UPROPERTY(meta = (BindWidget))
+    UImage* Divider;
+
     UPROPERTY(EditAnywhere, NoClear, Category = Defaults)
     TSubclassOf<USelectedContactWidget> SelectedContactWidgetClass = USelectedContactWidget::StaticClass();
 
