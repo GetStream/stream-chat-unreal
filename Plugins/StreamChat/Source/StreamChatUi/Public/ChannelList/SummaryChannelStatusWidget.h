@@ -42,7 +42,7 @@ private:
     virtual void OnSetup() override;
     virtual void OnTheme() override;
     virtual bool IsForChannel(const UChatChannel*) const override;
-    virtual FLinearColor GetTitleColor(UThemeDataAsset*) override;
+    virtual FLinearColor GetTitleColor() override;
 
     virtual int32 NativePaint(
         const FPaintArgs& Args,
