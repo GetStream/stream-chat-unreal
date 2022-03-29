@@ -6,7 +6,6 @@
 #include "Components/Widget.h"
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
-#include "Engine/DataTable.h"
 
 #include "ThemeDataAsset.generated.h"
 
@@ -14,7 +13,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UThemeDataAsset : public UDataAsset
+class STREAMCHATUI_API UThemeDataAsset final : public UDataAsset
 {
     GENERATED_BODY()
 
@@ -186,4 +185,14 @@ public:
     /// The color of the background of a selected contact "pill"
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Selected Contact")
     FName SelectedContactBackgroundColor = TEXT("borders");
+
+    /// The color of the divider below the selected contacts widget
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Selected Contacts")
+    FName SelectedContactsDividerColor = TEXT("borders");
+    /// The color of the label text in the selected contacts widget
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Selected Contacts")
+    FName SelectedContactsLabelTextColor = TEXT("text-low-emphasis");
+    /// The background color of the selected contacts widget
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Selected Contacts")
+    FName SelectedContactsBackgroundColor = TEXT("bars-bg");
 };

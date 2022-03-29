@@ -7,6 +7,7 @@
 USelectedContactsWidget::USelectedContactsWidget()
 {
     bAutoSetup = true;
+    bWantsTheme = true;
 }
 
 void USelectedContactsWidget::SetUsers(const TArray<FUserRef>& Users)
@@ -34,6 +35,18 @@ void USelectedContactsWidget::OnSetup()
 
 void USelectedContactsWidget::OnTheme()
 {
+    if (Border)
+    {
+        Border->SetBrushColor(Theme->GetPaletteColor(Theme->SelectedContactsBackgroundColor));
+    }
+    if (TextBlock)
+    {
+        TextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Theme->SelectedContactsLabelTextColor));
+    }
+    if (Divider)
+    {
+        Divider->SetColorAndOpacity(Theme->GetPaletteColor(Theme->SelectedContactsDividerColor));
+    }
 }
 
 void USelectedContactsWidget::PopulateWrapBox()
