@@ -51,7 +51,7 @@ protected:
     UImage* Divider;
 
 private:
-    virtual FLinearColor GetTitleColor(UThemeDataAsset*);
+    virtual FLinearColor GetTitleColor();
 
     UFUNCTION()
     void OnButtonClicked();

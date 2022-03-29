@@ -69,11 +69,11 @@ void UChannelStatusWidget::OnTheme()
 
     if (TitleTextBlock)
     {
-        TitleTextBlock->SetColorAndOpacity(GetTitleColor(Theme));
+        TitleTextBlock->SetColorAndOpacity(GetTitleColor());
     }
 }
 
-FLinearColor UChannelStatusWidget::GetTitleColor(UThemeDataAsset*)
+FLinearColor UChannelStatusWidget::GetTitleColor()
 {
     return Theme->GetPaletteColor(Theme->ChannelStatusTitleTextColor);
 }

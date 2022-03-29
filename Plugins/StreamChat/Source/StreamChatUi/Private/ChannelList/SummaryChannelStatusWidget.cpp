@@ -48,7 +48,7 @@ void USummaryChannelStatusWidget::OnTheme()
     }
 }
 
-FLinearColor USummaryChannelStatusWidget::GetTitleColor(UThemeDataAsset* Theme)
+FLinearColor USummaryChannelStatusWidget::GetTitleColor()
 {
     return Theme->GetPaletteColor(Channel && Channel->Properties.bMuted ? Theme->ChannelStatusMutedTitleTextColor : Theme->ChannelStatusTitleTextColor);
 }
