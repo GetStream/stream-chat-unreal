@@ -182,4 +182,8 @@ public:
     /// The color of the top left icon in the channel list header
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel List Header")
     FName ChannelListHeaderIconColor = TEXT("text-high-emphasis");
+
+    /// The color of the background of a selected contact "pill"
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Selected Contact")
+    FName SelectedContactBackgroundColor = TEXT("borders");
 };
