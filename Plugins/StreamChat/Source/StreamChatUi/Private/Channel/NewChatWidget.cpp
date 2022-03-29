@@ -14,8 +14,21 @@ void UNewChatWidget::Setup()
 
 void UNewChatWidget::OnSetup()
 {
+    if (UserList)
+    {
+        UserList->SetQuery();
+        UserList->OnUserClicked.AddDynamic(this, &UNewChatWidget::OnUserClicked);
+    }
 }
 
 void UNewChatWidget::OnTheme()
 {
+}
+
+void UNewChatWidget::OnUserClicked(const FUserRef& User)
+{
+    if (SelectedContacts)
+    {
+        SelectedContacts->AddUser(User);
+    }
 }

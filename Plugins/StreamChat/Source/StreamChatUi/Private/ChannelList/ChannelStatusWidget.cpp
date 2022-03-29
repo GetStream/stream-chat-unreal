@@ -5,7 +5,6 @@
 #include "Algo/Transform.h"
 #include "ThemeDataAsset.h"
 #include "UiBlueprintLibrary.h"
-#include "WidgetUtil.h"
 
 UChannelStatusWidget::UChannelStatusWidget()
 {
@@ -51,12 +50,12 @@ void UChannelStatusWidget::OnSetup()
 
 void UChannelStatusWidget::OnTheme()
 {
-    NormalStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusNormalBackgroundColor)};
-    NormalStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusSelectedBackgroundColor)};
-    NormalStyle.Hovered.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusHoveredBackgroundColor)};
-    SelectedStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusSelectedBackgroundColor)};
-    SelectedStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusSelectedBackgroundColor)};
-    SelectedStyle.Hovered.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ChannelStatusSelectedBackgroundColor)};
+    NormalStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->HeaderButtonNormalBackgroundColor)};
+    NormalStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->HeaderButtonSelectedBackgroundColor)};
+    NormalStyle.Hovered.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->HeaderButtonHoveredBackgroundColor)};
+    SelectedStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->HeaderButtonSelectedBackgroundColor)};
+    SelectedStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->HeaderButtonSelectedBackgroundColor)};
+    SelectedStyle.Hovered.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->HeaderButtonSelectedBackgroundColor)};
     if (Button)
     {
         Button->SetStyle(NormalStyle);

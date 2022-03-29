@@ -1,3 +1,5 @@
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+
 #include "Request/Channel/QueryChannelsRequestDto.h"
 
 FQueryChannelsRequestDto::FQueryChannelsRequestDto(

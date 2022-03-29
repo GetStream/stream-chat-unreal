@@ -1,3 +1,5 @@
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+
 #include "Request/Moderation/QueryBannedUsersRequestDto.h"
 
 #include "Request/SortParamRequestDto.h"

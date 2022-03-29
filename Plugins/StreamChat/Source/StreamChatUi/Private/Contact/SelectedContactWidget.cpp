@@ -1,12 +1,8 @@
 // Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
-#include "contact/SelectedContactWidget.h"
+#include "Contact/SelectedContactWidget.h"
 
 #include "ThemeDataAsset.h"
-
-void USelectedContactWidget::OnSetup()
-{
-}
 
 void USelectedContactWidget::OnTheme()
 {

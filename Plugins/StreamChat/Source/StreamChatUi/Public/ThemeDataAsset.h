@@ -157,15 +157,15 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel")
     FName ChannelHeaderDividerColor = TEXT("borders");
 
-    /// The normal background color of the channel status button
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel Status")
-    FName ChannelStatusNormalBackgroundColor = TEXT("bars-bg");
-    /// The hovered background color of the channel status button
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel Status")
-    FName ChannelStatusHoveredBackgroundColor = TEXT("input-bg");
-    /// The selected background color of the channel status button
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel Status")
-    FName ChannelStatusSelectedBackgroundColor = TEXT("borders");
+    /// The normal background color of a header button
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Header")
+    FName HeaderButtonNormalBackgroundColor = TEXT("bars-bg");
+    /// The hovered background color of a header button
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Header")
+    FName HeaderButtonHoveredBackgroundColor = TEXT("input-bg");
+    /// The selected background color of a header button
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Header")
+    FName HeaderButtonSelectedBackgroundColor = TEXT("borders");
     /// The color of the title text of the channel status widget normally
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Channel Status")
     FName ChannelStatusTitleTextColor = TEXT("text-high-emphasis");

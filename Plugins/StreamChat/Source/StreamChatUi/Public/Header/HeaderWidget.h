@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Components/Border.h"
+#include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "CoreMinimal.h"
 #include "StreamWidget.h"
@@ -30,9 +31,16 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void SetRightContent(UWidget* Content) const;
 
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE(FHeaderButtonClicked);
+    // Button needs to be bound
+    UPROPERTY(BlueprintAssignable)
+    FHeaderButtonClicked OnHeaderButtonClicked;
+
 protected:
-    UPROPERTY(meta = (BindWidget))
+    UPROPERTY(meta = (BindWidgetOptional))
     UBorder* Border;
+    UPROPERTY(meta = (BindWidgetOptional))
+    UButton* Button;
 
     UPROPERTY(meta = (BindWidget))
     UTextBlock* HeaderTitleTextBlock;
@@ -52,4 +60,9 @@ protected:
 private:
     virtual void OnSetup() override;
     virtual void OnTheme() override;
+
+    UFUNCTION()
+    void OnButtonClick();
+
+    FButtonStyle ButtonStyle;
 };
