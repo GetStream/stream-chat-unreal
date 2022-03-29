@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "Avatar/AvatarWidget.h"
 #include "Channel/ChatChannel.h"
 #include "Components/Button.h"
 #include "Components/Image.h"

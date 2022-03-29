@@ -14,7 +14,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UNamedAvatarWidget final : public UStreamWidget
+class STREAMCHATUI_API UNamedAvatarWidget : public UStreamWidget
 {
     GENERATED_BODY()
 

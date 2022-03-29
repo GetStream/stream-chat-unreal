@@ -2,9 +2,6 @@
 
 #pragma once
 
-#include "Channel/ChatChannel.h"
-#include "Components/Image.h"
-#include "Context/ChannelContextWidget.h"
 #include "CoreMinimal.h"
 #include "StreamWidget.h"
 
