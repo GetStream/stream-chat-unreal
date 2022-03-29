@@ -1,3 +1,5 @@
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+
 #include "Moderation/Ban.h"
 
 #include "StreamChatClientComponent.h"

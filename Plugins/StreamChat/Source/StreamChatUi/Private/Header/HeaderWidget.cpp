@@ -45,9 +45,19 @@ void UHeaderWidget::OnSetup()
         SubtitleSlot->SetVisibility(ESlateVisibility::Collapsed);
     }
 
+    if (RightSlot && !RightSlot->HasAnyChildren())
+    {
+        RightSlot->GetParent()->SetVisibility(ESlateVisibility::Collapsed);
+    }
+
     if (HeaderTitleTextBlock)
     {
         HeaderTitleTextBlock->SetText(Title);
+    }
+
+    if (Button)
+    {
+        Button->OnClicked.AddDynamic(this, &UHeaderWidget::OnButtonClick);
     }
 }
 
@@ -57,8 +67,20 @@ void UHeaderWidget::OnTheme()
     {
         Border->SetBrushColor(Theme->GetPaletteColor(Theme->HeaderBackgroundColor));
     }
+    if (Button)
+    {
+        ButtonStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->HeaderButtonNormalBackgroundColor)};
+        ButtonStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->HeaderButtonSelectedBackgroundColor)};
+        ButtonStyle.Hovered.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->HeaderButtonHoveredBackgroundColor)};
+        Button->SetStyle(ButtonStyle);
+    }
     if (HeaderTitleTextBlock)
     {
         HeaderTitleTextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Theme->HeaderTitleTextColor));
     }
+}
+
+void UHeaderWidget::OnButtonClick()
+{
+    OnHeaderButtonClicked.Broadcast();
 }

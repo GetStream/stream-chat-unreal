@@ -28,7 +28,7 @@ format:
 
 # Add copyright notice to all cs, cpp and h files
 fix-copyright:
-    for f in $(rg -t cpp -t h -t cs -g '!ThirdParty' --files-without-match -F "Copyright 2022 Stream.IO, Inc. All Rights Reserved."); do dos2unix $f; sed -i '1s;^;// Copyright 2022 Stream.IO, Inc. All Rights Reserved.\n\n;' $f; done
+    for f in $(rg -t cpp -t h -t cs -g '!ThirdParty' --files-without-match -F "Copyright 2022 Stream.IO, Inc. All Rights Reserved."); do dos2unix $f; sed -i '' '1s;^;// Copyright 2022 Stream.IO, Inc. All Rights Reserved.\n\n;' $f; done
 
 bump-version version:
     #!/usr/bin/env node

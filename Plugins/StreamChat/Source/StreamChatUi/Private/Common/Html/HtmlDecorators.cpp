@@ -1,3 +1,5 @@
+// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+
 #include "Common/Html/HtmlDecorators.h"
 
 #include "Algo/Transform.h"
