@@ -22,7 +22,7 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(const FUserRef& InUser);
 
-    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUserStatusClicked, const FUserRef&, User);
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FUserStatusClicked, const FUserRef&, User, bool, bSelected);
     UPROPERTY(BlueprintAssignable)
     FUserStatusClicked OnUserStatusClicked;
 
@@ -36,6 +36,9 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UTextBlock* SubtitleTextBlock;
 
+    UPROPERTY(meta = (BindWidget))
+    UWidget* Selected;
+
 private:
     virtual void OnSetup() override;
 
@@ -43,4 +46,5 @@ private:
     void ButtonClicked();
 
     FUserRef User;
+    bool bSelected = false;
 };

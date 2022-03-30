@@ -25,10 +25,17 @@ void UNewChatWidget::OnTheme()
 {
 }
 
-void UNewChatWidget::OnUserClicked(const FUserRef& User)
+void UNewChatWidget::OnUserClicked(const FUserRef& User, const bool bSelected)
 {
     if (SelectedContacts)
     {
-        SelectedContacts->AddUser(User);
+        if (bSelected)
+        {
+            SelectedContacts->AddUser(User);
+        }
+        else
+        {
+            SelectedContacts->RemoveUser(User);
+        }
     }
 }

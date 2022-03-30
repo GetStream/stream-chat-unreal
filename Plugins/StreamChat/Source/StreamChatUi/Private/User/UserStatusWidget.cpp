@@ -32,5 +32,10 @@ void UUserStatusWidget::OnSetup()
 
 void UUserStatusWidget::ButtonClicked()
 {
-    OnUserStatusClicked.Broadcast(User);
+    bSelected = !bSelected;
+    OnUserStatusClicked.Broadcast(User, bSelected);
+    if (Selected)
+    {
+        Selected->SetVisibility(bSelected ? ESlateVisibility::SelfHitTestInvisible : ESlateVisibility::Collapsed);
+    }
 }

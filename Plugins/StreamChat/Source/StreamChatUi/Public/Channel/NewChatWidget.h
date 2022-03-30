@@ -33,5 +33,5 @@ private:
     virtual void OnTheme() override;
 
     UFUNCTION()
-    void OnUserClicked(const FUserRef& User);
+    void OnUserClicked(const FUserRef& User, bool bSelected);
 };
