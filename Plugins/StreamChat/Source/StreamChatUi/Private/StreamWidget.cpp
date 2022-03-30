@@ -18,6 +18,7 @@ bool UStreamWidget::Initialize()
     {
         if (IsDesignTime() || bAutoSetup)
         {
+            Theme = Theme ? Theme : GetDefault<UThemeContextWidget>()->Theme;
             OnSetup();
         }
         return true;
