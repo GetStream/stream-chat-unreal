@@ -111,39 +111,54 @@ $(document).ready(function(){initNavTree('_icon_button_8h_source.html',''); init
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordtype">void</span> SetIconFromTexture(UTexture2D* Texture);</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    UFUNCTION(BlueprintCallable, Category = <span class="stringliteral">&quot;Icon Button&quot;</span>)</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordtype">void</span> SetIconPadding(<span class="keyword">const</span> FMargin&amp; InIconPadding);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    UPROPERTY(EditAnywhere, Category = Defaults)</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    UTexture2D* IconTexture;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    UPROPERTY(EditAnywhere, Category = Defaults)</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    FMargin IconPadding;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    UFUNCTION(BlueprintCallable, Category = <span class="stringliteral">&quot;Icon Button&quot;</span>)</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">void</span> SetIconPaletteColor(<span class="keyword">const</span> FName&amp; InPaletteColor);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    UFUNCTION(BlueprintCallable, Category = <span class="stringliteral">&quot;Icon Button&quot;</span>)</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordtype">void</span> SetEnabledBackgroundColor(<span class="keyword">const</span> FName&amp; InPaletteColor);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    UFUNCTION(BlueprintCallable, Category = <span class="stringliteral">&quot;Icon Button&quot;</span>)</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordtype">void</span> SetDisabledBackgroundColor(<span class="keyword">const</span> FName&amp; InPaletteColor);</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Defaults)</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">bool</span> bEnabled = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    UPROPERTY(BlueprintAssignable, Category = <span class="stringliteral">&quot;Button|Event&quot;</span>)</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="class_u_icon_button.html#ad95b3354e3aafed899e113895a89e93b">   42</a></span>    FOnButtonClickedEvent OnClicked;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>protected:</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    UPROPERTY(meta = (BindWidget))</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    UButton* Button;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    UPROPERTY(meta = (BindWidget))</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    UImage* Icon;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    UPROPERTY(EditAnywhere, Category = Defaults)</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    FButtonStyle EnabledStyle;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    UPROPERTY(EditAnywhere, Category = Defaults)</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    FButtonStyle DisabledStyle;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>private:</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    virtual <span class="keywordtype">void</span> SynchronizeProperties() override;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    virtual <span class="keywordtype">void</span> NativeOnInitialized() override;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    virtual <span class="keywordtype">void</span> OnTheme() override;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    UFUNCTION()</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordtype">void</span> OnButtonClicked();</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>};</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    UPROPERTY(EditAnywhere, Category = Defaults)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    UTexture2D* IconTexture;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="comment">// IconTexture use if null</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    UPROPERTY(EditAnywhere, Category = Defaults)</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    UTexture2D* DisabledIconTexture;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    UPROPERTY(EditAnywhere, Category = Defaults)</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    FMargin IconPadding;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    UPROPERTY(EditAnywhere, Category = Defaults)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    FName IconPaletteColor = TEXT(<span class="stringliteral">&quot;text-high-emphasis&quot;</span>);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    UPROPERTY(EditAnywhere, Category = Defaults)</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    FName EnabledBackgroundColor = TEXT(<span class="stringliteral">&quot;accent-primary&quot;</span>);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    UPROPERTY(EditAnywhere, Category = Defaults)</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    FName DisabledBackgroundColor = TEXT(<span class="stringliteral">&quot;disabled&quot;</span>);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Defaults) <span class="keywordtype">bool</span> bEnabled = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    UPROPERTY(BlueprintAssignable, Category = <span class="stringliteral">&quot;Button|Event&quot;</span>)</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="class_u_icon_button.html#ad95b3354e3aafed899e113895a89e93b">   57</a></span>    FOnButtonClickedEvent OnClicked;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>protected:</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    UPROPERTY(meta = (BindWidget))</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    UButton* Button;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    UPROPERTY(meta = (BindWidget))</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    UImage* Icon;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    UPROPERTY(EditAnywhere, Category = Defaults)</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    FButtonStyle EnabledStyle;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    UPROPERTY(EditAnywhere, Category = Defaults)</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    FButtonStyle DisabledStyle;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>private:</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    virtual <span class="keywordtype">void</span> SynchronizeProperties() override;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    virtual <span class="keywordtype">void</span> NativeOnInitialized() override;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    virtual <span class="keywordtype">void</span> OnTheme() override;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    UFUNCTION()</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordtype">void</span> OnButtonClicked();</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>};</div>
 <div class="ttc" id="aclass_u_icon_button_html"><div class="ttname"><a href="class_u_icon_button.html">UIconButton</a></div><div class="ttdoc">A button with an icon which can be disabled and themed.</div><div class="ttdef"><b>Definition:</b> IconButton.h:19</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
