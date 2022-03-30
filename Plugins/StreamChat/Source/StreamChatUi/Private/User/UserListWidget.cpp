@@ -64,7 +64,7 @@ void UUserListWidget::PopulateScrollBox(const TArray<FUserRef>& Users)
     }
 }
 
-void UUserListWidget::UserStatusClicked(const FUserRef& User)
+void UUserListWidget::UserStatusClicked(const FUserRef& User, bool bSelected)
 {
-    OnUserClicked.Broadcast(User);
+    OnUserClicked.Broadcast(User, bSelected);
 }

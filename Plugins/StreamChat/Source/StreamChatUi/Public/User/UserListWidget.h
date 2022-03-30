@@ -22,7 +22,7 @@ public:
     UUserListWidget();
     void SetQuery(const FFilter& UsersQueryFilter = {}, const TArray<FUserSortOption>& UserQuerySort = {});
 
-    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUserClicked, const FUserRef&, User);
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FUserClicked, const FUserRef&, User, bool, bSelected);
     UPROPERTY(BlueprintAssignable)
     FUserClicked OnUserClicked;
 
@@ -42,7 +42,7 @@ private:
     void PopulateScrollBox(const TArray<FUserRef>&);
 
     UFUNCTION()
-    void UserStatusClicked(const FUserRef& User);
+    void UserStatusClicked(const FUserRef& User, bool bSelected);
 
     FFilter Filter;
     TArray<FUserSortOption> Sort;
