@@ -13,15 +13,17 @@ UIconButton::UIconButton()
 void UIconButton::SetEnabled(const bool bInEnabled)
 {
     bEnabled = bInEnabled;
-    if (Button)
+    if (Button && Icon)
     {
         if (bInEnabled)
         {
             Button->SetStyle(EnabledStyle);
+            Icon->SetBrushFromTexture(IconTexture);
         }
         else
         {
             Button->SetStyle(DisabledStyle);
+            Icon->SetBrushFromTexture(DisabledIconTexture ? DisabledIconTexture : IconTexture);
         }
     }
 }
@@ -45,12 +47,40 @@ void UIconButton::SetIconPadding(const FMargin& InIconPadding)
     }
 }
 
+void UIconButton::SetIconPaletteColor(const FName& InPaletteColor)
+{
+    if (Icon && Theme)
+    {
+        Icon->SetColorAndOpacity(Theme->GetPaletteColor(InPaletteColor));
+    }
+}
+
+void UIconButton::SetEnabledBackgroundColor(const FName& InPaletteColor)
+{
+    if (Theme)
+    {
+        const FSlateColor EnabledColor{Theme->GetPaletteColor(InPaletteColor)};
+        EnabledStyle.Normal.TintColor = EnabledColor;
+        EnabledStyle.Hovered.TintColor = EnabledColor;
+        EnabledStyle.Pressed.TintColor = EnabledColor;
+    }
+}
+
+void UIconButton::SetDisabledBackgroundColor(const FName& InPaletteColor)
+{
+    if (Theme)
+    {
+        const FSlateColor DisabledColor{Theme->GetPaletteColor(InPaletteColor)};
+        DisabledStyle.Normal.TintColor = DisabledColor;
+        DisabledStyle.Hovered.TintColor = DisabledColor;
+        DisabledStyle.Pressed.TintColor = DisabledColor;
+    }
+}
+
 void UIconButton::SynchronizeProperties()
 {
     Super::SynchronizeProperties();
-    SetIconFromTexture(IconTexture);
-    SetIconPadding(IconPadding);
-    SetEnabled(bEnabled);
+    OnTheme();
 }
 
 void UIconButton::NativeOnInitialized()
@@ -64,14 +94,11 @@ void UIconButton::NativeOnInitialized()
 
 void UIconButton::OnTheme()
 {
-    const FSlateColor EnabledColor{Theme->GetPaletteColor(Theme->IconButtonEnabledBackgroundColor)};
-    const FSlateColor DisabledColor{Theme->GetPaletteColor(Theme->IconButtonDisabledBackgroundColor)};
-    EnabledStyle.Normal.TintColor = EnabledColor;
-    EnabledStyle.Hovered.TintColor = EnabledColor;
-    EnabledStyle.Pressed.TintColor = EnabledColor;
-    DisabledStyle.Normal.TintColor = DisabledColor;
-    DisabledStyle.Hovered.TintColor = DisabledColor;
-    DisabledStyle.Pressed.TintColor = DisabledColor;
+    SetIconPadding(IconPadding);
+    SetIconPaletteColor(IconPaletteColor);
+    SetEnabledBackgroundColor(EnabledBackgroundColor);
+    SetDisabledBackgroundColor(DisabledBackgroundColor);
+    SetEnabled(bEnabled);
 }
 
 void UIconButton::OnButtonClicked()

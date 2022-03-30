@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "Common/IconButton.h"
+#include "Components/EditableText.h"
 #include "Components/WrapBox.h"
 #include "CoreMinimal.h"
 #include "SelectedContactWidget.h"
@@ -40,6 +42,12 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UImage* Divider;
 
+    UPROPERTY(meta = (BindWidget))
+    UIconButton* AddUserButton;
+
+    UPROPERTY(meta = (BindWidget))
+    UEditableText* SearchText;
+
     UPROPERTY(EditAnywhere, NoClear, Category = Defaults)
     TSubclassOf<USelectedContactWidget> SelectedContactWidgetClass = USelectedContactWidget::StaticClass();
 
@@ -49,5 +57,12 @@ protected:
 private:
     virtual void OnSetup() override;
     virtual void OnTheme() override;
+
+    UFUNCTION()
+    void OnAddUserClicked();
+
     void PopulateWrapBox();
+    void SetTypingMode(bool bNewTypingMode);
+
+    bool bTypingMode = false;
 };

@@ -3,6 +3,7 @@
 #include "Contact/SelectedContactsWidget.h"
 
 #include "ThemeDataAsset.h"
+#include "TimerManager.h"
 
 USelectedContactsWidget::USelectedContactsWidget()
 {
@@ -20,17 +21,26 @@ void USelectedContactsWidget::AddUser(const FUserRef& User)
 {
     Contacts.Add(User);
     PopulateWrapBox();
+    SetTypingMode(false);
 }
 
 void USelectedContactsWidget::RemoveUser(const FUserRef& User)
 {
     Contacts.Remove(User);
     PopulateWrapBox();
+    SetTypingMode(false);
 }
 
 void USelectedContactsWidget::OnSetup()
 {
     SetUsers(Contacts);
+
+    if (AddUserButton)
+    {
+        AddUserButton->OnClicked.AddDynamic(this, &USelectedContactsWidget::OnAddUserClicked);
+    }
+
+    GetWorld()->GetTimerManager().SetTimerForNextTick([this] { SetTypingMode(true); });
 }
 
 void USelectedContactsWidget::OnTheme()
@@ -47,10 +57,27 @@ void USelectedContactsWidget::OnTheme()
     {
         Divider->SetColorAndOpacity(Theme->GetPaletteColor(Theme->SelectedContactsDividerColor));
     }
+    if (SearchText)
+    {
+        SearchText->WidgetStyle.SetColorAndOpacity(Theme->GetPaletteColor(Theme->SelectedContactsSearchTextColor));
+    }
 }
 
 void USelectedContactsWidget::PopulateWrapBox()
 {
+    if (!WrapBox)
+    {
+        return;
+    }
+
+    if (Contacts.Num() == 0)
+    {
+        WrapBox->SetVisibility(ESlateVisibility::Collapsed);
+        return;
+    }
+
+    WrapBox->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+
     WrapBox->ClearChildren();
     for (const FUserRef& User : Contacts)
     {
@@ -58,4 +85,41 @@ void USelectedContactsWidget::PopulateWrapBox()
         Widget->Setup(User);
         WrapBox->AddChildToWrapBox(Widget);
     }
+}
+
+void USelectedContactsWidget::SetTypingMode(const bool bNewTypingMode)
+{
+    if (bNewTypingMode == bTypingMode)
+    {
+        return;
+    }
+    bTypingMode = bNewTypingMode;
+
+    if (!SearchText || !AddUserButton)
+    {
+        return;
+    }
+
+    if (bTypingMode)
+    {
+        SearchText->SetVisibility(ESlateVisibility::Visible);
+        SearchText->SetKeyboardFocus();
+        AddUserButton->SetEnabled(false);
+    }
+    else
+    {
+        SearchText->SetVisibility(ESlateVisibility::Collapsed);
+        SearchText->SetText(FText::GetEmpty());
+        AddUserButton->SetEnabled(true);
+    }
+}
+
+void USelectedContactsWidget::OnAddUserClicked()
+{
+    if (bTypingMode)
+    {
+        return;
+    }
+
+    SetTypingMode(true);
 }

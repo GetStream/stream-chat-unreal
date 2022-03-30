@@ -27,15 +27,30 @@ public:
     void SetIconFromTexture(UTexture2D* Texture);
     UFUNCTION(BlueprintCallable, Category = "Icon Button")
     void SetIconPadding(const FMargin& InIconPadding);
+    UFUNCTION(BlueprintCallable, Category = "Icon Button")
+    void SetIconPaletteColor(const FName& InPaletteColor);
+    UFUNCTION(BlueprintCallable, Category = "Icon Button")
+    void SetEnabledBackgroundColor(const FName& InPaletteColor);
+    UFUNCTION(BlueprintCallable, Category = "Icon Button")
+    void SetDisabledBackgroundColor(const FName& InPaletteColor);
 
     UPROPERTY(EditAnywhere, Category = Defaults)
     UTexture2D* IconTexture;
+    // IconTexture use if null
+    UPROPERTY(EditAnywhere, Category = Defaults)
+    UTexture2D* DisabledIconTexture;
 
     UPROPERTY(EditAnywhere, Category = Defaults)
     FMargin IconPadding;
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Defaults)
-    bool bEnabled = true;
+    UPROPERTY(EditAnywhere, Category = Defaults)
+    FName IconPaletteColor = TEXT("text-high-emphasis");
+    UPROPERTY(EditAnywhere, Category = Defaults)
+    FName EnabledBackgroundColor = TEXT("accent-primary");
+    UPROPERTY(EditAnywhere, Category = Defaults)
+    FName DisabledBackgroundColor = TEXT("disabled");
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Defaults) bool bEnabled = true;
 
     /** Called when the button is clicked */
     UPROPERTY(BlueprintAssignable, Category = "Button|Event")

@@ -70,14 +70,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Input")
     FName MessageInputBorderColor = TEXT("borders");
 
-    /// The enabled color for the background of icon buttons
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Icon Button")
-    FName IconButtonEnabledBackgroundColor = TEXT("accent-primary");
-    /// The disabled color for the background of icon buttons
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Icon Button")
-    FName IconButtonDisabledBackgroundColor = TEXT("disabled");
-
-    // The background color of a button in the reaction picker when hovered/clicked
+    // The background color of a highlight button when hovered
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Back Button")
     FName BackButtonSelectedColor = TEXT("input-bg");
 
@@ -195,4 +188,7 @@ public:
     /// The background color of the selected contacts widget
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Selected Contacts")
     FName SelectedContactsBackgroundColor = TEXT("bars-bg");
+    /// The search text color of the selected contacts widget
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Selected Contacts")
+    FName SelectedContactsSearchTextColor = TEXT("text-high-emphasis");
 };
