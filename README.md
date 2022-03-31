@@ -13,7 +13,7 @@
     |
     <a href="https://getstream.io/chat/unreal/tutorial/">Tutorial</a>
     |
-    <a href="https://getstream.io/chat/docs/sdk/unreal/">SDK Documentation</a>
+    <a href="https://getstream.io/chat/docs/unreal/">SDK Documentation</a>
     |
     <a href="https://getstream.github.io/stream-chat-unreal/">C++ Documentation</a>
     |
