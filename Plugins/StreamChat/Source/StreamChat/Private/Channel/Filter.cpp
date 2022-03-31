@@ -257,6 +257,11 @@ FFilter FFilter::NotIn(const FName& Field, const TArray<FString>& Values)
     return MakeArrayComparison(EFilterOperator::NotIn, Field, Values);
 }
 
+FFilter FFilter::Exists(const FName& Field, const bool bValue)
+{
+    return MakeComparison(EFilterOperator::Exists, Field, bValue);
+}
+
 FFilter FFilter::Empty(const FName& Field)
 {
     FFilter Filter;

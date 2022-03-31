@@ -2,10 +2,10 @@
 
 #pragma once
 
+#include "Common/PaginateScrollWidget.h"
 #include "Components/ScrollBox.h"
 #include "CoreMinimal.h"
 #include "SectionHeadingWidget.h"
-#include "StreamWidget.h"
 #include "UserStatusWidget.h"
 
 #include "UserListWidget.generated.h"
@@ -14,7 +14,7 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UUserListWidget final : public UStreamWidget
+class STREAMCHATUI_API UUserListWidget final : public UPaginateScrollWidget
 {
     GENERATED_BODY()
 
@@ -27,9 +27,6 @@ public:
     FUserClicked OnUserClicked;
 
 protected:
-    UPROPERTY(meta = (BindWidget))
-    UScrollBox* ScrollBox;
-
     UPROPERTY(EditAnywhere, NoClear, Category = Defaults)
     TSubclassOf<UUserStatusWidget> UserStatusWidgetClass = UUserStatusWidget::StaticClass();
     UPROPERTY(EditAnywhere, NoClear, Category = Defaults)
@@ -38,11 +35,12 @@ protected:
 private:
     virtual void OnSetup() override;
     virtual void OnClient() override;
-    void QueryUsers();
-    void PopulateScrollBox(const TArray<FUserRef>&);
+    virtual void Paginate(EPaginationDirection Directions, TFunction<void()> Callback) override;
+    void PopulateScrollBox();
 
     UFUNCTION()
     void UserStatusClicked(const FUserRef& User, bool bSelected);
 
     FFilter Filter;
+    TArray<FUserRef> Users;
 };
