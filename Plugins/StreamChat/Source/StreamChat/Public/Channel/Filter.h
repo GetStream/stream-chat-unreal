@@ -153,6 +153,9 @@ struct STREAMCHAT_API FFilter
     /// Construct an $nin filter
     static FFilter NotIn(const FName& Field, const TArray<FString>& Values);
 
+    /// Construct an $exists filter
+    static FFilter Exists(const FName& Field, bool bValue);
+
     /// Construct an empty filter, e.g. {field:{}}
     static FFilter Empty(const FName& Field);
 

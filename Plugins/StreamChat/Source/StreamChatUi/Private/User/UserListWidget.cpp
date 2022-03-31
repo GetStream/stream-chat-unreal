@@ -13,7 +13,7 @@ void UUserListWidget::SetQuery(const FFilter& UsersQueryFilter)
 {
     Filter = UsersQueryFilter;
 
-    QueryUsers();
+    Paginate(EPaginationDirection::Bottom, {});
 }
 
 void UUserListWidget::OnSetup()
@@ -22,29 +22,38 @@ void UUserListWidget::OnSetup()
 
 void UUserListWidget::OnClient()
 {
-    QueryUsers();
+    Paginate(EPaginationDirection::Bottom, {});
 }
 
-void UUserListWidget::QueryUsers()
+void UUserListWidget::Paginate(const EPaginationDirection Directions, const TFunction<void()> Callback)
 {
     if (!Client)
     {
         return;
     }
-    const FUserSortOption Sort{EUserSortField::Custom, TEXT("name"), ESortDirection::Ascending};
+    const FUserSortOption SortName{EUserSortField::Custom, TEXT("name"), ESortDirection::Ascending};
     Client->QueryUsers(
-        [WeakThis = TWeakObjectPtr<UUserListWidget>(this)](const TArray<FUserRef>& Users)
+        [WeakThis = TWeakObjectPtr<UUserListWidget>(this), Callback](const TArray<FUserRef>& QueryUsers)
         {
             if (WeakThis.IsValid())
             {
-                WeakThis->PopulateScrollBox(Users);
+                WeakThis->Users.Append(QueryUsers);
+                WeakThis->PopulateScrollBox();
+            }
+
+            if (Callback)
+            {
+                Callback();
             }
         },
         Filter,
-        {Sort});
+        {SortName},
+        false,
+        30,
+        Users.Num());
 }
 
-void UUserListWidget::PopulateScrollBox(const TArray<FUserRef>& Users)
+void UUserListWidget::PopulateScrollBox()
 {
     for (UWidget* Child : ScrollBox->GetAllChildren())
     {
@@ -53,33 +62,36 @@ void UUserListWidget::PopulateScrollBox(const TArray<FUserRef>& Users)
             Widget->OnUserStatusClicked.RemoveDynamic(this, &UUserListWidget::UserStatusClicked);
         }
     }
-    ScrollBox->ClearChildren();
 
+    TArray<UWidget*> Children;
     TCHAR PrevLetter = TEXT('\0');
     for (const FUserRef& User : Users)
     {
-        const FString& Name = User->GetNameOrId();
-        if (Name.IsEmpty())
+        // Skip users without a name
+        if (User->Name.IsEmpty())
         {
             continue;
         }
-        const TCHAR Letter = FChar::ToUpper(Name[0]);
+
+        const TCHAR Letter = FChar::ToUpper(User->Name[0]);
         if (Letter != PrevLetter)
         {
             USectionHeadingWidget* Widget = CreateWidget<USectionHeadingWidget>(this, SectionHeadingWidgetClass);
             Widget->Setup(FText::FromString(FString(1, &Letter)));
-            ScrollBox->AddChild(Widget);
+            Children.Add(Widget);
             PrevLetter = Letter;
         }
 
         UUserStatusWidget* Widget = CreateWidget<UUserStatusWidget>(this, UserStatusWidgetClass);
         Widget->Setup(User);
         Widget->OnUserStatusClicked.AddDynamic(this, &UUserListWidget::UserStatusClicked);
-        ScrollBox->AddChild(Widget);
+        Children.Add(Widget);
     }
+
+    SetChildren(Children);
 }
 
-void UUserListWidget::UserStatusClicked(const FUserRef& User, bool bSelected)
+void UUserListWidget::UserStatusClicked(const FUserRef& User, const bool bSelected)
 {
     OnUserClicked.Broadcast(User, bSelected);
 }
