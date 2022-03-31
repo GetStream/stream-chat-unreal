@@ -54,40 +54,7 @@ FText UOnlineStatusSubheaderWidget::GetSingleUserLabel(const FUserRef& User) con
         return FText::GetEmpty();
     }
 
-    if (User->bOnline)
-    {
-        return FText::FromString(TEXT("Online"));
-    }
-
-    const FDateTime& LastActive = GetLastActive(User);
-    const FDateTime Now = FDateTime::UtcNow();
-    const FTimespan Delta = Now - LastActive;
-    if (Delta < FTimespan::FromMinutes(1.f))
-    {
-        return FText::FromString(TEXT("Last seen just now"));
-    }
-    // TODO RelativeDateTimeFormatter
-    FFormatNamedArguments Args;
-    if (Delta < FTimespan::FromHours(1.f))
-    {
-        Args.Add(TEXT("Num"), FMath::FloorToInt(Delta.GetTotalMinutes()));
-        Args.Add(TEXT("Unit"), FText::FromString(TEXT("minute")));
-        Args.Add(TEXT("Units"), FText::FromString(TEXT("minutes")));
-    }
-    else if (Delta < FTimespan::FromDays(1.f))
-    {
-        Args.Add(TEXT("Num"), FMath::FloorToInt(Delta.GetTotalHours()));
-        Args.Add(TEXT("Unit"), FText::FromString(TEXT("hour")));
-        Args.Add(TEXT("Units"), FText::FromString(TEXT("hours")));
-    }
-    else
-    {
-        Args.Add(TEXT("Num"), FMath::FloorToInt(Delta.GetTotalDays()));
-        Args.Add(TEXT("Unit"), FText::FromString(TEXT("day")));
-        Args.Add(TEXT("Units"), FText::FromString(TEXT("days")));
-    }
-
-    return FText::Format(FText::FromString(TEXT("Last seen {Num} {Num}|plural(one={Unit},other={Units}) ago")), Args);
+    return User->GetLastSeenText();
 }
 
 FText UOnlineStatusSubheaderWidget::GetMultiUserLabel() const
@@ -99,23 +66,4 @@ FText UOnlineStatusSubheaderWidget::GetMultiUserLabel() const
     Args.Add(TEXT("TotalCount"), TotalCount);
     Args.Add(TEXT("OnlineCount"), OnlineCount);
     return FText::Format(FText::FromString(TEXT("{TotalCount} Members, {OnlineCount} Online")), Args);
-}
-
-const FDateTime& UOnlineStatusSubheaderWidget::GetLastActive(const FUserRef& User)
-{
-    static FDateTime None{0};
-    if (!User.IsValid())
-    {
-        return None;
-    }
-
-    if (User->LastActive.GetTicks() > 0)
-    {
-        return User->LastActive;
-    }
-    if (User->UpdatedAt.GetTicks() > 0)
-    {
-        return User->LastActive;
-    }
-    return User->CreatedAt;
 }

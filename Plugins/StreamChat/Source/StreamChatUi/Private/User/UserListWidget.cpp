@@ -9,10 +9,9 @@ UUserListWidget::UUserListWidget()
     bWantsClient = true;
 }
 
-void UUserListWidget::SetQuery(const FFilter& UsersQueryFilter, const TArray<FUserSortOption>& UserQuerySort)
+void UUserListWidget::SetQuery(const FFilter& UsersQueryFilter)
 {
     Filter = UsersQueryFilter;
-    Sort = UserQuerySort;
 
     QueryUsers();
 }
@@ -32,6 +31,7 @@ void UUserListWidget::QueryUsers()
     {
         return;
     }
+    const FUserSortOption Sort{EUserSortField::Custom, TEXT("name"), ESortDirection::Ascending};
     Client->QueryUsers(
         [WeakThis = TWeakObjectPtr<UUserListWidget>(this)](const TArray<FUserRef>& Users)
         {
@@ -41,7 +41,7 @@ void UUserListWidget::QueryUsers()
             }
         },
         Filter,
-        Sort);
+        {Sort});
 }
 
 void UUserListWidget::PopulateScrollBox(const TArray<FUserRef>& Users)
@@ -55,8 +55,23 @@ void UUserListWidget::PopulateScrollBox(const TArray<FUserRef>& Users)
     }
     ScrollBox->ClearChildren();
 
+    TCHAR PrevLetter = TEXT('\0');
     for (const FUserRef& User : Users)
     {
+        const FString& Name = User->GetNameOrId();
+        if (Name.IsEmpty())
+        {
+            continue;
+        }
+        const TCHAR Letter = FChar::ToUpper(Name[0]);
+        if (Letter != PrevLetter)
+        {
+            USectionHeadingWidget* Widget = CreateWidget<USectionHeadingWidget>(this, SectionHeadingWidgetClass);
+            Widget->Setup(FText::FromString(FString(1, &Letter)));
+            ScrollBox->AddChild(Widget);
+            PrevLetter = Letter;
+        }
+
         UUserStatusWidget* Widget = CreateWidget<UUserStatusWidget>(this, UserStatusWidgetClass);
         Widget->Setup(User);
         Widget->OnUserStatusClicked.AddDynamic(this, &UUserListWidget::UserStatusClicked);

@@ -41,6 +41,7 @@ protected:
 
 private:
     virtual void OnSetup() override;
+    virtual void OnTheme() override;
 
     UFUNCTION()
     void ButtonClicked();

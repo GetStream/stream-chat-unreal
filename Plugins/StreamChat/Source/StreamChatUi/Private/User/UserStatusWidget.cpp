@@ -1,9 +1,11 @@
 #include "User/UserStatusWidget.h"
 
+#include "ThemeDataAsset.h"
 #include "User/User.h"
 
 UUserStatusWidget::UUserStatusWidget()
 {
+    bWantsTheme = true;
 }
 
 void UUserStatusWidget::Setup(const FUserRef& InUser)
@@ -21,12 +23,20 @@ void UUserStatusWidget::OnSetup()
     }
     if (Header)
     {
-        Header->SetTitle(FText::FromString(User->Name.IsEmpty() ? User->Id : User->Name));
+        Header->SetTitle(FText::FromString(User->GetNameOrId()));
         Header->OnHeaderButtonClicked.AddDynamic(this, &UUserStatusWidget::ButtonClicked);
     }
     if (SubtitleTextBlock)
     {
-        SubtitleTextBlock->SetText(FText::FromString(TEXT("Last online at some point")));
+        SubtitleTextBlock->SetText(User->GetLastSeenText());
+    }
+}
+
+void UUserStatusWidget::OnTheme()
+{
+    if (SubtitleTextBlock)
+    {
+        SubtitleTextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Theme->StatusSubtitleTextColor));
     }
 }
 

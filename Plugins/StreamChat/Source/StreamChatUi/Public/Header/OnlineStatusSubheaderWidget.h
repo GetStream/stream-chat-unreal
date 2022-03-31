@@ -30,7 +30,6 @@ private:
     FText GetLabel() const;
     FText GetSingleUserLabel(const FUserRef& User) const;
     FText GetMultiUserLabel() const;
-    static const FDateTime& GetLastActive(const FUserRef& User);
 
     FTimerHandle Handle;
 };
