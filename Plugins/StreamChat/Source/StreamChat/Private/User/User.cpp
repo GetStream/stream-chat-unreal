@@ -86,6 +86,16 @@ FUser::operator FUserObjectRequestDto() const
     return FUserObjectRequestDto{FUserDto{*this}};
 }
 
+const FString& FUser::GetNameOrId() const
+{
+    if (!Name.IsEmpty())
+    {
+        return Name;
+    }
+
+    return Id;
+}
+
 void FUser::Update(const FUser& User)
 {
     // TODO Devices
@@ -136,24 +146,87 @@ FString FUser::GetInitials(const int32 Limit) const
     FString Initials;
     Initials.Reserve(Limit);
     int32 Pos = 0;
-    while (Pos < Name.Len())
+    const FString& N = GetNameOrId();
+    while (Pos < N.Len())
     {
-        while (Pos < Name.Len() && FChar::IsWhitespace((*Name)[Pos]))
+        while (Pos < N.Len() && FChar::IsWhitespace((*N)[Pos]))
         {
             Pos++;
         }
-        Initials.AppendChar(Name[Pos]);
+        Initials.AppendChar(N[Pos]);
         if (Initials.Len() >= Limit)
         {
             break;
         }
-        while (Pos < Name.Len() && !FChar::IsWhitespace((*Name)[Pos]))
+        while (Pos < N.Len() && !FChar::IsWhitespace((*N)[Pos]))
         {
             Pos++;
         }
     }
     Initials.ToUpperInline();
     return Initials;
+}
+
+const FDateTime& FUser::GetLastActive() const
+{
+    if (LastActive.GetTicks() > 0)
+    {
+        return LastActive;
+    }
+    if (UpdatedAt.GetTicks() > 0)
+    {
+        return UpdatedAt;
+    }
+    return CreatedAt;
+}
+
+FText FUser::GetLastSeenText() const
+{
+    if (bOnline)
+    {
+        return FText::FromString(TEXT("Online"));
+    }
+
+    const FDateTime Now = FDateTime::UtcNow();
+    const FTimespan Delta = Now - GetLastActive();
+    if (Delta < FTimespan::FromMinutes(1.f))
+    {
+        return FText::FromString(TEXT("Last seen just now"));
+    }
+    // TODO RelativeDateTimeFormatter
+    FFormatNamedArguments Args;
+    if (Delta < FTimespan::FromHours(1.f))
+    {
+        Args.Add(TEXT("Num"), FMath::FloorToInt(Delta.GetTotalMinutes()));
+        Args.Add(TEXT("Unit"), FText::FromString(TEXT("minute")));
+        Args.Add(TEXT("Units"), FText::FromString(TEXT("minutes")));
+    }
+    else if (Delta < FTimespan::FromDays(1.f))
+    {
+        Args.Add(TEXT("Num"), FMath::FloorToInt(Delta.GetTotalHours()));
+        Args.Add(TEXT("Unit"), FText::FromString(TEXT("hour")));
+        Args.Add(TEXT("Units"), FText::FromString(TEXT("hours")));
+    }
+    else if (Delta < FTimespan::FromDays(30.f))
+    {
+        Args.Add(TEXT("Num"), FMath::FloorToInt(Delta.GetTotalDays()));
+        Args.Add(TEXT("Unit"), FText::FromString(TEXT("day")));
+        Args.Add(TEXT("Units"), FText::FromString(TEXT("days")));
+    }
+    else if (Delta < FTimespan::FromDays(365.f))
+    {
+        Args.Add(TEXT("Num"), FMath::FloorToInt(Delta.GetTotalDays() / 30.f));
+        Args.Add(TEXT("Unit"), FText::FromString(TEXT("month")));
+        Args.Add(TEXT("Units"), FText::FromString(TEXT("months")));
+    }
+    else
+    {
+        Args.Add(TEXT("Num"), FMath::FloorToInt(Delta.GetTotalDays() / 365.f));
+        Args.Add(TEXT("Unit"), FText::FromString(TEXT("year")));
+        Args.Add(TEXT("Units"), FText::FromString(TEXT("years")));
+    }
+
+    return FText::Format(FText::FromString(TEXT("Last seen {Num} {Num}|plural(one={Unit},other={Units}) ago")), Args);
 }
 
 bool UUserBlueprintLibrary::GenerateUserId(const FString& Name, FString& OutUserId)

@@ -38,8 +38,14 @@ struct STREAMCHAT_API FUser
     /// Convert to UserObjectRequestDto
     explicit operator FUserObjectRequestDto() const;
 
+    // Get name, falling back to id
+    const FString& GetNameOrId() const;
     /// Generate initials from the user's name
     FString GetInitials(int32 Limit = 2) const;
+    /// Return best value for when the user was last active
+    const FDateTime& GetLastActive() const;
+    /// e.g. Last seen 10 minutes ago
+    FText GetLastSeenText() const;
     void Update(const FUser& User);
 
     /// The id of this user

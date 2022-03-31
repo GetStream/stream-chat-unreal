@@ -191,4 +191,15 @@ public:
     /// The search text color of the selected contacts widget
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Selected Contacts")
     FName SelectedContactsSearchTextColor = TEXT("text-high-emphasis");
+
+    /// The color of the text in a section header widget
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Section Heading")
+    FName SectionHeadingTextColor = TEXT("text-low-emphasis");
+    /// The color of the background in a section header widget
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Section Heading")
+    FName SectionHeadingBackgroundColor = TEXT("input-bg");
+
+    /// The text color of a status subtitle
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Section Heading")
+    FName StatusSubtitleTextColor = TEXT("text-low-emphasis");
 };

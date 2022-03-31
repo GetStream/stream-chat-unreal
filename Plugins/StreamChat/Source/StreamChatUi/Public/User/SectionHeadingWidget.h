@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "Components/Border.h"
 #include "Components/TextBlock.h"
 #include "CoreMinimal.h"
 #include "StreamWidget.h"
@@ -24,9 +25,13 @@ public:
 protected:
     UPROPERTY(meta = (BindWidget))
     UTextBlock* TextBlock;
+    UPROPERTY(meta = (BindWidget))
+    UBorder* Border;
+
+    UPROPERTY(EditDefaultsOnly, Category = Defaults)
+    FText Label;
 
 private:
     virtual void OnSetup() override;
-
-    FText Label;
+    virtual void OnTheme() override;
 };

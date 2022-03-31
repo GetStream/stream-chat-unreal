@@ -20,7 +20,7 @@ class STREAMCHATUI_API UUserListWidget final : public UStreamWidget
 
 public:
     UUserListWidget();
-    void SetQuery(const FFilter& UsersQueryFilter = {}, const TArray<FUserSortOption>& UserQuerySort = {});
+    void SetQuery(const FFilter& UsersQueryFilter = {});
 
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FUserClicked, const FUserRef&, User, bool, bSelected);
     UPROPERTY(BlueprintAssignable)
@@ -45,5 +45,4 @@ private:
     void UserStatusClicked(const FUserRef& User, bool bSelected);
 
     FFilter Filter;
-    TArray<FUserSortOption> Sort;
 };
