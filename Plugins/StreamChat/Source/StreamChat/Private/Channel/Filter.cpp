@@ -20,7 +20,7 @@ const TMap<EFilterOperator, FString> AsString = {
     {EFilterOperator::In, TEXT("$in")},
     {EFilterOperator::NotIn, TEXT("$nin")},
     {EFilterOperator::Query, TEXT("$q")},
-    {EFilterOperator::AutoComplete, TEXT("$autocomplete")},
+    {EFilterOperator::Autocomplete, TEXT("$autocomplete")},
     {EFilterOperator::Exists, TEXT("$exists")},
     {EFilterOperator::And, TEXT("$and")},
     {EFilterOperator::Or, TEXT("$or")},
@@ -260,6 +260,11 @@ FFilter FFilter::NotIn(const FName& Field, const TArray<FString>& Values)
 FFilter FFilter::Exists(const FName& Field, const bool bValue)
 {
     return MakeComparison(EFilterOperator::Exists, Field, bValue);
+}
+
+FFilter FFilter::Autocomplete(const FName& Field, const FString& Value)
+{
+    return MakeComparison(EFilterOperator::Autocomplete, Field, Value);
 }
 
 FFilter FFilter::Empty(const FName& Field)

@@ -13,7 +13,7 @@ void UUserListWidget::SetQuery(const FFilter& UsersQueryFilter)
 {
     Filter = UsersQueryFilter;
 
-    Paginate(EPaginationDirection::Bottom, {});
+    Refetch();
 }
 
 void UUserListWidget::OnSetup()
@@ -22,7 +22,7 @@ void UUserListWidget::OnSetup()
 
 void UUserListWidget::OnClient()
 {
-    Paginate(EPaginationDirection::Bottom, {});
+    Refetch();
 }
 
 void UUserListWidget::Paginate(const EPaginationDirection Directions, const TFunction<void()> Callback)
@@ -51,6 +51,12 @@ void UUserListWidget::Paginate(const EPaginationDirection Directions, const TFun
         false,
         30,
         Users.Num());
+}
+
+void UUserListWidget::Refetch()
+{
+    Users.Empty();
+    Paginate(EPaginationDirection::Bottom, {});
 }
 
 void UUserListWidget::PopulateScrollBox()

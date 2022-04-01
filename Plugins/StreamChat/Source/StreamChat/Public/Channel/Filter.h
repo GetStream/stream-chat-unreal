@@ -46,7 +46,7 @@ enum class EFilterOperator : uint8
     Query,
 
     /// Matches values with the specified prefix.
-    AutoComplete,
+    Autocomplete,
 
     /// Matches values that exist/don't exist based on the specified boolean value.
     Exists,
@@ -155,6 +155,9 @@ struct STREAMCHAT_API FFilter
 
     /// Construct an $exists filter
     static FFilter Exists(const FName& Field, bool bValue);
+
+    /// Construct an $autocomplete filter
+    static FFilter Autocomplete(const FName& Field, const FString& Value);
 
     /// Construct an empty filter, e.g. {field:{}}
     static FFilter Empty(const FName& Field);
