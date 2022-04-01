@@ -91,31 +91,36 @@ $(document).ready(function(){initNavTree('_section_heading_widget_8h_source.html
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;Components/TextBlock.h&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;StreamWidget.h&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;SectionHeadingWidget.generated.h&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>UCLASS()</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>class STREAMCHATUI_API USectionHeadingWidget final : public UStreamWidget</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    GENERATED_BODY()</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>public:</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    USectionHeadingWidget();</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    UFUNCTION(BlueprintCallable, Category = &quot;Stream Chat&quot;)</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordtype">void</span> Setup(const FText&amp; InLabel);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>protected:</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    UPROPERTY(meta = (BindWidget))</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    UTextBlock* TextBlock;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>private:</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    virtual <span class="keywordtype">void</span> OnSetup() override;</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;Components/Border.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;Components/TextBlock.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;StreamWidget.h&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;SectionHeadingWidget.generated.h&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>UCLASS()</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>class STREAMCHATUI_API USectionHeadingWidget final : public UStreamWidget</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>public:</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    USectionHeadingWidget();</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    UFUNCTION(BlueprintCallable, Category = &quot;Stream Chat&quot;)</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordtype">void</span> Setup(const FText&amp; InLabel);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>protected:</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    UPROPERTY(meta = (BindWidget))</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    UTextBlock* TextBlock;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    UPROPERTY(meta = (BindWidget))</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    UBorder* Border;</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    FText Label;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>};</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    UPROPERTY(EditDefaultsOnly, Category = Defaults)</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    FText Label;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>private:</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    virtual <span class="keywordtype">void</span> OnSetup() override;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    virtual <span class="keywordtype">void</span> OnTheme() override;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>};</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

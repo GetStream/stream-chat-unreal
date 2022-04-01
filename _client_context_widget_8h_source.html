@@ -120,10 +120,15 @@ $(document).ready(function(){initNavTree('_client_context_widget_8h_source.html'
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    UPROPERTY(BlueprintAssignable)</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    FNewChatDelegate OnNewChat;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>private:</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    UPROPERTY(Transient)</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_class" href="class_u_stream_chat_client_component.html">UStreamChatClientComponent</a>* Client;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>};</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FChannelSelected, <a class="code hl_class" href="class_u_chat_channel.html">UChatChannel</a>*, Channel);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    UPROPERTY(BlueprintAssignable)</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    FChannelSelected OnChannelSelected;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>private:</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    UPROPERTY(Transient)</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_class" href="class_u_stream_chat_client_component.html">UStreamChatClientComponent</a>* Client;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>};</div>
+<div class="ttc" id="aclass_u_chat_channel_html"><div class="ttname"><a href="class_u_chat_channel.html">UChatChannel</a></div><div class="ttdoc">The client-side representation of a Stream Chat channel.</div><div class="ttdef"><b>Definition:</b> ChatChannel.h:71</div></div>
 <div class="ttc" id="aclass_u_stream_chat_client_component_html"><div class="ttname"><a href="class_u_stream_chat_client_component.html">UStreamChatClientComponent</a></div><div class="ttdoc">A component which allows for connecting to the Stream Chat API. Should be added to a client-side acto...</div><div class="ttdef"><b>Definition:</b> StreamChatClientComponent.h:40</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

@@ -5,6 +5,8 @@ var struct_f_user =
     [ "FUser", "struct_f_user.html#a3db093158b56bcbfd517b867e9d9a7ea", null ],
     [ "FUser", "struct_f_user.html#a3d9bd51bd66f8e6ddecb0b50d773ec87", null ],
     [ "GetInitials", "struct_f_user.html#a58dfd9a7274d80577b49c767840067d3", null ],
+    [ "GetLastActive", "struct_f_user.html#a28c7c7b17b39bad58ca6296fea0038e8", null ],
+    [ "GetLastSeenText", "struct_f_user.html#a983c59f140225b87337010bdd5402b57", null ],
     [ "operator FUserDto", "struct_f_user.html#ab702eb2a7904d2b130a75efd5ba5c636", null ],
     [ "operator FUserObjectDto", "struct_f_user.html#affad061d1c703dc73c3a52cbe9dff52d", null ],
     [ "operator FUserObjectRequestDto", "struct_f_user.html#a5836dc51a24eb37cc5db5342f3b62889", null ],
