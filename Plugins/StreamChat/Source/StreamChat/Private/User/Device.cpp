@@ -2,7 +2,7 @@
 
 #include "User/Device.h"
 
-#include "UserManager.h"
+#include "User/UserManager.h"
 
 FDevice::FDevice(const FDeviceDto& Dto, UUserManager* UserManager)
     : CreatedAt{Dto.CreatedAt}

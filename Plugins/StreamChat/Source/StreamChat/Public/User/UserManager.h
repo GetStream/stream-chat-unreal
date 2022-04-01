@@ -13,7 +13,7 @@ struct FUserObjectDto;
 struct FOwnUserDto;
 
 UCLASS()
-class UUserManager final : public UEngineSubsystem
+class STREAMCHAT_API UUserManager final : public UEngineSubsystem
 {
     GENERATED_BODY()
 

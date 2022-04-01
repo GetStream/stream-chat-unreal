@@ -4,6 +4,7 @@
 
 #include "Contact/SelectedContactsWidget.h"
 #include "CoreMinimal.h"
+#include "Input/MessageComposerWidget.h"
 #include "StreamWidget.h"
 #include "User/UserListWidget.h"
 
@@ -27,6 +28,8 @@ protected:
     USelectedContactsWidget* SelectedContacts;
     UPROPERTY(meta = (BindWidget))
     UUserListWidget* UserList;
+    UPROPERTY(meta = (BindWidget))
+    UMessageComposerWidget* Composer;
 
 private:
     virtual void OnSetup() override;
@@ -36,4 +39,6 @@ private:
     void OnUserClicked(const FUserRef& User, bool bSelected);
     UFUNCTION()
     void OnSearchTextChanged(const FText& Text);
+    UFUNCTION()
+    void OnSendMessage(const FString& Text);
 };

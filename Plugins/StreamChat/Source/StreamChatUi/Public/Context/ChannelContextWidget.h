@@ -27,8 +27,12 @@ public:
 
     UFUNCTION(BlueprintPure, Category = "Stream Chat", meta = (DisplayName = "Get Channel Context"))
     static UChannelContextWidget* Get(const UWidget* Widget);
+    UFUNCTION(BlueprintPure, Category = "Stream Chat", meta = (DisplayName = "Get Channel Context"))
+    static UChannelContextWidget* TryGet(const UWidget* Widget);
     UFUNCTION(BlueprintPure, Category = "Stream Chat")
     static UChatChannel* GetChannel(const UWidget* Widget);
+    UFUNCTION(BlueprintPure, Category = "Stream Chat")
+    static UChatChannel* TryGetChannel(const UWidget* Widget);
     UChatChannel* GetChannel() const;
 
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FStartEditMessageDelegate, const FMessage&, Message);

@@ -28,6 +28,11 @@ public:
     virtual void NativeConstruct() override;
     virtual void NativeDestruct() override;
 
+    /// Called before message is sent. Sending message will be cancelled if MessageText is set to an empty string.
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnSendMessage, const FString&, MessageText);
+    UPROPERTY(BlueprintAssignable)
+    FOnSendMessage OnSendMessage;
+
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void EditMessage(const FMessage& Message);
 
@@ -77,6 +82,8 @@ private:
 
     void SendMessage();
     void StopEditMessage();
+    void Keystroke();
+    void StopTyping();
 
     void UpdateSendButtonAppearance(bool bEnabled);
 

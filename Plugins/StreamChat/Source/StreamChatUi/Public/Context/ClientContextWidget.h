@@ -34,6 +34,10 @@ public:
     UPROPERTY(BlueprintAssignable)
     FNewChatDelegate OnNewChat;
 
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FChannelSelected, UChatChannel*, Channel);
+    UPROPERTY(BlueprintAssignable)
+    FChannelSelected OnChannelSelected;
+
 private:
     UPROPERTY(Transient)
     UStreamChatClientComponent* Client;

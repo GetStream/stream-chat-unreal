@@ -26,6 +26,16 @@ UChannelContextWidget* UChannelContextWidget::Get(const UWidget* Widget)
     return nullptr;
 }
 
+UChannelContextWidget* UChannelContextWidget::TryGet(const UWidget* Widget)
+{
+    if (!Widget || Widget->IsDesignTime())
+    {
+        return nullptr;
+    }
+
+    return WidgetUtil::GetTypedParentWidget<UChannelContextWidget>(Widget);
+}
+
 UChatChannel* UChannelContextWidget::GetChannel(const UWidget* Widget)
 {
     if (!Widget || Widget->IsDesignTime())
@@ -39,6 +49,20 @@ UChatChannel* UChannelContextWidget::GetChannel(const UWidget* Widget)
         {
             return ContextWidget->Channel;
         }
+    }
+    return nullptr;
+}
+
+UChatChannel* UChannelContextWidget::TryGetChannel(const UWidget* Widget)
+{
+    if (!Widget || Widget->IsDesignTime())
+    {
+        return nullptr;
+    }
+
+    if (const UChannelContextWidget* ContextWidget = TryGet(Widget))
+    {
+        return ContextWidget->Channel;
     }
     return nullptr;
 }

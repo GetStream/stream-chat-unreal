@@ -3,6 +3,7 @@
 #include "ChannelList/ChannelStatusWidget.h"
 
 #include "Algo/Transform.h"
+#include "Context/ClientContextWidget.h"
 #include "ThemeDataAsset.h"
 #include "UiBlueprintLibrary.h"
 
@@ -81,4 +82,8 @@ void UChannelStatusWidget::OnButtonClicked()
 {
     OnChannelStatusButtonClickedNative.Broadcast(Channel);
     OnChannelStatusButtonClicked.Broadcast(Channel);
+    if (const UClientContextWidget* Context = UClientContextWidget::Get(this))
+    {
+        Context->OnChannelSelected.Broadcast(Channel);
+    }
 }

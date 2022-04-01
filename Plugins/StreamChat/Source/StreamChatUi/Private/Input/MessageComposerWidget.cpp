@@ -29,7 +29,10 @@ void UMessageComposerWidget::NativeOnInitialized()
 void UMessageComposerWidget::NativeConstruct()
 {
     // Can only find the ChannelContextWidget once this widget is added to the UI hierarchy (Construct)
-    UChannelContextWidget::Get(this)->OnStartEditMessage.AddDynamic(this, &UMessageComposerWidget::EditMessage);
+    if (UChannelContextWidget* Context = UChannelContextWidget::TryGet(this))
+    {
+        Context->OnStartEditMessage.AddDynamic(this, &UMessageComposerWidget::EditMessage);
+    }
 
     if (MessageInput)
     {
@@ -60,7 +63,10 @@ void UMessageComposerWidget::NativeConstruct()
 
 void UMessageComposerWidget::NativeDestruct()
 {
-    UChannelContextWidget::Get(this)->OnStartEditMessage.RemoveDynamic(this, &UMessageComposerWidget::EditMessage);
+    if (UChannelContextWidget* Context = UChannelContextWidget::TryGet(this))
+    {
+        Context->OnStartEditMessage.RemoveDynamic(this, &UMessageComposerWidget::EditMessage);
+    }
     Super::NativeDestruct();
 }
 
@@ -76,16 +82,11 @@ void UMessageComposerWidget::EditMessage(const FMessage& Message)
 
 void UMessageComposerWidget::OnInputTextChanged(const FText& Text)
 {
-    UChatChannel* Channel = UChannelContextWidget::GetChannel(this);
-    if (ensure(Channel))
-    {
-        Channel->KeyStroke();
-    }
-
+    Keystroke();
     UpdateSendButtonAppearance(!Text.IsEmpty());
 }
 
-void UMessageComposerWidget::OnInputTextCommit(const FText&, ETextCommit::Type CommitMethod)
+void UMessageComposerWidget::OnInputTextCommit(const FText&, const ETextCommit::Type CommitMethod)
 {
     if (CommitMethod == ETextCommit::OnEnter)
     {
@@ -96,11 +97,7 @@ void UMessageComposerWidget::OnInputTextCommit(const FText&, ETextCommit::Type C
             GetWorld()->GetTimerManager().SetTimerForNextTick([&] { MessageInput->SetKeyboardFocus(); });
         }
     }
-
-    if (UChatChannel* Channel = UChannelContextWidget::GetChannel(this))
-    {
-        Channel->StopTyping();
-    }
+    StopTyping();
 }
 
 void UMessageComposerWidget::OnCancelEditingButtonClicked()
@@ -111,11 +108,7 @@ void UMessageComposerWidget::OnCancelEditingButtonClicked()
 void UMessageComposerWidget::OnSendButtonClicked()
 {
     SendMessage();
-
-    if (UChatChannel* Channel = UChannelContextWidget::GetChannel(this))
-    {
-        Channel->StopTyping();
-    }
+    StopTyping();
 }
 
 void UMessageComposerWidget::SendMessage()
@@ -137,7 +130,9 @@ void UMessageComposerWidget::SendMessage()
         return;
     }
 
-    UChatChannel* Channel = UChannelContextWidget::GetChannel(this);
+    OnSendMessage.Broadcast(Text);
+
+    UChatChannel* Channel = UChannelContextWidget::TryGetChannel(this);
     if (!Channel)
     {
         return;
@@ -170,6 +165,23 @@ void UMessageComposerWidget::StopEditMessage()
     if (MessageInput)
     {
         MessageInput->SetText(FText::GetEmpty());
+    }
+}
+
+void UMessageComposerWidget::Keystroke()
+{
+    UChatChannel* Channel = UChannelContextWidget::TryGetChannel(this);
+    if (Channel)
+    {
+        Channel->KeyStroke();
+    }
+}
+
+void UMessageComposerWidget::StopTyping()
+{
+    if (UChatChannel* Channel = UChannelContextWidget::TryGetChannel(this))
+    {
+        Channel->StopTyping();
     }
 }
 
