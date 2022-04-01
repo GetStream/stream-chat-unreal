@@ -29,6 +29,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Selected Contacts")
     void RemoveUser(const FUserRef& User);
 
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSearchTextChanged, const FText&, Text);
+    UPROPERTY(BlueprintAssignable)
+    FSearchTextChanged OnSearchTextChanged;
+
 protected:
     UPROPERTY(meta = (BindWidget))
     UWrapBox* WrapBox;
@@ -60,9 +64,12 @@ private:
 
     UFUNCTION()
     void OnAddUserClicked();
+    UFUNCTION()
+    void OnSearchTextCommit(const FText& Text, ETextCommit::Type Commit);
 
     void PopulateWrapBox();
     void SetTypingMode(bool bNewTypingMode);
 
     bool bTypingMode = false;
+    FText LastSearchText;
 };

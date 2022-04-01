@@ -34,4 +34,6 @@ private:
 
     UFUNCTION()
     void OnUserClicked(const FUserRef& User, bool bSelected);
+    UFUNCTION()
+    void OnSearchTextChanged(const FText& Text);
 };

@@ -36,6 +36,7 @@ private:
     virtual void OnSetup() override;
     virtual void OnClient() override;
     virtual void Paginate(EPaginationDirection Directions, TFunction<void()> Callback) override;
+    void Refetch();
     void PopulateScrollBox();
 
     UFUNCTION()

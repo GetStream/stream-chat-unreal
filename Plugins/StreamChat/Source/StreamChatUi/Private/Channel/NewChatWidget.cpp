@@ -19,6 +19,10 @@ void UNewChatWidget::OnSetup()
         UserList->SetQuery();
         UserList->OnUserClicked.AddDynamic(this, &UNewChatWidget::OnUserClicked);
     }
+    if (SelectedContacts)
+    {
+        SelectedContacts->OnSearchTextChanged.AddDynamic(this, &UNewChatWidget::OnSearchTextChanged);
+    }
 }
 
 void UNewChatWidget::OnTheme()
@@ -36,6 +40,21 @@ void UNewChatWidget::OnUserClicked(const FUserRef& User, const bool bSelected)
         else
         {
             SelectedContacts->RemoveUser(User);
+        }
+    }
+}
+
+void UNewChatWidget::OnSearchTextChanged(const FText& Text)
+{
+    if (UserList)
+    {
+        if (Text.IsEmpty())
+        {
+            UserList->SetQuery();
+        }
+        else
+        {
+            UserList->SetQuery(FFilter::Autocomplete(TEXT("name"), Text.ToString()));
         }
     }
 }

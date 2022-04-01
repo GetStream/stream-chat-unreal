@@ -39,6 +39,10 @@ void USelectedContactsWidget::OnSetup()
     {
         AddUserButton->OnClicked.AddDynamic(this, &USelectedContactsWidget::OnAddUserClicked);
     }
+    if (SearchText)
+    {
+        SearchText->OnTextCommitted.AddDynamic(this, &USelectedContactsWidget::OnSearchTextCommit);
+    }
 
     GetWorld()->GetTimerManager().SetTimerForNextTick([this] { SetTypingMode(true); });
 }
@@ -122,4 +126,13 @@ void USelectedContactsWidget::OnAddUserClicked()
     }
 
     SetTypingMode(true);
+}
+
+void USelectedContactsWidget::OnSearchTextCommit(const FText& Text, const ETextCommit::Type Commit)
+{
+    if (!Text.EqualToCaseIgnored(LastSearchText))
+    {
+        OnSearchTextChanged.Broadcast(Text);
+        LastSearchText = Text;
+    }
 }
