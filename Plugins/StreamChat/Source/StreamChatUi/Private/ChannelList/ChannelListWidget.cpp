@@ -38,6 +38,7 @@ void UChannelListWidget::OnClient()
     {
         Context->OnBack.AddDynamic(this, &UChannelListWidget::OnBack);
         Context->OnNewChat.AddDynamic(this, &UChannelListWidget::OnNewChat);
+        Context->OnChannelSelected.AddDynamic(this, &UChannelListWidget::OnChannelSelected);
     }
 }
 
@@ -45,9 +46,9 @@ void UChannelListWidget::OnBack()
 {
     if (IsNewChatActive())
     {
+        NewChatPreviousChannel = nullptr;
         CurrentChannel = NewChatPreviousChannel;
         OnChannelStatusClicked.Broadcast(CurrentChannel);
-        NewChatPreviousChannel = nullptr;
         RepopulateChannelList();
     }
 }
@@ -82,12 +83,13 @@ bool UChannelListWidget::IsNewChatActive() const
     return NewChatPreviousChannel != nullptr;
 }
 
-void UChannelListWidget::ChannelStatusClicked(UChatChannel* ClickedChannel)
+void UChannelListWidget::OnChannelSelected(UChatChannel* ClickedChannel)
 {
     if (ClickedChannel == CurrentChannel)
     {
         return;
     }
+    NewChatPreviousChannel = nullptr;
     CurrentChannel = ClickedChannel;
 
     for (UWidget* Child : ScrollBox->GetAllChildren())
@@ -121,7 +123,6 @@ void UChannelListWidget::OnChannelsUpdated(const TArray<UChatChannel*>& InChanne
     {
         UChannelStatusWidget* Widget = CreateWidget<UNewChatChannelStatusWidget>(this, NewChatChannelStatusWidgetClass);
         Widget->Setup(nullptr);
-        Widget->OnChannelStatusButtonClicked.AddDynamic(this, &UChannelListWidget::ChannelStatusClicked);
         Widgets.Add(Widget);
     }
 
@@ -129,7 +130,6 @@ void UChannelListWidget::OnChannelsUpdated(const TArray<UChatChannel*>& InChanne
     {
         UChannelStatusWidget* Widget = CreateWidget<USummaryChannelStatusWidget>(this, ChannelStatusWidgetClass);
         Widget->Setup(InChannel);
-        Widget->OnChannelStatusButtonClicked.AddDynamic(this, &UChannelListWidget::ChannelStatusClicked);
         Widgets.Add(Widget);
     }
     SetChildren(Widgets);

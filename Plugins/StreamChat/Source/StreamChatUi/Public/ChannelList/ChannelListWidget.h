@@ -48,7 +48,7 @@ private:
     bool IsNewChatActive() const;
 
     UFUNCTION()
-    void ChannelStatusClicked(UChatChannel* ClickedChannel);
+    void OnChannelSelected(UChatChannel* ClickedChannel);
     UFUNCTION()
     void OnChannelsUpdated(const TArray<UChatChannel*>& InChannels);
     UFUNCTION()

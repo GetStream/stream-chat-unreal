@@ -2,7 +2,7 @@
 
 #include "User/MutedUser.h"
 
-#include "UserManager.h"
+#include "User/UserManager.h"
 
 FMutedUser::FMutedUser() = default;
 

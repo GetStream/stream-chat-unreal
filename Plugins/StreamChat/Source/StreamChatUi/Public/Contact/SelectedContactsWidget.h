@@ -21,13 +21,15 @@ class STREAMCHATUI_API USelectedContactsWidget final : public UStreamWidget
 
 public:
     USelectedContactsWidget();
-    UFUNCTION(BlueprintCallable, Category = "Selected Contacts")
+    UFUNCTION(BlueprintCallable, Category = "Stream|Selected Contacts")
     void SetUsers(const TArray<FUserRef>& Users);
 
-    UFUNCTION(BlueprintCallable, Category = "Selected Contacts")
+    UFUNCTION(BlueprintCallable, Category = "Stream|Selected Contacts")
     void AddUser(const FUserRef& User);
-    UFUNCTION(BlueprintCallable, Category = "Selected Contacts")
+    UFUNCTION(BlueprintCallable, Category = "Stream|Selected Contacts")
     void RemoveUser(const FUserRef& User);
+    UFUNCTION(BlueprintPure, Category = "Stream|Selected Contacts")
+    const TArray<FUserRef>& GetUsers() const;
 
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSearchTextChanged, const FText&, Text);
     UPROPERTY(BlueprintAssignable)

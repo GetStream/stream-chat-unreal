@@ -31,6 +31,11 @@ void USelectedContactsWidget::RemoveUser(const FUserRef& User)
     SetTypingMode(false);
 }
 
+const TArray<FUserRef>& USelectedContactsWidget::GetUsers() const
+{
+    return Contacts;
+}
+
 void USelectedContactsWidget::OnSetup()
 {
     SetUsers(Contacts);
@@ -114,6 +119,8 @@ void USelectedContactsWidget::SetTypingMode(const bool bNewTypingMode)
     {
         SearchText->SetVisibility(ESlateVisibility::Collapsed);
         SearchText->SetText(FText::GetEmpty());
+        OnSearchTextChanged.Broadcast(FText::GetEmpty());
+        LastSearchText = FText::GetEmpty();
         AddUserButton->SetEnabled(true);
     }
 }

@@ -3,7 +3,7 @@
 #include "User/UserRef.h"
 
 #include "User/User.h"
-#include "UserManager.h"
+#include "User/UserManager.h"
 
 FUserRef::FUserRef(const FString& UserId, UUserManager* Manager) : UserId{UserId}, Manager{Manager}
 {

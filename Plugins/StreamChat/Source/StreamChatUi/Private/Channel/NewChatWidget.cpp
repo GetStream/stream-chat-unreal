@@ -2,6 +2,10 @@
 
 #include "Channel/NewChatWidget.h"
 
+#include "Context/ClientContextWidget.h"
+#include "StreamChatClientComponent.h"
+#include "User/UserManager.h"
+
 UNewChatWidget::UNewChatWidget()
 {
     bWantsTheme = true;
@@ -22,6 +26,10 @@ void UNewChatWidget::OnSetup()
     if (SelectedContacts)
     {
         SelectedContacts->OnSearchTextChanged.AddDynamic(this, &UNewChatWidget::OnSearchTextChanged);
+    }
+    if (Composer)
+    {
+        Composer->OnSendMessage.AddDynamic(this, &UNewChatWidget::OnSendMessage);
     }
 }
 
@@ -57,4 +65,30 @@ void UNewChatWidget::OnSearchTextChanged(const FText& Text)
             UserList->SetQuery(FFilter::Autocomplete(TEXT("name"), Text.ToString()));
         }
     }
+}
+
+void UNewChatWidget::OnSendMessage(const FString& Text)
+{
+    if (!SelectedContacts)
+    {
+        return;
+    }
+    UClientContextWidget* Context = UClientContextWidget::Get(this);
+
+    if (!Context)
+    {
+        return;
+    }
+
+    TArray<FUserRef> Members(SelectedContacts->GetUsers());
+    Members.Add(UUserManager::Get()->GetCurrentUser());
+    const FChannelProperties Props = FChannelProperties::WithType(TEXT("messaging")).SetMembers(Members);
+    Context->GetClient()->QueryChannel(
+        Props,
+        EChannelFlags::State | EChannelFlags::Watch,
+        [Context, Text](UChatChannel* NewChannel)
+        {
+            NewChannel->SendMessage(FMessage{Text});
+            Context->OnChannelSelected.Broadcast(NewChannel);
+        });
 }
