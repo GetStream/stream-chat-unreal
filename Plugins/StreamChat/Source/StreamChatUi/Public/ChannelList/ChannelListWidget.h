@@ -2,12 +2,12 @@
 
 #pragma once
 
-#include "Channel/NewChatWidget.h"
 #include "ChannelStatusWidget.h"
 #include "Common/PaginateScrollWidget.h"
 #include "CoreMinimal.h"
 #include "NewChatChannelStatusWidget.h"
 #include "SummaryChannelStatusWidget.h"
+#include "Team/NewChatWidget.h"
 
 #include "ChannelListWidget.generated.h"
 
