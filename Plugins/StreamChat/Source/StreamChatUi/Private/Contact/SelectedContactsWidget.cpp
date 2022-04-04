@@ -36,6 +36,18 @@ const TArray<FUserRef>& USelectedContactsWidget::GetUsers() const
     return Contacts;
 }
 
+void USelectedContactsWidget::SetGroupMode(const bool bIsGroupMode)
+{
+    if (bIsGroupMode)
+    {
+        TextBlock->SetText(FText::FromString(TEXT("MEMBERS")));
+    }
+    else
+    {
+        TextBlock->SetText(FText::FromString(TEXT("TO")));
+    }
+}
+
 void USelectedContactsWidget::OnSetup()
 {
     SetUsers(Contacts);
@@ -68,7 +80,7 @@ void USelectedContactsWidget::OnTheme()
     }
     if (SearchText)
     {
-        SearchText->WidgetStyle.SetColorAndOpacity(Theme->GetPaletteColor(Theme->SelectedContactsSearchTextColor));
+        SearchText->WidgetStyle.SetColorAndOpacity(Theme->GetPaletteColor(Theme->SelectedContactsInputTextColor));
     }
 }
 

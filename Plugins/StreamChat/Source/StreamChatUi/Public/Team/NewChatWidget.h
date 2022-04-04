@@ -4,6 +4,7 @@
 
 #include "Contact/SelectedContactsWidget.h"
 #include "CoreMinimal.h"
+#include "GroupNameInputWidget.h"
 #include "Input/MessageComposerWidget.h"
 #include "StreamWidget.h"
 #include "User/UserListWidget.h"
@@ -25,6 +26,10 @@ public:
 
 protected:
     UPROPERTY(meta = (BindWidget))
+    UHeaderWidget* Header;
+    UPROPERTY(meta = (BindWidget))
+    UGroupNameInputWidget* GroupName;
+    UPROPERTY(meta = (BindWidget))
     USelectedContactsWidget* SelectedContacts;
     UPROPERTY(meta = (BindWidget))
     UUserListWidget* UserList;
@@ -37,6 +42,8 @@ private:
 
     UFUNCTION()
     void OnUserClicked(const FUserRef& User, bool bSelected);
+    UFUNCTION()
+    void OnGroupNameChanged(const FText& Text);
     UFUNCTION()
     void OnSearchTextChanged(const FText& Text);
     UFUNCTION()

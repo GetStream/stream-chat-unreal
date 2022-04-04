@@ -30,6 +30,8 @@ public:
     void RemoveUser(const FUserRef& User);
     UFUNCTION(BlueprintPure, Category = "Stream|Selected Contacts")
     const TArray<FUserRef>& GetUsers() const;
+    UFUNCTION(BlueprintCallable, Category = "Stream|Selected Contacts")
+    void SetGroupMode(bool bIsGroupMode);
 
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSearchTextChanged, const FText&, Text);
     UPROPERTY(BlueprintAssignable)

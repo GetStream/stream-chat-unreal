@@ -1,6 +1,6 @@
 // Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
-#include "Channel/NewChatWidget.h"
+#include "Team/NewChatWidget.h"
 
 #include "Context/ClientContextWidget.h"
 #include "StreamChatClientComponent.h"
@@ -22,6 +22,10 @@ void UNewChatWidget::OnSetup()
     {
         UserList->SetQuery();
         UserList->OnUserClicked.AddDynamic(this, &UNewChatWidget::OnUserClicked);
+    }
+    if (GroupName)
+    {
+        GroupName->OnGroupNameChanged.AddDynamic(this, &UNewChatWidget::OnGroupNameChanged);
     }
     if (SelectedContacts)
     {
@@ -49,6 +53,25 @@ void UNewChatWidget::OnUserClicked(const FUserRef& User, const bool bSelected)
         {
             SelectedContacts->RemoveUser(User);
         }
+    }
+}
+
+void UNewChatWidget::OnGroupNameChanged(const FText& Text)
+{
+    if (!SelectedContacts || !Header)
+    {
+        return;
+    }
+
+    if (Text.IsEmpty())
+    {
+        SelectedContacts->SetGroupMode(false);
+        Header->SetTitle(FText::FromString(TEXT("New Chat")));
+    }
+    else
+    {
+        SelectedContacts->SetGroupMode(true);
+        Header->SetTitle(FText::FromString(TEXT("New Group Chat")));
     }
 }
 
@@ -82,7 +105,12 @@ void UNewChatWidget::OnSendMessage(const FString& Text)
 
     TArray<FUserRef> Members(SelectedContacts->GetUsers());
     Members.Add(UUserManager::Get()->GetCurrentUser());
-    const FChannelProperties Props = FChannelProperties::WithType(TEXT("messaging")).SetMembers(Members);
+    FChannelProperties Props = FChannelProperties::WithType(TEXT("messaging")).SetMembers(Members);
+    const FText Group = GroupName->GetGroupName();
+    if (!Group.IsEmpty())
+    {
+        Props.SetName(Group.ToString());
+    }
     Context->GetClient()->QueryChannel(
         Props,
         EChannelFlags::State | EChannelFlags::Watch,

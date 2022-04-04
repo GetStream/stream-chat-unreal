@@ -190,7 +190,7 @@ public:
     FName SelectedContactsBackgroundColor = TEXT("bars-bg");
     /// The search text color of the selected contacts widget
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Selected Contacts")
-    FName SelectedContactsSearchTextColor = TEXT("text-high-emphasis");
+    FName SelectedContactsInputTextColor = TEXT("text-high-emphasis");
 
     /// The color of the text in a section header widget
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Section Heading")
