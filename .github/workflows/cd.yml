@@ -218,7 +218,7 @@ jobs:
       matrix:
         engine: ["4.27", "5.0"]
 
-    name: 🔌 Package plugin
+    name: 🔌 Package plugin UE${{ matrix.engine }}
     runs-on: [self-hosted, UE_IOS]
 
     steps:
