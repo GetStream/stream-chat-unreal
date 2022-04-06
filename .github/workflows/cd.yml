@@ -26,7 +26,6 @@ on:
 jobs:
   samples:
     strategy:
-      fail-fast: false
       matrix:
         platform: [Linux, Mac, "Win64", Android, IOS]
         what: [team-chat, jumpy-lion]
@@ -51,7 +50,6 @@ jobs:
             path: Android
           - platform: IOS
             path: IOS
-
 
     name: 📦 Package ${{ matrix.what }} - ${{ matrix.platform }}
     runs-on: [self-hosted, 'UE_${{ matrix.platform }}']
@@ -216,6 +214,10 @@ jobs:
         name: 📁 Upload artifact
 
   plugin:
+    strategy:
+      matrix:
+        engine: ["4.27", "5.0"]
+
     name: 🔌 Package plugin
     runs-on: [self-hosted, UE_IOS]
 
@@ -224,6 +226,16 @@ jobs:
         name: 🛒 Checkout
         with:
           lfs: true
+
+      - name: ☝️ Select UE${{ matrix.engine }}
+        run: |
+          if [[ "$OSTYPE" == "darwin"* ]]; then
+            ue4 setroot "/Users/Shared/Epic Games/UE_${{ matrix.engine }}"
+          else
+            ue4 setroot "C:\UE\UE_${{ matrix.engine }}"
+          fi
+
+          just set-engine ${{ matrix.engine }}
 
       - name: 📦 Package plugin
         run: |
@@ -239,7 +251,7 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: StreamChat
+          name: StreamChat.${{ matrix.engine }}
           path: |
             Plugins/StreamChat/dist
             !**/Binaries

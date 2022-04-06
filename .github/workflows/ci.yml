@@ -99,6 +99,7 @@ jobs:
       fail-fast: false
       matrix:
         platform: [Linux, Mac, "Win64", Android, IOS]
+        engine: ["4.27", "5.0"]
     name: 🤡 Build samples ${{ matrix.platform }}
     runs-on: [self-hosted, 'UE_${{ matrix.platform }}']
 
@@ -107,6 +108,15 @@ jobs:
         name: 🛒 Checkout
         with:
           lfs: true
+      - name: ☝️ Select UE${{ matrix.engine }}
+        run: |
+          if [[ "$OSTYPE" == "darwin"* ]]; then
+            ue4 setroot "/Users/Shared/Epic Games/UE_${{ matrix.engine }}"
+          else
+            ue4 setroot "C:\UE\UE_${{ matrix.engine }}"
+          fi
+
+          just set-engine ${{ matrix.engine }}
 
       - name: 🔨 Build
         shell: bash
