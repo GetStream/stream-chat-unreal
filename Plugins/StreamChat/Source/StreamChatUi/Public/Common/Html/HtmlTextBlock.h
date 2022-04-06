@@ -6,6 +6,7 @@
 #include "CoreMinimal.h"
 #include "Framework/Text/IRichTextMarkupParser.h"
 #include "HtmlElementStyle.h"
+#include "Launch/Resources/Version.h"
 #include "Styling/SlateStyle.h"
 
 #include "HtmlTextBlock.generated.h"
