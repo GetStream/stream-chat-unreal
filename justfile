@@ -68,5 +68,5 @@ create-release-branch version: (bump-version version)
 
 # Switch uproject and uplugin files for different engine versions
 set-engine version:
-    cp StreamChatSample.{{version}}.uproject StreamChatSample.uproject
-    cp Plugins/StreamChat/StreamChat.{{version}}.uplugin Plugins/StreamChat/StreamChat.uplugin
+    cp StreamChatSample.uproject.{{version}} StreamChatSample.uproject
+    cp Plugins/StreamChat/StreamChat.uplugin.{{version}} Plugins/StreamChat/StreamChat.uplugin
