@@ -109,6 +109,7 @@ jobs:
         with:
           lfs: true
       - name: ☝️ Select UE${{ matrix.engine }}
+        shell: bash
         run: |
           if [[ "$OSTYPE" == "darwin"* ]]; then
             ue4 setroot "/Users/Shared/Epic Games/UE_${{ matrix.engine }}"
