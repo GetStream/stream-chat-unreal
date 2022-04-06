@@ -40,8 +40,6 @@ jobs:
 
       - name: 🧪 Run tests
         run: ue4 test StreamChat -- -ReportExportPath="$PWD/Saved/Automation/Reports"
-        # https://github.com/adamrehn/ue4cli/issues/39
-        continue-on-error: true
 
       - name: 🏭 Generate JUnit report
         shell: python3 {0}
@@ -69,7 +67,7 @@ jobs:
                                             output=e['filename'] + ", line " + str(e['lineNumber']))
 
               cases.append(case)
-          ts = TestSuite(name=data['clientDescriptor'],
+          ts = TestSuite(name='StreamChat',
                           test_cases=cases, timestamp=data['reportCreatedOn'])
           print(TestSuite.to_xml_string([ts]))
           with open(output, 'w') as f:
