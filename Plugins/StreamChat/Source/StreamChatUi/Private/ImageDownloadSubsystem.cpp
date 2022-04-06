@@ -80,7 +80,7 @@ UTexture2DDynamic* TryCreateTexture(const void* Data, const int64 Size, const EI
     Texture->SRGB = true;
     Texture->UpdateResource();
 
-    FTexture2DDynamicResource* TextureResource = static_cast<FTexture2DDynamicResource*>(Texture->Resource);
+    FTexture2DDynamicResource* TextureResource = static_cast<FTexture2DDynamicResource*>(Texture->GetResource());
     if (!TextureResource)
     {
         return nullptr;
