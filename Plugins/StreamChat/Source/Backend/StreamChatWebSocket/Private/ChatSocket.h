@@ -3,15 +3,25 @@
 #pragma once
 
 #include "ChatSocketEvents.h"
+#include "Containers/Ticker.h"
 #include "CoreMinimal.h"
 #include "IChatSocket.h"
+#include "Launch/Resources/Version.h"
 
 class FTokenManager;
-struct FErrorResponseDto;
-struct FUserObjectDto;
-struct FOwnUserDto;
-struct FHealthCheckEvent;
 class IWebSocket;
+struct FErrorResponseDto;
+struct FHealthCheckEvent;
+struct FOwnUserDto;
+struct FUserObjectDto;
+
+#if ENGINE_MAJOR_VERSION == 4 && ENGINE_MINOR_VERSION <= 27
+using FTickHandle = FDelegateHandle;
+using FTick = FTicker;
+#else
+using FTickHandle = FTSTicker::FDelegateHandle;
+using FTick = FTSTicker;
+#endif
 
 class FChatSocket final : public IChatSocket
 {
@@ -78,8 +88,8 @@ private:
     FOnConnectDelegate PendingOnConnectCallback;
     EConnectionState ConnectionState = EConnectionState::NotConnected;
     FDelegateHandle HealthCheckEventDelegateHandle;
-    FDelegateHandle KeepAliveTickerHandle;
-    FDelegateHandle ReconnectTickerHandle;
+    FTickHandle KeepAliveTickerHandle;
+    FTickHandle ReconnectTickerHandle;
     TOptional<FDateTime> LastEventTime;
     uint32 ReconnectAttempt = 0;
 };
