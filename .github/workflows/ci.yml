@@ -100,7 +100,7 @@ jobs:
       matrix:
         platform: [Linux, Mac, "Win64", Android, IOS]
         engine: ["4.27", "5.0"]
-    name: 🤡 Build samples ${{ matrix.platform }}
+    name: 🤡 Build samples ${{ matrix.platform }} UE${{ matrix.engine }}
     runs-on: [self-hosted, 'UE_${{ matrix.platform }}']
 
     steps:
