@@ -12,7 +12,7 @@ public class StreamChatUi : ModuleRules
             "Slate",
             "InputCore",
             "ApplicationCore",
-            "Http",
+            "HTTP",
             "RenderCore",
             "RHI",
             "Json", "XmlParser"

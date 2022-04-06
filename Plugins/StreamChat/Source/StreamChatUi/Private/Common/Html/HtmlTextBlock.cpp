@@ -26,15 +26,17 @@ struct TFDeferredDeleter final : FDeferredCleanupInterface
 private:
     ObjectType* InnerObjectToDelete;
 };
-
-template <class ObjectType>
-FORCEINLINE SharedPointerInternals::FRawPtrProxy<ObjectType> MakeShareableDeferredCleanup(ObjectType* InObject)
-{
-    return MakeShareable(InObject, [](ObjectType* ObjectToDelete) { BeginCleanup(new TFDeferredDeleter<ObjectType>(ObjectToDelete)); });
-}
 }    // namespace
 
+#if ENGINE_MAJOR_VERSION == 4 && ENGINE_MINOR_VERSION <= 27
 const FSlateWidgetStyle* FHtmlSlateStyleSet::GetWidgetStyleInternal(const FName DesiredTypeName, const FName StyleName) const
+#else
+const FSlateWidgetStyle* FHtmlSlateStyleSet::GetWidgetStyleInternal(
+    const FName DesiredTypeName,
+    const FName StyleName,
+    const FSlateWidgetStyle* DefaultStyle,
+    bool bWarnIfNotFound) const
+#endif
 {
     TArray<FString> Tags;
     StyleName.ToString().ParseIntoArray(Tags, TEXT("_"));
@@ -90,6 +92,8 @@ TSharedPtr<IRichTextMarkupParser> UHtmlTextBlock::CreateMarkupParser()
 
 void UHtmlTextBlock::UpdateStyleData()
 {
-    StyleInstance = MakeShareableDeferredCleanup(new FHtmlSlateStyleSet(TEXT("HtmlTextStyle"), Styles));
+    StyleInstance = MakeShareable(
+        new FHtmlSlateStyleSet(TEXT("HtmlTextStyle"), Styles),
+        [](FHtmlSlateStyleSet* ObjectToDelete) { BeginCleanup(new TFDeferredDeleter<FHtmlSlateStyleSet>(ObjectToDelete)); });
     DefaultTextStyle = Styles.Default;
 }
