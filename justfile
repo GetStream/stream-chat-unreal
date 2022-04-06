@@ -65,3 +65,8 @@ create-release-branch version: (bump-version version)
     git push -q -u origin "release-{{version}}"
 
     echo "Done!"
+
+# Switch uproject and uplugin files for different engine versions
+set-engine version:
+    cp StreamChatSample.{{version}}.uproject StreamChatSample.uproject
+    cp Plugins/StreamChat/StreamChat.{{version}}.uplugin Plugins/StreamChat/StreamChat.uplugin
