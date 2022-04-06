@@ -5,6 +5,7 @@
 #include "AdditionalFields.h"
 #include "Internationalization/Culture.h"
 #include "JsonObjectWrapper.h"
+#include "Launch/Resources/Version.h"
 #include "Misc/FeedbackContext.h"
 #include "NamingConventionConversion.h"
 #include "Serialization/JsonReader.h"
@@ -464,7 +465,11 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
             }
 
             UObject* CreatedObj = StaticAllocateObject(PropertyClass, Outer, NAME_None, EObjectFlags::RF_NoFlags, EInternalObjectFlags::None, false);
+#if ENGINE_MAJOR_VERSION == 4 && ENGINE_MINOR_VERSION <= 27
             (*PropertyClass->ClassConstructor)(FObjectInitializer(CreatedObj, PropertyClass->ClassDefaultObject, false, false));
+#else
+            (*PropertyClass->ClassConstructor)(FObjectInitializer(CreatedObj, PropertyClass->ClassDefaultObject, EObjectInitializerOptions::None));
+#endif
 
             ObjectProperty->SetObjectPropertyValue(OutValue, CreatedObj);
 

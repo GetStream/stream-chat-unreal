@@ -270,10 +270,10 @@ void FChatSocket::StartMonitoring()
 
     // Reset any existing tickers
     StopMonitoring();
-    KeepAliveTickerHandle = FTicker::GetCoreTicker().AddTicker(
+    KeepAliveTickerHandle = FTick::GetCoreTicker().AddTicker(
         FTickerDelegate::CreateSP(this, &FChatSocket::KeepAlive), GetDefault<UStreamChatWebSocketSettings>()->KeepAliveInterval);
 
-    ReconnectTickerHandle = FTicker::GetCoreTicker().AddTicker(
+    ReconnectTickerHandle = FTick::GetCoreTicker().AddTicker(
         FTickerDelegate::CreateSP(this, &FChatSocket::CheckNeedToReconnect), GetDefault<UStreamChatWebSocketSettings>()->CheckReconnectInterval);
 }
 
@@ -281,13 +281,13 @@ void FChatSocket::StopMonitoring()
 {
     if (KeepAliveTickerHandle.IsValid())
     {
-        FTicker::GetCoreTicker().RemoveTicker(KeepAliveTickerHandle);
+        FTick::GetCoreTicker().RemoveTicker(KeepAliveTickerHandle);
         KeepAliveTickerHandle.Reset();
     }
 
     if (ReconnectTickerHandle.IsValid())
     {
-        FTicker::GetCoreTicker().RemoveTicker(ReconnectTickerHandle);
+        FTick::GetCoreTicker().RemoveTicker(ReconnectTickerHandle);
         ReconnectTickerHandle.Reset();
     }
 }
@@ -348,7 +348,7 @@ void FChatSocket::Reconnect(const bool bRefreshToken)
     const float Delay = GetReconnectDelay(ReconnectAttempt);
 
     UE_LOG(LogChatSocket, Log, TEXT("Enqueuing a reconnecting attempt [Attempt=%d, Delay=%g]"), ReconnectAttempt, Delay);
-    FTicker::GetCoreTicker().AddTicker(
+    FTick::GetCoreTicker().AddTicker(
         FTickerDelegate::CreateLambda(
             // Use a weak pointer to this FChatSocket in case it is destroyed by the time the ticker fires
             [WeakThis = TWeakPtr<IChatSocket>(AsShared())](float)
