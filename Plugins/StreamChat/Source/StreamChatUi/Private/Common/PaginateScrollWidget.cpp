@@ -9,7 +9,7 @@ void UPaginateScrollWidget::OnPreConstruct()
 {
     if (ScrollBox)
     {
-        ScrollBox->OnUserScrolled.AddDynamic(this, &UPaginateScrollWidget::OnUserScroll);
+        ScrollBox->OnUserScrolled.AddUniqueDynamic(this, &UPaginateScrollWidget::OnUserScroll);
     }
 }
 

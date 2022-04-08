@@ -52,6 +52,10 @@ void UBottomReactionWidget::OnTheme()
     }
     if (Button)
     {
+        Button->WidgetStyle.Normal.DrawAs = ESlateBrushDrawType::Box;
+        Button->WidgetStyle.Pressed.DrawAs = ESlateBrushDrawType::Box;
+        Button->WidgetStyle.Hovered.DrawAs = ESlateBrushDrawType::Box;
+
         const EMessageSide Side = GetSide();
         if (Side == EMessageSide::Me)
         {
