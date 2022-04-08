@@ -41,11 +41,11 @@ jobs:
           - what: jumpy-lion
             map: /Game/JumpyLion/Maps/JumpyLion.JumpyLion
           - platform: Linux
-            path: LinuxNoEditor
+            path: Linux
           - platform: Mac
-            path: MacNoEditor
+            path: Mac
           - platform: Win64
-            path: WindowsNoEditor
+            path: Windows
           - platform: Android
             path: Android
           - platform: IOS
