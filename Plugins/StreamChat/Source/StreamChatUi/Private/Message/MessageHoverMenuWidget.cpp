@@ -5,6 +5,7 @@
 #include "Blueprint/WidgetTree.h"
 #include "Components/GridSlot.h"
 #include "Editor/WidgetCompilerLog.h"
+#include "WidgetUtil.h"
 
 void UMessageHoverMenuWidget::Setup(const FMessage& InMessage, const EMessageSide InSide)
 {
@@ -77,6 +78,7 @@ void UMessageHoverMenuWidget::OnOptionsButtonClicked()
     if (OptionsMenuAnchor)
     {
         OptionsMenuAnchor->Open(true);
+        WidgetUtil::HideDefaultMenuBackground(OptionsMenuAnchor);
     }
 }
 
@@ -85,6 +87,7 @@ void UMessageHoverMenuWidget::OnReactionButtonClicked()
     if (ReactionMenuAnchor)
     {
         ReactionMenuAnchor->Open(true);
+        WidgetUtil::HideDefaultMenuBackground(ReactionMenuAnchor);
     }
 }
 

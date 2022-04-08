@@ -5,6 +5,7 @@
 #include "Reaction/ReactionsTooltipWidget.h"
 #include "ThemeDataAsset.h"
 #include "TimerManager.h"
+#include "WidgetUtil.h"
 
 UBottomReactionWidget::UBottomReactionWidget()
 {
@@ -88,7 +89,10 @@ void UBottomReactionWidget::NativeOnMouseEnter(const FGeometry& InGeometry, cons
         [WeakThis = TWeakObjectPtr<UBottomReactionWidget>(this)]
         {
             if (WeakThis.IsValid())
+            {
                 WeakThis->Anchor->Open(true);
+                WidgetUtil::HideDefaultMenuBackground(WeakThis->Anchor);
+            }
         },
         1.f,
         false);
