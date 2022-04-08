@@ -135,3 +135,35 @@ FLinearColor WidgetUtil::ChooseColorForString(const FString& String)
 {
     return Colors[WidgetUtil::HashStringWithMax(String, 16)];
 }
+
+void WidgetUtil::HideDefaultMenuBackground(UMenuAnchor* Anchor)
+{
+    const TSharedRef<SWidget> AnchorWidget = Anchor->TakeWidget();
+    if (AnchorWidget->GetChildren()->Num() != 2)
+    {
+        return;
+    }
+
+    const TSharedRef<SWidget> MenuContentWrapper = AnchorWidget->GetChildren()->GetChildAt(1);
+    if (MenuContentWrapper->GetChildren()->Num() != 1)
+    {
+        return;
+    }
+
+    const TSharedRef<SWidget> Box = MenuContentWrapper->GetChildren()->GetChildAt(0);
+    if (Box->GetChildren()->Num() != 1)
+    {
+        return;
+    }
+
+    const TSharedRef<SWidget> Overlay = Box->GetChildren()->GetChildAt(0);
+    if (Overlay->GetChildren()->Num() != 3)
+    {
+        return;
+    }
+
+    const TSharedRef<SWidget> Background = Overlay->GetChildren()->GetChildAt(0);
+    Background->SetVisibility(EVisibility::Collapsed);
+    const TSharedRef<SWidget> Outline = Overlay->GetChildren()->GetChildAt(1);
+    Outline->SetVisibility(EVisibility::Collapsed);
+}

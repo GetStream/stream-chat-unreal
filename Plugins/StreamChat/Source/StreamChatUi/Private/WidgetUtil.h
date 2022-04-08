@@ -5,6 +5,8 @@
 #include "Blueprint/WidgetTree.h"
 #include "Components/Widget.h"
 
+class UMenuAnchor;
+
 namespace WidgetUtil
 {
 UWidget* GetTypedParentWidget(const UWidget*, const TSubclassOf<UWidget>);
@@ -34,5 +36,7 @@ FString TruncateWithEllipsis(const FString&, uint32 MaxWidth, const FSlateFontIn
 uint32 HashStringWithMax(const FString&, uint32 Max = 16);
 
 FLinearColor ChooseColorForString(const FString&);
+
+void HideDefaultMenuBackground(UMenuAnchor* Anchor);
 
 }    // namespace WidgetUtil
