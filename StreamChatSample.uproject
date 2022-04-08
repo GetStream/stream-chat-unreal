@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "4.27",
+	"EngineAssociation": "5.0",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -161,6 +161,10 @@
 		},
 		{
 			"Name": "MagicLeap",
+			"Enabled": false
+		},
+		{
+			"Name": "Bridge",
 			"Enabled": false
 		}
 	]

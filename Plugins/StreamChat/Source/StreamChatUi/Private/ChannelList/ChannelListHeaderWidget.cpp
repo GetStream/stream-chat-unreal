@@ -26,6 +26,12 @@ void UChannelListHeaderWidget::OnTheme()
     {
         Icon->SetColorAndOpacity(Theme->GetPaletteColor(Theme->ChannelListHeaderIconColor));
     }
+    if (Button)
+    {
+        Button->WidgetStyle.Normal.DrawAs = ESlateBrushDrawType::Box;
+        Button->WidgetStyle.Pressed.DrawAs = ESlateBrushDrawType::Box;
+        Button->WidgetStyle.Hovered.DrawAs = ESlateBrushDrawType::Box;
+    }
 }
 
 void UChannelListHeaderWidget::OnButtonClick()
