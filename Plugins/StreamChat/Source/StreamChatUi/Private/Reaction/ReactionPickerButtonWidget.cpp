@@ -33,6 +33,9 @@ void UReactionPickerButtonWidget::OnTheme()
 {
     if (Button)
     {
+        Button->WidgetStyle.Normal.DrawAs = ESlateBrushDrawType::NoDrawType;
+        Button->WidgetStyle.Pressed.DrawAs = ESlateBrushDrawType::Box;
+        Button->WidgetStyle.Hovered.DrawAs = ESlateBrushDrawType::Box;
         Button->WidgetStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ReactionPickerBackgroundColor)};
         Button->WidgetStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ReactionPickerSelectedColor)};
         Button->WidgetStyle.Hovered.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ReactionPickerSelectedColor)};
