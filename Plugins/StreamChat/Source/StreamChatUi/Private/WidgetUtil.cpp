@@ -2,6 +2,7 @@
 
 #include "WidgetUtil.h"
 
+#include "Components/MenuAnchor.h"
 #include "Engine/Texture2DDynamic.h"
 #include "Fonts/FontMeasure.h"
 #include "IImageWrapper.h"
