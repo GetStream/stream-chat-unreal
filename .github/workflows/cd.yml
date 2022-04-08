@@ -60,6 +60,17 @@ jobs:
         with:
           lfs: true
 
+      - name: ☝️ Select UE5.0
+        shell: bash
+        run: |
+          if [[ "$OSTYPE" == "darwin"* ]]; then
+            ue4 setroot "/Users/Shared/Epic Games/UE_5.0"
+          else
+            ue4 setroot "C:\UE\UE_5.0"
+          fi
+
+          just set-engine 5.0
+
       - name: Generate bundle version
         if: ${{ matrix.platform == 'IOS' }}
         uses: actions/github-script@v5
