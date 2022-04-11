@@ -274,7 +274,7 @@ jobs:
     name: 🚀 Release
     if: ${{ startsWith(github.head_ref, 'release-') || startsWith(github.ref_name, 'release-') || github.event.inputs.force-release != '' }}
     needs: [samples, plugin]
-    runs-on: [self-hosted, UE_Mac]
+    runs-on: macos-latest
 
     steps:
       - name: 🔎 Determine version
