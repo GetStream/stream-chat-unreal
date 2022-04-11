@@ -176,9 +176,29 @@ jobs:
           rm -rf $app/Contents/Resources/RadioEffectUnit.component
           rm -rf $app/Contents/UE4/Engine/Build
 
+          echo -e "\n==> Fix rpaths in executable"
+          # These rpaths lead to invalid locations. They need to be removed, otherwise the notarized app won't pass the Gatekeeper.
+          declare -a bad_exe_rpaths=(
+            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_5.0/Engine/Binaries/ThirdParty/PhysX3/Mac"
+            "@loader_path/../../../../../../Engine/Binaries/ThirdParty/PhysX3/Mac"
+            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_5.0/Engine/Binaries/ThirdParty/Vorbis/Mac"
+            "@loader_path/../../../../../../Engine/Binaries/ThirdParty/Ogg/Mac"
+            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_5.0/Engine/Binaries/ThirdParty/Ogg/Mac"
+            "@loader_path/../../../../../../Engine/Binaries/ThirdParty/Vorbis/Mac"
+            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_5.0/Engine/Binaries/ThirdParty/Intel/TBB/Mac"
+            "@loader_path/../../../../../../Engine/Binaries/ThirdParty/Intel/TBB/Mac"
+            "@executable_path/../../../"
+          )
+
+          for i in "${bad_exe_rpaths[@]}"; do
+            echo "Removing bad rpath in executable: $i"
+            install_name_tool -delete_rpath "$i" $app/Contents/MacOS/$executable
+          done
+
+
           find $app -name '*.dylib' -print0 | while IFS= read -r -d '' i; do
             if otool -l "$i" | grep -q LC_RPATH; then
-              echo "--> Replace rpath for $i"
+              echo "--> Replace rpath in dylib: $i"
               install_name_tool -rpath /Volumes/Work/Perforce/UE4/Engine/Binaries/ThirdParty/PhysX3/Mac @loader_path $i
             fi
           done
