@@ -40,20 +40,25 @@ bump-version version:
 
     console.log("Bumping to version v{{version}}");
     const fs = require('fs');
-    const fileName = './Plugins/StreamChat/StreamChat.uplugin';
-    const data = fs.readFileSync(fileName);
-    const file = JSON.parse(data);
+    for (const fileName in [
+        "./Plugins/StreamChat/StreamChat.uplugin",
+        "./Plugins/StreamChat/StreamChat.uplugin.4.27",
+        "./Plugins/StreamChat/StreamChat.uplugin.5.0",
+    ]) {
+        const data = fs.readFileSync(fileName);
+        const file = JSON.parse(data);
 
-    // Bump version
-    file.Version += 1;
+        // Bump version
+        file.Version += 1;
 
-    // Set version string
-    file.VersionName = "{{version}}";
+        // Set version string
+        file.VersionName = "{{version}}";
 
-    fs.writeFile(fileName, JSON.stringify(file, null, 4), function writeJSON(err) {
-        if (err) return console.error(err);
-        console.log("Writing to " + fileName);
-    });
+        fs.writeFile(fileName, JSON.stringify(file, null, 4), function writeJSON(err) {
+            if (err) return console.error(err);
+            console.log("Writing to " + fileName);
+        });
+    }
 
 create-release-branch version: (bump-version version)
     echo "Preparing release {{version}}"
