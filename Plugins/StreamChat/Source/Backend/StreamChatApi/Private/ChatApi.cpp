@@ -6,6 +6,7 @@
 #include "Request/Channel/ChannelGetOrCreateRequestDto.h"
 #include "Request/Channel/MarkReadRequestDto.h"
 #include "Request/Channel/QueryChannelsRequestDto.h"
+#include "Request/Channel/UpdateChannelPartialRequestDto.h"
 #include "Request/Device/DeviceFieldsDto.h"
 #include "Request/Event/SendEventRequest.h"
 #include "Request/Message/SearchRequestDto.h"
@@ -22,6 +23,7 @@
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/Channel/DeleteChannelResponseDto.h"
 #include "Response/Channel/MarkReadResponseDto.h"
+#include "Response/Channel/UpdateChannelPartialResponseDto.h"
 #include "Response/Device/ListDevicesResponseDto.h"
 #include "Response/ErrorResponseDto.h"
 #include "Response/Event/EventResponseDto.h"
@@ -257,6 +259,19 @@ void FChatApi::DeleteChannel(const FString& ChannelType, const FString& ChannelI
     const FString Path = FString::Printf(TEXT("channels/%s/%s"), *ChannelType, *ChannelId);
     const FString Url = BuildUrl(Path);
     Client->Delete(Url).Send(Callback);
+}
+
+void FChatApi::PartialUpdateChannel(
+    const FString& ChannelType,
+    const FString& ChannelId,
+    const TSharedRef<FJsonObject>& Set,
+    const TArray<FString>& Unset,
+    const TCallback<FUpdateChannelPartialResponseDto> Callback) const
+{
+    const FString Path = FString::Printf(TEXT("channels/%s/%s"), *ChannelType, *ChannelId);
+    const FString Url = BuildUrl(Path);
+    const FUpdateChannelPartialRequestDto Body{Wrap(Set), Unset};
+    Client->Patch(Url).Json(Body).Send(Callback);
 }
 
 void FChatApi::SendNewMessage(

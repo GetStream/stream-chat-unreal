@@ -35,6 +35,7 @@ struct FReactionResponseDto;
 struct FResponseDto;
 struct FSearchResponseDto;
 struct FToken;
+struct FUpdateChannelPartialResponseDto;
 struct FUpdateUsersResponseDto;
 struct FUserObjectRequestDto;
 struct FUsersResponseDto;
@@ -178,6 +179,21 @@ public:
      * @param Callback Called when response is received.
      */
     void DeleteChannel(const FString& ChannelType, const FString& ChannelId, TCallback<FDeleteChannelResponseDto> Callback = {}) const;
+
+    /**
+     * @brief Updates certain fields of the channel
+     * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
+     * @param ChannelId A unique identifier for the channel
+     * @param Set Sets new field values
+     * @param Unset Array of field names to unset
+     * @param Callback Called when response is received.
+     */
+    void PartialUpdateChannel(
+        const FString& ChannelType,
+        const FString& ChannelId,
+        const TSharedRef<FJsonObject>& Set,
+        const TArray<FString>& Unset,
+        TCallback<FUpdateChannelPartialResponseDto> Callback = {}) const;
 
     /**
      * @brief Query channels with filter query
