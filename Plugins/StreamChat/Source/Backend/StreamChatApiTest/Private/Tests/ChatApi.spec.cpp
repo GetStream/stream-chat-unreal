@@ -13,6 +13,7 @@
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/Channel/DeleteChannelResponseDto.h"
+#include "Response/Channel/UpdateChannelPartialResponseDto.h"
 #include "Response/Device/ListDevicesResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Moderation/BanResponseDto.h"
@@ -143,6 +144,25 @@ void FChatApiSpec::Define()
                             TestEqual("Response.Channel.Id", Dto.Channel.Id, NewChannelId);
                             TestEqual("No additional fields", Dto.Channel.AdditionalFields.GetFields().Num(), 0);
                             AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
+                            TestDone.Execute();
+                        });
+                });
+
+            // Partial update channel
+            LatentAfterEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    const FString NewName = TEXT("New channel name");
+                    const TSharedRef<FJsonObject> Set = MakeShared<FJsonObject>();
+                    Set->SetStringField(TEXT("name"), NewName);
+                    Api->PartialUpdateChannel(
+                        ChannelType,
+                        ChannelId,
+                        Set,
+                        {},
+                        [=](const FUpdateChannelPartialResponseDto& Dto)
+                        {
+                            TestEqual("Channel name updated", Dto.Channel.AdditionalFields.GetString(TEXT("name")), {NewName});
                             TestDone.Execute();
                         });
                 });
