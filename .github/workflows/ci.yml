@@ -21,7 +21,10 @@ jobs:
         clangFormatVersion: 12
 
   build-plugin:
-    name: 🔌 Build Plugin
+    strategy:
+      matrix:
+        engine: ["4.27", "5.0"]
+    name: 🔌 Build Plugin UE${{ matrix.engine }}
     runs-on: [self-hosted]
 
     steps:
@@ -32,6 +35,17 @@ jobs:
         name: 🛒 Checkout
         with:
           lfs: true
+
+      - name: ☝️ Select UE${{ matrix.engine }}
+        shell: bash
+        run: |
+          if [[ "$OSTYPE" == "darwin"* ]]; then
+            ue4 setroot "/Users/Shared/Epic Games/UE_${{ matrix.engine }}"
+          else
+            ue4 setroot "C:\UE\UE_${{ matrix.engine }}"
+          fi
+
+          just set-engine ${{ matrix.engine }}
 
       - name: 🔨 Build plugin
         run: |
