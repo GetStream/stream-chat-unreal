@@ -29,6 +29,10 @@ var group___stream_chat_dto =
       [ "MemberLimit", "struct_f_query_channels_request_dto.html#adbb13a036f065d223c52abf3c1306bd1", null ],
       [ "Sort", "struct_f_query_channels_request_dto.html#ad3bc9151f4d3c44a2e5c194b54e4d178", null ]
     ] ],
+    [ "FUpdateChannelPartialRequestDto", "struct_f_update_channel_partial_request_dto.html", [
+      [ "Set", "struct_f_update_channel_partial_request_dto.html#ab1b301ba7d2bad765c4cf7da59f12ebc", null ],
+      [ "Unset", "struct_f_update_channel_partial_request_dto.html#a97c1243f74fbe18942fe4526a3844f01", null ]
+    ] ],
     [ "FConnectRequestDto", "struct_f_connect_request_dto.html", null ],
     [ "FDeviceFieldsDto", "struct_f_device_fields_dto.html", null ],
     [ "FSendEventRequestDto", "struct_f_send_event_request_dto.html", null ],
@@ -178,6 +182,9 @@ var group___stream_chat_dto =
       [ "Event", "struct_f_mark_read_response_dto.html#ac8677611f8336265807c6c3028f78dc2", null ]
     ] ],
     [ "FReadDto", "struct_f_read_dto.html", null ],
+    [ "FUpdateChannelPartialResponseDto", "struct_f_update_channel_partial_response_dto.html", [
+      [ "Channel", "struct_f_update_channel_partial_response_dto.html#aa11ded6c18a4217a470c9b98ab072b5b", null ]
+    ] ],
     [ "FDeviceDto", "struct_f_device_dto.html", [
       [ "bDisabled", "struct_f_device_dto.html#a6e4202accd12e263a0941f90572365af", null ],
       [ "CreatedAt", "struct_f_device_dto.html#a0fc6bb626869bcc01b646228bfd0dc23", null ],

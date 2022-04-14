@@ -130,6 +130,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9b963b996696beff8dca56f8df568455"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#a9b963b996696beff8dca56f8df568455">DeleteChannel</a> (const FString &amp;ChannelType, const FString &amp;ChannelId, TCallback&lt; <a class="el" href="struct_f_delete_channel_response_dto.html">FDeleteChannelResponseDto</a> &gt; Callback={}) const</td></tr>
 <tr class="memdesc:a9b963b996696beff8dca56f8df568455"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a channel. Messages are soft deleted.  <a href="class_f_chat_api.html#a9b963b996696beff8dca56f8df568455">More...</a><br /></td></tr>
 <tr class="separator:a9b963b996696beff8dca56f8df568455"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fc38142a68734cc79dd279f03efd76e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#a2fc38142a68734cc79dd279f03efd76e">PartialUpdateChannel</a> (const FString &amp;ChannelType, const FString &amp;ChannelId, const TSharedRef&lt; FJsonObject &gt; &amp;Set, const TArray&lt; FString &gt; &amp;Unset, TCallback&lt; <a class="el" href="struct_f_update_channel_partial_response_dto.html">FUpdateChannelPartialResponseDto</a> &gt; Callback={}) const</td></tr>
+<tr class="memdesc:a2fc38142a68734cc79dd279f03efd76e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates certain fields of the channel.  <a href="class_f_chat_api.html#a2fc38142a68734cc79dd279f03efd76e">More...</a><br /></td></tr>
+<tr class="separator:a2fc38142a68734cc79dd279f03efd76e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0ddab8f53a683e19daa331e15c4c2a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#ac0ddab8f53a683e19daa331e15c4c2a8">QueryChannels</a> (const FString &amp;ConnectionId, <a class="el" href="group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898">EChannelFlags</a> Flags=<a class="el" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d">EChannelFlags::State</a>|<a class="el" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898af20658650d987d31063b593c05980397">EChannelFlags::Watch</a>, const TOptional&lt; TSharedRef&lt; FJsonObject &gt; &gt; &amp;Filter={}, const TArray&lt; <a class="el" href="struct_f_sort_param_request_dto.html">FSortParamRequestDto</a> &gt; &amp;SortOptions={}, TOptional&lt; uint32 &gt; MemberLimit={}, TOptional&lt; uint32 &gt; MessageLimit={}, TOptional&lt; uint32 &gt; Limit={}, TOptional&lt; uint32 &gt; Offset={}, TCallback&lt; <a class="el" href="struct_f_channels_response_dto.html">FChannelsResponseDto</a> &gt; Callback={}) const</td></tr>
 <tr class="memdesc:ac0ddab8f53a683e19daa331e15c4c2a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query channels with filter query.  <a href="class_f_chat_api.html#ac0ddab8f53a683e19daa331e15c4c2a8">More...</a><br /></td></tr>
 <tr class="separator:ac0ddab8f53a683e19daa331e15c4c2a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -638,6 +641,64 @@ static TSharedRef&lt; <a class="el" href="class_f_chat_api.html">FChatApi</a> &g
   <table class="params">
     <tr><td class="paramname">TargetUserIds</td><td>User IDs to mute </td></tr>
     <tr><td class="paramname">Timeout</td><td>Duration of mute in minutes (optional) </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a2fc38142a68734cc79dd279f03efd76e" name="a2fc38142a68734cc79dd279f03efd76e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fc38142a68734cc79dd279f03efd76e">&#9670;&nbsp;</a></span>PartialUpdateChannel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FChatApi::PartialUpdateChannel </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ChannelType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ChannelId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TSharedRef&lt; FJsonObject &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Set</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Unset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TCallback&lt; <a class="el" href="struct_f_update_channel_partial_response_dto.html">FUpdateChannelPartialResponseDto</a> &gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates certain fields of the channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ChannelType</td><td>Name of built-in or custom channel type (e.g. messaging, team, livestream) </td></tr>
+    <tr><td class="paramname">ChannelId</td><td>A unique identifier for the channel </td></tr>
+    <tr><td class="paramname">Set</td><td>Sets new field values </td></tr>
+    <tr><td class="paramname">Unset</td><td>Array of field names to unset </td></tr>
     <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
   </table>
   </dd>

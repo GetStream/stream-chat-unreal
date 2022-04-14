@@ -95,6 +95,7 @@ var hierarchy =
       [ "FQueryBannedUsersResponseDto", "struct_f_query_banned_users_response_dto.html", null ],
       [ "FReactionResponseDto", "struct_f_reaction_response_dto.html", null ],
       [ "FSearchResponseDto", "struct_f_search_response_dto.html", null ],
+      [ "FUpdateChannelPartialResponseDto", "struct_f_update_channel_partial_response_dto.html", null ],
       [ "FUsersResponseDto", "struct_f_users_response_dto.html", null ]
     ] ],
     [ "FSearchResultDto", "struct_f_search_result_dto.html", null ],
@@ -103,6 +104,7 @@ var hierarchy =
     [ "FSendMessageRequestDto", "struct_f_send_message_request_dto.html", null ],
     [ "FSendReactionRequestDto", "struct_f_send_reaction_request_dto.html", null ],
     [ "FSortParamRequestDto", "struct_f_sort_param_request_dto.html", null ],
+    [ "FUpdateChannelPartialRequestDto", "struct_f_update_channel_partial_request_dto.html", null ],
     [ "FUpdateMessageRequestDto", "struct_f_update_message_request_dto.html", null ],
     [ "FUser", "struct_f_user.html", null ],
     [ "FUserDto", "struct_f_user_dto.html", [

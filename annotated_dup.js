@@ -93,6 +93,8 @@ var annotated_dup =
     [ "FSortParamRequestDto", "struct_f_sort_param_request_dto.html", null ],
     [ "FTypingStartEvent", "struct_f_typing_start_event.html", null ],
     [ "FTypingStopEvent", "struct_f_typing_stop_event.html", null ],
+    [ "FUpdateChannelPartialRequestDto", "struct_f_update_channel_partial_request_dto.html", "struct_f_update_channel_partial_request_dto" ],
+    [ "FUpdateChannelPartialResponseDto", "struct_f_update_channel_partial_response_dto.html", "struct_f_update_channel_partial_response_dto" ],
     [ "FUpdateMessageRequestDto", "struct_f_update_message_request_dto.html", "struct_f_update_message_request_dto" ],
     [ "FUser", "struct_f_user.html", "struct_f_user" ],
     [ "FUserDto", "struct_f_user_dto.html", "struct_f_user_dto" ],
