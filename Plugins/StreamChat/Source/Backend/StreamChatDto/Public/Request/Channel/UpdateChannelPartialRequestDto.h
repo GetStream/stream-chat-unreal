@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "AdditionalFields.h"
 #include "CoreMinimal.h"
 #include "JsonObjectWrapper.h"
 
