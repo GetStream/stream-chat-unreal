@@ -36,6 +36,8 @@ struct FResponseDto;
 struct FSearchResponseDto;
 struct FToken;
 struct FUpdateChannelPartialResponseDto;
+struct FUpdateChannelRequestDto;
+struct FUpdateChannelResponseDto;
 struct FUpdateUsersResponseDto;
 struct FUserObjectRequestDto;
 struct FUsersResponseDto;
@@ -194,6 +196,19 @@ public:
         const TSharedRef<FJsonObject>& Set,
         const TArray<FString>& Unset,
         TCallback<FUpdateChannelPartialResponseDto> Callback = {}) const;
+
+    /**
+     * @brief Change channel data. Any data that is present on the channel and not included in a full update will be deleted.
+     * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
+     * @param ChannelId A unique identifier for the channel
+     * @param Data Properties to set on the channel
+     * @param Callback Called when response is received.
+     */
+    void UpdateChannel(
+        const FString& ChannelType,
+        const FString& ChannelId,
+        const FUpdateChannelRequestDto& Data,
+        TCallback<FUpdateChannelResponseDto> Callback = {}) const;
 
     /**
      * @brief Query channels with filter query
