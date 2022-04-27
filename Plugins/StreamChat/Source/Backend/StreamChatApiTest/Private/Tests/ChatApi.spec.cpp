@@ -8,12 +8,14 @@
 #include "IChatSocket.h"
 #include "Misc/AutomationTest.h"
 #include "PushProvider.h"
+#include "Request/Channel/UpdateChannelRequestDto.h"
 #include "Request/Message/MessageRequestDto.h"
 #include "Request/User/UserObjectRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/Channel/DeleteChannelResponseDto.h"
 #include "Response/Channel/UpdateChannelPartialResponseDto.h"
+#include "Response/Channel/UpdateChannelResponseDto.h"
 #include "Response/Device/ListDevicesResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Moderation/BanResponseDto.h"
@@ -85,8 +87,7 @@ void FChatApiSpec::Define()
                         });
                 });
 
-            LatentIt(
-                "should find one channel",
+            LatentBeforeEach(
                 [=](const FDoneDelegate& TestDone)
                 {
                     const TSharedRef<FJsonObject> Filter = MakeShared<FJsonObject>();
@@ -107,10 +108,70 @@ void FChatApiSpec::Define()
                         });
                 });
 
-            // AfterEach are executed in reverse order of declaration...
+            // Partial update channel
+            LatentBeforeEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    const FString NewName = TEXT("New channel name");
+                    const TSharedRef<FJsonObject> Set = MakeShared<FJsonObject>();
+                    Set->SetStringField(TEXT("name"), NewName);
+                    Api->PartialUpdateChannel(
+                        ChannelType,
+                        NewChannelId,
+                        Set,
+                        {},
+                        [=](const FUpdateChannelPartialResponseDto& Dto)
+                        {
+                            TestEqual("Channel name partial updated", Dto.Channel.AdditionalFields.GetString(TEXT("name")), {NewName});
+                            TestDone.Execute();
+                        });
+                });
+
+            // Update channel
+            LatentBeforeEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    const FString NewName = TEXT("MY CHANNEL");
+                    FUpdateChannelRequestDto Data;
+                    FChannelMemberRequestDto MemberRequestDto;
+                    MemberRequestDto.bIsModerator = true;
+                    MemberRequestDto.User.Id = BanUserId;
+                    Data.AddMembers.Add(MemberRequestDto);
+                    Api->UpdateChannel(
+                        ChannelType,
+                        NewChannelId,
+                        Data,
+                        [=](const FUpdateChannelResponseDto& Dto)
+                        {
+                            AddInfo(Dto.Channel.AdditionalFields.GetString(TEXT("name")).GetValue());
+                            const FChannelMemberDto* Found = Dto.Members.FindByPredicate([&](const FChannelMemberDto& A) { return A.UserId == BanUserId; });
+                            TestNotNull("User added", Found);
+                            TestTrue("User is moderator", Found->bIsModerator);
+                            TestTrue("No message", Dto.Message.Id.IsEmpty());
+                            TestEqual("No cooldown", Dto.Channel.Cooldown, 0);
+                            TestDone.Execute();
+                        });
+                });
+
+            // Delete channel
+            LatentBeforeEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->DeleteChannel(
+                        ChannelType,
+                        NewChannelId,
+                        [=](const FDeleteChannelResponseDto& Dto)
+                        {
+                            TestEqual("Response.Channel.Cid", Dto.Channel.Cid, NewCid);
+                            TestEqual("Response.Channel.Id", Dto.Channel.Id, NewChannelId);
+                            AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
+                            TestDone.Execute();
+                        });
+                });
 
             // Check channel deleted
-            LatentAfterEach(
+            LatentIt(
+                "should have deleted test channel",
                 [=](const FDoneDelegate& TestDone)
                 {
                     const TSharedRef<FJsonObject> Filter = MakeShared<FJsonObject>();
@@ -127,42 +188,6 @@ void FChatApiSpec::Define()
                         [=](const FChannelsResponseDto& Dto)
                         {
                             TestEqual("No channels in response", Dto.Channels.Num(), 0);
-                            TestDone.Execute();
-                        });
-                });
-
-            // Delete channel
-            LatentAfterEach(
-                [=](const FDoneDelegate& TestDone)
-                {
-                    Api->DeleteChannel(
-                        ChannelType,
-                        NewChannelId,
-                        [=](const FDeleteChannelResponseDto& Dto)
-                        {
-                            TestEqual("Response.Channel.Cid", Dto.Channel.Cid, NewCid);
-                            TestEqual("Response.Channel.Id", Dto.Channel.Id, NewChannelId);
-                            TestEqual("No additional fields", Dto.Channel.AdditionalFields.GetFields().Num(), 0);
-                            AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
-                            TestDone.Execute();
-                        });
-                });
-
-            // Partial update channel
-            LatentAfterEach(
-                [=](const FDoneDelegate& TestDone)
-                {
-                    const FString NewName = TEXT("New channel name");
-                    const TSharedRef<FJsonObject> Set = MakeShared<FJsonObject>();
-                    Set->SetStringField(TEXT("name"), NewName);
-                    Api->PartialUpdateChannel(
-                        ChannelType,
-                        ChannelId,
-                        Set,
-                        {},
-                        [=](const FUpdateChannelPartialResponseDto& Dto)
-                        {
-                            TestEqual("Channel name updated", Dto.Channel.AdditionalFields.GetString(TEXT("name")), {NewName});
                             TestDone.Execute();
                         });
                 });

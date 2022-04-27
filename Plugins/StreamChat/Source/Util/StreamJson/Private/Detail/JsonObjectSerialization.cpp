@@ -125,6 +125,16 @@ bool JsonObjectSerialization::UStructToJsonAttributes(
             }
         }
 
+        // Skip serializing empty maps
+        if (const FMapProperty* MapProperty = CastField<FMapProperty>(Property))
+        {
+            const FScriptMapHelper MapHelper{MapProperty, Value};
+            if (MapHelper.Num() == 0)
+            {
+                continue;
+            }
+        }
+
         // Skip serializing empty strings
         if (const FStrProperty* StrProperty = CastField<FStrProperty>(Property))
         {
