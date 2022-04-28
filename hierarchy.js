@@ -9,6 +9,7 @@ var hierarchy =
     [ "FChannelConfigWithInfoDto", "struct_f_channel_config_with_info_dto.html", null ],
     [ "FChannelGetOrCreateRequestDto", "struct_f_channel_get_or_create_request_dto.html", null ],
     [ "FChannelMemberDto", "struct_f_channel_member_dto.html", null ],
+    [ "FChannelMemberRequestDto", "struct_f_channel_member_request_dto.html", null ],
     [ "FChannelPaginationOptions", "struct_f_channel_pagination_options.html", null ],
     [ "FChannelProperties", "struct_f_channel_properties.html", null ],
     [ "FChannelRequestDto", "struct_f_channel_request_dto.html", null ],
@@ -96,6 +97,7 @@ var hierarchy =
       [ "FReactionResponseDto", "struct_f_reaction_response_dto.html", null ],
       [ "FSearchResponseDto", "struct_f_search_response_dto.html", null ],
       [ "FUpdateChannelPartialResponseDto", "struct_f_update_channel_partial_response_dto.html", null ],
+      [ "FUpdateChannelResponseDto", "struct_f_update_channel_response_dto.html", null ],
       [ "FUsersResponseDto", "struct_f_users_response_dto.html", null ]
     ] ],
     [ "FSearchResultDto", "struct_f_search_result_dto.html", null ],
@@ -105,6 +107,7 @@ var hierarchy =
     [ "FSendReactionRequestDto", "struct_f_send_reaction_request_dto.html", null ],
     [ "FSortParamRequestDto", "struct_f_sort_param_request_dto.html", null ],
     [ "FUpdateChannelPartialRequestDto", "struct_f_update_channel_partial_request_dto.html", null ],
+    [ "FUpdateChannelRequestDto", "struct_f_update_channel_request_dto.html", null ],
     [ "FUpdateMessageRequestDto", "struct_f_update_message_request_dto.html", null ],
     [ "FUser", "struct_f_user.html", null ],
     [ "FUserDto", "struct_f_user_dto.html", [

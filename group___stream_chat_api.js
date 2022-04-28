@@ -23,6 +23,7 @@ var group___stream_chat_api =
       [ "SendReaction", "class_f_chat_api.html#ae6a3d9125e5ffd0eaf04b644fb638fd1", null ],
       [ "UnbanUser", "class_f_chat_api.html#af46e69c6f9a893291a853efd63e7edb8", null ],
       [ "UnmuteUser", "class_f_chat_api.html#a2f4d1a4dd1f5e5c25543d01bfea3f0f5", null ],
+      [ "UpdateChannel", "class_f_chat_api.html#a64e729dcaa5a9001d189870d95cb2784", null ],
       [ "UpdateMessage", "class_f_chat_api.html#a67c9b887d5a0ef287f8f99372381e64f", null ]
     ] ],
     [ "EChannelFlags", "group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898", [

@@ -7,7 +7,7 @@ var struct_f_channel_response_dto =
     [ "bMuted", "struct_f_channel_response_dto.html#a8b27bdb8375fa2093b682f03d04167d2", null ],
     [ "Cid", "struct_f_channel_response_dto.html#adfad41b4fbb3dc8ae9b7ba08a585a6b5", null ],
     [ "Config", "struct_f_channel_response_dto.html#a6ea1d4fb70104bac73d137309121da92", null ],
-    [ "Cooldown", "struct_f_channel_response_dto.html#a2316c1efcd13b445755e44c6313bfb55", null ],
+    [ "Cooldown", "struct_f_channel_response_dto.html#a499012ae28487701e38a9889efb0c640", null ],
     [ "CreatedAt", "struct_f_channel_response_dto.html#a12a71e664e55c74f5be87bec83092d14", null ],
     [ "CreatedBy", "struct_f_channel_response_dto.html#ad961ad9aeef5e72ba61c97f5f584a999", null ],
     [ "DeletedAt", "struct_f_channel_response_dto.html#af527e1d0bae32d3f6945a274716c5a9d", null ],

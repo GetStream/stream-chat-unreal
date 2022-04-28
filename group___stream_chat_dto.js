@@ -12,6 +12,18 @@ var group___stream_chat_dto =
       [ "bState", "struct_f_channel_get_or_create_request_dto.html#a8a1cf020893e4ef0b94d1a28ad769ce7", null ],
       [ "bWatch", "struct_f_channel_get_or_create_request_dto.html#a83f8dd45ca7aad69622d1a1b85806cfe", null ]
     ] ],
+    [ "FChannelMemberRequestDto", "struct_f_channel_member_request_dto.html", [
+      [ "BanExpires", "struct_f_channel_member_request_dto.html#a08f649ef08631f1e26bf9fce6e7b9c56", null ],
+      [ "bBanned", "struct_f_channel_member_request_dto.html#a67d14174fb06e4b43a05dc3cce9a36c9", null ],
+      [ "bInvited", "struct_f_channel_member_request_dto.html#a31bf15e536cb538d52ce2cfd1688b89b", null ],
+      [ "bIsModerator", "struct_f_channel_member_request_dto.html#a012bd45f50ad85a6dbcf8c353346dced", null ],
+      [ "bShadowBanned", "struct_f_channel_member_request_dto.html#ae5aaa7eb467cf75d5b5a2395c018c2e9", null ],
+      [ "ChannelRole", "struct_f_channel_member_request_dto.html#a210fcfa709346f6f43746b06afa58d08", null ],
+      [ "CreatedAt", "struct_f_channel_member_request_dto.html#ab3a85bda53daeef1c2d11120602f4399", null ],
+      [ "InviteAcceptedAt", "struct_f_channel_member_request_dto.html#a488560ded7fb4ef215366b5ef67d7d6e", null ],
+      [ "InviteRejectedAt", "struct_f_channel_member_request_dto.html#aca6a1a7de3d30accee8204acf30cdff4", null ],
+      [ "UpdatedAt", "struct_f_channel_member_request_dto.html#a2a5822f6abf473e4d3d461d55589b70c", null ]
+    ] ],
     [ "FChannelRequestDto", "struct_f_channel_request_dto.html", [
       [ "bFrozen", "struct_f_channel_request_dto.html#a970e6ab7ca8ee5e558c7fe4a1cd691a8", null ],
       [ "Team", "struct_f_channel_request_dto.html#a2650ccaee9b077567f2c2d87895abdd6", null ]
@@ -32,6 +44,21 @@ var group___stream_chat_dto =
     [ "FUpdateChannelPartialRequestDto", "struct_f_update_channel_partial_request_dto.html", [
       [ "Set", "struct_f_update_channel_partial_request_dto.html#ab1b301ba7d2bad765c4cf7da59f12ebc", null ],
       [ "Unset", "struct_f_update_channel_partial_request_dto.html#a97c1243f74fbe18942fe4526a3844f01", null ]
+    ] ],
+    [ "FUpdateChannelRequestDto", "struct_f_update_channel_request_dto.html", [
+      [ "SetMessage", "struct_f_update_channel_request_dto.html#ac1b49d276f16b241e333e15e535ce5ac", null ],
+      [ "AddMembers", "struct_f_update_channel_request_dto.html#a8ac3ebebca82e45a73105778b81e2d5f", null ],
+      [ "AddModerators", "struct_f_update_channel_request_dto.html#a28ebf82105cf31f4892b80e30b8844fc", null ],
+      [ "AssignRoles", "struct_f_update_channel_request_dto.html#a83d1aae09b16d5c6af44eb4efa93c993", null ],
+      [ "bAcceptInvite", "struct_f_update_channel_request_dto.html#ab84f1d477fa9085e054ae0d748a3985a", null ],
+      [ "bHideHistory", "struct_f_update_channel_request_dto.html#a8a5675a26a1608717de1b4695da552fd", null ],
+      [ "bRejectInvite", "struct_f_update_channel_request_dto.html#a48b2058666b9f78cefe28aa42965f4fc", null ],
+      [ "bSkipPush", "struct_f_update_channel_request_dto.html#ac3a0630ebcb79cc79cbd8fe90548f5d6", null ],
+      [ "Cooldown", "struct_f_update_channel_request_dto.html#a78f1ca671f5becd695d8bf14175de636", null ],
+      [ "Data", "struct_f_update_channel_request_dto.html#ae7bf8824682ea439e113f351a0b9a772", null ],
+      [ "DemoteModerators", "struct_f_update_channel_request_dto.html#a17648e57e003b04a1e141d79b23c25d2", null ],
+      [ "Invites", "struct_f_update_channel_request_dto.html#a2fa985d2381f526c3d29c054bfa45b18", null ],
+      [ "RemoveMembers", "struct_f_update_channel_request_dto.html#a20a916f2ff5acffc6ead16300df107c7", null ]
     ] ],
     [ "FConnectRequestDto", "struct_f_connect_request_dto.html", null ],
     [ "FDeviceFieldsDto", "struct_f_device_fields_dto.html", null ],
@@ -144,7 +171,7 @@ var group___stream_chat_dto =
       [ "bMuted", "struct_f_channel_response_dto.html#a8b27bdb8375fa2093b682f03d04167d2", null ],
       [ "Cid", "struct_f_channel_response_dto.html#adfad41b4fbb3dc8ae9b7ba08a585a6b5", null ],
       [ "Config", "struct_f_channel_response_dto.html#a6ea1d4fb70104bac73d137309121da92", null ],
-      [ "Cooldown", "struct_f_channel_response_dto.html#a2316c1efcd13b445755e44c6313bfb55", null ],
+      [ "Cooldown", "struct_f_channel_response_dto.html#a499012ae28487701e38a9889efb0c640", null ],
       [ "CreatedAt", "struct_f_channel_response_dto.html#a12a71e664e55c74f5be87bec83092d14", null ],
       [ "CreatedBy", "struct_f_channel_response_dto.html#ad961ad9aeef5e72ba61c97f5f584a999", null ],
       [ "DeletedAt", "struct_f_channel_response_dto.html#af527e1d0bae32d3f6945a274716c5a9d", null ],
@@ -185,6 +212,7 @@ var group___stream_chat_dto =
     [ "FUpdateChannelPartialResponseDto", "struct_f_update_channel_partial_response_dto.html", [
       [ "Channel", "struct_f_update_channel_partial_response_dto.html#aa11ded6c18a4217a470c9b98ab072b5b", null ]
     ] ],
+    [ "FUpdateChannelResponseDto", "struct_f_update_channel_response_dto.html", null ],
     [ "FDeviceDto", "struct_f_device_dto.html", [
       [ "bDisabled", "struct_f_device_dto.html#a6e4202accd12e263a0941f90572365af", null ],
       [ "CreatedAt", "struct_f_device_dto.html#a0fc6bb626869bcc01b646228bfd0dc23", null ],

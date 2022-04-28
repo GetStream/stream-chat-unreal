@@ -7,10 +7,11 @@ var searchData=
   ['reason_4',['Reason',['../struct_f_ban_request_dto.html#a2ddbee797dadf056f2891b4f2ff66f95',1,'FBanRequestDto']]],
   ['reconnectiontimeout_5',['ReconnectionTimeout',['../class_u_stream_chat_web_socket_settings.html#a2e31687ed8205ec1591eac7330a6d791',1,'UStreamChatWebSocketSettings']]],
   ['rejectedat_6',['RejectedAt',['../struct_f_flag_dto.html#a701490f8bad971dbcc3f3a016f1fee5d',1,'FFlagDto']]],
-  ['replycount_7',['ReplyCount',['../struct_f_message_dto.html#aabc995a1be48612d30c05572b297323a',1,'FMessageDto']]],
-  ['results_8',['Results',['../struct_f_search_response_dto.html#abe613a54f138e87dee7a225708d447e7',1,'FSearchResponseDto']]],
-  ['resultswarning_9',['ResultsWarning',['../struct_f_search_response_dto.html#af857edb6118bda2ad5c7827e744b15e0',1,'FSearchResponseDto']]],
-  ['reviewedat_10',['ReviewedAt',['../struct_f_flag_dto.html#a3a3f42b75694bf33e9a0ebfbc7d569ed',1,'FFlagDto']]],
-  ['revoketokensissuedbefore_11',['RevokeTokensIssuedBefore',['../struct_f_user_dto.html#a739ec7a197f0b56b74e1d3cae92bb9d2',1,'FUserDto::RevokeTokensIssuedBefore()'],['../struct_f_user.html#a85296b532bd5eccd363ec0e176055ddc',1,'FUser::RevokeTokensIssuedBefore()']]],
-  ['role_12',['Role',['../struct_f_user_dto.html#a296194a8d3462bc0e0750e12acceeb65',1,'FUserDto::Role()'],['../struct_f_user.html#aa969a42428798bdb84a9239b559ba476',1,'FUser::Role()']]]
+  ['removemembers_7',['RemoveMembers',['../struct_f_update_channel_request_dto.html#a20a916f2ff5acffc6ead16300df107c7',1,'FUpdateChannelRequestDto']]],
+  ['replycount_8',['ReplyCount',['../struct_f_message_dto.html#aabc995a1be48612d30c05572b297323a',1,'FMessageDto']]],
+  ['results_9',['Results',['../struct_f_search_response_dto.html#abe613a54f138e87dee7a225708d447e7',1,'FSearchResponseDto']]],
+  ['resultswarning_10',['ResultsWarning',['../struct_f_search_response_dto.html#af857edb6118bda2ad5c7827e744b15e0',1,'FSearchResponseDto']]],
+  ['reviewedat_11',['ReviewedAt',['../struct_f_flag_dto.html#a3a3f42b75694bf33e9a0ebfbc7d569ed',1,'FFlagDto']]],
+  ['revoketokensissuedbefore_12',['RevokeTokensIssuedBefore',['../struct_f_user_dto.html#a739ec7a197f0b56b74e1d3cae92bb9d2',1,'FUserDto::RevokeTokensIssuedBefore()'],['../struct_f_user.html#a85296b532bd5eccd363ec0e176055ddc',1,'FUser::RevokeTokensIssuedBefore()']]],
+  ['role_13',['Role',['../struct_f_user_dto.html#a296194a8d3462bc0e0750e12acceeb65',1,'FUserDto::Role()'],['../struct_f_user.html#aa969a42428798bdb84a9239b559ba476',1,'FUser::Role()']]]
 ];

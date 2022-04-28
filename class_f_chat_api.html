@@ -133,6 +133,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2fc38142a68734cc79dd279f03efd76e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#a2fc38142a68734cc79dd279f03efd76e">PartialUpdateChannel</a> (const FString &amp;ChannelType, const FString &amp;ChannelId, const TSharedRef&lt; FJsonObject &gt; &amp;Set, const TArray&lt; FString &gt; &amp;Unset, TCallback&lt; <a class="el" href="struct_f_update_channel_partial_response_dto.html">FUpdateChannelPartialResponseDto</a> &gt; Callback={}) const</td></tr>
 <tr class="memdesc:a2fc38142a68734cc79dd279f03efd76e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates certain fields of the channel.  <a href="class_f_chat_api.html#a2fc38142a68734cc79dd279f03efd76e">More...</a><br /></td></tr>
 <tr class="separator:a2fc38142a68734cc79dd279f03efd76e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64e729dcaa5a9001d189870d95cb2784"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#a64e729dcaa5a9001d189870d95cb2784">UpdateChannel</a> (const FString &amp;ChannelType, const FString &amp;ChannelId, const <a class="el" href="struct_f_update_channel_request_dto.html">FUpdateChannelRequestDto</a> &amp;Data, TCallback&lt; <a class="el" href="struct_f_update_channel_response_dto.html">FUpdateChannelResponseDto</a> &gt; Callback={}) const</td></tr>
+<tr class="memdesc:a64e729dcaa5a9001d189870d95cb2784"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change channel data. Any data that is present on the channel and not included in a full update will be deleted.  <a href="class_f_chat_api.html#a64e729dcaa5a9001d189870d95cb2784">More...</a><br /></td></tr>
+<tr class="separator:a64e729dcaa5a9001d189870d95cb2784"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0ddab8f53a683e19daa331e15c4c2a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#ac0ddab8f53a683e19daa331e15c4c2a8">QueryChannels</a> (const FString &amp;ConnectionId, <a class="el" href="group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898">EChannelFlags</a> Flags=<a class="el" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d">EChannelFlags::State</a>|<a class="el" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898af20658650d987d31063b593c05980397">EChannelFlags::Watch</a>, const TOptional&lt; TSharedRef&lt; FJsonObject &gt; &gt; &amp;Filter={}, const TArray&lt; <a class="el" href="struct_f_sort_param_request_dto.html">FSortParamRequestDto</a> &gt; &amp;SortOptions={}, TOptional&lt; uint32 &gt; MemberLimit={}, TOptional&lt; uint32 &gt; MessageLimit={}, TOptional&lt; uint32 &gt; Limit={}, TOptional&lt; uint32 &gt; Offset={}, TCallback&lt; <a class="el" href="struct_f_channels_response_dto.html">FChannelsResponseDto</a> &gt; Callback={}) const</td></tr>
 <tr class="memdesc:ac0ddab8f53a683e19daa331e15c4c2a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query channels with filter query.  <a href="class_f_chat_api.html#ac0ddab8f53a683e19daa331e15c4c2a8">More...</a><br /></td></tr>
 <tr class="separator:ac0ddab8f53a683e19daa331e15c4c2a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1442,6 +1445,57 @@ template&lt;class TEvent &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">TargetUserIds</td><td>User IDs to unmute </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a64e729dcaa5a9001d189870d95cb2784" name="a64e729dcaa5a9001d189870d95cb2784"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64e729dcaa5a9001d189870d95cb2784">&#9670;&nbsp;</a></span>UpdateChannel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FChatApi::UpdateChannel </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ChannelType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ChannelId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_f_update_channel_request_dto.html">FUpdateChannelRequestDto</a> &amp;&#160;</td>
+          <td class="paramname"><em>Data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TCallback&lt; <a class="el" href="struct_f_update_channel_response_dto.html">FUpdateChannelResponseDto</a> &gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change channel data. Any data that is present on the channel and not included in a full update will be deleted. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ChannelType</td><td>Name of built-in or custom channel type (e.g. messaging, team, livestream) </td></tr>
+    <tr><td class="paramname">ChannelId</td><td>A unique identifier for the channel </td></tr>
+    <tr><td class="paramname">Data</td><td>Properties to set on the channel </td></tr>
     <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
   </table>
   </dd>
