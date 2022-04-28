@@ -78,10 +78,16 @@ public:
     /**
      * @brief Delete this channel from the server.
      * @param Callback Called when response is received.
-     * @param bHardDelete By default, messages are soft deleted, which means they are removed from client but are still available via server-side export
-     * functions. By setting bHardDelete to true, you can hard delete messages, which deletes them from everywhere.
      */
-    void Delete(TFunction<void()> Callback = {}, bool bHardDelete = false) const;
+    void Delete(TFunction<void()> Callback = {}) const;
+
+    /**
+     * @brief Updates certain fields of the channel
+     * @param Set Sets new field values
+     * @param Unset Array of field names to unset
+     * @param Callback Called when response is received.
+     */
+    void PartialUpdate(const TSharedRef<FJsonObject>& Set, const TArray<FString>& Unset, TFunction<void()> Callback = {});
 
     /// The local static properties of the channel
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")

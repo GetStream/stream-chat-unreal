@@ -25,8 +25,8 @@ struct STREAMCHAT_API FChannelProperties
     FChannelProperties();
 
     /// Create channel properties from a DTO from the API
-    explicit FChannelProperties(const FChannelResponseDto&, UUserManager*);
-    explicit FChannelProperties(const FChannelStateResponseFieldsDto&, UUserManager*);
+    explicit FChannelProperties(const FChannelResponseDto& Dto, UUserManager*);
+    explicit FChannelProperties(const FChannelResponseDto& Dto, const TArray<FChannelMemberDto>& Members, UUserManager*);
 
     /// Convert to a channel request DTO to send to the API
     explicit operator FChannelRequestDto() const;

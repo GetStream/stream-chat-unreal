@@ -23,6 +23,7 @@
 #include "Request/Reaction/ReactionRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/DeleteChannelResponseDto.h"
+#include "Response/Channel/UpdateChannelPartialResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
 #include "TimerManager.h"
@@ -40,7 +41,7 @@ UChatChannel* UChatChannel::Create(
 
     Channel->Api = Api;
     Channel->Socket = Socket;
-    Channel->Properties = FChannelProperties{Dto, UUserManager::Get()};
+    Channel->Properties = FChannelProperties{Dto.Channel, Dto.Members, UUserManager::Get()};
     Channel->State = FChannelState{Dto, UUserManager::Get()};
 
     Channel->On<FMessageNewEvent>(Channel, &UChatChannel::OnMessageNew);
@@ -65,13 +66,33 @@ UChatChannel* UChatChannel::Create(
     return Channel;
 }
 
-void UChatChannel::Delete(TFunction<void()> Callback, const bool bHardDelete) const
+void UChatChannel::Delete(TFunction<void()> Callback) const
 {
     Api->DeleteChannel(
         Properties.Type,
         Properties.Id,
         [Callback](const FDeleteChannelResponseDto&)
         {
+            if (Callback)
+            {
+                Callback();
+            }
+        });
+}
+
+void UChatChannel::PartialUpdate(const TSharedRef<FJsonObject>& Set, const TArray<FString>& Unset, TFunction<void()> Callback)
+{
+    Api->PartialUpdateChannel(
+        Properties.Type,
+        Properties.Id,
+        Set,
+        Unset,
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback](const FUpdateChannelPartialResponseDto& Dto)
+        {
+            if (WeakThis.IsValid())
+            {
+                WeakThis->Properties = FChannelProperties{Dto.Channel, Dto.Members, UUserManager::Get()};
+            }
             if (Callback)
             {
                 Callback();
