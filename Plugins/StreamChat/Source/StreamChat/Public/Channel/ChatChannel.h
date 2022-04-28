@@ -89,9 +89,15 @@ public:
      */
     void PartialUpdate(const TSharedRef<FJsonObject>& Set, const TArray<FString>& Unset, TFunction<void()> Callback = {});
 
+    /**
+     * @brief Change channel data. Any data that is present on the channel and not included in a full update will be deleted.
+     * @param Data Properties to set on the channel
+     * @param Callback Called when response is received.
+     */
+    void Update(const FAdditionalFields& Data, const TOptional<FMessage>& = {}, TFunction<void()> Callback = {});
+
     /// The local static properties of the channel
-    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
-    FChannelProperties Properties;
+    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel") FChannelProperties Properties;
 
     /// The local state of the channel
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
