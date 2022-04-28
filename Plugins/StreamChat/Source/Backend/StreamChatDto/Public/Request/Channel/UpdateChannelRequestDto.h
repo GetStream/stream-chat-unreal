@@ -63,7 +63,7 @@ struct FUpdateChannelRequestDto
 
     /// Sets cool down period for the channel in seconds
     UPROPERTY()
-    uint32 Cooldown = 0;
+    uint32 Cooldown = TNumericLimits<uint32>::Max();
 
     /// Channel data to update
     UPROPERTY()

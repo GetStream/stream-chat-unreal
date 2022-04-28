@@ -32,11 +32,11 @@ struct STREAMCHATDTO_API FQueryChannelsRequestDto : public FPaginatedRequest
         const FJsonObjectWrapper& Filter);
 
     UPROPERTY()
-    uint32 MessageLimit = 25;
+    uint32 MessageLimit = TNumericLimits<uint32>::Max();
 
     /// How many members should be included for each channel (Max 100)
     UPROPERTY()
-    uint32 MemberLimit = 100;
+    uint32 MemberLimit = TNumericLimits<uint32>::Max();
 
     /// WebSocket connection ID to interact with
     UPROPERTY()
