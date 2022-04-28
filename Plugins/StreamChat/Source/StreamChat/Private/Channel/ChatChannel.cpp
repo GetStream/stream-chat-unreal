@@ -19,11 +19,13 @@
 #include "Event/Notification/NotificationMarkReadEvent.h"
 #include "Event/Notification/NotificationMessageNewEvent.h"
 #include "Reaction/Reaction.h"
+#include "Request/Channel/UpdateChannelRequestDto.h"
 #include "Request/Message/MessageRequestDto.h"
 #include "Request/Reaction/ReactionRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/DeleteChannelResponseDto.h"
 #include "Response/Channel/UpdateChannelPartialResponseDto.h"
+#include "Response/Channel/UpdateChannelResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
 #include "TimerManager.h"
@@ -92,6 +94,28 @@ void UChatChannel::PartialUpdate(const TSharedRef<FJsonObject>& Set, const TArra
             if (WeakThis.IsValid())
             {
                 WeakThis->Properties = FChannelProperties{Dto.Channel, Dto.Members, UUserManager::Get()};
+            }
+            if (Callback)
+            {
+                Callback();
+            }
+        });
+}
+
+void UChatChannel::Update(const FAdditionalFields& Data, const TOptional<FMessage>&, TFunction<void()> Callback)
+{
+    FUpdateChannelRequestDto RequestDto;
+    RequestDto.AdditionalFields = Data;
+    Api->UpdateChannel(
+        Properties.Type,
+        Properties.Id,
+        RequestDto,
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback](const FUpdateChannelResponseDto& Dto)
+        {
+            if (WeakThis.IsValid())
+            {
+                WeakThis->Properties = FChannelProperties{Dto.Channel, Dto.Members, UUserManager::Get()};
+                WeakThis->State.AddMessage(FMessage{Dto.Message, UUserManager::Get()});
             }
             if (Callback)
             {
