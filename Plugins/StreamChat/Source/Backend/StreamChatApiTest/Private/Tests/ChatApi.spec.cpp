@@ -40,7 +40,7 @@ const FString NewChannelId = TEXT("test-channel");
 const FString NewCid = FString::Printf(TEXT("%s:%s"), *ChannelType, *NewChannelId);
 const FString DeviceId = TEXT("random-device-id");
 const FString BanUserId = TEXT("tutorial-unreal");
-const FString Text{TEXT("My test message!")};
+const FString MsgText{TEXT("My test message!")};
 FString MessageId;
 
 const TSharedRef<FTokenManager> TokenManager = MakeShared<FTokenManager>();
@@ -133,6 +133,27 @@ void FChatApiSpec::Define()
                 {
                     const FString NewName = TEXT("MY CHANNEL");
                     FUpdateChannelRequestDto Data;
+                    Data.Data.AdditionalFields.SetString(TEXT("name"), NewName);
+                    Data.Data.AdditionalFields.SetString(TEXT("random"), NewName);
+                    Api->UpdateChannel(
+                        ChannelType,
+                        NewChannelId,
+                        Data,
+                        [=](const FUpdateChannelResponseDto& Dto)
+                        {
+                            const FString ResponseName = Dto.Channel.AdditionalFields.GetString(TEXT("name")).GetValue();
+                            AddInfo(ResponseName);
+                            TestEqual("Name updated", ResponseName, NewName);
+
+                            TestDone.Execute();
+                        });
+                });
+
+            // Add members
+            LatentBeforeEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    FUpdateChannelRequestDto Data;
                     FChannelMemberRequestDto MemberRequestDto;
                     MemberRequestDto.bIsModerator = true;
                     MemberRequestDto.User.Id = BanUserId;
@@ -143,12 +164,35 @@ void FChatApiSpec::Define()
                         Data,
                         [=](const FUpdateChannelResponseDto& Dto)
                         {
-                            AddInfo(Dto.Channel.AdditionalFields.GetString(TEXT("name")).GetValue());
                             const FChannelMemberDto* Found = Dto.Members.FindByPredicate([&](const FChannelMemberDto& A) { return A.UserId == BanUserId; });
                             TestNotNull("User added", Found);
                             TestTrue("User is moderator", Found->bIsModerator);
                             TestTrue("No message", Dto.Message.Id.IsEmpty());
-                            TestEqual("No cooldown", Dto.Channel.Cooldown, 0);
+                            AddInfo(FString::FromInt(Dto.Channel.Cooldown));
+                            TestEqual("No cooldown", Dto.Channel.Cooldown, TNumericLimits<uint32>::Max());
+                            TestDone.Execute();
+                        });
+                });
+
+            // Remove members
+            LatentBeforeEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    FUpdateChannelRequestDto Data;
+                    FMessageRequestDto MessageRequest;
+                    MessageRequest.Cid = Cid;
+                    MessageRequest.Text = MsgText;
+                    Data.SetMessage(MessageRequest);
+                    Data.RemoveMembers.Add(BanUserId);
+                    Api->UpdateChannel(
+                        ChannelType,
+                        NewChannelId,
+                        Data,
+                        [=](const FUpdateChannelResponseDto& Dto)
+                        {
+                            const FChannelMemberDto* Found = Dto.Members.FindByPredicate([&](const FChannelMemberDto& A) { return A.UserId == BanUserId; });
+                            TestNull("User removed", Found);
+                            TestEqual("Message sent", Dto.Message.Text, MsgText);
                             TestDone.Execute();
                         });
                 });
@@ -427,7 +471,7 @@ void FChatApiSpec::Define()
                 {
                     FMessageRequestDto Request;
                     Request.Cid = Cid;
-                    Request.Text = Text;
+                    Request.Text = MsgText;
                     Api->SendNewMessage(
                         ChannelType,
                         ChannelId,
@@ -435,7 +479,7 @@ void FChatApiSpec::Define()
                         false,
                         [=](const FMessageResponseDto& Dto)
                         {
-                            TestEqual("Message text is same as input", Dto.Message.Text, Text);
+                            TestEqual("Message text is same as input", Dto.Message.Text, MsgText);
                             MessageId = Dto.Message.Id;
                             TestDone.Execute();
                         });
@@ -464,7 +508,7 @@ void FChatApiSpec::Define()
                         true,
                         [=](const FMessageResponseDto& Dto)
                         {
-                            TestEqual("Message text is same as input", Dto.Message.Text, Text);
+                            TestEqual("Message text is same as input", Dto.Message.Text, MsgText);
                             TestEqual("Message is deleted", Dto.Message.Type, EMessageTypeDto::Deleted);
                             TestDone.Execute();
                         });

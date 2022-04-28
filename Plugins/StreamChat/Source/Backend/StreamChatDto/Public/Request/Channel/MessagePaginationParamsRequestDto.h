@@ -35,10 +35,10 @@ struct STREAMCHATDTO_API FMessagePaginationParamsRequestDto
     void SetIdLte(const FString&);
 
     UPROPERTY()
-    uint32 Limit = 20;
+    uint32 Limit = TNumericLimits<uint32>::Max();
 
     UPROPERTY()
-    int32 Offset = 0;
+    int32 Offset = TNumericLimits<int32>::Max();
 
     UPROPERTY()
     FAdditionalFields AdditionalFields;

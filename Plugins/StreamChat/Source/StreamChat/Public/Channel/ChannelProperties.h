@@ -76,7 +76,7 @@ struct STREAMCHAT_API FChannelProperties
 
     /// Cooldown period after sending each message
     UPROPERTY()
-    uint32 Cooldown = 0;
+    uint32 Cooldown = TNumericLimits<uint32>::Max();
 
     /// The date of channel creation
     UPROPERTY()
