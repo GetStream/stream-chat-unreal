@@ -36,11 +36,12 @@ FChannelProperties::FChannelProperties(const FChannelResponseDto& Dto, UUserMana
 {
 }
 
-FChannelProperties::FChannelProperties(const FChannelStateResponseFieldsDto& Dto, UUserManager* UserManager) : FChannelProperties{Dto.Channel, UserManager}
+FChannelProperties::FChannelProperties(const FChannelResponseDto& Dto, const TArray<FChannelMemberDto>& InMembers, UUserManager* UserManager)
+    : FChannelProperties(Dto, UserManager)
 {
-    if (Members.Num() == 0 && Dto.Members.Num() > 0)
+    if (Members.Num() == 0 && InMembers.Num() > 0)
     {
-        Members = Util::Convert<FMember>(Dto.Members, UserManager);
+        Members = Util::Convert<FMember>(InMembers, UserManager);
     }
 }
 
