@@ -1,7 +1,7 @@
 var searchData=
 [
   ['fchannelconfig_0',['FChannelConfig',['../struct_f_channel_config.html#a9ec94d8165b823256e58c90d6aa6036d',1,'FChannelConfig::FChannelConfig(const FChannelConfigWithInfoDto &amp;)'],['../struct_f_channel_config.html#a245e6e5d70c299a636963e80f46f4fe3',1,'FChannelConfig::FChannelConfig()']]],
-  ['fchannelproperties_1',['FChannelProperties',['../struct_f_channel_properties.html#a567900ccd18561d70152fbf7821a6c09',1,'FChannelProperties::FChannelProperties()'],['../struct_f_channel_properties.html#af6ea8e85c71cab2485110efe45c23802',1,'FChannelProperties::FChannelProperties(const FChannelResponseDto &amp;, UUserManager *)']]],
+  ['fchannelproperties_1',['FChannelProperties',['../struct_f_channel_properties.html#a567900ccd18561d70152fbf7821a6c09',1,'FChannelProperties::FChannelProperties()'],['../struct_f_channel_properties.html#a242e5c0e4b08422fcaee97759cef2430',1,'FChannelProperties::FChannelProperties(const FChannelResponseDto &amp;Dto, UUserManager *)']]],
   ['fchannelstate_2',['FChannelState',['../struct_f_channel_state.html#ae31619e08147a700841325ab17e04b1f',1,'FChannelState::FChannelState()'],['../struct_f_channel_state.html#acb9757a317896b956350210536ffe9e5',1,'FChannelState::FChannelState(const FChannelStateResponseFieldsDto &amp;, UUserManager *)']]],
   ['ffilter_3',['FFilter',['../struct_f_filter.html#a19b44c9b8c53e8aa495af85237079b0b',1,'FFilter']]],
   ['flag_4',['Flag',['../class_f_chat_api.html#a7b94fa410465c09fcd55f9bd4eecfb33',1,'FChatApi']]],

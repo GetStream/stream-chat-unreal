@@ -9,7 +9,7 @@ var searchData=
   ['regular_6',['Regular',['../group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7ad2203cb1237cb6460cbad94564e39345',1,'Message.h']]],
   ['rejectedat_7',['RejectedAt',['../struct_f_flag_dto.html#a701490f8bad971dbcc3f3a016f1fee5d',1,'FFlagDto']]],
   ['removedevice_8',['RemoveDevice',['../class_f_chat_api.html#acb98dc6d9bb972d8d906c6661c545b78',1,'FChatApi::RemoveDevice()'],['../class_u_stream_chat_client_component.html#a31f65a566b8ad470d0fd0ac93b7c6da3',1,'UStreamChatClientComponent::RemoveDevice()']]],
-  ['removemembers_9',['RemoveMembers',['../struct_f_update_channel_request_dto.html#a20a916f2ff5acffc6ead16300df107c7',1,'FUpdateChannelRequestDto']]],
+  ['removemembers_9',['RemoveMembers',['../struct_f_update_channel_request_dto.html#a20a916f2ff5acffc6ead16300df107c7',1,'FUpdateChannelRequestDto::RemoveMembers()'],['../class_u_chat_channel.html#afdfde70695ffa82e37a4d216ea9c5c9e',1,'UChatChannel::RemoveMembers()']]],
   ['removereactionwhere_10',['RemoveReactionWhere',['../struct_f_reactions.html#af88c560c8f7dc9557ed3ef7ffb2e16cd',1,'FReactions']]],
   ['removeuser_11',['RemoveUser',['../class_u_typing_indicator_widget.html#a742627bb8d570386c50db1d09f681f49',1,'UTypingIndicatorWidget']]],
   ['reply_12',['Reply',['../group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a25d8df6e580905091a0d5ef5b9e05bf0',1,'Message.h']]],

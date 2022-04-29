@@ -104,13 +104,13 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>FChannelProperties</b> ()</td></tr>
 <tr class="memdesc:a567900ccd18561d70152fbf7821a6c09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Needed by USTRUCT system. Shouldn't be used directly. <br /></td></tr>
 <tr class="separator:a567900ccd18561d70152fbf7821a6c09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6ea8e85c71cab2485110efe45c23802"><td class="memItemLeft" align="right" valign="top"><a id="af6ea8e85c71cab2485110efe45c23802" name="af6ea8e85c71cab2485110efe45c23802"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FChannelProperties</b> (const <a class="el" href="struct_f_channel_response_dto.html">FChannelResponseDto</a> &amp;, UUserManager *)</td></tr>
-<tr class="memdesc:af6ea8e85c71cab2485110efe45c23802"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create channel properties from a DTO from the API. <br /></td></tr>
-<tr class="separator:af6ea8e85c71cab2485110efe45c23802"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8ea8b9b34df881cc536ef8fde358858"><td class="memItemLeft" align="right" valign="top"><a id="aa8ea8b9b34df881cc536ef8fde358858" name="aa8ea8b9b34df881cc536ef8fde358858"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FChannelProperties</b> (const <a class="el" href="struct_f_channel_state_response_fields_dto.html">FChannelStateResponseFieldsDto</a> &amp;, UUserManager *)</td></tr>
-<tr class="separator:aa8ea8b9b34df881cc536ef8fde358858"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a242e5c0e4b08422fcaee97759cef2430"><td class="memItemLeft" align="right" valign="top"><a id="a242e5c0e4b08422fcaee97759cef2430" name="a242e5c0e4b08422fcaee97759cef2430"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FChannelProperties</b> (const <a class="el" href="struct_f_channel_response_dto.html">FChannelResponseDto</a> &amp;Dto, UUserManager *)</td></tr>
+<tr class="memdesc:a242e5c0e4b08422fcaee97759cef2430"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create channel properties from a DTO from the API. <br /></td></tr>
+<tr class="separator:a242e5c0e4b08422fcaee97759cef2430"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a803bb012607773adf4928bf2d2c6525d"><td class="memItemLeft" align="right" valign="top"><a id="a803bb012607773adf4928bf2d2c6525d" name="a803bb012607773adf4928bf2d2c6525d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FChannelProperties</b> (const <a class="el" href="struct_f_channel_response_dto.html">FChannelResponseDto</a> &amp;Dto, const TArray&lt; <a class="el" href="struct_f_channel_member_dto.html">FChannelMemberDto</a> &gt; &amp;<a class="el" href="struct_f_channel_properties.html#ade6c8fb3fb7eb28d676692f9f805f422">Members</a>, UUserManager *)</td></tr>
+<tr class="separator:a803bb012607773adf4928bf2d2c6525d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a677042bf535d27f43488560aeef7f1ac"><td class="memItemLeft" align="right" valign="top"><a id="a677042bf535d27f43488560aeef7f1ac" name="a677042bf535d27f43488560aeef7f1ac"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>operator FChannelRequestDto</b> () const</td></tr>
 <tr class="memdesc:a677042bf535d27f43488560aeef7f1ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert to a channel request DTO to send to the API. <br /></td></tr>
@@ -172,7 +172,7 @@ TArray&lt; <a class="el" href="struct_f_member.html">FMember</a> &gt;&#160;</td>
 <tr class="memdesc:ade6c8fb3fb7eb28d676692f9f805f422"><td class="mdescLeft">&#160;</td><td class="mdescRight">The members of this channel. <br /></td></tr>
 <tr class="separator:ade6c8fb3fb7eb28d676692f9f805f422"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0d73a4ea7099ce926e0f4a3894e1a68"><td class="memItemLeft" align="right" valign="top"><a id="aa0d73a4ea7099ce926e0f4a3894e1a68" name="aa0d73a4ea7099ce926e0f4a3894e1a68"></a>
-uint32&#160;</td><td class="memItemRight" valign="bottom"><b>Cooldown</b> = 0</td></tr>
+uint32&#160;</td><td class="memItemRight" valign="bottom"><b>Cooldown</b> = TNumericLimits&lt;uint32&gt;::Max()</td></tr>
 <tr class="memdesc:aa0d73a4ea7099ce926e0f4a3894e1a68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cooldown period after sending each message. <br /></td></tr>
 <tr class="separator:aa0d73a4ea7099ce926e0f4a3894e1a68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af93eba8d970102ca57331e1fa449a004"><td class="memItemLeft" align="right" valign="top"><a id="af93eba8d970102ca57331e1fa449a004" name="af93eba8d970102ca57331e1fa449a004"></a>

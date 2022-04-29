@@ -13,7 +13,7 @@ var searchData=
   ['fchannelmemberdto_10',['FChannelMemberDto',['../struct_f_channel_member_dto.html',1,'']]],
   ['fchannelmemberrequestdto_11',['FChannelMemberRequestDto',['../struct_f_channel_member_request_dto.html',1,'']]],
   ['fchannelpaginationoptions_12',['FChannelPaginationOptions',['../struct_f_channel_pagination_options.html',1,'']]],
-  ['fchannelproperties_13',['FChannelProperties',['../struct_f_channel_properties.html',1,'FChannelProperties'],['../struct_f_channel_properties.html#af6ea8e85c71cab2485110efe45c23802',1,'FChannelProperties::FChannelProperties(const FChannelResponseDto &amp;, UUserManager *)'],['../struct_f_channel_properties.html#a567900ccd18561d70152fbf7821a6c09',1,'FChannelProperties::FChannelProperties()']]],
+  ['fchannelproperties_13',['FChannelProperties',['../struct_f_channel_properties.html',1,'FChannelProperties'],['../struct_f_channel_properties.html#a242e5c0e4b08422fcaee97759cef2430',1,'FChannelProperties::FChannelProperties(const FChannelResponseDto &amp;Dto, UUserManager *)'],['../struct_f_channel_properties.html#a567900ccd18561d70152fbf7821a6c09',1,'FChannelProperties::FChannelProperties()']]],
   ['fchannelrequestdto_14',['FChannelRequestDto',['../struct_f_channel_request_dto.html',1,'']]],
   ['fchannelresponsedto_15',['FChannelResponseDto',['../struct_f_channel_response_dto.html',1,'']]],
   ['fchannelsortoption_16',['FChannelSortOption',['../struct_f_channel_sort_option.html',1,'']]],

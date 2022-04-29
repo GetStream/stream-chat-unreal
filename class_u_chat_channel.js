@@ -1,6 +1,7 @@
 var class_u_chat_channel =
 [
-    [ "Delete", "class_u_chat_channel.html#a4ec147de704979b2fa60b2c9b917bf46", null ],
+    [ "AddMembers", "class_u_chat_channel.html#a58a18eb168d0278f8970bbdb20c86b2b", null ],
+    [ "Delete", "class_u_chat_channel.html#a4fb51ca0c405a0bf18da7cde44bc6018", null ],
     [ "DeleteMessage", "class_u_chat_channel.html#acd8d28c0f92e5aa93f9498a0307fe871", null ],
     [ "DeleteReaction", "class_u_chat_channel.html#ac60976fa7382c9c22cb41ca570610bcf", null ],
     [ "GetMessages", "class_u_chat_channel.html#acfdb55f36b049e167a608b0ca3744f6e", null ],
@@ -11,8 +12,10 @@ var class_u_chat_channel =
     [ "On", "class_u_chat_channel.html#a9351ad594e8f4a2af0876b4980594647", null ],
     [ "On", "class_u_chat_channel.html#a73bff64fcd97a9cf60f023fc8abc7cb5", null ],
     [ "On", "class_u_chat_channel.html#a9d6785286eccd01939f684c44101e396", null ],
+    [ "PartialUpdate", "class_u_chat_channel.html#a569dfa3818b1f12d334fbb00fe1abd64", null ],
     [ "Query", "class_u_chat_channel.html#a2c88f359dcd182e468675be83d67bf44", null ],
     [ "QueryAdditionalMessages", "class_u_chat_channel.html#a51c7135aad87cd3184dd8fe0f7733ff1", null ],
+    [ "RemoveMembers", "class_u_chat_channel.html#afdfde70695ffa82e37a4d216ea9c5c9e", null ],
     [ "SearchMessages", "class_u_chat_channel.html#ab88c80df5f628c7faf4aa8861e410c08", null ],
     [ "SearchMessages", "class_u_chat_channel.html#aaa03d76ed47bad7325f9b6409d250008", null ],
     [ "SendEvent", "class_u_chat_channel.html#aed47eb30b9ab1fde4d67b88caa12d317", null ],
@@ -20,6 +23,7 @@ var class_u_chat_channel =
     [ "SendReaction", "class_u_chat_channel.html#a7ebcf7d92e7b0000a4bca8676e06624f", null ],
     [ "StopTyping", "class_u_chat_channel.html#a9e9708a5be8e8ac9ece17712399a9dbf", null ],
     [ "Unsubscribe", "class_u_chat_channel.html#ad7a707550c3a5b6eb6a6a807ce541a21", null ],
+    [ "Update", "class_u_chat_channel.html#a971cf362c2d961d6f121a4b2daa8e3e0", null ],
     [ "UpdateMessage", "class_u_chat_channel.html#ab5573d2437ef706d2bd0a4c3baff7cda", null ],
     [ "MessageReceived", "class_u_chat_channel.html#a0f426d966a9351d06905cbdf0e374914", null ],
     [ "MessageSent", "class_u_chat_channel.html#a337613796335627050f7645c0b1d7823", null ],

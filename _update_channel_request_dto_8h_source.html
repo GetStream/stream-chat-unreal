@@ -138,7 +138,7 @@ $(document).ready(function(){initNavTree('_update_channel_request_dto_8h_source.
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="struct_f_update_channel_request_dto.html#a2fa985d2381f526c3d29c054bfa45b18">   62</a></span>    TArray&lt;<a class="code hl_struct" href="struct_f_channel_member_request_dto.html">FChannelMemberRequestDto</a>&gt; Invites;</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    UPROPERTY()</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="struct_f_update_channel_request_dto.html#a78f1ca671f5becd695d8bf14175de636">   66</a></span>    uint32 Cooldown = 0;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="struct_f_update_channel_request_dto.html#a78f1ca671f5becd695d8bf14175de636">   66</a></span>    uint32 Cooldown = TNumericLimits&lt;uint32&gt;::Max();</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    UPROPERTY()</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="struct_f_update_channel_request_dto.html#ae7bf8824682ea439e113f351a0b9a772">   70</a></span>    <a class="code hl_struct" href="struct_f_channel_request_dto.html">FChannelRequestDto</a> Data;</div>

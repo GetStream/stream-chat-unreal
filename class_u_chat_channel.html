@@ -102,9 +102,21 @@ $(document).ready(function(){initNavTree('class_u_chat_channel.html',''); initRe
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4ec147de704979b2fa60b2c9b917bf46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a4ec147de704979b2fa60b2c9b917bf46">Delete</a> (TFunction&lt; void()&gt; Callback={}, bool bHardDelete=false) const</td></tr>
-<tr class="memdesc:a4ec147de704979b2fa60b2c9b917bf46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete this channel from the server.  <a href="class_u_chat_channel.html#a4ec147de704979b2fa60b2c9b917bf46">More...</a><br /></td></tr>
-<tr class="separator:a4ec147de704979b2fa60b2c9b917bf46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fb51ca0c405a0bf18da7cde44bc6018"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a4fb51ca0c405a0bf18da7cde44bc6018">Delete</a> (TFunction&lt; void()&gt; Callback={}) const</td></tr>
+<tr class="memdesc:a4fb51ca0c405a0bf18da7cde44bc6018"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete this channel from the server.  <a href="class_u_chat_channel.html#a4fb51ca0c405a0bf18da7cde44bc6018">More...</a><br /></td></tr>
+<tr class="separator:a4fb51ca0c405a0bf18da7cde44bc6018"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a569dfa3818b1f12d334fbb00fe1abd64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a569dfa3818b1f12d334fbb00fe1abd64">PartialUpdate</a> (const TSharedRef&lt; FJsonObject &gt; &amp;Set={}, const TArray&lt; FString &gt; &amp;Unset={}, TFunction&lt; void()&gt; Callback={})</td></tr>
+<tr class="memdesc:a569dfa3818b1f12d334fbb00fe1abd64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates certain fields of the channel.  <a href="class_u_chat_channel.html#a569dfa3818b1f12d334fbb00fe1abd64">More...</a><br /></td></tr>
+<tr class="separator:a569dfa3818b1f12d334fbb00fe1abd64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a971cf362c2d961d6f121a4b2daa8e3e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a971cf362c2d961d6f121a4b2daa8e3e0">Update</a> (const FAdditionalFields &amp;Data, const TOptional&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;Message={}, TFunction&lt; void()&gt; Callback={})</td></tr>
+<tr class="memdesc:a971cf362c2d961d6f121a4b2daa8e3e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change channel data. Any data that is present on the channel and not included in a full update will be deleted.  <a href="class_u_chat_channel.html#a971cf362c2d961d6f121a4b2daa8e3e0">More...</a><br /></td></tr>
+<tr class="separator:a971cf362c2d961d6f121a4b2daa8e3e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58a18eb168d0278f8970bbdb20c86b2b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a58a18eb168d0278f8970bbdb20c86b2b">AddMembers</a> (const TArray&lt; FString &gt; &amp;MemberIds, const TOptional&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;Message={}, TFunction&lt; void()&gt; Callback={})</td></tr>
+<tr class="memdesc:a58a18eb168d0278f8970bbdb20c86b2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add given users as members.  <a href="class_u_chat_channel.html#a58a18eb168d0278f8970bbdb20c86b2b">More...</a><br /></td></tr>
+<tr class="separator:a58a18eb168d0278f8970bbdb20c86b2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdfde70695ffa82e37a4d216ea9c5c9e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#afdfde70695ffa82e37a4d216ea9c5c9e">RemoveMembers</a> (const TArray&lt; FString &gt; &amp;MemberIds, const TOptional&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;Message={}, TFunction&lt; void()&gt; Callback={})</td></tr>
+<tr class="memdesc:afdfde70695ffa82e37a4d216ea9c5c9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove given users as members.  <a href="class_u_chat_channel.html#afdfde70695ffa82e37a4d216ea9c5c9e">More...</a><br /></td></tr>
+<tr class="separator:afdfde70695ffa82e37a4d216ea9c5c9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Event</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p >Send, subscribe and unsubscribe to events </p>
 </div></td></tr>
@@ -229,8 +241,52 @@ FTypingIndicatorDelegate&#160;</td><td class="memItemRight" valign="bottom"><b>O
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >The client-side representation of a Stream Chat channel. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a4ec147de704979b2fa60b2c9b917bf46" name="a4ec147de704979b2fa60b2c9b917bf46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ec147de704979b2fa60b2c9b917bf46">&#9670;&nbsp;</a></span>Delete()</h2>
+<a id="a58a18eb168d0278f8970bbdb20c86b2b" name="a58a18eb168d0278f8970bbdb20c86b2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58a18eb168d0278f8970bbdb20c86b2b">&#9670;&nbsp;</a></span>AddMembers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UChatChannel::AddMembers </td>
+          <td>(</td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>MemberIds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TOptional&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Message</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TFunction&lt; void()&gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add given users as members. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MemberIds</td><td>IDs of users to add to the channel as members </td></tr>
+    <tr><td class="paramname">Message</td><td>Optionally include a message object that will be used to populate a system message </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4fb51ca0c405a0bf18da7cde44bc6018" name="a4fb51ca0c405a0bf18da7cde44bc6018"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fb51ca0c405a0bf18da7cde44bc6018">&#9670;&nbsp;</a></span>Delete()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -239,18 +295,8 @@ FTypingIndicatorDelegate&#160;</td><td class="memItemRight" valign="bottom"><b>O
           <td class="memname">void UChatChannel::Delete </td>
           <td>(</td>
           <td class="paramtype">TFunction&lt; void()&gt;&#160;</td>
-          <td class="paramname"><em>Callback</em> = <code>{}</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>bHardDelete</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -259,7 +305,6 @@ FTypingIndicatorDelegate&#160;</td><td class="memItemRight" valign="bottom"><b>O
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
-    <tr><td class="paramname">bHardDelete</td><td>By default, messages are soft deleted, which means they are removed from client but are still available via server-side export functions. By setting bHardDelete to true, you can hard delete messages, which deletes them from everywhere. </td></tr>
   </table>
   </dd>
 </dl>
@@ -545,6 +590,50 @@ template&lt;class TEvent , class UserClass &gt; </div>
 
 </div>
 </div>
+<a id="a569dfa3818b1f12d334fbb00fe1abd64" name="a569dfa3818b1f12d334fbb00fe1abd64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a569dfa3818b1f12d334fbb00fe1abd64">&#9670;&nbsp;</a></span>PartialUpdate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UChatChannel::PartialUpdate </td>
+          <td>(</td>
+          <td class="paramtype">const TSharedRef&lt; FJsonObject &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Set</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Unset</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TFunction&lt; void()&gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates certain fields of the channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Set</td><td>Sets new field values </td></tr>
+    <tr><td class="paramname">Unset</td><td>Array of field names to unset </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a2c88f359dcd182e468675be83d67bf44" name="a2c88f359dcd182e468675be83d67bf44"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2c88f359dcd182e468675be83d67bf44">&#9670;&nbsp;</a></span>Query()</h2>
 
@@ -654,6 +743,50 @@ template&lt;class TEvent , class UserClass &gt; </div>
     <tr><td class="paramname">Direction</td><td>Top if the user is scrolling up, Bottom if the user is scrolling down </td></tr>
     <tr><td class="paramname">Limit</td><td>Number of messages returned is limited by this value. Maximum 200. </td></tr>
     <tr><td class="paramname">Callback</td><td>Called when a response is received from the backend </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="afdfde70695ffa82e37a4d216ea9c5c9e" name="afdfde70695ffa82e37a4d216ea9c5c9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdfde70695ffa82e37a4d216ea9c5c9e">&#9670;&nbsp;</a></span>RemoveMembers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UChatChannel::RemoveMembers </td>
+          <td>(</td>
+          <td class="paramtype">const TArray&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>MemberIds</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TOptional&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Message</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TFunction&lt; void()&gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remove given users as members. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MemberIds</td><td>IDs of users to remove from the channel as members </td></tr>
+    <tr><td class="paramname">Message</td><td>Optionally include a message object that will be used to populate a system message </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
   </table>
   </dd>
 </dl>
@@ -912,6 +1045,50 @@ template&lt;class TEvent &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Whether anything was unsubscribed from </dd></dl>
+
+</div>
+</div>
+<a id="a971cf362c2d961d6f121a4b2daa8e3e0" name="a971cf362c2d961d6f121a4b2daa8e3e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a971cf362c2d961d6f121a4b2daa8e3e0">&#9670;&nbsp;</a></span>Update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UChatChannel::Update </td>
+          <td>(</td>
+          <td class="paramtype">const FAdditionalFields &amp;&#160;</td>
+          <td class="paramname"><em>Data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TOptional&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Message</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TFunction&lt; void()&gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Change channel data. Any data that is present on the channel and not included in a full update will be deleted. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Data</td><td>Properties to set on the channel </td></tr>
+    <tr><td class="paramname">Message</td><td>Optionally include a message object that will be used to populate a system message </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

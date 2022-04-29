@@ -2,7 +2,7 @@ var searchData=
 [
   ['accesstoken_0',['AccessToken',['../struct_f_guest_response_dto.html#ab5eb3c1d97bb8b476cfa71f876ac6a35',1,'FGuestResponseDto']]],
   ['adddevice_1',['AddDevice',['../class_f_chat_api.html#a1e804013d8f9b8800a1aa66b7a11e13b',1,'FChatApi::AddDevice()'],['../class_u_stream_chat_client_component.html#a85afc44dd2f2691a19964721f09bad49',1,'UStreamChatClientComponent::AddDevice()']]],
-  ['addmembers_2',['AddMembers',['../struct_f_update_channel_request_dto.html#a8ac3ebebca82e45a73105778b81e2d5f',1,'FUpdateChannelRequestDto']]],
+  ['addmembers_2',['AddMembers',['../struct_f_update_channel_request_dto.html#a8ac3ebebca82e45a73105778b81e2d5f',1,'FUpdateChannelRequestDto::AddMembers()'],['../class_u_chat_channel.html#a58a18eb168d0278f8970bbdb20c86b2b',1,'UChatChannel::AddMembers()']]],
   ['addmessage_3',['AddMessage',['../struct_f_channel_state.html#a591082f72ff629a497d40ab526c79145',1,'FChannelState']]],
   ['addmoderators_4',['AddModerators',['../struct_f_update_channel_request_dto.html#a28ebf82105cf31f4892b80e30b8844fc',1,'FUpdateChannelRequestDto']]],
   ['addreaction_5',['AddReaction',['../struct_f_reactions.html#aae06d00b5a37b29eb7df0864085d7d1c',1,'FReactions']]],
@@ -13,8 +13,8 @@ var searchData=
   ['assignroles_10',['AssignRoles',['../struct_f_update_channel_request_dto.html#a83d1aae09b16d5c6af44eb4efa93c993',1,'FUpdateChannelRequestDto']]],
   ['attachments_11',['Attachments',['../group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa7e2708aeb65763c54052f57ed1a1ec1d',1,'ChannelSortOption.h']]],
   ['attachmentstype_12',['AttachmentsType',['../group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fade639cb0a3d565cd29031f1d33a6ea7c',1,'ChannelSortOption.h']]],
-  ['autocomplete_13',['Autocomplete',['../group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a84f83bc640fb8de5e4c4551106b65f22',1,'Autocomplete():&#160;Filter.h'],['../struct_f_filter.html#ad0c69e6d197fecaf0bc31f5f4522ad2e',1,'FFilter::Autocomplete()']]],
+  ['autocomplete_13',['Autocomplete',['../struct_f_filter.html#ad0c69e6d197fecaf0bc31f5f4522ad2e',1,'FFilter::Autocomplete()'],['../group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a84f83bc640fb8de5e4c4551106b65f22',1,'Autocomplete():&#160;Filter.h']]],
   ['automod_14',['Automod',['../struct_f_channel_config.html#a55ebcc199aa002185c99803a25761bad',1,'FChannelConfig::Automod()'],['../struct_f_channel_config_with_info_dto.html#a57fe5d353169226ec7018d80e9d652cc',1,'FChannelConfigWithInfoDto::Automod()']]],
   ['automodbehavior_15',['AutomodBehavior',['../struct_f_channel_config_with_info_dto.html#ac5d942b03be77ce9ab66e058ab363cb2',1,'FChannelConfigWithInfoDto']]],
-  ['autotranslationlanguage_16',['AutoTranslationLanguage',['../struct_f_channel_properties.html#a0516cd1e38141aa0176120e6d32716bd',1,'FChannelProperties::AutoTranslationLanguage()'],['../struct_f_channel_response_dto.html#ab19afd64e7b5fabb2a59be6f62727526',1,'FChannelResponseDto::AutoTranslationLanguage()']]]
+  ['autotranslationlanguage_16',['AutoTranslationLanguage',['../struct_f_channel_response_dto.html#ab19afd64e7b5fabb2a59be6f62727526',1,'FChannelResponseDto::AutoTranslationLanguage()'],['../struct_f_channel_properties.html#a0516cd1e38141aa0176120e6d32716bd',1,'FChannelProperties::AutoTranslationLanguage()']]]
 ];

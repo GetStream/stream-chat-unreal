@@ -1,7 +1,7 @@
 var struct_f_channel_properties =
 [
     [ "FChannelProperties", "struct_f_channel_properties.html#a567900ccd18561d70152fbf7821a6c09", null ],
-    [ "FChannelProperties", "struct_f_channel_properties.html#af6ea8e85c71cab2485110efe45c23802", null ],
+    [ "FChannelProperties", "struct_f_channel_properties.html#a242e5c0e4b08422fcaee97759cef2430", null ],
     [ "GetOtherMemberUsers", "struct_f_channel_properties.html#a215200abff9a415d6d7f127f01b2f319", null ],
     [ "operator FChannelRequestDto", "struct_f_channel_properties.html#a677042bf535d27f43488560aeef7f1ac", null ],
     [ "SetMembers", "struct_f_channel_properties.html#a73faf453dcdd3b1416ff1df77e8b84e2", null ],

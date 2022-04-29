@@ -2,7 +2,7 @@ var searchData=
 [
   ['data_0',['Data',['../struct_f_update_channel_request_dto.html#ae7bf8824682ea439e113f351a0b9a772',1,'FUpdateChannelRequestDto']]],
   ['deactivatedat_1',['DeactivatedAt',['../struct_f_user_object_dto.html#ad70f763df7deaaa8d4be9aad1679f0fd',1,'FUserObjectDto::DeactivatedAt()'],['../struct_f_user.html#a107e3550167fb3f95fc239a37080aaf1',1,'FUser::DeactivatedAt()']]],
-  ['delete_2',['Delete',['../class_u_chat_channel.html#a4ec147de704979b2fa60b2c9b917bf46',1,'UChatChannel']]],
+  ['delete_2',['Delete',['../class_u_chat_channel.html#a4fb51ca0c405a0bf18da7cde44bc6018',1,'UChatChannel']]],
   ['deletechannel_3',['DeleteChannel',['../class_f_chat_api.html#a9b963b996696beff8dca56f8df568455',1,'FChatApi']]],
   ['deleted_4',['Deleted',['../group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a5fe6005bf6e415c950c011fb65f12b8f',1,'Message.h']]],
   ['deletedat_5',['DeletedAt',['../struct_f_user_object_dto.html#a89bb9ea5b31f87b76505b3ee2375bb2b',1,'FUserObjectDto::DeletedAt()'],['../struct_f_channel_properties.html#ab12fd49282c39d4685ac6fcf31e9ed51',1,'FChannelProperties::DeletedAt()'],['../struct_f_message.html#a335faf376af27f28fe1d7cc25f3c2288',1,'FMessage::DeletedAt()'],['../struct_f_user.html#a48d27f5a5ed4f5e2b0d399d50fbd200f',1,'FUser::DeletedAt()'],['../struct_f_channel_response_dto.html#af527e1d0bae32d3f6945a274716c5a9d',1,'FChannelResponseDto::DeletedAt()']]],
