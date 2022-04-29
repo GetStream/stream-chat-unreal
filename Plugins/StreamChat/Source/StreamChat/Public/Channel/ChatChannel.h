@@ -87,28 +87,31 @@ public:
      * @param Unset Array of field names to unset
      * @param Callback Called when response is received.
      */
-    void PartialUpdate(const TSharedRef<FJsonObject>& Set, const TArray<FString>& Unset, TFunction<void()> Callback = {});
+    void PartialUpdate(const TSharedRef<FJsonObject>& Set = {}, const TArray<FString>& Unset = {}, TFunction<void()> Callback = {});
 
     /**
      * @brief Change channel data. Any data that is present on the channel and not included in a full update will be deleted.
      * @param Data Properties to set on the channel
+     * @param Message Optionally include a message object that will be used to populate a system message
      * @param Callback Called when response is received.
      */
-    void Update(const FAdditionalFields& Data, const TOptional<FMessage>& = {}, TFunction<void()> Callback = {});
+    void Update(const FAdditionalFields& Data, const TOptional<FMessage>& Message = {}, TFunction<void()> Callback = {});
 
     /**
      * @brief Add given users as members
      * @param MemberIds IDs of users to add to the channel as members
+     * @param Message Optionally include a message object that will be used to populate a system message
      * @param Callback Called when response is received.
      */
-    void AddMembers(const TArray<FString>& MemberIds, TFunction<void()> Callback = {});
+    void AddMembers(const TArray<FString>& MemberIds, const TOptional<FMessage>& Message = {}, TFunction<void()> Callback = {});
 
     /**
      * @brief Remove given users as members
      * @param MemberIds IDs of users to remove from the channel as members
+     * @param Message Optionally include a message object that will be used to populate a system message
      * @param Callback Called when response is received.
      */
-    void RemoveMembers(const TArray<FString>& MemberIds, TFunction<void()> Callback = {});
+    void RemoveMembers(const TArray<FString>& MemberIds, const TOptional<FMessage>& Message = {}, TFunction<void()> Callback = {});
 
     /// The local static properties of the channel
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel") FChannelProperties Properties;

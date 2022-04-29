@@ -28,6 +28,7 @@
 #include "Response/Channel/UpdateChannelResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
+#include "StreamChatClientComponent.h"
 #include "TimerManager.h"
 #include "User/UserManager.h"
 #include "Util.h"
@@ -124,7 +125,7 @@ void UChatChannel::Update(const FAdditionalFields& Data, const TOptional<FMessag
         });
 }
 
-void UChatChannel::AddMembers(const TArray<FString>& MemberIds, TFunction<void()> Callback)
+void UChatChannel::AddMembers(const TArray<FString>& MemberIds, const TOptional<FMessage>& Message, TFunction<void()> Callback)
 {
     FUpdateChannelRequestDto RequestDto;
     Algo::Transform(
@@ -136,6 +137,10 @@ void UChatChannel::AddMembers(const TArray<FString>& MemberIds, TFunction<void()
             Dto.UserId = Id;
             return Dto;
         });
+    if (Message.IsSet())
+    {
+        RequestDto.SetMessage(Message.GetValue().ToRequestDto(Properties.Cid));
+    }
     Api->UpdateChannel(
         Properties.Type,
         Properties.Id,
@@ -153,10 +158,14 @@ void UChatChannel::AddMembers(const TArray<FString>& MemberIds, TFunction<void()
         });
 }
 
-void UChatChannel::RemoveMembers(const TArray<FString>& MemberIds, TFunction<void()> Callback)
+void UChatChannel::RemoveMembers(const TArray<FString>& MemberIds, const TOptional<FMessage>& Message, TFunction<void()> Callback)
 {
     FUpdateChannelRequestDto RequestDto;
     RequestDto.RemoveMembers = MemberIds;
+    if (Message.IsSet())
+    {
+        RequestDto.SetMessage(Message.GetValue().ToRequestDto(Properties.Cid));
+    }
     Api->UpdateChannel(
         Properties.Type,
         Properties.Id,
