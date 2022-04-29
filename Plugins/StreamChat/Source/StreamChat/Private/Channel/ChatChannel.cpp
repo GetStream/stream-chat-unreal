@@ -124,6 +124,56 @@ void UChatChannel::Update(const FAdditionalFields& Data, const TOptional<FMessag
         });
 }
 
+void UChatChannel::AddMembers(const TArray<FString>& MemberIds, TFunction<void()> Callback)
+{
+    FUpdateChannelRequestDto RequestDto;
+    Algo::Transform(
+        MemberIds,
+        RequestDto.AddMembers,
+        [](auto&& Id)
+        {
+            FChannelMemberRequestDto Dto;
+            Dto.UserId = Id;
+            return Dto;
+        });
+    Api->UpdateChannel(
+        Properties.Type,
+        Properties.Id,
+        RequestDto,
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback](const FUpdateChannelResponseDto& Dto)
+        {
+            if (WeakThis.IsValid())
+            {
+                WeakThis->Properties = FChannelProperties{Dto.Channel, Dto.Members, UUserManager::Get()};
+            }
+            if (Callback)
+            {
+                Callback();
+            }
+        });
+}
+
+void UChatChannel::RemoveMembers(const TArray<FString>& MemberIds, TFunction<void()> Callback)
+{
+    FUpdateChannelRequestDto RequestDto;
+    RequestDto.RemoveMembers = MemberIds;
+    Api->UpdateChannel(
+        Properties.Type,
+        Properties.Id,
+        RequestDto,
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback](const FUpdateChannelResponseDto& Dto)
+        {
+            if (WeakThis.IsValid())
+            {
+                WeakThis->Properties = FChannelProperties{Dto.Channel, Dto.Members, UUserManager::Get()};
+            }
+            if (Callback)
+            {
+                Callback();
+            }
+        });
+}
+
 void UChatChannel::SendMessage(const FMessage& Message)
 {
     // TODO Wait for attachments to upload
