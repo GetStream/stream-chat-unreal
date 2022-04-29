@@ -96,6 +96,20 @@ public:
      */
     void Update(const FAdditionalFields& Data, const TOptional<FMessage>& = {}, TFunction<void()> Callback = {});
 
+    /**
+     * @brief Add given users as members
+     * @param MemberIds IDs of users to add to the channel as members
+     * @param Callback Called when response is received.
+     */
+    void AddMembers(const TArray<FString>& MemberIds, TFunction<void()> Callback = {});
+
+    /**
+     * @brief Remove given users as members
+     * @param MemberIds IDs of users to remove from the channel as members
+     * @param Callback Called when response is received.
+     */
+    void RemoveMembers(const TArray<FString>& MemberIds, TFunction<void()> Callback = {});
+
     /// The local static properties of the channel
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel") FChannelProperties Properties;
 
