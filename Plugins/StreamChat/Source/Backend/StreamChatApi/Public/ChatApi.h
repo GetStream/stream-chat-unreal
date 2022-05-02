@@ -211,6 +211,16 @@ public:
         TCallback<FUpdateChannelResponseDto> Callback = {}) const;
 
     /**
+     * @brief Hiding a channel will remove it from query channel requests for that user until a new message is added.
+     * Hiding a channel is only available to members of that channel.
+     * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
+     * @param ChannelId A unique identifier for the channel
+     * @param bClearHistory Clear the entire message history of that channel for the user
+     * @param Callback Called when response is received.
+     */
+    void HideChannel(const FString& ChannelType, const FString& ChannelId, bool bClearHistory = false, TCallback<FResponseDto> Callback = {}) const;
+
+    /**
      * @brief Query channels with filter query
      * @param ConnectionId Websocket connection ID to interact with.
      * @param Filter The query filters to use. You can query on any of the custom fields you've defined on the Channel.
