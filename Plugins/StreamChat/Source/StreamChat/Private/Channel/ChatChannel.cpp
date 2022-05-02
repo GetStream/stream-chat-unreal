@@ -183,6 +183,21 @@ void UChatChannel::RemoveMembers(const TArray<FString>& MemberIds, const TOption
         });
 }
 
+void UChatChannel::Hide(const bool bClearHistory, TFunction<void()> Callback) const
+{
+    Api->HideChannel(
+        Properties.Type,
+        Properties.Id,
+        bClearHistory,
+        [Callback](const FResponseDto&)
+        {
+            if (Callback)
+            {
+                Callback();
+            }
+        });
+}
+
 void UChatChannel::SendMessage(const FMessage& Message)
 {
     // TODO Wait for attachments to upload
