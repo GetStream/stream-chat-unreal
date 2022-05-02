@@ -156,7 +156,7 @@ void FChatApiSpec::Define()
                     FUpdateChannelRequestDto Data;
                     FChannelMemberRequestDto MemberRequestDto;
                     MemberRequestDto.bIsModerator = true;
-                    MemberRequestDto.User.Id = BanUserId;
+                    MemberRequestDto.User.Id = User.Id;
                     Data.AddMembers.Add(MemberRequestDto);
                     Api->UpdateChannel(
                         ChannelType,
@@ -164,12 +164,27 @@ void FChatApiSpec::Define()
                         Data,
                         [=](const FUpdateChannelResponseDto& Dto)
                         {
-                            const FChannelMemberDto* Found = Dto.Members.FindByPredicate([&](const FChannelMemberDto& A) { return A.UserId == BanUserId; });
+                            const FChannelMemberDto* Found = Dto.Members.FindByPredicate([&](const FChannelMemberDto& A) { return A.UserId == User.Id; });
                             TestNotNull("User added", Found);
                             TestTrue("User is moderator", Found->bIsModerator);
                             TestTrue("No message", Dto.Message.Id.IsEmpty());
                             AddInfo(FString::FromInt(Dto.Channel.Cooldown));
                             TestEqual("No cooldown", Dto.Channel.Cooldown, TNumericLimits<uint32>::Max());
+                            TestDone.Execute();
+                        });
+                });
+
+            // Hide channel
+            LatentBeforeEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->HideChannel(
+                        ChannelType,
+                        NewChannelId,
+                        false,
+                        [=](const FResponseDto& Dto)
+                        {
+                            AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
                             TestDone.Execute();
                         });
                 });
@@ -183,14 +198,14 @@ void FChatApiSpec::Define()
                     MessageRequest.Cid = Cid;
                     MessageRequest.Text = MsgText;
                     Data.SetMessage(MessageRequest);
-                    Data.RemoveMembers.Add(BanUserId);
+                    Data.RemoveMembers.Add(User.Id);
                     Api->UpdateChannel(
                         ChannelType,
                         NewChannelId,
                         Data,
                         [=](const FUpdateChannelResponseDto& Dto)
                         {
-                            const FChannelMemberDto* Found = Dto.Members.FindByPredicate([&](const FChannelMemberDto& A) { return A.UserId == BanUserId; });
+                            const FChannelMemberDto* Found = Dto.Members.FindByPredicate([&](const FChannelMemberDto& A) { return A.UserId == User.Id; });
                             TestNull("User removed", Found);
                             TestEqual("Message sent", Dto.Message.Text, MsgText);
                             TestDone.Execute();
