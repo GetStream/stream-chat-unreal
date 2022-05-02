@@ -117,6 +117,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afdfde70695ffa82e37a4d216ea9c5c9e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#afdfde70695ffa82e37a4d216ea9c5c9e">RemoveMembers</a> (const TArray&lt; FString &gt; &amp;MemberIds, const TOptional&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;Message={}, TFunction&lt; void()&gt; Callback={})</td></tr>
 <tr class="memdesc:afdfde70695ffa82e37a4d216ea9c5c9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove given users as members.  <a href="class_u_chat_channel.html#afdfde70695ffa82e37a4d216ea9c5c9e">More...</a><br /></td></tr>
 <tr class="separator:afdfde70695ffa82e37a4d216ea9c5c9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04f40f2ee5819990ee220d64696b6695"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a04f40f2ee5819990ee220d64696b6695">Hide</a> (bool bClearHistory=false, TFunction&lt; void()&gt; Callback={}) const</td></tr>
+<tr class="memdesc:a04f40f2ee5819990ee220d64696b6695"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove this channel from query channel requests for the current user until a new message is added. Hiding a channel is only available to members of that channel.  <a href="class_u_chat_channel.html#a04f40f2ee5819990ee220d64696b6695">More...</a><br /></td></tr>
+<tr class="separator:a04f40f2ee5819990ee220d64696b6695"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6eb55611d3ac58988e1dad3d65460d8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#ac6eb55611d3ac58988e1dad3d65460d8">Show</a> (TFunction&lt; void()&gt; Callback={}) const</td></tr>
+<tr class="memdesc:ac6eb55611d3ac58988e1dad3d65460d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un-hide this channel. It will again appear in query channel requests for the current user.  <a href="class_u_chat_channel.html#ac6eb55611d3ac58988e1dad3d65460d8">More...</a><br /></td></tr>
+<tr class="separator:ac6eb55611d3ac58988e1dad3d65460d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Event</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p >Send, subscribe and unsubscribe to events </p>
 </div></td></tr>
@@ -368,6 +374,43 @@ FTypingIndicatorDelegate&#160;</td><td class="memItemRight" valign="bottom"><b>O
   <table class="params">
     <tr><td class="paramname">Message</td><td>The message in this channel to react to </td></tr>
     <tr><td class="paramname">Reaction</td><td>The reaction to remove </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a04f40f2ee5819990ee220d64696b6695" name="a04f40f2ee5819990ee220d64696b6695"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04f40f2ee5819990ee220d64696b6695">&#9670;&nbsp;</a></span>Hide()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UChatChannel::Hide </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bClearHistory</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TFunction&lt; void()&gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remove this channel from query channel requests for the current user until a new message is added. Hiding a channel is only available to members of that channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bClearHistory</td><td>Clear the entire message history of that channel for the user </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
   </table>
   </dd>
 </dl>
@@ -987,6 +1030,32 @@ template&lt;class TEvent , class UserClass &gt; </div>
     <tr><td class="paramname">Message</td><td>The message in this channel to react to </td></tr>
     <tr><td class="paramname">ReactionType</td><td>The type of reaction to send </td></tr>
     <tr><td class="paramname">bEnforceUnique</td><td>Should all other reactions from this user be removed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac6eb55611d3ac58988e1dad3d65460d8" name="ac6eb55611d3ac58988e1dad3d65460d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6eb55611d3ac58988e1dad3d65460d8">&#9670;&nbsp;</a></span>Show()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UChatChannel::Show </td>
+          <td>(</td>
+          <td class="paramtype">TFunction&lt; void()&gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un-hide this channel. It will again appear in query channel requests for the current user. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
   </table>
   </dd>
 </dl>

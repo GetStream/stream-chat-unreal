@@ -12,7 +12,7 @@ var searchData=
   ['setidlt_9',['SetIdLt',['../struct_f_query_users_request_dto.html#a2997326f29cf2033b0744b8eee9b0e88',1,'FQueryUsersRequestDto']]],
   ['setidlte_10',['SetIdLte',['../struct_f_query_users_request_dto.html#a60b358bb789aefc7c022914d5a07efa3',1,'FQueryUsersRequestDto']]],
   ['setlimit_11',['SetLimit',['../struct_f_paginated_request.html#a1e01e73e18a2bb22d8b9884f35a1030d',1,'FPaginatedRequest']]],
-  ['setmembers_12',['SetMembers',['../struct_f_channel_properties.html#a5204b02127fb53c81616f9a3ca0a95e9',1,'FChannelProperties::SetMembers(const TArray&lt; FUserRef &gt; &amp;Users)'],['../struct_f_channel_properties.html#a73faf453dcdd3b1416ff1df77e8b84e2',1,'FChannelProperties::SetMembers(const TArray&lt; FString &gt; &amp;UserIds)']]],
+  ['setmembers_12',['SetMembers',['../struct_f_channel_properties.html#a73faf453dcdd3b1416ff1df77e8b84e2',1,'FChannelProperties::SetMembers(const TArray&lt; FString &gt; &amp;UserIds)'],['../struct_f_channel_properties.html#a5204b02127fb53c81616f9a3ca0a95e9',1,'FChannelProperties::SetMembers(const TArray&lt; FUserRef &gt; &amp;Users)']]],
   ['setmembers_5fuser_13',['SetMembers_User',['../class_u_channel_properties_blueprint_library.html#a067c5af94a999f10946dde216116ddec',1,'UChannelPropertiesBlueprintLibrary']]],
   ['setmembers_5fuserid_14',['SetMembers_UserId',['../class_u_channel_properties_blueprint_library.html#a923ed25ae053f882c6a5fce745cbfccb',1,'UChannelPropertiesBlueprintLibrary']]],
   ['setmessage_15',['SetMessage',['../struct_f_update_channel_request_dto.html#ac1b49d276f16b241e333e15e535ce5ac',1,'FUpdateChannelRequestDto']]],
@@ -23,9 +23,11 @@ var searchData=
   ['setquery_20',['SetQuery',['../struct_f_search_request_dto.html#a7ec9ff14613f4e47dc9efcaf576ddb36',1,'FSearchRequestDto']]],
   ['setsort_21',['SetSort',['../struct_f_search_request_dto.html#a275f6f92187f191be212b5621524a525',1,'FSearchRequestDto::SetSort()'],['../struct_f_query_banned_users_request_dto.html#aba1e4707d82c6a190a982af6c31682fd',1,'FQueryBannedUsersRequestDto::SetSort()']]],
   ['settimeout_22',['SetTimeout',['../struct_f_ban_request_dto.html#a3589c8bde7a45a62de7ccc94d8f9e25e',1,'FBanRequestDto::SetTimeout()'],['../struct_f_mute_user_request_dto.html#aec6a22c8bea61e4509925ad0fba53bfa',1,'FMuteUserRequestDto::SetTimeout()']]],
-  ['stoptyping_23',['StopTyping',['../class_u_chat_channel.html#a9e9708a5be8e8ac9ece17712399a9dbf',1,'UChatChannel']]],
-  ['subscribe_24',['Subscribe',['../class_f_chat_socket_events.html#a19f6148ad2cfa053dd0a7aaf06ea1cb8',1,'FChatSocketEvents']]],
-  ['subscribelambda_25',['SubscribeLambda',['../class_f_chat_socket_events.html#aa051431699d2f7750e17e6cc3ee653c2',1,'FChatSocketEvents']]],
-  ['subscribesp_26',['SubscribeSp',['../class_f_chat_socket_events.html#ab60e58f227f3d0326b3571a5aa2071ed',1,'FChatSocketEvents']]],
-  ['subscribeuobject_27',['SubscribeUObject',['../class_f_chat_socket_events.html#a7090ccaf47e842cf065fc9a459ada462',1,'FChatSocketEvents']]]
+  ['show_23',['Show',['../class_u_chat_channel.html#ac6eb55611d3ac58988e1dad3d65460d8',1,'UChatChannel']]],
+  ['showchannel_24',['ShowChannel',['../class_f_chat_api.html#ad51a895830155a4005f87bfd2f435d97',1,'FChatApi']]],
+  ['stoptyping_25',['StopTyping',['../class_u_chat_channel.html#a9e9708a5be8e8ac9ece17712399a9dbf',1,'UChatChannel']]],
+  ['subscribe_26',['Subscribe',['../class_f_chat_socket_events.html#a19f6148ad2cfa053dd0a7aaf06ea1cb8',1,'FChatSocketEvents']]],
+  ['subscribelambda_27',['SubscribeLambda',['../class_f_chat_socket_events.html#aa051431699d2f7750e17e6cc3ee653c2',1,'FChatSocketEvents']]],
+  ['subscribesp_28',['SubscribeSp',['../class_f_chat_socket_events.html#ab60e58f227f3d0326b3571a5aa2071ed',1,'FChatSocketEvents']]],
+  ['subscribeuobject_29',['SubscribeUObject',['../class_f_chat_socket_events.html#a7090ccaf47e842cf065fc9a459ada462',1,'FChatSocketEvents']]]
 ];

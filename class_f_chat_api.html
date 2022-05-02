@@ -136,6 +136,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a64e729dcaa5a9001d189870d95cb2784"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#a64e729dcaa5a9001d189870d95cb2784">UpdateChannel</a> (const FString &amp;ChannelType, const FString &amp;ChannelId, const <a class="el" href="struct_f_update_channel_request_dto.html">FUpdateChannelRequestDto</a> &amp;Data, TCallback&lt; <a class="el" href="struct_f_update_channel_response_dto.html">FUpdateChannelResponseDto</a> &gt; Callback={}) const</td></tr>
 <tr class="memdesc:a64e729dcaa5a9001d189870d95cb2784"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change channel data. Any data that is present on the channel and not included in a full update will be deleted.  <a href="class_f_chat_api.html#a64e729dcaa5a9001d189870d95cb2784">More...</a><br /></td></tr>
 <tr class="separator:a64e729dcaa5a9001d189870d95cb2784"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0871c645d89799123feb8e167473c6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#af0871c645d89799123feb8e167473c6a">HideChannel</a> (const FString &amp;ChannelType, const FString &amp;ChannelId, bool bClearHistory=false, TCallback&lt; <a class="el" href="struct_f_response_dto.html">FResponseDto</a> &gt; Callback={}) const</td></tr>
+<tr class="memdesc:af0871c645d89799123feb8e167473c6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hiding a channel will remove it from query channel requests for that user until a new message is added. Hiding a channel is only available to members of that channel.  <a href="class_f_chat_api.html#af0871c645d89799123feb8e167473c6a">More...</a><br /></td></tr>
+<tr class="separator:af0871c645d89799123feb8e167473c6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad51a895830155a4005f87bfd2f435d97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#ad51a895830155a4005f87bfd2f435d97">ShowChannel</a> (const FString &amp;ChannelType, const FString &amp;ChannelId, TCallback&lt; <a class="el" href="struct_f_response_dto.html">FResponseDto</a> &gt; Callback={}) const</td></tr>
+<tr class="memdesc:ad51a895830155a4005f87bfd2f435d97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un-hide a channel, so it will again appear in query channel requests.  <a href="class_f_chat_api.html#ad51a895830155a4005f87bfd2f435d97">More...</a><br /></td></tr>
+<tr class="separator:ad51a895830155a4005f87bfd2f435d97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0ddab8f53a683e19daa331e15c4c2a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#ac0ddab8f53a683e19daa331e15c4c2a8">QueryChannels</a> (const FString &amp;ConnectionId, <a class="el" href="group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898">EChannelFlags</a> Flags=<a class="el" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d">EChannelFlags::State</a>|<a class="el" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898af20658650d987d31063b593c05980397">EChannelFlags::Watch</a>, const TOptional&lt; TSharedRef&lt; FJsonObject &gt; &gt; &amp;Filter={}, const TArray&lt; <a class="el" href="struct_f_sort_param_request_dto.html">FSortParamRequestDto</a> &gt; &amp;SortOptions={}, TOptional&lt; uint32 &gt; MemberLimit={}, TOptional&lt; uint32 &gt; MessageLimit={}, TOptional&lt; uint32 &gt; Limit={}, TOptional&lt; uint32 &gt; Offset={}, TCallback&lt; <a class="el" href="struct_f_channels_response_dto.html">FChannelsResponseDto</a> &gt; Callback={}) const</td></tr>
 <tr class="memdesc:ac0ddab8f53a683e19daa331e15c4c2a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query channels with filter query.  <a href="class_f_chat_api.html#ac0ddab8f53a683e19daa331e15c4c2a8">More...</a><br /></td></tr>
 <tr class="separator:ac0ddab8f53a683e19daa331e15c4c2a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -497,6 +503,57 @@ static TSharedRef&lt; <a class="el" href="class_f_chat_api.html">FChatApi</a> &g
   <table class="params">
     <tr><td class="paramname">TargetMessageId</td><td>ID of message to flag (optional) </td></tr>
     <tr><td class="paramname">TargetUserId</td><td>ID of user to flag (optional) </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af0871c645d89799123feb8e167473c6a" name="af0871c645d89799123feb8e167473c6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0871c645d89799123feb8e167473c6a">&#9670;&nbsp;</a></span>HideChannel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FChatApi::HideChannel </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ChannelType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ChannelId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bClearHistory</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TCallback&lt; <a class="el" href="struct_f_response_dto.html">FResponseDto</a> &gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Hiding a channel will remove it from query channel requests for that user until a new message is added. Hiding a channel is only available to members of that channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ChannelType</td><td>Name of built-in or custom channel type (e.g. messaging, team, livestream) </td></tr>
+    <tr><td class="paramname">ChannelId</td><td>A unique identifier for the channel </td></tr>
+    <tr><td class="paramname">bClearHistory</td><td>Clear the entire message history of that channel for the user </td></tr>
     <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
   </table>
   </dd>
@@ -1358,6 +1415,50 @@ template&lt;class TEvent &gt; </div>
     <tr><td class="paramname">bEnforceUnique</td><td>If true, new reaction will replace all reactions the user has (if any) on this message </td></tr>
     <tr><td class="paramname">bSkipPush</td><td>Do not send a mobile push notification </td></tr>
     <tr><td class="paramname">Callback</td><td>Called when response is received </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad51a895830155a4005f87bfd2f435d97" name="ad51a895830155a4005f87bfd2f435d97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad51a895830155a4005f87bfd2f435d97">&#9670;&nbsp;</a></span>ShowChannel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FChatApi::ShowChannel </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ChannelType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ChannelId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TCallback&lt; <a class="el" href="struct_f_response_dto.html">FResponseDto</a> &gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Un-hide a channel, so it will again appear in query channel requests. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ChannelType</td><td>Name of built-in or custom channel type (e.g. messaging, team, livestream) </td></tr>
+    <tr><td class="paramname">ChannelId</td><td>A unique identifier for the channel </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
   </table>
   </dd>
 </dl>

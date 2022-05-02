@@ -41,6 +41,7 @@ var annotated_dup =
     [ "FGuestRequestDto", "struct_f_guest_request_dto.html", null ],
     [ "FGuestResponseDto", "struct_f_guest_response_dto.html", "struct_f_guest_response_dto" ],
     [ "FHealthCheckEvent", "struct_f_health_check_event.html", null ],
+    [ "FHideChannelRequestDto", "struct_f_hide_channel_request_dto.html", "struct_f_hide_channel_request_dto" ],
     [ "FHtmlParser", "class_f_html_parser.html", null ],
     [ "FListDevicesResponseDto", "struct_f_list_devices_response_dto.html", "struct_f_list_devices_response_dto" ],
     [ "FLocalEvent", "struct_f_local_event.html", "struct_f_local_event" ],

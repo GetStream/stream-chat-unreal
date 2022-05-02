@@ -28,6 +28,9 @@ var group___stream_chat_dto =
       [ "bFrozen", "struct_f_channel_request_dto.html#a970e6ab7ca8ee5e558c7fe4a1cd691a8", null ],
       [ "Team", "struct_f_channel_request_dto.html#a2650ccaee9b077567f2c2d87895abdd6", null ]
     ] ],
+    [ "FHideChannelRequestDto", "struct_f_hide_channel_request_dto.html", [
+      [ "bClearHistory", "struct_f_hide_channel_request_dto.html#a397023f35b0446040f50cd00303d40b9", null ]
+    ] ],
     [ "FMarkReadRequestDto", "struct_f_mark_read_request_dto.html", [
       [ "SetMessageId", "struct_f_mark_read_request_dto.html#a32149b8f5c5fcc25102425f21efe980d", null ]
     ] ],

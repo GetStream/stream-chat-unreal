@@ -53,6 +53,7 @@ var hierarchy =
     [ "FFlagDto", "struct_f_flag_dto.html", null ],
     [ "FFlagRequestDto", "struct_f_flag_request_dto.html", null ],
     [ "FGuestRequestDto", "struct_f_guest_request_dto.html", null ],
+    [ "FHideChannelRequestDto", "struct_f_hide_channel_request_dto.html", null ],
     [ "FHtmlParser", "class_f_html_parser.html", null ],
     [ "FLocalEvent", "struct_f_local_event.html", [
       [ "FConnectionChangedEvent", "struct_f_connection_changed_event.html", null ],
