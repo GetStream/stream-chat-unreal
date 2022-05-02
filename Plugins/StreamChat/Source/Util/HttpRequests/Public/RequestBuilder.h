@@ -40,6 +40,7 @@ public:
      */
     template <class T>
     FRequestBuilder& Json(const T& Struct, ENamingConvention NamingConvention = ENamingConvention::SnakeCase);
+    FRequestBuilder& EmptyJson();
 
     /**
      * Send a HTTP request to the target URL, calling the callback when a response is received.

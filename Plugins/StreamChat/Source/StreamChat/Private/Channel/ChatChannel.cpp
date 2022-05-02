@@ -198,6 +198,20 @@ void UChatChannel::Hide(const bool bClearHistory, TFunction<void()> Callback) co
         });
 }
 
+void UChatChannel::Show(TFunction<void()> Callback) const
+{
+    Api->ShowChannel(
+        Properties.Type,
+        Properties.Id,
+        [Callback](const FResponseDto&)
+        {
+            if (Callback)
+            {
+                Callback();
+            }
+        });
+}
+
 void UChatChannel::SendMessage(const FMessage& Message)
 {
     // TODO Wait for attachments to upload

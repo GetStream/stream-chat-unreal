@@ -296,6 +296,13 @@ void FChatApi::HideChannel(const FString& ChannelType, const FString& ChannelId,
     Client->Post(Url).Json(Data).Send(Callback);
 }
 
+void FChatApi::ShowChannel(const FString& ChannelType, const FString& ChannelId, const TCallback<FResponseDto> Callback) const
+{
+    const FString Path = FString::Printf(TEXT("channels/%s/%s/show"), *ChannelType, *ChannelId);
+    const FString Url = BuildUrl(Path);
+    Client->Post(Url).EmptyJson().Send(Callback);
+}
+
 void FChatApi::SendNewMessage(
     const FString& ChannelType,
     const FString& ChannelId,

@@ -221,6 +221,14 @@ public:
     void HideChannel(const FString& ChannelType, const FString& ChannelId, bool bClearHistory = false, TCallback<FResponseDto> Callback = {}) const;
 
     /**
+     * @brief Un-hide a channel, so it will again appear in query channel requests.
+     * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
+     * @param ChannelId A unique identifier for the channel
+     * @param Callback Called when response is received.
+     */
+    void ShowChannel(const FString& ChannelType, const FString& ChannelId, TCallback<FResponseDto> Callback = {}) const;
+
+    /**
      * @brief Query channels with filter query
      * @param ConnectionId Websocket connection ID to interact with.
      * @param Filter The query filters to use. You can query on any of the custom fields you've defined on the Channel.

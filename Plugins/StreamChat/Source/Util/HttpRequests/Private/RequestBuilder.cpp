@@ -50,6 +50,12 @@ FRequestBuilder& FRequestBuilder::Query(const FQueryParameters& Query)
     return *this;
 }
 
+FRequestBuilder& FRequestBuilder::EmptyJson()
+{
+    const FString EmptyObject = TEXT("{}");
+    return Json(EmptyObject);
+}
+
 void FRequestBuilder::Send(const TFunction<void(const FHttpResponse&)> Callback)
 {
     RetainedCallback = Callback;
