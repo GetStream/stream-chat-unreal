@@ -4,6 +4,7 @@
 
 #include "HttpClient.h"
 #include "Request/Channel/ChannelGetOrCreateRequestDto.h"
+#include "Request/Channel/HideChannelRequestDto.h"
 #include "Request/Channel/MarkReadRequestDto.h"
 #include "Request/Channel/QueryChannelsRequestDto.h"
 #include "Request/Channel/UpdateChannelPartialRequestDto.h"
@@ -284,6 +285,14 @@ void FChatApi::UpdateChannel(
 {
     const FString Path = FString::Printf(TEXT("channels/%s/%s"), *ChannelType, *ChannelId);
     const FString Url = BuildUrl(Path);
+    Client->Post(Url).Json(Data).Send(Callback);
+}
+
+void FChatApi::HideChannel(const FString& ChannelType, const FString& ChannelId, const bool bClearHistory, const TCallback<FResponseDto> Callback) const
+{
+    const FString Path = FString::Printf(TEXT("channels/%s/%s/hide"), *ChannelType, *ChannelId);
+    const FString Url = BuildUrl(Path);
+    const FHideChannelRequestDto Data{bClearHistory};
     Client->Post(Url).Json(Data).Send(Callback);
 }
 
