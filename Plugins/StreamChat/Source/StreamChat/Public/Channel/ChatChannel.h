@@ -113,6 +113,14 @@ public:
      */
     void RemoveMembers(const TArray<FString>& MemberIds, const TOptional<FMessage>& Message = {}, TFunction<void()> Callback = {});
 
+    /**
+     * @brief Remove this channel from query channel requests for the current user until a new message is added.
+     * Hiding a channel is only available to members of that channel.
+     * @param bClearHistory Clear the entire message history of that channel for the user
+     * @param Callback Called when response is received.
+     */
+    void Hide(bool bClearHistory = false, TFunction<void()> Callback = {}) const;
+
     /// The local static properties of the channel
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel") FChannelProperties Properties;
 
