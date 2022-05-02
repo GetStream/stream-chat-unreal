@@ -121,6 +121,12 @@ public:
      */
     void Hide(bool bClearHistory = false, TFunction<void()> Callback = {}) const;
 
+    /**
+     * @brief Un-hide this channel. It will again appear in query channel requests for the current user.
+     * @param Callback Called when response is received.
+     */
+    void Show(TFunction<void()> Callback = {}) const;
+
     /// The local static properties of the channel
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel") FChannelProperties Properties;
 

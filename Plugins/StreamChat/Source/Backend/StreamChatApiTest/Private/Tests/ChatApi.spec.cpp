@@ -80,6 +80,7 @@ void FChatApiSpec::Define()
                         {},
                         [=](const FChannelStateResponseDto& Dto)
                         {
+                            TestFalse("Not hidden", Dto.Channel.bHidden);
                             TestEqual("Response.Channel.Cid", Dto.Channel.Cid, NewCid);
                             TestEqual("Response.Channel.Id", Dto.Channel.Id, NewChannelId);
                             TestEqual("No additional fields", Dto.Channel.AdditionalFields.GetFields().Num(), 0);
@@ -182,6 +183,20 @@ void FChatApiSpec::Define()
                         ChannelType,
                         NewChannelId,
                         false,
+                        [=](const FResponseDto& Dto)
+                        {
+                            AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
+                            TestDone.Execute();
+                        });
+                });
+
+            // Show channel
+            LatentBeforeEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->ShowChannel(
+                        ChannelType,
+                        NewChannelId,
                         [=](const FResponseDto& Dto)
                         {
                             AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
