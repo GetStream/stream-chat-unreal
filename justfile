@@ -40,7 +40,7 @@ bump-version version:
 
     console.log("Bumping to version v{{version}}");
     const fs = require('fs');
-    for (const fileName in [
+    for (const fileName of [
         "./Plugins/StreamChat/StreamChat.uplugin",
         "./Plugins/StreamChat/StreamChat.uplugin.4.27",
         "./Plugins/StreamChat/StreamChat.uplugin.5.0",
