@@ -4,6 +4,7 @@
 
 #include "Algo/Transform.h"
 #include "Channel/Message.h"
+#include "Moderation/MutedUser.h"
 #include "Response/Channel/ChannelStateResponseFieldsDto.h"
 #include "User/UserManager.h"
 #include "Util.h"

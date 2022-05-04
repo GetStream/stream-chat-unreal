@@ -28,6 +28,7 @@
 #include "Response/Channel/UpdateChannelResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
+#include "Response/Moderation/MuteChannelResponseDto.h"
 #include "StreamChatClientComponent.h"
 #include "TimerManager.h"
 #include "User/UserManager.h"
@@ -94,7 +95,7 @@ void UChatChannel::PartialUpdate(const TSharedRef<FJsonObject>& Set, const TArra
         {
             if (WeakThis.IsValid())
             {
-                WeakThis->Properties = FChannelProperties{Dto.Channel, Dto.Members, UUserManager::Get()};
+                WeakThis->Properties.Merge(Dto.Channel, Dto.Members, UUserManager::Get());
             }
             if (Callback)
             {
@@ -584,6 +585,32 @@ void UChatChannel::ShadowBanMember(const FUserRef& User, const FTimespan Timeout
 void UChatChannel::ShadowUnbanMember(const FUserRef& User) const
 {
     Api->UnbanUser(User->Id, Properties.Type, Properties.Id);
+}
+
+void UChatChannel::MuteChannel(const FTimespan Timeout)
+{
+    const TOptional<FTimespan> OptionalTimeout = Timeout.IsZero() ? TOptional<FTimespan>{} : Timeout;
+    Api->MuteChannel(
+        {Properties.Cid},
+        OptionalTimeout,
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this)](const FMuteChannelResponseDto& Dto)
+        {
+            UUserManager::Get()->UpsertUser(Dto.OwnUser);
+            if (WeakThis.IsValid())
+            {
+                WeakThis->Properties.Merge(Dto.ChannelMute.Channel, UUserManager::Get());
+            }
+        });
+}
+
+void UChatChannel::UnmuteChannel() const
+{
+    Api->UnmuteChannel({Properties.Cid});
+}
+
+bool UChatChannel::IsMuted() const
+{
+    return UUserManager::Get()->GetCurrentUser()->MutedChannels.ContainsByPredicate([&](const FMutedChannel& C) { return C.Cid == Properties.Cid; });
 }
 
 void UChatChannel::MergeState(const FChannelStateResponseFieldsDto& Dto)

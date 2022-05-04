@@ -3,6 +3,7 @@
 #include "User/User.h"
 
 #include "Algo/Transform.h"
+#include "Moderation/MutedUser.h"
 #include "OwnUserDto.h"
 #include "Request/User/UserObjectRequestDto.h"
 #include "UserObjectDto.h"
@@ -41,6 +42,7 @@ FUser::FUser(const FOwnUserDto& Dto, UUserManager* UserManager)
     , TotalUnreadCount(Dto.TotalUnreadCount)
     , UnreadChannels(Dto.UnreadChannels)
     , MutedUsers{Util::Convert<FMutedUser>(Dto.Mutes, UserManager)}
+    , MutedChannels{Util::Convert<FMutedChannel>(Dto.ChannelMutes, UserManager)}
     , BanExpires{Dto.BanExpires}
     , bBanned{Dto.bBanned}
     , Language{Dto.Language}
