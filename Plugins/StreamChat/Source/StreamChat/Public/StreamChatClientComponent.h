@@ -356,12 +356,12 @@ private:
      * When a user is banned, they will not be allowed to post messages until the ban is
      * removed or expired but will be able to connect to Chat and to channels as before.
      * @param User User to ban
-     * @param Timeout Timeout of ban in minutes. User will be unbanned after this period of time (unlimited if negative)
+     * @param Timeout Timeout of ban. User will be unbanned after this period of time (unlimited if zero)
      * @param Reason Ban reason (optional)
      * @param bIpBan Whether to perform IP ban or not
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client|Moderation")
-    void BanUser(const FUserRef& User, float Timeout = -1.f, FString Reason = TEXT(""), bool bIpBan = false) const;
+    void BanUser(const FUserRef& User, FTimespan Timeout = FTimespan(), FString Reason = TEXT(""), bool bIpBan = false) const;
 
     /**
      * @brief Remove previously applied app-wide ban
@@ -375,10 +375,10 @@ private:
      * When a user is banned, they will not be allowed to post messages until the ban is
      * removed or expired but will be able to connect to Chat and to channels as before.
      * @param User User to ban
-     * @param Timeout Timeout of ban in minutes. User will be unbanned after this period of time (unlimited if negative)
+     * @param Timeout Timeout of ban. User will be unbanned after this period of time (unlimited if zero)
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client|Moderation")
-    void ShadowBanUser(const FUserRef& User, float Timeout = -1.f) const;
+    void ShadowBanUser(const FUserRef& User, FTimespan Timeout = FTimespan()) const;
 
     /**
      * @brief Remove previously applied app-wide shadow ban
@@ -420,12 +420,12 @@ private:
 
     /**
      * @brief Mute the given user
-     * @param Timeout Timeout of ban in minutes. User will be unbanned after this period of time (unlimited if negative)
+     * @param Timeout Timeout of ban. User will be unbanned after this period of time (unlimited if zero)
      *
      * @param User A reference to a user
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client")
-    void MuteUser(const FUserRef& User, float Timeout = -1.f);
+    void MuteUser(const FUserRef& User, FTimespan Timeout = FTimespan());
 
     /**
      * @brief Unmute a previously muted user

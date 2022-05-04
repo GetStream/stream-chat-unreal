@@ -21,5 +21,5 @@ struct FMuteChannelRequestDto
 
     /// Duration of mute in milliseconds
     UPROPERTY()
-    uint32 Duration = TNumericLimits<uint32>::Max();
+    float Expiration = TNumericLimits<float>::Max();
 };

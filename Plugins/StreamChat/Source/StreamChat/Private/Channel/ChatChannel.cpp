@@ -564,9 +564,9 @@ void UChatChannel::OnTypingStop(const FTypingStopEvent& Event)
     OnTypingIndicator.Broadcast(ETypingIndicatorState::StopTyping, User);
 }
 
-void UChatChannel::BanMember(const FUserRef& User, const float Timeout, const FString Reason, const bool bIpBan) const
+void UChatChannel::BanMember(const FUserRef& User, const FTimespan Timeout, const FString Reason, const bool bIpBan) const
 {
-    const TOptional<float> OptionalTimeout = Timeout > 0.f ? Timeout : TOptional<float>{};
+    const TOptional<FTimespan> OptionalTimeout = Timeout.IsZero() ? TOptional<FTimespan>{} : Timeout;
     Api->BanUser(User->Id, Properties.Type, Properties.Id, OptionalTimeout, Reason, false, bIpBan);
 }
 
@@ -575,9 +575,9 @@ void UChatChannel::UnbanMember(const FUserRef& User) const
     Api->UnbanUser(User->Id, Properties.Type, Properties.Id);
 }
 
-void UChatChannel::ShadowBanMember(const FUserRef& User, const float Timeout) const
+void UChatChannel::ShadowBanMember(const FUserRef& User, const FTimespan Timeout) const
 {
-    const TOptional<float> OptionalTimeout = Timeout > 0.f ? Timeout : TOptional<float>{};
+    const TOptional<FTimespan> OptionalTimeout = Timeout.IsZero() ? TOptional<FTimespan>{} : Timeout;
     Api->BanUser(User->Id, Properties.Type, Properties.Id, OptionalTimeout, TEXT(""), true);
 }
 

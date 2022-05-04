@@ -161,10 +161,21 @@ bool JsonObjectSerialization::UStructToJsonAttributes(
         // Skip serializing numbers set to a sentinel value. Is this dangerous?
         if (const FNumericProperty* NumericProperty = CastField<FNumericProperty>(Property))
         {
-            if (NumericProperty->IsInteger() && (NumericProperty->GetSignedIntPropertyValue(Value) == TNumericLimits<int32>::Max() ||
-                                                 NumericProperty->GetUnsignedIntPropertyValue(Value) == TNumericLimits<uint32>::Max()))
+            if (NumericProperty->IsInteger())
             {
-                continue;
+                if (NumericProperty->GetSignedIntPropertyValue(Value) == TNumericLimits<int32>::Max() ||
+                    NumericProperty->GetUnsignedIntPropertyValue(Value) == TNumericLimits<uint32>::Max())
+                {
+                    continue;
+                }
+            }
+            else
+            {
+                if (NumericProperty->GetFloatingPointPropertyValue(Value) == TNumericLimits<float>::Max() ||
+                    NumericProperty->GetFloatingPointPropertyValue(Value) == TNumericLimits<double>::Max())
+                {
+                    continue;
+                }
             }
         }
 

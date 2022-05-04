@@ -147,9 +147,9 @@ void UStreamChatClientComponent::WatchChannel(
         WorldContextObject, LatentInfo, OutChannel, [&](auto Callback) { WatchChannel(ChannelProperties, Callback); });
 }
 
-void UStreamChatClientComponent::BanUser(const FUserRef& User, const float Timeout, const FString Reason, const bool bIpBan) const
+void UStreamChatClientComponent::BanUser(const FUserRef& User, const FTimespan Timeout, const FString Reason, const bool bIpBan) const
 {
-    const TOptional<float> OptionalTimeout = Timeout > 0.f ? Timeout : TOptional<float>{};
+    const TOptional<FTimespan> OptionalTimeout = Timeout.IsZero() ? TOptional<FTimespan>{} : Timeout;
     Api->BanUser(User->Id, {}, {}, OptionalTimeout, Reason, false, bIpBan);
 }
 
@@ -158,9 +158,9 @@ void UStreamChatClientComponent::UnbanUser(const FUserRef& User) const
     Api->UnbanUser(User->Id);
 }
 
-void UStreamChatClientComponent::ShadowBanUser(const FUserRef& User, const float Timeout) const
+void UStreamChatClientComponent::ShadowBanUser(const FUserRef& User, const FTimespan Timeout) const
 {
-    const TOptional<float> OptionalTimeout = Timeout > 0.f ? Timeout : TOptional<float>{};
+    const TOptional<FTimespan> OptionalTimeout = Timeout.IsZero() ? TOptional<FTimespan>{} : Timeout;
     Api->BanUser(User->Id, {}, {}, OptionalTimeout, TEXT(""), true);
 }
 
@@ -494,9 +494,9 @@ void UStreamChatClientComponent::FlagUser(const FUserRef& User)
     Api->Flag({}, User->Id);
 }
 
-void UStreamChatClientComponent::MuteUser(const FUserRef& User, const float Timeout)
+void UStreamChatClientComponent::MuteUser(const FUserRef& User, const FTimespan Timeout)
 {
-    const TOptional<float> OptionalTimeout = Timeout > 0.f ? Timeout : TOptional<float>{};
+    const TOptional<FTimespan> OptionalTimeout = Timeout.IsZero() ? TOptional<FTimespan>{} : Timeout;
     Api->MuteUser({User->Id}, OptionalTimeout);
 }
 
