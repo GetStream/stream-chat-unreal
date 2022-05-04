@@ -20,6 +20,7 @@
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Moderation/BanResponseDto.h"
 #include "Response/Moderation/FlagResponseDto.h"
+#include "Response/Moderation/MuteChannelResponseDto.h"
 #include "Response/Moderation/MuteUserResponseDto.h"
 #include "Response/Moderation/QueryBannedUsersResponseDto.h"
 #include "Response/ResponseDto.h"
@@ -105,6 +106,37 @@ void FChatApiSpec::Define()
                         [=](const FChannelsResponseDto& Dto)
                         {
                             TestEqual("One channel in response", Dto.Channels.Num(), 1);
+                            TestDone.Execute();
+                        });
+                });
+
+            // Mute channel
+            LatentBeforeEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->MuteChannel(
+                        {NewCid},
+                        {},
+                        [=](const FMuteChannelResponseDto& Dto)
+                        {
+                            TestEqual("Correct channel muted", Dto.ChannelMute.Channel.Cid, NewCid);
+                            TestEqual("No channel mute expiry", Dto.ChannelMute.Expires.GetTicks(), 0);
+                            TestTrue(
+                                "Channel muted",
+                                Dto.OwnUser.ChannelMutes.ContainsByPredicate([&](const FChannelMuteDto& M) { return M.Channel.Cid == NewCid; }));
+                            TestDone.Execute();
+                        });
+                });
+
+            // Unmute channel
+            LatentBeforeEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->UnmuteChannel(
+                        {NewCid},
+                        [=](const FResponseDto& Dto)
+                        {
+                            AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
                             TestDone.Execute();
                         });
                 });

@@ -20,11 +20,11 @@ struct FMuteChannelResponseDto : public FResponseDto
 
     /// Object with channel mute (if one channel was muted)
     UPROPERTY()
-    FChannelMuteDto Mute;
+    FChannelMuteDto ChannelMute;
 
     /// Object with mutes (if multiple channels were muted)"
     UPROPERTY()
-    TArray<FChannelMuteDto> Mutes;
+    TArray<FChannelMuteDto> ChannelMutes;
 
     /// Authorized user object with fresh mutes information
     UPROPERTY()
