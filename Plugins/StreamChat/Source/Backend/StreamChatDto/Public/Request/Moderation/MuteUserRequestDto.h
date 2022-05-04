@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "AdditionalFields.h"
 #include "CoreMinimal.h"
 
 #include "MuteUserRequestDto.generated.h"
@@ -17,13 +16,10 @@ struct STREAMCHATDTO_API FMuteUserRequestDto
 {
     GENERATED_BODY()
 
-    /// Duration of mute in minutes
-    void SetTimeout(float);
-
     /// User IDs to mute (if multiple users)
-    UPROPERTY()
-    TArray<FString> TargetIds;
+    UPROPERTY() TArray<FString> TargetIds;
 
+    /// Duration of mute in minutes
     UPROPERTY()
-    FAdditionalFields AdditionalFields;
+    float Timeout = TNumericLimits<float>::Max();
 };

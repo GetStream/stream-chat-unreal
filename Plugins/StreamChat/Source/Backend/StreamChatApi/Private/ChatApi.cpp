@@ -16,6 +16,7 @@
 #include "Request/Message/UpdateMessageRequestDto.h"
 #include "Request/Moderation/BanRequestDto.h"
 #include "Request/Moderation/FlagRequestDto.h"
+#include "Request/Moderation/MuteChannelRequestDto.h"
 #include "Request/Moderation/MuteUserRequestDto.h"
 #include "Request/Moderation/QueryBannedUsersRequestDto.h"
 #include "Request/Reaction/SendReactionRequestDto.h"
@@ -79,17 +80,17 @@ void FChatApi::BanUser(
     const FString& TargetUserId,
     const FString& Type,
     const FString& Id,
-    TOptional<float> Timeout,
+    TOptional<FTimespan> Timeout,
     const FString& Reason,
-    bool bShadow,
-    bool bIpBan,
+    const bool bShadow,
+    const bool bIpBan,
     const TCallback<FResponseDto> Callback) const
 {
     const FString Url = BuildUrl(TEXT("moderation/ban"));
     FBanRequestDto Body{TargetUserId, Type, Id, Reason, bShadow, bIpBan};
     if (Timeout.IsSet())
     {
-        Body.SetTimeout(Timeout.GetValue());
+        Body.Timeout = Timeout.GetValue().GetTotalMinutes();
     }
 
     Client->Post(Url).Json(Body).Send(Callback);
@@ -153,13 +154,13 @@ void FChatApi::Flag(const FString& TargetMessageId, const FString& TargetUserId,
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
-void FChatApi::MuteUser(const TArray<FString>& TargetUserIds, TOptional<float> Timeout, const TCallback<FMuteUserResponseDto> Callback) const
+void FChatApi::MuteUser(const TArray<FString>& TargetUserIds, TOptional<FTimespan> Timeout, const TCallback<FMuteUserResponseDto> Callback) const
 {
     const FString Url = BuildUrl(TEXT("moderation/mute"));
     FMuteUserRequestDto Body{TargetUserIds};
     if (Timeout.IsSet())
     {
-        Body.SetTimeout(Timeout.GetValue());
+        Body.Timeout = Timeout.GetValue().GetTotalMinutes();
     }
     Client->Post(Url).Json(Body).Send(Callback);
 }
@@ -168,6 +169,24 @@ void FChatApi::UnmuteUser(const TArray<FString>& TargetUserIds, const TCallback<
 {
     const FString Url = BuildUrl(TEXT("moderation/unmute"));
     const FMuteUserRequestDto Body{TargetUserIds};
+    Client->Post(Url).Json(Body).Send(Callback);
+}
+
+void FChatApi::MuteChannel(const TArray<FString>& TargetCids, TOptional<FTimespan> Timeout, const TCallback<FMuteUserResponseDto> Callback) const
+{
+    const FString Url = BuildUrl(TEXT("moderation/mute/channel"));
+    FMuteChannelRequestDto Body{TargetCids};
+    if (Timeout.IsSet())
+    {
+        Body.Expiration = Timeout.GetValue().GetTotalMilliseconds();
+    }
+    Client->Post(Url).Json(Body).Send(Callback);
+}
+
+void FChatApi::UnmuteChannel(const TArray<FString>& TargetCids, const TCallback<FResponseDto> Callback) const
+{
+    const FString Url = BuildUrl(TEXT("moderation/unmute/channel"));
+    const FMuteChannelRequestDto Body{TargetCids};
     Client->Post(Url).Json(Body).Send(Callback);
 }
 

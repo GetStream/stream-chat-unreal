@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "AdditionalFields.h"
 #include "CoreMinimal.h"
 
 #include "BanRequestDto.generated.h"
@@ -16,9 +15,6 @@ USTRUCT()
 struct STREAMCHATDTO_API FBanRequestDto
 {
     GENERATED_BODY()
-
-    /// Timeout of ban in minutes. User will be unbanned after this period of time
-    void SetTimeout(float);
 
     /// ID of user to ban
     UPROPERTY()
@@ -44,6 +40,7 @@ struct STREAMCHATDTO_API FBanRequestDto
     UPROPERTY()
     bool bIpBan = false;
 
+    /// Timeout of ban in minutes. User will be unbanned after this period of time
     UPROPERTY()
-    FAdditionalFields AdditionalFields;
+    float Timeout = TNumericLimits<float>::Max();
 };

@@ -438,7 +438,7 @@ private:
      * @param bIpBan Whether to perform IP ban or not
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Moderation")
-    void BanMember(const FUserRef& User, float Timeout = -1.f, FString Reason = TEXT(""), bool bIpBan = false) const;
+    void BanMember(const FUserRef& User, FTimespan Timeout = FTimespan(), FString Reason = TEXT(""), bool bIpBan = false) const;
 
     /**
      * @brief Remove previously applied ban
@@ -455,7 +455,7 @@ private:
      * @param Timeout Timeout of ban in minutes. User will be unbanned after this period of time (unlimited if negative)
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Moderation")
-    void ShadowBanMember(const FUserRef& User, float Timeout = -1.f) const;
+    void ShadowBanMember(const FUserRef& User, FTimespan Timeout = FTimespan()) const;
 
     /**
      * @brief Remove previously applied shadow ban
