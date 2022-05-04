@@ -28,6 +28,7 @@ struct FMarkReadRequestDto;
 struct FMarkReadResponseDto;
 struct FMessageRequestDto;
 struct FMessageResponseDto;
+struct FMuteChannelResponseDto;
 struct FMuteUserResponseDto;
 struct FQueryBannedUsersResponseDto;
 struct FReactionRequestDto;
@@ -147,7 +148,7 @@ public:
      * @param Timeout Duration of mute (optional)
      * @param Callback Called when response is received.
      */
-    void MuteChannel(const TArray<FString>& TargetCids, TOptional<FTimespan> Timeout = {}, TCallback<FMuteUserResponseDto> Callback = {}) const;
+    void MuteChannel(const TArray<FString>& TargetCids, TOptional<FTimespan> Timeout = {}, TCallback<FMuteChannelResponseDto> Callback = {}) const;
 
     /**
      * @brief Unmutes channel for user

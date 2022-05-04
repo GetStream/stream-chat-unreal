@@ -34,6 +34,7 @@
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
 #include "Response/Moderation/FlagResponseDto.h"
+#include "Response/Moderation/MuteChannelResponseDto.h"
 #include "Response/Moderation/MuteUserResponseDto.h"
 #include "Response/Moderation/QueryBannedUsersResponseDto.h"
 #include "Response/Reaction/ReactionResponseDto.h"
@@ -172,7 +173,7 @@ void FChatApi::UnmuteUser(const TArray<FString>& TargetUserIds, const TCallback<
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
-void FChatApi::MuteChannel(const TArray<FString>& TargetCids, TOptional<FTimespan> Timeout, const TCallback<FMuteUserResponseDto> Callback) const
+void FChatApi::MuteChannel(const TArray<FString>& TargetCids, TOptional<FTimespan> Timeout, const TCallback<FMuteChannelResponseDto> Callback) const
 {
     const FString Url = BuildUrl(TEXT("moderation/mute/channel"));
     FMuteChannelRequestDto Body{TargetCids};
