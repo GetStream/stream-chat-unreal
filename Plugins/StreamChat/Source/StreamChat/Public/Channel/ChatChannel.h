@@ -464,6 +464,25 @@ private:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Moderation")
     void ShadowUnbanMember(const FUserRef& User) const;
 
+    /**
+     * @brief Mutes channel for current user
+     * @param Timeout Duration of mute (optional)
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Moderation")
+    void MuteChannel(FTimespan Timeout = FTimespan());
+
+    /**
+     * @brief Unmutes channel for current user
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Moderation")
+    void UnmuteChannel() const;
+
+    /**
+     * @brief Is this channel muted for the current user
+     */
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Channel|Moderation")
+    bool IsMuted() const;
+
     ///@}
 #pragma endregion Moderation
 };

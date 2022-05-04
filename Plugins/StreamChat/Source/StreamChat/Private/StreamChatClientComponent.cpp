@@ -368,6 +368,7 @@ void UStreamChatClientComponent::QueryChannel(const FChannelProperties& ChannelP
             UChatChannel* Channel = WeakThis->CreateChannelObject(Dto);
 
             WeakThis->Channels.Add(Channel);
+            WeakThis->ChannelsUpdated.Broadcast(WeakThis->Channels);
             if (Callback)
             {
                 Callback(Channel);

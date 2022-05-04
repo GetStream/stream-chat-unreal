@@ -4,7 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
-#include "MutedUser.h"
+#include "Moderation/MutedChannel.h"
+#include "Moderation/MutedUser.h"
 
 #include "User.generated.h"
 
@@ -94,6 +95,10 @@ struct STREAMCHAT_API FUser
     /// Only populated for current user
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
     TArray<FMutedUser> MutedUsers;
+
+    /// Only populated for current user
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
+    TArray<FMutedChannel> MutedChannels;
 
     /// Expiration date of the ban
     UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|User", AdvancedDisplay)

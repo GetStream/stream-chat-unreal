@@ -117,6 +117,21 @@ FChannelProperties& FChannelProperties::SetImageUrl(const FString& Value)
     return *this;
 }
 
+void FChannelProperties::Merge(const FChannelResponseDto& Dto, UUserManager* UserManager)
+{
+    FChannelProperties NewProps{Dto, UserManager};
+    // Retain members
+    NewProps.Members = Members;
+    *this = NewProps;
+}
+
+void FChannelProperties::Merge(const FChannelResponseDto& Dto, const TArray<FChannelMemberDto>& InMembers, UUserManager* UserManager)
+{
+    // Replace members
+    const FChannelProperties NewProps{Dto, InMembers, UserManager};
+    *this = NewProps;
+}
+
 void UChannelPropertiesBlueprintLibrary::SetMembers_UserId(FChannelProperties& ChannelProperties, const TArray<FString>& UserIds, FChannelProperties& Out)
 {
     Out = ChannelProperties.SetMembers(UserIds);

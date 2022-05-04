@@ -26,7 +26,7 @@ struct STREAMCHAT_API FChannelProperties
 
     /// Create channel properties from a DTO from the API
     explicit FChannelProperties(const FChannelResponseDto& Dto, UUserManager*);
-    explicit FChannelProperties(const FChannelResponseDto& Dto, const TArray<FChannelMemberDto>& Members, UUserManager*);
+    explicit FChannelProperties(const FChannelResponseDto& Dto, const TArray<FChannelMemberDto>& InMembers, UUserManager*);
 
     /// Convert to a channel request DTO to send to the API
     explicit operator FChannelRequestDto() const;
@@ -41,6 +41,12 @@ struct STREAMCHAT_API FChannelProperties
     FChannelProperties& SetId(const FString&);
     FChannelProperties& SetName(const FString&);
     FChannelProperties& SetImageUrl(const FString&);
+
+    /// Merge new information from the API into this properties, retaining members
+    void Merge(const FChannelResponseDto&, UUserManager*);
+    /// Merge new information from the API into this properties, replacing members
+    void Merge(const FChannelResponseDto& Dto, const TArray<FChannelMemberDto>& InMembers, UUserManager*);
+
     TOptional<FString> GetName() const;
     TOptional<FString> GetImageUrl() const;
 

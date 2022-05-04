@@ -4,9 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Response/Moderation/UserMuteDto.h"
-#include "UserRef.h"
+#include "User/UserRef.h"
 
 #include "MutedUser.generated.h"
+
+class UUserManager;
 
 USTRUCT(BlueprintType)
 struct STREAMCHAT_API FMutedUser
@@ -33,7 +35,7 @@ public:
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Muted User")
     FUserRef Target;
 
-    /// Owner of channel mute
+    /// Owner of user mute
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Muted User")
     FUserRef User;
 };

@@ -1,6 +1,6 @@
 // Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
-#include "User/MutedUser.h"
+#include "Moderation/MutedUser.h"
 
 #include "User/UserManager.h"
 
