@@ -17,7 +17,8 @@ var searchData=
   ['eusersortfield_14',['EUserSortField',['../group___stream_chat.html#ga168ebbcdbfc643c147a18bf919d9a7a1',1,'ChannelSortOption.h']]],
   ['event_15',['Event',['../struct_f_mark_read_response_dto.html#ac8677611f8336265807c6c3028f78dc2',1,'FMarkReadResponseDto']]],
   ['exists_16',['Exists',['../struct_f_filter.html#af37e051c80bbb269eb1b0bbdb2a62a6b',1,'FFilter::Exists()'],['../group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a2a8eb028670e972535e8e246be645821',1,'Exists():&#160;Filter.h']]],
-  ['expired_17',['Expired',['../group___stream_chat.html#ggad83c2a39fafdf07b890e3260924f9f56a24fe48030f7d3097d5882535b04c3fa8',1,'ChannelSortOption.h']]],
-  ['expires_18',['Expires',['../struct_f_user_mute_dto.html#aa47d1fa9636bc88340e444109f895190',1,'FUserMuteDto']]],
-  ['extradata_19',['ExtraData',['../struct_f_channel_properties.html#a7de119f088e2049b7db9d6a32149956b',1,'FChannelProperties']]]
+  ['expiration_17',['Expiration',['../struct_f_mute_channel_request_dto.html#a707625866dee4410ce32c24b3c28a3b9',1,'FMuteChannelRequestDto']]],
+  ['expired_18',['Expired',['../group___stream_chat.html#ggad83c2a39fafdf07b890e3260924f9f56a24fe48030f7d3097d5882535b04c3fa8',1,'ChannelSortOption.h']]],
+  ['expires_19',['Expires',['../struct_f_user_mute_dto.html#aa47d1fa9636bc88340e444109f895190',1,'FUserMuteDto::Expires()'],['../struct_f_channel_mute_dto.html#a955759157aa710d3258d06bf809d7044',1,'FChannelMuteDto::Expires()']]],
+  ['extradata_20',['ExtraData',['../struct_f_channel_properties.html#a7de119f088e2049b7db9d6a32149956b',1,'FChannelProperties']]]
 ];

@@ -3,7 +3,7 @@ var searchData=
   ['bacceptinvite_0',['bAcceptInvite',['../struct_f_update_channel_request_dto.html#ab84f1d477fa9085e054ae0d748a3985a',1,'FUpdateChannelRequestDto']]],
   ['banexpires_1',['BanExpires',['../struct_f_channel_member_request_dto.html#a08f649ef08631f1e26bf9fce6e7b9c56',1,'FChannelMemberRequestDto::BanExpires()'],['../struct_f_channel_member_dto.html#afed0bc6a60945c300b2b377d46a7b9b2',1,'FChannelMemberDto::BanExpires()'],['../struct_f_user_dto.html#ab57d983041773f465a9096b6a4b52376',1,'FUserDto::BanExpires()'],['../struct_f_user.html#a7c6905c0374bd38c926c50be07a01bc8',1,'FUser::BanExpires()']]],
   ['bannedbyid_2',['BannedById',['../group___stream_chat.html#ggad83c2a39fafdf07b890e3260924f9f56a26e02bb8f81ec5a4d22cb8e3a8a8faf9',1,'ChannelSortOption.h']]],
-  ['banuser_3',['BanUser',['../class_f_chat_api.html#ab4b1b5e1f15beca96a6f437aa75362aa',1,'FChatApi']]],
+  ['banuser_3',['BanUser',['../class_f_chat_api.html#a5714975b302d0e94ae23881499d22d20',1,'FChatApi']]],
   ['bautotranslationenabled_4',['bAutoTranslationEnabled',['../struct_f_channel_properties.html#af3bc793bbb7a10fcfc9275428ae5a541',1,'FChannelProperties::bAutoTranslationEnabled()'],['../struct_f_channel_response_dto.html#a04db63f9af490deb9b66315328a72be7',1,'FChannelResponseDto::bAutoTranslationEnabled()']]],
   ['bbanned_5',['bBanned',['../struct_f_channel_member_dto.html#aab296a1b6d951f6586ac2e3a0cbac723',1,'FChannelMemberDto::bBanned()'],['../struct_f_user.html#adb815a310fc4a1bb89b454adf075450d',1,'FUser::bBanned()'],['../struct_f_user_dto.html#a53526facbe994dbb37b206805bf734af',1,'FUserDto::bBanned()'],['../struct_f_channel_member_request_dto.html#a67d14174fb06e4b43a05dc3cce9a36c9',1,'FChannelMemberRequestDto::bBanned()']]],
   ['bclearhistory_6',['bClearHistory',['../struct_f_hide_channel_request_dto.html#a397023f35b0446040f50cd00303d40b9',1,'FHideChannelRequestDto']]],
@@ -41,7 +41,7 @@ var searchData=
   ['bstate_38',['bState',['../struct_f_channel_get_or_create_request_dto.html#a8a1cf020893e4ef0b94d1a28ad769ce7',1,'FChannelGetOrCreateRequestDto::bState()'],['../struct_f_query_channels_request_dto.html#a82b00c38b719ff5ac4a8e621a689ed29',1,'FQueryChannelsRequestDto::bState()']]],
   ['btypingevents_39',['bTypingEvents',['../struct_f_channel_config_with_info_dto.html#ab53c234e995c2b445300c95e92af8275',1,'FChannelConfigWithInfoDto::bTypingEvents()'],['../struct_f_channel_config.html#a2c935b890acf6ea9b044218b45c536c7',1,'FChannelConfig::bTypingEvents()']]],
   ['buploads_40',['bUploads',['../struct_f_channel_config_with_info_dto.html#a5269102cc32a0153bb64887954a919dd',1,'FChannelConfigWithInfoDto::bUploads()'],['../struct_f_channel_config.html#a67b73088591db483fdae6db99b8a0e8b',1,'FChannelConfig::bUploads()']]],
-  ['burlenrichment_41',['bUrlEnrichment',['../struct_f_channel_config.html#a714a4b1f199d9e0c18c5c6b5289ff7cf',1,'FChannelConfig']]],
-  ['burlenrichment_42',['bURLEnrichment',['../struct_f_channel_config_with_info_dto.html#a35b45d0a3f5d4c029fb4b60d63e4be84',1,'FChannelConfigWithInfoDto']]],
+  ['burlenrichment_41',['bURLEnrichment',['../struct_f_channel_config_with_info_dto.html#a35b45d0a3f5d4c029fb4b60d63e4be84',1,'FChannelConfigWithInfoDto']]],
+  ['burlenrichment_42',['bUrlEnrichment',['../struct_f_channel_config.html#a714a4b1f199d9e0c18c5c6b5289ff7cf',1,'FChannelConfig']]],
   ['bwatch_43',['bWatch',['../struct_f_channel_get_or_create_request_dto.html#a83f8dd45ca7aad69622d1a1b85806cfe',1,'FChannelGetOrCreateRequestDto::bWatch()'],['../struct_f_query_channels_request_dto.html#a6ce1221876ebf9d627d41ad0f2b5eab0',1,'FQueryChannelsRequestDto::bWatch()']]]
 ];

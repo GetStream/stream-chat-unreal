@@ -87,21 +87,25 @@ var group___stream_chat_dto =
       [ "Message", "struct_f_update_message_request_dto.html#a612cb7398288222720cf5a575c2a8312", null ]
     ] ],
     [ "FBanRequestDto", "struct_f_ban_request_dto.html", [
-      [ "SetTimeout", "struct_f_ban_request_dto.html#a3589c8bde7a45a62de7ccc94d8f9e25e", null ],
       [ "bIpBan", "struct_f_ban_request_dto.html#a0cbfd4dc504415e875f0ec9817d40525", null ],
       [ "bShadow", "struct_f_ban_request_dto.html#a51f2d10db52f41d3c1cc4729fae6e511", null ],
       [ "Id", "struct_f_ban_request_dto.html#a2cdb985aad634118b4c17c139b50b122", null ],
       [ "Reason", "struct_f_ban_request_dto.html#a2ddbee797dadf056f2891b4f2ff66f95", null ],
       [ "TargetUserId", "struct_f_ban_request_dto.html#a7105907af4cbf189d7120bb7db0da318", null ],
+      [ "Timeout", "struct_f_ban_request_dto.html#acc298ef71ffc7e557573a5cadf574887", null ],
       [ "Type", "struct_f_ban_request_dto.html#a25120bf3356c025f7a359aeada0d3c4d", null ]
     ] ],
     [ "FFlagRequestDto", "struct_f_flag_request_dto.html", [
       [ "TargetMessageId", "struct_f_flag_request_dto.html#a1c18b9004f6e1c8bb9dc1151f3135ea4", null ],
       [ "TargetUserId", "struct_f_flag_request_dto.html#a0084634d43a100ad0339747db5e5d569", null ]
     ] ],
+    [ "FMuteChannelRequestDto", "struct_f_mute_channel_request_dto.html", [
+      [ "ChannelCids", "struct_f_mute_channel_request_dto.html#abbce682b9746333a61cb3a35d238f308", null ],
+      [ "Expiration", "struct_f_mute_channel_request_dto.html#a707625866dee4410ce32c24b3c28a3b9", null ]
+    ] ],
     [ "FMuteUserRequestDto", "struct_f_mute_user_request_dto.html", [
-      [ "SetTimeout", "struct_f_mute_user_request_dto.html#aec6a22c8bea61e4509925ad0fba53bfa", null ],
-      [ "TargetIds", "struct_f_mute_user_request_dto.html#a9ffef028d2507bb5d73fb7e93dfe3648", null ]
+      [ "TargetIds", "struct_f_mute_user_request_dto.html#a9ffef028d2507bb5d73fb7e93dfe3648", null ],
+      [ "Timeout", "struct_f_mute_user_request_dto.html#a04ca7f70fae2bf2a7abb2128e969aeda", null ]
     ] ],
     [ "FQueryBannedUsersRequestDto", "struct_f_query_banned_users_request_dto.html", [
       [ "SetSort", "struct_f_query_banned_users_request_dto.html#aba1e4707d82c6a190a982af6c31682fd", null ]
@@ -286,6 +290,11 @@ var group___stream_chat_dto =
       [ "WarningDescription", "struct_f_search_warning_dto.html#a2a869f9170376cf1c2587bcffc824cdb", null ]
     ] ],
     [ "FBanResponseDto", "struct_f_ban_response_dto.html", null ],
+    [ "FChannelMuteDto", "struct_f_channel_mute_dto.html", [
+      [ "CreatedAt", "struct_f_channel_mute_dto.html#abad8e05950719a3fa7386519f67df981", null ],
+      [ "Expires", "struct_f_channel_mute_dto.html#a955759157aa710d3258d06bf809d7044", null ],
+      [ "UpdatedAt", "struct_f_channel_mute_dto.html#a0fec7bb1293e8bed33044986f27d40d4", null ]
+    ] ],
     [ "FFlagDto", "struct_f_flag_dto.html", [
       [ "ApprovedAt", "struct_f_flag_dto.html#a54bc444934a06f4da11545c8826aae87", null ],
       [ "CreatedAt", "struct_f_flag_dto.html#a06a0d4b0571f540a291816230baf979b", null ],
@@ -294,6 +303,11 @@ var group___stream_chat_dto =
       [ "UpdatedAt", "struct_f_flag_dto.html#a0fc05c7d6c5644058b66406d097acfb7", null ]
     ] ],
     [ "FFlagResponseDto", "struct_f_flag_response_dto.html", null ],
+    [ "FMuteChannelResponseDto", "struct_f_mute_channel_response_dto.html", [
+      [ "ChannelMute", "struct_f_mute_channel_response_dto.html#a2dd1213e43edfa493c61d7f18c289223", null ],
+      [ "ChannelMutes", "struct_f_mute_channel_response_dto.html#a2703442908954c9ae00a18475a8cc16f", null ],
+      [ "OwnUser", "struct_f_mute_channel_response_dto.html#ae1d370b3dcd6aa9a9745ac9fb158c19f", null ]
+    ] ],
     [ "FMuteUserResponseDto", "struct_f_mute_user_response_dto.html", [
       [ "Mute", "struct_f_mute_user_response_dto.html#a713f2b3602f621d70f70331cbc0d7fb2", null ],
       [ "Mutes", "struct_f_mute_user_response_dto.html#a022ae3bc6a7d5593c22d11a4a3fbf08a", null ],

@@ -6,5 +6,5 @@ var searchData=
   ['owncapabilities_3',['OwnCapabilities',['../struct_f_channel_response_dto.html#adb6e23ef5d4c0e7ed20e77e4f55c66d1',1,'FChannelResponseDto::OwnCapabilities()'],['../struct_f_channel_properties.html#a2448f8bda77f37fddae01d0efd3f26ef',1,'FChannelProperties::OwnCapabilities()']]],
   ['ownreaction_4',['OwnReaction',['../struct_f_reaction_group.html#acd58fe03dfe5222dbfeba28f81d4f38c',1,'FReactionGroup']]],
   ['ownreactions_5',['OwnReactions',['../struct_f_message_dto.html#a607ac7fc32caf6b25b9d0b0e3a5dba7a',1,'FMessageDto']]],
-  ['ownuser_6',['OwnUser',['../struct_f_mute_user_response_dto.html#a2c966a3996b74ae9ae5dbbcd2fa75694',1,'FMuteUserResponseDto']]]
+  ['ownuser_6',['OwnUser',['../struct_f_mute_channel_response_dto.html#ae1d370b3dcd6aa9a9745ac9fb158c19f',1,'FMuteChannelResponseDto::OwnUser()'],['../struct_f_mute_user_response_dto.html#a2c966a3996b74ae9ae5dbbcd2fa75694',1,'FMuteUserResponseDto::OwnUser()']]]
 ];

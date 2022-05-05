@@ -108,9 +108,9 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>FChannelProperties</b> (const <a class="el" href="struct_f_channel_response_dto.html">FChannelResponseDto</a> &amp;Dto, UUserManager *)</td></tr>
 <tr class="memdesc:a242e5c0e4b08422fcaee97759cef2430"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create channel properties from a DTO from the API. <br /></td></tr>
 <tr class="separator:a242e5c0e4b08422fcaee97759cef2430"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a803bb012607773adf4928bf2d2c6525d"><td class="memItemLeft" align="right" valign="top"><a id="a803bb012607773adf4928bf2d2c6525d" name="a803bb012607773adf4928bf2d2c6525d"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FChannelProperties</b> (const <a class="el" href="struct_f_channel_response_dto.html">FChannelResponseDto</a> &amp;Dto, const TArray&lt; <a class="el" href="struct_f_channel_member_dto.html">FChannelMemberDto</a> &gt; &amp;<a class="el" href="struct_f_channel_properties.html#ade6c8fb3fb7eb28d676692f9f805f422">Members</a>, UUserManager *)</td></tr>
-<tr class="separator:a803bb012607773adf4928bf2d2c6525d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fc56fd84f9d7cf64af848b913139d4e"><td class="memItemLeft" align="right" valign="top"><a id="a5fc56fd84f9d7cf64af848b913139d4e" name="a5fc56fd84f9d7cf64af848b913139d4e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FChannelProperties</b> (const <a class="el" href="struct_f_channel_response_dto.html">FChannelResponseDto</a> &amp;Dto, const TArray&lt; <a class="el" href="struct_f_channel_member_dto.html">FChannelMemberDto</a> &gt; &amp;InMembers, UUserManager *)</td></tr>
+<tr class="separator:a5fc56fd84f9d7cf64af848b913139d4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a677042bf535d27f43488560aeef7f1ac"><td class="memItemLeft" align="right" valign="top"><a id="a677042bf535d27f43488560aeef7f1ac" name="a677042bf535d27f43488560aeef7f1ac"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>operator FChannelRequestDto</b> () const</td></tr>
 <tr class="memdesc:a677042bf535d27f43488560aeef7f1ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert to a channel request DTO to send to the API. <br /></td></tr>
@@ -132,6 +132,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a60899bb9734ad17f0f6f4aa685c0504f"><td class="memItemLeft" align="right" valign="top"><a id="a60899bb9734ad17f0f6f4aa685c0504f" name="a60899bb9734ad17f0f6f4aa685c0504f"></a>
 <a class="el" href="struct_f_channel_properties.html">FChannelProperties</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>SetImageUrl</b> (const FString &amp;)</td></tr>
 <tr class="separator:a60899bb9734ad17f0f6f4aa685c0504f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba111098a5e76f49b99d49fcf69aaf43"><td class="memItemLeft" align="right" valign="top"><a id="aba111098a5e76f49b99d49fcf69aaf43" name="aba111098a5e76f49b99d49fcf69aaf43"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Merge</b> (const <a class="el" href="struct_f_channel_response_dto.html">FChannelResponseDto</a> &amp;, UUserManager *)</td></tr>
+<tr class="memdesc:aba111098a5e76f49b99d49fcf69aaf43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merge new information from the API into this properties, retaining members. <br /></td></tr>
+<tr class="separator:aba111098a5e76f49b99d49fcf69aaf43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ac8843f29a5125ea7e51cc7a3046005"><td class="memItemLeft" align="right" valign="top"><a id="a1ac8843f29a5125ea7e51cc7a3046005" name="a1ac8843f29a5125ea7e51cc7a3046005"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Merge</b> (const <a class="el" href="struct_f_channel_response_dto.html">FChannelResponseDto</a> &amp;Dto, const TArray&lt; <a class="el" href="struct_f_channel_member_dto.html">FChannelMemberDto</a> &gt; &amp;InMembers, UUserManager *)</td></tr>
+<tr class="memdesc:a1ac8843f29a5125ea7e51cc7a3046005"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merge new information from the API into this properties, replacing members. <br /></td></tr>
+<tr class="separator:a1ac8843f29a5125ea7e51cc7a3046005"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36adf7490c27fde5e2c2c4665c477e00"><td class="memItemLeft" align="right" valign="top"><a id="a36adf7490c27fde5e2c2c4665c477e00" name="a36adf7490c27fde5e2c2c4665c477e00"></a>
 TOptional&lt; FString &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetName</b> () const</td></tr>
 <tr class="separator:a36adf7490c27fde5e2c2c4665c477e00"><td class="memSeparator" colspan="2">&#160;</td></tr>

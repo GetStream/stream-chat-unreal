@@ -21,6 +21,7 @@ var struct_f_user =
     [ "Image", "struct_f_user.html#a2ca45f74018a8256b0a4a9955d52d6c7", null ],
     [ "Language", "struct_f_user.html#a43fe7b4a5186fdfd962e92018df162bb", null ],
     [ "LastActive", "struct_f_user.html#a434112e6a7a328b26a6937018bde5c34", null ],
+    [ "MutedChannels", "struct_f_user.html#ae68653d4311b7f84e7716db412d58644", null ],
     [ "MutedUsers", "struct_f_user.html#a13d93a7637fd041be3404cd83b4410ef", null ],
     [ "Name", "struct_f_user.html#a93c3bd7ac953ce1bf092845e7fb43422", null ],
     [ "RevokeTokensIssuedBefore", "struct_f_user.html#a85296b532bd5eccd363ec0e176055ddc", null ],

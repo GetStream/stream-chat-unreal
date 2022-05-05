@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.3"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Stream Chat Unreal SDK: Source/StreamChat/Public/User/MutedUser.h Source File</title>
+<title>Stream Chat Unreal SDK: Source/StreamChat/Public/Moderation/MutedUser.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -93,34 +93,36 @@ $(document).ready(function(){initNavTree('_muted_user_8h_source.html',''); initR
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;Response/Moderation/UserMuteDto.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;UserRef.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;User/UserRef.h&quot;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;MutedUser.generated.h&quot;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>USTRUCT(BlueprintType)</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">struct </span>STREAMCHAT_API FMutedUser</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    GENERATED_BODY()</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>public:</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    FMutedUser();</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    explicit FMutedUser(const <a class="code hl_struct" href="struct_f_user_mute_dto.html">FUserMuteDto</a>&amp;, UUserManager*);</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    UPROPERTY(BlueprintReadOnly, Category = &quot;Stream Chat|Muted User&quot;)</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    FDateTime CreatedAt = FDateTime{0};</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    UPROPERTY(BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|Muted User&quot;</span>)</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    FDateTime UpdatedAt = FDateTime{0};</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    UPROPERTY(BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|Muted User&quot;</span>)</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    FDateTime Expires = FDateTime{0};</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    UPROPERTY(BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|Muted User&quot;</span>)</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a> Target;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    UPROPERTY(BlueprintReadOnly, Category = &quot;Stream Chat|Muted User&quot;)</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a> User;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>};</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">class </span>UUserManager;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>USTRUCT(BlueprintType)</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">struct </span>STREAMCHAT_API FMutedUser</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>public:</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    FMutedUser();</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    explicit FMutedUser(const <a class="code hl_struct" href="struct_f_user_mute_dto.html">FUserMuteDto</a>&amp;, UUserManager*);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    UPROPERTY(BlueprintReadOnly, Category = &quot;Stream Chat|Muted User&quot;)</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    FDateTime CreatedAt = FDateTime{0};</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    UPROPERTY(BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|Muted User&quot;</span>)</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    FDateTime UpdatedAt = FDateTime{0};</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    UPROPERTY(BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|Muted User&quot;</span>)</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    FDateTime Expires = FDateTime{0};</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    UPROPERTY(BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|Muted User&quot;</span>)</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a> Target;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    UPROPERTY(BlueprintReadOnly, Category = &quot;Stream Chat|Muted User&quot;)</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a> User;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>};</div>
 <div class="ttc" id="astruct_f_user_mute_dto_html"><div class="ttname"><a href="struct_f_user_mute_dto.html">FUserMuteDto</a></div><div class="ttdoc">#/components/schemas/UserMute</div><div class="ttdef"><b>Definition:</b> UserMuteDto.h:16</div></div>
 <div class="ttc" id="astruct_f_user_ref_html"><div class="ttname"><a href="struct_f_user_ref.html">FUserRef</a></div><div class="ttdoc">A reference to a unique User.</div><div class="ttdef"><b>Definition:</b> UserRef.h:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -128,7 +130,7 @@ $(document).ready(function(){initNavTree('_muted_user_8h_source.html',''); initR
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_20ea45809be488128d9196fc2ca964b5.html">StreamChat</a></li><li class="navelem"><a class="el" href="dir_a80e2c3d73be179cb8702e50d88d8258.html">Public</a></li><li class="navelem"><a class="el" href="dir_1b4ee6203055967dbf7bcababc3ae4d8.html">User</a></li><li class="navelem"><b>MutedUser.h</b></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_20ea45809be488128d9196fc2ca964b5.html">StreamChat</a></li><li class="navelem"><a class="el" href="dir_a80e2c3d73be179cb8702e50d88d8258.html">Public</a></li><li class="navelem"><a class="el" href="dir_661d1fdaed19f7db251e02841afb4538.html">Moderation</a></li><li class="navelem"><b>MutedUser.h</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>

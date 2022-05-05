@@ -85,7 +85,6 @@ $(document).ready(function(){initNavTree('struct_f_ban_request_dto.html',''); in
 
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="struct_f_ban_request_dto-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">FBanRequestDto Struct Reference<div class="ingroups"><a class="el" href="group___stream_chat_dto.html">DTO</a></div></div></div>
@@ -97,13 +96,6 @@ $(document).ready(function(){initNavTree('struct_f_ban_request_dto.html',''); in
 
 <p><code>#include &lt;<a class="el" href="_ban_request_dto_8h_source.html">BanRequestDto.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a3589c8bde7a45a62de7ccc94d8f9e25e"><td class="memItemLeft" align="right" valign="top"><a id="a3589c8bde7a45a62de7ccc94d8f9e25e" name="a3589c8bde7a45a62de7ccc94d8f9e25e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetTimeout</b> (float)</td></tr>
-<tr class="memdesc:a3589c8bde7a45a62de7ccc94d8f9e25e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timeout of ban in minutes. User will be unbanned after this period of time. <br /></td></tr>
-<tr class="separator:a3589c8bde7a45a62de7ccc94d8f9e25e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a7105907af4cbf189d7120bb7db0da318"><td class="memItemLeft" align="right" valign="top"><a id="a7105907af4cbf189d7120bb7db0da318" name="a7105907af4cbf189d7120bb7db0da318"></a>
@@ -118,10 +110,6 @@ FString&#160;</td><td class="memItemRight" valign="bottom"><b>Type</b></td></tr>
 FString&#160;</td><td class="memItemRight" valign="bottom"><b>Id</b></td></tr>
 <tr class="memdesc:a2cdb985aad634118b4c17c139b50b122"><td class="mdescLeft">&#160;</td><td class="mdescRight">Channel ID to ban user in (not serialized if empty) <br /></td></tr>
 <tr class="separator:a2cdb985aad634118b4c17c139b50b122"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ddbee797dadf056f2891b4f2ff66f95"><td class="memItemLeft" align="right" valign="top"><a id="a2ddbee797dadf056f2891b4f2ff66f95" name="a2ddbee797dadf056f2891b4f2ff66f95"></a>
-FString&#160;</td><td class="memItemRight" valign="bottom"><b>Reason</b></td></tr>
-<tr class="memdesc:a2ddbee797dadf056f2891b4f2ff66f95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ban reason (not serialized if empty) <br /></td></tr>
-<tr class="separator:a2ddbee797dadf056f2891b4f2ff66f95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51f2d10db52f41d3c1cc4729fae6e511"><td class="memItemLeft" align="right" valign="top"><a id="a51f2d10db52f41d3c1cc4729fae6e511" name="a51f2d10db52f41d3c1cc4729fae6e511"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>bShadow</b> = false</td></tr>
 <tr class="memdesc:a51f2d10db52f41d3c1cc4729fae6e511"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to perform shadow ban or not. <br /></td></tr>
@@ -130,16 +118,20 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>bShadow</b> = false</
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>bIpBan</b> = false</td></tr>
 <tr class="memdesc:a0cbfd4dc504415e875f0ec9817d40525"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to perform IP ban or not. <br /></td></tr>
 <tr class="separator:a0cbfd4dc504415e875f0ec9817d40525"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc964cbc68650d63334e14feb89fa3e4"><td class="memItemLeft" align="right" valign="top"><a id="abc964cbc68650d63334e14feb89fa3e4" name="abc964cbc68650d63334e14feb89fa3e4"></a>
-FAdditionalFields&#160;</td><td class="memItemRight" valign="bottom"><b>AdditionalFields</b></td></tr>
-<tr class="separator:abc964cbc68650d63334e14feb89fa3e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ddbee797dadf056f2891b4f2ff66f95"><td class="memItemLeft" align="right" valign="top"><a id="a2ddbee797dadf056f2891b4f2ff66f95" name="a2ddbee797dadf056f2891b4f2ff66f95"></a>
+FString&#160;</td><td class="memItemRight" valign="bottom"><b>Reason</b></td></tr>
+<tr class="memdesc:a2ddbee797dadf056f2891b4f2ff66f95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ban reason (not serialized if empty) <br /></td></tr>
+<tr class="separator:a2ddbee797dadf056f2891b4f2ff66f95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc298ef71ffc7e557573a5cadf574887"><td class="memItemLeft" align="right" valign="top"><a id="acc298ef71ffc7e557573a5cadf574887" name="acc298ef71ffc7e557573a5cadf574887"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>Timeout</b> = TNumericLimits&lt;float&gt;::Max()</td></tr>
+<tr class="memdesc:acc298ef71ffc7e557573a5cadf574887"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timeout of ban in minutes. User will be unbanned after this period of time. <br /></td></tr>
+<tr class="separator:acc298ef71ffc7e557573a5cadf574887"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >#/components/schemas/BanRequest </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://getstream.io/chat/docs/unreal/moderation/">https://getstream.io/chat/docs/unreal/moderation/</a> </dd></dl>
-</div><hr/>The documentation for this struct was generated from the following files:<ul>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li>Source/Backend/StreamChatDto/Public/Request/Moderation/<a class="el" href="_ban_request_dto_8h_source.html">BanRequestDto.h</a></li>
-<li>Source/Backend/StreamChatDto/Private/Request/Moderation/BanRequestDto.cpp</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

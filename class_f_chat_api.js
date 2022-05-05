@@ -1,7 +1,7 @@
 var class_f_chat_api =
 [
     [ "AddDevice", "class_f_chat_api.html#a1e804013d8f9b8800a1aa66b7a11e13b", null ],
-    [ "BanUser", "class_f_chat_api.html#ab4b1b5e1f15beca96a6f437aa75362aa", null ],
+    [ "BanUser", "class_f_chat_api.html#a5714975b302d0e94ae23881499d22d20", null ],
     [ "DeleteChannel", "class_f_chat_api.html#a9b963b996696beff8dca56f8df568455", null ],
     [ "DeleteMessage", "class_f_chat_api.html#ae5a2afce79f513753908df1a2a113737", null ],
     [ "DeleteReaction", "class_f_chat_api.html#a087fe492162348826a07657a604f033a", null ],
@@ -10,7 +10,8 @@ var class_f_chat_api =
     [ "ListDevices", "class_f_chat_api.html#aa53ac9ae2aae2315225f20c32f490b4e", null ],
     [ "MarkChannelRead", "class_f_chat_api.html#ac79a995b3863ea72fd2a08f699e89cbe", null ],
     [ "MarkChannelsRead", "class_f_chat_api.html#a32d254330486c4a731e0173a6dd9015d", null ],
-    [ "MuteUser", "class_f_chat_api.html#ac3fa6b188c1fddc877a78ef8e609e7ce", null ],
+    [ "MuteChannels", "class_f_chat_api.html#a6c54f41a3abbab8df8488a1de2aa12db", null ],
+    [ "MuteUsers", "class_f_chat_api.html#ab811c2b71259baffea358f8e1385acca", null ],
     [ "PartialUpdateChannel", "class_f_chat_api.html#a2fc38142a68734cc79dd279f03efd76e", null ],
     [ "QueryBannedUsers", "class_f_chat_api.html#a4d6b227fab2a8c7a4bb7a75a4620f54d", null ],
     [ "QueryChannel", "class_f_chat_api.html#a8d0f32e0780f20f2079b325169b5589e", null ],
@@ -23,7 +24,8 @@ var class_f_chat_api =
     [ "SendReaction", "class_f_chat_api.html#ae6a3d9125e5ffd0eaf04b644fb638fd1", null ],
     [ "ShowChannel", "class_f_chat_api.html#ad51a895830155a4005f87bfd2f435d97", null ],
     [ "UnbanUser", "class_f_chat_api.html#af46e69c6f9a893291a853efd63e7edb8", null ],
-    [ "UnmuteUser", "class_f_chat_api.html#a2f4d1a4dd1f5e5c25543d01bfea3f0f5", null ],
+    [ "UnmuteChannels", "class_f_chat_api.html#a2861ba26901a4656b518e5be4d42aa7f", null ],
+    [ "UnmuteUsers", "class_f_chat_api.html#af4ee8dbff41e1d21e1f65106b6206880", null ],
     [ "UpdateChannel", "class_f_chat_api.html#a64e729dcaa5a9001d189870d95cb2784", null ],
     [ "UpdateMessage", "class_f_chat_api.html#a67c9b887d5a0ef287f8f99372381e64f", null ]
 ];

@@ -6,7 +6,7 @@ var searchData=
   ['ontypingindicator_3',['OnTypingIndicator',['../class_u_chat_channel.html#a93d772ef1c497a17a5af73a0be954084',1,'UChatChannel']]],
   ['onupdate_4',['OnUpdate',['../struct_f_user_ref.html#af43873bb63cf3a29b83feba5b7cad66b',1,'FUserRef']]],
   ['operator_20fchannelrequestdto_5',['operator FChannelRequestDto',['../struct_f_channel_properties.html#a677042bf535d27f43488560aeef7f1ac',1,'FChannelProperties']]],
-  ['operator_20fsortparamrequestdto_6',['operator FSortParamRequestDto',['../struct_f_user_sort_option.html#a1516df48ea4a71b4559b9142e3bc6a45',1,'FUserSortOption::operator FSortParamRequestDto()'],['../struct_f_ban_sort_option.html#a33e0b771cad573c77a5d27dd7aae126d',1,'FBanSortOption::operator FSortParamRequestDto()'],['../struct_f_message_sort_option.html#a67a67d08eadecef2ba1fce4c5df90f49',1,'FMessageSortOption::operator FSortParamRequestDto()'],['../struct_f_channel_sort_option.html#adec8d4d3c413acc2bfa848530800c874',1,'FChannelSortOption::operator FSortParamRequestDto()']]],
+  ['operator_20fsortparamrequestdto_6',['operator FSortParamRequestDto',['../struct_f_ban_sort_option.html#a33e0b771cad573c77a5d27dd7aae126d',1,'FBanSortOption::operator FSortParamRequestDto()'],['../struct_f_user_sort_option.html#a1516df48ea4a71b4559b9142e3bc6a45',1,'FUserSortOption::operator FSortParamRequestDto()'],['../struct_f_channel_sort_option.html#adec8d4d3c413acc2bfa848530800c874',1,'FChannelSortOption::operator FSortParamRequestDto()'],['../struct_f_message_sort_option.html#a67a67d08eadecef2ba1fce4c5df90f49',1,'FMessageSortOption::operator FSortParamRequestDto()']]],
   ['operator_20fuserdto_7',['operator FUserDto',['../struct_f_user.html#ab702eb2a7904d2b130a75efd5ba5c636',1,'FUser']]],
   ['operator_20fuserobjectdto_8',['operator FUserObjectDto',['../struct_f_user.html#affad061d1c703dc73c3a52cbe9dff52d',1,'FUser']]],
   ['operator_20fuserobjectrequestdto_9',['operator FUserObjectRequestDto',['../struct_f_user.html#a5836dc51a24eb37cc5db5342f3b62889',1,'FUser']]],
@@ -18,5 +18,5 @@ var searchData=
   ['owncapabilities_15',['OwnCapabilities',['../struct_f_channel_response_dto.html#adb6e23ef5d4c0e7ed20e77e4f55c66d1',1,'FChannelResponseDto::OwnCapabilities()'],['../struct_f_channel_properties.html#a2448f8bda77f37fddae01d0efd3f26ef',1,'FChannelProperties::OwnCapabilities()']]],
   ['ownreaction_16',['OwnReaction',['../struct_f_reaction_group.html#acd58fe03dfe5222dbfeba28f81d4f38c',1,'FReactionGroup']]],
   ['ownreactions_17',['OwnReactions',['../struct_f_message_dto.html#a607ac7fc32caf6b25b9d0b0e3a5dba7a',1,'FMessageDto']]],
-  ['ownuser_18',['OwnUser',['../struct_f_mute_user_response_dto.html#a2c966a3996b74ae9ae5dbbcd2fa75694',1,'FMuteUserResponseDto']]]
+  ['ownuser_18',['OwnUser',['../struct_f_mute_channel_response_dto.html#ae1d370b3dcd6aa9a9745ac9fb158c19f',1,'FMuteChannelResponseDto::OwnUser()'],['../struct_f_mute_user_response_dto.html#a2c966a3996b74ae9ae5dbbcd2fa75694',1,'FMuteUserResponseDto::OwnUser()']]]
 ];
