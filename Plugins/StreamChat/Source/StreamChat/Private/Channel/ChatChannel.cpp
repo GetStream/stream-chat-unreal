@@ -565,10 +565,16 @@ void UChatChannel::OnTypingStop(const FTypingStopEvent& Event)
     OnTypingIndicator.Broadcast(ETypingIndicatorState::StopTyping, User);
 }
 
-void UChatChannel::BanMember(const FUserRef& User, const FTimespan Timeout, const FString Reason, const bool bIpBan) const
+void UChatChannel::BanMemberBP(const FUserRef& User, const FTimespan Timeout, const FString Reason, const bool bIpBan) const
 {
     const TOptional<FTimespan> OptionalTimeout = Timeout.IsZero() ? TOptional<FTimespan>{} : Timeout;
-    Api->BanUser(User->Id, Properties.Type, Properties.Id, OptionalTimeout, Reason, false, bIpBan);
+    const TOptional<FString> OptionalReason = Reason.IsEmpty() ? TOptional<FString>{} : Reason;
+    BanMember(User, OptionalTimeout, OptionalReason, bIpBan);
+}
+
+void UChatChannel::BanMember(const FUserRef& User, const TOptional<FTimespan>& Timeout, const TOptional<FString>& Reason, const bool bIpBan) const
+{
+    Api->BanUser(User->Id, Properties.Type, Properties.Id, Timeout, Reason, false, bIpBan);
 }
 
 void UChatChannel::UnbanMember(const FUserRef& User) const
@@ -576,10 +582,15 @@ void UChatChannel::UnbanMember(const FUserRef& User) const
     Api->UnbanUser(User->Id, Properties.Type, Properties.Id);
 }
 
-void UChatChannel::ShadowBanMember(const FUserRef& User, const FTimespan Timeout) const
+void UChatChannel::ShadowBanMemberBP(const FUserRef& User, const FTimespan Timeout) const
 {
     const TOptional<FTimespan> OptionalTimeout = Timeout.IsZero() ? TOptional<FTimespan>{} : Timeout;
-    Api->BanUser(User->Id, Properties.Type, Properties.Id, OptionalTimeout, TEXT(""), true);
+    BanMember(User, Timeout);
+}
+
+void UChatChannel::ShadowBanMember(const FUserRef& User, const TOptional<FTimespan>& Timeout) const
+{
+    Api->BanUser(User->Id, Properties.Type, Properties.Id, Timeout, {}, true);
 }
 
 void UChatChannel::ShadowUnbanMember(const FUserRef& User) const
@@ -587,12 +598,17 @@ void UChatChannel::ShadowUnbanMember(const FUserRef& User) const
     Api->UnbanUser(User->Id, Properties.Type, Properties.Id);
 }
 
-void UChatChannel::MuteChannel(const FTimespan Timeout)
+void UChatChannel::MuteChannelBP(const FTimespan Timeout)
 {
     const TOptional<FTimespan> OptionalTimeout = Timeout.IsZero() ? TOptional<FTimespan>{} : Timeout;
+    MuteChannel(OptionalTimeout);
+}
+
+void UChatChannel::MuteChannel(const TOptional<FTimespan>& Timeout)
+{
     Api->MuteChannel(
         {Properties.Cid},
-        OptionalTimeout,
+        Timeout,
         [WeakThis = TWeakObjectPtr<UChatChannel>(this)](const FMuteChannelResponseDto& Dto)
         {
             UUserManager::Get()->UpsertUser(Dto.OwnUser);

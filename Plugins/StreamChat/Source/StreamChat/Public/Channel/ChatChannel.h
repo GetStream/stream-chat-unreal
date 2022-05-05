@@ -433,12 +433,13 @@ private:
      * When a user is banned, they will not be allowed to post messages until the ban is
      * removed or expired but will be able to connect to Chat and to channels as before.
      * @param User User to ban
-     * @param Timeout Timeout of ban in minutes. User will be unbanned after this period of time (unlimited if negative)
+     * @param Timeout Timeout of ban in minutes. User will be unbanned after this period of time (unlimited if zero)
      * @param Reason Ban reason (optional)
      * @param bIpBan Whether to perform IP ban or not
      */
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Moderation")
-    void BanMember(const FUserRef& User, FTimespan Timeout = FTimespan(), FString Reason = TEXT(""), bool bIpBan = false) const;
+    UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "Stream Chat|Channel|Moderation", DisplayName = "Ban Member")
+    void BanMemberBP(const FUserRef& User, FTimespan Timeout, FString Reason, bool bIpBan) const;
+    void BanMember(const FUserRef& User, const TOptional<FTimespan>& Timeout = {}, const TOptional<FString>& Reason = {}, bool bIpBan = false) const;
 
     /**
      * @brief Remove previously applied ban
@@ -452,24 +453,26 @@ private:
      * When a user is shadow banned, they will still be allowed to post messages,
      * but any message sent during the will only be visible to the messages author and invisible to other users of the App.
      * @param User User to shadow ban
-     * @param Timeout Timeout of ban in minutes. User will be unbanned after this period of time (unlimited if negative)
+     * @param Timeout Timeout of ban in minutes. User will be unbanned after this period of time (never unbanned if zero)
      */
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Moderation")
-    void ShadowBanMember(const FUserRef& User, FTimespan Timeout = FTimespan()) const;
+    UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "Stream Chat|Channel|Moderation", DisplayName = "Shadow Ban Member")
+    void ShadowBanMemberBP(const FUserRef& User, FTimespan Timeout) const;
+    void ShadowBanMember(const FUserRef& User, const TOptional<FTimespan>& Timeout = {}) const;
 
     /**
      * @brief Remove previously applied shadow ban
      * @param User User to unban
      */
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Moderation")
+    UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "Stream Chat|Channel|Moderation")
     void ShadowUnbanMember(const FUserRef& User) const;
 
     /**
      * @brief Mutes channel for current user
-     * @param Timeout Duration of mute (optional)
+     * @param Timeout Duration of mute (never unmuted if left zero)
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Moderation")
-    void MuteChannel(FTimespan Timeout = FTimespan());
+    void MuteChannelBP(FTimespan Timeout);
+    void MuteChannel(const TOptional<FTimespan>& Timeout = {});
 
     /**
      * @brief Unmutes channel for current user

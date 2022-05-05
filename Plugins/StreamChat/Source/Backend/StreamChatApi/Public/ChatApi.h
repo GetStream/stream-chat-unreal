@@ -79,8 +79,8 @@ public:
         const FString& TargetUserId,
         const FString& Type = {},
         const FString& Id = {},
-        TOptional<FTimespan> Timeout = {},
-        const FString& Reason = {},
+        const TOptional<FTimespan>& Timeout = {},
+        const TOptional<FString>& Reason = {},
         bool bShadow = false,
         bool bIpBan = false,
         TCallback<FResponseDto> Callback = {}) const;
