@@ -470,15 +470,15 @@ private:
      * @brief Mutes channel for current user
      * @param Timeout Duration of mute (never unmuted if left zero)
      */
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Moderation")
-    void MuteChannelBP(FTimespan Timeout);
-    void MuteChannel(const TOptional<FTimespan>& Timeout = {});
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Moderation", DisplayName = "Mute")
+    void MuteBP(FTimespan Timeout);
+    void Mute(const TOptional<FTimespan>& Timeout = {});
 
     /**
      * @brief Unmutes channel for current user
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Moderation")
-    void UnmuteChannel() const;
+    void Unmute() const;
 
     /**
      * @brief Is this channel muted for the current user

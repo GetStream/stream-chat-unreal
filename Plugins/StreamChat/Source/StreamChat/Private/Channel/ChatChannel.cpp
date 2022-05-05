@@ -598,13 +598,13 @@ void UChatChannel::ShadowUnbanMember(const FUserRef& User) const
     Api->UnbanUser(User->Id, Properties.Type, Properties.Id);
 }
 
-void UChatChannel::MuteChannelBP(const FTimespan Timeout)
+void UChatChannel::MuteBP(const FTimespan Timeout)
 {
     const TOptional<FTimespan> OptionalTimeout = Timeout.IsZero() ? TOptional<FTimespan>{} : Timeout;
-    MuteChannel(OptionalTimeout);
+    Mute(OptionalTimeout);
 }
 
-void UChatChannel::MuteChannel(const TOptional<FTimespan>& Timeout)
+void UChatChannel::Mute(const TOptional<FTimespan>& Timeout)
 {
     Api->MuteChannel(
         {Properties.Cid},
@@ -619,7 +619,7 @@ void UChatChannel::MuteChannel(const TOptional<FTimespan>& Timeout)
         });
 }
 
-void UChatChannel::UnmuteChannel() const
+void UChatChannel::Unmute() const
 {
     Api->UnmuteChannel({Properties.Cid});
 }
