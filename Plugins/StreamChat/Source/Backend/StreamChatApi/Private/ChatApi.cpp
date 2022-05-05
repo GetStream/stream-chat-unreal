@@ -81,14 +81,18 @@ void FChatApi::BanUser(
     const FString& TargetUserId,
     const FString& Type,
     const FString& Id,
-    TOptional<FTimespan> Timeout,
-    const FString& Reason,
+    const TOptional<FTimespan>& Timeout,
+    const TOptional<FString>& Reason,
     const bool bShadow,
     const bool bIpBan,
     const TCallback<FResponseDto> Callback) const
 {
     const FString Url = BuildUrl(TEXT("moderation/ban"));
-    FBanRequestDto Body{TargetUserId, Type, Id, Reason, bShadow, bIpBan};
+    FBanRequestDto Body{TargetUserId, Type, Id, bShadow, bIpBan};
+    if (Reason.IsSet())
+    {
+        Body.Reason = Reason.GetValue();
+    }
     if (Timeout.IsSet())
     {
         Body.Timeout = Timeout.GetValue().GetTotalMinutes();

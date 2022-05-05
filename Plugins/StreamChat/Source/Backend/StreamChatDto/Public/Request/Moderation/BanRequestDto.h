@@ -28,10 +28,6 @@ struct STREAMCHATDTO_API FBanRequestDto
     UPROPERTY()
     FString Id;
 
-    /// Ban reason (not serialized if empty)
-    UPROPERTY()
-    FString Reason;
-
     /// Whether to perform shadow ban or not
     UPROPERTY()
     bool bShadow = false;
@@ -39,6 +35,10 @@ struct STREAMCHATDTO_API FBanRequestDto
     /// Whether to perform IP ban or not
     UPROPERTY()
     bool bIpBan = false;
+
+    /// Ban reason (not serialized if empty)
+    UPROPERTY()
+    FString Reason;
 
     /// Timeout of ban in minutes. User will be unbanned after this period of time
     UPROPERTY()
