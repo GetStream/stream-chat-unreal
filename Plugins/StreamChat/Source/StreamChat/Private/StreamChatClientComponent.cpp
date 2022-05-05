@@ -514,12 +514,12 @@ void UStreamChatClientComponent::MuteUserBP(const FUserRef& User, const FTimespa
 
 void UStreamChatClientComponent::MuteUser(const FUserRef& User, const TOptional<FTimespan>& Timeout) const
 {
-    Api->MuteUser({User->Id}, Timeout);
+    Api->MuteUsers({User->Id}, Timeout);
 }
 
 void UStreamChatClientComponent::UnmuteUser(const FUserRef& User) const
 {
-    Api->UnmuteUser({User->Id});
+    Api->UnmuteUsers({User->Id});
 }
 
 const TArray<UChatChannel*>& UStreamChatClientComponent::GetChannels() const

@@ -606,7 +606,7 @@ void UChatChannel::MuteBP(const FTimespan Timeout)
 
 void UChatChannel::Mute(const TOptional<FTimespan>& Timeout)
 {
-    Api->MuteChannel(
+    Api->MuteChannels(
         {Properties.Cid},
         Timeout,
         [WeakThis = TWeakObjectPtr<UChatChannel>(this)](const FMuteChannelResponseDto& Dto)
@@ -621,7 +621,7 @@ void UChatChannel::Mute(const TOptional<FTimespan>& Timeout)
 
 void UChatChannel::Unmute() const
 {
-    Api->UnmuteChannel({Properties.Cid});
+    Api->UnmuteChannels({Properties.Cid});
 }
 
 bool UChatChannel::IsMuted() const
