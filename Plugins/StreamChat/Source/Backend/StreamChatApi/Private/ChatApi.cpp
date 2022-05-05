@@ -159,7 +159,7 @@ void FChatApi::Flag(const FString& TargetMessageId, const FString& TargetUserId,
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
-void FChatApi::MuteUser(const TArray<FString>& TargetUserIds, TOptional<FTimespan> Timeout, const TCallback<FMuteUserResponseDto> Callback) const
+void FChatApi::MuteUsers(const TArray<FString>& TargetUserIds, TOptional<FTimespan> Timeout, const TCallback<FMuteUserResponseDto> Callback) const
 {
     const FString Url = BuildUrl(TEXT("moderation/mute"));
     FMuteUserRequestDto Body{TargetUserIds};
@@ -170,14 +170,14 @@ void FChatApi::MuteUser(const TArray<FString>& TargetUserIds, TOptional<FTimespa
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
-void FChatApi::UnmuteUser(const TArray<FString>& TargetUserIds, const TCallback<FResponseDto> Callback) const
+void FChatApi::UnmuteUsers(const TArray<FString>& TargetUserIds, const TCallback<FResponseDto> Callback) const
 {
     const FString Url = BuildUrl(TEXT("moderation/unmute"));
     const FMuteUserRequestDto Body{TargetUserIds};
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
-void FChatApi::MuteChannel(const TArray<FString>& TargetCids, TOptional<FTimespan> Timeout, const TCallback<FMuteChannelResponseDto> Callback) const
+void FChatApi::MuteChannels(const TArray<FString>& TargetCids, TOptional<FTimespan> Timeout, const TCallback<FMuteChannelResponseDto> Callback) const
 {
     const FString Url = BuildUrl(TEXT("moderation/mute/channel"));
     FMuteChannelRequestDto Body{TargetCids};
@@ -188,7 +188,7 @@ void FChatApi::MuteChannel(const TArray<FString>& TargetCids, TOptional<FTimespa
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
-void FChatApi::UnmuteChannel(const TArray<FString>& TargetCids, const TCallback<FResponseDto> Callback) const
+void FChatApi::UnmuteChannels(const TArray<FString>& TargetCids, const TCallback<FResponseDto> Callback) const
 {
     const FString Url = BuildUrl(TEXT("moderation/unmute/channel"));
     const FMuteChannelRequestDto Body{TargetCids};

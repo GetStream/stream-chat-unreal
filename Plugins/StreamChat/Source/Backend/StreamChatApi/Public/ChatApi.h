@@ -133,14 +133,14 @@ public:
      * @param Timeout Duration of mute (optional)
      * @param Callback Called when response is received.
      */
-    void MuteUser(const TArray<FString>& TargetUserIds, TOptional<FTimespan> Timeout = {}, TCallback<FMuteUserResponseDto> Callback = {}) const;
+    void MuteUsers(const TArray<FString>& TargetUserIds, TOptional<FTimespan> Timeout = {}, TCallback<FMuteUserResponseDto> Callback = {}) const;
 
     /**
      * @brief Unmute a previously muted user
      * @param TargetUserIds User IDs to unmute
      * @param Callback Called when response is received.
      */
-    void UnmuteUser(const TArray<FString>& TargetUserIds, TCallback<FResponseDto> Callback = {}) const;
+    void UnmuteUsers(const TArray<FString>& TargetUserIds, TCallback<FResponseDto> Callback = {}) const;
 
     /**
      * @brief Mutes channel for user
@@ -148,14 +148,14 @@ public:
      * @param Timeout Duration of mute (optional)
      * @param Callback Called when response is received.
      */
-    void MuteChannel(const TArray<FString>& TargetCids, TOptional<FTimespan> Timeout = {}, TCallback<FMuteChannelResponseDto> Callback = {}) const;
+    void MuteChannels(const TArray<FString>& TargetCids, TOptional<FTimespan> Timeout = {}, TCallback<FMuteChannelResponseDto> Callback = {}) const;
 
     /**
      * @brief Unmutes channel for user
      * @param TargetCids CIDs of channels to unmute
      * @param Callback Called when response is received.
      */
-    void UnmuteChannel(const TArray<FString>& TargetCids, TCallback<FResponseDto> Callback = {}) const;
+    void UnmuteChannels(const TArray<FString>& TargetCids, TCallback<FResponseDto> Callback = {}) const;
 
 ///@}
 #pragma endregion Moderation

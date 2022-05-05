@@ -114,7 +114,7 @@ void FChatApiSpec::Define()
             LatentBeforeEach(
                 [=](const FDoneDelegate& TestDone)
                 {
-                    Api->MuteChannel(
+                    Api->MuteChannels(
                         {NewCid},
                         {},
                         [=](const FMuteChannelResponseDto& Dto)
@@ -132,7 +132,7 @@ void FChatApiSpec::Define()
             LatentBeforeEach(
                 [=](const FDoneDelegate& TestDone)
                 {
-                    Api->UnmuteChannel(
+                    Api->UnmuteChannels(
                         {NewCid},
                         [=](const FResponseDto& Dto)
                         {
@@ -409,7 +409,7 @@ void FChatApiSpec::Define()
             LatentBeforeEach(
                 [=](const FDoneDelegate& TestDone)
                 {
-                    Api->MuteUser(
+                    Api->MuteUsers(
                         {BanUserId},
                         {},
                         [=](const FMuteUserResponseDto& Dto)
@@ -429,7 +429,7 @@ void FChatApiSpec::Define()
                 "should unmute user",
                 [=](const FDoneDelegate& TestDone)
                 {
-                    Api->UnmuteUser(
+                    Api->UnmuteUsers(
                         {BanUserId},
                         [=](const FResponseDto& Dto)
                         {
