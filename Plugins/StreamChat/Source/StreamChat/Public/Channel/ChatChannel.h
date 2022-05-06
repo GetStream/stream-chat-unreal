@@ -127,6 +127,12 @@ public:
      */
     void Show(TFunction<void()> Callback = {}) const;
 
+    /**
+     * @brief Stop receiving channel events
+     * @param Callback Called when response is received.
+     */
+    void StopWatching(TFunction<void()> Callback = {}) const;
+
     /// The local static properties of the channel
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel") FChannelProperties Properties;
 

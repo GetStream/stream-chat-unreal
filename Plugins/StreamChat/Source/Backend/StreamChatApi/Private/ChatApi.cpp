@@ -409,6 +409,14 @@ void FChatApi::QueryChannels(
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
+void FChatApi::StopWatchingChannel(const FString& ChannelType, const FString& ChannelId, const FString& ConnectionId, const TCallback<FResponseDto> Callback)
+    const
+{
+    const FString Path = FString::Printf(TEXT("channels/%s/%s/stop-watching"), *ChannelType, *ChannelId);
+    const FString Url = BuildUrl(Path);
+    Client->Post(Url).Query({{TEXT("connection_id"), ConnectionId}}).EmptyJson().Send(Callback);
+}
+
 void FChatApi::SearchMessages(
     const TSharedRef<FJsonObject>& ChannelFilter,
     const TOptional<FString>& Query,

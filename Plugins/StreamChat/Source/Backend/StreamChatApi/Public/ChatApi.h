@@ -271,6 +271,15 @@ public:
         TCallback<FChannelsResponseDto> Callback = {}) const;
 
     /**
+     * @brief Stop receiving channel events
+     * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
+     * @param ChannelId A unique identifier for the channel
+     * @param ConnectionId Websocket connection ID to interact with.
+     * @param Callback Called when response is received.
+     */
+    void StopWatchingChannel(const FString& ChannelType, const FString& ChannelId, const FString& ConnectionId, TCallback<FResponseDto> Callback = {}) const;
+
+    /**
      * @brief Search all messages
      *
      * ChannelFilter is required, and a minimum of either a query or message filter
