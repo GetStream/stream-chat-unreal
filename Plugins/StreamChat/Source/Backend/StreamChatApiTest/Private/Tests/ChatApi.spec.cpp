@@ -402,7 +402,7 @@ void FChatApiSpec::Define()
         });
 
     Describe(
-        "Mute",
+        "Mute user",
         [=]
         {
             // Mute user
@@ -440,7 +440,7 @@ void FChatApiSpec::Define()
         });
 
     Describe(
-        "Ban",
+        "Ban user",
         [=]
         {
             // Ban user
@@ -524,7 +524,7 @@ void FChatApiSpec::Define()
         });
 
     Describe(
-        "Flag",
+        "Flag message",
         [=]
         {
             // Create message
@@ -572,6 +572,86 @@ void FChatApiSpec::Define()
                         {
                             TestEqual("Message text is same as input", Dto.Message.Text, MsgText);
                             TestEqual("Message is deleted", Dto.Message.Type, EMessageTypeDto::Deleted);
+                            TestDone.Execute();
+                        });
+                });
+        });
+
+    Describe(
+        "Watch/unwatch channel",
+        [=]
+        {
+            // TODO: Should be able to combine this and next query, once backend fixes race condition
+            LatentBeforeEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->QueryChannel(
+                        ChannelType,
+                        Socket->GetConnectionId(),
+                        EChannelFlags::Watch,
+                        {},
+                        ChannelId,
+                        {},
+                        {},
+                        {},
+                        [=](const FChannelStateResponseDto& Dto)
+                        {
+                            TestEqual("Response.Channel.Cid", Dto.Channel.Cid, Cid);
+                            TestDone.Execute();
+                        });
+                });
+
+            LatentBeforeEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->QueryChannel(
+                        ChannelType,
+                        Socket->GetConnectionId(),
+                        EChannelFlags::State,
+                        {},
+                        ChannelId,
+                        {},
+                        {},
+                        {{5, 0}},
+                        [=](const FChannelStateResponseDto& Dto)
+                        {
+                            TestEqual("Response.Channel.Cid", Dto.Channel.Cid, Cid);
+                            TestTrue("Watched", Dto.Watchers.ContainsByPredicate([&](const FUserObjectDto& U) { return U.Id == User.Id; }));
+                            TestDone.Execute();
+                        });
+                });
+
+            LatentIt(
+                "Stop watching channel",
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->StopWatchingChannel(
+                        ChannelType,
+                        ChannelId,
+                        Socket->GetConnectionId(),
+                        [=](const FResponseDto& Dto)
+                        {
+                            AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
+                            TestDone.Execute();
+                        });
+                });
+
+            // Delete message
+            LatentAfterEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->QueryChannel(
+                        ChannelType,
+                        Socket->GetConnectionId(),
+                        EChannelFlags::State,
+                        {},
+                        ChannelId,
+                        {},
+                        {},
+                        {},
+                        [=](const FChannelStateResponseDto& Dto)
+                        {
+                            TestFalse("Stopped watching", Dto.Watchers.ContainsByPredicate([&](const FUserObjectDto& U) { return U.Id == User.Id; }));
                             TestDone.Execute();
                         });
                 });
