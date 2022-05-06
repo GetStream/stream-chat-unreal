@@ -213,6 +213,21 @@ void UChatChannel::Show(TFunction<void()> Callback) const
         });
 }
 
+void UChatChannel::StopWatching(TFunction<void()> Callback) const
+{
+    Api->StopWatchingChannel(
+        Properties.Type,
+        Properties.Id,
+        Socket->GetConnectionId(),
+        [Callback](const FResponseDto&)
+        {
+            if (Callback)
+            {
+                Callback();
+            }
+        });
+}
+
 void UChatChannel::SendMessage(const FMessage& Message)
 {
     // TODO Wait for attachments to upload
