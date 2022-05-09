@@ -352,7 +352,7 @@ void UChatChannel::QueryAdditionalMessages(const EPaginationDirection Direction,
         return Options;
     }();
 
-    Query(Callback, EChannelFlags::State, MessagePagination);
+    Query(EChannelFlags::State, MessagePagination, {}, {}, Callback);
 }
 
 void UChatChannel::MarkRead(const TOptional<FMessage>& Message)
@@ -385,11 +385,11 @@ const TArray<FMessage>& UChatChannel::GetMessages() const
 }
 
 void UChatChannel::Query(
-    TFunction<void()> Callback,
     const EChannelFlags Flags,
     const TOptional<FMessagePaginationOptions> MessagePagination,
     const TOptional<FUserPaginationOptions> MemberPagination,
-    const TOptional<FUserPaginationOptions> WatcherPagination)
+    const TOptional<FUserPaginationOptions> WatcherPagination,
+    TFunction<void()> Callback)
 {
     Api->QueryChannel(
         Properties.Type,
@@ -417,11 +417,11 @@ void UChatChannel::Query(
 }
 
 void UChatChannel::SearchMessages(
-    TFunction<void(const TArray<FMessage>&)> Callback,
     const TOptional<FString>& Query,
     const TOptional<FFilter>& MessageFilter,
     const TArray<FMessageSortOption>& Sort,
-    const TOptional<uint32> MessageLimit) const
+    const TOptional<uint32> MessageLimit,
+    TFunction<void(const TArray<FMessage>&)> Callback) const
 {
     TOptional<TSharedRef<FJsonObject>> MessageFilterJson;
     if (MessageFilter.IsSet())
@@ -463,7 +463,7 @@ void UChatChannel::SearchMessages(
         WorldContextObject,
         LatentInfo,
         OutMessages,
-        [&](auto Callback) { SearchMessages(Callback, OptionalQuery, OptionalMessageFilter, Sort, OptionalMessageLimit); });
+        [&](auto Callback) { SearchMessages(OptionalQuery, OptionalMessageFilter, Sort, OptionalMessageLimit, Callback); });
 }
 
 void UChatChannel::SendReaction(const FMessage& Message, const FName& ReactionType, const bool bEnforceUnique)

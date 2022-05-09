@@ -95,11 +95,11 @@ public:
      * @return An array of channel objects which can be used to interact with the channels
      */
     void QueryChannels(
-        TFunction<void(const TArray<UChatChannel*>&)> Callback,
         TOptional<FFilter> Filter = {},
         const TArray<FChannelSortOption>& SortOptions = {},
         const EChannelFlags Flags = EChannelFlags::State | EChannelFlags::Watch,
-        const FChannelPaginationOptions& PaginationOptions = {});
+        const FChannelPaginationOptions& PaginationOptions = {},
+        TFunction<void(const TArray<UChatChannel*>&)> Callback = {});
 
     /**
      * @brief Create a channel if it does not exist yet (if this user has the right permissions).
@@ -148,12 +148,12 @@ public:
      * @param Callback Called when response is received
      */
     void QueryUsers(
-        TFunction<void(const TArray<FUserRef>&)> Callback,
         const FFilter& Filter = {},
         const TArray<FUserSortOption>& Sort = {},
         bool bPresence = true,
         TOptional<uint32> Limit = {},
-        TOptional<uint32> Offset = {}) const;
+        TOptional<uint32> Offset = {},
+        TFunction<void(const TArray<FUserRef>&)> Callback = {}) const;
 
     /**
      * @brief Search all messages
@@ -168,12 +168,12 @@ public:
      * @param MessageLimit Number of messages to return
      */
     void SearchMessages(
-        TFunction<void(const TArray<FMessage>&)> Callback,
         const FFilter& ChannelFilter = {},
         const TOptional<FString>& Query = {},
         const TOptional<FFilter>& MessageFilter = {},
         const TArray<FMessageSortOption>& Sort = {},
-        TOptional<uint32> MessageLimit = {}) const;
+        TOptional<uint32> MessageLimit = {},
+        TFunction<void(const TArray<FMessage>&)> Callback = {}) const;
 
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Client")
     const TArray<UChatChannel*>& GetChannels() const;

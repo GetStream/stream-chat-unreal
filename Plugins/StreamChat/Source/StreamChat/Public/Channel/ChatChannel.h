@@ -275,11 +275,11 @@ public:
      * @param WatcherPagination Pagination details for returned watchers/
      */
     void Query(
-        TFunction<void()> Callback,
         EChannelFlags Flags = EChannelFlags::State,
         const TOptional<FMessagePaginationOptions> MessagePagination = {},
         const TOptional<FUserPaginationOptions> MemberPagination = {},
-        const TOptional<FUserPaginationOptions> WatcherPagination = {});
+        const TOptional<FUserPaginationOptions> WatcherPagination = {},
+        TFunction<void()> Callback = {});
 
     /**
      * @brief Search the messages in this channel
@@ -293,11 +293,11 @@ public:
      * @param MessageLimit Number of messages to return
      */
     void SearchMessages(
-        TFunction<void(const TArray<FMessage>&)> Callback,
         const TOptional<FString>& Query = {},
         const TOptional<FFilter>& MessageFilter = {},
         const TArray<FMessageSortOption>& Sort = {},
-        TOptional<uint32> MessageLimit = {}) const;
+        TOptional<uint32> MessageLimit = {},
+        TFunction<void(const TArray<FMessage>&)> Callback = {}) const;
 
     /**
      * @brief Search the messages in this channel
