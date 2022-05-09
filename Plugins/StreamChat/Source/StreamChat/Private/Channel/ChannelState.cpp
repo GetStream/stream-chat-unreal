@@ -42,9 +42,11 @@ bool CountMessageAsUnread(const FMessage& Message)
 FChannelState::FChannelState() = default;
 
 FChannelState::FChannelState(const FChannelStateResponseFieldsDto& Dto, UUserManager* UserManager)
-    : WatcherCount{Dto.WatcherCount}, Read{Util::Convert<FRead>(Dto.Read, UserManager)}, Messages{Util::Convert<FMessage>(Dto.Messages, UserManager)}
+    : WatcherCount{Dto.WatcherCount}
+    , Watchers{UserManager->UpsertUsers(Dto.Watchers)}
+    , Read{Util::Convert<FRead>(Dto.Read, UserManager)}
+    , Messages{Util::Convert<FMessage>(Dto.Messages, UserManager)}
 {
-    // TODO Watchers
     // TODO Attachment
     // TODO Pinned messages
 }
