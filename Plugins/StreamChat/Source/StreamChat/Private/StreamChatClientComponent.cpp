@@ -73,7 +73,7 @@ void UStreamChatClientComponent::OnConnectionRecovered(const FConnectionRecovere
     // Fetch data for known channels
     TArray<FString> Cids;
     Algo::Transform(Channels, Cids, [](const UChatChannel* Channel) { return Channel->Properties.Cid; });
-    QueryChannels({}, FFilter::In(TEXT("cid"), Cids));
+    QueryChannels(FFilter::In(TEXT("cid"), Cids));
 }
 
 void UStreamChatClientComponent::OnUserPresenceChanged(const FUserPresenceChangedEvent& Event)
@@ -134,7 +134,7 @@ void UStreamChatClientComponent::QueryChannels(
         WorldContextObject,
         LatentInfo,
         OutChannels,
-        [&](auto Callback) { QueryChannels(Callback, OptionalFilter, SortOptions, static_cast<EChannelFlags>(Flags)); });
+        [&](auto Callback) { QueryChannels(OptionalFilter, SortOptions, static_cast<EChannelFlags>(Flags), {}, Callback); });
 }
 
 void UStreamChatClientComponent::WatchChannel(
@@ -288,11 +288,11 @@ void UStreamChatClientComponent::DisconnectUser()
 }
 
 void UStreamChatClientComponent::QueryChannels(
-    TFunction<void(const TArray<UChatChannel*>&)> Callback,
     const TOptional<FFilter> Filter,
     const TArray<FChannelSortOption>& SortOptions,
     const EChannelFlags Flags,
-    const FChannelPaginationOptions& PaginationOptions)
+    const FChannelPaginationOptions& PaginationOptions,
+    TFunction<void(const TArray<UChatChannel*>&)> Callback)
 {
     // TODO Can we return something from ConnectUser() that is required for this function to prevent ordering ambiguity?
     check(Socket->IsConnected());
@@ -397,26 +397,26 @@ void UStreamChatClientComponent::QueryAdditionalChannels(const int32 Limit, cons
     const FChannelPaginationOptions ChannelPaginationOptions{Limit, Channels.Num()};
 
     QueryChannels(
+        FFilter::In(TEXT("members"), {UUserManager::Get()->GetCurrentUser()->Id}),
+        {{EChannelSortField::LastMessageAt, ESortDirection::Descending}},
+        EChannelFlags::State | EChannelFlags::Watch,
+        ChannelPaginationOptions,
         [Callback](const TArray<UChatChannel*>)
         {
             if (Callback)
             {
                 Callback();
             }
-        },
-        FFilter::In(TEXT("members"), {UUserManager::Get()->GetCurrentUser()->Id}),
-        {{EChannelSortField::LastMessageAt, ESortDirection::Descending}},
-        EChannelFlags::State | EChannelFlags::Watch,
-        ChannelPaginationOptions);
+        });
 }
 
 void UStreamChatClientComponent::QueryUsers(
-    TFunction<void(const TArray<FUserRef>&)> Callback,
     const FFilter& Filter,
     const TArray<FUserSortOption>& Sort,
     const bool bPresence,
     const TOptional<uint32> Limit,
-    const TOptional<uint32> Offset) const
+    const TOptional<uint32> Offset,
+    TFunction<void(const TArray<FUserRef>&)> Callback) const
 {
     Api->QueryUsers(
         Socket->GetConnectionId(),
@@ -438,12 +438,12 @@ void UStreamChatClientComponent::QueryUsers(
 }
 
 void UStreamChatClientComponent::SearchMessages(
-    TFunction<void(const TArray<FMessage>&)> Callback,
     const FFilter& ChannelFilter,
     const TOptional<FString>& Query,
     const TOptional<FFilter>& MessageFilter,
     const TArray<FMessageSortOption>& Sort,
-    const TOptional<uint32> MessageLimit) const
+    const TOptional<uint32> MessageLimit,
+    TFunction<void(const TArray<FMessage>&)> Callback) const
 {
     TOptional<TSharedRef<FJsonObject>> MessageFilterJson;
     if (MessageFilter.IsSet())

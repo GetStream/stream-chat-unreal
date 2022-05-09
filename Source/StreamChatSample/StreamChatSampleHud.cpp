@@ -24,13 +24,15 @@ void AStreamChatSampleHud::BeginPlay()
         {
             const FFilter Filter = FFilter::In(TEXT("members"), {UserRef->Id});
             WeakThis->Client->QueryChannels(
+                Filter,
+                {{EChannelSortField::LastMessageAt, ESortDirection::Descending}},
+                EChannelFlags::State | EChannelFlags::Watch,
+                {},
                 [WeakThis](const TArray<UChatChannel*> ReceivedChannels)
                 {
                     WeakThis->Channels = ReceivedChannels;
                     WeakThis->OnConnect();
-                },
-                Filter,
-                {{EChannelSortField::LastMessageAt, ESortDirection::Descending}});
+                });
         });
 }
 
