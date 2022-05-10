@@ -338,7 +338,7 @@ public:
      */
     void QueryMembers(
         const FString& ChannelType,
-        const TSharedRef<FJsonObject>& Filter = {},
+        const TOptional<TSharedRef<FJsonObject>>& Filter = {},
         const TOptional<FString>& ChannelId = {},
         const TOptional<TArray<FString>>& Members = {},
         const TArray<FSortParamRequestDto>& SortOptions = {},
