@@ -26,6 +26,7 @@ struct FHttpResponse;
 struct FListDevicesResponseDto;
 struct FMarkReadRequestDto;
 struct FMarkReadResponseDto;
+struct FMembersResponseDto;
 struct FMessageRequestDto;
 struct FMessageResponseDto;
 struct FMuteChannelResponseDto;
@@ -170,7 +171,7 @@ public:
      * @brief Get messages, members or other channel fields. Creates the channel if not yet created.
      * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
      * @param ConnectionId Websocket connection ID to interact with.
-     * @param ChannelId A unique identifier for the channel.
+     * @param ChannelId A unique identifier for the channel. (either this or members is required)
      * @param Flags Additional actions to perform, like watch, or fetch presence. @see EChannelFlags
      * @param Data Properties to set on the channel
      * @param MessagePagination Pagination details for returned messages.
@@ -322,6 +323,27 @@ public:
         const FString& ChannelId,
         const TOptional<FString>& MessageId = {},
         TCallback<FMarkReadResponseDto> Callback = {}) const;
+
+    /**
+     * @brief Find and filter channel members
+     * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
+     * @param Filter Conditions to use to filter the members
+     * @param ChannelId A unique identifier for the channel (either this or @param Members is required)
+     * @param Members Use list of creating members to identify channel (either this or @param ChannelId is required)
+     * @param SortOptions The sorting used for the members matching the filters.
+     * Sorting is based on field and direction, multiple sorting options can be provided.
+     * @param Pagination Limit, offset, and member selection by user id
+     * GtId, GteId, LtId and LteId fields are for user IDs
+     * @param Callback Called when response is received
+     */
+    void QueryMembers(
+        const FString& ChannelType,
+        const TSharedRef<FJsonObject>& Filter = {},
+        const TOptional<FString>& ChannelId = {},
+        const TOptional<TArray<FString>>& Members = {},
+        const TArray<FSortParamRequestDto>& SortOptions = {},
+        const FMessagePaginationParamsRequestDto& Pagination = {},
+        TCallback<FMembersResponseDto> Callback = {}) const;
 
 ///@}
 #pragma endregion Channels

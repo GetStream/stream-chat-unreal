@@ -2,11 +2,13 @@
 
 #include "ChatApi.h"
 
+#include "Algo/Transform.h"
 #include "HttpClient.h"
 #include "Request/Channel/ChannelGetOrCreateRequestDto.h"
 #include "Request/Channel/HideChannelRequestDto.h"
 #include "Request/Channel/MarkReadRequestDto.h"
 #include "Request/Channel/QueryChannelsRequestDto.h"
+#include "Request/Channel/QueryMembersRequestDto.h"
 #include "Request/Channel/UpdateChannelPartialRequestDto.h"
 #include "Request/Channel/UpdateChannelRequestDto.h"
 #include "Request/Device/DeviceFieldsDto.h"
@@ -26,6 +28,7 @@
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/Channel/DeleteChannelResponseDto.h"
 #include "Response/Channel/MarkReadResponseDto.h"
+#include "Response/Channel/MembersResponseDto.h"
 #include "Response/Channel/UpdateChannelPartialResponseDto.h"
 #include "Response/Channel/UpdateChannelResponseDto.h"
 #include "Response/Device/ListDevicesResponseDto.h"
@@ -469,6 +472,50 @@ void FChatApi::MarkChannelRead(
     {
         Body.SetMessageId(MessageId.GetValue());
     }
+    Client->Post(Url).Json(Body).Send(Callback);
+}
+
+void FChatApi::QueryMembers(
+    const FString& ChannelType,
+    const TSharedRef<FJsonObject>& Filter,
+    const TOptional<FString>& ChannelId,
+    const TOptional<TArray<FString>>& Members,
+    const TArray<FSortParamRequestDto>& SortOptions,
+    const FMessagePaginationParamsRequestDto& Pagination,
+    const TCallback<FMembersResponseDto> Callback) const
+{
+    const FString Url = BuildUrl(TEXT("members"));
+    TArray<FChannelMemberDto> MemberDtos;
+    if (Members.IsSet())
+    {
+        Algo::Transform(
+            Members.GetValue(),
+            MemberDtos,
+            [](const FString& Id)
+            {
+                FChannelMemberDto Dto;
+                Dto.UserId = Id;
+                return Dto;
+            });
+    }
+    const FQueryMembersRequestDto Body{
+        ChannelType,
+        ChannelId.Get(TEXT("")),
+        MemberDtos,
+        Wrap(Filter),
+        SortOptions,
+        Pagination.Limit,
+        Pagination.Offset,
+        Pagination.IdGt,
+        Pagination.IdGte,
+        Pagination.IdLt,
+        Pagination.IdLte,
+        Pagination.CreatedAtAfter,
+        Pagination.CreatedAtAfterOrEqual,
+        Pagination.CreatedAtBefore,
+        Pagination.CreatedAtBeforeOrEqual,
+    };
+
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
