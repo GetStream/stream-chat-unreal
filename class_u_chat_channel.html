@@ -111,6 +111,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a971cf362c2d961d6f121a4b2daa8e3e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a971cf362c2d961d6f121a4b2daa8e3e0">Update</a> (const FAdditionalFields &amp;Data, const TOptional&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;Message={}, TFunction&lt; void()&gt; Callback={})</td></tr>
 <tr class="memdesc:a971cf362c2d961d6f121a4b2daa8e3e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change channel data. Any data that is present on the channel and not included in a full update will be deleted.  <a href="class_u_chat_channel.html#a971cf362c2d961d6f121a4b2daa8e3e0">More...</a><br /></td></tr>
 <tr class="separator:a971cf362c2d961d6f121a4b2daa8e3e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8079737719a8928c643630d4fab9c298"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a8079737719a8928c643630d4fab9c298">QueryMembers</a> (const <a class="el" href="struct_f_filter.html">FFilter</a> &amp;Filter={}, const TArray&lt; <a class="el" href="struct_f_user_sort_option.html">FUserSortOption</a> &gt; &amp;Sort={}, const <a class="el" href="struct_f_message_pagination_options.html">FMessagePaginationOptions</a> &amp;Pagination={}, TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_member.html">FMember</a> &gt; &amp;)&gt; Callback={})</td></tr>
+<tr class="memdesc:a8079737719a8928c643630d4fab9c298"><td class="mdescLeft">&#160;</td><td class="mdescRight">List and paginate members for this channel.  <a href="class_u_chat_channel.html#a8079737719a8928c643630d4fab9c298">More...</a><br /></td></tr>
+<tr class="separator:a8079737719a8928c643630d4fab9c298"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58a18eb168d0278f8970bbdb20c86b2b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a58a18eb168d0278f8970bbdb20c86b2b">AddMembers</a> (const TArray&lt; FString &gt; &amp;MemberIds, const TOptional&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;Message={}, TFunction&lt; void()&gt; Callback={})</td></tr>
 <tr class="memdesc:a58a18eb168d0278f8970bbdb20c86b2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add given users as members.  <a href="class_u_chat_channel.html#a58a18eb168d0278f8970bbdb20c86b2b">More...</a><br /></td></tr>
 <tr class="separator:a58a18eb168d0278f8970bbdb20c86b2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -789,6 +792,57 @@ template&lt;class TEvent , class UserClass &gt; </div>
     <tr><td class="paramname">Direction</td><td>Top if the user is scrolling up, Bottom if the user is scrolling down </td></tr>
     <tr><td class="paramname">Limit</td><td>Number of messages returned is limited by this value. Maximum 200. </td></tr>
     <tr><td class="paramname">Callback</td><td>Called when a response is received from the backend </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8079737719a8928c643630d4fab9c298" name="a8079737719a8928c643630d4fab9c298"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8079737719a8928c643630d4fab9c298">&#9670;&nbsp;</a></span>QueryMembers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UChatChannel::QueryMembers </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_f_filter.html">FFilter</a> &amp;&#160;</td>
+          <td class="paramname"><em>Filter</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; <a class="el" href="struct_f_user_sort_option.html">FUserSortOption</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Sort</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_f_message_pagination_options.html">FMessagePaginationOptions</a> &amp;&#160;</td>
+          <td class="paramname"><em>Pagination</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_member.html">FMember</a> &gt; &amp;)&gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>List and paginate members for this channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Filter</td><td>Conditions to use to filter the members </td></tr>
+    <tr><td class="paramname">Sort</td><td>The sorting used for the members matching the filters. Sorting is based on field and direction, multiple sorting options can be provided. </td></tr>
+    <tr><td class="paramname">Pagination</td><td>Limit, offset, and member selection by user id GtId, GteId, LtId and LteId fields are for user IDs </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
   </table>
   </dd>
 </dl>

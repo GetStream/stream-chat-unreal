@@ -2,6 +2,7 @@ var struct_f_channel_properties =
 [
     [ "FChannelProperties", "struct_f_channel_properties.html#a567900ccd18561d70152fbf7821a6c09", null ],
     [ "FChannelProperties", "struct_f_channel_properties.html#a242e5c0e4b08422fcaee97759cef2430", null ],
+    [ "AppendMembers", "struct_f_channel_properties.html#a51237a9e96e6d50d84c2703971f4f543", null ],
     [ "GetOtherMemberUsers", "struct_f_channel_properties.html#a215200abff9a415d6d7f127f01b2f319", null ],
     [ "Merge", "struct_f_channel_properties.html#aba111098a5e76f49b99d49fcf69aaf43", null ],
     [ "Merge", "struct_f_channel_properties.html#a1ac8843f29a5125ea7e51cc7a3046005", null ],

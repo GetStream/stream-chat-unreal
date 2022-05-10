@@ -44,6 +44,13 @@ var group___stream_chat_dto =
       [ "MemberLimit", "struct_f_query_channels_request_dto.html#adbb13a036f065d223c52abf3c1306bd1", null ],
       [ "Sort", "struct_f_query_channels_request_dto.html#ad3bc9151f4d3c44a2e5c194b54e4d178", null ]
     ] ],
+    [ "FQueryMembersRequestDto", "struct_f_query_members_request_dto.html", [
+      [ "FilterConditions", "struct_f_query_members_request_dto.html#a6e096f5a79c1cf87c16173d35fa911ee", null ],
+      [ "Id", "struct_f_query_members_request_dto.html#a899808c1494aed985cb045b49c5063f3", null ],
+      [ "Members", "struct_f_query_members_request_dto.html#abd37c493cd39f1f60b804036062cb0c8", null ],
+      [ "Sort", "struct_f_query_members_request_dto.html#a89c2c74b21d45c75b8a4024340081a61", null ],
+      [ "Type", "struct_f_query_members_request_dto.html#a9161f7dccacd6b0e94952cb405356cb8", null ]
+    ] ],
     [ "FUpdateChannelPartialRequestDto", "struct_f_update_channel_partial_request_dto.html", [
       [ "Set", "struct_f_update_channel_partial_request_dto.html#ab1b301ba7d2bad765c4cf7da59f12ebc", null ],
       [ "Unset", "struct_f_update_channel_partial_request_dto.html#a97c1243f74fbe18942fe4526a3844f01", null ]
@@ -214,6 +221,9 @@ var group___stream_chat_dto =
     [ "FDeleteChannelResponseDto", "struct_f_delete_channel_response_dto.html", null ],
     [ "FMarkReadResponseDto", "struct_f_mark_read_response_dto.html", [
       [ "Event", "struct_f_mark_read_response_dto.html#ac8677611f8336265807c6c3028f78dc2", null ]
+    ] ],
+    [ "FMembersResponseDto", "struct_f_members_response_dto.html", [
+      [ "Members", "struct_f_members_response_dto.html#aece0cdbdbabab0a81dc4e48f4e8e1b3d", null ]
     ] ],
     [ "FReadDto", "struct_f_read_dto.html", null ],
     [ "FUpdateChannelPartialResponseDto", "struct_f_update_channel_partial_response_dto.html", [

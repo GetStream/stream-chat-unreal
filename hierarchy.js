@@ -81,6 +81,7 @@ var hierarchy =
       [ "FSearchRequestDto", "struct_f_search_request_dto.html", null ]
     ] ],
     [ "FPaginationParamsRequestDto", "struct_f_pagination_params_request_dto.html", null ],
+    [ "FQueryMembersRequestDto", "struct_f_query_members_request_dto.html", null ],
     [ "FReaction", "struct_f_reaction.html", null ],
     [ "FReactionDto", "struct_f_reaction_dto.html", null ],
     [ "FReactionGroup", "struct_f_reaction_group.html", null ],
@@ -96,6 +97,7 @@ var hierarchy =
       [ "FGuestResponseDto", "struct_f_guest_response_dto.html", null ],
       [ "FListDevicesResponseDto", "struct_f_list_devices_response_dto.html", null ],
       [ "FMarkReadResponseDto", "struct_f_mark_read_response_dto.html", null ],
+      [ "FMembersResponseDto", "struct_f_members_response_dto.html", null ],
       [ "FMessageResponseDto", "struct_f_message_response_dto.html", null ],
       [ "FMuteChannelResponseDto", "struct_f_mute_channel_response_dto.html", null ],
       [ "FMuteUserResponseDto", "struct_f_mute_user_response_dto.html", null ],

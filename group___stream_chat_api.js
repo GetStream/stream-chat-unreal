@@ -17,6 +17,7 @@ var group___stream_chat_api =
       [ "QueryBannedUsers", "class_f_chat_api.html#a4d6b227fab2a8c7a4bb7a75a4620f54d", null ],
       [ "QueryChannel", "class_f_chat_api.html#a8d0f32e0780f20f2079b325169b5589e", null ],
       [ "QueryChannels", "class_f_chat_api.html#ac0ddab8f53a683e19daa331e15c4c2a8", null ],
+      [ "QueryMembers", "class_f_chat_api.html#abc359b112a04e15b5bb8825678c1d917", null ],
       [ "QueryUsers", "class_f_chat_api.html#a75e5bb2b831530b11a114e94d301f0c9", null ],
       [ "RemoveDevice", "class_f_chat_api.html#acb98dc6d9bb972d8d906c6661c545b78", null ],
       [ "SearchMessages", "class_f_chat_api.html#ae2281ce2bf1696ff15be7e1f620f29b8", null ],

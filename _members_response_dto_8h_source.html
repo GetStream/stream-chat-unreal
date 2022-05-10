@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.3"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Stream Chat Unreal SDK: Source/Backend/StreamChatDto/Public/Request/Channel/PaginationParamsRequestDto.h Source File</title>
+<title>Stream Chat Unreal SDK: Source/Backend/StreamChatDto/Public/Response/Channel/MembersResponseDto.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -65,7 +65,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('_pagination_params_request_dto_8h_source.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('_members_response_dto_8h_source.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -84,47 +84,37 @@ $(document).ready(function(){initNavTree('_pagination_params_request_dto_8h_sour
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">PaginationParamsRequestDto.h</div></div>
+  <div class="headertitle"><div class="title">MembersResponseDto.h</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright 2022 Stream.IO, Inc. All Rights Reserved.</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;PaginationParamsRequestDto.generated.h&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;ChannelStateResponseFieldsDto.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;Response/ResponseDto.h&quot;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>USTRUCT()</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="struct_f_pagination_params_request_dto.html">   14</a></span>struct STREAMCHATDTO_API <a class="code hl_struct" href="struct_f_pagination_params_request_dto.html">FPaginationParamsRequestDto</a></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    GENERATED_BODY()</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    UPROPERTY()</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    uint32 Limit = TNumericLimits&lt;uint32&gt;::Max();</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;MembersResponseDto.generated.h&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>USTRUCT()</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="struct_f_members_response_dto.html">   16</a></span>struct <a class="code hl_struct" href="struct_f_members_response_dto.html">FMembersResponseDto</a> : public <a class="code hl_struct" href="struct_f_response_dto.html">FResponseDto</a></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    UPROPERTY()</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    uint32 Offset = TNumericLimits&lt;uint32&gt;::Max();</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    UPROPERTY()</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    FString IdGt;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    UPROPERTY()</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    FString IdGte;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    UPROPERTY()</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    FString IdLt;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    UPROPERTY()</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    FString IdLte;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>};</div>
-<div class="ttc" id="astruct_f_pagination_params_request_dto_html"><div class="ttname"><a href="struct_f_pagination_params_request_dto.html">FPaginationParamsRequestDto</a></div><div class="ttdoc">#/components/schemas/PaginationParamsRequest</div><div class="ttdef"><b>Definition:</b> PaginationParamsRequestDto.h:15</div></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="struct_f_members_response_dto.html#aece0cdbdbabab0a81dc4e48f4e8e1b3d">   22</a></span>    TArray&lt;<a class="code hl_struct" href="struct_f_channel_member_dto.html">FChannelMemberDto</a>&gt; Members;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>};</div>
+<div class="ttc" id="astruct_f_channel_member_dto_html"><div class="ttname"><a href="struct_f_channel_member_dto.html">FChannelMemberDto</a></div><div class="ttdoc">#/components/schemas/ChannelMember</div><div class="ttdef"><b>Definition:</b> ChannelMemberDto.h:16</div></div>
+<div class="ttc" id="astruct_f_members_response_dto_html"><div class="ttname"><a href="struct_f_members_response_dto.html">FMembersResponseDto</a></div><div class="ttdoc">#/components/schemas/MembersResponse</div><div class="ttdef"><b>Definition:</b> MembersResponseDto.h:17</div></div>
+<div class="ttc" id="astruct_f_response_dto_html"><div class="ttname"><a href="struct_f_response_dto.html">FResponseDto</a></div><div class="ttdoc">#/components/schemas/Response</div><div class="ttdef"><b>Definition:</b> ResponseDto.h:15</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_ef27fdf878b16ab0377cf4c038024140.html">Backend</a></li><li class="navelem"><a class="el" href="dir_e4f9a574774ec3115806abbafd3904c4.html">StreamChatDto</a></li><li class="navelem"><a class="el" href="dir_38ed0c9b42b0aed9ed6d05d62f905e1f.html">Public</a></li><li class="navelem"><a class="el" href="dir_f15e4de89cf1e4f8ad6a059b72dd2257.html">Request</a></li><li class="navelem"><a class="el" href="dir_effae438335e23a33bc9024b6d88befc.html">Channel</a></li><li class="navelem"><b>PaginationParamsRequestDto.h</b></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_ef27fdf878b16ab0377cf4c038024140.html">Backend</a></li><li class="navelem"><a class="el" href="dir_e4f9a574774ec3115806abbafd3904c4.html">StreamChatDto</a></li><li class="navelem"><a class="el" href="dir_38ed0c9b42b0aed9ed6d05d62f905e1f.html">Public</a></li><li class="navelem"><a class="el" href="dir_ab6d3c24b76194ff450e54bab1e22914.html">Response</a></li><li class="navelem"><a class="el" href="dir_3f3bfdca9ff068a7cd1acd3c84b56924.html">Channel</a></li><li class="navelem"><b>MembersResponseDto.h</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>

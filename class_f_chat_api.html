@@ -163,6 +163,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac79a995b3863ea72fd2a08f699e89cbe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#ac79a995b3863ea72fd2a08f699e89cbe">MarkChannelRead</a> (const FString &amp;ChannelType, const FString &amp;ChannelId, const TOptional&lt; FString &gt; &amp;MessageId={}, TCallback&lt; <a class="el" href="struct_f_mark_read_response_dto.html">FMarkReadResponseDto</a> &gt; Callback={}) const</td></tr>
 <tr class="memdesc:ac79a995b3863ea72fd2a08f699e89cbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark messages of a channel as read.  <a href="class_f_chat_api.html#ac79a995b3863ea72fd2a08f699e89cbe">More...</a><br /></td></tr>
 <tr class="separator:ac79a995b3863ea72fd2a08f699e89cbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc359b112a04e15b5bb8825678c1d917"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#abc359b112a04e15b5bb8825678c1d917">QueryMembers</a> (const FString &amp;ChannelType, const TOptional&lt; TSharedRef&lt; FJsonObject &gt; &gt; &amp;Filter={}, const TOptional&lt; FString &gt; &amp;ChannelId={}, const TOptional&lt; TArray&lt; FString &gt; &gt; &amp;Members={}, const TArray&lt; <a class="el" href="struct_f_sort_param_request_dto.html">FSortParamRequestDto</a> &gt; &amp;SortOptions={}, const <a class="el" href="struct_f_message_pagination_params_request_dto.html">FMessagePaginationParamsRequestDto</a> &amp;Pagination={}, TCallback&lt; <a class="el" href="struct_f_members_response_dto.html">FMembersResponseDto</a> &gt; Callback={}) const</td></tr>
+<tr class="memdesc:abc359b112a04e15b5bb8825678c1d917"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find and filter channel members.  <a href="class_f_chat_api.html#abc359b112a04e15b5bb8825678c1d917">More...</a><br /></td></tr>
+<tr class="separator:abc359b112a04e15b5bb8825678c1d917"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Messages</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p ><a href="https://getstream.io/chat/docs/rest/#Messages">https://getstream.io/chat/docs/rest/#Messages</a> </p>
 </div></td></tr>
@@ -979,7 +982,7 @@ static TSharedRef&lt; <a class="el" href="class_f_chat_api.html">FChatApi</a> &g
   <table class="params">
     <tr><td class="paramname">ChannelType</td><td>Name of built-in or custom channel type (e.g. messaging, team, livestream) </td></tr>
     <tr><td class="paramname">ConnectionId</td><td>Websocket connection ID to interact with. </td></tr>
-    <tr><td class="paramname">ChannelId</td><td>A unique identifier for the channel. </td></tr>
+    <tr><td class="paramname">ChannelId</td><td>A unique identifier for the channel. (either this or members is required) </td></tr>
     <tr><td class="paramname">Flags</td><td>Additional actions to perform, like watch, or fetch presence. </td></tr>
   </table>
   </dd>
@@ -1095,6 +1098,80 @@ static TSharedRef&lt; <a class="el" href="class_f_chat_api.html">FChatApi</a> &g
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898" title="Additional channel actions to perform when requesting channel data from API.">EChannelFlags</a> </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">Callback</td><td>Called when response is received </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="abc359b112a04e15b5bb8825678c1d917" name="abc359b112a04e15b5bb8825678c1d917"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc359b112a04e15b5bb8825678c1d917">&#9670;&nbsp;</a></span>QueryMembers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FChatApi::QueryMembers </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ChannelType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TOptional&lt; TSharedRef&lt; FJsonObject &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Filter</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TOptional&lt; FString &gt; &amp;&#160;</td>
+          <td class="paramname"><em>ChannelId</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TOptional&lt; TArray&lt; FString &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Members</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; <a class="el" href="struct_f_sort_param_request_dto.html">FSortParamRequestDto</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>SortOptions</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_f_message_pagination_params_request_dto.html">FMessagePaginationParamsRequestDto</a> &amp;&#160;</td>
+          <td class="paramname"><em>Pagination</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TCallback&lt; <a class="el" href="struct_f_members_response_dto.html">FMembersResponseDto</a> &gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Find and filter channel members. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ChannelType</td><td>Name of built-in or custom channel type (e.g. messaging, team, livestream) </td></tr>
+    <tr><td class="paramname">Filter</td><td>Conditions to use to filter the members </td></tr>
+    <tr><td class="paramname">ChannelId</td><td>A unique identifier for the channel (either this or</td></tr>
+    <tr><td class="paramname">Members</td><td>is required) </td></tr>
+    <tr><td class="paramname">Members</td><td>Use list of creating members to identify channel (either this or</td></tr>
+    <tr><td class="paramname">ChannelId</td><td>is required) </td></tr>
+    <tr><td class="paramname">SortOptions</td><td>The sorting used for the members matching the filters. Sorting is based on field and direction, multiple sorting options can be provided. </td></tr>
+    <tr><td class="paramname">Pagination</td><td>Limit, offset, and member selection by user id GtId, GteId, LtId and LteId fields are for user IDs </td></tr>
     <tr><td class="paramname">Callback</td><td>Called when response is received </td></tr>
   </table>
   </dd>

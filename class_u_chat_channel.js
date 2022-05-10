@@ -16,6 +16,7 @@ var class_u_chat_channel =
     [ "PartialUpdate", "class_u_chat_channel.html#a569dfa3818b1f12d334fbb00fe1abd64", null ],
     [ "Query", "class_u_chat_channel.html#ae5690b0358c30ad8ac99fb37746eadfd", null ],
     [ "QueryAdditionalMessages", "class_u_chat_channel.html#a51c7135aad87cd3184dd8fe0f7733ff1", null ],
+    [ "QueryMembers", "class_u_chat_channel.html#a8079737719a8928c643630d4fab9c298", null ],
     [ "RemoveMembers", "class_u_chat_channel.html#afdfde70695ffa82e37a4d216ea9c5c9e", null ],
     [ "SearchMessages", "class_u_chat_channel.html#ab88c80df5f628c7faf4aa8861e410c08", null ],
     [ "SearchMessages", "class_u_chat_channel.html#abd9c334382f0b34ae03f96cf6113b384", null ],

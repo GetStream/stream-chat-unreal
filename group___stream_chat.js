@@ -26,6 +26,7 @@ var group___stream_chat =
     [ "FChannelProperties", "struct_f_channel_properties.html", [
       [ "FChannelProperties", "struct_f_channel_properties.html#a567900ccd18561d70152fbf7821a6c09", null ],
       [ "FChannelProperties", "struct_f_channel_properties.html#a242e5c0e4b08422fcaee97759cef2430", null ],
+      [ "AppendMembers", "struct_f_channel_properties.html#a51237a9e96e6d50d84c2703971f4f543", null ],
       [ "GetOtherMemberUsers", "struct_f_channel_properties.html#a215200abff9a415d6d7f127f01b2f319", null ],
       [ "Merge", "struct_f_channel_properties.html#aba111098a5e76f49b99d49fcf69aaf43", null ],
       [ "Merge", "struct_f_channel_properties.html#a1ac8843f29a5125ea7e51cc7a3046005", null ],
@@ -107,6 +108,7 @@ var group___stream_chat =
       [ "PartialUpdate", "class_u_chat_channel.html#a569dfa3818b1f12d334fbb00fe1abd64", null ],
       [ "Query", "class_u_chat_channel.html#ae5690b0358c30ad8ac99fb37746eadfd", null ],
       [ "QueryAdditionalMessages", "class_u_chat_channel.html#a51c7135aad87cd3184dd8fe0f7733ff1", null ],
+      [ "QueryMembers", "class_u_chat_channel.html#a8079737719a8928c643630d4fab9c298", null ],
       [ "RemoveMembers", "class_u_chat_channel.html#afdfde70695ffa82e37a4d216ea9c5c9e", null ],
       [ "SearchMessages", "class_u_chat_channel.html#ab88c80df5f628c7faf4aa8861e410c08", null ],
       [ "SearchMessages", "class_u_chat_channel.html#abd9c334382f0b34ae03f96cf6113b384", null ],
