@@ -37,7 +37,9 @@ var hierarchy =
         [ "FMessageReadEvent", "struct_f_message_read_event.html", null ],
         [ "FNotificationMarkReadEvent", "struct_f_notification_mark_read_event.html", null ],
         [ "FTypingStartEvent", "struct_f_typing_start_event.html", null ],
-        [ "FTypingStopEvent", "struct_f_typing_stop_event.html", null ]
+        [ "FTypingStopEvent", "struct_f_typing_stop_event.html", null ],
+        [ "FUserWatchingStartEvent", "struct_f_user_watching_start_event.html", null ],
+        [ "FUserWatchingStopEvent", "struct_f_user_watching_stop_event.html", null ]
       ] ],
       [ "FHealthCheckEvent", "struct_f_health_check_event.html", null ],
       [ "FUserPresenceChangedEvent", "struct_f_user_presence_changed_event.html", null ]

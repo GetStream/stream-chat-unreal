@@ -2,7 +2,7 @@ var searchData=
 [
   ['sanitizename_0',['SanitizeName',['../class_u_user_blueprint_library.html#acaf4b4354842911acf491c163f80280e',1,'UUserBlueprintLibrary']]],
   ['score_1',['Score',['../struct_f_reaction_request_dto.html#a8a82e03d33902299f48fcb82963b3d13',1,'FReactionRequestDto::Score()'],['../struct_f_reaction_dto.html#a40017e207f2e7e13bfd13924b0aa1acf',1,'FReactionDto::Score()'],['../struct_f_reaction.html#a17c8d8f9f5bf844b41ef92b8b5ef759c',1,'FReaction::Score()']]],
-  ['searchmessages_2',['SearchMessages',['../class_f_chat_api.html#ae2281ce2bf1696ff15be7e1f620f29b8',1,'FChatApi::SearchMessages()'],['../class_u_chat_channel.html#aaa03d76ed47bad7325f9b6409d250008',1,'UChatChannel::SearchMessages(TFunction&lt; void(const TArray&lt; FMessage &gt; &amp;)&gt; Callback, const TOptional&lt; FString &gt; &amp;Query={}, const TOptional&lt; FFilter &gt; &amp;MessageFilter={}, const TArray&lt; FMessageSortOption &gt; &amp;Sort={}, TOptional&lt; uint32 &gt; MessageLimit={}) const'],['../class_u_chat_channel.html#ab88c80df5f628c7faf4aa8861e410c08',1,'UChatChannel::SearchMessages(const FString &amp;Query, const FFilter &amp;MessageFilter, const TArray&lt; FMessageSortOption &gt; &amp;Sort, int32 MessageLimit, const UObject *WorldContextObject, FLatentActionInfo LatentInfo, TArray&lt; FMessage &gt; &amp;OutMessages)'],['../class_u_stream_chat_client_component.html#a8a027a441d6ac2dcd7619f4f99a960f9',1,'UStreamChatClientComponent::SearchMessages()']]],
+  ['searchmessages_2',['SearchMessages',['../class_f_chat_api.html#ae2281ce2bf1696ff15be7e1f620f29b8',1,'FChatApi::SearchMessages()'],['../class_u_chat_channel.html#abd9c334382f0b34ae03f96cf6113b384',1,'UChatChannel::SearchMessages(const TOptional&lt; FString &gt; &amp;Query={}, const TOptional&lt; FFilter &gt; &amp;MessageFilter={}, const TArray&lt; FMessageSortOption &gt; &amp;Sort={}, TOptional&lt; uint32 &gt; MessageLimit={}, TFunction&lt; void(const TArray&lt; FMessage &gt; &amp;)&gt; Callback={}) const'],['../class_u_chat_channel.html#ab88c80df5f628c7faf4aa8861e410c08',1,'UChatChannel::SearchMessages(const FString &amp;Query, const FFilter &amp;MessageFilter, const TArray&lt; FMessageSortOption &gt; &amp;Sort, int32 MessageLimit, const UObject *WorldContextObject, FLatentActionInfo LatentInfo, TArray&lt; FMessage &gt; &amp;OutMessages)'],['../class_u_stream_chat_client_component.html#a5f3eda6bd940dbaabba1c5d1a3f33c05',1,'UStreamChatClientComponent::SearchMessages()']]],
   ['sendchannelevent_3',['SendChannelEvent',['../class_f_chat_api.html#a2eac1e34b8f4d2b6f1f26eaadc46d9bb',1,'FChatApi']]],
   ['sendevent_4',['SendEvent',['../class_u_chat_channel.html#aed47eb30b9ab1fde4d67b88caa12d317',1,'UChatChannel']]],
   ['sending_5',['Sending',['../group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91ae4b0c2b6d59cb4cf3e169a9886008087',1,'Message.h']]],
@@ -16,7 +16,7 @@ var searchData=
   ['setidlt_13',['SetIdLt',['../struct_f_query_users_request_dto.html#a2997326f29cf2033b0744b8eee9b0e88',1,'FQueryUsersRequestDto']]],
   ['setidlte_14',['SetIdLte',['../struct_f_query_users_request_dto.html#a60b358bb789aefc7c022914d5a07efa3',1,'FQueryUsersRequestDto']]],
   ['setlimit_15',['SetLimit',['../struct_f_paginated_request.html#a1e01e73e18a2bb22d8b9884f35a1030d',1,'FPaginatedRequest']]],
-  ['setmembers_16',['SetMembers',['../struct_f_channel_properties.html#a5204b02127fb53c81616f9a3ca0a95e9',1,'FChannelProperties::SetMembers(const TArray&lt; FUserRef &gt; &amp;Users)'],['../struct_f_channel_properties.html#a73faf453dcdd3b1416ff1df77e8b84e2',1,'FChannelProperties::SetMembers(const TArray&lt; FString &gt; &amp;UserIds)']]],
+  ['setmembers_16',['SetMembers',['../struct_f_channel_properties.html#a73faf453dcdd3b1416ff1df77e8b84e2',1,'FChannelProperties::SetMembers(const TArray&lt; FString &gt; &amp;UserIds)'],['../struct_f_channel_properties.html#a5204b02127fb53c81616f9a3ca0a95e9',1,'FChannelProperties::SetMembers(const TArray&lt; FUserRef &gt; &amp;Users)']]],
   ['setmembers_5fuser_17',['SetMembers_User',['../class_u_channel_properties_blueprint_library.html#a067c5af94a999f10946dde216116ddec',1,'UChannelPropertiesBlueprintLibrary']]],
   ['setmembers_5fuserid_18',['SetMembers_UserId',['../class_u_channel_properties_blueprint_library.html#a923ed25ae053f882c6a5fce745cbfccb',1,'UChannelPropertiesBlueprintLibrary']]],
   ['setmessage_19',['SetMessage',['../struct_f_update_channel_request_dto.html#ac1b49d276f16b241e333e15e535ce5ac',1,'FUpdateChannelRequestDto']]],
@@ -32,11 +32,13 @@ var searchData=
   ['state_29',['State',['../class_u_chat_channel.html#ab615cb29d3090b13947e83132c4e0fcd',1,'UChatChannel::State()'],['../struct_f_message.html#af393eb1e750acd7b49b997c7e1b0ab3b',1,'FMessage::State()'],['../group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d',1,'State():&#160;ChannelFlags.h']]],
   ['statuscode_30',['StatusCode',['../struct_f_error_response_dto.html#aafe32e1c980d05d7d6321eaeda5cadca',1,'FErrorResponseDto']]],
   ['stoptyping_31',['StopTyping',['../class_u_chat_channel.html#a9e9708a5be8e8ac9ece17712399a9dbf',1,'UChatChannel']]],
-  ['stream_20chat_32',['Stream Chat',['../group___stream_chat.html',1,'']]],
-  ['stream_20chat_20unreal_20c_2b_2b_20sdk_20documentation_33',['Stream Chat Unreal C++ SDK Documentation',['../index.html',1,'']]],
-  ['subscribe_34',['Subscribe',['../class_f_chat_socket_events.html#a19f6148ad2cfa053dd0a7aaf06ea1cb8',1,'FChatSocketEvents']]],
-  ['subscribelambda_35',['SubscribeLambda',['../class_f_chat_socket_events.html#aa051431699d2f7750e17e6cc3ee653c2',1,'FChatSocketEvents']]],
-  ['subscribesp_36',['SubscribeSp',['../class_f_chat_socket_events.html#ab60e58f227f3d0326b3571a5aa2071ed',1,'FChatSocketEvents']]],
-  ['subscribeuobject_37',['SubscribeUObject',['../class_f_chat_socket_events.html#a7090ccaf47e842cf065fc9a459ada462',1,'FChatSocketEvents']]],
-  ['system_38',['System',['../group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7aa45da96d0bf6575970f2d27af22be28a',1,'Message.h']]]
+  ['stopwatching_32',['StopWatching',['../class_u_chat_channel.html#afa3d454879743cca0045534056a17c4f',1,'UChatChannel']]],
+  ['stopwatchingchannel_33',['StopWatchingChannel',['../class_f_chat_api.html#adce85d702cc62ae1b8ecc7e3367c3458',1,'FChatApi']]],
+  ['stream_20chat_34',['Stream Chat',['../group___stream_chat.html',1,'']]],
+  ['stream_20chat_20unreal_20c_2b_2b_20sdk_20documentation_35',['Stream Chat Unreal C++ SDK Documentation',['../index.html',1,'']]],
+  ['subscribe_36',['Subscribe',['../class_f_chat_socket_events.html#a19f6148ad2cfa053dd0a7aaf06ea1cb8',1,'FChatSocketEvents']]],
+  ['subscribelambda_37',['SubscribeLambda',['../class_f_chat_socket_events.html#aa051431699d2f7750e17e6cc3ee653c2',1,'FChatSocketEvents']]],
+  ['subscribesp_38',['SubscribeSp',['../class_f_chat_socket_events.html#ab60e58f227f3d0326b3571a5aa2071ed',1,'FChatSocketEvents']]],
+  ['subscribeuobject_39',['SubscribeUObject',['../class_f_chat_socket_events.html#a7090ccaf47e842cf065fc9a459ada462',1,'FChatSocketEvents']]],
+  ['system_40',['System',['../group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7aa45da96d0bf6575970f2d27af22be28a',1,'Message.h']]]
 ];

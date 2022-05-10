@@ -106,7 +106,7 @@ var searchData=
   ['fupdatechannelrequestdto_103',['FUpdateChannelRequestDto',['../struct_f_update_channel_request_dto.html',1,'']]],
   ['fupdatechannelresponsedto_104',['FUpdateChannelResponseDto',['../struct_f_update_channel_response_dto.html',1,'']]],
   ['fupdatemessagerequestdto_105',['FUpdateMessageRequestDto',['../struct_f_update_message_request_dto.html',1,'']]],
-  ['fuser_106',['FUser',['../struct_f_user.html',1,'FUser'],['../struct_f_user.html#aa6d4f9df91b8dc5500e963b1be2900c9',1,'FUser::FUser()'],['../struct_f_user.html#abd4a2a4bdf9906a3c178c2d16b1f37a0',1,'FUser::FUser(const FString &amp;InId)'],['../struct_f_user.html#a3db093158b56bcbfd517b867e9d9a7ea',1,'FUser::FUser(const FUserObjectDto &amp;)'],['../struct_f_user.html#a3d9bd51bd66f8e6ddecb0b50d773ec87',1,'FUser::FUser(const FOwnUserDto &amp;, UUserManager *)']]],
+  ['fuser_106',['FUser',['../struct_f_user.html',1,'FUser'],['../struct_f_user.html#a3d9bd51bd66f8e6ddecb0b50d773ec87',1,'FUser::FUser(const FOwnUserDto &amp;, UUserManager *)'],['../struct_f_user.html#a3db093158b56bcbfd517b867e9d9a7ea',1,'FUser::FUser(const FUserObjectDto &amp;)'],['../struct_f_user.html#abd4a2a4bdf9906a3c178c2d16b1f37a0',1,'FUser::FUser(const FString &amp;InId)'],['../struct_f_user.html#aa6d4f9df91b8dc5500e963b1be2900c9',1,'FUser::FUser()']]],
   ['fuserdto_107',['FUserDto',['../struct_f_user_dto.html',1,'']]],
   ['fusermutedto_108',['FUserMuteDto',['../struct_f_user_mute_dto.html',1,'']]],
   ['fuserobjectdto_109',['FUserObjectDto',['../struct_f_user_object_dto.html',1,'']]],
@@ -116,5 +116,7 @@ var searchData=
   ['fuserref_113',['FUserRef',['../struct_f_user_ref.html',1,'FUserRef'],['../struct_f_user_ref.html#acdb090762ce815332c618982968c034b',1,'FUserRef::FUserRef()']]],
   ['fuserresponsedto_114',['FUserResponseDto',['../struct_f_user_response_dto.html',1,'']]],
   ['fusersortoption_115',['FUserSortOption',['../struct_f_user_sort_option.html',1,'']]],
-  ['fusersresponsedto_116',['FUsersResponseDto',['../struct_f_users_response_dto.html',1,'']]]
+  ['fusersresponsedto_116',['FUsersResponseDto',['../struct_f_users_response_dto.html',1,'']]],
+  ['fuserwatchingstartevent_117',['FUserWatchingStartEvent',['../struct_f_user_watching_start_event.html',1,'']]],
+  ['fuserwatchingstopevent_118',['FUserWatchingStopEvent',['../struct_f_user_watching_stop_event.html',1,'']]]
 ];

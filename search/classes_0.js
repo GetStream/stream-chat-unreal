@@ -113,5 +113,7 @@ var searchData=
   ['fuserref_110',['FUserRef',['../struct_f_user_ref.html',1,'']]],
   ['fuserresponsedto_111',['FUserResponseDto',['../struct_f_user_response_dto.html',1,'']]],
   ['fusersortoption_112',['FUserSortOption',['../struct_f_user_sort_option.html',1,'']]],
-  ['fusersresponsedto_113',['FUsersResponseDto',['../struct_f_users_response_dto.html',1,'']]]
+  ['fusersresponsedto_113',['FUsersResponseDto',['../struct_f_users_response_dto.html',1,'']]],
+  ['fuserwatchingstartevent_114',['FUserWatchingStartEvent',['../struct_f_user_watching_start_event.html',1,'']]],
+  ['fuserwatchingstopevent_115',['FUserWatchingStopEvent',['../struct_f_user_watching_stop_event.html',1,'']]]
 ];

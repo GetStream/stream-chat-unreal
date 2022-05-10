@@ -114,6 +114,8 @@ var annotated_dup =
     [ "FUserResponseDto", "struct_f_user_response_dto.html", "struct_f_user_response_dto" ],
     [ "FUserSortOption", "struct_f_user_sort_option.html", "struct_f_user_sort_option" ],
     [ "FUsersResponseDto", "struct_f_users_response_dto.html", "struct_f_users_response_dto" ],
+    [ "FUserWatchingStartEvent", "struct_f_user_watching_start_event.html", null ],
+    [ "FUserWatchingStopEvent", "struct_f_user_watching_stop_event.html", null ],
     [ "IChatSocket", "class_i_chat_socket.html", null ],
     [ "UAdditionalFieldsBlueprintLibrary", "class_u_additional_fields_blueprint_library.html", null ],
     [ "UBackButton", "class_u_back_button.html", null ],

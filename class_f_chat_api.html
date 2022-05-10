@@ -151,6 +151,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac0ddab8f53a683e19daa331e15c4c2a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#ac0ddab8f53a683e19daa331e15c4c2a8">QueryChannels</a> (const FString &amp;ConnectionId, <a class="el" href="group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898">EChannelFlags</a> Flags=<a class="el" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d">EChannelFlags::State</a>|<a class="el" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898af20658650d987d31063b593c05980397">EChannelFlags::Watch</a>, const TOptional&lt; TSharedRef&lt; FJsonObject &gt; &gt; &amp;Filter={}, const TArray&lt; <a class="el" href="struct_f_sort_param_request_dto.html">FSortParamRequestDto</a> &gt; &amp;SortOptions={}, TOptional&lt; uint32 &gt; MemberLimit={}, TOptional&lt; uint32 &gt; MessageLimit={}, TOptional&lt; uint32 &gt; Limit={}, TOptional&lt; uint32 &gt; Offset={}, TCallback&lt; <a class="el" href="struct_f_channels_response_dto.html">FChannelsResponseDto</a> &gt; Callback={}) const</td></tr>
 <tr class="memdesc:ac0ddab8f53a683e19daa331e15c4c2a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Query channels with filter query.  <a href="class_f_chat_api.html#ac0ddab8f53a683e19daa331e15c4c2a8">More...</a><br /></td></tr>
 <tr class="separator:ac0ddab8f53a683e19daa331e15c4c2a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adce85d702cc62ae1b8ecc7e3367c3458"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#adce85d702cc62ae1b8ecc7e3367c3458">StopWatchingChannel</a> (const FString &amp;ChannelType, const FString &amp;ChannelId, const FString &amp;ConnectionId, TCallback&lt; <a class="el" href="struct_f_response_dto.html">FResponseDto</a> &gt; Callback={}) const</td></tr>
+<tr class="memdesc:adce85d702cc62ae1b8ecc7e3367c3458"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop receiving channel events.  <a href="class_f_chat_api.html#adce85d702cc62ae1b8ecc7e3367c3458">More...</a><br /></td></tr>
+<tr class="separator:adce85d702cc62ae1b8ecc7e3367c3458"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2281ce2bf1696ff15be7e1f620f29b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#ae2281ce2bf1696ff15be7e1f620f29b8">SearchMessages</a> (const TSharedRef&lt; FJsonObject &gt; &amp;ChannelFilter, const TOptional&lt; FString &gt; &amp;<a class="el" href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a66c1b4c7f3dc385b68a9fa903ccd016d">Query</a>={}, const TOptional&lt; TSharedRef&lt; FJsonObject &gt; &gt; &amp;MessageFilter={}, const TArray&lt; <a class="el" href="struct_f_sort_param_request_dto.html">FSortParamRequestDto</a> &gt; &amp;Sort={}, TOptional&lt; uint32 &gt; MessageLimit={}, TOptional&lt; uint32 &gt; Offset={}, TOptional&lt; FString &gt; Next={}, TCallback&lt; <a class="el" href="struct_f_search_response_dto.html">FSearchResponseDto</a> &gt; Callback={}) const</td></tr>
 <tr class="memdesc:ae2281ce2bf1696ff15be7e1f620f29b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search all messages.  <a href="class_f_chat_api.html#ae2281ce2bf1696ff15be7e1f620f29b8">More...</a><br /></td></tr>
 <tr class="separator:ae2281ce2bf1696ff15be7e1f620f29b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1508,6 +1511,57 @@ template&lt;class TEvent &gt; </div>
   <table class="params">
     <tr><td class="paramname">ChannelType</td><td>Name of built-in or custom channel type (e.g. messaging, team, livestream) </td></tr>
     <tr><td class="paramname">ChannelId</td><td>A unique identifier for the channel </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="adce85d702cc62ae1b8ecc7e3367c3458" name="adce85d702cc62ae1b8ecc7e3367c3458"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adce85d702cc62ae1b8ecc7e3367c3458">&#9670;&nbsp;</a></span>StopWatchingChannel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FChatApi::StopWatchingChannel </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ChannelType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ChannelId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ConnectionId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TCallback&lt; <a class="el" href="struct_f_response_dto.html">FResponseDto</a> &gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stop receiving channel events. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ChannelType</td><td>Name of built-in or custom channel type (e.g. messaging, team, livestream) </td></tr>
+    <tr><td class="paramname">ChannelId</td><td>A unique identifier for the channel </td></tr>
+    <tr><td class="paramname">ConnectionId</td><td>Websocket connection ID to interact with. </td></tr>
     <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
   </table>
   </dd>

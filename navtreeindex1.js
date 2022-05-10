@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"group___stream_chat_api.html":[1,0],
+"group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898":[1,0,1],
 "group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a39244fc52637db27b1844770e7b0bd17":[1,0,1,3],
 "group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d":[1,0,1,1],
 "group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a6adf97f83acf6453d4a6a4b1070f3754":[1,0,1,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "struct_f_error_response_dto.html#af07eba81182522634b54cd2089cfae46":[1,2,44,0],
 "struct_f_event_dto.html":[1,2,45],
 "struct_f_event_dto.html#ab9e5c08b9bae6f1d32e85469b4184a6b":[1,2,45,0],
-"struct_f_event_dto.html#ac675828a3e845f64223826687b7417c2":[1,2,45,1],
-"struct_f_event_response_dto.html":[1,2,46],
-"struct_f_filter.html":[1,4,10]
+"struct_f_event_dto.html#ac675828a3e845f64223826687b7417c2":[1,2,45,1]
 };

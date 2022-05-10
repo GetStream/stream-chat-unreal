@@ -1,5 +1,7 @@
 var NAVTREEINDEX3 =
 {
+"struct_f_user.html#a58dfd9a7274d80577b49c767840067d3":[3,0,103,4],
+"struct_f_user.html#a73e81750f09c7f54f9fd810f53196421":[3,0,103,12],
 "struct_f_user.html#a7c6905c0374bd38c926c50be07a01bc8":[3,0,103,10],
 "struct_f_user.html#a85296b532bd5eccd363ec0e176055ddc":[3,0,103,24],
 "struct_f_user.html#a93c3bd7ac953ce1bf092845e7fb43422":[3,0,103,23],
@@ -56,6 +58,8 @@ var NAVTREEINDEX3 =
 "struct_f_user_sort_option.html#a31d0863f1e6f10fd779a75770011deb8":[1,4,6,2],
 "struct_f_user_sort_option.html#a38b0a420b442d82d1b5641b3959ceb79":[1,4,6,3],
 "struct_f_user_sort_option.html#ae0bfa53ea80f6021f5eee25b5039a56b":[1,4,6,1],
+"struct_f_user_watching_start_event.html":[1,3,21],
+"struct_f_user_watching_stop_event.html":[1,3,22],
 "struct_f_users_response_dto.html":[1,2,67],
 "struct_f_users_response_dto.html#a2157dd14f2adb812f9ed91bbba4db3d2":[1,2,67,0]
 };

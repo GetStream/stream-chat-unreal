@@ -123,6 +123,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac6eb55611d3ac58988e1dad3d65460d8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#ac6eb55611d3ac58988e1dad3d65460d8">Show</a> (TFunction&lt; void()&gt; Callback={}) const</td></tr>
 <tr class="memdesc:ac6eb55611d3ac58988e1dad3d65460d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un-hide this channel. It will again appear in query channel requests for the current user.  <a href="class_u_chat_channel.html#ac6eb55611d3ac58988e1dad3d65460d8">More...</a><br /></td></tr>
 <tr class="separator:ac6eb55611d3ac58988e1dad3d65460d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa3d454879743cca0045534056a17c4f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#afa3d454879743cca0045534056a17c4f">StopWatching</a> (TFunction&lt; void()&gt; Callback={}) const</td></tr>
+<tr class="memdesc:afa3d454879743cca0045534056a17c4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop receiving channel events.  <a href="class_u_chat_channel.html#afa3d454879743cca0045534056a17c4f">More...</a><br /></td></tr>
+<tr class="separator:afa3d454879743cca0045534056a17c4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Event</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p >Send, subscribe and unsubscribe to events </p>
 </div></td></tr>
@@ -212,13 +215,13 @@ FUnreadChangedDelegate&#160;</td><td class="memItemRight" valign="bottom"><b>Unr
 const TArray&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetMessages</b> () const</td></tr>
 <tr class="memdesc:acfdb55f36b049e167a608b0ca3744f6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get all the messages in this channel which we have locally. <br /></td></tr>
 <tr class="separator:acfdb55f36b049e167a608b0ca3744f6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c88f359dcd182e468675be83d67bf44"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a2c88f359dcd182e468675be83d67bf44">Query</a> (TFunction&lt; void()&gt; Callback, <a class="el" href="group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898">EChannelFlags</a> Flags=<a class="el" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d">EChannelFlags::State</a>, const TOptional&lt; <a class="el" href="struct_f_message_pagination_options.html">FMessagePaginationOptions</a> &gt; MessagePagination={}, const TOptional&lt; <a class="el" href="struct_f_user_pagination_options.html">FUserPaginationOptions</a> &gt; MemberPagination={}, const TOptional&lt; <a class="el" href="struct_f_user_pagination_options.html">FUserPaginationOptions</a> &gt; WatcherPagination={})</td></tr>
-<tr class="memdesc:a2c88f359dcd182e468675be83d67bf44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get messages, members or other channel fields.  <a href="class_u_chat_channel.html#a2c88f359dcd182e468675be83d67bf44">More...</a><br /></td></tr>
-<tr class="separator:a2c88f359dcd182e468675be83d67bf44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa03d76ed47bad7325f9b6409d250008"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#aaa03d76ed47bad7325f9b6409d250008">SearchMessages</a> (TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;)&gt; Callback, const TOptional&lt; FString &gt; &amp;<a class="el" href="class_u_chat_channel.html#a2c88f359dcd182e468675be83d67bf44">Query</a>={}, const TOptional&lt; <a class="el" href="struct_f_filter.html">FFilter</a> &gt; &amp;MessageFilter={}, const TArray&lt; <a class="el" href="struct_f_message_sort_option.html">FMessageSortOption</a> &gt; &amp;Sort={}, TOptional&lt; uint32 &gt; MessageLimit={}) const</td></tr>
-<tr class="memdesc:aaa03d76ed47bad7325f9b6409d250008"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search the messages in this channel.  <a href="class_u_chat_channel.html#aaa03d76ed47bad7325f9b6409d250008">More...</a><br /></td></tr>
-<tr class="separator:aaa03d76ed47bad7325f9b6409d250008"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab88c80df5f628c7faf4aa8861e410c08"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#ab88c80df5f628c7faf4aa8861e410c08">SearchMessages</a> (const FString &amp;<a class="el" href="class_u_chat_channel.html#a2c88f359dcd182e468675be83d67bf44">Query</a>, const <a class="el" href="struct_f_filter.html">FFilter</a> &amp;MessageFilter, const TArray&lt; <a class="el" href="struct_f_message_sort_option.html">FMessageSortOption</a> &gt; &amp;Sort, int32 MessageLimit, const UObject *WorldContextObject, FLatentActionInfo LatentInfo, TArray&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;OutMessages)</td></tr>
+<tr class="memitem:ae5690b0358c30ad8ac99fb37746eadfd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#ae5690b0358c30ad8ac99fb37746eadfd">Query</a> (<a class="el" href="group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898">EChannelFlags</a> Flags=<a class="el" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d">EChannelFlags::State</a>, const TOptional&lt; <a class="el" href="struct_f_message_pagination_options.html">FMessagePaginationOptions</a> &gt; MessagePagination={}, const TOptional&lt; <a class="el" href="struct_f_user_pagination_options.html">FUserPaginationOptions</a> &gt; MemberPagination={}, const TOptional&lt; <a class="el" href="struct_f_user_pagination_options.html">FUserPaginationOptions</a> &gt; WatcherPagination={}, TFunction&lt; void()&gt; Callback={})</td></tr>
+<tr class="memdesc:ae5690b0358c30ad8ac99fb37746eadfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get messages, members or other channel fields.  <a href="class_u_chat_channel.html#ae5690b0358c30ad8ac99fb37746eadfd">More...</a><br /></td></tr>
+<tr class="separator:ae5690b0358c30ad8ac99fb37746eadfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd9c334382f0b34ae03f96cf6113b384"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#abd9c334382f0b34ae03f96cf6113b384">SearchMessages</a> (const TOptional&lt; FString &gt; &amp;<a class="el" href="class_u_chat_channel.html#ae5690b0358c30ad8ac99fb37746eadfd">Query</a>={}, const TOptional&lt; <a class="el" href="struct_f_filter.html">FFilter</a> &gt; &amp;MessageFilter={}, const TArray&lt; <a class="el" href="struct_f_message_sort_option.html">FMessageSortOption</a> &gt; &amp;Sort={}, TOptional&lt; uint32 &gt; MessageLimit={}, TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;)&gt; Callback={}) const</td></tr>
+<tr class="memdesc:abd9c334382f0b34ae03f96cf6113b384"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search the messages in this channel.  <a href="class_u_chat_channel.html#abd9c334382f0b34ae03f96cf6113b384">More...</a><br /></td></tr>
+<tr class="separator:abd9c334382f0b34ae03f96cf6113b384"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab88c80df5f628c7faf4aa8861e410c08"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#ab88c80df5f628c7faf4aa8861e410c08">SearchMessages</a> (const FString &amp;<a class="el" href="class_u_chat_channel.html#ae5690b0358c30ad8ac99fb37746eadfd">Query</a>, const <a class="el" href="struct_f_filter.html">FFilter</a> &amp;MessageFilter, const TArray&lt; <a class="el" href="struct_f_message_sort_option.html">FMessageSortOption</a> &gt; &amp;Sort, int32 MessageLimit, const UObject *WorldContextObject, FLatentActionInfo LatentInfo, TArray&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;OutMessages)</td></tr>
 <tr class="memdesc:ab88c80df5f628c7faf4aa8861e410c08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search the messages in this channel.  <a href="class_u_chat_channel.html#ab88c80df5f628c7faf4aa8861e410c08">More...</a><br /></td></tr>
 <tr class="separator:ab88c80df5f628c7faf4aa8861e410c08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -677,8 +680,8 @@ template&lt;class TEvent , class UserClass &gt; </div>
 
 </div>
 </div>
-<a id="a2c88f359dcd182e468675be83d67bf44" name="a2c88f359dcd182e468675be83d67bf44"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c88f359dcd182e468675be83d67bf44">&#9670;&nbsp;</a></span>Query()</h2>
+<a id="ae5690b0358c30ad8ac99fb37746eadfd" name="ae5690b0358c30ad8ac99fb37746eadfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5690b0358c30ad8ac99fb37746eadfd">&#9670;&nbsp;</a></span>Query()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -686,12 +689,6 @@ template&lt;class TEvent , class UserClass &gt; </div>
         <tr>
           <td class="memname">void UChatChannel::Query </td>
           <td>(</td>
-          <td class="paramtype">TFunction&lt; void()&gt;&#160;</td>
-          <td class="paramname"><em>Callback</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype"><a class="el" href="group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898">EChannelFlags</a>&#160;</td>
           <td class="paramname"><em>Flags</em> = <code><a class="el" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d">EChannelFlags::State</a></code>, </td>
         </tr>
@@ -711,7 +708,13 @@ template&lt;class TEvent , class UserClass &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const TOptional&lt; <a class="el" href="struct_f_user_pagination_options.html">FUserPaginationOptions</a> &gt;&#160;</td>
-          <td class="paramname"><em>WatcherPagination</em> = <code>{}</code>&#160;</td>
+          <td class="paramname"><em>WatcherPagination</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TFunction&lt; void()&gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -907,8 +910,8 @@ template&lt;class TEvent , class UserClass &gt; </div>
 
 </div>
 </div>
-<a id="aaa03d76ed47bad7325f9b6409d250008" name="aaa03d76ed47bad7325f9b6409d250008"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa03d76ed47bad7325f9b6409d250008">&#9670;&nbsp;</a></span>SearchMessages() <span class="overload">[2/2]</span></h2>
+<a id="abd9c334382f0b34ae03f96cf6113b384" name="abd9c334382f0b34ae03f96cf6113b384"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd9c334382f0b34ae03f96cf6113b384">&#9670;&nbsp;</a></span>SearchMessages() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -916,12 +919,6 @@ template&lt;class TEvent , class UserClass &gt; </div>
         <tr>
           <td class="memname">void UChatChannel::SearchMessages </td>
           <td>(</td>
-          <td class="paramtype">TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;)&gt;&#160;</td>
-          <td class="paramname"><em>Callback</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">const TOptional&lt; FString &gt; &amp;&#160;</td>
           <td class="paramname"><em>Query</em> = <code>{}</code>, </td>
         </tr>
@@ -941,7 +938,13 @@ template&lt;class TEvent , class UserClass &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">TOptional&lt; uint32 &gt;&#160;</td>
-          <td class="paramname"><em>MessageLimit</em> = <code>{}</code>&#160;</td>
+          <td class="paramname"><em>MessageLimit</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;)&gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1082,6 +1085,32 @@ template&lt;class TEvent , class UserClass &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ParentMessageId</td><td>In the case of a thread, the ID of the parent message (optional) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="afa3d454879743cca0045534056a17c4f" name="afa3d454879743cca0045534056a17c4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa3d454879743cca0045534056a17c4f">&#9670;&nbsp;</a></span>StopWatching()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UChatChannel::StopWatching </td>
+          <td>(</td>
+          <td class="paramtype">TFunction&lt; void()&gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stop receiving channel events. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
   </table>
   </dd>
 </dl>

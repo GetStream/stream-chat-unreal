@@ -19,10 +19,10 @@ var class_u_stream_chat_client_component =
     [ "QueryAdditionalChannels", "class_u_stream_chat_client_component.html#adba9ca31b5bd31c24da7bbb63a7cfc73", null ],
     [ "QueryChannel", "class_u_stream_chat_client_component.html#a4d324df894080737f8e915db575fed6d", null ],
     [ "QueryChannels", "class_u_stream_chat_client_component.html#a6a960c3c9631c36846e57bf5e183e0e8", null ],
-    [ "QueryChannels", "class_u_stream_chat_client_component.html#a70109502de94907851f19ae97fe02a8b", null ],
-    [ "QueryUsers", "class_u_stream_chat_client_component.html#a4f76b944317a89801ecef0c52ef7750b", null ],
+    [ "QueryChannels", "class_u_stream_chat_client_component.html#ac95a404b3364376aeec773bc3ba688fe", null ],
+    [ "QueryUsers", "class_u_stream_chat_client_component.html#a2a34bcec42980e3e74cf06f8109c053c", null ],
     [ "RemoveDevice", "class_u_stream_chat_client_component.html#a31f65a566b8ad470d0fd0ac93b7c6da3", null ],
-    [ "SearchMessages", "class_u_stream_chat_client_component.html#a8a027a441d6ac2dcd7619f4f99a960f9", null ],
+    [ "SearchMessages", "class_u_stream_chat_client_component.html#a5f3eda6bd940dbaabba1c5d1a3f33c05", null ],
     [ "WatchChannel", "class_u_stream_chat_client_component.html#aa78cae04fd73d3df82ef147487a5a71c", null ],
     [ "WatchChannel", "class_u_stream_chat_client_component.html#a705b3527835b5c7354ee5eeb8859320a", null ],
     [ "ChannelsUpdated", "class_u_stream_chat_client_component.html#a4782f198e76dd5dbd7ab4300eacfc9e8", null ]

@@ -1,5 +1,7 @@
 var NAVTREEINDEX2 =
 {
+"struct_f_event_response_dto.html":[1,2,46],
+"struct_f_filter.html":[1,4,10],
 "struct_f_filter.html#a01aacac54de635a6b01e5c70c5e6b864":[1,4,10,1],
 "struct_f_filter.html#a16457125e8f93e3cba9f91564a5bff6c":[1,4,10,4],
 "struct_f_filter.html#a19b44c9b8c53e8aa495af85237079b0b":[1,4,10,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX2 =
 "struct_f_user.html#a434112e6a7a328b26a6937018bde5c34":[3,0,103,20],
 "struct_f_user.html#a43fe7b4a5186fdfd962e92018df162bb":[3,0,103,19],
 "struct_f_user.html#a48d27f5a5ed4f5e2b0d399d50fbd200f":[3,0,103,16],
-"struct_f_user.html#a5836dc51a24eb37cc5db5342f3b62889":[3,0,103,9],
-"struct_f_user.html#a58dfd9a7274d80577b49c767840067d3":[3,0,103,4],
-"struct_f_user.html#a73e81750f09c7f54f9fd810f53196421":[3,0,103,12]
+"struct_f_user.html#a5836dc51a24eb37cc5db5342f3b62889":[3,0,103,9]
 };

@@ -32,6 +32,8 @@ var group___stream_chat_web_socket =
     [ "FNotificationMarkReadEvent", "struct_f_notification_mark_read_event.html", null ],
     [ "FNotificationMessageNewEvent", "struct_f_notification_message_new_event.html", null ],
     [ "FUserPresenceChangedEvent", "struct_f_user_presence_changed_event.html", null ],
+    [ "FUserWatchingStartEvent", "struct_f_user_watching_start_event.html", null ],
+    [ "FUserWatchingStopEvent", "struct_f_user_watching_stop_event.html", null ],
     [ "IChatSocket", "class_i_chat_socket.html", null ],
     [ "UStreamChatWebSocketSettings", "class_u_stream_chat_web_socket_settings.html", [
       [ "CheckReconnectInterval", "class_u_stream_chat_web_socket_settings.html#af1b97fc79a2d50ced03f42403e7454eb", null ],
