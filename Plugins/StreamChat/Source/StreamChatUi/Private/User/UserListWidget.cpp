@@ -31,7 +31,7 @@ void UUserListWidget::Paginate(const EPaginationDirection Directions, const TFun
     {
         return;
     }
-    const FUserSortOption SortName{EUserSortField::Custom, TEXT("name"), ESortDirection::Ascending};
+    const FUserSortOption SortName{EUserSortField::Custom, ESortDirection::Ascending, TEXT("name")};
     Client->QueryUsers(
         Filter,
         {SortName},

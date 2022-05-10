@@ -18,6 +18,12 @@ struct STREAMCHAT_API FMessagePaginationOptions
     explicit operator FMessagePaginationParamsRequestDto() const;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat")
+    int32 Limit = 20;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat")
+    int32 Offset = 0;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat")
     FDateTime CreatedAtAfter = FDateTime{0};
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat")
@@ -40,10 +46,4 @@ struct STREAMCHAT_API FMessagePaginationOptions
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat")
     FString IdLte;
-
-    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat")
-    int32 Limit = 20;
-
-    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat")
-    int32 Offset = 0;
 };
