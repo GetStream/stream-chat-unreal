@@ -151,13 +151,13 @@ struct FUserSortOption
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat")
     EUserSortField Field = EUserSortField::CreatedAt;
 
-    /// Sort by this custom field. Only considered if "Field" is custom
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat")
-    FName CustomField;
-
     /// The direction in which to sort
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat")
     ESortDirection Direction = ESortDirection::Descending;
+
+    /// Sort by this custom field. Only considered if "Field" is custom
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat")
+    FName CustomField;
 };
 
 /**
