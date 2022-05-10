@@ -98,6 +98,21 @@ public:
     void Update(const FAdditionalFields& Data, const TOptional<FMessage>& Message = {}, TFunction<void()> Callback = {});
 
     /**
+     * @brief List and paginate members for this channel.
+     * @param Filter Conditions to use to filter the members
+     * @param Sort The sorting used for the members matching the filters.
+     * Sorting is based on field and direction, multiple sorting options can be provided.
+     * @param Pagination Limit, offset, and member selection by user id
+     * GtId, GteId, LtId and LteId fields are for user IDs
+     * @param Callback Called when response is received.
+     */
+    void QueryMembers(
+        const FFilter& Filter = {},
+        const TArray<FUserSortOption>& Sort = {},
+        const FMessagePaginationOptions& Pagination = {},
+        TFunction<void(const TArray<FMember>&)> Callback = {});
+
+    /**
      * @brief Add given users as members
      * @param MemberIds IDs of users to add to the channel as members
      * @param Message Optionally include a message object that will be used to populate a system message

@@ -24,6 +24,7 @@
 #include "Request/Reaction/ReactionRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/DeleteChannelResponseDto.h"
+#include "Response/Channel/MembersResponseDto.h"
 #include "Response/Channel/UpdateChannelPartialResponseDto.h"
 #include "Response/Channel/UpdateChannelResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
@@ -122,6 +123,32 @@ void UChatChannel::Update(const FAdditionalFields& Data, const TOptional<FMessag
             if (Callback)
             {
                 Callback();
+            }
+        });
+}
+
+void UChatChannel::QueryMembers(
+    const FFilter& Filter,
+    const TArray<FUserSortOption>& Sort,
+    const FMessagePaginationOptions& Pagination,
+    TFunction<void(const TArray<FMember>&)> Callback)
+{
+    Api->QueryMembers(
+        Properties.Type,
+        Filter.ToJsonObject(),
+        Properties.Id,
+        {},
+        Util::Convert<FSortParamRequestDto>(Sort),
+        Util::Convert<FMessagePaginationParamsRequestDto>(Pagination),
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback](const FMembersResponseDto& Dto)
+        {
+            if (WeakThis.IsValid())
+            {
+                WeakThis->Properties.AppendMembers(Dto.Members, UUserManager::Get());
+            }
+            if (Callback)
+            {
+                Callback(Util::Convert<FMember>(Dto.Members, UUserManager::Get()));
             }
         });
 }
