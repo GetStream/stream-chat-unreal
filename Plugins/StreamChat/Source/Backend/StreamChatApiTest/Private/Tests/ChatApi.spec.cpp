@@ -14,6 +14,7 @@
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/Channel/DeleteChannelResponseDto.h"
+#include "Response/Channel/MembersResponseDto.h"
 #include "Response/Channel/UpdateChannelPartialResponseDto.h"
 #include "Response/Channel/UpdateChannelResponseDto.h"
 #include "Response/Device/ListDevicesResponseDto.h"
@@ -203,6 +204,26 @@ void FChatApiSpec::Define()
                             TestTrue("No message", Dto.Message.Id.IsEmpty());
                             AddInfo(FString::FromInt(Dto.Channel.Cooldown));
                             TestEqual("No cooldown", Dto.Channel.Cooldown, TNumericLimits<uint32>::Max());
+                            TestDone.Execute();
+                        });
+                });
+
+            // Query members
+            LatentBeforeEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->QueryMembers(
+                        ChannelType,
+                        {},
+                        NewChannelId,
+                        {},
+                        {},
+                        {},
+                        [=](const FMembersResponseDto& Dto)
+                        {
+                            const FChannelMemberDto* Found = Dto.Members.FindByPredicate([&](const FChannelMemberDto& A) { return A.UserId == User.Id; });
+                            TestNotNull("User queried", Found);
+                            TestTrue("User is moderator", Found->bIsModerator);
                             TestDone.Execute();
                         });
                 });

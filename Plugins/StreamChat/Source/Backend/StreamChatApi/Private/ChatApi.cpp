@@ -477,7 +477,7 @@ void FChatApi::MarkChannelRead(
 
 void FChatApi::QueryMembers(
     const FString& ChannelType,
-    const TSharedRef<FJsonObject>& Filter,
+    const TOptional<TSharedRef<FJsonObject>>& Filter,
     const TOptional<FString>& ChannelId,
     const TOptional<TArray<FString>>& Members,
     const TArray<FSortParamRequestDto>& SortOptions,
@@ -516,7 +516,8 @@ void FChatApi::QueryMembers(
         Pagination.CreatedAtBeforeOrEqual,
     };
 
-    Client->Post(Url).Json(Body).Send(Callback);
+    const FString Payload = Json::Serialize(Body);
+    Client->Get(Url).Query({{TEXT("payload"), Payload}}).Send(Callback);
 }
 
 void FChatApi::SendChannelEventInternal(
