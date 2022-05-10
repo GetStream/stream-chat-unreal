@@ -46,6 +46,8 @@ struct STREAMCHAT_API FChannelProperties
     void Merge(const FChannelResponseDto&, UUserManager*);
     /// Merge new information from the API into this properties, replacing members
     void Merge(const FChannelResponseDto& Dto, const TArray<FChannelMemberDto>& InMembers, UUserManager*);
+    /// Append new members, skipping duplicates
+    void AppendMembers(const TArray<FChannelMemberDto>& InMembers, UUserManager*);
 
     TOptional<FString> GetName() const;
     TOptional<FString> GetImageUrl() const;

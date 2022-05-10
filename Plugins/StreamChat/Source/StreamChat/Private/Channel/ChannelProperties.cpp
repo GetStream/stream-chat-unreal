@@ -132,6 +132,19 @@ void FChannelProperties::Merge(const FChannelResponseDto& Dto, const TArray<FCha
     *this = NewProps;
 }
 
+void FChannelProperties::AppendMembers(const TArray<FChannelMemberDto>& InMembers, UUserManager* UserManager)
+{
+    // TODO probably not the most efficient way to do this
+    TSet<FString> UserIds;
+    Algo::Transform(Members, UserIds, [&](const FMember& M) { return M.User->Id; });
+    for (auto&& M : InMembers)
+    {
+        UserManager->UpsertUser(M.User);
+        UserIds.Add(M.UserId);
+    }
+    SetMembers(UserIds.Array());
+}
+
 void UChannelPropertiesBlueprintLibrary::SetMembers_UserId(FChannelProperties& ChannelProperties, const TArray<FString>& UserIds, FChannelProperties& Out)
 {
     Out = ChannelProperties.SetMembers(UserIds);
