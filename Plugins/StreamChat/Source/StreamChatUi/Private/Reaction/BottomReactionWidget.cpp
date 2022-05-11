@@ -5,6 +5,7 @@
 #include "Reaction/ReactionsTooltipWidget.h"
 #include "ThemeDataAsset.h"
 #include "TimerManager.h"
+#include "User/UserManager.h"
 #include "WidgetUtil.h"
 
 UBottomReactionWidget::UBottomReactionWidget()
@@ -117,7 +118,7 @@ void UBottomReactionWidget::NativeOnMouseLeave(const FPointerEvent& InMouseEvent
 
 EMessageSide UBottomReactionWidget::GetSide() const
 {
-    if (ReactionGroup.OwnReaction.IsSet())
+    if (ReactionGroup.GetOwnReaction(UUserManager::Get()).IsSet())
     {
         return EMessageSide::Me;
     }

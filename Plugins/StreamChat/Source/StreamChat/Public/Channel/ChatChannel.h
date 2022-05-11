@@ -302,11 +302,11 @@ public:
      *
      * All parameters are optional, but a minimum of either a query or message filter is required
      *
-     * @param Callback Called when response is received
      * @param Query Search phrase
      * @param MessageFilter Message filter conditions
      * @param Sort Sort parameters. Cannot be  used with non-zero offset.
      * @param MessageLimit Number of messages to return
+     * @param Callback Called when response is received
      */
     void SearchMessages(
         const TOptional<FString>& Query = {},
@@ -395,9 +395,9 @@ public:
      *
      * @param Message The message in this channel to fetch reactions for
      * @param Pagination Limit and offset for pagination of reactions
+     * @param Callback Called when response is received
      */
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Reaction", meta = (AutoCreateRefTerm = Pagination))
-    void GetReactions(const FMessage& Message, const FPaginationOptions& Pagination);
+    void GetReactions(const FMessage& Message, const FPaginationOptions& Pagination = {}, TFunction<void(const TArray<FReaction>&)> Callback = {});
 
     /**
      * @brief Remove a reaction from a given message

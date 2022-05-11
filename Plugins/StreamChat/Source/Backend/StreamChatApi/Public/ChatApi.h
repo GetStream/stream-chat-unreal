@@ -21,6 +21,7 @@ struct FChannelsResponseDto;
 struct FDeleteChannelResponseDto;
 struct FEventResponseDto;
 struct FFlagResponseDto;
+struct FGetReactionsResponseDto;
 struct FGuestResponseDto;
 struct FHttpResponse;
 struct FListDevicesResponseDto;
@@ -410,9 +411,11 @@ public:
     /**
      * @brief Fetch reactions for the given message, optionally paginating
      * @param MessageId ID of the message to fetch reactions for
+     * @param Limit The number of reactions to return
+     * @param Offset The pagination offset
      * @param Callback Called when response is received
      */
-    void GetReactions(const FString& MessageId, TOptional<uint32> Limit, TOptional<uint32> Offset, TCallback<FReactionResponseDto> Callback = {}) const;
+    void GetReactions(const FString& MessageId, TOptional<uint32> Limit, TOptional<uint32> Offset, TCallback<FGetReactionsResponseDto> Callback = {}) const;
 
 ///@}
 #pragma endregion Messages

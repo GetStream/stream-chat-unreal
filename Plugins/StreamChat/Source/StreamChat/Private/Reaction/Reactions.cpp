@@ -5,7 +5,7 @@
 #include "Reaction/Reaction.h"
 #include "Reaction/ReactionGroup.h"
 #include "Response/Reaction/ReactionDto.h"
-#include "User/UserRef.h"
+#include "User/UserManager.h"
 
 FReactions FReactions::CollectReactions(
     UUserManager* UserManager,
@@ -28,7 +28,7 @@ FReactions FReactions::CollectReactions(
     }
     for (const FReactionDto& Own : OwnReactions)
     {
-        Result.ReactionGroups.FindOrAdd(Own.Type).OwnReaction.Emplace(FReaction{Own, UserManager});
+        Result.ReactionGroups.FindOrAdd(Own.Type).LatestReactions.Emplace(FReaction{Own, UserManager});
     }
     return Result;
 }
@@ -46,15 +46,22 @@ TMap<FName, int32> FReactions::GetScores() const
 void FReactions::AddReaction(const FReaction& Reaction)
 {
     auto& Group = ReactionGroups.FindOrAdd(Reaction.Type);
-    // Latest reactions are ordered reverse-chronologically
-    Group.LatestReactions.Insert(Reaction, 0);
-    ++Group.Count;
-    ++Group.TotalScore;
-    if (Group.Type == NAME_None)
+    if (FReaction* Found = Group.LatestReactions.FindByPredicate([&](const FReaction& R) { return R.User == Reaction.User; }))
     {
-        // First reaction of this type
-        Group.Type = Reaction.Type;
-        ReactionGroups.KeySort(FNameLexicalLess());
+        *Found = Reaction;
+    }
+    else
+    {
+        // Latest reactions are ordered reverse-chronologically
+        Group.LatestReactions.Insert(Reaction, 0);
+        ++Group.Count;
+        ++Group.TotalScore;
+        if (Group.Type == NAME_None)
+        {
+            // First reaction of this type
+            Group.Type = Reaction.Type;
+            ReactionGroups.KeySort(FNameLexicalLess());
+        }
     }
 }
 
@@ -76,11 +83,11 @@ void FReactions::RemoveReactionWhere(const TFunctionRef<bool(const FReaction&)> 
     }
 }
 
-TOptional<FReaction> FReactions::GetOwnReaction(const FName& ReactionType) const
+TOptional<FReaction> FReactions::GetOwnReaction(const FName& ReactionType, const UUserManager* UserManager) const
 {
     if (const FReactionGroup* Group = ReactionGroups.Find(ReactionType))
     {
-        return Group->OwnReaction;
+        return Group->GetOwnReaction(UserManager);
     }
     return {};
 }
@@ -95,24 +102,9 @@ bool FReactions::IsEmpty() const
     return ReactionGroups.Num() == 0;
 }
 
-void FReactions::UpdateOwnReactions()
-{
-    for (auto& Group : ReactionGroups)
-    {
-        if (const FReaction* OwnReaction = Group.Value.LatestReactions.FindByPredicate([](const FReaction& R) { return R.User.IsCurrent(); }))
-        {
-            Group.Value.OwnReaction.Emplace(*OwnReaction);
-        }
-        else
-        {
-            Group.Value.OwnReaction.Reset();
-        }
-    }
-}
-
 bool UReactionsBlueprintLibrary::HasOwnReaction(const FReactions& Reactions, const FName& ReactionType)
 {
-    return Reactions.GetOwnReaction(ReactionType).IsSet();
+    return Reactions.GetOwnReaction(ReactionType, UUserManager::Get()).IsSet();
 }
 
 bool UReactionsBlueprintLibrary::IsEmpty(const FReactions& Reactions)

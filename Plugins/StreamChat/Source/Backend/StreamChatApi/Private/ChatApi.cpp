@@ -40,6 +40,7 @@
 #include "Response/Moderation/MuteChannelResponseDto.h"
 #include "Response/Moderation/MuteUserResponseDto.h"
 #include "Response/Moderation/QueryBannedUsersResponseDto.h"
+#include "Response/Reaction/GetReactionsResponseDto.h"
 #include "Response/Reaction/ReactionResponseDto.h"
 #include "Response/ResponseDto.h"
 #include "Response/User/GuestResponseDto.h"
@@ -384,8 +385,21 @@ void FChatApi::DeleteReaction(const FString& MessageId, const FName& Type, const
     Client->Delete(Url).Send(Callback);
 }
 
-void FChatApi::GetReactions(const FString& MessageId, TOptional<uint32> Limit, TOptional<uint32> Offset, TCallback<FReactionResponseDto> Callback) const
+void FChatApi::GetReactions(const FString& MessageId, TOptional<uint32> Limit, TOptional<uint32> Offset, const TCallback<FGetReactionsResponseDto> Callback)
+    const
 {
+    const FString Path = FString::Printf(TEXT("messages/%s/reactions"), *MessageId);
+    const FString Url = BuildUrl(Path);
+    FQueryParameters Query;
+    if (Limit.IsSet())
+    {
+        Query.Add(TEXT("limit"), FQueryParameter{static_cast<int32>(Limit.GetValue())});
+    }
+    if (Offset.IsSet())
+    {
+        Query.Add(TEXT("offset"), FQueryParameter{static_cast<int32>(Offset.GetValue())});
+    }
+    Client->Get(Url).Query(Query).Send(Callback);
 }
 
 void FChatApi::QueryChannels(

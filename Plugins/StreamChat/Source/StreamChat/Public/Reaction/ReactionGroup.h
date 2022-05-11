@@ -35,7 +35,7 @@ struct STREAMCHAT_API FReactionGroup
     TArray<FReaction> LatestReactions;
 
     /// The reaction of this type added to the message by the current user.
-    TOptional<FReaction> OwnReaction;
+    TOptional<FReaction> GetOwnReaction(const UUserManager*) const;
 };
 
 /**
