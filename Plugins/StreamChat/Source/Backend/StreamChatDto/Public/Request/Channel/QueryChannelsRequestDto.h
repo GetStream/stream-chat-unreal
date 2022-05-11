@@ -18,19 +18,6 @@ struct STREAMCHATDTO_API FQueryChannelsRequestDto : public FPaginatedRequest
 {
     GENERATED_BODY()
 
-    FQueryChannelsRequestDto() = default;
-    explicit FQueryChannelsRequestDto(
-        const uint32 MessageLimit,
-        const uint32 MemberLimit,
-        const FString& ConnectionId,
-        const bool bPresence,
-        const TArray<FSortParamRequestDto>& Sort,
-        const bool bState,
-        const bool bWatch,
-        const TOptional<uint32>& Limit,
-        const TOptional<uint32>& Offset,
-        const FJsonObjectWrapper& Filter);
-
     UPROPERTY()
     uint32 MessageLimit = TNumericLimits<uint32>::Max();
 

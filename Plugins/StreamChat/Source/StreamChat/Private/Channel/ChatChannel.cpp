@@ -512,6 +512,10 @@ void UChatChannel::SendReaction(const FMessage& Message, const FName& ReactionTy
     Api->SendReaction(Message.Id, {Message.Id, 1, ReactionType}, bEnforceUnique, false);
 }
 
+void UChatChannel::GetReactions(const FMessage& Message, const FPaginationOptions& Pagination)
+{
+}
+
 void UChatChannel::DeleteReaction(const FMessage& Message, const FReaction& Reaction)
 {
     FMessage NewMessage{Message};

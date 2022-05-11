@@ -14,6 +14,7 @@
 #include "IChatSocket.h"
 #include "Message.h"
 #include "MessagePaginationOptions.h"
+#include "PaginationOptions.h"
 #include "User/UserPaginationOptions.h"
 #include "User/UserRef.h"
 
@@ -388,6 +389,15 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Reaction")
     void SendReaction(const FMessage& Message, const FName& ReactionType, bool bEnforceUnique = true);
+
+    /**
+     * @brief Fetch or paginate more reactions for a given message
+     *
+     * @param Message The message in this channel to fetch reactions for
+     * @param Pagination Limit and offset for pagination of reactions
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Reaction", meta = (AutoCreateRefTerm = Pagination))
+    void GetReactions(const FMessage& Message, const FPaginationOptions& Pagination);
 
     /**
      * @brief Remove a reaction from a given message

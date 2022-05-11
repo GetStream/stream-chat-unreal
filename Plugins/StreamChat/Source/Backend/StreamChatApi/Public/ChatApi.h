@@ -407,6 +407,13 @@ public:
      */
     void DeleteReaction(const FString& MessageId, const FName& Type, TCallback<FReactionResponseDto> Callback = {}) const;
 
+    /**
+     * @brief Fetch reactions for the given message, optionally paginating
+     * @param MessageId ID of the message to fetch reactions for
+     * @param Callback Called when response is received
+     */
+    void GetReactions(const FString& MessageId, TOptional<uint32> Limit, TOptional<uint32> Offset, TCallback<FReactionResponseDto> Callback = {}) const;
+
 ///@}
 #pragma endregion Messages
 

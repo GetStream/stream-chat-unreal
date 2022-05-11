@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "PaginationOptions.h"
 
 #include "BanPaginationOptions.generated.h"
 
@@ -11,25 +12,19 @@
  * @ingroup StreamChat
  */
 USTRUCT(BlueprintType)
-struct STREAMCHAT_API FBanPaginationOptions
+struct STREAMCHAT_API FBanPaginationOptions : public FPaginationOptions
 {
     GENERATED_BODY()
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat")
-    int32 Limit = 20;
+    FDateTime CreatedAtAfter = FDateTime{0};
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat")
-    int32 Offset = 0;
+    FDateTime CreatedAtAfterOrEqual = FDateTime{0};
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat")
-    FDateTime CreatedAtAfterOrEqual;
+    FDateTime CreatedAtBefore = FDateTime{0};
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat")
-    FDateTime CreatedAtAfter;
-
-    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat")
-    FDateTime CreatedAtBeforeOrEqual;
-
-    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat")
-    FDateTime CreatedAtBefore;
+    FDateTime CreatedAtBeforeOrEqual = FDateTime{0};
 };

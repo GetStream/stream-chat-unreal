@@ -2,9 +2,9 @@
 
 #pragma once
 
-#include "AdditionalFields.h"
 #include "CoreMinimal.h"
 #include "Request/PaginatedRequest.h"
+#include "Request/SortParamRequestDto.h"
 
 #include "SearchRequestDto.generated.h"
 
@@ -20,18 +20,15 @@ struct STREAMCHATDTO_API FSearchRequestDto : public FPaginatedRequest
 {
     GENERATED_BODY()
 
-    FSearchRequestDto() = default;
-    explicit FSearchRequestDto(const TOptional<uint32>& Limit, const TOptional<uint32>& Offset, const FJsonObjectWrapper& Filter);
-
     /// Search phrase
-    void SetQuery(const FString&);
-    /// Message filter conditions
-    void SetMessageFilter(const TSharedRef<FJsonObject>&);
-    /// Sort parameters. Cannot be used with non-zero offset
-    void SetSort(const TArray<FSortParamRequestDto>&);
-    /// Pagination parameter. Cannot be used with non-zero offset
-    void SetNext(const FString&);
-
     UPROPERTY()
-    FAdditionalFields AdditionalFields;
+    FString Query;
+    /// Message filter conditions
+    UPROPERTY()
+    FJsonObjectWrapper MessageFilterConditions;
+    /// Sort parameters. Cannot be used with non-zero offset
+    UPROPERTY()
+    TArray<FSortParamRequestDto> Sort;
+    /// Pagination parameter. Cannot be used with non-zero offset
+    FString Next;
 };
