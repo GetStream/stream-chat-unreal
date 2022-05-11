@@ -3,8 +3,8 @@
 #include "Reaction/ReactionPickerWidget.h"
 
 #include "Channel/ChatChannel.h"
-#include "Context/ChannelContextWidget.h"
 #include "ThemeDataAsset.h"
+#include "User/UserManager.h"
 
 namespace
 {
@@ -51,7 +51,7 @@ void UReactionPickerWidget::OnReactionButtonClicked(const FName& ReactionType)
 {
     if (ensure(Channel))
     {
-        const TOptional<FReaction> OwnReaction = Message.Reactions.GetOwnReaction(ReactionType);
+        const TOptional<FReaction> OwnReaction = Message.Reactions.GetOwnReaction(ReactionType, UUserManager::Get());
         if (OwnReaction.IsSet())
         {
             Channel->DeleteReaction(Message, OwnReaction.GetValue());

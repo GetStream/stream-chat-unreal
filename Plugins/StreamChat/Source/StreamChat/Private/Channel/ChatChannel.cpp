@@ -30,6 +30,7 @@
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
 #include "Response/Moderation/MuteChannelResponseDto.h"
+#include "Response/Reaction/GetReactionsResponseDto.h"
 #include "StreamChatClientComponent.h"
 #include "TimerManager.h"
 #include "User/UserManager.h"
@@ -505,15 +506,33 @@ void UChatChannel::SendReaction(const FMessage& Message, const FName& ReactionTy
     const FReaction NewReaction{ReactionType, UUserManager::Get()->GetCurrentUser(), Message.Id};
     NewMessage.Reactions.AddReaction(NewReaction);
 
-    NewMessage.Reactions.UpdateOwnReactions();
-
     AddMessage(NewMessage);
 
     Api->SendReaction(Message.Id, {Message.Id, 1, ReactionType}, bEnforceUnique, false);
 }
 
-void UChatChannel::GetReactions(const FMessage& Message, const FPaginationOptions& Pagination)
+void UChatChannel::GetReactions(const FMessage& Message, const FPaginationOptions& Pagination, TFunction<void(const TArray<FReaction>&)> Callback)
 {
+    Api->GetReactions(
+        Message.Id,
+        Pagination.GetLimitAsOptional(),
+        Pagination.GetOffsetAsOptional(),
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback, NewMessage = Message](const FGetReactionsResponseDto& Dto) mutable
+        {
+            const TArray<FReaction> Reactions = Util::Convert<FReaction>(Dto.Reactions, UUserManager::Get());
+            if (WeakThis.IsValid())
+            {
+                for (auto&& Reaction : Reactions)
+                {
+                    NewMessage.Reactions.AddReaction(Reaction);
+                }
+                WeakThis->AddMessage(NewMessage);
+            }
+            if (Callback)
+            {
+                Callback(Reactions);
+            }
+        });
 }
 
 void UChatChannel::DeleteReaction(const FMessage& Message, const FReaction& Reaction)
@@ -521,8 +540,6 @@ void UChatChannel::DeleteReaction(const FMessage& Message, const FReaction& Reac
     FMessage NewMessage{Message};
     NewMessage.Reactions.RemoveReactionWhere([&Reaction](const FReaction& R)
                                              { return R.User == Reaction.User && R.Type == Reaction.Type && R.MessageId == Reaction.MessageId; });
-
-    NewMessage.Reactions.UpdateOwnReactions();
 
     AddMessage(NewMessage);
     Api->DeleteReaction(Message.Id, Reaction.Type);
@@ -756,21 +773,15 @@ void UChatChannel::UpdateUnread(const FUserRef& User, const int32 UnreadCount, c
 
 void UChatChannel::OnReactionNew(const FReactionNewEvent& Event)
 {
-    FMessage Message = MakeMessage(Event);
-    Message.Reactions.UpdateOwnReactions();
-    AddMessage(Message);
+    AddMessage(MakeMessage(Event));
 }
 
 void UChatChannel::OnReactionUpdated(const FReactionUpdatedEvent& Event)
 {
-    FMessage Message = MakeMessage(Event);
-    Message.Reactions.UpdateOwnReactions();
-    AddMessage(Message);
+    AddMessage(MakeMessage(Event));
 }
 
 void UChatChannel::OnReactionDeleted(const FReactionDeletedEvent& Event)
 {
-    FMessage Message = MakeMessage(Event);
-    Message.Reactions.UpdateOwnReactions();
-    AddMessage(Message);
+    AddMessage(MakeMessage(Event));
 }

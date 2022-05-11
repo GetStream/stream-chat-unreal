@@ -8,8 +8,6 @@
 
 #include "SearchRequestDto.generated.h"
 
-struct FSortParamRequestDto;
-
 /**
  * @brief #/components/schemas/SearchRequest
  * @ingroup StreamChatDto

@@ -39,16 +39,13 @@ struct STREAMCHAT_API FReactions
     bool IsEmpty() const;
 
     /// Get the reaction created by the current user, if it exists
-    TOptional<FReaction> GetOwnReaction(const FName& ReactionType) const;
+    TOptional<FReaction> GetOwnReaction(const FName& ReactionType, const UUserManager*) const;
 
     /// Get all reactions of this message, grouped by their type
     const TMap<FName, FReactionGroup>& GetReactionGroups() const;
 
     /// Get the scores of each of the reaction types in this collection
     TMap<FName, int32> GetScores() const;
-
-    /// Remove OwnReactions which are NOT the given user ID
-    void UpdateOwnReactions();
 
 private:
     /// All reactions of this message, grouped by their type

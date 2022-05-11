@@ -5,6 +5,7 @@
 #include "Components/HorizontalBoxSlot.h"
 #include "Context/ChannelContextWidget.h"
 #include "Reaction/BottomReactionWidget.h"
+#include "User/UserManager.h"
 
 UMessageReactionsWidget::UMessageReactionsWidget()
 {
@@ -41,9 +42,10 @@ void UMessageReactionsWidget::OnSetup()
                 {
                     if (ensure(Channel))
                     {
-                        if (Reaction.OwnReaction.IsSet())
+                        const TOptional<FReaction> OwnReaction = Reaction.GetOwnReaction(UUserManager::Get());
+                        if (OwnReaction.IsSet())
                         {
-                            Channel->DeleteReaction(Message, Reaction.OwnReaction.GetValue());
+                            Channel->DeleteReaction(Message, OwnReaction.GetValue());
                         }
                         else
                         {
