@@ -4,11 +4,9 @@
 
 FMessagePaginationOptions::operator FMessagePaginationParamsRequestDto() const
 {
-    check(Limit >= 0);
-    check(Offset >= 0);
     return FMessagePaginationParamsRequestDto{
-        static_cast<uint32>(Limit),
-        static_cast<uint32>(Offset),
+        GetLimitForDto(),
+        GetOffsetForDto(),
         CreatedAtAfter,
         CreatedAtAfterOrEqual,
         CreatedAtBefore,
@@ -16,5 +14,6 @@ FMessagePaginationOptions::operator FMessagePaginationParamsRequestDto() const
         IdGt,
         IdGte,
         IdLt,
-        IdLte};
+        IdLte,
+    };
 }

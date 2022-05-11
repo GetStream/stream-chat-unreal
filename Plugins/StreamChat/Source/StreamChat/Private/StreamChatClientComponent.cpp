@@ -291,7 +291,7 @@ void UStreamChatClientComponent::QueryChannels(
     const TOptional<FFilter> Filter,
     const TArray<FChannelSortOption>& SortOptions,
     const EChannelFlags Flags,
-    const FChannelPaginationOptions& PaginationOptions,
+    const FPaginationOptions& PaginationOptions,
     TFunction<void(const TArray<UChatChannel*>&)> Callback)
 {
     // TODO Can we return something from ConnectUser() that is required for this function to prevent ordering ambiguity?
@@ -310,8 +310,8 @@ void UStreamChatClientComponent::QueryChannels(
         Util::Convert<FSortParamRequestDto>(SortOptions),
         {},
         {},
-        PaginationOptions.Limit,
-        PaginationOptions.Offset,
+        PaginationOptions.GetLimitAsOptional(),
+        PaginationOptions.GetOffsetAsOptional(),
         [WeakThis = TWeakObjectPtr<UStreamChatClientComponent>(this), Callback](const FChannelsResponseDto& Response)
         {
             if (!WeakThis.IsValid())
@@ -394,13 +394,13 @@ void UStreamChatClientComponent::QueryAdditionalChannels(const int32 Limit, cons
         return;
     }
 
-    const FChannelPaginationOptions ChannelPaginationOptions{Limit, Channels.Num()};
+    const FPaginationOptions Pagination{Limit, Channels.Num()};
 
     QueryChannels(
         FFilter::In(TEXT("members"), {UUserManager::Get()->GetCurrentUser()->Id}),
         {{EChannelSortField::LastMessageAt, ESortDirection::Descending}},
         EChannelFlags::State | EChannelFlags::Watch,
-        ChannelPaginationOptions,
+        Pagination,
         [Callback](const TArray<UChatChannel*>)
         {
             if (Callback)

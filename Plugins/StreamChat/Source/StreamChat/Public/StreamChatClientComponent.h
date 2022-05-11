@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "Channel/ChannelPaginationOptions.h"
 #include "Channel/ChannelProperties.h"
 #include "Channel/ChannelSortOption.h"
 #include "Channel/ChatChannel.h"
@@ -14,6 +13,7 @@
 #include "Engine/LatentActionManager.h"
 #include "IChatSocket.h"
 #include "Moderation/BanPaginationOptions.h"
+#include "PaginationOptions.h"
 #include "User/User.h"
 
 #include "StreamChatClientComponent.generated.h"
@@ -98,7 +98,7 @@ public:
         TOptional<FFilter> Filter = {},
         const TArray<FChannelSortOption>& SortOptions = {},
         const EChannelFlags Flags = EChannelFlags::State | EChannelFlags::Watch,
-        const FChannelPaginationOptions& PaginationOptions = {},
+        const FPaginationOptions& PaginationOptions = {},
         TFunction<void(const TArray<UChatChannel*>&)> Callback = {});
 
     /**

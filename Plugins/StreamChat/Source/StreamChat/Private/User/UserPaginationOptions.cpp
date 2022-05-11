@@ -4,11 +4,9 @@
 
 FUserPaginationOptions::operator FPaginationParamsRequestDto() const
 {
-    check(Limit >= 0);
-    check(Offset >= 0);
     return FPaginationParamsRequestDto{
-        static_cast<uint32>(Limit),
-        static_cast<uint32>(Offset),
+        GetLimitForDto(),
+        GetOffsetForDto(),
         IdGt,
         IdGte,
         IdLt,

@@ -132,24 +132,18 @@ void FChatApi::QueryBannedUsers(
     const TCallback<FQueryBannedUsersResponseDto> Callback) const
 {
     const FString Url = BuildUrl(TEXT("query_banned_users"));
-    FQueryBannedUsersRequestDto Body{Limit, Offset, Wrap(Filter)};
-    Body.SetSort(SortOptions);
-    if (CreatedAtAfterOrEqual.IsSet())
-    {
-        Body.SetCreatedAtAfterOrEqual(CreatedAtAfterOrEqual.GetValue());
-    }
-    if (CreatedAtAfter.IsSet())
-    {
-        Body.SetCreatedAtAfter(CreatedAtAfter.GetValue());
-    }
-    if (CreatedAtBeforeOrEqual.IsSet())
-    {
-        Body.SetCreatedAtBeforeOrEqual(CreatedAtBeforeOrEqual.GetValue());
-    }
-    if (CreatedAtBefore.IsSet())
-    {
-        Body.SetCreatedAtBefore(CreatedAtBefore.GetValue());
-    }
+    const FQueryBannedUsersRequestDto Body{
+        {
+            Limit.Get(TNumericLimits<uint32>::Max()),
+            Offset.Get(TNumericLimits<uint32>::Max()),
+            Wrap(Filter),
+        },
+        CreatedAtAfter.Get(FDateTime{0}),
+        CreatedAtAfterOrEqual.Get(FDateTime{0}),
+        CreatedAtBefore.Get(FDateTime{0}),
+        CreatedAtBeforeOrEqual.Get(FDateTime{0}),
+        SortOptions,
+    };
 
     const FString Payload = Json::Serialize(Body);
     Client->Get(Url).Query({{TEXT("payload"), Payload}}).Send(Callback);
@@ -210,12 +204,19 @@ void FChatApi::QueryUsers(
     const FString Url = BuildUrl(TEXT("users"));
 
     const FQueryUsersRequestDto Body{
+        {
+            Limit.Get(TNumericLimits<uint32>::Max()),
+            Offset.Get(TNumericLimits<uint32>::Max()),
+            Wrap(Filter),
+        },
+        // TODO expose these fields
+        {},
+        {},
+        {},
+        {},
         ConnectionId,
         bPresence,
         SortOptions,
-        Limit,
-        Offset,
-        Wrap(Filter),
     };
 
     const FString Payload = Json::Serialize(Body);
@@ -383,6 +384,10 @@ void FChatApi::DeleteReaction(const FString& MessageId, const FName& Type, const
     Client->Delete(Url).Send(Callback);
 }
 
+void FChatApi::GetReactions(const FString& MessageId, TOptional<uint32> Limit, TOptional<uint32> Offset, TCallback<FReactionResponseDto> Callback) const
+{
+}
+
 void FChatApi::QueryChannels(
     const FString& ConnectionId,
     const EChannelFlags Flags,
@@ -397,16 +402,18 @@ void FChatApi::QueryChannels(
     const FString Url = BuildUrl(TEXT("channels"));
 
     const FQueryChannelsRequestDto Body{
-        MessageLimit.Get(25),
-        MemberLimit.Get(100),
+        {
+            Limit.Get(TNumericLimits<uint32>::Max()),
+            Offset.Get(TNumericLimits<uint32>::Max()),
+            Wrap(Filter),
+        },
+        MessageLimit.Get(TNumericLimits<uint32>::Max()),
+        MemberLimit.Get(TNumericLimits<uint32>::Max()),
         ConnectionId,
         EnumHasAnyFlags(Flags, EChannelFlags::Presence),
         SortOptions,
         EnumHasAnyFlags(Flags, EChannelFlags::State),
         EnumHasAnyFlags(Flags, EChannelFlags::Watch),
-        Limit,
-        Offset,
-        Wrap(Filter),
     };
 
     Client->Post(Url).Json(Body).Send(Callback);
@@ -425,29 +432,23 @@ void FChatApi::SearchMessages(
     const TOptional<FString>& Query,
     const TOptional<TSharedRef<FJsonObject>>& MessageFilter,
     const TArray<FSortParamRequestDto>& Sort,
-    TOptional<uint32> MessageLimit,
-    TOptional<uint32> Offset,
-    TOptional<FString> Next,
+    const TOptional<uint32> MessageLimit,
+    const TOptional<uint32> Offset,
+    const TOptional<FString> Next,
     const TCallback<FSearchResponseDto> Callback) const
 {
     const FString Url = BuildUrl(TEXT("search"));
-    FSearchRequestDto Body{MessageLimit, Offset, Wrap(ChannelFilter)};
-    if (Query.IsSet())
-    {
-        Body.SetQuery(Query.GetValue());
-    }
-    if (MessageFilter.IsSet())
-    {
-        Body.SetMessageFilter(MessageFilter.GetValue());
-    }
-    if (Sort.Num() > 0)
-    {
-        Body.SetSort(Sort);
-    }
-    if (Next.IsSet())
-    {
-        Body.SetNext(Next.GetValue());
-    }
+    const FSearchRequestDto Body{
+        {
+            MessageLimit.Get(TNumericLimits<uint32>::Max()),
+            Offset.Get(TNumericLimits<uint32>::Max()),
+            Wrap(ChannelFilter),
+        },
+        Query.Get(TEXT("")),
+        Wrap(MessageFilter),
+        Sort,
+        Next.Get(TEXT("")),
+    };
 
     const FString Payload = Json::Serialize(Body);
     Client->Get(Url).Query({{TEXT("payload"), Payload}}).Send(Callback);

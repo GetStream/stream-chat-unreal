@@ -4,10 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "Request/PaginatedRequest.h"
+#include "Request/SortParamRequestDto.h"
 
 #include "QueryBannedUsersRequestDto.generated.h"
 
-struct FSortParamRequestDto;
 /**
  * @brief #/components/schemas/QueryBannedUsersRequest
  * @ingroup StreamChatDto
@@ -18,18 +18,19 @@ struct STREAMCHATDTO_API FQueryBannedUsersRequestDto : public FPaginatedRequest
 {
     GENERATED_BODY()
 
-    FQueryBannedUsersRequestDto() = default;
+    UPROPERTY()
+    FDateTime CreatedAtAfter = FDateTime{0};
 
-    FQueryBannedUsersRequestDto(const TOptional<uint32>& Limit, const TOptional<uint32>& Offset, const FJsonObjectWrapper& Filter);
+    UPROPERTY()
+    FDateTime CreatedAtAfterOrEqual = FDateTime{0};
 
-    void SetCreatedAtAfter(const FDateTime&);
+    UPROPERTY()
+    FDateTime CreatedAtBefore = FDateTime{0};
 
-    void SetCreatedAtAfterOrEqual(const FDateTime&);
-
-    void SetCreatedAtBefore(const FDateTime&);
-
-    void SetCreatedAtBeforeOrEqual(const FDateTime&);
+    UPROPERTY()
+    FDateTime CreatedAtBeforeOrEqual = FDateTime{0};
 
     /// Sort parameters. Cannot be used with non-zero offset
-    void SetSort(const TArray<FSortParamRequestDto>&);
+    UPROPERTY()
+    TArray<FSortParamRequestDto> Sort;
 };
