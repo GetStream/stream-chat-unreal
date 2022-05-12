@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Request/PaginatedRequest.h"
+#include "JsonObjectWrapper.h"
 #include "Request/SortParamRequestDto.h"
 
 #include "SearchRequestDto.generated.h"
@@ -14,9 +14,20 @@
  * @see https://getstream.io/chat/docs/unreal/search/
  */
 USTRUCT()
-struct STREAMCHATDTO_API FSearchRequestDto : public FPaginatedRequest
+struct STREAMCHATDTO_API FSearchRequestDto
 {
     GENERATED_BODY()
+
+    /// Number of items to return
+    UPROPERTY()
+    uint32 Limit = TNumericLimits<uint32>::Max();
+
+    /// Item offset
+    UPROPERTY()
+    uint32 Offset = TNumericLimits<uint32>::Max();
+
+    UPROPERTY()
+    FJsonObjectWrapper FilterConditions;
 
     /// Search phrase
     UPROPERTY()
