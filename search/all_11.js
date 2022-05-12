@@ -1,7 +1,7 @@
 var searchData=
 [
   ['reactioncounts_0',['ReactionCounts',['../struct_f_message_dto.html#a432e99d415b0b69a45144f1ee08dc467',1,'FMessageDto']]],
-  ['reactions_1',['Reactions',['../struct_f_message.html#ad74d421c350e96e2b487b3ffd361934a',1,'FMessage']]],
+  ['reactions_1',['Reactions',['../struct_f_get_reactions_response_dto.html#ae822742cb1d6a848130d871ae6b092a7',1,'FGetReactionsResponseDto::Reactions()'],['../struct_f_message.html#ad74d421c350e96e2b487b3ffd361934a',1,'FMessage::Reactions()']]],
   ['reactionscores_2',['ReactionScores',['../struct_f_message_request_dto.html#ad618a0e17f84e1bf126de384e52d89cd',1,'FMessageRequestDto::ReactionScores()'],['../struct_f_message_dto.html#a6df0e4eab86c1a6d6dcd46c78ad6b85f',1,'FMessageDto::ReactionScores()']]],
   ['read_3',['Read',['../struct_f_channel_state_response_fields_dto.html#a5b74faf2666b551290631b2afd074147',1,'FChannelStateResponseFieldsDto::Read()'],['../struct_f_channel_state.html#a7eb3c589b1a6d6f35541df633ec8245d',1,'FChannelState::Read()']]],
   ['reason_4',['Reason',['../struct_f_ban_request_dto.html#a2ddbee797dadf056f2891b4f2ff66f95',1,'FBanRequestDto']]],

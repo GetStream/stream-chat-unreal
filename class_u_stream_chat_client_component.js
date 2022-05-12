@@ -19,7 +19,7 @@ var class_u_stream_chat_client_component =
     [ "QueryAdditionalChannels", "class_u_stream_chat_client_component.html#adba9ca31b5bd31c24da7bbb63a7cfc73", null ],
     [ "QueryChannel", "class_u_stream_chat_client_component.html#a4d324df894080737f8e915db575fed6d", null ],
     [ "QueryChannels", "class_u_stream_chat_client_component.html#a6a960c3c9631c36846e57bf5e183e0e8", null ],
-    [ "QueryChannels", "class_u_stream_chat_client_component.html#ac95a404b3364376aeec773bc3ba688fe", null ],
+    [ "QueryChannels", "class_u_stream_chat_client_component.html#a222a25e86b48f7551cc3018df8722698", null ],
     [ "QueryUsers", "class_u_stream_chat_client_component.html#a2a34bcec42980e3e74cf06f8109c053c", null ],
     [ "RemoveDevice", "class_u_stream_chat_client_component.html#a31f65a566b8ad470d0fd0ac93b7c6da3", null ],
     [ "SearchMessages", "class_u_stream_chat_client_component.html#a5f3eda6bd940dbaabba1c5d1a3f33c05", null ],

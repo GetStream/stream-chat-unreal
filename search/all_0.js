@@ -5,7 +5,7 @@ var searchData=
   ['addmembers_2',['AddMembers',['../struct_f_update_channel_request_dto.html#a8ac3ebebca82e45a73105778b81e2d5f',1,'FUpdateChannelRequestDto::AddMembers()'],['../class_u_chat_channel.html#a58a18eb168d0278f8970bbdb20c86b2b',1,'UChatChannel::AddMembers()']]],
   ['addmessage_3',['AddMessage',['../struct_f_channel_state.html#a591082f72ff629a497d40ab526c79145',1,'FChannelState']]],
   ['addmoderators_4',['AddModerators',['../struct_f_update_channel_request_dto.html#a28ebf82105cf31f4892b80e30b8844fc',1,'FUpdateChannelRequestDto']]],
-  ['addreaction_5',['AddReaction',['../struct_f_reactions.html#aae06d00b5a37b29eb7df0864085d7d1c',1,'FReactions']]],
+  ['addreaction_5',['AddReaction',['../struct_f_reactions.html#acd6876dc5e62b110b01eb470e03e04bd',1,'FReactions']]],
   ['and_6',['And',['../struct_f_filter.html#af14d6d49c006bd366746230a0a7f9319',1,'FFilter::And()'],['../group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5ac33315685a0cba3ce53be378b3c7874b',1,'And():&#160;Filter.h']]],
   ['anonymous_7',['Anonymous',['../group___stream_chat.html#gga640e62db05d42071eaabcd5a151510b1a7079c72c21415131774625ba1d64f4b0',1,'Token.h']]],
   ['append_8',['Append',['../struct_f_channel_state.html#a5ea3db97ae2b64801848d07a0671c9b3',1,'FChannelState']]],

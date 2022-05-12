@@ -1,7 +1,7 @@
 var searchData=
 [
   ['name_0',['Name',['../struct_f_channel_config_with_info_dto.html#a4626e91eadbb418d1d9f4b91098cc011',1,'FChannelConfigWithInfoDto::Name()'],['../struct_f_user.html#a93c3bd7ac953ce1bf092845e7fb43422',1,'FUser::Name()']]],
-  ['next_1',['Next',['../struct_f_search_response_dto.html#a395b784d43269ae08214835f537035c9',1,'FSearchResponseDto']]],
+  ['next_1',['Next',['../struct_f_search_request_dto.html#ae6b8cbfb7bf8b4c7a88ec93bb930ada1',1,'FSearchRequestDto::Next()'],['../struct_f_search_response_dto.html#a395b784d43269ae08214835f537035c9',1,'FSearchResponseDto::Next()']]],
   ['none_2',['None',['../group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a6adf97f83acf6453d4a6a4b1070f3754',1,'ChannelFlags.h']]],
   ['nor_3',['Nor',['../struct_f_filter.html#a3aada97f4e00824bdfea21fcca2f1e3c',1,'FFilter::Nor()'],['../group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a5f61fcb6e17f7a46a46a47c7977c90c1',1,'Nor():&#160;Filter.h']]],
   ['notequal_4',['NotEqual',['../struct_f_filter.html#add8a6f6736bde507af20df2a2d0fd893',1,'FFilter::NotEqual(const FName &amp;Field, int32 Value)'],['../struct_f_filter.html#a033e20dfb283d3a2e2b32f1a462cdeb5',1,'FFilter::NotEqual(const FName &amp;Field, float Value)'],['../struct_f_filter.html#a5be658f222a9e523ac3d9b62ad9b4a28',1,'FFilter::NotEqual(const FName &amp;Field, const FString &amp;Value)'],['../struct_f_filter.html#a4681d2cfbccd0b69e140fa35867966c6',1,'FFilter::NotEqual(const FName &amp;Field, bool bValue)'],['../group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a19bb0af2c3c530538cb41aff7f235b96',1,'NotEqual():&#160;Filter.h']]],

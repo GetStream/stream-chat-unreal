@@ -1,7 +1,6 @@
 var hierarchy =
 [
     [ "FBan", "struct_f_ban.html", null ],
-    [ "FBanPaginationOptions", "struct_f_ban_pagination_options.html", null ],
     [ "FBanRequestDto", "struct_f_ban_request_dto.html", null ],
     [ "FBanResponseDto", "struct_f_ban_response_dto.html", null ],
     [ "FBanSortOption", "struct_f_ban_sort_option.html", null ],
@@ -11,7 +10,6 @@ var hierarchy =
     [ "FChannelMemberDto", "struct_f_channel_member_dto.html", null ],
     [ "FChannelMemberRequestDto", "struct_f_channel_member_request_dto.html", null ],
     [ "FChannelMuteDto", "struct_f_channel_mute_dto.html", null ],
-    [ "FChannelPaginationOptions", "struct_f_channel_pagination_options.html", null ],
     [ "FChannelProperties", "struct_f_channel_properties.html", null ],
     [ "FChannelRequestDto", "struct_f_channel_request_dto.html", null ],
     [ "FChannelResponseDto", "struct_f_channel_response_dto.html", null ],
@@ -68,20 +66,22 @@ var hierarchy =
     [ "FMessageDto", "struct_f_message_dto.html", [
       [ "FSearchResultMessageDto", "struct_f_search_result_message_dto.html", null ]
     ] ],
-    [ "FMessagePaginationOptions", "struct_f_message_pagination_options.html", null ],
     [ "FMessagePaginationParamsRequestDto", "struct_f_message_pagination_params_request_dto.html", null ],
     [ "FMessageRequestDto", "struct_f_message_request_dto.html", null ],
     [ "FMessageSortOption", "struct_f_message_sort_option.html", null ],
     [ "FMuteChannelRequestDto", "struct_f_mute_channel_request_dto.html", null ],
     [ "FMuteUserRequestDto", "struct_f_mute_user_request_dto.html", null ],
-    [ "FPaginatedRequest", "struct_f_paginated_request.html", [
-      [ "FQueryBannedUsersRequestDto", "struct_f_query_banned_users_request_dto.html", null ],
-      [ "FQueryChannelsRequestDto", "struct_f_query_channels_request_dto.html", null ],
-      [ "FQueryUsersRequestDto", "struct_f_query_users_request_dto.html", null ],
-      [ "FSearchRequestDto", "struct_f_search_request_dto.html", null ]
+    [ "FPaginationOptions", "struct_f_pagination_options.html", [
+      [ "FBanPaginationOptions", "struct_f_ban_pagination_options.html", null ],
+      [ "FUserPaginationOptions", "struct_f_user_pagination_options.html", [
+        [ "FMessagePaginationOptions", "struct_f_message_pagination_options.html", null ]
+      ] ]
     ] ],
     [ "FPaginationParamsRequestDto", "struct_f_pagination_params_request_dto.html", null ],
+    [ "FQueryBannedUsersRequestDto", "struct_f_query_banned_users_request_dto.html", null ],
+    [ "FQueryChannelsRequestDto", "struct_f_query_channels_request_dto.html", null ],
     [ "FQueryMembersRequestDto", "struct_f_query_members_request_dto.html", null ],
+    [ "FQueryUsersRequestDto", "struct_f_query_users_request_dto.html", null ],
     [ "FReaction", "struct_f_reaction.html", null ],
     [ "FReactionDto", "struct_f_reaction_dto.html", null ],
     [ "FReactionGroup", "struct_f_reaction_group.html", null ],
@@ -94,6 +94,7 @@ var hierarchy =
       [ "FDeleteChannelResponseDto", "struct_f_delete_channel_response_dto.html", null ],
       [ "FEventResponseDto", "struct_f_event_response_dto.html", null ],
       [ "FFlagResponseDto", "struct_f_flag_response_dto.html", null ],
+      [ "FGetReactionsResponseDto", "struct_f_get_reactions_response_dto.html", null ],
       [ "FGuestResponseDto", "struct_f_guest_response_dto.html", null ],
       [ "FListDevicesResponseDto", "struct_f_list_devices_response_dto.html", null ],
       [ "FMarkReadResponseDto", "struct_f_mark_read_response_dto.html", null ],
@@ -108,6 +109,7 @@ var hierarchy =
       [ "FUpdateChannelResponseDto", "struct_f_update_channel_response_dto.html", null ],
       [ "FUsersResponseDto", "struct_f_users_response_dto.html", null ]
     ] ],
+    [ "FSearchRequestDto", "struct_f_search_request_dto.html", null ],
     [ "FSearchResultDto", "struct_f_search_result_dto.html", null ],
     [ "FSearchWarningDto", "struct_f_search_warning_dto.html", null ],
     [ "FSendEventRequestDto", "struct_f_send_event_request_dto.html", null ],
@@ -126,7 +128,6 @@ var hierarchy =
       [ "FUserObjectRequestDto", "struct_f_user_object_request_dto.html", null ]
     ] ],
     [ "FUserMuteDto", "struct_f_user_mute_dto.html", null ],
-    [ "FUserPaginationOptions", "struct_f_user_pagination_options.html", null ],
     [ "FUserRef", "struct_f_user_ref.html", null ],
     [ "FUserSortOption", "struct_f_user_sort_option.html", null ],
     [ "IChatSocket", "class_i_chat_socket.html", null ],

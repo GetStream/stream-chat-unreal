@@ -107,28 +107,29 @@ $(document).ready(function(){initNavTree('_user_manager_8h_source.html',''); ini
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    GENERATED_BODY()</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>public:</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    static UUserManager* Get();</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordtype">void</span> SetCurrentUser(const <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&amp; InCurrentUser);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordtype">void</span> ResetCurrentUser();</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    const <a class="code hl_struct" href="struct_f_user.html">FUser</a>&amp; GetUser(const <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&amp;);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordtype">bool</span> HasUser(const <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&amp;) const;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a> UpsertUser(const <a class="code hl_struct" href="struct_f_user.html">FUser</a>&amp;);</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a> UpsertUser(const <a class="code hl_struct" href="struct_f_own_user_dto.html">FOwnUserDto</a>&amp;);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a> UpsertUser(const <a class="code hl_struct" href="struct_f_user_object_dto.html">FUserObjectDto</a>&amp;);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a> UpsertUser(const FString&amp; <a class="code hl_variable" href="struct_f_user_dto.html#a9fc9adaed04a41d8b5a6fdf10c9fd001">Id</a>);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    TArray&lt;<a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&gt; UpsertUsers(const TArray&lt;<a class="code hl_struct" href="struct_f_user.html">FUser</a>&gt;&amp;);</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    TArray&lt;<a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&gt; UpsertUsers(const TArray&lt;<a class="code hl_struct" href="struct_f_user_object_dto.html">FUserObjectDto</a>&gt;&amp;);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    FUserUpdatedMultiDelegate&amp; OnUserUpdated(const <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&amp;);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    UFUNCTION(BlueprintPure, Category = &quot;Stream|Users&quot;)</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    const <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&amp; GetCurrentUser() const;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>private:</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a> CurrentUser;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    TMap&lt;FString, <a class="code hl_struct" href="struct_f_user.html">FUser</a>&gt; Users;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    TMap&lt;FString, FUserUpdatedMultiDelegate&gt; UserUpdatedDelegates;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>};</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    virtual <span class="keywordtype">void</span> Initialize(FSubsystemCollectionBase&amp; Collection) override;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    static UUserManager* Get();</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordtype">void</span> SetCurrentUser(const <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&amp; InCurrentUser);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordtype">void</span> ResetCurrentUser();</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    const <a class="code hl_struct" href="struct_f_user.html">FUser</a>&amp; GetUser(const <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&amp;);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordtype">bool</span> HasUser(const <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&amp;) const;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a> UpsertUser(const <a class="code hl_struct" href="struct_f_user.html">FUser</a>&amp;);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a> UpsertUser(const <a class="code hl_struct" href="struct_f_own_user_dto.html">FOwnUserDto</a>&amp;);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a> UpsertUser(const <a class="code hl_struct" href="struct_f_user_object_dto.html">FUserObjectDto</a>&amp;);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a> UpsertUser(const FString&amp; <a class="code hl_variable" href="struct_f_user_dto.html#a9fc9adaed04a41d8b5a6fdf10c9fd001">Id</a>);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    TArray&lt;<a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&gt; UpsertUsers(const TArray&lt;<a class="code hl_struct" href="struct_f_user.html">FUser</a>&gt;&amp;);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    TArray&lt;<a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&gt; UpsertUsers(const TArray&lt;<a class="code hl_struct" href="struct_f_user_object_dto.html">FUserObjectDto</a>&gt;&amp;);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    FUserUpdatedMultiDelegate&amp; OnUserUpdated(const <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&amp;);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    UFUNCTION(BlueprintPure, Category = &quot;Stream|Users&quot;)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    const <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&amp; GetCurrentUser() const;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>private:</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a> CurrentUser;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    TMap&lt;FString, <a class="code hl_struct" href="struct_f_user.html">FUser</a>&gt; Users;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    TMap&lt;FString, FUserUpdatedMultiDelegate&gt; UserUpdatedDelegates;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>};</div>
 <div class="ttc" id="astruct_f_own_user_dto_html"><div class="ttname"><a href="struct_f_own_user_dto.html">FOwnUserDto</a></div><div class="ttdoc">#/components/schemas/OwnUser</div><div class="ttdef"><b>Definition:</b> OwnUserDto.h:17</div></div>
 <div class="ttc" id="astruct_f_user_dto_html_a9fc9adaed04a41d8b5a6fdf10c9fd001"><div class="ttname"><a href="struct_f_user_dto.html#a9fc9adaed04a41d8b5a6fdf10c9fd001">FUserDto::Id</a></div><div class="ttdeci">FString Id</div><div class="ttdoc">Unique user identifier.</div><div class="ttdef"><b>Definition:</b> UserDto.h:44</div></div>
 <div class="ttc" id="astruct_f_user_html"><div class="ttname"><a href="struct_f_user.html">FUser</a></div><div class="ttdoc">A Stream Chat user.</div><div class="ttdef"><b>Definition:</b> User.h:22</div></div>

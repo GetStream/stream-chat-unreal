@@ -19,10 +19,6 @@ var group___stream_chat =
       [ "MessageRetention", "struct_f_channel_config.html#a4552dfcd59a17310bc6f04770e5730b8", null ],
       [ "UpdatedAt", "struct_f_channel_config.html#ae03596ecf9aac3156b8eb28166c0b715", null ]
     ] ],
-    [ "FChannelPaginationOptions", "struct_f_channel_pagination_options.html", [
-      [ "Limit", "struct_f_channel_pagination_options.html#a48dd49833c62f90a5c37fedd6f5b1c52", null ],
-      [ "Offset", "struct_f_channel_pagination_options.html#aaca88c3d96fa383565c348829e6a8b54", null ]
-    ] ],
     [ "FChannelProperties", "struct_f_channel_properties.html", [
       [ "FChannelProperties", "struct_f_channel_properties.html#a567900ccd18561d70152fbf7821a6c09", null ],
       [ "FChannelProperties", "struct_f_channel_properties.html#a242e5c0e4b08422fcaee97759cef2430", null ],
@@ -97,6 +93,7 @@ var group___stream_chat =
       [ "DeleteMessage", "class_u_chat_channel.html#acd8d28c0f92e5aa93f9498a0307fe871", null ],
       [ "DeleteReaction", "class_u_chat_channel.html#ac60976fa7382c9c22cb41ca570610bcf", null ],
       [ "GetMessages", "class_u_chat_channel.html#acfdb55f36b049e167a608b0ca3744f6e", null ],
+      [ "GetReactions", "class_u_chat_channel.html#a799b0cb722dd0b91c9e0714b47dfb6f1", null ],
       [ "Hide", "class_u_chat_channel.html#a04f40f2ee5819990ee220d64696b6695", null ],
       [ "KeyStroke", "class_u_chat_channel.html#a8102ae8974c78a297db1229334c593c2", null ],
       [ "MarkRead", "class_u_chat_channel.html#a4c14c007dc5cae06c50b45fd747bf13b", null ],
@@ -114,7 +111,7 @@ var group___stream_chat =
       [ "SearchMessages", "class_u_chat_channel.html#abd9c334382f0b34ae03f96cf6113b384", null ],
       [ "SendEvent", "class_u_chat_channel.html#aed47eb30b9ab1fde4d67b88caa12d317", null ],
       [ "SendMessage", "class_u_chat_channel.html#a9b55744dd39b09853302c5af29f2f4f2", null ],
-      [ "SendReaction", "class_u_chat_channel.html#a7ebcf7d92e7b0000a4bca8676e06624f", null ],
+      [ "SendReaction", "class_u_chat_channel.html#aecb2736baaa6927892e77e5515020184", null ],
       [ "Show", "class_u_chat_channel.html#ac6eb55611d3ac58988e1dad3d65460d8", null ],
       [ "StopTyping", "class_u_chat_channel.html#a9e9708a5be8e8ac9ece17712399a9dbf", null ],
       [ "StopWatching", "class_u_chat_channel.html#afa3d454879743cca0045534056a17c4f", null ],
@@ -168,6 +165,7 @@ var group___stream_chat =
       [ "User", "struct_f_read.html#a79a699d416a8a243f98fc66e3d294d82", null ]
     ] ],
     [ "FBanPaginationOptions", "struct_f_ban_pagination_options.html", null ],
+    [ "FPaginationOptions", "struct_f_pagination_options.html", null ],
     [ "FReaction", "struct_f_reaction.html", [
       [ "CreatedAt", "struct_f_reaction.html#a0e769fe1b38e5122e985ab2a817aa25f", null ],
       [ "MessageId", "struct_f_reaction.html#aed5d244bc9019cede9664e3151873bc3", null ],
@@ -177,21 +175,21 @@ var group___stream_chat =
       [ "User", "struct_f_reaction.html#aa231b75005a632ef414aaac9371922dd", null ]
     ] ],
     [ "FReactionGroup", "struct_f_reaction_group.html", [
+      [ "GetOwnReaction", "struct_f_reaction_group.html#a86ff335c306dccb3f01db644783bb8fe", null ],
       [ "Count", "struct_f_reaction_group.html#a71064050fd31523a919aeb33ae65363e", null ],
       [ "LatestReactions", "struct_f_reaction_group.html#a8e1dc034c0c1401a8cae04993ea638ad", null ],
-      [ "OwnReaction", "struct_f_reaction_group.html#acd58fe03dfe5222dbfeba28f81d4f38c", null ],
       [ "TotalScore", "struct_f_reaction_group.html#a7da3ed913174d43c9f59e7fcf5835194", null ],
       [ "Type", "struct_f_reaction_group.html#af442f6d95071418868a78017b1e1206b", null ]
     ] ],
     [ "UReactionGroupBlueprintLibrary", "class_u_reaction_group_blueprint_library.html", null ],
     [ "FReactions", "struct_f_reactions.html", [
-      [ "AddReaction", "struct_f_reactions.html#aae06d00b5a37b29eb7df0864085d7d1c", null ],
-      [ "GetOwnReaction", "struct_f_reactions.html#a3f8e7afd80bd7401605d0427129b48d4", null ],
+      [ "AddReaction", "struct_f_reactions.html#acd6876dc5e62b110b01eb470e03e04bd", null ],
+      [ "GetOwnReaction", "struct_f_reactions.html#aa847eabeaefd2a843278c9d235c78893", null ],
       [ "GetReactionGroups", "struct_f_reactions.html#ae6fa68e32032186a30464db7d57015ae", null ],
       [ "GetScores", "struct_f_reactions.html#a11c8d79d36e0d05cf144e584999d8b5b", null ],
       [ "IsEmpty", "struct_f_reactions.html#ad2a6e810244835fc20ec522de82b3aab", null ],
-      [ "RemoveReactionWhere", "struct_f_reactions.html#af88c560c8f7dc9557ed3ef7ffb2e16cd", null ],
-      [ "UpdateOwnReactions", "struct_f_reactions.html#a435e43e2152577fab466e969af059c7a", null ]
+      [ "LocalCount", "struct_f_reactions.html#ab2f0b56e3eb0ec495c51755ffef460d0", null ],
+      [ "RemoveReactionWhere", "struct_f_reactions.html#af88c560c8f7dc9557ed3ef7ffb2e16cd", null ]
     ] ],
     [ "UReactionsBlueprintLibrary", "class_u_reactions_blueprint_library.html", null ],
     [ "UStreamChatClientComponent", "class_u_stream_chat_client_component.html", [
@@ -214,7 +212,7 @@ var group___stream_chat =
       [ "QueryAdditionalChannels", "class_u_stream_chat_client_component.html#adba9ca31b5bd31c24da7bbb63a7cfc73", null ],
       [ "QueryChannel", "class_u_stream_chat_client_component.html#a4d324df894080737f8e915db575fed6d", null ],
       [ "QueryChannels", "class_u_stream_chat_client_component.html#a6a960c3c9631c36846e57bf5e183e0e8", null ],
-      [ "QueryChannels", "class_u_stream_chat_client_component.html#ac95a404b3364376aeec773bc3ba688fe", null ],
+      [ "QueryChannels", "class_u_stream_chat_client_component.html#a222a25e86b48f7551cc3018df8722698", null ],
       [ "QueryUsers", "class_u_stream_chat_client_component.html#a2a34bcec42980e3e74cf06f8109c053c", null ],
       [ "RemoveDevice", "class_u_stream_chat_client_component.html#a31f65a566b8ad470d0fd0ac93b7c6da3", null ],
       [ "SearchMessages", "class_u_stream_chat_client_component.html#a5f3eda6bd940dbaabba1c5d1a3f33c05", null ],

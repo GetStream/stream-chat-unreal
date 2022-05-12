@@ -41,7 +41,9 @@ var group___stream_chat_dto =
       [ "bState", "struct_f_query_channels_request_dto.html#a82b00c38b719ff5ac4a8e621a689ed29", null ],
       [ "bWatch", "struct_f_query_channels_request_dto.html#a6ce1221876ebf9d627d41ad0f2b5eab0", null ],
       [ "ConnectionId", "struct_f_query_channels_request_dto.html#a6e40b7fa50ee64ea80e3fb57249f6a9e", null ],
+      [ "Limit", "struct_f_query_channels_request_dto.html#a52c3d27d3b098cf35a1729cc48cb9589", null ],
       [ "MemberLimit", "struct_f_query_channels_request_dto.html#adbb13a036f065d223c52abf3c1306bd1", null ],
+      [ "Offset", "struct_f_query_channels_request_dto.html#a8ba2fa642f6e7baaafd88a696d03d50d", null ],
       [ "Sort", "struct_f_query_channels_request_dto.html#ad3bc9151f4d3c44a2e5c194b54e4d178", null ]
     ] ],
     [ "FQueryMembersRequestDto", "struct_f_query_members_request_dto.html", [
@@ -81,10 +83,12 @@ var group___stream_chat_dto =
       [ "Text", "struct_f_message_request_dto.html#ab24fd104212ec3a5b2263739aa4065b8", null ]
     ] ],
     [ "FSearchRequestDto", "struct_f_search_request_dto.html", [
-      [ "SetMessageFilter", "struct_f_search_request_dto.html#a48751be54ced0a597229f7ef6517be4e", null ],
-      [ "SetNext", "struct_f_search_request_dto.html#a1a43fcf0bc2950a1c0c763c9dc29e578", null ],
-      [ "SetQuery", "struct_f_search_request_dto.html#a7ec9ff14613f4e47dc9efcaf576ddb36", null ],
-      [ "SetSort", "struct_f_search_request_dto.html#a275f6f92187f191be212b5621524a525", null ]
+      [ "Limit", "struct_f_search_request_dto.html#a092001cc8e7cb2d36bfa5d667f7e768e", null ],
+      [ "MessageFilterConditions", "struct_f_search_request_dto.html#a1a9da6c7937eda7b4d56961ca1e21d77", null ],
+      [ "Next", "struct_f_search_request_dto.html#ae6b8cbfb7bf8b4c7a88ec93bb930ada1", null ],
+      [ "Offset", "struct_f_search_request_dto.html#af35fd26ede54ad31e28fc24232d3be83", null ],
+      [ "Query", "struct_f_search_request_dto.html#a212dd36831b231bdeb175ee61bac5bfd", null ],
+      [ "Sort", "struct_f_search_request_dto.html#a623bd0d678d67b48adb622ad80764059", null ]
     ] ],
     [ "FSendMessageRequestDto", "struct_f_send_message_request_dto.html", [
       [ "bSkipPush", "struct_f_send_message_request_dto.html#a27a2a62eacf81dbe6bcd5b87ea568bb5", null ],
@@ -115,15 +119,13 @@ var group___stream_chat_dto =
       [ "Timeout", "struct_f_mute_user_request_dto.html#a04ca7f70fae2bf2a7abb2128e969aeda", null ]
     ] ],
     [ "FQueryBannedUsersRequestDto", "struct_f_query_banned_users_request_dto.html", [
-      [ "SetSort", "struct_f_query_banned_users_request_dto.html#aba1e4707d82c6a190a982af6c31682fd", null ]
-    ] ],
-    [ "FPaginatedRequest", "struct_f_paginated_request.html", [
-      [ "SetLimit", "struct_f_paginated_request.html#a1e01e73e18a2bb22d8b9884f35a1030d", null ],
-      [ "SetOffset", "struct_f_paginated_request.html#a156d316464d715fdac1a7c8db4e9e748", null ]
+      [ "Limit", "struct_f_query_banned_users_request_dto.html#abad36af0318259f40bf7f9c149e2cfcf", null ],
+      [ "Offset", "struct_f_query_banned_users_request_dto.html#a61ef6edeee703284a677d2c6c5d50589", null ],
+      [ "Sort", "struct_f_query_banned_users_request_dto.html#a627634cfe33e6ff0071d1a4784e57e88", null ]
     ] ],
     [ "FReactionRequestDto", "struct_f_reaction_request_dto.html", [
       [ "MessageId", "struct_f_reaction_request_dto.html#a3943076267a1a7b9ba02ac951ea0929b", null ],
-      [ "Score", "struct_f_reaction_request_dto.html#a8a82e03d33902299f48fcb82963b3d13", null ],
+      [ "Score", "struct_f_reaction_request_dto.html#a563ef0a6673a2420c2d3c20a2ae9c763", null ],
       [ "Type", "struct_f_reaction_request_dto.html#a191da3fbea78e3e116343424580041f7", null ]
     ] ],
     [ "FSendReactionRequestDto", "struct_f_send_reaction_request_dto.html", [
@@ -133,12 +135,14 @@ var group___stream_chat_dto =
     [ "FSortParamRequestDto", "struct_f_sort_param_request_dto.html", null ],
     [ "FGuestRequestDto", "struct_f_guest_request_dto.html", null ],
     [ "FQueryUsersRequestDto", "struct_f_query_users_request_dto.html", [
-      [ "SetIdGt", "struct_f_query_users_request_dto.html#a5164663b722c4e1b19a10be712e8be08", null ],
-      [ "SetIdGte", "struct_f_query_users_request_dto.html#a8314622e355b546d14b7784eb05f4456", null ],
-      [ "SetIdLt", "struct_f_query_users_request_dto.html#a2997326f29cf2033b0744b8eee9b0e88", null ],
-      [ "SetIdLte", "struct_f_query_users_request_dto.html#a60b358bb789aefc7c022914d5a07efa3", null ],
       [ "bPresence", "struct_f_query_users_request_dto.html#a1960e921ae5675c7a24e5a5ea31c153f", null ],
       [ "ConnectionId", "struct_f_query_users_request_dto.html#a118f82af5a7401cd2fef58164de64f81", null ],
+      [ "IdGt", "struct_f_query_users_request_dto.html#ad91a3ae2d0436462e2377016f0988a77", null ],
+      [ "IdGte", "struct_f_query_users_request_dto.html#a8ed0edc7db1614c02692e42a45e0229a", null ],
+      [ "IdLt", "struct_f_query_users_request_dto.html#a6f4abd82d1ac91c98cef36056eb310ba", null ],
+      [ "IdLte", "struct_f_query_users_request_dto.html#a3c0e53e31d9e1a6a81b6d92ef2dee6fe", null ],
+      [ "Limit", "struct_f_query_users_request_dto.html#acd8ebc7d0597b22d71363e4d087d6951", null ],
+      [ "Offset", "struct_f_query_users_request_dto.html#a1c16723a5e0378cb08aa577b14622923", null ],
       [ "Sort", "struct_f_query_users_request_dto.html#a720e455cf1fded70c7c648d208c6e2dc", null ]
     ] ],
     [ "FUserObjectRequestDto", "struct_f_user_object_request_dto.html", null ],
@@ -328,6 +332,9 @@ var group___stream_chat_dto =
       [ "CreatedAt", "struct_f_user_mute_dto.html#a3312526b344734dad969c4f2d1afc213", null ],
       [ "Expires", "struct_f_user_mute_dto.html#aa47d1fa9636bc88340e444109f895190", null ],
       [ "UpdatedAt", "struct_f_user_mute_dto.html#ad88dfb7b1e6bcb516bc4b28a277f8cf6", null ]
+    ] ],
+    [ "FGetReactionsResponseDto", "struct_f_get_reactions_response_dto.html", [
+      [ "Reactions", "struct_f_get_reactions_response_dto.html#ae822742cb1d6a848130d871ae6b092a7", null ]
     ] ],
     [ "FReactionDto", "struct_f_reaction_dto.html", [
       [ "CreatedAt", "struct_f_reaction_dto.html#a7401f203ba997a9de1d51ebd1a623189", null ],

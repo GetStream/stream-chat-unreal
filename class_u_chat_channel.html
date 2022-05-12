@@ -243,9 +243,12 @@ FTypingIndicatorDelegate&#160;</td><td class="memItemRight" valign="bottom"><b>O
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Reaction</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p ><a class="anchor" id="amgrpa87198fb6a6b4fe0b70c03fc2a43a8f4"></a>Send and delete reactions. </p>
 </td></tr>
-<tr class="memitem:a7ebcf7d92e7b0000a4bca8676e06624f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a7ebcf7d92e7b0000a4bca8676e06624f">SendReaction</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;Message, const FName &amp;ReactionType, bool bEnforceUnique=true)</td></tr>
-<tr class="memdesc:a7ebcf7d92e7b0000a4bca8676e06624f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a reaction to a given message.  <a href="class_u_chat_channel.html#a7ebcf7d92e7b0000a4bca8676e06624f">More...</a><br /></td></tr>
-<tr class="separator:a7ebcf7d92e7b0000a4bca8676e06624f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecb2736baaa6927892e77e5515020184"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#aecb2736baaa6927892e77e5515020184">SendReaction</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;Message, const FName &amp;ReactionType, int32 Score=1, bool bEnforceUnique=false)</td></tr>
+<tr class="memdesc:aecb2736baaa6927892e77e5515020184"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a reaction to a given message.  <a href="class_u_chat_channel.html#aecb2736baaa6927892e77e5515020184">More...</a><br /></td></tr>
+<tr class="separator:aecb2736baaa6927892e77e5515020184"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a799b0cb722dd0b91c9e0714b47dfb6f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a799b0cb722dd0b91c9e0714b47dfb6f1">GetReactions</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;Message, const <a class="el" href="struct_f_pagination_options.html">FPaginationOptions</a> &amp;Pagination={}, TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_reaction.html">FReaction</a> &gt; &amp;)&gt; Callback={})</td></tr>
+<tr class="memdesc:a799b0cb722dd0b91c9e0714b47dfb6f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch or paginate more reactions for a given message.  <a href="class_u_chat_channel.html#a799b0cb722dd0b91c9e0714b47dfb6f1">More...</a><br /></td></tr>
+<tr class="separator:a799b0cb722dd0b91c9e0714b47dfb6f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac60976fa7382c9c22cb41ca570610bcf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#ac60976fa7382c9c22cb41ca570610bcf">DeleteReaction</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;Message, const <a class="el" href="struct_f_reaction.html">FReaction</a> &amp;Reaction)</td></tr>
 <tr class="memdesc:ac60976fa7382c9c22cb41ca570610bcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a reaction from a given message.  <a href="class_u_chat_channel.html#ac60976fa7382c9c22cb41ca570610bcf">More...</a><br /></td></tr>
 <tr class="separator:ac60976fa7382c9c22cb41ca570610bcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -380,6 +383,50 @@ FTypingIndicatorDelegate&#160;</td><td class="memItemRight" valign="bottom"><b>O
   <table class="params">
     <tr><td class="paramname">Message</td><td>The message in this channel to react to </td></tr>
     <tr><td class="paramname">Reaction</td><td>The reaction to remove </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a799b0cb722dd0b91c9e0714b47dfb6f1" name="a799b0cb722dd0b91c9e0714b47dfb6f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a799b0cb722dd0b91c9e0714b47dfb6f1">&#9670;&nbsp;</a></span>GetReactions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UChatChannel::GetReactions </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_f_message.html">FMessage</a> &amp;&#160;</td>
+          <td class="paramname"><em>Message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_f_pagination_options.html">FPaginationOptions</a> &amp;&#160;</td>
+          <td class="paramname"><em>Pagination</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_reaction.html">FReaction</a> &gt; &amp;)&gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetch or paginate more reactions for a given message. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Message</td><td>The message in this channel to fetch reactions for </td></tr>
+    <tr><td class="paramname">Pagination</td><td>Limit and offset for pagination of reactions </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received </td></tr>
   </table>
   </dd>
 </dl>
@@ -1012,11 +1059,11 @@ template&lt;class TEvent , class UserClass &gt; </div>
 <p >All parameters are optional, but a minimum of either a query or message filter is required</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Callback</td><td>Called when response is received </td></tr>
     <tr><td class="paramname">Query</td><td>Search phrase </td></tr>
     <tr><td class="paramname">MessageFilter</td><td>Message filter conditions </td></tr>
     <tr><td class="paramname">Sort</td><td>Sort parameters. Cannot be used with non-zero offset. </td></tr>
     <tr><td class="paramname">MessageLimit</td><td>Number of messages to return </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received </td></tr>
   </table>
   </dd>
 </dl>
@@ -1049,8 +1096,8 @@ template&lt;class TEvent , class UserClass &gt; </div>
 
 </div>
 </div>
-<a id="a7ebcf7d92e7b0000a4bca8676e06624f" name="a7ebcf7d92e7b0000a4bca8676e06624f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ebcf7d92e7b0000a4bca8676e06624f">&#9670;&nbsp;</a></span>SendReaction()</h2>
+<a id="aecb2736baaa6927892e77e5515020184" name="aecb2736baaa6927892e77e5515020184"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecb2736baaa6927892e77e5515020184">&#9670;&nbsp;</a></span>SendReaction()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1070,8 +1117,14 @@ template&lt;class TEvent , class UserClass &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int32&#160;</td>
+          <td class="paramname"><em>Score</em> = <code>1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>bEnforceUnique</em> = <code>true</code>&#160;</td>
+          <td class="paramname"><em>bEnforceUnique</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1087,6 +1140,7 @@ template&lt;class TEvent , class UserClass &gt; </div>
     <tr><td class="paramname">Message</td><td>The message in this channel to react to </td></tr>
     <tr><td class="paramname">ReactionType</td><td>The type of reaction to send </td></tr>
     <tr><td class="paramname">bEnforceUnique</td><td>Should all other reactions from this user be removed </td></tr>
+    <tr><td class="paramname">Score</td><td>The score of the reaction. Defaults to 1. </td></tr>
   </table>
   </dd>
 </dl>

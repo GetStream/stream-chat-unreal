@@ -99,10 +99,10 @@ $(document).ready(function(){initNavTree('struct_f_reactions.html',''); initResi
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aae06d00b5a37b29eb7df0864085d7d1c"><td class="memItemLeft" align="right" valign="top"><a id="aae06d00b5a37b29eb7df0864085d7d1c" name="aae06d00b5a37b29eb7df0864085d7d1c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>AddReaction</b> (const <a class="el" href="struct_f_reaction.html">FReaction</a> &amp;)</td></tr>
-<tr class="memdesc:aae06d00b5a37b29eb7df0864085d7d1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new reaction to the collection. <br /></td></tr>
-<tr class="separator:aae06d00b5a37b29eb7df0864085d7d1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd6876dc5e62b110b01eb470e03e04bd"><td class="memItemLeft" align="right" valign="top"><a id="acd6876dc5e62b110b01eb470e03e04bd" name="acd6876dc5e62b110b01eb470e03e04bd"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AddReaction</b> (const <a class="el" href="struct_f_reaction.html">FReaction</a> &amp;, bool bUpdateCounts)</td></tr>
+<tr class="memdesc:acd6876dc5e62b110b01eb470e03e04bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a new reaction to the collection. <br /></td></tr>
+<tr class="separator:acd6876dc5e62b110b01eb470e03e04bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af88c560c8f7dc9557ed3ef7ffb2e16cd"><td class="memItemLeft" align="right" valign="top"><a id="af88c560c8f7dc9557ed3ef7ffb2e16cd" name="af88c560c8f7dc9557ed3ef7ffb2e16cd"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>RemoveReactionWhere</b> (TFunctionRef&lt; bool(const <a class="el" href="struct_f_reaction.html">FReaction</a> &amp;)&gt; Predicate)</td></tr>
 <tr class="memdesc:af88c560c8f7dc9557ed3ef7ffb2e16cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a reaction according to the provided predicate. <br /></td></tr>
@@ -111,10 +111,17 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>RemoveReactionWhere</
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsEmpty</b> () const</td></tr>
 <tr class="memdesc:ad2a6e810244835fc20ec522de82b3aab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Are there any reactions here? <br /></td></tr>
 <tr class="separator:ad2a6e810244835fc20ec522de82b3aab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f8e7afd80bd7401605d0427129b48d4"><td class="memItemLeft" align="right" valign="top"><a id="a3f8e7afd80bd7401605d0427129b48d4" name="a3f8e7afd80bd7401605d0427129b48d4"></a>
-TOptional&lt; <a class="el" href="struct_f_reaction.html">FReaction</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetOwnReaction</b> (const FName &amp;ReactionType) const</td></tr>
-<tr class="memdesc:a3f8e7afd80bd7401605d0427129b48d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the reaction created by the current user, if it exists. <br /></td></tr>
-<tr class="separator:a3f8e7afd80bd7401605d0427129b48d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2f0b56e3eb0ec495c51755ffef460d0"><td class="memItemLeft" align="right" valign="top"><a id="ab2f0b56e3eb0ec495c51755ffef460d0" name="ab2f0b56e3eb0ec495c51755ffef460d0"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>LocalCount</b> () const</td></tr>
+<tr class="memdesc:ab2f0b56e3eb0ec495c51755ffef460d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The total number of reactions locally. <br /></td></tr>
+<tr class="separator:ab2f0b56e3eb0ec495c51755ffef460d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a387ec0756767a5ee1aac4ab90b27f1b5"><td class="memItemLeft" align="right" valign="top"><a id="a387ec0756767a5ee1aac4ab90b27f1b5" name="a387ec0756767a5ee1aac4ab90b27f1b5"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>HasAllDataLocally</b> () const</td></tr>
+<tr class="separator:a387ec0756767a5ee1aac4ab90b27f1b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa847eabeaefd2a843278c9d235c78893"><td class="memItemLeft" align="right" valign="top"><a id="aa847eabeaefd2a843278c9d235c78893" name="aa847eabeaefd2a843278c9d235c78893"></a>
+TOptional&lt; <a class="el" href="struct_f_reaction.html">FReaction</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetOwnReaction</b> (const FName &amp;ReactionType, const UUserManager *) const</td></tr>
+<tr class="memdesc:aa847eabeaefd2a843278c9d235c78893"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the reaction created by the current user, if it exists. <br /></td></tr>
+<tr class="separator:aa847eabeaefd2a843278c9d235c78893"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6fa68e32032186a30464db7d57015ae"><td class="memItemLeft" align="right" valign="top"><a id="ae6fa68e32032186a30464db7d57015ae" name="ae6fa68e32032186a30464db7d57015ae"></a>
 const TMap&lt; FName, <a class="el" href="struct_f_reaction_group.html">FReactionGroup</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetReactionGroups</b> () const</td></tr>
 <tr class="memdesc:ae6fa68e32032186a30464db7d57015ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get all reactions of this message, grouped by their type. <br /></td></tr>
@@ -123,10 +130,6 @@ const TMap&lt; FName, <a class="el" href="struct_f_reaction_group.html">FReactio
 TMap&lt; FName, int32 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetScores</b> () const</td></tr>
 <tr class="memdesc:a11c8d79d36e0d05cf144e584999d8b5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the scores of each of the reaction types in this collection. <br /></td></tr>
 <tr class="separator:a11c8d79d36e0d05cf144e584999d8b5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a435e43e2152577fab466e969af059c7a"><td class="memItemLeft" align="right" valign="top"><a id="a435e43e2152577fab466e969af059c7a" name="a435e43e2152577fab466e969af059c7a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateOwnReactions</b> ()</td></tr>
-<tr class="memdesc:a435e43e2152577fab466e969af059c7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove OwnReactions which are NOT the given user ID. <br /></td></tr>
-<tr class="separator:a435e43e2152577fab466e969af059c7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>

@@ -92,51 +92,47 @@ $(document).ready(function(){initNavTree('_query_channels_request_dto_8h_source.
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;Request/PaginatedRequest.h&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;JsonObjectWrapper.h&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;Request/SortParamRequestDto.h&quot;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;QueryChannelsRequestDto.generated.h&quot;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>USTRUCT()</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="struct_f_query_channels_request_dto.html">   17</a></span>struct STREAMCHATDTO_API <a class="code hl_struct" href="struct_f_query_channels_request_dto.html">FQueryChannelsRequestDto</a> : public <a class="code hl_struct" href="struct_f_paginated_request.html">FPaginatedRequest</a></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="struct_f_query_channels_request_dto.html">   17</a></span>struct STREAMCHATDTO_API <a class="code hl_struct" href="struct_f_query_channels_request_dto.html">FQueryChannelsRequestDto</a></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    GENERATED_BODY()</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <a class="code hl_struct" href="struct_f_query_channels_request_dto.html">FQueryChannelsRequestDto</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">explicit</span> <a class="code hl_struct" href="struct_f_query_channels_request_dto.html">FQueryChannelsRequestDto</a>(</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keyword">const</span> uint32 MessageLimit,</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keyword">const</span> uint32 MemberLimit,</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keyword">const</span> FString&amp; ConnectionId,</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keyword">const</span> <span class="keywordtype">bool</span> bPresence,</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keyword">const</span> TArray&lt;FSortParamRequestDto&gt;&amp; Sort,</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keyword">const</span> <span class="keywordtype">bool</span> bState,</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keyword">const</span> <span class="keywordtype">bool</span> bWatch,</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keyword">const</span> TOptional&lt;uint32&gt;&amp; Limit,</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keyword">const</span> TOptional&lt;uint32&gt;&amp; Offset,</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keyword">const</span> FJsonObjectWrapper&amp; Filter);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    UPROPERTY()</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    uint32 MessageLimit = TNumericLimits&lt;uint32&gt;::Max();</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    UPROPERTY()</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="struct_f_query_channels_request_dto.html#adbb13a036f065d223c52abf3c1306bd1">   39</a></span>    uint32 MemberLimit = TNumericLimits&lt;uint32&gt;::Max();</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    UPROPERTY()</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="struct_f_query_channels_request_dto.html#a6e40b7fa50ee64ea80e3fb57249f6a9e">   43</a></span>    FString ConnectionId;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    UPROPERTY()</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="struct_f_query_channels_request_dto.html#abdfdee5e5027b90bbf421fbfcabfc179">   47</a></span>    <span class="keywordtype">bool</span> bPresence = false;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    UPROPERTY()</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="struct_f_query_channels_request_dto.html#ad3bc9151f4d3c44a2e5c194b54e4d178">   51</a></span>    TArray&lt;<a class="code hl_struct" href="struct_f_sort_param_request_dto.html">FSortParamRequestDto</a>&gt; Sort;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    UPROPERTY()</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="struct_f_query_channels_request_dto.html#a82b00c38b719ff5ac4a8e621a689ed29">   55</a></span>    <span class="keywordtype">bool</span> bState = true;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    UPROPERTY()</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="struct_f_query_channels_request_dto.html#a6ce1221876ebf9d627d41ad0f2b5eab0">   59</a></span>    <span class="keywordtype">bool</span> bWatch = true;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>};</div>
-<div class="ttc" id="astruct_f_paginated_request_html"><div class="ttname"><a href="struct_f_paginated_request.html">FPaginatedRequest</a></div><div class="ttdoc">#/components/schemas/SortParamRequest</div><div class="ttdef"><b>Definition:</b> PaginatedRequest.h:17</div></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    UPROPERTY()</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="struct_f_query_channels_request_dto.html#a52c3d27d3b098cf35a1729cc48cb9589">   23</a></span>    uint32 Limit = TNumericLimits&lt;uint32&gt;::Max();</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    UPROPERTY()</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="struct_f_query_channels_request_dto.html#a8ba2fa642f6e7baaafd88a696d03d50d">   27</a></span>    uint32 Offset = TNumericLimits&lt;uint32&gt;::Max();</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    UPROPERTY()</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    FJsonObjectWrapper FilterConditions;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    UPROPERTY()</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    uint32 MessageLimit = TNumericLimits&lt;uint32&gt;::Max();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    UPROPERTY()</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="struct_f_query_channels_request_dto.html#adbb13a036f065d223c52abf3c1306bd1">   37</a></span>    uint32 MemberLimit = TNumericLimits&lt;uint32&gt;::Max();</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    UPROPERTY()</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="struct_f_query_channels_request_dto.html#a6e40b7fa50ee64ea80e3fb57249f6a9e">   41</a></span>    FString ConnectionId;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    UPROPERTY()</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="struct_f_query_channels_request_dto.html#abdfdee5e5027b90bbf421fbfcabfc179">   45</a></span>    <span class="keywordtype">bool</span> bPresence = false;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    UPROPERTY()</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="struct_f_query_channels_request_dto.html#ad3bc9151f4d3c44a2e5c194b54e4d178">   49</a></span>    TArray&lt;<a class="code hl_struct" href="struct_f_sort_param_request_dto.html">FSortParamRequestDto</a>&gt; Sort;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    UPROPERTY()</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="struct_f_query_channels_request_dto.html#a82b00c38b719ff5ac4a8e621a689ed29">   53</a></span>    <span class="keywordtype">bool</span> bState = true;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    UPROPERTY()</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="struct_f_query_channels_request_dto.html#a6ce1221876ebf9d627d41ad0f2b5eab0">   57</a></span>    <span class="keywordtype">bool</span> bWatch = true;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>};</div>
 <div class="ttc" id="astruct_f_query_channels_request_dto_html"><div class="ttname"><a href="struct_f_query_channels_request_dto.html">FQueryChannelsRequestDto</a></div><div class="ttdoc">#/components/schemas/QueryChannelsRequest</div><div class="ttdef"><b>Definition:</b> QueryChannelsRequestDto.h:18</div></div>
 <div class="ttc" id="astruct_f_sort_param_request_dto_html"><div class="ttname"><a href="struct_f_sort_param_request_dto.html">FSortParamRequestDto</a></div><div class="ttdoc">#/components/schemas/SortParamRequest</div><div class="ttdef"><b>Definition:</b> SortParamRequestDto.h:15</div></div>
 </div><!-- fragment --></div><!-- contents -->

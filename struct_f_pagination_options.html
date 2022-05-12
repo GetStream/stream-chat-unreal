@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.3"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Stream Chat Unreal SDK: FPaginatedRequest Struct Reference</title>
+<title>Stream Chat Unreal SDK: FPaginationOptions Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -65,7 +65,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('struct_f_paginated_request.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('struct_f_pagination_options.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -87,63 +87,67 @@ $(document).ready(function(){initNavTree('struct_f_paginated_request.html',''); 
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="struct_f_paginated_request-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">FPaginatedRequest Struct Reference<div class="ingroups"><a class="el" href="group___stream_chat_dto.html">DTO</a></div></div></div>
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="struct_f_pagination_options-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">FPaginationOptions Struct Reference<div class="ingroups"><a class="el" href="group___stream_chat.html">Stream Chat</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>#/components/schemas/SortParamRequest  
- <a href="struct_f_paginated_request.html#details">More...</a></p>
+<p>Options for pagination.  
+ <a href="struct_f_pagination_options.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="_paginated_request_8h_source.html">PaginatedRequest.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_pagination_options_8h_source.html">PaginationOptions.h</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for FPaginatedRequest:</div>
+Inheritance diagram for FPaginationOptions:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="struct_f_paginated_request.png" usemap="#FPaginatedRequest_map" alt=""/>
-  <map id="FPaginatedRequest_map" name="FPaginatedRequest_map">
-<area href="struct_f_query_banned_users_request_dto.html" title="#/components/schemas/QueryBannedUsersRequest" alt="FQueryBannedUsersRequestDto" shape="rect" coords="0,56,194,80"/>
-<area href="struct_f_query_channels_request_dto.html" title="#/components/schemas/QueryChannelsRequest" alt="FQueryChannelsRequestDto" shape="rect" coords="204,56,398,80"/>
-<area href="struct_f_query_users_request_dto.html" title="#/components/schemas/QueryUsersRequest" alt="FQueryUsersRequestDto" shape="rect" coords="408,56,602,80"/>
-<area href="struct_f_search_request_dto.html" title="#/components/schemas/SearchRequest" alt="FSearchRequestDto" shape="rect" coords="612,56,806,80"/>
+  <img src="struct_f_pagination_options.png" usemap="#FPaginationOptions_map" alt=""/>
+  <map id="FPaginationOptions_map" name="FPaginationOptions_map">
+<area href="struct_f_ban_pagination_options.html" title="Options for pagination of bans." alt="FBanPaginationOptions" shape="rect" coords="0,56,173,80"/>
+<area href="struct_f_user_pagination_options.html" title="Options for pagination of members or watchers." alt="FUserPaginationOptions" shape="rect" coords="183,56,356,80"/>
+<area href="struct_f_message_pagination_options.html" title="Options for pagination of messages." alt="FMessagePaginationOptions" shape="rect" coords="183,112,356,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aec2f5d5d7fd46c00b2aa1d1d04e2b227"><td class="memItemLeft" align="right" valign="top"><a id="aec2f5d5d7fd46c00b2aa1d1d04e2b227" name="aec2f5d5d7fd46c00b2aa1d1d04e2b227"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FPaginatedRequest</b> (const TOptional&lt; uint32 &gt; &amp;Limit, const TOptional&lt; uint32 &gt; &amp;Offset, const FJsonObjectWrapper &amp;Filter)</td></tr>
-<tr class="separator:aec2f5d5d7fd46c00b2aa1d1d04e2b227"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e01e73e18a2bb22d8b9884f35a1030d"><td class="memItemLeft" align="right" valign="top"><a id="a1e01e73e18a2bb22d8b9884f35a1030d" name="a1e01e73e18a2bb22d8b9884f35a1030d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetLimit</b> (uint32)</td></tr>
-<tr class="memdesc:a1e01e73e18a2bb22d8b9884f35a1030d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of items to return. <br /></td></tr>
-<tr class="separator:a1e01e73e18a2bb22d8b9884f35a1030d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a156d316464d715fdac1a7c8db4e9e748"><td class="memItemLeft" align="right" valign="top"><a id="a156d316464d715fdac1a7c8db4e9e748" name="a156d316464d715fdac1a7c8db4e9e748"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetOffset</b> (uint32)</td></tr>
-<tr class="memdesc:a156d316464d715fdac1a7c8db4e9e748"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pagination offset. <br /></td></tr>
-<tr class="separator:a156d316464d715fdac1a7c8db4e9e748"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad86661a60b7596aabee77691e8d04e15"><td class="memItemLeft" align="right" valign="top"><a id="ad86661a60b7596aabee77691e8d04e15" name="ad86661a60b7596aabee77691e8d04e15"></a>
+TOptional&lt; uint32 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetLimitAsOptional</b> () const</td></tr>
+<tr class="separator:ad86661a60b7596aabee77691e8d04e15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7be9eade0b82baae4ba0e7de394a7e8"><td class="memItemLeft" align="right" valign="top"><a id="ad7be9eade0b82baae4ba0e7de394a7e8" name="ad7be9eade0b82baae4ba0e7de394a7e8"></a>
+TOptional&lt; uint32 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetOffsetAsOptional</b> () const</td></tr>
+<tr class="separator:ad7be9eade0b82baae4ba0e7de394a7e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a6978d241311cedeaf3139017ec474dc9"><td class="memItemLeft" align="right" valign="top"><a id="a6978d241311cedeaf3139017ec474dc9" name="a6978d241311cedeaf3139017ec474dc9"></a>
-FJsonObjectWrapper&#160;</td><td class="memItemRight" valign="bottom"><b>FilterConditions</b></td></tr>
-<tr class="separator:a6978d241311cedeaf3139017ec474dc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09fb4367672ad8d489c73793e37c07f5"><td class="memItemLeft" align="right" valign="top"><a id="a09fb4367672ad8d489c73793e37c07f5" name="a09fb4367672ad8d489c73793e37c07f5"></a>
-FAdditionalFields&#160;</td><td class="memItemRight" valign="bottom"><b>Pagination</b></td></tr>
-<tr class="separator:a09fb4367672ad8d489c73793e37c07f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac712b87ceb3ec9cdb82743439fb77b27"><td class="memItemLeft" align="right" valign="top"><a id="ac712b87ceb3ec9cdb82743439fb77b27" name="ac712b87ceb3ec9cdb82743439fb77b27"></a>
+int32&#160;</td><td class="memItemRight" valign="bottom"><b>Limit</b> = -1</td></tr>
+<tr class="separator:ac712b87ceb3ec9cdb82743439fb77b27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfdcd0d1ab88d1eddf71376b2434a9e4"><td class="memItemLeft" align="right" valign="top"><a id="acfdcd0d1ab88d1eddf71376b2434a9e4" name="acfdcd0d1ab88d1eddf71376b2434a9e4"></a>
+int32&#160;</td><td class="memItemRight" valign="bottom"><b>Offset</b> = -1</td></tr>
+<tr class="separator:acfdcd0d1ab88d1eddf71376b2434a9e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a557ed74cc8faf3817253d953eb297fb3"><td class="memItemLeft" align="right" valign="top"><a id="a557ed74cc8faf3817253d953eb297fb3" name="a557ed74cc8faf3817253d953eb297fb3"></a>
+uint32&#160;</td><td class="memItemRight" valign="bottom"><b>GetLimitForDto</b> () const</td></tr>
+<tr class="separator:a557ed74cc8faf3817253d953eb297fb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49b898d8cf194855b3e561233f904a34"><td class="memItemLeft" align="right" valign="top"><a id="a49b898d8cf194855b3e561233f904a34" name="a49b898d8cf194855b3e561233f904a34"></a>
+uint32&#160;</td><td class="memItemRight" valign="bottom"><b>GetOffsetForDto</b> () const</td></tr>
+<tr class="separator:a49b898d8cf194855b3e561233f904a34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >#/components/schemas/SortParamRequest </p>
+<div class="textblock"><p >Options for pagination. </p>
 </div><hr/>The documentation for this struct was generated from the following files:<ul>
-<li>Source/Backend/StreamChatDto/Public/Request/<a class="el" href="_paginated_request_8h_source.html">PaginatedRequest.h</a></li>
-<li>Source/Backend/StreamChatDto/Private/Request/PaginatedRequest.cpp</li>
+<li>Source/StreamChat/Public/<a class="el" href="_pagination_options_8h_source.html">PaginationOptions.h</a></li>
+<li>Source/StreamChat/Private/PaginationOptions.cpp</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="struct_f_paginated_request.html">FPaginatedRequest</a></li>
+    <li class="navelem"><a class="el" href="struct_f_pagination_options.html">FPaginationOptions</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>

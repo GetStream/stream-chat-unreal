@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.3"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Stream Chat Unreal SDK: Source/StreamChat/Public/Channel/ChannelPaginationOptions.h Source File</title>
+<title>Stream Chat Unreal SDK: Source/StreamChat/Public/PaginationOptions.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -65,7 +65,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('_channel_pagination_options_8h_source.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('_pagination_options_8h_source.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -84,7 +84,7 @@ $(document).ready(function(){initNavTree('_channel_pagination_options_8h_source.
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">ChannelPaginationOptions.h</div></div>
+  <div class="headertitle"><div class="title">PaginationOptions.h</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">// Copyright 2022 Stream.IO, Inc. All Rights Reserved.</span></div>
@@ -93,20 +93,33 @@ $(document).ready(function(){initNavTree('_channel_pagination_options_8h_source.
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="struct_f_channel_pagination_options.html">   11</a></span><span class="keyword">struct </span>STREAMCHAT_API <a class="code hl_struct" href="struct_f_channel_pagination_options.html">FChannelPaginationOptions</a></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="struct_f_channel_pagination_options.html#a48dd49833c62f90a5c37fedd6f5b1c52">   14</a></span>    TOptional&lt;uint32&gt; <a class="code hl_variable" href="struct_f_channel_pagination_options.html#a48dd49833c62f90a5c37fedd6f5b1c52">Limit</a>;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="struct_f_channel_pagination_options.html#aaca88c3d96fa383565c348829e6a8b54">   16</a></span>    TOptional&lt;uint32&gt; <a class="code hl_variable" href="struct_f_channel_pagination_options.html#aaca88c3d96fa383565c348829e6a8b54">Offset</a>;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>};</div>
-<div class="ttc" id="astruct_f_channel_pagination_options_html"><div class="ttname"><a href="struct_f_channel_pagination_options.html">FChannelPaginationOptions</a></div><div class="ttdoc">Options for pagination of channels.</div><div class="ttdef"><b>Definition:</b> ChannelPaginationOptions.h:12</div></div>
-<div class="ttc" id="astruct_f_channel_pagination_options_html_a48dd49833c62f90a5c37fedd6f5b1c52"><div class="ttname"><a href="struct_f_channel_pagination_options.html#a48dd49833c62f90a5c37fedd6f5b1c52">FChannelPaginationOptions::Limit</a></div><div class="ttdeci">TOptional&lt; uint32 &gt; Limit</div><div class="ttdoc">The number of channels to return (max is 30)</div><div class="ttdef"><b>Definition:</b> ChannelPaginationOptions.h:14</div></div>
-<div class="ttc" id="astruct_f_channel_pagination_options_html_aaca88c3d96fa383565c348829e6a8b54"><div class="ttname"><a href="struct_f_channel_pagination_options.html#aaca88c3d96fa383565c348829e6a8b54">FChannelPaginationOptions::Offset</a></div><div class="ttdeci">TOptional&lt; uint32 &gt; Offset</div><div class="ttdoc">The offset (max is 1000)</div><div class="ttdef"><b>Definition:</b> ChannelPaginationOptions.h:16</div></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;PaginationOptions.generated.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>USTRUCT(BlueprintType)</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="struct_f_pagination_options.html">   14</a></span>struct STREAMCHAT_API <a class="code hl_struct" href="struct_f_pagination_options.html">FPaginationOptions</a></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = <span class="stringliteral">&quot;Stream Chat&quot;</span>)</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    int32 Limit = -1;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = <span class="stringliteral">&quot;Stream Chat&quot;</span>)</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    int32 Offset = -1;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    TOptional&lt;uint32&gt; GetLimitAsOptional() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    TOptional&lt;uint32&gt; GetOffsetAsOptional() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    uint32 GetLimitForDto() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    uint32 GetOffsetForDto() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>};</div>
+<div class="ttc" id="astruct_f_pagination_options_html"><div class="ttname"><a href="struct_f_pagination_options.html">FPaginationOptions</a></div><div class="ttdoc">Options for pagination.</div><div class="ttdef"><b>Definition:</b> PaginationOptions.h:15</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_20ea45809be488128d9196fc2ca964b5.html">StreamChat</a></li><li class="navelem"><a class="el" href="dir_a80e2c3d73be179cb8702e50d88d8258.html">Public</a></li><li class="navelem"><a class="el" href="dir_34adc993000d16d23894c39e8b906783.html">Channel</a></li><li class="navelem"><b>ChannelPaginationOptions.h</b></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_20ea45809be488128d9196fc2ca964b5.html">StreamChat</a></li><li class="navelem"><a class="el" href="dir_a80e2c3d73be179cb8702e50d88d8258.html">Public</a></li><li class="navelem"><b>PaginationOptions.h</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3 </li>
   </ul>
 </div>
