@@ -32,8 +32,9 @@ protected:
     UPROPERTY(meta = (BindWidget))
     UTextBlock* TextBlock;
 
+    UPROPERTY(EditAnywhere, Category = "Stream Chat")
+    FUserRef User;
+
 private:
     virtual void OnSetup() override;
-
-    FUserRef User;
 };

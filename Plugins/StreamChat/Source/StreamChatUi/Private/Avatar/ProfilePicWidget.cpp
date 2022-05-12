@@ -35,7 +35,7 @@ void UProfilePicWidget::OnSetup()
 
 void UProfilePicWidget::FetchRemoteImage()
 {
-    UImageDownloadSubsystem* Subsystem = UGameInstance::GetSubsystem<UImageDownloadSubsystem>(GetGameInstance());
+    UImageDownloadSubsystem* Subsystem = GEngine->GetEngineSubsystem<UImageDownloadSubsystem>();
     if (!Subsystem)
     {
         return;

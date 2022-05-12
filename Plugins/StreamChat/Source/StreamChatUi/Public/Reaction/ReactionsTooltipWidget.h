@@ -41,9 +41,10 @@ protected:
     UPROPERTY(EditAnywhere, NoClear, Category = Defaults)
     TSubclassOf<UNamedAvatarWidget> NamedAvatarWidgetClass = UNamedAvatarWidget::StaticClass();
 
+    UPROPERTY(EditAnywhere, Category = Defaults)
+    FReactionGroup ReactionGroup;
+
 private:
     virtual void OnSetup() override;
     virtual void OnTheme() override;
-
-    FReactionGroup ReactionGroup;
 };
