@@ -18,6 +18,7 @@ class STREAMCHAT_API UUserManager final : public UEngineSubsystem
     GENERATED_BODY()
 
 public:
+    virtual void Initialize(FSubsystemCollectionBase& Collection) override;
     static UUserManager* Get();
 
     void SetCurrentUser(const FUserRef& InCurrentUser);

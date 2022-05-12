@@ -124,7 +124,7 @@ void UImageDownloadSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 
 bool UImageDownloadSubsystem::ShouldCreateSubsystem(UObject* Outer) const
 {
-    return !CastChecked<UGameInstance>(Outer)->IsDedicatedServerInstance();
+    return !IsRunningDedicatedServer();
 }
 
 void UImageDownloadSubsystem::DownloadImage(const FString& Url, TFunction<void(UTexture2DDynamic*)> Callback)

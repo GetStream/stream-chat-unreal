@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Subsystems/GameInstanceSubsystem.h"
+#include "Subsystems/EngineSubsystem.h"
 
 #include "ImageDownloadSubsystem.generated.h"
 
@@ -15,7 +15,7 @@ enum class EImageFormat : int8;
  *
  */
 UCLASS()
-class STREAMCHATUI_API UImageDownloadSubsystem final : public UGameInstanceSubsystem
+class STREAMCHATUI_API UImageDownloadSubsystem final : public UEngineSubsystem
 {
     GENERATED_BODY()
 

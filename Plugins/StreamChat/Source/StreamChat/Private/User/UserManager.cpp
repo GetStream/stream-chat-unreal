@@ -8,6 +8,23 @@
 #include "UserObjectDto.h"
 #include "Util.h"
 
+void UUserManager::Initialize(FSubsystemCollectionBase& Collection)
+{
+    Super::Initialize(Collection);
+
+    if (GIsEditor)
+    {
+        FUser TestUser1(TEXT("test-user-1"));
+        TestUser1.Name = TEXT("Test user 1");
+        TestUser1.Image = TEXT("https://avatars.dicebear.com/api/big-ears-neutral/test-user-1.png");
+        FUser TestUser2(TEXT("test-user-2"));
+        TestUser2.Name = TEXT("Test user 1 with especially long name");
+        TestUser2.Image = TEXT("https://avatars.dicebear.com/api/big-ears-neutral/test-user-2.png");
+        UpsertUser(TestUser2);
+        CurrentUser = UpsertUser(TestUser1);
+    }
+}
+
 UUserManager* UUserManager::Get()
 {
     return GEngine->GetEngineSubsystem<UUserManager>();
