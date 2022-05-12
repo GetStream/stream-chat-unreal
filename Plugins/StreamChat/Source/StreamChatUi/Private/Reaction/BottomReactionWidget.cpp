@@ -95,7 +95,7 @@ void UBottomReactionWidget::NativeOnMouseEnter(const FGeometry& InGeometry, cons
                 WidgetUtil::HideDefaultMenuBackground(WeakThis->Anchor);
             }
         },
-        1.f,
+        0.5f,
         false);
 
     Super::NativeOnMouseEnter(InGeometry, InMouseEvent);

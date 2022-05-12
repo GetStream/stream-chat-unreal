@@ -70,12 +70,11 @@ struct STREAMCHAT_API FMessage
     FMessage();
     /// Create a message from a DTO from the API
     explicit FMessage(const FMessageDto&, UUserManager*);
+    explicit FMessage(const FSearchResultDto&, UUserManager*);
     /// Create a new message from a message string
     explicit FMessage(const FString& Text);
     /// Convert a message into a create/update request for sending to the API
     FMessageRequestDto ToRequestDto(const FString& Cid) const;
-
-    static TArray<FMessage> FromSearchResults(const TArray<FSearchResultDto>&);
 
     /// The message ID. This is either created by the Stream API or set client side when the message is created.
     UPROPERTY()

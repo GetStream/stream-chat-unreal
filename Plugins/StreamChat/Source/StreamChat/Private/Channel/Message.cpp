@@ -28,6 +28,10 @@ FMessage::FMessage(const FMessageDto& Dto, UUserManager* UserManager)
 {
 }
 
+FMessage::FMessage(const FSearchResultDto& Dto, UUserManager* UserManager) : FMessage{Dto.Message, UserManager}
+{
+}
+
 FMessage::FMessage(const FString& Text)
     : Id{FGuid::NewGuid().ToString(EGuidFormats::DigitsWithHyphens)}, Text{Text}, CreatedAt{FDateTime::UtcNow()}, UpdatedAt{FDateTime::UtcNow()}
 {
@@ -36,12 +40,4 @@ FMessage::FMessage(const FString& Text)
 FMessageRequestDto FMessage::ToRequestDto(const FString& Cid) const
 {
     return FMessageRequestDto{Cid, {}, Id, {}, Reactions.GetScores(), bIsSilent, Text, ExtraData};
-}
-
-TArray<FMessage> FMessage::FromSearchResults(const TArray<FSearchResultDto>& Result)
-{
-    UUserManager* UserManager = UUserManager::Get();
-    TArray<FMessage> Messages;
-    Algo::Transform(Result, Messages, [UserManager](const FSearchResultDto& R) { return FMessage{R.Message, UserManager}; });
-    return Messages;
 }

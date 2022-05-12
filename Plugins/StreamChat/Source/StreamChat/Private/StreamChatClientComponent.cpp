@@ -463,7 +463,7 @@ void UStreamChatClientComponent::SearchMessages(
         {
             if (Callback)
             {
-                Callback(FMessage::FromSearchResults(Response.Results));
+                Callback(Util::Convert<FMessage>(Response.Results, UUserManager::Get()));
             }
         });
 }

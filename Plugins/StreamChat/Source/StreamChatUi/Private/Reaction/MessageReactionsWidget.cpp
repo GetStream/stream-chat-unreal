@@ -22,6 +22,16 @@ void UMessageReactionsWidget::Setup(const FMessage& InMessage, const EMessageSid
     Super::Setup();
 }
 
+void UMessageReactionsWidget::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+    if (!bFetchingReactions && !Message.Reactions.HasAllDataLocally() && ensure(Channel))
+    {
+        bFetchingReactions = true;
+        Channel->GetReactions(Message, {200, Message.Reactions.LocalCount() - 1}, [&](const TArray<FReaction>&) { bFetchingReactions = false; });
+    }
+    Super::NativeOnMouseEnter(InGeometry, InMouseEvent);
+}
+
 void UMessageReactionsWidget::OnSetup()
 {
     if (ReactionsPanel)

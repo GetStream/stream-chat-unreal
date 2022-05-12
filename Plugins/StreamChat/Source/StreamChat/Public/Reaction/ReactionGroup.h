@@ -34,6 +34,8 @@ struct STREAMCHAT_API FReactionGroup
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
     TArray<FReaction> LatestReactions;
 
+    bool HasAllDataLocally() const;
+
     /// The reaction of this type added to the message by the current user.
     TOptional<FReaction> GetOwnReaction(const UUserManager*) const;
 };

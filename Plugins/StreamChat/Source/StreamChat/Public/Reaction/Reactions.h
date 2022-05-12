@@ -30,13 +30,19 @@ struct STREAMCHAT_API FReactions
         const TArray<FReactionDto>& OwnReactions);
 
     /// Add a new reaction to the collection
-    void AddReaction(const FReaction&);
+    void AddReaction(const FReaction&, bool bUpdateCounts);
 
     /// Remove a reaction according to the provided predicate
     void RemoveReactionWhere(TFunctionRef<bool(const FReaction&)> Predicate);
 
     /// Are there any reactions here?
     bool IsEmpty() const;
+
+    /// The total number of reactions locally
+    int LocalCount() const;
+
+    // If the reaction data complete, or do we still need to fetch some?
+    bool HasAllDataLocally() const;
 
     /// Get the reaction created by the current user, if it exists
     TOptional<FReaction> GetOwnReaction(const FName& ReactionType, const UUserManager*) const;

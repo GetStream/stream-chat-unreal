@@ -25,6 +25,8 @@ public:
     void Setup(const FMessage& InMessage, EMessageSide InSide);
 
 protected:
+    virtual void NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+
     UPROPERTY(meta = (BindWidget))
     UHorizontalBox* ReactionsPanel;
 
@@ -44,4 +46,6 @@ private:
     virtual void OnSetup() override;
 
     FMargin GetPadding() const;
+
+    bool bFetchingReactions = false;
 };

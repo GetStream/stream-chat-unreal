@@ -4,6 +4,11 @@
 
 #include "User/UserManager.h"
 
+bool FReactionGroup::HasAllDataLocally() const
+{
+    return Type != NAME_None && Count == LatestReactions.Num();
+}
+
 TOptional<FReaction> FReactionGroup::GetOwnReaction(const UUserManager* UserManager) const
 {
     const FUserRef Me = UserManager->GetCurrentUser();

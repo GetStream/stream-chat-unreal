@@ -28,7 +28,7 @@ FReactions FReactions::CollectReactions(
     }
     for (const FReactionDto& Own : OwnReactions)
     {
-        Result.ReactionGroups.FindOrAdd(Own.Type).LatestReactions.Emplace(FReaction{Own, UserManager});
+        Result.AddReaction(FReaction{Own, UserManager}, false);
     }
     return Result;
 }
@@ -43,7 +43,7 @@ TMap<FName, int32> FReactions::GetScores() const
     return Result;
 }
 
-void FReactions::AddReaction(const FReaction& Reaction)
+void FReactions::AddReaction(const FReaction& Reaction, const bool bUpdateCounts)
 {
     auto& Group = ReactionGroups.FindOrAdd(Reaction.Type);
     if (FReaction* Found = Group.LatestReactions.FindByPredicate([&](const FReaction& R) { return R.User == Reaction.User; }))
@@ -54,8 +54,11 @@ void FReactions::AddReaction(const FReaction& Reaction)
     {
         // Latest reactions are ordered reverse-chronologically
         Group.LatestReactions.Insert(Reaction, 0);
-        ++Group.Count;
-        ++Group.TotalScore;
+        if (bUpdateCounts)
+        {
+            ++Group.Count;
+            ++Group.TotalScore;
+        }
         if (Group.Type == NAME_None)
         {
             // First reaction of this type
@@ -100,6 +103,28 @@ const TMap<FName, FReactionGroup>& FReactions::GetReactionGroups() const
 bool FReactions::IsEmpty() const
 {
     return ReactionGroups.Num() == 0;
+}
+
+int FReactions::LocalCount() const
+{
+    int32 Sum = 0;
+    for (auto&& Pair : ReactionGroups)
+    {
+        Sum += Pair.Value.LatestReactions.Num();
+    }
+    return Sum;
+}
+
+bool FReactions::HasAllDataLocally() const
+{
+    for (auto&& Pair : ReactionGroups)
+    {
+        if (!Pair.Value.HasAllDataLocally())
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 bool UReactionsBlueprintLibrary::HasOwnReaction(const FReactions& Reactions, const FName& ReactionType)

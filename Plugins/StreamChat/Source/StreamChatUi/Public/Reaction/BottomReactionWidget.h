@@ -12,7 +12,6 @@
 #include "ReactionIconWidget.h"
 #include "ReactionsTooltipWidget.h"
 #include "StreamWidget.h"
-#include "Styling/SlateTypes.h"
 
 #include "BottomReactionWidget.generated.h"
 
