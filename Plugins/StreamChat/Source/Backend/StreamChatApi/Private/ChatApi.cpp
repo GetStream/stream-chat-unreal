@@ -1,5 +1,10 @@
 // Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
+// Needed for compatibility with 4.27 and 5.0 when using braced initializers
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wmissing-braces"
+#endif
+
 #include "ChatApi.h"
 
 #include "Algo/Transform.h"
@@ -134,11 +139,9 @@ void FChatApi::QueryBannedUsers(
 {
     const FString Url = BuildUrl(TEXT("query_banned_users"));
     const FQueryBannedUsersRequestDto Body{
-        {
-            Limit.Get(TNumericLimits<uint32>::Max()),
-            Offset.Get(TNumericLimits<uint32>::Max()),
-            Wrap(Filter),
-        },
+        Limit.Get(TNumericLimits<uint32>::Max()),
+        Offset.Get(TNumericLimits<uint32>::Max()),
+        Wrap(Filter),
         CreatedAtAfter.Get(FDateTime{0}),
         CreatedAtAfterOrEqual.Get(FDateTime{0}),
         CreatedAtBefore.Get(FDateTime{0}),
@@ -205,11 +208,9 @@ void FChatApi::QueryUsers(
     const FString Url = BuildUrl(TEXT("users"));
 
     const FQueryUsersRequestDto Body{
-        {
-            Limit.Get(TNumericLimits<uint32>::Max()),
-            Offset.Get(TNumericLimits<uint32>::Max()),
-            Wrap(Filter),
-        },
+        Limit.Get(TNumericLimits<uint32>::Max()),
+        Offset.Get(TNumericLimits<uint32>::Max()),
+        Wrap(Filter),
         // TODO expose these fields
         {},
         {},
@@ -425,11 +426,9 @@ void FChatApi::QueryChannels(
     const FString Url = BuildUrl(TEXT("channels"));
 
     const FQueryChannelsRequestDto Body{
-        {
-            Limit.Get(TNumericLimits<uint32>::Max()),
-            Offset.Get(TNumericLimits<uint32>::Max()),
-            Wrap(Filter),
-        },
+        Limit.Get(TNumericLimits<uint32>::Max()),
+        Offset.Get(TNumericLimits<uint32>::Max()),
+        Wrap(Filter),
         MessageLimit.Get(TNumericLimits<uint32>::Max()),
         MemberLimit.Get(TNumericLimits<uint32>::Max()),
         ConnectionId,
@@ -462,11 +461,9 @@ void FChatApi::SearchMessages(
 {
     const FString Url = BuildUrl(TEXT("search"));
     const FSearchRequestDto Body{
-        {
-            MessageLimit.Get(TNumericLimits<uint32>::Max()),
-            Offset.Get(TNumericLimits<uint32>::Max()),
-            Wrap(ChannelFilter),
-        },
+        MessageLimit.Get(TNumericLimits<uint32>::Max()),
+        Offset.Get(TNumericLimits<uint32>::Max()),
+        Wrap(ChannelFilter),
         Query.Get(TEXT("")),
         Wrap(MessageFilter),
         Sort,
