@@ -1,10 +1,5 @@
 // Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
-// Needed for compatibility with 4.27 and 5.0 when using braced initializers
-#if defined(__clang__)
-#pragma clang diagnostic ignored "-Wmissing-braces"
-#endif
-
 #include "ChatApi.h"
 
 #include "Algo/Transform.h"

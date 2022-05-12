@@ -4,7 +4,7 @@
 
 #include "AdditionalFields.h"
 #include "CoreMinimal.h"
-#include "Request/PaginatedRequest.h"
+#include "JsonObjectWrapper.h"
 #include "Request/SortParamRequestDto.h"
 
 #include "QueryUsersRequestDto.generated.h"
@@ -15,9 +15,20 @@
  * @ingroup StreamChatDto
  */
 USTRUCT()
-struct STREAMCHATDTO_API FQueryUsersRequestDto : public FPaginatedRequest
+struct STREAMCHATDTO_API FQueryUsersRequestDto
 {
     GENERATED_BODY()
+
+    /// Number of items to return
+    UPROPERTY()
+    uint32 Limit = TNumericLimits<uint32>::Max();
+
+    /// Item offset
+    UPROPERTY()
+    uint32 Offset = TNumericLimits<uint32>::Max();
+
+    UPROPERTY()
+    FJsonObjectWrapper FilterConditions;
 
     /// Matches IDs that are greater than the specified ID
     UPROPERTY()

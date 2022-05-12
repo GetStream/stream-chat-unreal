@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Request/PaginatedRequest.h"
+#include "JsonObjectWrapper.h"
 #include "Request/SortParamRequestDto.h"
 
 #include "QueryChannelsRequestDto.generated.h"
@@ -14,9 +14,20 @@
  * @ingroup StreamChatDto
  */
 USTRUCT()
-struct STREAMCHATDTO_API FQueryChannelsRequestDto : public FPaginatedRequest
+struct STREAMCHATDTO_API FQueryChannelsRequestDto
 {
     GENERATED_BODY()
+
+    /// Number of items to return
+    UPROPERTY()
+    uint32 Limit = TNumericLimits<uint32>::Max();
+
+    /// Item offset
+    UPROPERTY()
+    uint32 Offset = TNumericLimits<uint32>::Max();
+
+    UPROPERTY()
+    FJsonObjectWrapper FilterConditions;
 
     UPROPERTY()
     uint32 MessageLimit = TNumericLimits<uint32>::Max();
