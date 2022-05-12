@@ -367,14 +367,23 @@ void FChatApi::DeleteMessage(const FString& Id, bool bHard, const TCallback<FMes
 
 void FChatApi::SendReaction(
     const FString& MessageId,
-    const FReactionRequestDto& ReactionRequest,
+    const FName& Type,
     const bool bEnforceUnique,
+    const TOptional<uint32> Score,
     const bool bSkipPush,
     const TCallback<FReactionResponseDto> Callback) const
 {
     const FString Path = FString::Printf(TEXT("messages/%s/reaction"), *MessageId);
     const FString Url = BuildUrl(Path);
-    const FSendReactionRequestDto Body{bEnforceUnique, ReactionRequest, bSkipPush};
+    const FSendReactionRequestDto Body{
+        bEnforceUnique,
+        {
+            MessageId,
+            Score.Get(TNumericLimits<uint32>::Max()),
+            Type,
+        },
+        bSkipPush,
+    };
     Client->Post(Url).Json(Body).Send(Callback);
 }
 

@@ -20,7 +20,7 @@ struct FReaction
 
     FReaction();
     explicit FReaction(const FReactionDto&, UUserManager*);
-    explicit FReaction(const FName& Type, const FUserRef&, const FString& MessageId);
+    explicit FReaction(const FName& Type, const FUserRef&, const FString& MessageId, int32 Score = 1);
 
     /// The type of reaction (e.g. 'like', 'laugh', 'wow')
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Reaction")

@@ -386,9 +386,10 @@ public:
      * @param Message The message in this channel to react to
      * @param ReactionType The type of reaction to send
      * @param bEnforceUnique Should all other reactions from this user be removed
+     * @param Score The score of the reaction. Defaults to 1.
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Reaction")
-    void SendReaction(const FMessage& Message, const FName& ReactionType, bool bEnforceUnique = true);
+    void SendReaction(const FMessage& Message, const FName& ReactionType, int32 Score = 1, bool bEnforceUnique = false);
 
     /**
      * @brief Fetch or paginate more reactions for a given message
