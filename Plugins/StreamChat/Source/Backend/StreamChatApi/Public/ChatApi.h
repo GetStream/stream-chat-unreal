@@ -388,15 +388,18 @@ public:
     /**
      * @brief Send a reaction for the given MessageId
      * @param MessageId ID of the message to react to
-     * @param ReactionRequest Details of the reaction to be sent
+     * @param Type The type of reaction (e.g. 'like', 'laugh', 'wow')
      * @param bEnforceUnique If true, new reaction will replace all reactions the user has (if any) on this message
      * @param bSkipPush Do not send a mobile push notification
+     * @param Score Optionally include a score for the reaction
+     * @see https://getstream.io/chat/docs/unreal/send_reaction/?language=unreal#cumulative-(clap)-reactions
      * @param Callback Called when response is received
      */
     void SendReaction(
         const FString& MessageId,
-        const FReactionRequestDto& ReactionRequest,
+        const FName& Type,
         bool bEnforceUnique = true,
+        TOptional<uint32> Score = {},
         bool bSkipPush = false,
         TCallback<FReactionResponseDto> Callback = {}) const;
 

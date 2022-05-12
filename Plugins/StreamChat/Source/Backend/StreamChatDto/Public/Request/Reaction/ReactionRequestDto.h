@@ -22,11 +22,9 @@ struct FReactionRequestDto
 
     /// Reaction score. If not specified reaction has score of 1
     UPROPERTY()
-    int32 Score = 1;
+    uint32 Score = TNumericLimits<uint32>::Max();
 
     /// The type of reaction (e.g. 'like', 'laugh', 'wow')
     UPROPERTY()
     FName Type;
-
-    // Skipping user fields and they are never needed for client SDKs
 };

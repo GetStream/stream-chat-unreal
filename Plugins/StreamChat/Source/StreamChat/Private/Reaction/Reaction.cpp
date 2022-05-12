@@ -12,6 +12,7 @@ FReaction::FReaction(const FReactionDto& Dto, UUserManager* UserManager)
 {
 }
 
-FReaction::FReaction(const FName& Type, const FUserRef& User, const FString& MessageId) : Type{Type}, User{User}, MessageId{MessageId}
+FReaction::FReaction(const FName& Type, const FUserRef& User, const FString& MessageId, const int32 Score)
+    : Type{Type}, Score{Score}, User{User}, MessageId{MessageId}
 {
 }

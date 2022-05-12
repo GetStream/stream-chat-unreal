@@ -494,7 +494,7 @@ void UChatChannel::SearchMessages(
         [&](auto Callback) { SearchMessages(OptionalQuery, OptionalMessageFilter, Sort, OptionalMessageLimit, Callback); });
 }
 
-void UChatChannel::SendReaction(const FMessage& Message, const FName& ReactionType, const bool bEnforceUnique)
+void UChatChannel::SendReaction(const FMessage& Message, const FName& ReactionType, const int32 Score, const bool bEnforceUnique)
 {
     FMessage NewMessage{Message};
     // Remove all previous reactions current user did
@@ -503,12 +503,13 @@ void UChatChannel::SendReaction(const FMessage& Message, const FName& ReactionTy
         NewMessage.Reactions.RemoveReactionWhere([](const FReaction& R) { return R.User.IsCurrent(); });
     }
 
-    const FReaction NewReaction{ReactionType, UUserManager::Get()->GetCurrentUser(), Message.Id};
+    const FReaction NewReaction{ReactionType, UUserManager::Get()->GetCurrentUser(), Message.Id, Score > 1 ? Score : 1};
     NewMessage.Reactions.AddReaction(NewReaction, true);
 
     AddMessage(NewMessage);
 
-    Api->SendReaction(Message.Id, {Message.Id, 1, ReactionType}, bEnforceUnique, false);
+    const TOptional<uint32> OptionalScore = Score > 1 ? static_cast<uint32>(Score) : TOptional<uint32>{};
+    Api->SendReaction(Message.Id, ReactionType, bEnforceUnique, OptionalScore);
 }
 
 void UChatChannel::GetReactions(const FMessage& Message, const FPaginationOptions& Pagination, TFunction<void(const TArray<FReaction>&)> Callback)
