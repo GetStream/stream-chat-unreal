@@ -470,7 +470,7 @@ void UChatChannel::SearchMessages(
             // Don't add the messages to this channel's state, just return
             if (Callback)
             {
-                Callback(FMessage::FromSearchResults(Response.Results));
+                Callback(Util::Convert<FMessage>(Response.Results, UUserManager::Get()));
             }
         });
 }
@@ -504,7 +504,7 @@ void UChatChannel::SendReaction(const FMessage& Message, const FName& ReactionTy
     }
 
     const FReaction NewReaction{ReactionType, UUserManager::Get()->GetCurrentUser(), Message.Id};
-    NewMessage.Reactions.AddReaction(NewReaction);
+    NewMessage.Reactions.AddReaction(NewReaction, true);
 
     AddMessage(NewMessage);
 
@@ -524,7 +524,7 @@ void UChatChannel::GetReactions(const FMessage& Message, const FPaginationOption
             {
                 for (auto&& Reaction : Reactions)
                 {
-                    NewMessage.Reactions.AddReaction(Reaction);
+                    NewMessage.Reactions.AddReaction(Reaction, false);
                 }
                 WeakThis->AddMessage(NewMessage);
             }
