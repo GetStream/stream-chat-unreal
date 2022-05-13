@@ -277,10 +277,6 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message", meta = (AutoCreateRefTerm = Message))
     void MarkRead(const FMessage& Message);
 
-    /// Get all the messages in this channel which we have locally
-    UFUNCTION(BlueprintPure, Category = "Stream Chat|Channel|Message")
-    const TArray<FMessage>& GetMessages() const;
-
     /**
      * @brief Get messages, members or other channel fields.
      * @param Callback Called when response is received.
@@ -326,7 +322,10 @@ public:
      * @param MessageLimit Number of messages to return (Optional)
      * @param OutMessages The result of the search
      */
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo, AutoCreateRefTerm = "Sort,MessageFilter"))
+    UFUNCTION(
+        BlueprintCallable,
+        Category = "Stream Chat|Channel",
+        meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo, AutoCreateRefTerm = "Sort,MessageFilter"))
     void SearchMessages(
         const FString& Query,
         const FFilter& MessageFilter,
@@ -336,7 +335,7 @@ public:
         FLatentActionInfo LatentInfo,
         TArray<FMessage>& OutMessages);
 
-    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessagesUpdatedDelegate, const TArray<FMessage>&, Messages);
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMessagesUpdatedDelegate);
     /// Fired when any of the messages we have locally change
     UPROPERTY(BlueprintAssignable, Category = "Stream Chat|Channel")
     FMessagesUpdatedDelegate MessagesUpdated;

@@ -15,7 +15,11 @@ struct FHtmlElementStyle
     FHtmlElementStyle();
 
     /** The font object (valid when used from UMG or a Slate widget style asset) */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SlateStyleRules, meta = (AllowedClasses = "Font", DisplayName = "Font Family", editcondition = "bOverride_FontObject"))
+    UPROPERTY(
+        EditAnywhere,
+        BlueprintReadWrite,
+        Category = SlateStyleRules,
+        meta = (AllowedClasses = "Font", DisplayName = "Font Family", editcondition = "bOverride_FontObject"))
     const UObject* FontObject = nullptr;
 
     /** The name of the font to use from the default typeface (None will use the first entry) */
@@ -31,7 +35,11 @@ struct FHtmlElementStyle
     int32 Size = 24;
 
     /** The uniform spacing (or tracking) between all characters in the text. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SlateStyleRules, meta = (ClampMin = -1000, ClampMax = 10000, editcondition = "bOverride_LetterSpacing"))
+    UPROPERTY(
+        EditAnywhere,
+        BlueprintReadWrite,
+        Category = SlateStyleRules,
+        meta = (ClampMin = -1000, ClampMax = 10000, editcondition = "bOverride_LetterSpacing"))
     int32 LetterSpacing = 0;
 
     /** The color and opacity of this text */
@@ -47,7 +55,11 @@ struct FHtmlElementStyle
     FSlateBrush UnderlineBrush;
 
     /** The material to use when rendering this font */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SlateStyleRules, meta = (AllowedClasses = "MaterialInterface", editcondition = "bOverride_FontMaterial"))
+    UPROPERTY(
+        EditAnywhere,
+        BlueprintReadWrite,
+        Category = SlateStyleRules,
+        meta = (AllowedClasses = "MaterialInterface", editcondition = "bOverride_FontMaterial"))
     UObject* FontMaterial = nullptr;
 
     /** Settings for applying an outline to a font */

@@ -48,7 +48,7 @@ private:
     virtual void OnSetup() override;
 
     UFUNCTION()
-    void MessagesUpdated(const TArray<FMessage>& Messages);
+    void MessagesUpdated();
 
     UFUNCTION()
     void TextCommitted(const FText& Text, ETextCommit::Type CommitMethod);

@@ -2,7 +2,6 @@
 
 #include "ChannelList/SummaryChannelStatusWidget.h"
 
-#include "Algo/Transform.h"
 #include "ThemeDataAsset.h"
 #include "UiBlueprintLibrary.h"
 #include "WidgetUtil.h"
@@ -25,7 +24,7 @@ void USummaryChannelStatusWidget::OnSetup()
     {
         Channel->MessagesUpdated.AddDynamic(this, &USummaryChannelStatusWidget::OnMessagesUpdated);
         Channel->UnreadChanged.AddDynamic(this, &USummaryChannelStatusWidget::OnUnreadChanged);
-        OnMessagesUpdated(Channel->GetMessages());
+        OnMessagesUpdated();
         OnUnreadChanged(Channel->State.UnreadCount());
     }
 
@@ -100,10 +99,10 @@ void USummaryChannelStatusWidget::UpdateRecentMessageText() const
 {
     if (RecentMessageTextBlock && Channel)
     {
-        if (Channel->State.GetMessages().Num() > 0)
+        if (!Channel->State.Messages.IsEmpty())
         {
             RecentMessageTextBlock->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
-            const FString LastText = Channel->State.GetMessages().Last().Text;
+            const FString LastText = Channel->State.Messages.Last().Text;
             const FString Shortened = WidgetUtil::TruncateWithEllipsis(LastText, RecentMessageAvailableSpace, RecentMessageTextBlock->Font);
             const FText Text = FText::FromString(Shortened);
             RecentMessageTextBlock->SetText(Text);
@@ -115,18 +114,18 @@ void USummaryChannelStatusWidget::UpdateRecentMessageText() const
     }
 }
 
-void USummaryChannelStatusWidget::OnMessagesUpdated(const TArray<FMessage>& Messages)
+void USummaryChannelStatusWidget::OnMessagesUpdated()
 {
-    if (Timestamp)
+    if (Timestamp && Channel)
     {
-        if (Messages.Num() > 0)
+        if (Channel->State.Messages.IsEmpty())
         {
-            Timestamp->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
-            Timestamp->Setup(Messages.Last(), false, true);
+            Timestamp->SetVisibility(ESlateVisibility::Hidden);
         }
         else
         {
-            Timestamp->SetVisibility(ESlateVisibility::Hidden);
+            Timestamp->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+            Timestamp->Setup(Channel->State.Messages.Last(), false, true);
         }
     }
 

@@ -67,7 +67,7 @@ UChatChannel* UChatChannel::Create(
         Channel->On<FNotificationMarkReadEvent>(Channel, &UChatChannel::OnNotificationMessageRead);
     }
 
-    Channel->MessagesUpdated.Broadcast(Channel->State.GetMessages());
+    Channel->MessagesUpdated.Broadcast();
 
     return Channel;
 }
@@ -359,8 +359,7 @@ void UChatChannel::DeleteMessage(const FMessage& Message)
 
 void UChatChannel::QueryAdditionalMessages(const EPaginationDirection Direction, const int32 Limit, const TFunction<void()> Callback)
 {
-    const bool bChannelEmpty = State.GetMessages().Num() == 0;
-    if (bChannelEmpty)
+    if (State.Messages.IsEmpty())
     {
         return;
     }
@@ -371,11 +370,11 @@ void UChatChannel::QueryAdditionalMessages(const EPaginationDirection Direction,
         Options.Limit = Limit;
         if (Direction == EPaginationDirection::Top)
         {
-            Options.IdLt = State.GetMessages()[0].Id;
+            Options.IdLt = State.Messages.First().Id;
         }
         else
         {
-            Options.IdGte = State.GetMessages().Last().Id;
+            Options.IdGte = State.Messages.Last().Id;
         }
         return Options;
     }();
@@ -405,11 +404,6 @@ void UChatChannel::MarkRead(const TOptional<FString>& MessageId)
         State.MarkRead();
         UnreadChanged.Broadcast(0);
     }
-}
-
-const TArray<FMessage>& UChatChannel::GetMessages() const
-{
-    return State.GetMessages();
 }
 
 void UChatChannel::Query(
@@ -698,14 +692,14 @@ void UChatChannel::MergeState(const FChannelStateResponseFieldsDto& Dto)
     check(!Properties.Cid.IsEmpty());
     UUserManager* UserManager = UUserManager::Get();
     State.Append(Dto, UserManager);
-    MessagesUpdated.Broadcast(State.GetMessages());
+    MessagesUpdated.Broadcast();
 }
 
 void UChatChannel::AddMessage(const FMessage& Message)
 {
     State.AddMessage(Message);
 
-    MessagesUpdated.Broadcast(State.GetMessages());
+    MessagesUpdated.Broadcast();
 }
 
 FMessage MakeMessage(const FMessageEvent& Event)

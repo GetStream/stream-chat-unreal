@@ -38,18 +38,18 @@ void UFadingMessageListWidget::OnSetup()
     ListenForInputAction(OpenChatInputActionName, IE_Pressed, false, Delegate);
 }
 
-void UFadingMessageListWidget::MessagesUpdated(const TArray<FMessage>& Messages)
+void UFadingMessageListWidget::MessagesUpdated()
 {
-    if (!MessagesScrollBox)
+    if (!MessagesScrollBox || !Channel)
     {
         return;
     }
 
     MessagesScrollBox->ClearChildren();
-    for (const FMessage& Message : UUiBlueprintLibrary::FilterRecent(Messages, MessageLifetime))
+    for (const FMessageRef& Message : Channel->State.Messages.FilterRecent(MessageLifetime))
     {
         UFadingMessageWidget* Widget = CreateWidget<UFadingMessageWidget>(this, FadingMessageWidgetClass);
-        Widget->Setup(Message, MessageLifetime);
+        Widget->Setup(*Message, MessageLifetime);
         MessagesScrollBox->AddChild(Widget);
     }
 
