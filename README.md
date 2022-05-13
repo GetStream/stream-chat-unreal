@@ -43,7 +43,7 @@ The **Stream Chat SDK** is the official Unreal SDK for [Stream Chat](https://get
 - **Channels:** Messages are grouped within channels.
 - **Blueprint support:** All operations can be made via C++ or Blueprint
 - **Fully open-source implementation:** You have access to the complete source code of the SDK here on GitHub.
-- **Supports Unreal Engine 4.27.1:** Supports the latest version of Unreal Engine, with support for UE5 coming soon!
+- **Supports Unreal Engine 4.27 and 5.0:** Supports the latest versions of Unreal Engine 4 and 5!
 
 ## Free for Makers
 
