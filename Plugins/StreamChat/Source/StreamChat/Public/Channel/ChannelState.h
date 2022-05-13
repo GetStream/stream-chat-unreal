@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Message.h"
+#include "MessageStore.h"
 #include "Read.h"
 
 #include "ChannelState.generated.h"
@@ -31,9 +32,6 @@ struct STREAMCHAT_API FChannelState
     /// Locally add a message to this channel
     void AddMessage(const FMessage&);
 
-    /// Get all the messages of this channel
-    const TArray<FMessage>& GetMessages() const;
-
     /// Has message been read by everyone else?
     bool IsMessageRead(const FMessage&) const;
 
@@ -42,6 +40,9 @@ struct STREAMCHAT_API FChannelState
 
     /// Get the count of unread messages for the current user in this channel
     int32 UnreadCount() const;
+
+    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
+    FMessageStore Messages;
 
     /// Number of channel watchers
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
@@ -58,5 +59,4 @@ struct STREAMCHAT_API FChannelState
 private:
     FRead* GetCurrentUserRead();
     const FRead* GetCurrentUserRead() const;
-    TArray<FMessage> Messages;
 };

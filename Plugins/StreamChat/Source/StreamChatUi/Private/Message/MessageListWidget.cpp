@@ -33,19 +33,19 @@ UMessageListWidget::UMessageListWidget()
 
 void UMessageListWidget::OnChannel()
 {
-    Channel->MessagesUpdated.AddDynamic(this, &UMessageListWidget::SetMessages);
+    Channel->MessagesUpdated.AddDynamic(this, &UMessageListWidget::OnMessagesUpdated);
     Channel->MessageSent.AddDynamic(this, &UMessageListWidget::ScrollToBottom);
 
     ChannelContext->OnStartEditMessage.AddDynamic(this, &UMessageListWidget::ScrollToBottom);
 
-    SetMessages(Channel->GetMessages());
+    OnMessagesUpdated();
 }
 
 void UMessageListWidget::NativeDestruct()
 {
     if (Channel)
     {
-        Channel->MessagesUpdated.RemoveDynamic(this, &UMessageListWidget::SetMessages);
+        Channel->MessagesUpdated.RemoveDynamic(this, &UMessageListWidget::OnMessagesUpdated);
         Channel->MessageSent.RemoveDynamic(this, &UMessageListWidget::ScrollToBottom);
     }
 
@@ -68,19 +68,19 @@ void UMessageListWidget::Paginate(const EPaginationDirection Direction, const TF
     }
 }
 
-void UMessageListWidget::SetMessages(const TArray<FMessage>& Messages)
+void UMessageListWidget::OnMessagesUpdated()
 {
     if (!ScrollBox)
     {
         return;
     }
 
-    CreateMessageWidgets(Messages);
+    CreateMessageWidgets();
 
     Channel->MarkRead();
 }
 
-void UMessageListWidget::CreateMessageWidgets(const TArray<FMessage>& Messages)
+void UMessageListWidget::CreateMessageWidgets()
 {
     if (!ScrollBox)
     {
@@ -88,15 +88,16 @@ void UMessageListWidget::CreateMessageWidgets(const TArray<FMessage>& Messages)
     }
 
     TArray<UWidget*> Widgets;
+    const FMessages& Messages = Channel->State.Messages.GetMessages();
     Widgets.Reserve(Messages.Num());
 
     const int32 Last = Messages.Num() - 1;
     for (int32 Index = 0; Index < Messages.Num(); ++Index)
     {
-        const FMessage& CurrentMessage = Messages[Index];
+        const FMessage& CurrentMessage = *Messages[Index];
         const EMessageSide Side = CurrentMessage.User.IsCurrent() ? EMessageSide::Me : EMessageSide::You;
         const EMessagePosition Position =
-            Index == Last || IsEndOfMessageStack(CurrentMessage, Messages[Index + 1]) ? EMessagePosition::End : EMessagePosition::Opening;
+            Index == Last || IsEndOfMessageStack(CurrentMessage, *Messages[Index + 1]) ? EMessagePosition::End : EMessagePosition::Opening;
         UMessageWidget* Widget = CreateMessageWidget(CurrentMessage, Side, Position);
         Widgets.Add(Widget);
     }

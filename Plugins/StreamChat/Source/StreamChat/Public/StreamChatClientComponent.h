@@ -282,7 +282,10 @@ public:
      * @param ChannelProperties Properties of the channel to watch
      * @param OutChannel Object which can be used to interact with the channel
      */
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo, AdvancedDisplay = Id))
+    UFUNCTION(
+        BlueprintCallable,
+        Category = "Stream Chat|Client",
+        meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo, AdvancedDisplay = Id))
     void WatchChannel(const FChannelProperties& ChannelProperties, const UObject* WorldContextObject, FLatentActionInfo LatentInfo, UChatChannel*& OutChannel);
 
 #pragma endregion Blueprint

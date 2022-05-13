@@ -57,7 +57,7 @@ private:
     void UpdateRecentMessageText() const;
 
     UFUNCTION()
-    void OnMessagesUpdated(const TArray<FMessage>& Messages);
+    void OnMessagesUpdated();
     UFUNCTION()
     void OnUnreadChanged(int32 UnreadCount);
 

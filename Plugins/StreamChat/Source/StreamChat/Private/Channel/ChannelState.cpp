@@ -2,7 +2,6 @@
 
 #include "Channel/ChannelState.h"
 
-#include "Algo/Transform.h"
 #include "Channel/Message.h"
 #include "Moderation/MutedUser.h"
 #include "Response/Channel/ChannelStateResponseFieldsDto.h"
@@ -42,11 +41,9 @@ bool CountMessageAsUnread(const FMessage& Message)
 FChannelState::FChannelState() = default;
 
 FChannelState::FChannelState(const FChannelStateResponseFieldsDto& Dto, UUserManager* UserManager)
-    : WatcherCount{Dto.WatcherCount}
-    , Watchers{UserManager->UpsertUsers(Dto.Watchers)}
-    , Read{Util::Convert<FRead>(Dto.Read, UserManager)}
-    , Messages{Util::Convert<FMessage>(Dto.Messages, UserManager)}
+    : WatcherCount{Dto.WatcherCount}, Watchers{UserManager->UpsertUsers(Dto.Watchers)}, Read{Util::Convert<FRead>(Dto.Read, UserManager)}
 {
+    Messages.Append(Dto.Messages, UserManager);
     // TODO Attachment
     // TODO Pinned messages
 }
@@ -54,24 +51,17 @@ FChannelState::FChannelState(const FChannelStateResponseFieldsDto& Dto, UUserMan
 void FChannelState::Append(const FChannelStateResponseFieldsDto& Dto, UUserManager* UserManager)
 {
     FChannelState NewState{Dto, UserManager};
-    // Current (old) messages go AFTER new messages
     NewState.Messages.Append(Messages);
     *this = NewState;
 }
 
 void FChannelState::AddMessage(const FMessage& Message)
 {
+    TRACE_CPUPROFILER_EVENT_SCOPE(TEXT("FChannelState::AddMessage"))
     // TODO Threads
     // TODO Quoting
-    const int32 Index = Messages.FindLastByPredicate([&](const FMessage& M) { return M.Id == Message.Id; });
-    if (Index != INDEX_NONE)
+    if (Messages.AddMessage(Message))
     {
-        Messages[Index] = Message;
-    }
-    else
-    {
-        Messages.Add(Message);
-
         if (CountMessageAsUnread(Message))
         {
             if (FRead* CurrentUserRead = GetCurrentUserRead())
@@ -80,11 +70,6 @@ void FChannelState::AddMessage(const FMessage& Message)
             }
         }
     }
-}
-
-const TArray<FMessage>& FChannelState::GetMessages() const
-{
-    return Messages;
 }
 
 bool FChannelState::IsMessageRead(const FMessage& Message) const

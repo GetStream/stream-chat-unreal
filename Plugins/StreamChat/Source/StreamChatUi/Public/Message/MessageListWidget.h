@@ -30,7 +30,7 @@ protected:
     virtual void Paginate(const EPaginationDirection Direction, const TFunction<void()> Callback) override;
 
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void CreateMessageWidgets(const TArray<FMessage>& Messages);
+    void CreateMessageWidgets();
 
     UPROPERTY(EditDefaultsOnly, Category = Defaults)
     TSubclassOf<UMessageWidget> MessageWidgetClass;
@@ -43,7 +43,7 @@ private:
     UMessageWidget* CreateMessageWidget(const FMessage&, EMessageSide, EMessagePosition);
 
     UFUNCTION()
-    void SetMessages(const TArray<FMessage>& Messages);
+    void OnMessagesUpdated();
     UFUNCTION()
     void ScrollToBottom(const FMessage& Message);
 };

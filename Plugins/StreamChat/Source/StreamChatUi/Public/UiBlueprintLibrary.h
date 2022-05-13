@@ -37,9 +37,6 @@ public:
     UFUNCTION(BlueprintPure, Category = "Stream Chat|User")
     static bool IsCurrent(const FUserRef& User);
 
-    UFUNCTION(BlueprintPure, Category = "Stream Chat|Messages")
-    static TArray<FMessage> FilterRecent(const TArray<FMessage>& Messages, const FTimespan& Since);
-
     /// Deterministically generate one of 16 preset colors from a string
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Messages")
     static FLinearColor GenerateColorFromString(const FString& Input);
