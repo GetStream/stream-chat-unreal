@@ -63,16 +63,22 @@ protected:
 
         SetPaginationRequestState(EHttpRequestState::Started, Directions);
 
+        // TODO if the user scrolls a lot while awaiting the response, these values will be out of date
+        const int32 FirstItemIndex = FMath::TruncToInt32(CurrentOffset);
+        const float FirstOffset = FMath::Fractional(CurrentOffset);
+        const ItemType FirstItem = (*this->ItemsSource)[FirstItemIndex];
         const int32 OrigWidgetCount = GetItemCount();
+
         DoPaginate.Execute(
             Directions,
-            [WeakThis = TWeakPtr<SPaginateListWidget>{SharedThis(this)}, Directions, OrigWidgetCount]
+            [=, WeakThis = TWeakPtr<SPaginateListWidget>{SharedThis(this)}]
             {
                 if (!WeakThis.IsValid())
                 {
                     return;
                 }
                 TSharedPtr<SPaginateListWidget> This = WeakThis.Pin();
+
                 const uint32 DeltaChildrenCount = This->GetItemCount() - OrigWidgetCount;
                 if (DeltaChildrenCount == 0 || DeltaChildrenCount < This->Limit)
                 {
@@ -81,6 +87,9 @@ protected:
                 }
 
                 This->SetPaginationRequestState(EHttpRequestState::Ended, Directions);
+
+                const int32 NewIndex = This->ItemsSource->Find(FirstItem);
+                This->ScrollTo(static_cast<float>(NewIndex) + FirstOffset);
             });
     }
 
@@ -106,13 +115,13 @@ private:
     {
         EPaginationDirection Directions = EPaginationDirection::None;
         const float Height = this->GetCachedGeometry().GetLocalSize().Y;
-        const float TopOffset = this->ScrollBar->DistanceFromTop();
-        const float BottomOffset = this->ScrollBar->DistanceFromBottom();
-        if (TopOffset * Height < PaginateScrollThreshold)
+        const float TopOffset = this->ScrollBar->DistanceFromTop() * Height;
+        const float BottomOffset = this->ScrollBar->DistanceFromBottom() * Height;
+        if (TopOffset < PaginateScrollThreshold)
         {
             Directions |= EPaginationDirection::Top;
         }
-        if (BottomOffset * Height < PaginateScrollThreshold)
+        if (BottomOffset < PaginateScrollThreshold)
         {
             Directions |= EPaginationDirection::Bottom;
         }
