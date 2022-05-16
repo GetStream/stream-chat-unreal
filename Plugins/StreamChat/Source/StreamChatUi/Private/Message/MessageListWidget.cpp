@@ -23,9 +23,15 @@ bool IsEndOfMessageStack(const FMessage& CurrentMessage, const FMessage& NextMes
     }
     return false;
 }
+
+EMessageSide GetSide(const FMessage& Message)
+{
+    return Message.User.IsCurrent() ? EMessageSide::Me : EMessageSide::You;
+}
+
 }    // namespace
 
-UMessageListWidget::UMessageListWidget()
+UMessageListWidget::UMessageListWidget() : ListViewGenerator(MakeShared<TListViewGenerator<FMessageRef>>())
 {
     bWantsChannel = true;
     PaginationDirection = EPaginationDirection::Top;
@@ -54,6 +60,19 @@ void UMessageListWidget::NativeDestruct()
         ChannelContext->OnStartEditMessage.RemoveDynamic(this, &UMessageListWidget::ScrollToBottom);
     }
     Super::NativeDestruct();
+}
+
+void UMessageListWidget::CreateListView()
+{
+    if (!Channel || !ListView)
+    {
+        return;
+    }
+
+    ListViewGenerator->CreateListView(
+        &Channel->State.Messages.GetMessages(),
+        TListViewGenerator<FMessageRef>::FCreateListViewWidgetDelegate::CreateUObject(this, &UMessageListWidget::CreateMessageWidget),
+        ListView);
 }
 
 void UMessageListWidget::Paginate(const EPaginationDirection Direction, const TFunction<void()> Callback)
@@ -91,31 +110,28 @@ void UMessageListWidget::CreateMessageWidgets()
     const FMessages& Messages = Channel->State.Messages.GetMessages();
     Widgets.Reserve(Messages.Num());
 
-    const int32 Last = Messages.Num() - 1;
-    for (int32 Index = 0; Index < Messages.Num(); ++Index)
+    for (auto&& Message : Messages)
     {
-        const FMessage& CurrentMessage = *Messages[Index];
-        const EMessageSide Side = CurrentMessage.User.IsCurrent() ? EMessageSide::Me : EMessageSide::You;
-        const EMessagePosition Position =
-            Index == Last || IsEndOfMessageStack(CurrentMessage, *Messages[Index + 1]) ? EMessagePosition::End : EMessagePosition::Opening;
-        UMessageWidget* Widget = CreateMessageWidget(CurrentMessage, Side, Position);
+        UWidget* Widget = CreateMessageWidget(Message);
         Widgets.Add(Widget);
     }
     SetChildren(Widgets);
 }
 
-UMessageWidget* UMessageListWidget::CreateMessageWidget(const FMessage& Message, const EMessageSide Side, const EMessagePosition Position)
+UWidget* UMessageListWidget::CreateMessageWidget(const FMessageRef& Message)
 {
+    const EMessageSide Side = GetSide(*Message);
+    const EMessagePosition Position = GetPosition(*Message);
     if (OnGetMessageWidgetEvent.IsBound())
     {
-        UMessageWidget* Widget = OnGetMessageWidgetEvent.Execute(Message, Side, Position);
-        if (Widget)
+        if (UMessageWidget* Widget = OnGetMessageWidgetEvent.Execute(*Message, Side, Position))
         {
             return Widget;
         }
     }
+
     UMessageWidget* Widget = CreateWidget<UMessageWidget>(this, MessageWidgetClass);
-    Widget->Setup(Message, Side, Position);
+    Widget->Setup(*Message, Side, Position);
     return Widget;
 }
 
@@ -125,4 +141,14 @@ void UMessageListWidget::ScrollToBottom(const FMessage&)
     {
         ScrollBox->ScrollToEnd();
     }
+}
+
+EMessagePosition UMessageListWidget::GetPosition(const FMessage& Message) const
+{
+    const TSharedPtr<FMessage> NextMessage = Channel->State.Messages.Next(Message);
+    if (!NextMessage.IsValid() || IsEndOfMessageStack(Message, *NextMessage))
+    {
+        return EMessagePosition::End;
+    }
+    return EMessagePosition::Opening;
 }

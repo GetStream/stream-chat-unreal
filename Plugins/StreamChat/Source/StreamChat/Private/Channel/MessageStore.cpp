@@ -31,7 +31,7 @@ bool FMessageStore::AddMessage(const FMessage& NewMessage)
 
 bool FMessageStore::AddMessage(const FMessageRef& Message)
 {
-    TRACE_CPUPROFILER_EVENT_SCOPE(TEXT("FChannelState::AddMessage"))
+    TRACE_CPUPROFILER_EVENT_SCOPE(TEXT("FMessageStore::AddMessage"))
     // TODO Threads
     // TODO Quoting
     const int32 Index = Messages.FindLastByPredicate([&](const FMessageRef& M) { return M->Id == Message->Id; });
@@ -63,6 +63,19 @@ const FMessage& FMessageStore::First()
 const FMessage& FMessageStore::Last()
 {
     return *Messages.Last();
+}
+
+TSharedPtr<FMessage> FMessageStore::Next(const FMessage& QueryMessage) const
+{
+    TRACE_CPUPROFILER_EVENT_SCOPE(TEXT("FMessageStore::Next"))
+
+    // TODO perf
+    const int32 Index = Messages.IndexOfByPredicate([&](const FMessageRef& M) { return M->Id == QueryMessage.Id; });
+    if (Index == INDEX_NONE || Index == Messages.Num() - 1)
+    {
+        return {};
+    }
+    return Messages[Index + 1];
 }
 
 FMessages FMessageStore::FilterRecent(const FTimespan& Since) const
