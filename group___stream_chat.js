@@ -80,7 +80,6 @@ var group___stream_chat =
       [ "FChannelState", "struct_f_channel_state.html#acb9757a317896b956350210536ffe9e5", null ],
       [ "AddMessage", "struct_f_channel_state.html#a591082f72ff629a497d40ab526c79145", null ],
       [ "Append", "struct_f_channel_state.html#a5ea3db97ae2b64801848d07a0671c9b3", null ],
-      [ "GetMessages", "struct_f_channel_state.html#ae81913aaa5b79bc052087b1969040870", null ],
       [ "IsMessageRead", "struct_f_channel_state.html#a4d408ab5707b05c780eb937cd965e43c", null ],
       [ "MarkRead", "struct_f_channel_state.html#a0930d73fd962d4e4c109fb41cdef4624", null ],
       [ "UnreadCount", "struct_f_channel_state.html#aa144fa0ffa10af7f750c79fb8eb96d7e", null ],
@@ -92,7 +91,6 @@ var group___stream_chat =
       [ "Delete", "class_u_chat_channel.html#a4fb51ca0c405a0bf18da7cde44bc6018", null ],
       [ "DeleteMessage", "class_u_chat_channel.html#acd8d28c0f92e5aa93f9498a0307fe871", null ],
       [ "DeleteReaction", "class_u_chat_channel.html#ac60976fa7382c9c22cb41ca570610bcf", null ],
-      [ "GetMessages", "class_u_chat_channel.html#acfdb55f36b049e167a608b0ca3744f6e", null ],
       [ "GetReactions", "class_u_chat_channel.html#a799b0cb722dd0b91c9e0714b47dfb6f1", null ],
       [ "Hide", "class_u_chat_channel.html#a04f40f2ee5819990ee220d64696b6695", null ],
       [ "KeyStroke", "class_u_chat_channel.html#a8102ae8974c78a297db1229334c593c2", null ],
@@ -159,6 +157,12 @@ var group___stream_chat =
       [ "User", "struct_f_message.html#a991f49c20c86a366fd633d5851ce161d", null ]
     ] ],
     [ "FMessagePaginationOptions", "struct_f_message_pagination_options.html", null ],
+    [ "FMessageStore", "struct_f_message_store.html", [
+      [ "AddMessage", "struct_f_message_store.html#ae7bb221eb8edef00db06e596c81eb1c4", null ],
+      [ "Append", "struct_f_message_store.html#a816bda5b4bb662a1cdc29df5066324ad", null ],
+      [ "GetMessages", "struct_f_message_store.html#a79731d98d98414eea16be9447fa5cf31", null ],
+      [ "Next", "struct_f_message_store.html#adf78eb14d19536c72c7e205c63fa39ae", null ]
+    ] ],
     [ "FRead", "struct_f_read.html", [
       [ "FRead", "struct_f_read.html#a951e51884d8eacb73f3879fbea478195", null ],
       [ "FRead", "struct_f_read.html#a85e9f883b0ea4330c9292b8fe1c3c291", null ],
