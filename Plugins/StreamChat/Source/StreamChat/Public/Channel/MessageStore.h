@@ -38,6 +38,9 @@ struct STREAMCHAT_API FMessageStore
     // Must check if store is empty first or this will crash
     const FMessage& Last();
 
+    /// Get message following the given message
+    TSharedPtr<FMessage> Next(const FMessage&) const;
+
     FMessages FilterRecent(const FTimespan& Since) const;
 
     /// Get all the messages of this channel

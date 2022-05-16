@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Channel/Message.h"
+#include "Common/ListViewGenerator.h"
 #include "Common/PaginateScrollWidget.h"
 #include "CoreMinimal.h"
 #include "MessagePosition.h"
@@ -27,6 +28,7 @@ public:
 protected:
     virtual void OnChannel() override;
     virtual void NativeDestruct() override;
+    virtual void CreateListView() override;
     virtual void Paginate(const EPaginationDirection Direction, const TFunction<void()> Callback) override;
 
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
@@ -40,10 +42,14 @@ protected:
     FGetMessageWidget OnGetMessageWidgetEvent;
 
 private:
-    UMessageWidget* CreateMessageWidget(const FMessage&, EMessageSide, EMessagePosition);
+    UWidget* CreateMessageWidget(const FMessageRef&);
 
     UFUNCTION()
     void OnMessagesUpdated();
     UFUNCTION()
     void ScrollToBottom(const FMessage& Message);
+
+    EMessagePosition GetPosition(const FMessage& Message) const;
+
+    TSharedRef<TListViewGenerator<FMessageRef>> ListViewGenerator;
 };

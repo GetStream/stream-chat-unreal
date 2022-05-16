@@ -11,6 +11,8 @@ void UPaginateScrollWidget::OnPreConstruct()
     {
         ScrollBox->OnUserScrolled.AddUniqueDynamic(this, &UPaginateScrollWidget::OnUserScroll);
     }
+
+    CreateListView();
 }
 
 void UPaginateScrollWidget::NativeDestruct()
