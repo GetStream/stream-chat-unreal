@@ -3,12 +3,13 @@
 #pragma once
 
 #include "Channel/Message.h"
-#include "Common/ListViewGenerator.h"
-#include "Common/PaginateScrollWidget.h"
+#include "Common/PaginateListWidget.h"
+#include "Components/NativeWidgetHost.h"
 #include "CoreMinimal.h"
 #include "MessagePosition.h"
 #include "MessageSide.h"
 #include "MessageWidget.h"
+#include "StreamWidget.h"
 
 #include "MessageListWidget.generated.h"
 
@@ -18,21 +19,30 @@ class UChannelContextWidget;
  *
  */
 UCLASS()
-class STREAMCHATUI_API UMessageListWidget final : public UPaginateScrollWidget
+class STREAMCHATUI_API UMessageListWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 
 public:
     UMessageListWidget();
 
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FPaginatingMessagesDelegate, EPaginationDirection, Direction, EHttpRequestState, RequestState);
+    /// Fired during various stages of message pagination
+    UPROPERTY(BlueprintAssignable)
+    FPaginatingMessagesDelegate OnPaginatingMessages;
+
 protected:
     virtual void OnChannel() override;
     virtual void NativeDestruct() override;
-    virtual void CreateListView() override;
-    virtual void Paginate(const EPaginationDirection Direction, const TFunction<void()> Callback) override;
 
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void CreateMessageWidgets();
+    void Paginate(const EPaginationDirection PaginationDirection, const TFunction<void()> Callback);
+
+    UPROPERTY(meta = (BindWidget))
+    UNativeWidgetHost* ListView;
+
+    /// Number of additional messages to be queried when paginating
+    UPROPERTY(EditAnywhere, Category = Pagination)
+    int32 Limit = 20;
 
     UPROPERTY(EditDefaultsOnly, Category = Defaults)
     TSubclassOf<UMessageWidget> MessageWidgetClass;
@@ -51,5 +61,5 @@ private:
 
     EMessagePosition GetPosition(const FMessage& Message) const;
 
-    TSharedRef<TListViewGenerator<FMessageRef>> ListViewGenerator;
+    TSharedPtr<SPaginateListWidget<FMessageRef>> PaginateListWidget;
 };

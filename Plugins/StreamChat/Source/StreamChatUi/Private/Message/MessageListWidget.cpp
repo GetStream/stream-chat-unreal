@@ -3,6 +3,7 @@
 #include "Message/MessageListWidget.h"
 
 #include "Channel/ChatChannel.h"
+#include "Common/PaginateListWidget.h"
 #include "Context/ChannelContextWidget.h"
 
 namespace
@@ -31,14 +32,26 @@ EMessageSide GetSide(const FMessage& Message)
 
 }    // namespace
 
-UMessageListWidget::UMessageListWidget() : ListViewGenerator(MakeShared<TListViewGenerator<FMessageRef>>())
+UMessageListWidget::UMessageListWidget()
 {
     bWantsChannel = true;
-    PaginationDirection = EPaginationDirection::Top;
 }
 
 void UMessageListWidget::OnChannel()
 {
+    if (ListView)
+    {
+        PaginateListWidget = SNew(SPaginateListWidget<FMessageRef>)
+                                 .Limit(Limit)
+                                 .PaginationDirection(EPaginationDirection::Top)
+                                 .ListItemsSource(&Channel->State.Messages.GetMessages())
+                                 .CreateListViewWidget_UObject(this, &UMessageListWidget::CreateMessageWidget)
+                                 .OnPaginating_Lambda([=](const EPaginationDirection Direction, const EHttpRequestState State)
+                                                      { OnPaginatingMessages.Broadcast(Direction, State); })
+                                 .DoPaginate_UObject(this, &UMessageListWidget::Paginate);
+        ListView->SetContent(PaginateListWidget.ToSharedRef());
+    }
+
     Channel->MessagesUpdated.AddDynamic(this, &UMessageListWidget::OnMessagesUpdated);
     Channel->MessageSent.AddDynamic(this, &UMessageListWidget::ScrollToBottom);
 
@@ -62,20 +75,7 @@ void UMessageListWidget::NativeDestruct()
     Super::NativeDestruct();
 }
 
-void UMessageListWidget::CreateListView()
-{
-    if (!Channel || !ListView)
-    {
-        return;
-    }
-
-    ListViewGenerator->CreateListView(
-        &Channel->State.Messages.GetMessages(),
-        TListViewGenerator<FMessageRef>::FCreateListViewWidgetDelegate::CreateUObject(this, &UMessageListWidget::CreateMessageWidget),
-        ListView);
-}
-
-void UMessageListWidget::Paginate(const EPaginationDirection Direction, const TFunction<void()> Callback)
+void UMessageListWidget::Paginate(const EPaginationDirection PaginationDirection, const TFunction<void()> Callback)
 {
     if (Channel)
     {
@@ -89,33 +89,13 @@ void UMessageListWidget::Paginate(const EPaginationDirection Direction, const TF
 
 void UMessageListWidget::OnMessagesUpdated()
 {
-    if (!ScrollBox)
+    if (PaginateListWidget.IsValid())
     {
-        return;
+        // TODO this could likely be further optimized if we dig into WidgetGenerator
+        PaginateListWidget->RebuildList();
     }
-
-    CreateMessageWidgets();
 
     Channel->MarkRead();
-}
-
-void UMessageListWidget::CreateMessageWidgets()
-{
-    if (!ScrollBox)
-    {
-        return;
-    }
-
-    TArray<UWidget*> Widgets;
-    const FMessages& Messages = Channel->State.Messages.GetMessages();
-    Widgets.Reserve(Messages.Num());
-
-    for (auto&& Message : Messages)
-    {
-        UWidget* Widget = CreateMessageWidget(Message);
-        Widgets.Add(Widget);
-    }
-    SetChildren(Widgets);
 }
 
 UWidget* UMessageListWidget::CreateMessageWidget(const FMessageRef& Message)
@@ -137,9 +117,9 @@ UWidget* UMessageListWidget::CreateMessageWidget(const FMessageRef& Message)
 
 void UMessageListWidget::ScrollToBottom(const FMessage&)
 {
-    if (ScrollBox)
+    if (PaginateListWidget.IsValid())
     {
-        ScrollBox->ScrollToEnd();
+        PaginateListWidget->ScrollToBottom();
     }
 }
 

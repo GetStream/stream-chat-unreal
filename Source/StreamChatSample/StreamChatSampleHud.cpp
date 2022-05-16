@@ -8,15 +8,15 @@
 AStreamChatSampleHud::AStreamChatSampleHud()
 {
     Client = CreateDefaultSubobject<UStreamChatClientComponent>(TEXT("Client"));
-    Client->ApiKey = TEXT("qx5us2v6xvmh");
+    Client->ApiKey = TEXT("kmajgxb2rk4p");
 }
 
 void AStreamChatSampleHud::BeginPlay()
 {
     Super::BeginPlay();
 
-    const FUser User{TEXT("jc")};
-    const FString Token = TEXT("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiamMifQ.2_5Hae3LKjVSfA0gQxXlZn54Bq6xDlhjPx2J7azUNB4");
+    const FUser User{TEXT("sam")};
+    const FString Token = TEXT("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoic2FtIn0.fn3ofYr6CHh34wI-fhY0ZnQKAr5scPbObrjysvSXdeQ");
     Client->ConnectUser(
         User,
         Token,
