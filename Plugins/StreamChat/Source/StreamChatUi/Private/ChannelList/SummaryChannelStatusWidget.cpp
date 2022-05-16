@@ -30,7 +30,15 @@ void USummaryChannelStatusWidget::OnSetup()
 
     if (Channel && Avatar)
     {
-        Avatar->Setup(Channel->Properties.GetOtherMemberUsers());
+        const TOptional<FString> Image = Channel->Properties.GetImageUrl();
+        if (Image.IsSet())
+        {
+            Avatar->SetupWithUrl(Image.GetValue());
+        }
+        else
+        {
+            Avatar->Setup(Channel->Properties.GetOtherMemberUsers());
+        }
     }
 
     // Force update channel title

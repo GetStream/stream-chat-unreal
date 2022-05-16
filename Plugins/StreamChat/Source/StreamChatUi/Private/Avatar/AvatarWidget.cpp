@@ -2,7 +2,6 @@
 
 #include "Avatar/AvatarWidget.h"
 
-#include "Algo/Transform.h"
 #include "Avatar/ProfilePicWidget.h"
 #include "Components/GridSlot.h"
 #include "Materials/MaterialInstanceDynamic.h"
@@ -12,6 +11,17 @@
 void UAvatarWidget::Setup(const TArray<FUserRef>& InUsers, const int32 InSize)
 {
     Users = InUsers;
+    if (InSize > 0)
+    {
+        Size = InSize;
+    }
+
+    Super::Setup();
+}
+
+void UAvatarWidget::SetupWithUrl(const FString& InImageUrl, const int32 InSize)
+{
+    ImageUrl = InImageUrl;
     if (InSize > 0)
     {
         Size = InSize;
@@ -59,12 +69,23 @@ void UAvatarWidget::UpdateOnlineStatus(const bool bOnline)
 
 void UAvatarWidget::CreateProfilePics()
 {
-    if (!Grid || Users.Num() == 0 || !WidgetTree)
+    if (!Grid || !WidgetTree || (Users.Num() == 0 && ImageUrl.IsEmpty()))
     {
         return;
     }
 
     Grid->ClearChildren();
+
+    if (!ImageUrl.IsEmpty())
+    {
+        UProfilePicWidget* Widget = CreateWidget<UProfilePicWidget>(this, ProfilePicWidgetClass);
+        Widget->SetupWithUrl(ImageUrl);
+        Grid->AddChildToGrid(Widget);
+        Grid->SetColumnFill(0, 1.f);
+        Grid->SetRowFill(0, 1.f);
+        return;
+    }
+
     if (Users.Num() == 1)
     {
         Grid->AddChildToGrid(CreateProfilePic(Users[0]));

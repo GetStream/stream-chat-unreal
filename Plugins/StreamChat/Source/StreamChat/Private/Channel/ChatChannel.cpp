@@ -361,6 +361,10 @@ void UChatChannel::QueryAdditionalMessages(const EPaginationDirection Direction,
 {
     if (State.Messages.IsEmpty())
     {
+        if (Callback)
+        {
+            Callback();
+        }
         return;
     }
 
@@ -426,6 +430,10 @@ void UChatChannel::Query(
         {
             if (!WeakThis.IsValid())
             {
+                if (Callback)
+                {
+                    Callback();
+                }
                 return;
             }
 

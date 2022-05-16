@@ -21,6 +21,8 @@ class STREAMCHATUI_API UProfilePicWidget final : public UStreamWidget
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(const FUserRef& InUser);
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat")
+    void SetupWithUrl(const FString& ImageUrl);
 
 protected:
     UPROPERTY(meta = (BindWidget))
@@ -32,8 +34,12 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
     FUserRef User;
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    FString ImageUrl;
+
 private:
     virtual void OnSetup() override;
 
+    FString GetUrl() const;
     void FetchRemoteImage();
 };
