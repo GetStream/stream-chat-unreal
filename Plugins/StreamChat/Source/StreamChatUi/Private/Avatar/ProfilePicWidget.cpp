@@ -14,24 +14,46 @@ void UProfilePicWidget::Setup(const FUserRef& InUser)
     Super::Setup();
 }
 
+void UProfilePicWidget::SetupWithUrl(const FString& InImageUrl)
+{
+    ImageUrl = InImageUrl;
+
+    Super::Setup();
+}
+
 void UProfilePicWidget::OnSetup()
 {
-    const FString Initials = User->GetInitials();
     if (InitialsTextBlock)
     {
-        // Always initialize avatar with initials, until real image downloads
-        InitialsTextBlock->SetText(FText::FromString(Initials.IsEmpty() ? TEXT("?") : Initials));
+        if (User.IsValid())
+        {
+            const FString Initials = User->GetInitials();
+            // Always initialize avatar with initials, until real image downloads
+            InitialsTextBlock->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+            InitialsTextBlock->SetText(FText::FromString(Initials.IsEmpty() ? TEXT("?") : Initials));
+        }
+        else
+        {
+            InitialsTextBlock->SetVisibility(ESlateVisibility::Collapsed);
+        }
     }
 
     if (Image)
     {
-        Image->SetColorAndOpacity(WidgetUtil::ChooseColorForString(User->Id));
+        Image->SetColorAndOpacity(WidgetUtil::ChooseColorForString(User.IsValid() ? User->Id : ImageUrl));
 
-        if (!User->Image.IsEmpty())
-        {
-            FetchRemoteImage();
-        }
+        FetchRemoteImage();
     }
+}
+
+FString UProfilePicWidget::GetUrl() const
+{
+    if (User.IsValid())
+    {
+        // HACK: Make sure # is %23, needed due to limitations in avatars.dicebear.com api
+        return User->Image.Replace(TEXT("#"), TEXT("%23"));
+    }
+    return ImageUrl;
 }
 
 void UProfilePicWidget::FetchRemoteImage()
@@ -42,10 +64,8 @@ void UProfilePicWidget::FetchRemoteImage()
         return;
     }
 
-    // HACK: Make sure # is %23, needed due to limitations in avatars.dicebear.com api
-    const FString Url = User->Image.Replace(TEXT("#"), TEXT("%23"));
     Subsystem->DownloadImage(
-        Url,
+        GetUrl(),
         [WeakThis = TWeakObjectPtr<UProfilePicWidget>(this)](UTexture2DDynamic* Texture)
         {
             if (!WeakThis.IsValid() || !WeakThis->Image || !WeakThis->InitialsTextBlock || !Texture)

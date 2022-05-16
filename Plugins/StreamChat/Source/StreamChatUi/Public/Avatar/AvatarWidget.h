@@ -24,6 +24,8 @@ class STREAMCHATUI_API UAvatarWidget : public UStreamWidget
 public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(const TArray<FUserRef>& InUsers, int32 InSize = -1);
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat")
+    void SetupWithUrl(const FString& InImageUrl, int32 InSize = -1);
 
 protected:
     UPROPERTY(meta = (BindWidget))
@@ -46,6 +48,8 @@ protected:
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
     TArray<FUserRef> Users;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
+    FString ImageUrl;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
     int32 Size = 40;

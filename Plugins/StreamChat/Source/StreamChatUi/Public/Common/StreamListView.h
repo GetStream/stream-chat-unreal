@@ -33,6 +33,12 @@ private:
         {
             return nullptr;
         }
+
+    protected:
+        virtual ESelectionMode::Type GetSelectionMode() const override
+        {
+            return ESelectionMode::None;
+        }
     };
 
     TSharedRef<ITableRow> HandleGenerateRow(ItemType Item, const TSharedRef<STableViewBase>& OwnerTable)

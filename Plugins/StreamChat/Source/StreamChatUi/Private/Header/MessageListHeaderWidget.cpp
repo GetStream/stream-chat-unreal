@@ -2,7 +2,6 @@
 
 #include "Header/MessageListHeaderWidget.h"
 
-#include "Algo/Transform.h"
 #include "UiBlueprintLibrary.h"
 
 UMessageListHeaderWidget::UMessageListHeaderWidget()
@@ -23,8 +22,15 @@ void UMessageListHeaderWidget::OnChannel()
 
     if (Avatar)
     {
-        // TODO Group chat
-        Avatar->Setup(Channel->Properties.GetOtherMemberUsers());
+        const TOptional<FString> Image = Channel->Properties.GetImageUrl();
+        if (Image.IsSet())
+        {
+            Avatar->SetupWithUrl(Image.GetValue());
+        }
+        else
+        {
+            Avatar->Setup(Channel->Properties.GetOtherMemberUsers());
+        }
     }
 }
 
