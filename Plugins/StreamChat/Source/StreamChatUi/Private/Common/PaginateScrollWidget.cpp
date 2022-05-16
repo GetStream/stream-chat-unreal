@@ -11,8 +11,6 @@ void UPaginateScrollWidget::OnPreConstruct()
     {
         ScrollBox->OnUserScrolled.AddUniqueDynamic(this, &UPaginateScrollWidget::OnUserScroll);
     }
-
-    CreateListView();
 }
 
 void UPaginateScrollWidget::NativeDestruct()
@@ -26,7 +24,6 @@ void UPaginateScrollWidget::NativeDestruct()
 
 void UPaginateScrollWidget::SetChildren(const TArray<UWidget*>& Children)
 {
-    TRACE_CPUPROFILER_EVENT_SCOPE("UPaginateScrollWidget::SetChildren")
     if (!ScrollBox)
     {
         return;

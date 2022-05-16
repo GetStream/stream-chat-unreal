@@ -26,28 +26,23 @@ void FMessageStore::Append(const TArray<FMessageDto> Dtos, UUserManager* UserMan
 
 bool FMessageStore::AddMessage(const FMessage& NewMessage)
 {
-    return AddMessage(MakeShared<FMessage>(NewMessage));
-}
-
-bool FMessageStore::AddMessage(const FMessageRef& Message)
-{
     TRACE_CPUPROFILER_EVENT_SCOPE(TEXT("FMessageStore::AddMessage"))
     // TODO Threads
     // TODO Quoting
-    const int32 Index = Messages.FindLastByPredicate([&](const FMessageRef& M) { return M->Id == Message->Id; });
+    const int32 Index = Messages.FindLastByPredicate([&](const FMessageRef& M) { return M->Id == NewMessage.Id; });
     if (Index != INDEX_NONE)
     {
-        Messages[Index] = Message;
+        *Messages[Index] = NewMessage;
         return false;
     }
 
-    Messages.Add(Message);
+    Messages.Add(MakeShared<FMessage>(NewMessage));
     return true;
 }
 
 bool FMessageStore::AddMessage(const FMessageDto& Dto, UUserManager* UserManager)
 {
-    return AddMessage(MakeShared<FMessage>(Dto, UserManager));
+    return AddMessage(FMessage{Dto, UserManager});
 }
 
 bool FMessageStore::IsEmpty() const

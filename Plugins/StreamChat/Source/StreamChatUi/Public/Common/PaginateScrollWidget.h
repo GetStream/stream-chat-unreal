@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "Components/NativeWidgetHost.h"
 #include "Components/ScrollBox.h"
 #include "CoreMinimal.h"
 #include "StreamWidget.h"
@@ -31,8 +30,6 @@ protected:
     virtual void OnPreConstruct() override;
     virtual void NativeDestruct() override;
 
-    virtual void CreateListView(){};
-
     /// Attempts to maintain scroll location when replacing the children of the scroll box
     virtual void SetChildren(const TArray<UWidget*>&);
 
@@ -43,9 +40,6 @@ protected:
 
     UPROPERTY(meta = (BindWidget))
     UScrollBox* ScrollBox;
-
-    UPROPERTY(meta = (BindWidget))
-    UNativeWidgetHost* ListView;
 
     // If the scroll offset is below this value, then new messages will be fetched
     UPROPERTY(EditDefaultsOnly, Category = Defaults)

@@ -48,6 +48,5 @@ struct STREAMCHAT_API FMessageStore
 
 private:
     void Append(const FMessages&);
-    bool AddMessage(const FMessageRef&);
     FMessages Messages;
 };
