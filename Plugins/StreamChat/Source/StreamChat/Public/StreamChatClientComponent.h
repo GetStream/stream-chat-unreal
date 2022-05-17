@@ -85,7 +85,7 @@ public:
 
     /// Create a null chat channel for starting a new chat/group
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client")
-    void NewChat();
+    UChatChannel* NewChat();
     /// Remove any null chat channels used for starting a new chat/group
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client")
     void CancelNewChat();

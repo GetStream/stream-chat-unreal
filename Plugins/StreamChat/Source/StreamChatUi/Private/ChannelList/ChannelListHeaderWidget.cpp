@@ -36,8 +36,5 @@ void UChannelListHeaderWidget::OnTheme()
 
 void UChannelListHeaderWidget::OnButtonClick()
 {
-    if (const UClientContextWidget* Context = UClientContextWidget::Get(this))
-    {
-        Client->NewChat();
-    }
+    ClientContext->SelectChannel(Client->NewChat());
 }

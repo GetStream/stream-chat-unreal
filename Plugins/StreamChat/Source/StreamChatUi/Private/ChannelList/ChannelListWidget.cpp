@@ -46,7 +46,7 @@ UWidget* UChannelListWidget::CreateChannelWidget(UChatChannel* const& InChannel)
     }
 
     UChannelStatusWidget* Widget = CreateWidget<UNewChatChannelStatusWidget>(this, NewChatChannelStatusWidgetClass);
-    Widget->Setup(nullptr);
+    Widget->Setup(InChannel);
     return Widget;
 }
 

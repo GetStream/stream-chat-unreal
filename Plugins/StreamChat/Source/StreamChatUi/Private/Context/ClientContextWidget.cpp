@@ -32,6 +32,11 @@ UStreamChatClientComponent* UClientContextWidget::GetClient() const
 
 void UClientContextWidget::SelectChannel(UChatChannel* Channel)
 {
+    if (SelectedChannel == Channel)
+    {
+        return;
+    }
+
     SelectedChannel = Channel;
     OnChannelSelected.Broadcast(Channel);
 }
