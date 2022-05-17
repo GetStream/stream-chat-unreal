@@ -5,7 +5,7 @@ var searchData=
   ['getinitials_2',['GetInitials',['../struct_f_user.html#a58dfd9a7274d80577b49c767840067d3',1,'FUser']]],
   ['getlastactive_3',['GetLastActive',['../struct_f_user.html#a28c7c7b17b39bad58ca6296fea0038e8',1,'FUser']]],
   ['getlastseentext_4',['GetLastSeenText',['../struct_f_user.html#a983c59f140225b87337010bdd5402b57',1,'FUser']]],
-  ['getmessages_5',['GetMessages',['../struct_f_message_store.html#a79731d98d98414eea16be9447fa5cf31',1,'FMessageStore']]],
+  ['getmessages_5',['GetMessages',['../struct_f_channel_state.html#ae81913aaa5b79bc052087b1969040870',1,'FChannelState::GetMessages()'],['../class_u_chat_channel.html#acfdb55f36b049e167a608b0ca3744f6e',1,'UChatChannel::GetMessages()']]],
   ['getothermemberusers_6',['GetOtherMemberUsers',['../struct_f_channel_properties.html#a215200abff9a415d6d7f127f01b2f319',1,'FChannelProperties']]],
   ['getownreaction_7',['GetOwnReaction',['../struct_f_reaction_group.html#a86ff335c306dccb3f01db644783bb8fe',1,'FReactionGroup::GetOwnReaction()'],['../class_u_reaction_group_blueprint_library.html#a2ce0729e897c90368301634f177d9a02',1,'UReactionGroupBlueprintLibrary::GetOwnReaction()'],['../struct_f_reactions.html#aa847eabeaefd2a843278c9d235c78893',1,'FReactions::GetOwnReaction(const FName &amp;ReactionType, const UUserManager *) const']]],
   ['getreactiongroups_8',['GetReactionGroups',['../struct_f_reactions.html#ae6fa68e32032186a30464db7d57015ae',1,'FReactions']]],

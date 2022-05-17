@@ -4,6 +4,7 @@ var class_u_chat_channel =
     [ "Delete", "class_u_chat_channel.html#a4fb51ca0c405a0bf18da7cde44bc6018", null ],
     [ "DeleteMessage", "class_u_chat_channel.html#acd8d28c0f92e5aa93f9498a0307fe871", null ],
     [ "DeleteReaction", "class_u_chat_channel.html#ac60976fa7382c9c22cb41ca570610bcf", null ],
+    [ "GetMessages", "class_u_chat_channel.html#acfdb55f36b049e167a608b0ca3744f6e", null ],
     [ "GetReactions", "class_u_chat_channel.html#a799b0cb722dd0b91c9e0714b47dfb6f1", null ],
     [ "Hide", "class_u_chat_channel.html#a04f40f2ee5819990ee220d64696b6695", null ],
     [ "KeyStroke", "class_u_chat_channel.html#a8102ae8974c78a297db1229334c593c2", null ],

@@ -69,7 +69,6 @@ var hierarchy =
     [ "FMessagePaginationParamsRequestDto", "struct_f_message_pagination_params_request_dto.html", null ],
     [ "FMessageRequestDto", "struct_f_message_request_dto.html", null ],
     [ "FMessageSortOption", "struct_f_message_sort_option.html", null ],
-    [ "FMessageStore", "struct_f_message_store.html", null ],
     [ "FMuteChannelRequestDto", "struct_f_mute_channel_request_dto.html", null ],
     [ "FMuteUserRequestDto", "struct_f_mute_user_request_dto.html", null ],
     [ "FPaginationOptions", "struct_f_pagination_options.html", [
