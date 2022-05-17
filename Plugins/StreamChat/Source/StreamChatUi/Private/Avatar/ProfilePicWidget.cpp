@@ -2,6 +2,7 @@
 
 #include "Avatar/ProfilePicWidget.h"
 
+#include "Engine/Engine.h"
 #include "ImageDownloadSubsystem.h"
 #include "User/User.h"
 #include "WidgetUtil.h"
