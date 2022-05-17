@@ -53,7 +53,7 @@ jobs:
           ue4 build -NoPCH -NoSharedPCH -DisableUnity
 
       - name: 🧪 Run tests
-        run: ue4 test StreamChat -- -ReportExportPath="$PWD/Saved/Automation/Reports"
+        run: ue4 test StreamChat -- -nosound -ReportExportPath="$PWD/Saved/Automation/Reports"
 
       - name: 🏭 Generate JUnit report
         shell: python3 {0}

@@ -37,7 +37,15 @@ public:
     void Construct(const FArguments& InArgs);
 
 protected:
-    void OnScroll(double CurrentOffset)
+    void OnScroll(const double CurrentOffset)
+    {
+        const int32 FirstItemIndex = FMath::TruncToInt(CurrentOffset);
+        FirstItem = this->ItemsSource->IsValidIndex(FirstItemIndex) ? (*this->ItemsSource)[FirstItemIndex] : TOptional<ItemType>{};
+
+        ConditionallyPaginate();
+    }
+
+    void ConditionallyPaginate()
     {
         if (!DoPaginate.IsBound() || PaginationRequestState == EHttpRequestState::Started)
         {
@@ -61,17 +69,16 @@ protected:
             return;
         }
 
-        SetPaginationRequestState(EHttpRequestState::Started, Directions);
+        Paginate(Directions);
+    }
 
-        // TODO if the user scrolls a lot while awaiting the response, these values will be out of date
-        const int32 FirstItemIndex = FMath::TruncToInt32(CurrentOffset);
-        const float FirstOffset = FMath::Fractional(CurrentOffset);
-        const ItemType FirstItem = (*this->ItemsSource)[FirstItemIndex];
-        const int32 OrigWidgetCount = GetItemCount();
+    void Paginate(const EPaginationDirection Directions)
+    {
+        SetPaginationRequestState(EHttpRequestState::Started, Directions);
 
         DoPaginate.Execute(
             Directions,
-            [=, WeakThis = TWeakPtr<SPaginateListWidget>{SharedThis(this)}]
+            [WeakThis = TWeakPtr<SPaginateListWidget>{SharedThis(this)}, OrigWidgetCount = GetItemCount(), Directions]
             {
                 if (!WeakThis.IsValid())
                 {
@@ -88,8 +95,12 @@ protected:
 
                 This->SetPaginationRequestState(EHttpRequestState::Ended, Directions);
 
-                const int32 NewIndex = This->ItemsSource->Find(FirstItem);
-                This->ScrollTo(static_cast<float>(NewIndex) + FirstOffset);
+                if (This->FirstItem.IsSet())
+                {
+                    const float FirstOffset = FMath::Fractional(This->DesiredScrollOffset);
+                    const int32 NewIndex = This->ItemsSource->Find(This->FirstItem.GetValue());
+                    This->ScrollTo(static_cast<float>(NewIndex) + FirstOffset);
+                }
             });
     }
 
@@ -115,6 +126,11 @@ private:
     {
         EPaginationDirection Directions = EPaginationDirection::None;
         const float Height = this->GetCachedGeometry().GetLocalSize().Y;
+        if (Height == 0.f)
+        {
+            return Directions;
+        }
+
         const float TopOffset = this->ScrollBar->DistanceFromTop() * Height;
         const float BottomOffset = this->ScrollBar->DistanceFromBottom() * Height;
         if (TopOffset < PaginateScrollThreshold)
@@ -135,6 +151,7 @@ private:
 
     EPaginationDirection EndedPaginationDirections = EPaginationDirection::None;
     EHttpRequestState PaginationRequestState = EHttpRequestState::Ended;
+    TOptional<ItemType> FirstItem;
 };
 
 template <class ItemType>
@@ -150,4 +167,9 @@ void SPaginateListWidget<ItemType>::Construct(const FArguments& InArgs)
     this->PaginationDirection = InArgs._PaginationDirection;
     this->DoPaginate = InArgs._DoPaginate;
     this->OnPaginating = InArgs._OnPaginating;
+
+    if (PaginationDirection == EPaginationDirection::Top)
+    {
+        this->ScrollToBottom();
+    }
 }
