@@ -43,11 +43,15 @@ void UStreamWidget::NativePreConstruct()
     }
     if (bWantsClient)
     {
-        Client = UClientContextWidget::GetClient(this);
-        if (Client)
+        ClientContext = UClientContextWidget::Get(this);
+        if (ClientContext)
         {
-            OnClient();
-            OnClient_BP();
+            Client = ClientContext->GetClient();
+            if (Client)
+            {
+                OnClient();
+                OnClient_BP();
+            }
         }
         else
         {

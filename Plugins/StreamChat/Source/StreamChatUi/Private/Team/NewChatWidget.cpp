@@ -103,7 +103,7 @@ void UNewChatWidget::OnSendMessage(const FString& Text)
         return;
     }
 
-    TArray<FUserRef> Members(SelectedContacts->GetUsers());
+    TArray<FUserRef> Members{SelectedContacts->GetUsers()};
     Members.Add(UUserManager::Get()->GetCurrentUser());
     FChannelProperties Props = FChannelProperties::WithType(TEXT("messaging")).SetMembers(Members);
     const FText Group = GroupName->GetGroupName();
@@ -117,6 +117,6 @@ void UNewChatWidget::OnSendMessage(const FString& Text)
         [Context, Text](UChatChannel* NewChannel)
         {
             NewChannel->SendMessage(FMessage{Text});
-            Context->OnChannelSelected.Broadcast(NewChannel);
+            Context->SelectChannel(NewChannel);
         });
 }

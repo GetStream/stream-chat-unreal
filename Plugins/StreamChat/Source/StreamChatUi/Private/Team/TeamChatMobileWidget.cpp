@@ -32,12 +32,12 @@ void UTeamChatMobileWidget::SwitchToChannelList()
     }
 
     ClientContextWidget->OnBack.RemoveDynamic(this, &UTeamChatMobileWidget::SwitchToChannelList);
+    ClientContextWidget->OnChannelSelected.AddDynamic(this, &UTeamChatMobileWidget::ChannelSelected);
 
     Container->ClearChildren();
 
     UChannelListWidget* ChannelListWidget = CreateWidget<UChannelListWidget>(this, ChannelListWidgetClass);
     ChannelListWidget->Setup();
-    ChannelListWidget->OnChannelStatusClicked.AddDynamic(this, &UTeamChatMobileWidget::ChannelSelected);
     Container->AddChild(ChannelListWidget);
 
     Container->SetBrushColor(Theme->GetPaletteColor(Theme->ChannelListContainerBackgroundColor));
@@ -51,6 +51,7 @@ void UTeamChatMobileWidget::SwitchToMessageList(UChatChannel* SelectedChannel)
     }
 
     ClientContextWidget->OnBack.AddDynamic(this, &UTeamChatMobileWidget::SwitchToChannelList);
+    ClientContextWidget->OnChannelSelected.RemoveDynamic(this, &UTeamChatMobileWidget::ChannelSelected);
 
     Container->ClearChildren();
 

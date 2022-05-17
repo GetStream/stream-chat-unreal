@@ -25,9 +25,9 @@ void UTeamChatWidget::OnSetup()
     {
         MessageListContainer->SetPadding({0.f});
     }
-    if (ChannelList)
+    if (ClientContextWidget)
     {
-        ChannelList->OnChannelStatusClicked.AddDynamic(this, &UTeamChatWidget::ChannelSelected);
+        ClientContextWidget->OnChannelSelected.AddDynamic(this, &UTeamChatWidget::ChannelSelected);
     }
 }
 
