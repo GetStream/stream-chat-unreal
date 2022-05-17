@@ -41,7 +41,7 @@ void UStreamWidget::NativePreConstruct()
         OnTheme();
         OnTheme_BP();
     }
-    if (bWantsClient)
+    if (bWantsClient && !IsDesignTime())
     {
         ClientContext = UClientContextWidget::Get(this);
         if (ClientContext)
@@ -58,7 +58,7 @@ void UStreamWidget::NativePreConstruct()
             UE_LOG(LogTemp, Warning, TEXT("bWantsClient is true, but widget doesn't have a ClientContextWidget in the parent tree."))
         }
     }
-    if (bWantsChannel)
+    if (bWantsChannel && !IsDesignTime())
     {
         ChannelContext = UChannelContextWidget::Get(this);
         if (ChannelContext)

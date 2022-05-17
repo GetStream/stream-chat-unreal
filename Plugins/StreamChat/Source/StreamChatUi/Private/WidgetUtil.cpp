@@ -84,6 +84,11 @@ UWidget* WidgetUtil::GetTypedChildWidget(const UWidget* Widget, const TSubclassO
 
 FString WidgetUtil::TruncateWithEllipsis(const FString& Input, const uint32 MaxWidth, const FSlateFontInfo& FontInfo)
 {
+    if (MaxWidth == 0)
+    {
+        return Input;
+    }
+
     const TSharedRef<FSlateFontMeasure> Service = FSlateApplication::Get().GetRenderer()->GetFontMeasureService();
     if (Service->Measure(Input, FontInfo).X < MaxWidth)
     {

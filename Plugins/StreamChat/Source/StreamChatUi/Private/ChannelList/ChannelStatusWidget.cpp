@@ -19,49 +19,18 @@ void UChannelStatusWidget::Setup(UChatChannel* InChannel)
     Super::Setup();
 }
 
-void UChannelStatusWidget::OnClient()
-{
-    ClientContext->OnChannelSelected.AddDynamic(this, &UChannelStatusWidget::UpdateSelection);
-    UpdateSelection(ClientContext->SelectedChannel);
-}
-
-void UChannelStatusWidget::NativeDestruct()
-{
-    if (ClientContext)
-    {
-        ClientContext->OnChannelSelected.RemoveDynamic(this, &UChannelStatusWidget::UpdateSelection);
-    }
-    Super::NativeDestruct();
-}
-
-void UChannelStatusWidget::UpdateSelection(UChatChannel* SelectedChannel)
-{
-    if (!Button)
-    {
-        return;
-    }
-
-    if (IsForChannel(SelectedChannel))
-    {
-        Button->SetStyle(SelectedStyle);
-    }
-    else
-    {
-        Button->SetStyle(NormalStyle);
-    }
-}
-
-bool UChannelStatusWidget::IsForChannel(const UChatChannel* QueryChannel) const
-{
-    return false;
-}
-
 void UChannelStatusWidget::OnSetup()
 {
     if (Button)
     {
         Button->OnClicked.AddDynamic(this, &UChannelStatusWidget::OnButtonClicked);
     }
+}
+
+void UChannelStatusWidget::OnClient()
+{
+    ClientContext->OnChannelSelected.AddDynamic(this, &UChannelStatusWidget::UpdateSelection);
+    UpdateSelection(ClientContext->SelectedChannel);
 }
 
 void UChannelStatusWidget::OnTheme()
@@ -86,6 +55,40 @@ void UChannelStatusWidget::OnTheme()
     {
         TitleTextBlock->SetColorAndOpacity(GetTitleColor());
     }
+}
+void UChannelStatusWidget::NativeDestruct()
+{
+    if (ClientContext)
+    {
+        ClientContext->OnChannelSelected.RemoveDynamic(this, &UChannelStatusWidget::UpdateSelection);
+    }
+    if (Button)
+    {
+        Button->OnClicked.RemoveDynamic(this, &UChannelStatusWidget::OnButtonClicked);
+    }
+    Super::NativeDestruct();
+}
+
+void UChannelStatusWidget::UpdateSelection(UChatChannel* SelectedChannel)
+{
+    if (!Button)
+    {
+        return;
+    }
+
+    if (IsForChannel(SelectedChannel))
+    {
+        Button->SetStyle(SelectedStyle);
+    }
+    else
+    {
+        Button->SetStyle(NormalStyle);
+    }
+}
+
+bool UChannelStatusWidget::IsForChannel(const UChatChannel* QueryChannel) const
+{
+    return false;
 }
 
 FLinearColor UChannelStatusWidget::GetTitleColor()

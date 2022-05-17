@@ -22,7 +22,7 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(const FUserRef& InUser);
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void SetupWithUrl(const FString& ImageUrl);
+    void SetupWithUrl(const FString& InImageUrl);
 
 protected:
     UPROPERTY(meta = (BindWidget))

@@ -75,6 +75,13 @@ void UMessageListWidget::NativeDestruct()
     Super::NativeDestruct();
 }
 
+void UMessageListWidget::ReleaseSlateResources(bool bReleaseChildren)
+{
+    Super::ReleaseSlateResources(bReleaseChildren);
+
+    PaginateListWidget.Reset();
+}
+
 void UMessageListWidget::Paginate(const EPaginationDirection PaginationDirection, const TFunction<void()> Callback)
 {
     if (Channel)
