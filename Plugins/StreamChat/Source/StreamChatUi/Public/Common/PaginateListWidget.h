@@ -47,24 +47,27 @@ protected:
 
     void ConditionallyPaginate()
     {
+        // Skip if a request is already in-flight
         if (!DoPaginate.IsBound() || PaginationRequestState == EHttpRequestState::Started)
         {
             return;
         }
 
+        // Skip if not within the threshold of either end
         const EPaginationDirection Directions = GetDirections();
         if (Directions == EPaginationDirection::None)
         {
             return;
         }
 
+        // Skip if the paginating in an unsupported direction
         if (!EnumHasAnyFlags(Directions, PaginationDirection))
         {
             return;
         }
 
-        const bool bPaginationEnded = EnumHasAllFlags(EndedPaginationDirections, Directions);
-        if (bPaginationEnded)
+        // Skip if no more items will exist in this direction
+        if (EnumHasAllFlags(EndedPaginationDirections, Directions))
         {
             return;
         }
@@ -168,8 +171,19 @@ void SPaginateListWidget<ItemType>::Construct(const FArguments& InArgs)
     this->DoPaginate = InArgs._DoPaginate;
     this->OnPaginating = InArgs._OnPaginating;
 
-    if (PaginationDirection == EPaginationDirection::Top)
-    {
-        this->ScrollToBottom();
-    }
+    this->RegisterActiveTimer(
+        0.f,
+        FWidgetActiveTimerDelegate::CreateLambda(
+            [this](double, float)
+            {
+                if (PaginationDirection == EPaginationDirection::Top)
+                {
+                    this->ScrollToBottom();
+                }
+                else if (PaginationDirection == EPaginationDirection::Bottom)
+                {
+                    this->ScrollToTop();
+                }
+                return EActiveTimerReturnType::Stop;
+            }));
 }
