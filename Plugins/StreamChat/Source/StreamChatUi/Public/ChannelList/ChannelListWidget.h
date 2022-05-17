@@ -34,7 +34,7 @@ protected:
 
     /// Number of additional channels to be queried when paginating
     UPROPERTY(EditAnywhere, Category = Pagination)
-    int32 Limit = 20;
+    int32 Limit = 10;
 
     UPROPERTY(EditAnywhere, Category = Defaults)
     bool bAutoSelectFirstChannel = true;

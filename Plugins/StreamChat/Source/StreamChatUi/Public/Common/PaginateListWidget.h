@@ -35,6 +35,25 @@ public:
     SLATE_END_ARGS()
 
     void Construct(const FArguments& InArgs);
+    virtual STableViewBase::FReGenerateResults ReGenerateItems(const FGeometry& MyGeometry) override
+    {
+        const STableViewBase::FReGenerateResults Result = SListView<ItemType>::ReGenerateItems(MyGeometry);
+
+        // Scroll to end on first population
+        if (!FirstItem.IsSet() && Result.LengthOfGeneratedItems > 0.)
+        {
+            if (PaginationDirection == EPaginationDirection::Top)
+            {
+                this->ScrollToBottom();
+            }
+            else if (PaginationDirection == EPaginationDirection::Bottom)
+            {
+                this->ScrollToTop();
+                OnScroll(this->CurrentScrollOffset);
+            }
+        }
+        return Result;
+    }
 
 protected:
     void OnScroll(const double CurrentOffset)
@@ -49,6 +68,12 @@ protected:
     {
         // Skip if a request is already in-flight
         if (!DoPaginate.IsBound() || PaginationRequestState == EHttpRequestState::Started)
+        {
+            return;
+        }
+
+        // Skip if currently no data
+        if (this->GetItemCount() == 0)
         {
             return;
         }
@@ -152,6 +177,7 @@ private:
         return this->ItemsSource->Num();
     }
 
+private:
     EPaginationDirection EndedPaginationDirections = EPaginationDirection::None;
     EHttpRequestState PaginationRequestState = EHttpRequestState::Ended;
     TOptional<ItemType> FirstItem;
@@ -170,20 +196,4 @@ void SPaginateListWidget<ItemType>::Construct(const FArguments& InArgs)
     this->PaginationDirection = InArgs._PaginationDirection;
     this->DoPaginate = InArgs._DoPaginate;
     this->OnPaginating = InArgs._OnPaginating;
-
-    this->RegisterActiveTimer(
-        0.f,
-        FWidgetActiveTimerDelegate::CreateLambda(
-            [this](double, float)
-            {
-                if (PaginationDirection == EPaginationDirection::Top)
-                {
-                    this->ScrollToBottom();
-                }
-                else if (PaginationDirection == EPaginationDirection::Bottom)
-                {
-                    this->ScrollToTop();
-                }
-                return EActiveTimerReturnType::Stop;
-            }));
 }
