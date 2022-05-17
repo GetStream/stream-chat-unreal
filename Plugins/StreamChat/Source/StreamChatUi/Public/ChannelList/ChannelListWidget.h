@@ -24,8 +24,6 @@ public:
     UChannelListWidget();
 
 protected:
-    virtual void NativeDestruct() override;
-
     UPROPERTY(meta = (BindWidget))
     UImage* Divider;
 
@@ -44,6 +42,9 @@ protected:
     TSubclassOf<UNewChatChannelStatusWidget> NewChatChannelStatusWidgetClass = UNewChatChannelStatusWidget::StaticClass();
 
 private:
+    virtual void NativeDestruct() override;
+    virtual void ReleaseSlateResources(bool bReleaseChildren) override;
+
     virtual void OnClient() override;
     virtual void OnTheme() override;
     void Paginate(const EPaginationDirection Direction, const TFunction<void()> Callback);

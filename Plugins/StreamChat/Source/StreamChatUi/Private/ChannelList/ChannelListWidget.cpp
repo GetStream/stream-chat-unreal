@@ -23,6 +23,13 @@ void UChannelListWidget::NativeDestruct()
     Super::NativeDestruct();
 }
 
+void UChannelListWidget::ReleaseSlateResources(bool bReleaseChildren)
+{
+    Super::ReleaseSlateResources(bReleaseChildren);
+
+    PaginateListWidget.Reset();
+}
+
 void UChannelListWidget::Paginate(const EPaginationDirection Direction, const TFunction<void()> Callback)
 {
     Client->QueryAdditionalChannels(Limit, Callback);

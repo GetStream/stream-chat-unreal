@@ -56,6 +56,7 @@ protected:
 
 private:
     virtual void OnSetup() override;
+    virtual void NativeDestruct() override;
     void UpdateOnlineStatus(bool bOnline);
     void CreateProfilePics();
     UProfilePicWidget* CreateProfilePic(const FUserRef&);

@@ -51,6 +51,15 @@ void UAvatarWidget::OnSetup()
     CreateProfilePics();
 }
 
+void UAvatarWidget::NativeDestruct()
+{
+    if (Users.Num() == 1)
+    {
+        Users[0].OnUpdate().RemoveDynamic(this, &UAvatarWidget::OnUserUpdated);
+    }
+    Super::NativeDestruct();
+}
+
 void UAvatarWidget::UpdateOnlineStatus(const bool bOnline)
 {
     if (!RetainerBox || !EffectMaterial)

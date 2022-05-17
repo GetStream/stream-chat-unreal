@@ -41,6 +41,8 @@ void USummaryChannelStatusWidget::OnSetup()
         }
     }
 
+    UpdateChannelTitleText();
+
     // Force update channel title
     ChannelTitleAvailableSpace = -1.f;
 }
