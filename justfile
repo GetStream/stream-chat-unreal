@@ -14,7 +14,7 @@ build:
 
 # Run unit tests
 test:
-    -ue4 test StreamChat
+    ue4 test StreamChat -- -nosound
 
 # Convert svg assets to pngs
 convert-svg:
