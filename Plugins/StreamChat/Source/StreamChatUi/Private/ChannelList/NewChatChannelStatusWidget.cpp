@@ -4,5 +4,5 @@
 
 bool UNewChatChannelStatusWidget::IsForChannel(const UChatChannel* ChatChannel) const
 {
-    return ChatChannel == nullptr;
+    return !ChatChannel->IsValid();
 }
