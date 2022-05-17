@@ -83,6 +83,13 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client")
     void DisconnectUser();
 
+    /// Create a null chat channel for starting a new chat/group
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client")
+    void NewChat();
+    /// Remove any null chat channels used for starting a new chat/group
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client")
+    void CancelNewChat();
+
     /**
      * @brief Query the API for all channels which match the given filter. Will also automatically watch all channels.
      * @param Callback Called when a response is received from the API

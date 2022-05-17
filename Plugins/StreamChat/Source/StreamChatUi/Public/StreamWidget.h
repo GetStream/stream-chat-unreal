@@ -4,6 +4,7 @@
 
 #include "Blueprint/UserWidget.h"
 #include "Context/ChannelContextWidget.h"
+#include "Context/ClientContextWidget.h"
 #include "CoreMinimal.h"
 
 #include "StreamWidget.generated.h"
@@ -44,6 +45,9 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = Defaults)
     bool bAutoSetup = false;
 
+    /// The chat client context if this widget is below a ClientContextWidget in the hierarchy and if WantsClient is true.
+    UPROPERTY(BlueprintReadOnly, Transient, Category = Stream)
+    UClientContextWidget* ClientContext;
     /// The chat client if this widget is below a ClientContextWidget in the hierarchy and if WantsClient is true.
     UPROPERTY(BlueprintReadOnly, Transient, Category = Stream)
     UStreamChatClientComponent* Client;

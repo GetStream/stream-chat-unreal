@@ -2,7 +2,6 @@
 
 #include "ChannelList/ChannelStatusWidget.h"
 
-#include "Algo/Transform.h"
 #include "Context/ClientContextWidget.h"
 #include "ThemeDataAsset.h"
 #include "UiBlueprintLibrary.h"
@@ -10,6 +9,7 @@
 UChannelStatusWidget::UChannelStatusWidget()
 {
     bWantsTheme = true;
+    bWantsClient = true;
 }
 
 void UChannelStatusWidget::Setup(UChatChannel* InChannel)
@@ -19,7 +19,22 @@ void UChannelStatusWidget::Setup(UChatChannel* InChannel)
     Super::Setup();
 }
 
-void UChannelStatusWidget::UpdateSelection(UChatChannel* SelectedChannel) const
+void UChannelStatusWidget::OnClient()
+{
+    ClientContext->OnChannelSelected.AddDynamic(this, &UChannelStatusWidget::UpdateSelection);
+    UpdateSelection(ClientContext->SelectedChannel);
+}
+
+void UChannelStatusWidget::NativeDestruct()
+{
+    if (ClientContext)
+    {
+        ClientContext->OnChannelSelected.RemoveDynamic(this, &UChannelStatusWidget::UpdateSelection);
+    }
+    Super::NativeDestruct();
+}
+
+void UChannelStatusWidget::UpdateSelection(UChatChannel* SelectedChannel)
 {
     if (!Button)
     {
@@ -82,8 +97,5 @@ void UChannelStatusWidget::OnButtonClicked()
 {
     OnChannelStatusButtonClickedNative.Broadcast(Channel);
     OnChannelStatusButtonClicked.Broadcast(Channel);
-    if (const UClientContextWidget* Context = UClientContextWidget::Get(this))
-    {
-        Context->OnChannelSelected.Broadcast(Channel);
-    }
+    ClientContext->SelectChannel(Channel);
 }

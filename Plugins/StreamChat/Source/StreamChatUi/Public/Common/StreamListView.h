@@ -12,7 +12,6 @@ class SStreamListView : public SListView<ItemType>
 public:
     DECLARE_DELEGATE_RetVal_OneParam(UWidget*, FCreateListViewWidgetDelegate, const ItemType&);
 
-public:
     SLATE_BEGIN_ARGS(SStreamListView<ItemType>) : _ListItemsSource(nullptr), _CreateListViewWidget(), _OnListViewScrolled()
     {
     }
@@ -49,7 +48,6 @@ private:
     }
 
     FCreateListViewWidgetDelegate CreateItemWidget;
-    TSharedPtr<SListView<ItemType>> MyListView;
 };
 
 template <class ItemType>

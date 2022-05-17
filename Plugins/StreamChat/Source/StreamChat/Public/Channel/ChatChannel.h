@@ -75,6 +75,11 @@ class STREAMCHAT_API UChatChannel final : public UObject
 public:
     /// Create a new channel object
     static UChatChannel* Create(UObject* Outer, const TSharedRef<FChatApi>, const TSharedRef<IChatSocket>, const FChannelStateResponseFieldsDto&);
+    /// Create a new null channel object
+    static UChatChannel* Create(UObject* Outer, const TSharedRef<FChatApi>, const TSharedRef<IChatSocket>);
+
+    /// Does this represent a non-null channel?
+    bool IsValid() const;
 
     /**
      * @brief Delete this channel from the server.
@@ -150,7 +155,8 @@ public:
     void StopWatching(TFunction<void()> Callback = {}) const;
 
     /// The local static properties of the channel
-    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel") FChannelProperties Properties;
+    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")
+    FChannelProperties Properties;
 
     /// The local state of the channel
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel")

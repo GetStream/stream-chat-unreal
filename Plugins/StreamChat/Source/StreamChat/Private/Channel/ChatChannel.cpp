@@ -21,7 +21,6 @@
 #include "Reaction/Reaction.h"
 #include "Request/Channel/UpdateChannelRequestDto.h"
 #include "Request/Message/MessageRequestDto.h"
-#include "Request/Reaction/ReactionRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/DeleteChannelResponseDto.h"
 #include "Response/Channel/MembersResponseDto.h"
@@ -42,11 +41,7 @@ UChatChannel* UChatChannel::Create(
     const TSharedRef<IChatSocket> Socket,
     const FChannelStateResponseFieldsDto& Dto)
 {
-    UChatChannel* Channel = NewObject<UChatChannel>(Outer);
-    check(Socket->IsConnected());
-
-    Channel->Api = Api;
-    Channel->Socket = Socket;
+    UChatChannel* Channel = Create(Outer, Api, Socket);
     Channel->Properties = FChannelProperties{Dto.Channel, Dto.Members, UUserManager::Get()};
     Channel->State = FChannelState{Dto, UUserManager::Get()};
 
@@ -70,6 +65,22 @@ UChatChannel* UChatChannel::Create(
     Channel->MessagesUpdated.Broadcast();
 
     return Channel;
+}
+
+UChatChannel* UChatChannel::Create(UObject* Outer, const TSharedRef<FChatApi> Api, const TSharedRef<IChatSocket> Socket)
+{
+    UChatChannel* Channel = NewObject<UChatChannel>(Outer);
+    check(Socket->IsConnected());
+
+    Channel->Api = Api;
+    Channel->Socket = Socket;
+
+    return Channel;
+}
+
+bool UChatChannel::IsValid() const
+{
+    return !Properties.Cid.IsEmpty();
 }
 
 void UChatChannel::Delete(TFunction<void()> Callback) const
@@ -697,7 +708,7 @@ bool UChatChannel::IsMuted() const
 
 void UChatChannel::MergeState(const FChannelStateResponseFieldsDto& Dto)
 {
-    check(!Properties.Cid.IsEmpty());
+    check(IsValid());
     UUserManager* UserManager = UUserManager::Get();
     State.Append(Dto, UserManager);
     MessagesUpdated.Broadcast();

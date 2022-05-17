@@ -25,18 +25,19 @@ public:
     static UStreamChatClientComponent* GetClient(const UWidget* Widget);
     UStreamChatClientComponent* GetClient() const;
 
+    void SelectChannel(UChatChannel* Channel);
+
     // TODO A back stack container widget might one day make sense
     DECLARE_DYNAMIC_MULTICAST_DELEGATE(FBackDelegate);
     UPROPERTY(BlueprintAssignable)
     FBackDelegate OnBack;
 
-    DECLARE_DYNAMIC_MULTICAST_DELEGATE(FNewChatDelegate);
-    UPROPERTY(BlueprintAssignable)
-    FNewChatDelegate OnNewChat;
-
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FChannelSelected, UChatChannel*, Channel);
     UPROPERTY(BlueprintAssignable)
     FChannelSelected OnChannelSelected;
+
+    UPROPERTY(BlueprintReadOnly, Transient)
+    UChatChannel* SelectedChannel;
 
 private:
     UPROPERTY(Transient)

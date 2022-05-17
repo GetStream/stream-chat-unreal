@@ -2,10 +2,11 @@
 
 #pragma once
 
-#include "ChannelStatusWidget.h"
-#include "Common/PaginateScrollWidget.h"
+#include "Common/PaginateListWidget.h"
+#include "Components/NativeWidgetHost.h"
 #include "CoreMinimal.h"
 #include "NewChatChannelStatusWidget.h"
+#include "StreamWidget.h"
 #include "SummaryChannelStatusWidget.h"
 #include "Team/NewChatWidget.h"
 
@@ -15,23 +16,25 @@
  *
  */
 UCLASS()
-class STREAMCHATUI_API UChannelListWidget final : public UPaginateScrollWidget
+class STREAMCHATUI_API UChannelListWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 
 public:
     UChannelListWidget();
 
-    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FChannelStatusClicked, UChatChannel*, InChannel);
-    UPROPERTY(BlueprintAssignable)
-    FChannelStatusClicked OnChannelStatusClicked;
-
 protected:
     virtual void NativeDestruct() override;
-    virtual void Paginate(const EPaginationDirection Direction, const TFunction<void()> Callback) override;
 
     UPROPERTY(meta = (BindWidget))
     UImage* Divider;
+
+    UPROPERTY(meta = (BindWidget))
+    UNativeWidgetHost* ListView;
+
+    /// Number of additional channels to be queried when paginating
+    UPROPERTY(EditAnywhere, Category = Pagination)
+    int32 Limit = 20;
 
     UPROPERTY(EditAnywhere, Category = Defaults)
     bool bAutoSelectFirstChannel = true;
@@ -43,9 +46,10 @@ protected:
 private:
     virtual void OnClient() override;
     virtual void OnTheme() override;
+    void Paginate(const EPaginationDirection Direction, const TFunction<void()> Callback);
+    UWidget* CreateChannelWidget(UChatChannel* const&);
 
-    void RepopulateChannelList();
-    bool IsNewChatActive() const;
+    void RebuildChannelList();
 
     UFUNCTION()
     void OnChannelSelected(UChatChannel* ClickedChannel);
@@ -53,12 +57,9 @@ private:
     void OnChannelsUpdated(const TArray<UChatChannel*>& InChannels);
     UFUNCTION()
     void OnBack();
-    UFUNCTION()
-    void OnNewChat();
 
     UPROPERTY(Transient)
     UChatChannel* CurrentChannel;
 
-    UPROPERTY(Transient)
-    UChatChannel* NewChatPreviousChannel;
+    TSharedPtr<SPaginateListWidget<UChatChannel*>> PaginateListWidget;
 };

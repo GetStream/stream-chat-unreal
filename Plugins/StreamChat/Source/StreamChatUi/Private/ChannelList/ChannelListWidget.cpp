@@ -28,41 +28,47 @@ void UChannelListWidget::Paginate(const EPaginationDirection Direction, const TF
     Client->QueryAdditionalChannels(Limit, Callback);
 }
 
+UWidget* UChannelListWidget::CreateChannelWidget(UChatChannel* const& InChannel)
+{
+    if (InChannel->IsValid())
+    {
+        UChannelStatusWidget* Widget = CreateWidget<USummaryChannelStatusWidget>(this, ChannelStatusWidgetClass);
+        Widget->Setup(InChannel);
+
+        return Widget;
+    }
+
+    UChannelStatusWidget* Widget = CreateWidget<UNewChatChannelStatusWidget>(this, NewChatChannelStatusWidgetClass);
+    Widget->Setup(nullptr);
+    return Widget;
+}
+
 void UChannelListWidget::OnClient()
 {
     Client->ChannelsUpdated.AddDynamic(this, &UChannelListWidget::OnChannelsUpdated);
 
-    RepopulateChannelList();
+    ClientContext->OnBack.AddDynamic(this, &UChannelListWidget::OnBack);
+    ClientContext->OnChannelSelected.AddDynamic(this, &UChannelListWidget::OnChannelSelected);
 
-    if (UClientContextWidget* Context = UClientContextWidget::Get(this))
+    if (ListView)
     {
-        Context->OnBack.AddDynamic(this, &UChannelListWidget::OnBack);
-        Context->OnNewChat.AddDynamic(this, &UChannelListWidget::OnNewChat);
-        Context->OnChannelSelected.AddDynamic(this, &UChannelListWidget::OnChannelSelected);
+        PaginateListWidget = SNew(SPaginateListWidget<UChatChannel*>)
+                                 .Limit(Limit)
+                                 .PaginationDirection(EPaginationDirection::Bottom)
+                                 .ListItemsSource(&Client->GetChannels())
+                                 .CreateListViewWidget_UObject(this, &UChannelListWidget::CreateChannelWidget)
+                                 .DoPaginate_UObject(this, &UChannelListWidget::Paginate);
+        ListView->SetContent(PaginateListWidget.ToSharedRef());
     }
 }
 
 void UChannelListWidget::OnBack()
 {
-    if (IsNewChatActive())
+    // if (IsNewChatActive())
     {
-        NewChatPreviousChannel = nullptr;
-        CurrentChannel = NewChatPreviousChannel;
-        OnChannelStatusClicked.Broadcast(CurrentChannel);
-        RepopulateChannelList();
+        Client->CancelNewChat();
+        RebuildChannelList();
     }
-}
-
-void UChannelListWidget::OnNewChat()
-{
-    if (IsNewChatActive())
-    {
-        return;
-    }
-    NewChatPreviousChannel = CurrentChannel;
-    CurrentChannel = nullptr;
-    OnChannelStatusClicked.Broadcast(CurrentChannel);
-    RepopulateChannelList();
 }
 
 void UChannelListWidget::OnTheme()
@@ -73,14 +79,9 @@ void UChannelListWidget::OnTheme()
     }
 }
 
-void UChannelListWidget::RepopulateChannelList()
+void UChannelListWidget::RebuildChannelList()
 {
-    OnChannelsUpdated(Client->GetChannels());
-}
-
-bool UChannelListWidget::IsNewChatActive() const
-{
-    return NewChatPreviousChannel != nullptr;
+    PaginateListWidget->RebuildList();
 }
 
 void UChannelListWidget::OnChannelSelected(UChatChannel* ClickedChannel)
@@ -89,59 +90,22 @@ void UChannelListWidget::OnChannelSelected(UChatChannel* ClickedChannel)
     {
         return;
     }
-    NewChatPreviousChannel = nullptr;
     CurrentChannel = ClickedChannel;
 
-    for (UWidget* Child : ScrollBox->GetAllChildren())
+    if (CurrentChannel)
     {
-        if (const UChannelStatusWidget* ChannelStatusWidget = Cast<UChannelStatusWidget>(Child))
-        {
-            ChannelStatusWidget->UpdateSelection(CurrentChannel);
-        }
+        PaginateListWidget->RequestScrollIntoView(CurrentChannel);
     }
-    OnChannelStatusClicked.Broadcast(CurrentChannel);
 }
 
-void UChannelListWidget::OnChannelsUpdated(const TArray<UChatChannel*>& InChannels)
+void UChannelListWidget::OnChannelsUpdated(const TArray<UChatChannel*>&)
 {
-    if (!ScrollBox || InChannels.Num() == 0)
-    {
-        return;
-    }
+    RebuildChannelList();
 
-    if (!CurrentChannel && !IsNewChatActive() && bAutoSelectFirstChannel)
+    if (!CurrentChannel && bAutoSelectFirstChannel && !Client->GetChannels().IsEmpty())
     {
-        // Select first channel. TODO support channel pagination
+        // Select first channel.
         CurrentChannel = Client->GetChannels()[0];
-        OnChannelStatusClicked.Broadcast(CurrentChannel);
-    }
-
-    TArray<UWidget*> Widgets;
-    Widgets.Reserve(InChannels.Num() + (IsNewChatActive() ? 1 : 0));
-
-    if (IsNewChatActive())
-    {
-        UChannelStatusWidget* Widget = CreateWidget<UNewChatChannelStatusWidget>(this, NewChatChannelStatusWidgetClass);
-        Widget->Setup(nullptr);
-        Widgets.Add(Widget);
-    }
-
-    for (UChatChannel* InChannel : InChannels)
-    {
-        UChannelStatusWidget* Widget = CreateWidget<USummaryChannelStatusWidget>(this, ChannelStatusWidgetClass);
-        Widget->Setup(InChannel);
-        Widgets.Add(Widget);
-    }
-    SetChildren(Widgets);
-
-    // Needs theme so has to happen after adding to widget hierarchy
-    for (UWidget* Widget : Widgets)
-    {
-        UChannelStatusWidget* StatusWidget = static_cast<UChannelStatusWidget*>(Widget);
-        StatusWidget->UpdateSelection(CurrentChannel);
-        if (StatusWidget->IsForChannel(CurrentChannel))
-        {
-            ScrollBox->ScrollWidgetIntoView(StatusWidget);
-        }
+        ClientContext->SelectChannel(CurrentChannel);
     }
 }

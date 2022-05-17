@@ -287,6 +287,17 @@ void UStreamChatClientComponent::DisconnectUser()
     UUserManager::Get()->ResetCurrentUser();
 }
 
+void UStreamChatClientComponent::NewChat()
+{
+    CancelNewChat();
+    Channels.Insert(UChatChannel::Create(this, Api.ToSharedRef(), Socket.ToSharedRef()), 0);
+}
+
+void UStreamChatClientComponent::CancelNewChat()
+{
+    Channels.RemoveAll([](const UChatChannel* C) { return !C->IsValid(); });
+}
+
 void UStreamChatClientComponent::QueryChannels(
     const TOptional<FFilter> Filter,
     const TArray<FChannelSortOption>& SortOptions,

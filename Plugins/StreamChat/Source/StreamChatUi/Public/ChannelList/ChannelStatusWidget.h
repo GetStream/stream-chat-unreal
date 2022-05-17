@@ -24,9 +24,6 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(UChatChannel* InChannel);
 
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void UpdateSelection(UChatChannel* SelectedChannel) const;
-
     virtual bool IsForChannel(const UChatChannel*) const;
 
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FChannelStatusButtonClicked, UChatChannel*, InChannel);
@@ -39,6 +36,11 @@ public:
 protected:
     virtual void OnSetup() override;
     virtual void OnTheme() override;
+    virtual void OnClient() override;
+    virtual void NativeDestruct() override;
+
+    UFUNCTION()
+    void UpdateSelection(UChatChannel* SelectedChannel);
 
     UPROPERTY(meta = (BindWidget))
     UButton* Button;

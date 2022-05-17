@@ -35,8 +35,6 @@ protected:
     virtual void OnChannel() override;
     virtual void NativeDestruct() override;
 
-    void Paginate(const EPaginationDirection PaginationDirection, const TFunction<void()> Callback);
-
     UPROPERTY(meta = (BindWidget))
     UNativeWidgetHost* ListView;
 
@@ -53,6 +51,7 @@ protected:
 
 private:
     UWidget* CreateMessageWidget(const FMessageRef&);
+    void Paginate(const EPaginationDirection PaginationDirection, const TFunction<void()> Callback);
 
     UFUNCTION()
     void OnMessagesUpdated();

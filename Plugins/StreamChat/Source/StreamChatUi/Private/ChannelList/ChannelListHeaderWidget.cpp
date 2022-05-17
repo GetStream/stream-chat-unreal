@@ -38,6 +38,6 @@ void UChannelListHeaderWidget::OnButtonClick()
 {
     if (const UClientContextWidget* Context = UClientContextWidget::Get(this))
     {
-        Context->OnNewChat.Broadcast();
+        Client->NewChat();
     }
 }
