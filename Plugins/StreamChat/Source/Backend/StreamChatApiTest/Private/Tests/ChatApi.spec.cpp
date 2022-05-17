@@ -338,7 +338,6 @@ void FChatApiSpec::Define()
                         [=](const FUsersResponseDto& Dto)
                         {
                             TestTrue("Users returned", Dto.Users.Num() > 0);
-                            AddInfo(FString::Printf(TEXT("%s"), *Dto.Users[0].Id));
                             const FUserResponseDto* FoundUser =
                                 Dto.Users.FindByPredicate([=](const FUserResponseDto& UserDto) { return UserDto.Id == User.Id; });
                             TestNotNull("User found", FoundUser);
