@@ -4,6 +4,7 @@
 
 #include "Components/NativeWidgetHost.h"
 #include "CoreMinimal.h"
+#include "Launch/Resources/Version.h"
 #include "Slate/SObjectTableRow.h"
 
 template <class ItemType>
@@ -56,7 +57,10 @@ template <class ItemType>
 void SStreamListView<ItemType>::Construct(const FArguments& InArgs)
 {
     SListView<ItemType>::Construct(FSuperArguments()
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 0
+                                       // UE5 adds a default background brush which we want to disable
                                        .ListViewStyle(&FTableViewStyle::GetDefault())
+#endif
                                        .OnGenerateRow(this, &SStreamListView::HandleGenerateRow)
                                        .ListItemsSource(InArgs._ListItemsSource)
                                        .OnListViewScrolled(InArgs._OnListViewScrolled));

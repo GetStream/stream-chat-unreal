@@ -155,7 +155,7 @@ void SPaginateListWidget<ItemType>::Paginate(const EPaginationDirection Directio
 
     DoPaginate.Execute(
         Directions,
-        [WeakThis = this->AsWeak(), OrigWidgetCount = GetItemCount(), Directions]
+        [WeakThis = TWeakPtr<SWidget>(this->AsShared()), OrigWidgetCount = GetItemCount(), Directions]
         {
             if (!WeakThis.IsValid())
             {
