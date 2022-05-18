@@ -126,17 +126,13 @@ $(document).ready(function(){initNavTree('_ui_blueprint_library_8h_source.html',
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|User&quot;)</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    static <span class="keywordtype">bool</span> IsCurrent(const <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&amp; User);</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Messages&quot;)</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    static TArray&lt;<a class="code hl_struct" href="struct_f_message.html">FMessage</a>&gt; FilterRecent(const TArray&lt;<a class="code hl_struct" href="struct_f_message.html">FMessage</a>&gt;&amp; Messages, const FTimespan&amp; Since);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Messages&quot;)</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    static FLinearColor GenerateColorFromString(const FString&amp; Input);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    UFUNCTION(BlueprintPure, meta = (DisplayName = &quot;To Hex String (linear color)&quot;, CompactNodeTitle = &quot;-&gt;&quot;, BlueprintAutocast), Category = &quot;Utilities|String&quot;)</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    static FString Conv_ColorToHexString(const FLinearColor&amp; InColor);</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>};</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    UFUNCTION(BlueprintPure, Category = &quot;Stream Chat|Messages&quot;)</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    static FLinearColor GenerateColorFromString(const FString&amp; Input);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    UFUNCTION(BlueprintPure, meta = (DisplayName = &quot;To Hex String (linear color)&quot;, CompactNodeTitle = &quot;-&gt;&quot;, BlueprintAutocast), Category = &quot;Utilities|String&quot;)</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    static FString Conv_ColorToHexString(const FLinearColor&amp; InColor);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>};</div>
 <div class="ttc" id="aclass_u_chat_channel_html"><div class="ttname"><a href="class_u_chat_channel.html">UChatChannel</a></div><div class="ttdoc">The client-side representation of a Stream Chat channel.</div><div class="ttdef"><b>Definition:</b> ChatChannel.h:72</div></div>
-<div class="ttc" id="astruct_f_message_html"><div class="ttname"><a href="struct_f_message.html">FMessage</a></div><div class="ttdoc">Represents a Stream Chat message.</div><div class="ttdef"><b>Definition:</b> Message.h:66</div></div>
 <div class="ttc" id="astruct_f_user_html"><div class="ttname"><a href="struct_f_user.html">FUser</a></div><div class="ttdoc">A Stream Chat user.</div><div class="ttdef"><b>Definition:</b> User.h:22</div></div>
 <div class="ttc" id="astruct_f_user_ref_html"><div class="ttname"><a href="struct_f_user_ref.html">FUserRef</a></div><div class="ttdoc">A reference to a unique User.</div><div class="ttdef"><b>Definition:</b> UserRef.h:23</div></div>
 </div><!-- fragment --></div><!-- contents -->

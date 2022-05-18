@@ -102,6 +102,10 @@ $(document).ready(function(){initNavTree('class_u_chat_channel.html',''); initRe
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a2be64f2e27c1bd182e2576ce03e13e6b"><td class="memItemLeft" align="right" valign="top"><a id="a2be64f2e27c1bd182e2576ce03e13e6b" name="a2be64f2e27c1bd182e2576ce03e13e6b"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsValid</b> () const</td></tr>
+<tr class="memdesc:a2be64f2e27c1bd182e2576ce03e13e6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does this represent a non-null channel? <br /></td></tr>
+<tr class="separator:a2be64f2e27c1bd182e2576ce03e13e6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fb51ca0c405a0bf18da7cde44bc6018"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a4fb51ca0c405a0bf18da7cde44bc6018">Delete</a> (TFunction&lt; void()&gt; Callback={}) const</td></tr>
 <tr class="memdesc:a4fb51ca0c405a0bf18da7cde44bc6018"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete this channel from the server.  <a href="class_u_chat_channel.html#a4fb51ca0c405a0bf18da7cde44bc6018">More...</a><br /></td></tr>
 <tr class="separator:a4fb51ca0c405a0bf18da7cde44bc6018"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -165,6 +169,10 @@ Static Public Member Functions</h2></td></tr>
 static <a class="el" href="class_u_chat_channel.html">UChatChannel</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Create</b> (UObject *Outer, const TSharedRef&lt; <a class="el" href="class_f_chat_api.html">FChatApi</a> &gt;, const TSharedRef&lt; <a class="el" href="class_i_chat_socket.html">IChatSocket</a> &gt;, const <a class="el" href="struct_f_channel_state_response_fields_dto.html">FChannelStateResponseFieldsDto</a> &amp;)</td></tr>
 <tr class="memdesc:a11d48c27fc8bc450e98affe7b06f3698"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new channel object. <br /></td></tr>
 <tr class="separator:a11d48c27fc8bc450e98affe7b06f3698"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e27100f36d125e76194148ae1f6e204"><td class="memItemLeft" align="right" valign="top"><a id="a3e27100f36d125e76194148ae1f6e204" name="a3e27100f36d125e76194148ae1f6e204"></a>
+static <a class="el" href="class_u_chat_channel.html">UChatChannel</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Create</b> (UObject *Outer, const TSharedRef&lt; <a class="el" href="class_f_chat_api.html">FChatApi</a> &gt;, const TSharedRef&lt; <a class="el" href="class_i_chat_socket.html">IChatSocket</a> &gt;)</td></tr>
+<tr class="memdesc:a3e27100f36d125e76194148ae1f6e204"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new null channel object. <br /></td></tr>
+<tr class="separator:a3e27100f36d125e76194148ae1f6e204"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -214,10 +222,6 @@ FUnreadChangedDelegate&#160;</td><td class="memItemRight" valign="bottom"><b>Unr
 <tr class="memitem:a4c14c007dc5cae06c50b45fd747bf13b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a4c14c007dc5cae06c50b45fd747bf13b">MarkRead</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;Message)</td></tr>
 <tr class="memdesc:a4c14c007dc5cae06c50b45fd747bf13b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manually mark all messages in this channel as read by the current user.  <a href="class_u_chat_channel.html#a4c14c007dc5cae06c50b45fd747bf13b">More...</a><br /></td></tr>
 <tr class="separator:a4c14c007dc5cae06c50b45fd747bf13b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acfdb55f36b049e167a608b0ca3744f6e"><td class="memItemLeft" align="right" valign="top"><a id="acfdb55f36b049e167a608b0ca3744f6e" name="acfdb55f36b049e167a608b0ca3744f6e"></a>
-const TArray&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetMessages</b> () const</td></tr>
-<tr class="memdesc:acfdb55f36b049e167a608b0ca3744f6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get all the messages in this channel which we have locally. <br /></td></tr>
-<tr class="separator:acfdb55f36b049e167a608b0ca3744f6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5690b0358c30ad8ac99fb37746eadfd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#ae5690b0358c30ad8ac99fb37746eadfd">Query</a> (<a class="el" href="group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898">EChannelFlags</a> Flags=<a class="el" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d">EChannelFlags::State</a>, const TOptional&lt; <a class="el" href="struct_f_message_pagination_options.html">FMessagePaginationOptions</a> &gt; MessagePagination={}, const TOptional&lt; <a class="el" href="struct_f_user_pagination_options.html">FUserPaginationOptions</a> &gt; MemberPagination={}, const TOptional&lt; <a class="el" href="struct_f_user_pagination_options.html">FUserPaginationOptions</a> &gt; WatcherPagination={}, TFunction&lt; void()&gt; Callback={})</td></tr>
 <tr class="memdesc:ae5690b0358c30ad8ac99fb37746eadfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get messages, members or other channel fields.  <a href="class_u_chat_channel.html#ae5690b0358c30ad8ac99fb37746eadfd">More...</a><br /></td></tr>
 <tr class="separator:ae5690b0358c30ad8ac99fb37746eadfd"><td class="memSeparator" colspan="2">&#160;</td></tr>

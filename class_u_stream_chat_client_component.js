@@ -2,6 +2,7 @@ var class_u_stream_chat_client_component =
 [
     [ "UStreamChatClientComponent", "class_u_stream_chat_client_component.html#a32bdbcb95a97bb017db3ebc6a5e1cb46", null ],
     [ "AddDevice", "class_u_stream_chat_client_component.html#a85afc44dd2f2691a19964721f09bad49", null ],
+    [ "CancelNewChat", "class_u_stream_chat_client_component.html#aebe77318f024b6db31d1f2c9771cc463", null ],
     [ "ConnectAnonymousUser", "class_u_stream_chat_client_component.html#acff32121d75eca129de69f76e351cc92", null ],
     [ "ConnectAnonymousUser", "class_u_stream_chat_client_component.html#a137af7f2bf4a48b1a0c1e75e04d2af3c", null ],
     [ "ConnectGuestUser", "class_u_stream_chat_client_component.html#af908d5e4824f9feeb71f945b570f2d2f", null ],
@@ -12,6 +13,7 @@ var class_u_stream_chat_client_component =
     [ "CreateChannel", "class_u_stream_chat_client_component.html#a2a8eced83c1c5533f264b8e1c7b5c15e", null ],
     [ "DisconnectUser", "class_u_stream_chat_client_component.html#ab1abed0a192360951268e62a6a78a8e7", null ],
     [ "ListDevices", "class_u_stream_chat_client_component.html#a0f03f8337f0c164ca3dbcfbc7736a4dd", null ],
+    [ "NewChat", "class_u_stream_chat_client_component.html#a884cc5a41e90df2848ea295dc44270e9", null ],
     [ "On", "class_u_stream_chat_client_component.html#a7d38cc193bb913b0aa09b8269e6bbe4b", null ],
     [ "On", "class_u_stream_chat_client_component.html#a8faa7f538db03c650b73e9ac381eb15b", null ],
     [ "On", "class_u_stream_chat_client_component.html#a0c33fda79441595223429c1e769e320f", null ],

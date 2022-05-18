@@ -65,7 +65,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('struct_f_channel_state.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('struct_f_message_store.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -84,23 +84,22 @@ $(document).ready(function(){initNavTree('struct_f_channel_state.html',''); init
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">FChannelState Member List</div></div>
+  <div class="headertitle"><div class="title">FMessageStore Member List</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="struct_f_channel_state.html">FChannelState</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="struct_f_message_store.html">FMessageStore</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="struct_f_channel_state.html#a591082f72ff629a497d40ab526c79145">AddMessage</a>(const FMessage &amp;)</td><td class="entry"><a class="el" href="struct_f_channel_state.html">FChannelState</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="struct_f_channel_state.html#a5ea3db97ae2b64801848d07a0671c9b3">Append</a>(const FChannelStateResponseFieldsDto &amp;, UUserManager *)</td><td class="entry"><a class="el" href="struct_f_channel_state.html">FChannelState</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="struct_f_channel_state.html#ae31619e08147a700841325ab17e04b1f">FChannelState</a>()</td><td class="entry"><a class="el" href="struct_f_channel_state.html">FChannelState</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="struct_f_channel_state.html#acb9757a317896b956350210536ffe9e5">FChannelState</a>(const FChannelStateResponseFieldsDto &amp;, UUserManager *)</td><td class="entry"><a class="el" href="struct_f_channel_state.html">FChannelState</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="struct_f_channel_state.html#a4d408ab5707b05c780eb937cd965e43c">IsMessageRead</a>(const FMessage &amp;) const</td><td class="entry"><a class="el" href="struct_f_channel_state.html">FChannelState</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="struct_f_channel_state.html#a0930d73fd962d4e4c109fb41cdef4624">MarkRead</a>()</td><td class="entry"><a class="el" href="struct_f_channel_state.html">FChannelState</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>Messages</b> (defined in <a class="el" href="struct_f_channel_state.html">FChannelState</a>)</td><td class="entry"><a class="el" href="struct_f_channel_state.html">FChannelState</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="struct_f_channel_state.html#a7eb3c589b1a6d6f35541df633ec8245d">Read</a></td><td class="entry"><a class="el" href="struct_f_channel_state.html">FChannelState</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="struct_f_channel_state.html#aa144fa0ffa10af7f750c79fb8eb96d7e">UnreadCount</a>() const</td><td class="entry"><a class="el" href="struct_f_channel_state.html">FChannelState</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="struct_f_channel_state.html#a34e0b02f014506dd82c4290bfa369dad">WatcherCount</a></td><td class="entry"><a class="el" href="struct_f_channel_state.html">FChannelState</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>Watchers</b> (defined in <a class="el" href="struct_f_channel_state.html">FChannelState</a>)</td><td class="entry"><a class="el" href="struct_f_channel_state.html">FChannelState</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="struct_f_message_store.html#ae7bb221eb8edef00db06e596c81eb1c4">AddMessage</a>(const FMessage &amp;)</td><td class="entry"><a class="el" href="struct_f_message_store.html">FMessageStore</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>AddMessage</b>(const FMessageDto &amp;, UUserManager *) (defined in <a class="el" href="struct_f_message_store.html">FMessageStore</a>)</td><td class="entry"><a class="el" href="struct_f_message_store.html">FMessageStore</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="struct_f_message_store.html#a816bda5b4bb662a1cdc29df5066324ad">Append</a>(const FMessageStore &amp;)</td><td class="entry"><a class="el" href="struct_f_message_store.html">FMessageStore</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>Append</b>(const TArray&lt; FMessageDto &gt;, UUserManager *) (defined in <a class="el" href="struct_f_message_store.html">FMessageStore</a>)</td><td class="entry"><a class="el" href="struct_f_message_store.html">FMessageStore</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>FilterRecent</b>(const FTimespan &amp;Since) const (defined in <a class="el" href="struct_f_message_store.html">FMessageStore</a>)</td><td class="entry"><a class="el" href="struct_f_message_store.html">FMessageStore</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>First</b>() (defined in <a class="el" href="struct_f_message_store.html">FMessageStore</a>)</td><td class="entry"><a class="el" href="struct_f_message_store.html">FMessageStore</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="struct_f_message_store.html#a79731d98d98414eea16be9447fa5cf31">GetMessages</a>() const</td><td class="entry"><a class="el" href="struct_f_message_store.html">FMessageStore</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>IsEmpty</b>() const (defined in <a class="el" href="struct_f_message_store.html">FMessageStore</a>)</td><td class="entry"><a class="el" href="struct_f_message_store.html">FMessageStore</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>Last</b>() (defined in <a class="el" href="struct_f_message_store.html">FMessageStore</a>)</td><td class="entry"><a class="el" href="struct_f_message_store.html">FMessageStore</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="struct_f_message_store.html#adf78eb14d19536c72c7e205c63fa39ae">Next</a>(const FMessage &amp;) const</td><td class="entry"><a class="el" href="struct_f_message_store.html">FMessageStore</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

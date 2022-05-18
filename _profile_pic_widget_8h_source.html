@@ -107,22 +107,28 @@ $(document).ready(function(){initNavTree('_profile_pic_widget_8h_source.html',''
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>public:</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    UFUNCTION(BlueprintCallable, Category = &quot;Stream Chat&quot;)</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordtype">void</span> Setup(const <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&amp; InUser);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>protected:</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    UPROPERTY(meta = (BindWidget))</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    UImage* Image;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    UPROPERTY(meta = (BindWidget))</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    UTextBlock* InitialsTextBlock;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a> User;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>private:</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    virtual <span class="keywordtype">void</span> OnSetup() override;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">void</span> FetchRemoteImage();</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>};</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    UFUNCTION(BlueprintCallable, Category = &quot;Stream Chat&quot;)</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordtype">void</span> SetupWithUrl(const FString&amp; InImageUrl);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>protected:</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    UPROPERTY(meta = (BindWidget))</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    UImage* Image;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    UPROPERTY(meta = (BindWidget))</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    UTextBlock* InitialsTextBlock;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a> User;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    FString ImageUrl;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>private:</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    virtual <span class="keywordtype">void</span> OnSetup() override;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    FString GetUrl() const;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordtype">void</span> FetchRemoteImage();</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>};</div>
 <div class="ttc" id="astruct_f_user_ref_html"><div class="ttname"><a href="struct_f_user_ref.html">FUserRef</a></div><div class="ttdoc">A reference to a unique User.</div><div class="ttdef"><b>Definition:</b> UserRef.h:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

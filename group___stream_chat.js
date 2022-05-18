@@ -80,7 +80,6 @@ var group___stream_chat =
       [ "FChannelState", "struct_f_channel_state.html#acb9757a317896b956350210536ffe9e5", null ],
       [ "AddMessage", "struct_f_channel_state.html#a591082f72ff629a497d40ab526c79145", null ],
       [ "Append", "struct_f_channel_state.html#a5ea3db97ae2b64801848d07a0671c9b3", null ],
-      [ "GetMessages", "struct_f_channel_state.html#ae81913aaa5b79bc052087b1969040870", null ],
       [ "IsMessageRead", "struct_f_channel_state.html#a4d408ab5707b05c780eb937cd965e43c", null ],
       [ "MarkRead", "struct_f_channel_state.html#a0930d73fd962d4e4c109fb41cdef4624", null ],
       [ "UnreadCount", "struct_f_channel_state.html#aa144fa0ffa10af7f750c79fb8eb96d7e", null ],
@@ -92,9 +91,9 @@ var group___stream_chat =
       [ "Delete", "class_u_chat_channel.html#a4fb51ca0c405a0bf18da7cde44bc6018", null ],
       [ "DeleteMessage", "class_u_chat_channel.html#acd8d28c0f92e5aa93f9498a0307fe871", null ],
       [ "DeleteReaction", "class_u_chat_channel.html#ac60976fa7382c9c22cb41ca570610bcf", null ],
-      [ "GetMessages", "class_u_chat_channel.html#acfdb55f36b049e167a608b0ca3744f6e", null ],
       [ "GetReactions", "class_u_chat_channel.html#a799b0cb722dd0b91c9e0714b47dfb6f1", null ],
       [ "Hide", "class_u_chat_channel.html#a04f40f2ee5819990ee220d64696b6695", null ],
+      [ "IsValid", "class_u_chat_channel.html#a2be64f2e27c1bd182e2576ce03e13e6b", null ],
       [ "KeyStroke", "class_u_chat_channel.html#a8102ae8974c78a297db1229334c593c2", null ],
       [ "MarkRead", "class_u_chat_channel.html#a4c14c007dc5cae06c50b45fd747bf13b", null ],
       [ "MarkRead", "class_u_chat_channel.html#aebd79c869ab9e0a304e7df8b48d42bfb", null ],
@@ -159,6 +158,12 @@ var group___stream_chat =
       [ "User", "struct_f_message.html#a991f49c20c86a366fd633d5851ce161d", null ]
     ] ],
     [ "FMessagePaginationOptions", "struct_f_message_pagination_options.html", null ],
+    [ "FMessageStore", "struct_f_message_store.html", [
+      [ "AddMessage", "struct_f_message_store.html#ae7bb221eb8edef00db06e596c81eb1c4", null ],
+      [ "Append", "struct_f_message_store.html#a816bda5b4bb662a1cdc29df5066324ad", null ],
+      [ "GetMessages", "struct_f_message_store.html#a79731d98d98414eea16be9447fa5cf31", null ],
+      [ "Next", "struct_f_message_store.html#adf78eb14d19536c72c7e205c63fa39ae", null ]
+    ] ],
     [ "FRead", "struct_f_read.html", [
       [ "FRead", "struct_f_read.html#a951e51884d8eacb73f3879fbea478195", null ],
       [ "FRead", "struct_f_read.html#a85e9f883b0ea4330c9292b8fe1c3c291", null ],
@@ -195,6 +200,7 @@ var group___stream_chat =
     [ "UStreamChatClientComponent", "class_u_stream_chat_client_component.html", [
       [ "UStreamChatClientComponent", "class_u_stream_chat_client_component.html#a32bdbcb95a97bb017db3ebc6a5e1cb46", null ],
       [ "AddDevice", "class_u_stream_chat_client_component.html#a85afc44dd2f2691a19964721f09bad49", null ],
+      [ "CancelNewChat", "class_u_stream_chat_client_component.html#aebe77318f024b6db31d1f2c9771cc463", null ],
       [ "ConnectAnonymousUser", "class_u_stream_chat_client_component.html#acff32121d75eca129de69f76e351cc92", null ],
       [ "ConnectAnonymousUser", "class_u_stream_chat_client_component.html#a137af7f2bf4a48b1a0c1e75e04d2af3c", null ],
       [ "ConnectGuestUser", "class_u_stream_chat_client_component.html#af908d5e4824f9feeb71f945b570f2d2f", null ],
@@ -205,6 +211,7 @@ var group___stream_chat =
       [ "CreateChannel", "class_u_stream_chat_client_component.html#a2a8eced83c1c5533f264b8e1c7b5c15e", null ],
       [ "DisconnectUser", "class_u_stream_chat_client_component.html#ab1abed0a192360951268e62a6a78a8e7", null ],
       [ "ListDevices", "class_u_stream_chat_client_component.html#a0f03f8337f0c164ca3dbcfbc7736a4dd", null ],
+      [ "NewChat", "class_u_stream_chat_client_component.html#a884cc5a41e90df2848ea295dc44270e9", null ],
       [ "On", "class_u_stream_chat_client_component.html#a7d38cc193bb913b0aa09b8269e6bbe4b", null ],
       [ "On", "class_u_stream_chat_client_component.html#a8faa7f538db03c650b73e9ac381eb15b", null ],
       [ "On", "class_u_stream_chat_client_component.html#a0c33fda79441595223429c1e769e320f", null ],

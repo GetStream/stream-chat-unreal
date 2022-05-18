@@ -93,56 +93,58 @@ $(document).ready(function(){initNavTree('_channel_state_8h_source.html',''); in
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;Message.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;Read.h&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;ChannelState.generated.h&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">struct </span><a class="code hl_struct" href="struct_f_channel_state_response_fields_dto.html">FChannelStateResponseFieldsDto</a>;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>USTRUCT(BlueprintType)</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="struct_f_channel_state.html">   18</a></span>struct STREAMCHAT_API <a class="code hl_struct" href="struct_f_channel_state.html">FChannelState</a></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    GENERATED_BODY()</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="struct_f_channel_state.html#ae31619e08147a700841325ab17e04b1f">   23</a></span>    <a class="code hl_struct" href="struct_f_channel_state.html">FChannelState</a>();</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    explicit <a class="code hl_struct" href="struct_f_channel_state.html">FChannelState</a>(const <a class="code hl_struct" href="struct_f_channel_state_response_fields_dto.html">FChannelStateResponseFieldsDto</a>&amp;, UUserManager*);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordtype">void</span> Append(const <a class="code hl_struct" href="struct_f_channel_state_response_fields_dto.html">FChannelStateResponseFieldsDto</a>&amp;, UUserManager*);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordtype">void</span> AddMessage(const <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp;);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    const TArray&lt;<a class="code hl_struct" href="struct_f_message.html">FMessage</a>&gt;&amp; GetMessages() const;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">bool</span> IsMessageRead(const <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp;) const;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">void</span> MarkRead();</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    int32 UnreadCount() const;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    UPROPERTY(BlueprintReadOnly, Category = &quot;Stream Chat|Channel&quot;)</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="struct_f_channel_state.html#a34e0b02f014506dd82c4290bfa369dad">   48</a></span>    int32 <a class="code hl_variable" href="struct_f_channel_state_response_fields_dto.html#a9ae31539fe472c2d60bbe51874f5cdcc">WatcherCount</a> = 0;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="comment">// List of channel watchers</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    UPROPERTY(BlueprintReadOnly, Category = &quot;Stream Chat|Channel&quot;)</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    TArray&lt;<a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&gt; <a class="code hl_variable" href="struct_f_channel_state_response_fields_dto.html#a18e92da00a9e350e5ac8ded8fbd33adb">Watchers</a>;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    UPROPERTY(BlueprintReadOnly, Category = &quot;Stream Chat|Channel&quot;)</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="struct_f_channel_state.html#a7eb3c589b1a6d6f35541df633ec8245d">   56</a></span>    TArray&lt;<a class="code hl_struct" href="struct_f_read.html">FRead</a>&gt; <a class="code hl_variable" href="struct_f_channel_state_response_fields_dto.html#a5b74faf2666b551290631b2afd074147">Read</a>;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>private:</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <a class="code hl_struct" href="struct_f_read.html">FRead</a>* GetCurrentUserRead();</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    const <a class="code hl_struct" href="struct_f_read.html">FRead</a>* GetCurrentUserRead() const;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    TArray&lt;<a class="code hl_struct" href="struct_f_message.html">FMessage</a>&gt; <a class="code hl_variable" href="struct_f_channel_state_response_fields_dto.html#a95ccb123f3ed5887d6936c9523f032c4">Messages</a>;</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;MessageStore.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;Read.h&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;ChannelState.generated.h&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">struct </span><a class="code hl_struct" href="struct_f_channel_state_response_fields_dto.html">FChannelStateResponseFieldsDto</a>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>USTRUCT(BlueprintType)</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="struct_f_channel_state.html">   19</a></span>struct STREAMCHAT_API <a class="code hl_struct" href="struct_f_channel_state.html">FChannelState</a></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="struct_f_channel_state.html#ae31619e08147a700841325ab17e04b1f">   24</a></span>    <a class="code hl_struct" href="struct_f_channel_state.html">FChannelState</a>();</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    explicit <a class="code hl_struct" href="struct_f_channel_state.html">FChannelState</a>(const <a class="code hl_struct" href="struct_f_channel_state_response_fields_dto.html">FChannelStateResponseFieldsDto</a>&amp;, UUserManager*);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordtype">void</span> Append(const <a class="code hl_struct" href="struct_f_channel_state_response_fields_dto.html">FChannelStateResponseFieldsDto</a>&amp;, UUserManager*);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordtype">void</span> AddMessage(const <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp;);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">bool</span> IsMessageRead(const <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp;) const;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordtype">void</span> MarkRead();</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    int32 UnreadCount() const;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    UPROPERTY(BlueprintReadOnly, Category = &quot;Stream Chat|Channel&quot;)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <a class="code hl_struct" href="struct_f_message_store.html">FMessageStore</a> <a class="code hl_variable" href="struct_f_channel_state_response_fields_dto.html#a95ccb123f3ed5887d6936c9523f032c4">Messages</a>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    UPROPERTY(BlueprintReadOnly, Category = &quot;Stream Chat|Channel&quot;)</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="struct_f_channel_state.html#a34e0b02f014506dd82c4290bfa369dad">   49</a></span>    int32 <a class="code hl_variable" href="struct_f_channel_state_response_fields_dto.html#a9ae31539fe472c2d60bbe51874f5cdcc">WatcherCount</a> = 0;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="comment">// List of channel watchers</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    UPROPERTY(BlueprintReadOnly, Category = &quot;Stream Chat|Channel&quot;)</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    TArray&lt;<a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&gt; <a class="code hl_variable" href="struct_f_channel_state_response_fields_dto.html#a18e92da00a9e350e5ac8ded8fbd33adb">Watchers</a>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    UPROPERTY(BlueprintReadOnly, Category = &quot;Stream Chat|Channel&quot;)</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="struct_f_channel_state.html#a7eb3c589b1a6d6f35541df633ec8245d">   57</a></span>    TArray&lt;<a class="code hl_struct" href="struct_f_read.html">FRead</a>&gt; <a class="code hl_variable" href="struct_f_channel_state_response_fields_dto.html#a5b74faf2666b551290631b2afd074147">Read</a>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>private:</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <a class="code hl_struct" href="struct_f_read.html">FRead</a>* GetCurrentUserRead();</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    const <a class="code hl_struct" href="struct_f_read.html">FRead</a>* GetCurrentUserRead() const;</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>};</div>
-<div class="ttc" id="astruct_f_channel_state_html"><div class="ttname"><a href="struct_f_channel_state.html">FChannelState</a></div><div class="ttdoc">Encapsulates the local state of a channel.</div><div class="ttdef"><b>Definition:</b> ChannelState.h:19</div></div>
+<div class="ttc" id="astruct_f_channel_state_html"><div class="ttname"><a href="struct_f_channel_state.html">FChannelState</a></div><div class="ttdoc">Encapsulates the local state of a channel.</div><div class="ttdef"><b>Definition:</b> ChannelState.h:20</div></div>
 <div class="ttc" id="astruct_f_channel_state_response_fields_dto_html"><div class="ttname"><a href="struct_f_channel_state_response_fields_dto.html">FChannelStateResponseFieldsDto</a></div><div class="ttdoc">#/components/schemas/ChannelStateResponseFields</div><div class="ttdef"><b>Definition:</b> ChannelStateResponseFieldsDto.h:19</div></div>
 <div class="ttc" id="astruct_f_channel_state_response_fields_dto_html_a18e92da00a9e350e5ac8ded8fbd33adb"><div class="ttname"><a href="struct_f_channel_state_response_fields_dto.html#a18e92da00a9e350e5ac8ded8fbd33adb">FChannelStateResponseFieldsDto::Watchers</a></div><div class="ttdeci">TArray&lt; FUserObjectDto &gt; Watchers</div><div class="ttdoc">A list of users watching the channel.</div><div class="ttdef"><b>Definition:</b> ChannelStateResponseFieldsDto.h:59</div></div>
 <div class="ttc" id="astruct_f_channel_state_response_fields_dto_html_a5b74faf2666b551290631b2afd074147"><div class="ttname"><a href="struct_f_channel_state_response_fields_dto.html#a5b74faf2666b551290631b2afd074147">FChannelStateResponseFieldsDto::Read</a></div><div class="ttdeci">TArray&lt; FReadDto &gt; Read</div><div class="ttdoc">List of read states.</div><div class="ttdef"><b>Definition:</b> ChannelStateResponseFieldsDto.h:51</div></div>
 <div class="ttc" id="astruct_f_channel_state_response_fields_dto_html_a95ccb123f3ed5887d6936c9523f032c4"><div class="ttname"><a href="struct_f_channel_state_response_fields_dto.html#a95ccb123f3ed5887d6936c9523f032c4">FChannelStateResponseFieldsDto::Messages</a></div><div class="ttdeci">TArray&lt; FMessageDto &gt; Messages</div><div class="ttdoc">List of channel members.</div><div class="ttdef"><b>Definition:</b> ChannelStateResponseFieldsDto.h:43</div></div>
 <div class="ttc" id="astruct_f_channel_state_response_fields_dto_html_a9ae31539fe472c2d60bbe51874f5cdcc"><div class="ttname"><a href="struct_f_channel_state_response_fields_dto.html#a9ae31539fe472c2d60bbe51874f5cdcc">FChannelStateResponseFieldsDto::WatcherCount</a></div><div class="ttdeci">int32 WatcherCount</div><div class="ttdoc">The count of users watching the channel.</div><div class="ttdef"><b>Definition:</b> ChannelStateResponseFieldsDto.h:55</div></div>
 <div class="ttc" id="astruct_f_message_html"><div class="ttname"><a href="struct_f_message.html">FMessage</a></div><div class="ttdoc">Represents a Stream Chat message.</div><div class="ttdef"><b>Definition:</b> Message.h:66</div></div>
+<div class="ttc" id="astruct_f_message_store_html"><div class="ttname"><a href="struct_f_message_store.html">FMessageStore</a></div><div class="ttdoc">A store for a list of messages.</div><div class="ttdef"><b>Definition:</b> MessageStore.h:19</div></div>
 <div class="ttc" id="astruct_f_read_html"><div class="ttname"><a href="struct_f_read.html">FRead</a></div><div class="ttdoc">Contains information about the read state (i.e number of unread messages) of a member of a chat chann...</div><div class="ttdef"><b>Definition:</b> Read.h:19</div></div>
 <div class="ttc" id="astruct_f_user_ref_html"><div class="ttname"><a href="struct_f_user_ref.html">FUserRef</a></div><div class="ttdoc">A reference to a unique User.</div><div class="ttdef"><b>Definition:</b> UserRef.h:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
