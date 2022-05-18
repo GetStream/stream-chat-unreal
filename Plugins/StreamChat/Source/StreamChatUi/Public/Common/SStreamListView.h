@@ -10,6 +10,8 @@ template <class ItemType>
 class SStreamListView : public SListView<ItemType>
 {
 public:
+    using FSuperArguments = typename SListView<ItemType>::FArguments;
+
     DECLARE_DELEGATE_RetVal_OneParam(UWidget*, FCreateListViewWidgetDelegate, const ItemType&);
 
     SLATE_BEGIN_ARGS(SStreamListView<ItemType>) : _ListItemsSource(nullptr), _CreateListViewWidget(), _OnListViewScrolled()
@@ -53,7 +55,7 @@ private:
 template <class ItemType>
 void SStreamListView<ItemType>::Construct(const FArguments& InArgs)
 {
-    SListView<ItemType>::Construct(SListView<ItemType>::FArguments()
+    SListView<ItemType>::Construct(FSuperArguments()
                                        .ListViewStyle(&FTableViewStyle::GetDefault())
                                        .OnGenerateRow(this, &SStreamListView::HandleGenerateRow)
                                        .ListItemsSource(InArgs._ListItemsSource)

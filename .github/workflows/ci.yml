@@ -15,10 +15,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: DoozyX/clang-format-lint-action@v0.12
+    - uses: DoozyX/clang-format-lint-action@v0.13
       with:
         source: 'Source Plugins'
-        clangFormatVersion: 12
+        clangFormatVersion: 13
 
   build-plugin:
     strategy:

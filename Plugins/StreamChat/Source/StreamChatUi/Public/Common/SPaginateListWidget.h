@@ -9,6 +9,9 @@
 template <class ItemType>
 class SPaginateListWidget : public SStreamListView<ItemType>
 {
+    using FSuperArguments = typename SStreamListView<ItemType>::FArguments;
+    using FCreateListViewWidgetDelegate = typename SStreamListView<ItemType>::FCreateListViewWidgetDelegate;
+
     DECLARE_DELEGATE_TwoParams(FOnPaginatingDelegate, EPaginationDirection, EHttpRequestState);
     DECLARE_DELEGATE_TwoParams(FDoPaginateDelegate, EPaginationDirection, TFunction<void()>);
 
@@ -30,7 +33,7 @@ public:
     SLATE_EVENT(FDoPaginateDelegate, DoPaginate);
     SLATE_EVENT(FOnPaginatingDelegate, OnPaginating);
     SLATE_ARGUMENT(const TArray<ItemType>*, ListItemsSource)
-    SLATE_EVENT(SStreamListView<ItemType>::FCreateListViewWidgetDelegate, CreateListViewWidget);
+    SLATE_EVENT(FCreateListViewWidgetDelegate, CreateListViewWidget);
 
     SLATE_END_ARGS()
 
@@ -66,7 +69,7 @@ private:
 template <class ItemType>
 void SPaginateListWidget<ItemType>::Construct(const FArguments& InArgs)
 {
-    SStreamListView<ItemType>::Construct(SStreamListView<ItemType>::FArguments()
+    SStreamListView<ItemType>::Construct(FSuperArguments()
                                              .ListItemsSource(InArgs._ListItemsSource)
                                              .CreateListViewWidget(InArgs._CreateListViewWidget)
                                              .OnListViewScrolled(this, &SPaginateListWidget<ItemType>::OnScroll));
@@ -152,13 +155,13 @@ void SPaginateListWidget<ItemType>::Paginate(const EPaginationDirection Directio
 
     DoPaginate.Execute(
         Directions,
-        [WeakThis = TWeakPtr<SPaginateListWidget>{SharedThis(this)}, OrigWidgetCount = GetItemCount(), Directions]
+        [WeakThis = this->AsWeak(), OrigWidgetCount = GetItemCount(), Directions]
         {
             if (!WeakThis.IsValid())
             {
                 return;
             }
-            TSharedPtr<SPaginateListWidget> This = WeakThis.Pin();
+            TSharedPtr<SPaginateListWidget> This = StaticCastSharedPtr<SPaginateListWidget>(WeakThis.Pin());
 
             const uint32 DeltaChildrenCount = This->GetItemCount() - OrigWidgetCount;
             if (DeltaChildrenCount == 0 || DeltaChildrenCount < This->Limit)
