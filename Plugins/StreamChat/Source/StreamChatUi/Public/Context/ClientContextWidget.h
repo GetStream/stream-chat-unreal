@@ -36,7 +36,7 @@ public:
     UPROPERTY(BlueprintAssignable)
     FChannelSelected OnChannelSelected;
 
-    UPROPERTY(BlueprintReadOnly, Transient)
+    UPROPERTY(BlueprintReadOnly, Transient, Category = "Stream Chat")
     UChatChannel* SelectedChannel;
 
 private:

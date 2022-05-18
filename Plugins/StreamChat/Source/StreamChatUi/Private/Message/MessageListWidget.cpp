@@ -3,7 +3,6 @@
 #include "Message/MessageListWidget.h"
 
 #include "Channel/ChatChannel.h"
-#include "Common/PaginateListWidget.h"
 #include "Context/ChannelContextWidget.h"
 
 namespace

@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "Common/PaginateListWidget.h"
+#include "Common/SPaginateListWidget.h"
 #include "Components/NativeWidgetHost.h"
 #include "CoreMinimal.h"
 #include "NewChatChannelStatusWidget.h"

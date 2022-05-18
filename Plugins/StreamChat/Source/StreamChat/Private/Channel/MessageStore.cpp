@@ -2,6 +2,7 @@
 
 #include "Channel/MessageStore.h"
 
+#include "Algo/Transform.h"
 #include "Channel/Message.h"
 #include "User/UserManager.h"
 

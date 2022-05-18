@@ -3,7 +3,7 @@
 #pragma once
 
 #include "Channel/Message.h"
-#include "Common/PaginateListWidget.h"
+#include "Common/SPaginateListWidget.h"
 #include "Components/NativeWidgetHost.h"
 #include "CoreMinimal.h"
 #include "MessagePosition.h"
