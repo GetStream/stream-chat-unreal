@@ -111,6 +111,7 @@ void UNewChatWidget::OnSendMessage(const FString& Text)
     {
         Props.SetName(Group.ToString());
     }
+    Context->GetClient()->CancelNewChat();
     Context->GetClient()->QueryChannel(
         Props,
         EChannelFlags::State | EChannelFlags::Watch,
