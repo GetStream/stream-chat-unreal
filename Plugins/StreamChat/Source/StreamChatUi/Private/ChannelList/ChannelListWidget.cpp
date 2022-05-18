@@ -109,7 +109,7 @@ void UChannelListWidget::OnChannelsUpdated(const TArray<UChatChannel*>&)
 {
     RebuildChannelList();
 
-    if (!CurrentChannel && bAutoSelectFirstChannel && !Client->GetChannels().IsEmpty())
+    if (!CurrentChannel && bAutoSelectFirstChannel && Client->GetChannels().Num() > 0)
     {
         // Select first channel.
         CurrentChannel = Client->GetChannels()[0];

@@ -48,7 +48,7 @@ bool FMessageStore::AddMessage(const FMessageDto& Dto, UUserManager* UserManager
 
 bool FMessageStore::IsEmpty() const
 {
-    return Messages.IsEmpty();
+    return Messages.Num() == 0;
 }
 
 const FMessage& FMessageStore::First()
