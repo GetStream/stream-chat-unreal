@@ -16,9 +16,9 @@ struct FUpdateUserPartialRequestDto
 {
     GENERATED_BODY()
 
-    /// User ID to update
+    /// ID of user to update
     UPROPERTY()
-    FString UserId;
+    FString Id;
 
     /// Sets new field values
     UPROPERTY()
