@@ -24,6 +24,7 @@
 #include "Request/Reaction/SendReactionRequestDto.h"
 #include "Request/User/GuestRequestDto.h"
 #include "Request/User/QueryUsersRequestDto.h"
+#include "Request/User/UpdateUserPartialRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/Channel/DeleteChannelResponseDto.h"
@@ -44,6 +45,7 @@
 #include "Response/Reaction/ReactionResponseDto.h"
 #include "Response/ResponseDto.h"
 #include "Response/User/GuestResponseDto.h"
+#include "Response/User/UpdateUsersResponseDto.h"
 #include "Response/User/UsersResponseDto.h"
 #include "Token.h"
 #include "TokenManager.h"
@@ -225,6 +227,17 @@ void FChatApi::CreateGuest(const FUserObjectRequestDto& User, const TCallback<FG
     const FString Url = BuildUrl(TEXT("guest"));
     const FGuestRequestDto Body{User};
     Client->Post(Url).Json(Body).Send(Callback);
+}
+
+void FChatApi::PartialUpdateUser(
+    const FString& UserId,
+    const TSharedRef<FJsonObject>& Set,
+    const TArray<FString>& Unset,
+    const TCallback<FUpdateUsersResponseDto> Callback) const
+{
+    const FString Url = BuildUrl(TEXT("users"));
+    const FUpdateUserPartialRequestDto Body{UserId, Wrap(Set), Unset};
+    Client->Patch(Url).Json(Body).Send(Callback);
 }
 
 void FChatApi::AddDevice(const FString& DeviceId, const EPushProvider PushProvider, const TCallback<FResponseDto> Callback) const
