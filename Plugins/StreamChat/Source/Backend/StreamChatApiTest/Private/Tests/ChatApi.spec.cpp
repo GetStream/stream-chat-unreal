@@ -26,6 +26,7 @@
 #include "Response/Moderation/QueryBannedUsersResponseDto.h"
 #include "Response/ResponseDto.h"
 #include "Response/User/GuestResponseDto.h"
+#include "Response/User/UpdateUsersResponseDto.h"
 #include "Response/User/UsersResponseDto.h"
 #include "TokenManager.h"
 #include "User/Jwt.h"
@@ -44,6 +45,7 @@ const FString DeviceId = TEXT("random-device-id");
 const FString BanUserId = TEXT("tutorial-unreal");
 const FString MsgText{TEXT("My test message!")};
 FString MessageId;
+FString GuestUserId;
 
 const TSharedRef<FTokenManager> TokenManager = MakeShared<FTokenManager>();
 const TSharedRef<FChatApi> Api = FChatApi::Create(ApiKey, Host, TokenManager);
@@ -372,6 +374,23 @@ void FChatApiSpec::Define()
                             TestFalse("Online", Dto.User.bOnline);
                             TestEqual("Role", Dto.User.Role, TEXT("guest"));
                             TestEqual("No additional fields", Dto.User.AdditionalFields.GetFields().Num(), 0);
+                            GuestUserId = Dto.User.Id;
+                            TestDone.Execute();
+                        });
+                });
+            // Partial update user
+            LatentAfterEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    AddInfo(FString::Printf(TEXT("Partial update user %s"), *GuestUserId));
+                    const FString NewName = TEXT("New user name");
+                    const TSharedRef<FJsonObject> Set = MakeShared<FJsonObject>();
+                    Set->SetStringField(TEXT("name"), NewName);
+                    Api->PartialUpdateUser(
+                        {{GuestUserId, Set, {}}},
+                        [=](const FUpdateUsersResponseDto& Dto)
+                        {
+                            TestEqual("User partial updated", Dto.Users[GuestUserId].AdditionalFields.GetString(TEXT("name")).GetValue(), NewName);
                             TestDone.Execute();
                         });
                 });

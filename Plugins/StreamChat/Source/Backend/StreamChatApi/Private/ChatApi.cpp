@@ -25,6 +25,7 @@
 #include "Request/User/GuestRequestDto.h"
 #include "Request/User/QueryUsersRequestDto.h"
 #include "Request/User/UpdateUserPartialRequestDto.h"
+#include "Request/User/UpdateUsersPartialRequestDto.h"
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/Channel/DeleteChannelResponseDto.h"
@@ -229,14 +230,11 @@ void FChatApi::CreateGuest(const FUserObjectRequestDto& User, const TCallback<FG
     Client->Post(Url).Json(Body).Send(Callback);
 }
 
-void FChatApi::PartialUpdateUser(
-    const FString& UserId,
-    const TSharedRef<FJsonObject>& Set,
-    const TArray<FString>& Unset,
-    const TCallback<FUpdateUsersResponseDto> Callback) const
+void FChatApi::PartialUpdateUser(const TArray<FPartialUpdateUser>& Users, const TCallback<FUpdateUsersResponseDto> Callback) const
 {
     const FString Url = BuildUrl(TEXT("users"));
-    const FUpdateUserPartialRequestDto Body{UserId, Wrap(Set), Unset};
+    FUpdateUsersPartialRequestDto Body;
+    Algo::Transform(Users, Body.Users, [](const FPartialUpdateUser& P) { return FUpdateUserPartialRequestDto{P.UserId, Wrap(P.Set), P.Unset}; });
     Client->Patch(Url).Json(Body).Send(Callback);
 }
 
