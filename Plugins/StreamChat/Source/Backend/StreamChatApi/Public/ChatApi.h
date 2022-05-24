@@ -479,6 +479,19 @@ public:
 
     void CreateGuest(const FUserObjectRequestDto& User, TCallback<FGuestResponseDto> Callback = {}) const;
 
+    /**
+     * @brief Updates certain fields of a user
+     * @param UserId A unique identifier for the user
+     * @param Set Sets new field values
+     * @param Unset Array of field names to unset
+     * @param Callback Called when response is received.
+     */
+    void PartialUpdateUser(
+        const FString& UserId,
+        const TSharedRef<FJsonObject>& Set,
+        const TArray<FString>& Unset,
+        TCallback<FUpdateUsersResponseDto> Callback = {}) const;
+
 ///@}
 #pragma endregion Users
 
