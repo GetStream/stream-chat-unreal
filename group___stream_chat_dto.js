@@ -145,6 +145,14 @@ var group___stream_chat_dto =
       [ "Offset", "struct_f_query_users_request_dto.html#a1c16723a5e0378cb08aa577b14622923", null ],
       [ "Sort", "struct_f_query_users_request_dto.html#a720e455cf1fded70c7c648d208c6e2dc", null ]
     ] ],
+    [ "FUpdateUserPartialRequestDto", "struct_f_update_user_partial_request_dto.html", [
+      [ "Id", "struct_f_update_user_partial_request_dto.html#ae1b3165e5f5a6c97450326fd2402ab40", null ],
+      [ "Set", "struct_f_update_user_partial_request_dto.html#a0d1fbbf15acb9a56834dbd1246190660", null ],
+      [ "Unset", "struct_f_update_user_partial_request_dto.html#a67ef58410984029ca30fa962abb8eb78", null ]
+    ] ],
+    [ "FUpdateUsersPartialRequestDto", "struct_f_update_users_partial_request_dto.html", [
+      [ "Users", "struct_f_update_users_partial_request_dto.html#a7fe006ac66c4d83e4bec095d1212b509", null ]
+    ] ],
     [ "FUserObjectRequestDto", "struct_f_user_object_request_dto.html", null ],
     [ "FChannelConfigWithInfoDto", "struct_f_channel_config_with_info_dto.html", [
       [ "Automod", "struct_f_channel_config_with_info_dto.html#a57fe5d353169226ec7018d80e9d652cc", null ],
@@ -351,6 +359,7 @@ var group___stream_chat_dto =
       [ "AccessToken", "struct_f_guest_response_dto.html#ab5eb3c1d97bb8b476cfa71f876ac6a35", null ],
       [ "User", "struct_f_guest_response_dto.html#af66b79092c71b84ab03b393080adb7d6", null ]
     ] ],
+    [ "FUpdateUsersResponseDto", "struct_f_update_users_response_dto.html", null ],
     [ "FUserResponseDto", "struct_f_user_response_dto.html", [
       [ "bShadowBanned", "struct_f_user_response_dto.html#ae286ca7866b252d1f81bac175132cb78", null ]
     ] ],

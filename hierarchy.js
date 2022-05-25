@@ -108,6 +108,7 @@ var hierarchy =
       [ "FSearchResponseDto", "struct_f_search_response_dto.html", null ],
       [ "FUpdateChannelPartialResponseDto", "struct_f_update_channel_partial_response_dto.html", null ],
       [ "FUpdateChannelResponseDto", "struct_f_update_channel_response_dto.html", null ],
+      [ "FUpdateUsersResponseDto", "struct_f_update_users_response_dto.html", null ],
       [ "FUsersResponseDto", "struct_f_users_response_dto.html", null ]
     ] ],
     [ "FSearchRequestDto", "struct_f_search_request_dto.html", null ],
@@ -120,6 +121,8 @@ var hierarchy =
     [ "FUpdateChannelPartialRequestDto", "struct_f_update_channel_partial_request_dto.html", null ],
     [ "FUpdateChannelRequestDto", "struct_f_update_channel_request_dto.html", null ],
     [ "FUpdateMessageRequestDto", "struct_f_update_message_request_dto.html", null ],
+    [ "FUpdateUserPartialRequestDto", "struct_f_update_user_partial_request_dto.html", null ],
+    [ "FUpdateUsersPartialRequestDto", "struct_f_update_users_partial_request_dto.html", null ],
     [ "FUser", "struct_f_user.html", null ],
     [ "FUserDto", "struct_f_user_dto.html", [
       [ "FOwnUserDto", "struct_f_own_user_dto.html", null ],

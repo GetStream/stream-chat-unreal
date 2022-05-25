@@ -15,6 +15,7 @@ var group___stream_chat_api =
       [ "MuteChannels", "class_f_chat_api.html#a6c54f41a3abbab8df8488a1de2aa12db", null ],
       [ "MuteUsers", "class_f_chat_api.html#ab811c2b71259baffea358f8e1385acca", null ],
       [ "PartialUpdateChannel", "class_f_chat_api.html#a2fc38142a68734cc79dd279f03efd76e", null ],
+      [ "PartialUpdateUser", "class_f_chat_api.html#a6b5635f91e25d020feaec6b6c5cea931", null ],
       [ "QueryBannedUsers", "class_f_chat_api.html#a4d6b227fab2a8c7a4bb7a75a4620f54d", null ],
       [ "QueryChannel", "class_f_chat_api.html#a8d0f32e0780f20f2079b325169b5589e", null ],
       [ "QueryChannels", "class_f_chat_api.html#ac0ddab8f53a683e19daa331e15c4c2a8", null ],
