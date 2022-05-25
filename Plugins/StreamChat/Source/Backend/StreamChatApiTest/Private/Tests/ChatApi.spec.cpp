@@ -333,7 +333,7 @@ void FChatApiSpec::Define()
                     Api->QueryUsers(
                         Socket->GetConnectionId(),
                         false,
-                        {},
+                        FFilter::Autocomplete(TEXT("id"), TEXT("test")).ToJsonObject(),
                         {},
                         100,
                         {},
