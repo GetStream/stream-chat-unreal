@@ -10,6 +10,7 @@
 #include "Request/SortParamRequestDto.h"
 #include "StreamJson.h"
 
+struct FUserObjectRequestDto;
 class FHttpClient;
 class FRequestBuilder;
 class FTokenManager;
@@ -42,7 +43,6 @@ struct FUpdateChannelPartialResponseDto;
 struct FUpdateChannelRequestDto;
 struct FUpdateChannelResponseDto;
 struct FUpdateUsersResponseDto;
-struct FUserObjectRequestDto;
 struct FUsersResponseDto;
 
 template <class T>
@@ -491,7 +491,14 @@ public:
      * @param Users User IDs and the fields to set and unset for the user
      * @param Callback Called when response is received.
      */
-    void PartialUpdateUser(const TArray<FPartialUpdateUser>& Users, TCallback<FUpdateUsersResponseDto> Callback = {}) const;
+    void PartialUpdateUsers(const TArray<FPartialUpdateUser>& Users, TCallback<FUpdateUsersResponseDto> Callback = {}) const;
+
+    /**
+     * @brief Update or create users in bulk
+     * @param Users Map of user IDs to user objects
+     * @param Callback Called when response is received.
+     */
+    void UpsertUsers(const TMap<FString, FUserObjectRequestDto>& Users, TCallback<FUpdateUsersResponseDto> Callback = {}) const;
 
 ///@}
 #pragma endregion Users

@@ -387,11 +387,29 @@ void FChatApiSpec::Define()
                     const TSharedRef<FJsonObject> Set = MakeShared<FJsonObject>();
                     Set->SetStringField(TEXT("name"), NewName);
                     const FChatApi::FPartialUpdateUser Update{GuestUserId, Set, {}};
-                    Api->PartialUpdateUser(
+                    Api->PartialUpdateUsers(
                         {Update},
                         [=](const FUpdateUsersResponseDto& Dto)
                         {
                             TestEqual("User partial updated", Dto.Users[GuestUserId].AdditionalFields.GetString(TEXT("name")).GetValue(), NewName);
+                            TestDone.Execute();
+                        });
+                });
+
+            // Partial update user
+            LatentAfterEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    FUserObjectRequestDto Update;
+                    Update.Id = GuestUserId;
+                    Update.Teams.Push(TEXT("team1"));
+                    const FString NewName = TEXT("Guest name");
+                    Update.AdditionalFields.SetString(TEXT("name"), NewName);
+                    Api->UpsertUsers(
+                        {{GuestUserId, Update}},
+                        [=](const FUpdateUsersResponseDto& Dto)
+                        {
+                            TestEqual("User upserted", Dto.Users[GuestUserId].AdditionalFields.GetString(TEXT("name")).GetValue(), NewName);
                             TestDone.Execute();
                         });
                 });
