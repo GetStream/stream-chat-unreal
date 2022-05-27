@@ -203,9 +203,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a54fd85024043f905f2cbe3435d3fce77"><td class="memItemLeft" align="right" valign="top"><a id="a54fd85024043f905f2cbe3435d3fce77" name="a54fd85024043f905f2cbe3435d3fce77"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>CreateGuest</b> (const <a class="el" href="struct_f_user_object_request_dto.html">FUserObjectRequestDto</a> &amp;User, TCallback&lt; <a class="el" href="struct_f_guest_response_dto.html">FGuestResponseDto</a> &gt; Callback={}) const</td></tr>
 <tr class="separator:a54fd85024043f905f2cbe3435d3fce77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b5635f91e25d020feaec6b6c5cea931"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#a6b5635f91e25d020feaec6b6c5cea931">PartialUpdateUser</a> (const TArray&lt; FPartialUpdateUser &gt; &amp;Users, TCallback&lt; <a class="el" href="struct_f_update_users_response_dto.html">FUpdateUsersResponseDto</a> &gt; Callback={}) const</td></tr>
-<tr class="memdesc:a6b5635f91e25d020feaec6b6c5cea931"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates certain fields of a user.  <a href="class_f_chat_api.html#a6b5635f91e25d020feaec6b6c5cea931">More...</a><br /></td></tr>
-<tr class="separator:a6b5635f91e25d020feaec6b6c5cea931"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a396feb839bfa9f08beba33d198016e50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#a396feb839bfa9f08beba33d198016e50">PartialUpdateUsers</a> (const TArray&lt; FPartialUpdateUser &gt; &amp;Users, TCallback&lt; <a class="el" href="struct_f_update_users_response_dto.html">FUpdateUsersResponseDto</a> &gt; Callback={}) const</td></tr>
+<tr class="memdesc:a396feb839bfa9f08beba33d198016e50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates certain fields of a user.  <a href="class_f_chat_api.html#a396feb839bfa9f08beba33d198016e50">More...</a><br /></td></tr>
+<tr class="separator:a396feb839bfa9f08beba33d198016e50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ee0406f6dbe4fe2ba1403328c78cf72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#a4ee0406f6dbe4fe2ba1403328c78cf72">UpsertUsers</a> (const TMap&lt; FString, <a class="el" href="struct_f_user_object_request_dto.html">FUserObjectRequestDto</a> &gt; &amp;Users, TCallback&lt; <a class="el" href="struct_f_update_users_response_dto.html">FUpdateUsersResponseDto</a> &gt; Callback={}) const</td></tr>
+<tr class="memdesc:a4ee0406f6dbe4fe2ba1403328c78cf72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update or create users in bulk.  <a href="class_f_chat_api.html#a4ee0406f6dbe4fe2ba1403328c78cf72">More...</a><br /></td></tr>
+<tr class="separator:a4ee0406f6dbe4fe2ba1403328c78cf72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Devices</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p ><a href="https://getstream.io/chat/docs/rest/#Devices">https://getstream.io/chat/docs/rest/#Devices</a> </p>
 </div></td></tr>
@@ -879,14 +882,14 @@ static TSharedRef&lt; <a class="el" href="class_f_chat_api.html">FChatApi</a> &g
 
 </div>
 </div>
-<a id="a6b5635f91e25d020feaec6b6c5cea931" name="a6b5635f91e25d020feaec6b6c5cea931"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b5635f91e25d020feaec6b6c5cea931">&#9670;&nbsp;</a></span>PartialUpdateUser()</h2>
+<a id="a396feb839bfa9f08beba33d198016e50" name="a396feb839bfa9f08beba33d198016e50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a396feb839bfa9f08beba33d198016e50">&#9670;&nbsp;</a></span>PartialUpdateUsers()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void FChatApi::PartialUpdateUser </td>
+          <td class="memname">void FChatApi::PartialUpdateUsers </td>
           <td>(</td>
           <td class="paramtype">const TArray&lt; FPartialUpdateUser &gt; &amp;&#160;</td>
           <td class="paramname"><em>Users</em>, </td>
@@ -1960,6 +1963,43 @@ template&lt;class TEvent &gt; </div>
   <table class="params">
     <tr><td class="paramname">MessageRequest</td><td>Details of the message to update </td></tr>
     <tr><td class="paramname">Callback</td><td>Called when response is received </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4ee0406f6dbe4fe2ba1403328c78cf72" name="a4ee0406f6dbe4fe2ba1403328c78cf72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ee0406f6dbe4fe2ba1403328c78cf72">&#9670;&nbsp;</a></span>UpsertUsers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FChatApi::UpsertUsers </td>
+          <td>(</td>
+          <td class="paramtype">const TMap&lt; FString, <a class="el" href="struct_f_user_object_request_dto.html">FUserObjectRequestDto</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Users</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TCallback&lt; <a class="el" href="struct_f_update_users_response_dto.html">FUpdateUsersResponseDto</a> &gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Update or create users in bulk. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Users</td><td>Map of user IDs to user objects </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
   </table>
   </dd>
 </dl>

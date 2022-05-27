@@ -108,6 +108,7 @@ var annotated_dup =
     [ "FUpdateMessageRequestDto", "struct_f_update_message_request_dto.html", "struct_f_update_message_request_dto" ],
     [ "FUpdateUserPartialRequestDto", "struct_f_update_user_partial_request_dto.html", "struct_f_update_user_partial_request_dto" ],
     [ "FUpdateUsersPartialRequestDto", "struct_f_update_users_partial_request_dto.html", "struct_f_update_users_partial_request_dto" ],
+    [ "FUpdateUsersRequestDto", "struct_f_update_users_request_dto.html", "struct_f_update_users_request_dto" ],
     [ "FUpdateUsersResponseDto", "struct_f_update_users_response_dto.html", null ],
     [ "FUser", "struct_f_user.html", "struct_f_user" ],
     [ "FUserDto", "struct_f_user_dto.html", "struct_f_user_dto" ],

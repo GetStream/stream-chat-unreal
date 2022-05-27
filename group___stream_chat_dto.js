@@ -153,6 +153,9 @@ var group___stream_chat_dto =
     [ "FUpdateUsersPartialRequestDto", "struct_f_update_users_partial_request_dto.html", [
       [ "Users", "struct_f_update_users_partial_request_dto.html#a7fe006ac66c4d83e4bec095d1212b509", null ]
     ] ],
+    [ "FUpdateUsersRequestDto", "struct_f_update_users_request_dto.html", [
+      [ "Users", "struct_f_update_users_request_dto.html#a7ba7e6cbe5563989c04210045a76d15f", null ]
+    ] ],
     [ "FUserObjectRequestDto", "struct_f_user_object_request_dto.html", null ],
     [ "FChannelConfigWithInfoDto", "struct_f_channel_config_with_info_dto.html", [
       [ "Automod", "struct_f_channel_config_with_info_dto.html#a57fe5d353169226ec7018d80e9d652cc", null ],

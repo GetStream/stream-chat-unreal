@@ -15,7 +15,7 @@ var group___stream_chat_api =
       [ "MuteChannels", "class_f_chat_api.html#a6c54f41a3abbab8df8488a1de2aa12db", null ],
       [ "MuteUsers", "class_f_chat_api.html#ab811c2b71259baffea358f8e1385acca", null ],
       [ "PartialUpdateChannel", "class_f_chat_api.html#a2fc38142a68734cc79dd279f03efd76e", null ],
-      [ "PartialUpdateUser", "class_f_chat_api.html#a6b5635f91e25d020feaec6b6c5cea931", null ],
+      [ "PartialUpdateUsers", "class_f_chat_api.html#a396feb839bfa9f08beba33d198016e50", null ],
       [ "QueryBannedUsers", "class_f_chat_api.html#a4d6b227fab2a8c7a4bb7a75a4620f54d", null ],
       [ "QueryChannel", "class_f_chat_api.html#a8d0f32e0780f20f2079b325169b5589e", null ],
       [ "QueryChannels", "class_f_chat_api.html#ac0ddab8f53a683e19daa331e15c4c2a8", null ],
@@ -32,7 +32,8 @@ var group___stream_chat_api =
       [ "UnmuteChannels", "class_f_chat_api.html#a2861ba26901a4656b518e5be4d42aa7f", null ],
       [ "UnmuteUsers", "class_f_chat_api.html#af4ee8dbff41e1d21e1f65106b6206880", null ],
       [ "UpdateChannel", "class_f_chat_api.html#a64e729dcaa5a9001d189870d95cb2784", null ],
-      [ "UpdateMessage", "class_f_chat_api.html#a67c9b887d5a0ef287f8f99372381e64f", null ]
+      [ "UpdateMessage", "class_f_chat_api.html#a67c9b887d5a0ef287f8f99372381e64f", null ],
+      [ "UpsertUsers", "class_f_chat_api.html#a4ee0406f6dbe4fe2ba1403328c78cf72", null ]
     ] ],
     [ "EChannelFlags", "group___stream_chat_api.html#ga683630d96445bae6259c39daebb90898", [
       [ "EChannelFlags::None", "group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a6adf97f83acf6453d4a6a4b1070f3754", null ],

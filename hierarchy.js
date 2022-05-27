@@ -123,6 +123,7 @@ var hierarchy =
     [ "FUpdateMessageRequestDto", "struct_f_update_message_request_dto.html", null ],
     [ "FUpdateUserPartialRequestDto", "struct_f_update_user_partial_request_dto.html", null ],
     [ "FUpdateUsersPartialRequestDto", "struct_f_update_users_partial_request_dto.html", null ],
+    [ "FUpdateUsersRequestDto", "struct_f_update_users_request_dto.html", null ],
     [ "FUser", "struct_f_user.html", null ],
     [ "FUserDto", "struct_f_user_dto.html", [
       [ "FOwnUserDto", "struct_f_own_user_dto.html", null ],
