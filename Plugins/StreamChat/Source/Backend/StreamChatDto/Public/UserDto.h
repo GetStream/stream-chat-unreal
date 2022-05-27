@@ -71,6 +71,6 @@ struct STREAMCHATDTO_API FUserDto
     UPROPERTY()
     TArray<FString> Teams;
 
-    UPROPERTY(Transient)
+    UPROPERTY()
     FAdditionalFields AdditionalFields;
 };
