@@ -20,6 +20,13 @@ void UBottomReactionWidget::Setup(const FReactionGroup& InReactionGroup)
     Super::Setup();
 }
 
+void UBottomReactionWidget::NativeDestruct()
+{
+    CancelTooltip();
+
+    Super::NativeDestruct();
+}
+
 void UBottomReactionWidget::OnSetup()
 {
     const EMessageSide Side = GetSide();
@@ -42,7 +49,7 @@ void UBottomReactionWidget::OnSetup()
     if (Anchor)
     {
         Anchor->Placement = MenuPlacement_CenteredBelowAnchor;
-        Anchor->OnGetUserMenuContentEvent.BindDynamic(this, &UBottomReactionWidget::CreateReactionsMenu);
+        Anchor->OnGetUserMenuContentEvent.BindDynamic(this, &UBottomReactionWidget::CreateTooltip);
     }
 }
 
@@ -103,15 +110,7 @@ void UBottomReactionWidget::NativeOnMouseEnter(const FGeometry& InGeometry, cons
 
 void UBottomReactionWidget::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 {
-    if (HoverTimerHandle.IsValid())
-    {
-        GetWorld()->GetTimerManager().ClearTimer(HoverTimerHandle);
-    }
-
-    if (Anchor && Anchor->IsOpen())
-    {
-        Anchor->Close();
-    }
+    CancelTooltip();
 
     Super::NativeOnMouseLeave(InMouseEvent);
 }
@@ -125,13 +124,26 @@ EMessageSide UBottomReactionWidget::GetSide() const
     return EMessageSide::You;
 }
 
+void UBottomReactionWidget::CancelTooltip()
+{
+    if (HoverTimerHandle.IsValid())
+    {
+        GetWorld()->GetTimerManager().ClearTimer(HoverTimerHandle);
+    }
+
+    if (Anchor && Anchor->IsOpen())
+    {
+        Anchor->Close();
+    }
+}
+
 void UBottomReactionWidget::OnButtonClicked()
 {
     OnBottomReactionClickedNative.Broadcast(ReactionGroup);
     OnBottomReactionClicked.Broadcast(ReactionGroup);
 }
 
-UUserWidget* UBottomReactionWidget::CreateReactionsMenu()
+UUserWidget* UBottomReactionWidget::CreateTooltip()
 {
     UReactionsTooltipWidget* Widget = CreateWidget<UReactionsTooltipWidget>(this, ReactionsTooltipWidgetClass);
     Widget->Setup(ReactionGroup);

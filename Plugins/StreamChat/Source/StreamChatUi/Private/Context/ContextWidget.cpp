@@ -14,7 +14,7 @@ UContextWidget::UContextWidget()
     Visibility = ESlateVisibility::SelfHitTestInvisible;
 }
 
-void UContextWidget::ReleaseSlateResources(bool bReleaseChildren)
+void UContextWidget::ReleaseSlateResources(const bool bReleaseChildren)
 {
     Super::ReleaseSlateResources(bReleaseChildren);
 

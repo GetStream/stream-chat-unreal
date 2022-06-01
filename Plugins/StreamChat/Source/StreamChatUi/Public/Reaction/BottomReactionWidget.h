@@ -59,6 +59,7 @@ protected:
     FReactionGroup ReactionGroup;
 
 private:
+    virtual void NativeDestruct() override;
     virtual void OnSetup() override;
     virtual void OnTheme() override;
 
@@ -67,11 +68,13 @@ private:
 
     EMessageSide GetSide() const;
 
+    void CancelTooltip();
+
     UFUNCTION()
     void OnButtonClicked();
 
     UFUNCTION()
-    UUserWidget* CreateReactionsMenu();
+    UUserWidget* CreateTooltip();
 
     FTimerHandle HoverTimerHandle;
 };
