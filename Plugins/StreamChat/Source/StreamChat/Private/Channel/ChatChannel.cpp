@@ -279,7 +279,7 @@ void UChatChannel::SendMessage(const FMessage& Message)
     }
     if (!NewMessage.User.IsValid())
     {
-        NewMessage.User = UUserManager::Get()->GetCurrentUser();
+        NewMessage.User = UUserManager::Get()->GetCurrentUser().User;
     }
     if (NewMessage.CreatedAt.GetTicks() == 0)
     {
@@ -516,7 +516,7 @@ void UChatChannel::SendReaction(const FMessage& Message, const FName& ReactionTy
         NewMessage.Reactions.RemoveReactionWhere([](const FReaction& R) { return R.User.IsCurrent(); });
     }
 
-    const FReaction NewReaction{ReactionType, UUserManager::Get()->GetCurrentUser(), Message.Id, Score > 1 ? Score : 1};
+    const FReaction NewReaction{ReactionType, UUserManager::Get()->GetCurrentUser().User, Message.Id, Score > 1 ? Score : 1};
     NewMessage.Reactions.AddReaction(NewReaction, true);
 
     AddMessage(NewMessage);
@@ -570,7 +570,7 @@ void UChatChannel::KeyStroke(const FString& ParentMessageId)
     if (!LastKeystrokeAt.IsSet() || (Now - LastKeystrokeAt.GetValue()).GetTotalSeconds() >= TypingTimeout)
     {
         UE_LOG(LogTemp, Log, TEXT("Start typing"));
-        const FUser& CurrentUser = *UUserManager::Get()->GetCurrentUser();
+        const FUser& CurrentUser = *UUserManager::Get()->GetCurrentUser().User;
         SendEvent(FTypingStartEvent{
             Now,
             Properties.Id,
@@ -618,7 +618,7 @@ void UChatChannel::StopTyping(const FString& ParentMessageId)
 
 void UChatChannel::SendStopTypingEvent(const FString& ParentMessageId)
 {
-    const FUser& CurrentUser = *UUserManager::Get()->GetCurrentUser();
+    const FUser& CurrentUser = *UUserManager::Get()->GetCurrentUser().User;
     UE_LOG(LogTemp, Log, TEXT("Stop typing"));
     SendEvent(FTypingStopEvent{
         FDateTime::UtcNow(),
@@ -703,7 +703,7 @@ void UChatChannel::Unmute() const
 
 bool UChatChannel::IsMuted() const
 {
-    return UUserManager::Get()->GetCurrentUser()->MutedChannels.ContainsByPredicate([&](const FMutedChannel& C) { return C.Cid == Properties.Cid; });
+    return UUserManager::Get()->GetCurrentUser().MutedChannels.ContainsByPredicate([&](const FMutedChannel& C) { return C.Cid == Properties.Cid; });
 }
 
 void UChatChannel::MergeState(const FChannelStateResponseFieldsDto& Dto)

@@ -18,5 +18,5 @@ bool UFlagMessageContextMenuAction::OnShouldDisplay(const EMessageSide, const FM
         return false;
     }
 
-    return Channel->Properties.OwnCapabilities.Contains(TEXT("flag-message"));
+    return Channel && Channel->Properties.OwnCapabilities.Contains(TEXT("flag-message"));
 }

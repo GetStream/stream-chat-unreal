@@ -3,23 +3,14 @@
 #include "User/User.h"
 
 #include "Algo/Transform.h"
-#include "Moderation/MutedUser.h"
-#include "OwnUserDto.h"
 #include "Request/User/UserObjectRequestDto.h"
 #include "UserObjectDto.h"
-#include "Util.h"
 
 FUser::FUser() = default;
 
-FUser::FUser(const FUserObjectDto& Dto)
+FUser::FUser(const FUserDto& Dto)
     : Id{Dto.Id}
-    , bOnline{Dto.bOnline}
     , bInvisible{Dto.bInvisible}
-    , CreatedAt(Dto.CreatedAt)
-    , UpdatedAt{Dto.UpdatedAt}
-    , DeactivatedAt{Dto.DeactivatedAt}
-    , DeletedAt{Dto.DeletedAt}
-    , LastActive{Dto.LastActive}
     , BanExpires{Dto.BanExpires}
     , bBanned{Dto.bBanned}
     , Language{Dto.Language}
@@ -31,18 +22,15 @@ FUser::FUser(const FUserObjectDto& Dto)
 {
 }
 
-FUser::FUser(const FOwnUserDto& Dto, UUserManager* UserManager)
+FUser::FUser(const FUserObjectDto& Dto)
     : Id{Dto.Id}
     , bOnline{Dto.bOnline}
     , bInvisible{Dto.bInvisible}
     , CreatedAt(Dto.CreatedAt)
     , UpdatedAt{Dto.UpdatedAt}
+    , DeactivatedAt{Dto.DeactivatedAt}
+    , DeletedAt{Dto.DeletedAt}
     , LastActive{Dto.LastActive}
-    , UnreadCount(Dto.UnreadCount)
-    , TotalUnreadCount(Dto.TotalUnreadCount)
-    , UnreadChannels(Dto.UnreadChannels)
-    , MutedUsers{Util::Convert<FMutedUser>(Dto.Mutes, UserManager)}
-    , MutedChannels{Util::Convert<FMutedChannel>(Dto.ChannelMutes, UserManager)}
     , BanExpires{Dto.BanExpires}
     , bBanned{Dto.bBanned}
     , Language{Dto.Language}
@@ -101,13 +89,9 @@ const FString& FUser::GetNameOrId() const
 void FUser::Update(const FUser& User)
 {
     // TODO Devices
-    // TODO Channel mutes
     bBanned = User.bBanned;
     bOnline = User.bOnline;
     bInvisible = User.bInvisible;
-    MutedUsers = User.MutedUsers;
-    UnreadCount = User.UnreadCount;
-    TotalUnreadCount = User.TotalUnreadCount;
 
     if (User.CreatedAt.GetTicks() != 0)
     {

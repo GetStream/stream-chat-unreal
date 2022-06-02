@@ -9,7 +9,6 @@
 
 #include "User.generated.h"
 
-struct FOwnUserDto;
 struct FUserDto;
 struct FUserObjectDto;
 struct FUserObjectRequestDto;
@@ -28,16 +27,18 @@ struct STREAMCHAT_API FUser
     /// Create a new sparsely-identified user for local use
     explicit FUser(const FString& InId);
 
+    /// Convert from User
+    explicit FUser(const FUserDto&);
     /// Convert from UserObject
     explicit FUser(const FUserObjectDto&);
-    /// Convert from OwnUser
-    explicit FUser(const FOwnUserDto&, UUserManager*);
     /// Convert to UserDto
     explicit operator FUserDto() const;
     /// Convert to UserObjectDto
     explicit operator FUserObjectDto() const;
     /// Convert to UserObjectRequestDto
     explicit operator FUserObjectRequestDto() const;
+
+    void Update(const FUser& User);
 
     // Get name, falling back to id
     const FString& GetNameOrId() const;
@@ -47,7 +48,6 @@ struct STREAMCHAT_API FUser
     const FDateTime& GetLastActive() const;
     /// e.g. Last seen 10 minutes ago
     FText GetLastSeenText() const;
-    void Update(const FUser& User);
 
     /// The id of this user
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat|User")
@@ -80,25 +80,6 @@ struct STREAMCHAT_API FUser
     /// Date of last activity
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User", AdvancedDisplay)
     FDateTime LastActive = FDateTime{0};
-
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
-    int32 UnreadCount = 0;
-
-    /// Only populated for current user
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
-    int32 TotalUnreadCount = 0;
-
-    /// Only populated for current user
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
-    int32 UnreadChannels = 0;
-
-    /// Only populated for current user
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
-    TArray<FMutedUser> MutedUsers;
-
-    /// Only populated for current user
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
-    TArray<FMutedChannel> MutedChannels;
 
     /// Expiration date of the ban
     UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|User", AdvancedDisplay)

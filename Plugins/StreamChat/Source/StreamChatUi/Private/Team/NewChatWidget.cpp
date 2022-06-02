@@ -104,7 +104,7 @@ void UNewChatWidget::OnSendMessage(const FString& Text)
     }
 
     TArray<FUserRef> Members{SelectedContacts->GetUsers()};
-    Members.Add(UUserManager::Get()->GetCurrentUser());
+    Members.Add(UUserManager::Get()->GetCurrentUser().User);
     FChannelProperties Props = FChannelProperties::WithType(TEXT("messaging")).SetMembers(Members);
     const FText Group = GroupName->GetGroupName();
     if (!Group.IsEmpty())

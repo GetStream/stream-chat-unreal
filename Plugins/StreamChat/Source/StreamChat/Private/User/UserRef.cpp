@@ -59,7 +59,7 @@ bool FUserRef::IsCurrent() const
     {
         Manager = UUserManager::Get();
     }
-    return Manager->GetCurrentUser() == *this;
+    return Manager->GetCurrentUser().User == *this;
 }
 
 FUserUpdatedMultiDelegate& FUserRef::OnUpdate() const

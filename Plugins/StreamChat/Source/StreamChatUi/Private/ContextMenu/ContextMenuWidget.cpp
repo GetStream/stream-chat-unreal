@@ -2,12 +2,6 @@
 
 #include "ContextMenu/ContextMenuWidget.h"
 
-UContextMenuWidget::UContextMenuWidget()
-{
-    bWantsChannel = true;
-    bWantsClient = true;
-}
-
 void UContextMenuWidget::Setup(const FMessage& InMessage, const EMessageSide InSide)
 {
     Message = InMessage;
@@ -38,8 +32,8 @@ void UContextMenuWidget::OnSetup()
     // Spawn buttons
     ButtonsPanel->ClearChildren();
 
-    TArray<UContextMenuAction*> DisplayedActions =
-        Actions.FilterByPredicate([&](const UContextMenuAction* Action) { return Action->ShouldDisplay(Side, Message); });
+    const TArray<UContextMenuAction*> DisplayedActions =
+        IsDesignTime() ? Actions : Actions.FilterByPredicate([&](const UContextMenuAction* Action) { return Action->ShouldDisplay(Side, Message); });
 
     const int32 LastIndex = DisplayedActions.Num() - 1;
     for (int32 Index = 0; Index < DisplayedActions.Num(); ++Index)

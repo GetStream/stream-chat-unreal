@@ -9,6 +9,8 @@
 UContextMenuButtonWidget::UContextMenuButtonWidget()
 {
     bWantsTheme = true;
+    bWantsChannel = true;
+    bWantsClient = true;
 }
 
 void UContextMenuButtonWidget::Setup(const FMessage& InMessage, const EContextMenuButtonPosition InPosition, UContextMenuAction* InAction)
@@ -16,7 +18,6 @@ void UContextMenuButtonWidget::Setup(const FMessage& InMessage, const EContextMe
     Message = InMessage;
     Position = InPosition;
     Action = InAction;
-    Action->SetContext(Client, Channel);
 
     Super::Setup();
 }
@@ -84,6 +85,22 @@ void UContextMenuButtonWidget::OnTheme()
     if (TextBlock)
     {
         TextBlock->SetColorAndOpacity(GetTextColor());
+    }
+}
+
+void UContextMenuButtonWidget::OnClient()
+{
+    if (Action)
+    {
+        Action->SetClient(Client);
+    }
+}
+
+void UContextMenuButtonWidget::OnChannel()
+{
+    if (Action)
+    {
+        Action->SetChannel(Channel);
     }
 }
 

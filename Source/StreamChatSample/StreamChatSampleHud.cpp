@@ -3,6 +3,7 @@
 #include "StreamChatSampleHud.h"
 
 #include "Channel/ChatChannel.h"
+#include "User/OwnUser.h"
 #include "User/User.h"
 
 AStreamChatSampleHud::AStreamChatSampleHud()
@@ -20,9 +21,9 @@ void AStreamChatSampleHud::BeginPlay()
     Client->ConnectUser(
         User,
         Token,
-        [WeakThis = TWeakObjectPtr<AStreamChatSampleHud>(this)](const FUserRef& UserRef)
+        [WeakThis = TWeakObjectPtr<AStreamChatSampleHud>(this)](const FOwnUser& OwnUser)
         {
-            const FFilter Filter = FFilter::In(TEXT("members"), {UserRef->Id});
+            const FFilter Filter = FFilter::In(TEXT("members"), {OwnUser.User->Id});
             WeakThis->Client->QueryChannels(
                 Filter,
                 {{EChannelSortField::LastMessageAt, ESortDirection::Descending}},

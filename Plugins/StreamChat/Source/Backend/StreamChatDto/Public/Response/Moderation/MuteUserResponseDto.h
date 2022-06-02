@@ -22,7 +22,7 @@ struct FMuteUserResponseDto : public FResponseDto
     UPROPERTY()
     FUserMuteDto Mute;
 
-    /// Object with mutes (if multiple users were muted)"
+    /// Object with mutes (if multiple users were muted)
     UPROPERTY()
     TArray<FUserMuteDto> Mutes;
 

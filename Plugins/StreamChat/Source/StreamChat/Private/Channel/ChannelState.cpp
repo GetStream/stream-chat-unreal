@@ -16,14 +16,11 @@ bool CountMessageAsUnread(const FMessage& Message)
     {
         return false;
     }
-    const FUserRef CurrentUser = UUserManager::Get()->GetCurrentUser();
-    const bool bIsOwnMessage = Message.User == CurrentUser;
-    if (bIsOwnMessage)
+    if (Message.User.IsCurrent())
     {
         return false;
     }
-    const bool bMessageFromMutedUser =
-        CurrentUser->MutedUsers.ContainsByPredicate([Message](const FMutedUser& MutedUser) { return MutedUser.User == Message.User; });
+    const bool bMessageFromMutedUser = UUserManager::Get()->GetCurrentUser().HasMutedUser(Message.User);
     if (bMessageFromMutedUser)
     {
         return false;
