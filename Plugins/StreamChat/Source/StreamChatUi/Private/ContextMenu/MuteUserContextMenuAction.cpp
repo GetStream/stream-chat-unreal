@@ -13,5 +13,10 @@ void UMuteUserContextMenuAction::OnPerform(const FMessage& Message, UWidget* Own
 
 bool UMuteUserContextMenuAction::OnShouldDisplay(const EMessageSide, const FMessage& Message) const
 {
-    return !Message.User.IsCurrent();
+    if (Message.User.IsCurrent())
+    {
+        return false;
+    }
+
+    return !UUserManager::Get()->GetCurrentUser().HasMutedUser(Message.User);
 }

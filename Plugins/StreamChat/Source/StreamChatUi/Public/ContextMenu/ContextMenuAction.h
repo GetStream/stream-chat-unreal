@@ -37,7 +37,8 @@ public:
     UPROPERTY(EditAnywhere, Category = Visuals)
     EContextMenuButtonStyle Style;
 
-    void SetContext(UStreamChatClientComponent*, UChatChannel*);
+    void SetClient(UStreamChatClientComponent*);
+    void SetChannel(UChatChannel*);
     void Perform(const FMessage&, UWidget* OwningWidget);
     bool ShouldDisplay(EMessageSide, const FMessage&) const;
 
@@ -47,7 +48,7 @@ protected:
 
     UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Perform"))
     void OnPerformBlueprint(const FMessage& Message, UWidget* OwningWidget);
-    UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "Should Display"))
+    UFUNCTION(BlueprintNativeEvent, meta = (DisplayName = "Should Display"))
     bool OnShouldDisplayBlueprint(EMessageSide Side, const FMessage& Message) const;
 
     UPROPERTY(BlueprintReadOnly, Transient)

@@ -3,7 +3,6 @@
 #include "User/UserManager.h"
 
 #include "Engine/Engine.h"
-#include "OwnUserDto.h"
 #include "User/UserRef.h"
 #include "UserObjectDto.h"
 #include "Util.h"
@@ -21,7 +20,7 @@ void UUserManager::Initialize(FSubsystemCollectionBase& Collection)
         TestUser2.Name = TEXT("Test user 1 with especially long name");
         TestUser2.Image = TEXT("https://avatars.dicebear.com/api/big-ears-neutral/test-user-2.png");
         UpsertUser(TestUser2);
-        CurrentUser = UpsertUser(TestUser1);
+        CurrentUser = FOwnUser{UpsertUser(TestUser1)};
     }
 }
 
@@ -30,14 +29,14 @@ UUserManager* UUserManager::Get()
     return GEngine->GetEngineSubsystem<UUserManager>();
 }
 
-void UUserManager::SetCurrentUser(const FUserRef& InCurrentUser)
-{
-    CurrentUser = InCurrentUser;
-}
-
 void UUserManager::ResetCurrentUser()
 {
-    CurrentUser = {};
+    CurrentUser.Reset();
+}
+
+bool UUserManager::HasCurrentUser() const
+{
+    return CurrentUser.IsSet();
 }
 
 const FUser& UUserManager::GetUser(const FUserRef& Ref)
@@ -50,9 +49,10 @@ bool UUserManager::HasUser(const FUserRef& Ref) const
     return Users.Contains(Ref.UserId);
 }
 
-const FUserRef& UUserManager::GetCurrentUser() const
+const FOwnUser& UUserManager::GetCurrentUser() const
 {
-    return CurrentUser;
+    // TODO good idea?
+    return CurrentUser.GetValue();
 }
 
 FUserRef UUserManager::UpsertUser(const FUser& User)
@@ -77,9 +77,9 @@ FUserRef UUserManager::UpsertUser(const FUser& User)
     return Ref;
 }
 
-FUserRef UUserManager::UpsertUser(const FOwnUserDto& Dto)
+FUserRef UUserManager::UpsertUser(const FUserDto& Dto)
 {
-    return UpsertUser(Util::Convert<FUser>(Dto, this));
+    return UpsertUser(Util::Convert<FUser>(Dto));
 }
 
 FUserRef UUserManager::UpsertUser(const FUserObjectDto& Dto)
@@ -110,4 +110,10 @@ TArray<FUserRef> UUserManager::UpsertUsers(const TArray<FUserObjectDto>& Dtos)
 FUserUpdatedMultiDelegate& UUserManager::OnUserUpdated(const FUserRef& Ref)
 {
     return UserUpdatedDelegates.FindOrAdd(Ref.UserId);
+}
+
+const FOwnUser& UUserManager::SetCurrentUser(const FOwnUserDto& Dto)
+{
+    CurrentUser.Emplace(Dto, this);
+    return CurrentUser.GetValue();
 }

@@ -10,6 +10,7 @@
 #include "ConstantTokenProvider.h"
 #include "Event/Channel/MessageNewEvent.h"
 #include "Event/Client/ConnectionRecoveredEvent.h"
+#include "Event/Notification/NotificationMutesUpdatedEvent.h"
 #include "Event/User/UserPresenceChangedEvent.h"
 #include "IChatSocket.h"
 #include "Moderation/Ban.h"
@@ -18,6 +19,7 @@
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/Device/ListDevicesResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
+#include "Response/Moderation/MuteUserResponseDto.h"
 #include "Response/Moderation/QueryBannedUsersResponseDto.h"
 #include "Response/User/GuestResponseDto.h"
 #include "Response/User/UsersResponseDto.h"
@@ -43,24 +45,24 @@ void UStreamChatClientComponent::BeginPlay()
     Api = FChatApi::Create(ApiKey, GetDefault<UStreamChatSettings>()->Host, TokenManager);
 }
 
-void UStreamChatClientComponent::ConnectUserInternal(const FUser& User, const TFunction<void(const FUserRef&)> Callback)
+void UStreamChatClientComponent::ConnectUserInternal(const FUser& User, const TFunction<void(const FOwnUser&)> Callback)
 {
     const FUserRef UserRef = UUserManager::Get()->UpsertUser(User);
     Socket = IChatSocket::Create(TokenManager.ToSharedRef(), ApiKey, GetDefault<UStreamChatSettings>()->Host, FUserObjectDto(User));
     Socket->Connect(
-        [Callback](const FOwnUserDto& OwnUser)
+        [Callback](const FOwnUserDto& Dto)
         {
-            const FUserRef OwnUserRef = UUserManager::Get()->UpsertUser(OwnUser);
-            UUserManager::Get()->SetCurrentUser(OwnUserRef);
+            const FOwnUser OwnUser = UUserManager::Get()->SetCurrentUser(Dto);
             if (Callback)
             {
-                Callback(OwnUserRef);
+                Callback(OwnUser);
             }
         });
 
     On<FConnectionRecoveredEvent>(this, &UStreamChatClientComponent::OnConnectionRecovered);
     On<FUserPresenceChangedEvent>(this, &UStreamChatClientComponent::OnUserPresenceChanged);
     On<FMessageNewEvent>(this, &UStreamChatClientComponent::OnNewMessage);
+    On<FNotificationMutesUpdatedEvent>(this, &UStreamChatClientComponent::OnMutesUpdated);
 }
 
 UChatChannel* UStreamChatClientComponent::CreateChannelObject(const FChannelStateResponseFieldsDto& Dto)
@@ -95,6 +97,11 @@ void UStreamChatClientComponent::OnNewMessage(const FMessageNewEvent& Event)
     }
 }
 
+void UStreamChatClientComponent::OnMutesUpdated(const FNotificationMutesUpdatedEvent& Event)
+{
+    UUserManager::Get()->SetCurrentUser(Event.Me);
+}
+
 void UStreamChatClientComponent::AddChannels(const TArray<UChatChannel*>& InChannels)
 {
     Channels.Append(InChannels);
@@ -106,19 +113,19 @@ void UStreamChatClientComponent::ConnectUser(
     const FString& Token,
     const UObject* WorldContextObject,
     const FLatentActionInfo LatentInfo,
-    FUserRef& OutUser)
+    FOwnUser& OutUser)
 {
-    TCallbackAction<FUserRef>::CreateLatentAction(WorldContextObject, LatentInfo, OutUser, [&](auto Callback) { ConnectUser(User, Token, Callback); });
+    TCallbackAction<FOwnUser>::CreateLatentAction(WorldContextObject, LatentInfo, OutUser, [&](auto Callback) { ConnectUser(User, Token, Callback); });
 }
 
-void UStreamChatClientComponent::ConnectAnonymousUser(const UObject* WorldContextObject, const FLatentActionInfo LatentInfo, FUserRef& OutUser)
+void UStreamChatClientComponent::ConnectAnonymousUser(const UObject* WorldContextObject, const FLatentActionInfo LatentInfo, FOwnUser& OutUser)
 {
-    TCallbackAction<FUserRef>::CreateLatentAction(WorldContextObject, LatentInfo, OutUser, [&](auto Callback) { ConnectAnonymousUser(Callback); });
+    TCallbackAction<FOwnUser>::CreateLatentAction(WorldContextObject, LatentInfo, OutUser, [&](auto Callback) { ConnectAnonymousUser(Callback); });
 }
 
-void UStreamChatClientComponent::ConnectGuestUser(const FUser& User, const UObject* WorldContextObject, const FLatentActionInfo LatentInfo, FUserRef& OutUser)
+void UStreamChatClientComponent::ConnectGuestUser(const FUser& User, const UObject* WorldContextObject, const FLatentActionInfo LatentInfo, FOwnUser& OutUser)
 {
-    TCallbackAction<FUserRef>::CreateLatentAction(WorldContextObject, LatentInfo, OutUser, [&](auto Callback) { ConnectGuestUser(User, Callback); });
+    TCallbackAction<FOwnUser>::CreateLatentAction(WorldContextObject, LatentInfo, OutUser, [&](auto Callback) { ConnectGuestUser(User, Callback); });
 }
 
 void UStreamChatClientComponent::QueryChannels(
@@ -220,9 +227,9 @@ void UStreamChatClientComponent::QueryBannedUsers(
         });
 }
 
-void UStreamChatClientComponent::ConnectUser(const FUser& User, TUniquePtr<ITokenProvider> TokenProvider, const TFunction<void(const FUserRef&)> Callback)
+void UStreamChatClientComponent::ConnectUser(const FUser& User, TUniquePtr<ITokenProvider> TokenProvider, const TFunction<void(const FOwnUser&)> Callback)
 {
-    if (UUserManager::Get()->GetCurrentUser().IsValid())
+    if (UUserManager::Get()->HasCurrentUser())
     {
         DisconnectUser();
     }
@@ -231,9 +238,9 @@ void UStreamChatClientComponent::ConnectUser(const FUser& User, TUniquePtr<IToke
     ConnectUserInternal(User, Callback);
 }
 
-void UStreamChatClientComponent::ConnectUser(const FUser& User, const FString& Token, const TFunction<void(const FUserRef&)> Callback)
+void UStreamChatClientComponent::ConnectUser(const FUser& User, const FString& Token, const TFunction<void(const FOwnUser&)> Callback)
 {
-    if (UUserManager::Get()->GetCurrentUser().IsValid())
+    if (UUserManager::Get()->HasCurrentUser())
     {
         DisconnectUser();
     }
@@ -242,9 +249,9 @@ void UStreamChatClientComponent::ConnectUser(const FUser& User, const FString& T
     ConnectUserInternal(User, Callback);
 }
 
-void UStreamChatClientComponent::ConnectAnonymousUser(const TFunction<void(const FUserRef&)> Callback)
+void UStreamChatClientComponent::ConnectAnonymousUser(const TFunction<void(const FOwnUser&)> Callback)
 {
-    if (UUserManager::Get()->GetCurrentUser().IsValid())
+    if (UUserManager::Get()->HasCurrentUser())
     {
         DisconnectUser();
     }
@@ -255,7 +262,7 @@ void UStreamChatClientComponent::ConnectAnonymousUser(const TFunction<void(const
     ConnectUserInternal(User, Callback);
 }
 
-void UStreamChatClientComponent::ConnectGuestUser(const FUser& User, TFunction<void(const FUserRef&)> Callback)
+void UStreamChatClientComponent::ConnectGuestUser(const FUser& User, TFunction<void(const FOwnUser&)> Callback)
 {
     const FToken AnonToken = FToken::Anonymous();
     TokenManager->SetTokenProvider(MakeUnique<FConstantTokenProvider>(AnonToken), User.Id);
@@ -412,7 +419,7 @@ void UStreamChatClientComponent::QueryAdditionalChannels(const int32 Limit, cons
     const FPaginationOptions Pagination{Limit, Channels.Num()};
 
     QueryChannels(
-        FFilter::In(TEXT("members"), {UUserManager::Get()->GetCurrentUser()->Id}),
+        FFilter::In(TEXT("members"), {UUserManager::Get()->GetCurrentUser().User->Id}),
         {{EChannelSortField::LastMessageAt, ESortDirection::Descending}},
         EChannelFlags::State | EChannelFlags::Watch,
         Pagination,

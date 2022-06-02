@@ -11,7 +11,7 @@ bool FReactionGroup::HasAllDataLocally() const
 
 TOptional<FReaction> FReactionGroup::GetOwnReaction(const UUserManager* UserManager) const
 {
-    const FUserRef Me = UserManager->GetCurrentUser();
+    const FUserRef Me = UserManager->GetCurrentUser().User;
     const FReaction* Found = LatestReactions.FindByPredicate([&](auto&& R) { return R.User == Me; });
     return Found ? *Found : TOptional<FReaction>{};
 }

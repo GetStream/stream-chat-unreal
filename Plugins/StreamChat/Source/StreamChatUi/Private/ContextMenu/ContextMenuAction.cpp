@@ -4,9 +4,13 @@
 
 #include "Framework/Application/SlateApplication.h"
 
-void UContextMenuAction::SetContext(UStreamChatClientComponent* InClient, UChatChannel* InChannel)
+void UContextMenuAction::SetClient(UStreamChatClientComponent* InClient)
 {
     Client = InClient;
+}
+
+void UContextMenuAction::SetChannel(UChatChannel* InChannel)
+{
     Channel = InChannel;
 }
 
@@ -28,6 +32,11 @@ void UContextMenuAction::OnPerform(const FMessage&, UWidget* OwningWidget)
 }
 
 bool UContextMenuAction::OnShouldDisplay(EMessageSide, const FMessage&) const
+{
+    return true;
+}
+
+bool UContextMenuAction::OnShouldDisplayBlueprint_Implementation(EMessageSide Side, const FMessage& Message) const
 {
     return true;
 }

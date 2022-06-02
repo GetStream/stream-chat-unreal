@@ -11,9 +11,11 @@
 #include "Components/ActorComponent.h"
 #include "CoreMinimal.h"
 #include "Engine/LatentActionManager.h"
+#include "Event/Notification/NotificationMutesUpdatedEvent.h"
 #include "IChatSocket.h"
 #include "Moderation/BanPaginationOptions.h"
 #include "PaginationOptions.h"
+#include "User/OwnUser.h"
 #include "User/User.h"
 
 #include "StreamChatClientComponent.generated.h"
@@ -51,7 +53,7 @@ public:
      * @param Callback Called when a response is received from the API
      * @return Latest info if the logged in user
      */
-    void ConnectUser(const FUser& User, TUniquePtr<ITokenProvider> TokenProvider, TFunction<void(const FUserRef&)> Callback = {});
+    void ConnectUser(const FUser& User, TUniquePtr<ITokenProvider> TokenProvider, TFunction<void(const FOwnUser&)> Callback = {});
 
     /**
      * @brief Create a connection to the API for the given user and credentials.
@@ -60,14 +62,14 @@ public:
      * @param Callback Called when a response is received from the API
      * @return Latest info if the logged in user
      */
-    void ConnectUser(const FUser& User, const FString& Token, TFunction<void(const FUserRef&)> Callback = {});
+    void ConnectUser(const FUser& User, const FString& Token, TFunction<void(const FOwnUser&)> Callback = {});
 
     /**
      * @brief Create a connection to the API anonymously
      * @param Callback Called when a response is received from the API
      * @return Anonymous user info
      */
-    void ConnectAnonymousUser(TFunction<void(const FUserRef&)> Callback = {});
+    void ConnectAnonymousUser(TFunction<void(const FOwnUser&)> Callback = {});
 
     /**
      * @brief Create a connection to the API by creating a guest account
@@ -75,7 +77,7 @@ public:
      * @param Callback Called when a response is received from the API
      * @return Anonymous user info
      */
-    void ConnectGuestUser(const FUser& User, TFunction<void(const FUserRef&)> Callback = {});
+    void ConnectGuestUser(const FUser& User, TFunction<void(const FOwnUser&)> Callback = {});
 
     /**
      * @brief Close the connection to the API and resets any state
@@ -221,12 +223,13 @@ private:
     // Called when the game starts
     virtual void BeginPlay() override;
 
-    void ConnectUserInternal(const FUser& User, TFunction<void(const FUserRef&)> Callback);
+    void ConnectUserInternal(const FUser& User, TFunction<void(const FOwnUser&)> Callback);
     UChatChannel* CreateChannelObject(const FChannelStateResponseFieldsDto&);
 
     void OnConnectionRecovered(const FConnectionRecoveredEvent&);
     void OnUserPresenceChanged(const FUserPresenceChangedEvent&);
     void OnNewMessage(const FMessageNewEvent&);
+    void OnMutesUpdated(const FNotificationMutesUpdatedEvent&);
 
     void AddChannels(const TArray<UChatChannel*>& InChannels);
 
@@ -249,14 +252,14 @@ public:
      * @param OutUser Latest info of the logged in user
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo))
-    void ConnectUser(const FUser& User, const FString& Token, const UObject* WorldContextObject, FLatentActionInfo LatentInfo, FUserRef& OutUser);
+    void ConnectUser(const FUser& User, const FString& Token, const UObject* WorldContextObject, FLatentActionInfo LatentInfo, FOwnUser& OutUser);
 
     /**
      * Create a connection to the API anonymously
      * @param OutUser Anonymous user info
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo))
-    void ConnectAnonymousUser(const UObject* WorldContextObject, FLatentActionInfo LatentInfo, FUserRef& OutUser);
+    void ConnectAnonymousUser(const UObject* WorldContextObject, FLatentActionInfo LatentInfo, FOwnUser& OutUser);
 
     /**
      * Create a connection to the API by creating a guest account
@@ -264,7 +267,7 @@ public:
      * @param OutUser Guest user info
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo))
-    void ConnectGuestUser(const FUser& User, const UObject* WorldContextObject, FLatentActionInfo LatentInfo, FUserRef& OutUser);
+    void ConnectGuestUser(const FUser& User, const UObject* WorldContextObject, FLatentActionInfo LatentInfo, FOwnUser& OutUser);
 
     /**
      * Query the API for all channels which match the given filter. Will also automatically watch all channels.

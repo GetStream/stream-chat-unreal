@@ -60,6 +60,8 @@ protected:
 private:
     virtual void OnSetup() override;
     virtual void OnTheme() override;
+    virtual void OnClient() override;
+    virtual void OnChannel() override;
 
     UFUNCTION()
     void OnButtonClicked();
