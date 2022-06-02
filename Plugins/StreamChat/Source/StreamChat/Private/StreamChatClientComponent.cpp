@@ -511,7 +511,7 @@ void UStreamChatClientComponent::ListDevices(TFunction<void(TArray<FDevice>)> Ca
         });
 }
 
-void UStreamChatClientComponent::FlagMessage(const FMessage& Message)
+void UStreamChatClientComponent::FlagMessage(const FMessage& Message) const
 {
     Api->Flag(Message.Id);
 }

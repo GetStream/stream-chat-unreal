@@ -11,6 +11,9 @@
 
 #include "ContextMenuAction.generated.h"
 
+class UChatChannel;
+class UStreamChatClientComponent;
+
 UENUM()
 enum class EContextMenuButtonStyle : uint8
 {
@@ -34,6 +37,7 @@ public:
     UPROPERTY(EditAnywhere, Category = Visuals)
     EContextMenuButtonStyle Style;
 
+    void SetContext(UStreamChatClientComponent*, UChatChannel*);
     void Perform(const FMessage&, UWidget* OwningWidget);
     bool ShouldDisplay(EMessageSide, const FMessage&) const;
 
@@ -45,4 +49,9 @@ protected:
     void OnPerformBlueprint(const FMessage& Message, UWidget* OwningWidget);
     UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "Should Display"))
     bool OnShouldDisplayBlueprint(EMessageSide Side, const FMessage& Message) const;
+
+    UPROPERTY(BlueprintReadOnly, Transient)
+    UStreamChatClientComponent* Client;
+    UPROPERTY(BlueprintReadOnly, Transient)
+    UChatChannel* Channel;
 };

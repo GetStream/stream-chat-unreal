@@ -21,6 +21,7 @@ class STREAMCHATUI_API UContextMenuWidget final : public UStreamWidget
     GENERATED_BODY()
 
 public:
+    UContextMenuWidget();
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(const FMessage& InMessage, EMessageSide InSide);
 
