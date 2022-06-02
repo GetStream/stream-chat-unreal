@@ -237,6 +237,9 @@ private:
     TArray<UChatChannel*> Channels;
 
 #pragma region Blueprint
+    /** @name Blueprint
+     *  @{
+     */
 
 public:
     /**
@@ -292,9 +295,13 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo, AdvancedDisplay = Id))
     void WatchChannel(const FChannelProperties& ChannelProperties, const UObject* WorldContextObject, FLatentActionInfo LatentInfo, UChatChannel*& OutChannel);
 
+    ///@}
 #pragma endregion Blueprint
 
 #pragma region Events
+    /** @name Events
+     *  @{
+     */
 
 public:
     template <class TEvent>
@@ -351,6 +358,7 @@ public:
 private:
     TSharedPtr<IChatSocket> Socket;
 
+    ///@}
 #pragma endregion Events
 
 #pragma region Moderation
@@ -358,6 +366,7 @@ private:
      *  @{
      */
 
+public:
     /**
      * @brief Ban a user from app entirely
      * When a user is banned, they will not be allowed to post messages until the ban is
@@ -416,15 +425,15 @@ private:
      *
      * @param Message A reference to an existing message
      */
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client")
-    void FlagMessage(const FMessage& Message);
+    UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "Stream Chat|Client")
+    void FlagMessage(const FMessage& Message) const;
 
     /**
      * @brief Flag user for moderation
      *
      * @param User A reference to a user
      */
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client")
+    UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "Stream Chat|Client")
     void FlagUser(const FUserRef& User) const;
 
     /**

@@ -13,7 +13,7 @@ void UEditMessageContextMenuAction::OnPerform(const FMessage& Message, UWidget* 
     }
 }
 
-bool UEditMessageContextMenuAction::OnShouldDisplay(EMessageSide Side, const FMessage& Message) const
+bool UEditMessageContextMenuAction::OnShouldDisplay(const EMessageSide Side, const FMessage& Message) const
 {
     if (Side == EMessageSide::You)
     {

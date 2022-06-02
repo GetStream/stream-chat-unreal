@@ -2,6 +2,12 @@
 
 #include "ContextMenu/ContextMenuWidget.h"
 
+UContextMenuWidget::UContextMenuWidget()
+{
+    bWantsChannel = true;
+    bWantsClient = true;
+}
+
 void UContextMenuWidget::Setup(const FMessage& InMessage, const EMessageSide InSide)
 {
     Message = InMessage;

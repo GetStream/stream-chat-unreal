@@ -16,6 +16,7 @@ void UContextMenuButtonWidget::Setup(const FMessage& InMessage, const EContextMe
     Message = InMessage;
     Position = InPosition;
     Action = InAction;
+    Action->SetContext(Client, Channel);
 
     Super::Setup();
 }
