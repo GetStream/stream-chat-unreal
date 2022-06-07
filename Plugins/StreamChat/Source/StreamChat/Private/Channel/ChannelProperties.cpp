@@ -75,6 +75,13 @@ TArray<FUserRef> FChannelProperties::GetOtherMemberUsers() const
     return OtherUsers;
 }
 
+FChannelProperties& FChannelProperties::SetMembers(const TArray<FString>& UserIds)
+{
+    Algo::Transform(UserIds, Members, [&](const FString& UserId) { return FMember{UUserManager::Get()->UpsertUser(UserId)}; });
+    MemberCount = Members.Num();
+    return *this;
+}
+
 FChannelProperties& FChannelProperties::SetMembers(const TArray<FMember>& InMembers)
 {
     Members = InMembers;
@@ -146,6 +153,11 @@ void FChannelProperties::AppendMembers(const TArray<FChannelMemberDto>& InMember
         NewMembers.Add(Util::Convert<FMember>(M, UserManager));
     }
     SetMembers(NewMembers.Array());
+}
+
+void UChannelPropertiesBlueprintLibrary::SetMembers_UserId(FChannelProperties& ChannelProperties, const TArray<FString>& UserIds, FChannelProperties& Out)
+{
+    Out = ChannelProperties.SetMembers(UserIds);
 }
 
 void UChannelPropertiesBlueprintLibrary::SetMembers_User(FChannelProperties& ChannelProperties, const TArray<FUserRef>& Users, FChannelProperties& Out)
