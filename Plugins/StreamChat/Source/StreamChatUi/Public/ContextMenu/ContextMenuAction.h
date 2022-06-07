@@ -50,8 +50,8 @@ protected:
     UFUNCTION(BlueprintNativeEvent, meta = (DisplayName = "Should Display"))
     bool OnShouldDisplayBlueprint(EMessageSide Side, const FMessage& Message) const;
 
-    UPROPERTY(BlueprintReadOnly, Transient)
+    UPROPERTY(BlueprintReadOnly, Transient, Category = Stream)
     UStreamChatClientComponent* Client;
-    UPROPERTY(BlueprintReadOnly, Transient)
+    UPROPERTY(BlueprintReadOnly, Transient, Category = Stream)
     UChatChannel* Channel;
 };
