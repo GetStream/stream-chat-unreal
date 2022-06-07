@@ -29,10 +29,17 @@ struct FMember
     bool operator==(const FUserRef&) const;
     bool operator==(const FMember&) const;
     friend uint32 GetTypeHash(const FMember& M);
-    ;
 
     /// The user information of this member
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Member") FUserRef User;
+
+    /// Expiration date of the ban
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Member")
+    FDateTime BanExpires = FDateTime{0};
+
+    /// Whether member is banned in this channel or not
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Member")
+    bool bBanned = false;
 
     /// Role of the member in the channel
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Member")

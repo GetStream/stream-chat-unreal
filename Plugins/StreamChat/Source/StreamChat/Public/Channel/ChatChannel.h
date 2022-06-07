@@ -36,6 +36,8 @@ struct FReactionNewEvent;
 struct FReactionUpdatedEvent;
 struct FTypingStartEvent;
 struct FTypingStopEvent;
+struct FUserBannedEvent;
+struct FUserUnbannedEvent;
 
 UENUM(BlueprintType)
 enum class ETypingIndicatorState : uint8
@@ -462,6 +464,7 @@ private:
      *  @{
      */
 
+public:
     /**
      * @brief Ban a member from this channel.
      * When a user is banned, they will not be allowed to post messages until the ban is
@@ -519,6 +522,10 @@ private:
      */
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Channel|Moderation")
     bool IsMuted() const;
+
+private:
+    void OnUserBanned(const FUserBannedEvent&);
+    void OnUserUnbanned(const FUserUnbannedEvent&);
 
     ///@}
 #pragma endregion Moderation
