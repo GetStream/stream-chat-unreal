@@ -8,7 +8,6 @@
 
 UBackButton::UBackButton()
 {
-    bWantsTheme = true;
 }
 
 void UBackButton::NativeOnInitialized()
@@ -20,9 +19,10 @@ void UBackButton::NativeOnInitialized()
     }
 }
 
-void UBackButton::OnTheme()
+void UBackButton::NativePreConstruct()
 {
-    const FSlateColor Color{Theme->GetPaletteColor(Theme->BackButtonSelectedColor)};
+    Super::NativePreConstruct();
+    const FSlateColor Color{GetTheme()->GetPaletteColor(GetTheme()->BackButtonSelectedColor)};
     Button->WidgetStyle.Normal.DrawAs = ESlateBrushDrawType::NoDrawType;
     Button->WidgetStyle.Hovered.TintColor = Color;
     Button->WidgetStyle.Pressed.TintColor = Color;

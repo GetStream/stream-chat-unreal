@@ -56,4 +56,7 @@ private:
     UFUNCTION()
     void OpenChat();
     void CloseChat();
+
+    UPROPERTY(Transient)
+    UChatChannel* MyChannel;
 };

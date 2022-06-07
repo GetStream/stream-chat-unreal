@@ -40,7 +40,7 @@ protected:
 
 private:
     virtual void OnSetup() override;
-    virtual void OnTheme() override;
+    virtual void NativePreConstruct() override;
     virtual bool IsForChannel(const UChatChannel*) const override;
     virtual FLinearColor GetTitleColor() override;
 

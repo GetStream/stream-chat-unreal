@@ -10,8 +10,6 @@
 
 UTimestampWidget::UTimestampWidget()
 {
-    bWantsTheme = true;
-    bWantsChannel = true;
 }
 
 void UTimestampWidget::Setup(const FMessage& InMessage, const bool bInShowUserName, const bool bInShowMessageState)
@@ -44,25 +42,10 @@ void UTimestampWidget::OnSetup()
     }
 }
 
-void UTimestampWidget::OnTheme()
+void UTimestampWidget::NativePreConstruct()
 {
-    if (UserTextBlock)
-    {
-        if (Theme->bColoredName)
-        {
-            const FLinearColor Color = WidgetUtil::ChooseColorForString(Message.User->Id);
-            UserTextBlock->SetColorAndOpacity(Color);
-        }
-    }
+    Super::NativePreConstruct();
 
-    if (DateTimeTextBlock)
-    {
-        DateTimeTextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Theme->TimestampTextColor));
-    }
-}
-
-void UTimestampWidget::OnChannel()
-{
     if (MessageStateIconImage)
     {
         if (bShowMessageState)
@@ -74,6 +57,20 @@ void UTimestampWidget::OnChannel()
         {
             MessageStateIconImage->SetVisibility(ESlateVisibility::Collapsed);
         }
+    }
+
+    if (UserTextBlock)
+    {
+        if (GetTheme()->bColoredName)
+        {
+            const FLinearColor Color = WidgetUtil::ChooseColorForString(Message.User->Id);
+            UserTextBlock->SetColorAndOpacity(Color);
+        }
+    }
+
+    if (DateTimeTextBlock)
+    {
+        DateTimeTextBlock->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->TimestampTextColor));
     }
 }
 
@@ -92,7 +89,7 @@ UTexture2D* UTimestampWidget::GetStatusIcon() const
     {
         return IconClock;
     }
-    if (Channel->State.IsMessageRead(Message))
+    if (GetChannel()->State.IsMessageRead(Message))
     {
         return IconCheckAll;
     }

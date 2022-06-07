@@ -6,14 +6,13 @@
 
 USelectedContactWidget::USelectedContactWidget()
 {
-    bWantsTheme = true;
 }
 
-void USelectedContactWidget::OnTheme()
+void USelectedContactWidget::NativePreConstruct()
 {
-    Super::OnTheme();
+    Super::NativePreConstruct();
     if (Border)
     {
-        Border->SetBrushColor(Theme->GetPaletteColor(Theme->SelectedContactBackgroundColor));
+        Border->SetBrushColor(GetTheme()->GetPaletteColor(GetTheme()->SelectedContactBackgroundColor));
     }
 }

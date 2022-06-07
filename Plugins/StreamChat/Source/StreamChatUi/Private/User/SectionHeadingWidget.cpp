@@ -4,7 +4,6 @@
 
 USectionHeadingWidget::USectionHeadingWidget()
 {
-    bWantsTheme = true;
 }
 
 void USectionHeadingWidget::Setup(const FText& InLabel)
@@ -22,14 +21,15 @@ void USectionHeadingWidget::OnSetup()
     }
 }
 
-void USectionHeadingWidget::OnTheme()
+void USectionHeadingWidget::NativePreConstruct()
 {
+    Super::NativePreConstruct();
     if (TextBlock)
     {
-        TextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Theme->SectionHeadingTextColor));
+        TextBlock->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->SectionHeadingTextColor));
     }
     if (Border)
     {
-        Border->SetBrushColor(Theme->GetPaletteColor(Theme->SectionHeadingBackgroundColor));
+        Border->SetBrushColor(GetTheme()->GetPaletteColor(GetTheme()->SectionHeadingBackgroundColor));
     }
 }

@@ -24,7 +24,7 @@ public:
     void Setup(const FUserRef& InUser);
 
 protected:
-    virtual void OnTheme() override;
+    virtual void NativePreConstruct() override;
 
     UPROPERTY(meta = (BindWidget))
     UAvatarWidget* Avatar;

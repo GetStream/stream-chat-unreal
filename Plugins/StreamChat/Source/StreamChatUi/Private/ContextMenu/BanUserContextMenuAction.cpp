@@ -19,6 +19,14 @@ bool UBanUserContextMenuAction::OnShouldDisplay(const EMessageSide, const FMessa
     }
 
     // TODO this will be improved in the backend soon
-    const FString& Role = Message.User->Role;
-    return Role == TEXT("admin") || Role == TEXT("moderator") || Role.IsEmpty();
+    if (const FMember* Member = Channel->Properties.GetCurrentUserMember())
+    {
+        if (Member->ChannelRole == TEXT("admin") || Member->ChannelRole == TEXT("moderator"))
+        {
+            return true;
+        }
+    }
+
+    const FString& Role = UUserManager::Get()->GetCurrentUser().User->Role;
+    return Role == TEXT("admin") || Role == TEXT("moderator");
 }

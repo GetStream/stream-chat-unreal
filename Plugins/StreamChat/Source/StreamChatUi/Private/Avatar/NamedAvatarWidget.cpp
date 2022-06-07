@@ -8,7 +8,6 @@
 
 UNamedAvatarWidget::UNamedAvatarWidget()
 {
-    bWantsTheme = true;
 }
 
 void UNamedAvatarWidget::Setup(const FUserRef& InUser)
@@ -38,15 +37,16 @@ void UNamedAvatarWidget::OnSetup()
     }
 }
 
-void UNamedAvatarWidget::OnTheme()
+void UNamedAvatarWidget::NativePreConstruct()
 {
-    if (!User.IsCurrent() && Theme->bColoredName)
+    Super::NativePreConstruct();
+    if (!User.IsCurrent() && GetTheme()->bColoredName)
     {
         const FLinearColor Color = WidgetUtil::ChooseColorForString(User->Id);
         TextBlock->SetColorAndOpacity(Color);
     }
     else
     {
-        TextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Theme->NamedAvatarTextColor));
+        TextBlock->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->NamedAvatarTextColor));
     }
 }

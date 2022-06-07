@@ -7,7 +7,6 @@
 
 UIconButton::UIconButton()
 {
-    bWantsTheme = true;
 }
 
 void UIconButton::SetEnabled(const bool bInEnabled)
@@ -49,17 +48,17 @@ void UIconButton::SetIconPadding(const FMargin& InIconPadding)
 
 void UIconButton::SetIconPaletteColor(const FName& InPaletteColor)
 {
-    if (Icon && Theme)
+    if (Icon && GetTheme())
     {
-        Icon->SetColorAndOpacity(Theme->GetPaletteColor(InPaletteColor));
+        Icon->SetColorAndOpacity(GetTheme()->GetPaletteColor(InPaletteColor));
     }
 }
 
 void UIconButton::SetEnabledBackgroundColor(const FName& InPaletteColor)
 {
-    if (Theme)
+    if (GetTheme())
     {
-        const FSlateColor EnabledColor{Theme->GetPaletteColor(InPaletteColor)};
+        const FSlateColor EnabledColor{GetTheme()->GetPaletteColor(InPaletteColor)};
         EnabledStyle.Normal.TintColor = EnabledColor;
         EnabledStyle.Hovered.TintColor = EnabledColor;
         EnabledStyle.Pressed.TintColor = EnabledColor;
@@ -68,9 +67,9 @@ void UIconButton::SetEnabledBackgroundColor(const FName& InPaletteColor)
 
 void UIconButton::SetDisabledBackgroundColor(const FName& InPaletteColor)
 {
-    if (Theme)
+    if (GetTheme())
     {
-        const FSlateColor DisabledColor{Theme->GetPaletteColor(InPaletteColor)};
+        const FSlateColor DisabledColor{GetTheme()->GetPaletteColor(InPaletteColor)};
         DisabledStyle.Normal.TintColor = DisabledColor;
         DisabledStyle.Hovered.TintColor = DisabledColor;
         DisabledStyle.Pressed.TintColor = DisabledColor;
@@ -80,7 +79,8 @@ void UIconButton::SetDisabledBackgroundColor(const FName& InPaletteColor)
 void UIconButton::SynchronizeProperties()
 {
     Super::SynchronizeProperties();
-    OnTheme();
+
+    NativePreConstruct();
 }
 
 void UIconButton::NativeOnInitialized()
@@ -92,8 +92,10 @@ void UIconButton::NativeOnInitialized()
     }
 }
 
-void UIconButton::OnTheme()
+void UIconButton::NativePreConstruct()
 {
+    Super::NativePreConstruct();
+
     SetIconPadding(IconPadding);
     SetIconPaletteColor(IconPaletteColor);
     SetEnabledBackgroundColor(EnabledBackgroundColor);

@@ -71,7 +71,7 @@ protected:
 private:
     virtual void SynchronizeProperties() override;
     virtual void NativeOnInitialized() override;
-    virtual void OnTheme() override;
+    virtual void NativePreConstruct() override;
 
     UFUNCTION()
     void OnButtonClicked();

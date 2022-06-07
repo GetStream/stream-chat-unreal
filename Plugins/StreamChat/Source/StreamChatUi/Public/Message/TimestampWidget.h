@@ -54,8 +54,7 @@ protected:
 
 private:
     virtual void OnSetup() override;
-    virtual void OnTheme() override;
-    virtual void OnChannel() override;
+    virtual void NativePreConstruct() override;
 
     UTexture2D* GetStatusIcon() const;
     FText GetTimestampText() const;

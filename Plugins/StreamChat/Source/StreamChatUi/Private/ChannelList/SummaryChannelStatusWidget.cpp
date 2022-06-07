@@ -8,7 +8,7 @@
 
 bool USummaryChannelStatusWidget::IsForChannel(const UChatChannel* QueryChannel) const
 {
-    return QueryChannel && Channel && QueryChannel->Properties.Cid == Channel->Properties.Cid;
+    return QueryChannel && StatusChannel && QueryChannel->Properties.Cid == StatusChannel->Properties.Cid;
 }
 
 void USummaryChannelStatusWidget::OnSetup()
@@ -17,27 +17,27 @@ void USummaryChannelStatusWidget::OnSetup()
 
     if (ChannelContextProvider)
     {
-        ChannelContextProvider->Setup(Channel);
+        ChannelContextProvider->Setup(StatusChannel);
     }
 
-    if (Channel)
+    if (StatusChannel)
     {
-        Channel->MessagesUpdated.AddDynamic(this, &USummaryChannelStatusWidget::OnMessagesUpdated);
-        Channel->UnreadChanged.AddDynamic(this, &USummaryChannelStatusWidget::OnUnreadChanged);
+        StatusChannel->MessagesUpdated.AddDynamic(this, &USummaryChannelStatusWidget::OnMessagesUpdated);
+        StatusChannel->UnreadChanged.AddDynamic(this, &USummaryChannelStatusWidget::OnUnreadChanged);
         OnMessagesUpdated();
-        OnUnreadChanged(Channel->State.UnreadCount());
+        OnUnreadChanged(StatusChannel->State.UnreadCount());
     }
 
-    if (Channel && Avatar)
+    if (StatusChannel && Avatar)
     {
-        const TOptional<FString> Image = Channel->Properties.GetImageUrl();
+        const TOptional<FString> Image = StatusChannel->Properties.GetImageUrl();
         if (Image.IsSet())
         {
             Avatar->SetupWithUrl(Image.GetValue());
         }
         else
         {
-            Avatar->Setup(Channel->Properties.GetOtherMemberUsers());
+            Avatar->Setup(StatusChannel->Properties.GetOtherMemberUsers());
         }
     }
 
@@ -47,19 +47,20 @@ void USummaryChannelStatusWidget::OnSetup()
     ChannelTitleAvailableSpace = -1.f;
 }
 
-void USummaryChannelStatusWidget::OnTheme()
+void USummaryChannelStatusWidget::NativePreConstruct()
 {
-    Super::OnTheme();
+    Super::NativePreConstruct();
 
     if (RecentMessageTextBlock)
     {
-        RecentMessageTextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Theme->ChannelStatusRecentMessageTextColor));
+        RecentMessageTextBlock->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->ChannelStatusRecentMessageTextColor));
     }
 }
 
 FLinearColor USummaryChannelStatusWidget::GetTitleColor()
 {
-    return Theme->GetPaletteColor(Channel && Channel->Properties.bMuted ? Theme->ChannelStatusMutedTitleTextColor : Theme->ChannelStatusTitleTextColor);
+    return GetTheme()->GetPaletteColor(
+        StatusChannel && StatusChannel->Properties.bMuted ? GetTheme()->ChannelStatusMutedTitleTextColor : GetTheme()->ChannelStatusTitleTextColor);
 }
 
 int32 USummaryChannelStatusWidget::NativePaint(
@@ -96,9 +97,9 @@ int32 USummaryChannelStatusWidget::NativePaint(
 
 void USummaryChannelStatusWidget::UpdateChannelTitleText() const
 {
-    if (TitleTextBlock && Channel)
+    if (TitleTextBlock && StatusChannel)
     {
-        const FString Title = UUiBlueprintLibrary::GetChannelTitle(Channel);
+        const FString Title = UUiBlueprintLibrary::GetChannelTitle(StatusChannel);
         const FString Shortened = WidgetUtil::TruncateWithEllipsis(Title, ChannelTitleAvailableSpace, TitleTextBlock->Font);
         const FText Text = FText::FromString(Shortened);
         TitleTextBlock->SetText(Text);
@@ -107,12 +108,12 @@ void USummaryChannelStatusWidget::UpdateChannelTitleText() const
 
 void USummaryChannelStatusWidget::UpdateRecentMessageText() const
 {
-    if (RecentMessageTextBlock && Channel)
+    if (RecentMessageTextBlock && StatusChannel)
     {
-        if (!Channel->State.Messages.IsEmpty())
+        if (!StatusChannel->State.Messages.IsEmpty())
         {
             RecentMessageTextBlock->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
-            const FString LastText = Channel->State.Messages.Last().Text;
+            const FString LastText = StatusChannel->State.Messages.Last().Text;
             const FString Shortened = WidgetUtil::TruncateWithEllipsis(LastText, RecentMessageAvailableSpace, RecentMessageTextBlock->Font);
             const FText Text = FText::FromString(Shortened);
             RecentMessageTextBlock->SetText(Text);
@@ -126,16 +127,16 @@ void USummaryChannelStatusWidget::UpdateRecentMessageText() const
 
 void USummaryChannelStatusWidget::OnMessagesUpdated()
 {
-    if (Timestamp && Channel)
+    if (Timestamp && StatusChannel)
     {
-        if (Channel->State.Messages.IsEmpty())
+        if (StatusChannel->State.Messages.IsEmpty())
         {
             Timestamp->SetVisibility(ESlateVisibility::Hidden);
         }
         else
         {
             Timestamp->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
-            Timestamp->Setup(Channel->State.Messages.Last(), false, true);
+            Timestamp->Setup(StatusChannel->State.Messages.Last(), false, true);
         }
     }
 

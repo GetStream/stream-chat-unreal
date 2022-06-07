@@ -27,7 +27,7 @@ public:
     UMessageListHeaderWidget();
 
 protected:
-    virtual void OnChannel() override;
+    virtual void NativePreConstruct() override;
 
     UPROPERTY(meta = (BindWidget))
     UHeaderWidget* Header;

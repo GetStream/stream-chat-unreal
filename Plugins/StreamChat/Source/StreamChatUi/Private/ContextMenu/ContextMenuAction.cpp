@@ -2,16 +2,13 @@
 
 #include "ContextMenu/ContextMenuAction.h"
 
+#include "Channel/ChatChannel.h"
 #include "Framework/Application/SlateApplication.h"
 
-void UContextMenuAction::SetClient(UStreamChatClientComponent* InClient)
+void UContextMenuAction::SetContext(UStreamChatClientComponent* InClient, UChatChannel* InChatChannel)
 {
     Client = InClient;
-}
-
-void UContextMenuAction::SetChannel(UChatChannel* InChannel)
-{
-    Channel = InChannel;
+    Channel = InChatChannel;
 }
 
 void UContextMenuAction::Perform(const FMessage& Message, UWidget* OwningWidget)

@@ -7,7 +7,6 @@
 UMessageInputWidget::UMessageInputWidget()
 {
     bIsFocusable = true;
-    bWantsTheme = true;
 }
 
 void UMessageInputWidget::SynchronizeProperties()
@@ -45,16 +44,17 @@ void UMessageInputWidget::OnInputTextCommit(const FText& Text, ETextCommit::Type
     OnTextCommitted.Broadcast(Text, CommitMethod);
 }
 
-void UMessageInputWidget::OnTheme()
+void UMessageInputWidget::NativePreConstruct()
 {
+    Super::NativePreConstruct();
     if (TextBox)
     {
-        TextBox->WidgetStyle.SetForegroundColor(Theme->GetPaletteColor(Theme->MessageInputTextColor));
-        TextBox->WidgetStyle.SetBackgroundColor(Theme->GetPaletteColor(Theme->MessageInputBackgroundColor));
+        TextBox->WidgetStyle.SetForegroundColor(GetTheme()->GetPaletteColor(GetTheme()->MessageInputTextColor));
+        TextBox->WidgetStyle.SetBackgroundColor(GetTheme()->GetPaletteColor(GetTheme()->MessageInputBackgroundColor));
     }
     if (Border)
     {
-        Border->SetBrushColor(Theme->GetPaletteColor(Theme->MessageInputBorderColor));
+        Border->SetBrushColor(GetTheme()->GetPaletteColor(GetTheme()->MessageInputBorderColor));
     }
 }
 

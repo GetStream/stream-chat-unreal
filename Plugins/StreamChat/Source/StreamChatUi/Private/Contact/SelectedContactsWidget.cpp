@@ -8,7 +8,6 @@
 USelectedContactsWidget::USelectedContactsWidget()
 {
     bAutoSetup = true;
-    bWantsTheme = true;
 }
 
 void USelectedContactsWidget::SetUsers(const TArray<FUserRef>& Users)
@@ -64,23 +63,24 @@ void USelectedContactsWidget::OnSetup()
     GetWorld()->GetTimerManager().SetTimerForNextTick([this] { SetTypingMode(true); });
 }
 
-void USelectedContactsWidget::OnTheme()
+void USelectedContactsWidget::NativePreConstruct()
 {
+    Super::NativePreConstruct();
     if (Border)
     {
-        Border->SetBrushColor(Theme->GetPaletteColor(Theme->SelectedContactsBackgroundColor));
+        Border->SetBrushColor(GetTheme()->GetPaletteColor(GetTheme()->SelectedContactsBackgroundColor));
     }
     if (TextBlock)
     {
-        TextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Theme->SelectedContactsLabelTextColor));
+        TextBlock->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->SelectedContactsLabelTextColor));
     }
     if (Divider)
     {
-        Divider->SetColorAndOpacity(Theme->GetPaletteColor(Theme->SelectedContactsDividerColor));
+        Divider->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->SelectedContactsDividerColor));
     }
     if (SearchText)
     {
-        SearchText->WidgetStyle.SetColorAndOpacity(Theme->GetPaletteColor(Theme->SelectedContactsInputTextColor));
+        SearchText->WidgetStyle.SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->SelectedContactsInputTextColor));
     }
 }
 

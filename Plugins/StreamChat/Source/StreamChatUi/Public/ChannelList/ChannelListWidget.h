@@ -45,8 +45,7 @@ private:
     virtual void NativeDestruct() override;
     virtual void ReleaseSlateResources(bool bReleaseChildren) override;
 
-    virtual void OnClient() override;
-    virtual void OnTheme() override;
+    virtual void NativePreConstruct() override;
     void Paginate(const EPaginationDirection Direction, const TFunction<void()> Callback);
     UWidget* CreateChannelWidget(UChatChannel* const&);
 

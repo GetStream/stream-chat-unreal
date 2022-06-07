@@ -8,8 +8,6 @@
 UChannelListHeaderWidget::UChannelListHeaderWidget()
 {
     bAutoSetup = true;
-    bWantsTheme = true;
-    bWantsClient = true;
 }
 
 void UChannelListHeaderWidget::OnSetup()
@@ -20,11 +18,12 @@ void UChannelListHeaderWidget::OnSetup()
     }
 }
 
-void UChannelListHeaderWidget::OnTheme()
+void UChannelListHeaderWidget::NativePreConstruct()
 {
+    Super::NativePreConstruct();
     if (Icon)
     {
-        Icon->SetColorAndOpacity(Theme->GetPaletteColor(Theme->ChannelListHeaderIconColor));
+        Icon->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->ChannelListHeaderIconColor));
     }
     if (Button)
     {
@@ -36,5 +35,5 @@ void UChannelListHeaderWidget::OnTheme()
 
 void UChannelListHeaderWidget::OnButtonClick()
 {
-    ClientContext->SelectChannel(Client->NewChat());
+    GetClientContext()->SelectChannel(GetClient()->NewChat());
 }

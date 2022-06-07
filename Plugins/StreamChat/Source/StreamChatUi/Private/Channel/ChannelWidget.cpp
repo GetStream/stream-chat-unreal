@@ -6,12 +6,11 @@
 
 UChannelWidget::UChannelWidget()
 {
-    bWantsTheme = true;
 }
 
 void UChannelWidget::Setup(UChatChannel* InChannel)
 {
-    Channel = InChannel;
+    MyChannel = InChannel;
 
     Super::Setup();
 }
@@ -20,14 +19,15 @@ void UChannelWidget::OnSetup()
 {
     if (OwnedChannelContext)
     {
-        OwnedChannelContext->Setup(Channel);
+        OwnedChannelContext->Setup(MyChannel);
     }
 }
 
-void UChannelWidget::OnTheme()
+void UChannelWidget::NativePreConstruct()
 {
+    Super::NativePreConstruct();
     if (HeaderDivider)
     {
-        HeaderDivider->SetColorAndOpacity(Theme->GetPaletteColor(Theme->ChannelHeaderDividerColor));
+        HeaderDivider->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->ChannelHeaderDividerColor));
     }
 }

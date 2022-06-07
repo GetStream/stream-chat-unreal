@@ -33,8 +33,7 @@ struct STREAMCHAT_API FChannelProperties
 
     static FChannelProperties WithType(const FString&);
 
-    /// Set the members using just their User IDs
-    FChannelProperties& SetMembers(const TArray<FString>& UserIds);
+    FChannelProperties& SetMembers(const TArray<FMember>&);
     /// Set the members using a list of Users
     FChannelProperties& SetMembers(const TArray<FUserRef>& Users);
 
@@ -52,6 +51,7 @@ struct STREAMCHAT_API FChannelProperties
     TOptional<FString> GetName() const;
     TOptional<FString> GetImageUrl() const;
 
+    const FMember* GetCurrentUserMember() const;
     /// Get user information of channel members other than the currently logged-in user
     TArray<FUserRef> GetOtherMemberUsers() const;
 
@@ -160,11 +160,7 @@ class STREAMCHAT_API UChannelPropertiesBlueprintLibrary final : public UBlueprin
     GENERATED_BODY()
 
 public:
-    /// Set the members using just their User IDs
-    UFUNCTION(BlueprintPure, Category = "Stream Chat|Channel Properties", meta = (DisplayName = "Set Members (User ID)"))
-    static void SetMembers_UserId(UPARAM(ref) FChannelProperties& ChannelProperties, const TArray<FString>& UserIds, FChannelProperties& Out);
-
-    /// Set the members using just their User IDs
+    /// Set the members using an array of UserRefs
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Channel Properties", meta = (DisplayName = "Set Members (User)"))
     static void SetMembers_User(UPARAM(ref) FChannelProperties& ChannelProperties, const TArray<FUserRef>& Users, FChannelProperties& Out);
 };

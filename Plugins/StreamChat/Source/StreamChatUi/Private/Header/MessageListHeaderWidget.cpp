@@ -6,30 +6,31 @@
 
 UMessageListHeaderWidget::UMessageListHeaderWidget()
 {
-    bWantsChannel = true;
 }
 
-void UMessageListHeaderWidget::OnChannel()
+void UMessageListHeaderWidget::NativePreConstruct()
 {
-    Channel->OnTypingIndicator.AddDynamic(this, &UMessageListHeaderWidget::OnTypingIndicator);
+    Super::NativePreConstruct();
+
+    GetChannel()->OnTypingIndicator.AddDynamic(this, &UMessageListHeaderWidget::OnTypingIndicator);
 
     if (Header)
     {
-        const FText Title = FText::FromString(UUiBlueprintLibrary::GetChannelTitle(Channel));
+        const FText Title = FText::FromString(UUiBlueprintLibrary::GetChannelTitle(GetChannel()));
         Header->SetTitle(Title);
         ShowOnlineStatusSubheader();
     }
 
     if (Avatar)
     {
-        const TOptional<FString> Image = Channel->Properties.GetImageUrl();
+        const TOptional<FString> Image = GetChannel()->Properties.GetImageUrl();
         if (Image.IsSet())
         {
             Avatar->SetupWithUrl(Image.GetValue());
         }
         else
         {
-            Avatar->Setup(Channel->Properties.GetOtherMemberUsers());
+            Avatar->Setup(GetChannel()->Properties.GetOtherMemberUsers());
         }
     }
 }

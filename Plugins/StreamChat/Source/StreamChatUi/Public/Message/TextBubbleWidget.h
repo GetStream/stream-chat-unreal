@@ -53,7 +53,7 @@ protected:
 
 private:
     virtual void OnSetup() override;
-    virtual void OnTheme() override;
+    virtual void NativePreConstruct() override;
 
     UTexture2D* GetBubbleTexture() const;
     const FLinearColor& GetBubbleColor() const;

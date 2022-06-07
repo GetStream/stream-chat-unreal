@@ -6,7 +6,6 @@
 
 UUserListWidget::UUserListWidget()
 {
-    bWantsClient = true;
 }
 
 void UUserListWidget::SetQuery(const FFilter& UsersQueryFilter)
@@ -20,19 +19,19 @@ void UUserListWidget::OnSetup()
 {
 }
 
-void UUserListWidget::OnClient()
+void UUserListWidget::NativePreConstruct()
 {
     Refetch();
 }
 
 void UUserListWidget::Paginate(const EPaginationDirection Directions, const TFunction<void()> Callback)
 {
-    if (!Client)
+    if (!GetClient())
     {
         return;
     }
     const FUserSortOption SortName{EUserSortField::Custom, ESortDirection::Ascending, TEXT("name")};
-    Client->QueryUsers(
+    GetClient()->QueryUsers(
         Filter,
         {SortName},
         false,

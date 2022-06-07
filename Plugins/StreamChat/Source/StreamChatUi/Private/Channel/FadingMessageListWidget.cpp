@@ -16,16 +16,16 @@ void UFadingMessageListWidget::Setup(UChatChannel* InChannel, const FTimespan& I
 
 void UFadingMessageListWidget::Setup(UChatChannel* InChannel)
 {
-    Channel = InChannel;
+    MyChannel = InChannel;
 
     Super::Setup();
 }
 
 void UFadingMessageListWidget::OnSetup()
 {
-    if (Channel)
+    if (MyChannel)
     {
-        Channel->MessagesUpdated.AddUniqueDynamic(this, &UFadingMessageListWidget::MessagesUpdated);
+        MyChannel->MessagesUpdated.AddUniqueDynamic(this, &UFadingMessageListWidget::MessagesUpdated);
     }
 
     if (ChatInputBox)
@@ -40,13 +40,13 @@ void UFadingMessageListWidget::OnSetup()
 
 void UFadingMessageListWidget::MessagesUpdated()
 {
-    if (!MessagesScrollBox || !Channel)
+    if (!MessagesScrollBox || !MyChannel)
     {
         return;
     }
 
     MessagesScrollBox->ClearChildren();
-    for (const FMessageRef& Message : Channel->State.Messages.FilterRecent(MessageLifetime))
+    for (const FMessageRef& Message : MyChannel->State.Messages.FilterRecent(MessageLifetime))
     {
         UFadingMessageWidget* Widget = CreateWidget<UFadingMessageWidget>(this, FadingMessageWidgetClass);
         Widget->Setup(*Message, MessageLifetime);
@@ -55,7 +55,7 @@ void UFadingMessageListWidget::MessagesUpdated()
 
     MessagesScrollBox->ScrollToEnd();
 }
-void UFadingMessageListWidget::TextCommitted(const FText& Text, ETextCommit::Type CommitMethod)
+void UFadingMessageListWidget::TextCommitted(const FText& Text, const ETextCommit::Type CommitMethod)
 {
     if (CommitMethod != ETextCommit::OnEnter)
     {
@@ -65,7 +65,7 @@ void UFadingMessageListWidget::TextCommitted(const FText& Text, ETextCommit::Typ
     if (!Text.IsEmpty())
     {
         const FMessage Message{Text.ToString()};
-        Channel->SendMessage(Message);
+        MyChannel->SendMessage(Message);
     }
 
     CloseChat();
