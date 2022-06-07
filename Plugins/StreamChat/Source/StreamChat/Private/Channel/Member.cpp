@@ -11,7 +11,8 @@ FMember::FMember(const FUserRef& User) : User{User}
 {
 }
 
-FMember::FMember(const FChannelMemberDto& Dto, UUserManager* UserManager) : User{UserManager->UpsertUser(Dto.User)}, ChannelRole{Dto.ChannelRole}
+FMember::FMember(const FChannelMemberDto& Dto, UUserManager* UserManager)
+    : User{UserManager->UpsertUser(Dto.User)}, BanExpires{Dto.BanExpires}, bBanned{Dto.bBanned}, ChannelRole{Dto.ChannelRole}
 {
 }
 

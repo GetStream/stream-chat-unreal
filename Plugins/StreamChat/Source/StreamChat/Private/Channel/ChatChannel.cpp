@@ -18,6 +18,8 @@
 #include "Event/Channel/TypingStopEvent.h"
 #include "Event/Notification/NotificationMarkReadEvent.h"
 #include "Event/Notification/NotificationMessageNewEvent.h"
+#include "Event/User/UserBannedEvent.h"
+#include "Event/User/UserUnbannedEvent.h"
 #include "Reaction/Reaction.h"
 #include "Request/Channel/UpdateChannelRequestDto.h"
 #include "Request/Message/MessageRequestDto.h"
@@ -55,6 +57,8 @@ UChatChannel* UChatChannel::Create(
     Channel->On<FReactionDeletedEvent>(Channel, &UChatChannel::OnReactionDeleted);
     Channel->On<FTypingStartEvent>(Channel, &UChatChannel::OnTypingStart);
     Channel->On<FTypingStopEvent>(Channel, &UChatChannel::OnTypingStop);
+    Channel->On<FUserBannedEvent>(Channel, &UChatChannel::OnUserBanned);
+    Channel->On<FUserUnbannedEvent>(Channel, &UChatChannel::OnUserUnbanned);
 
     if (Channel->Properties.Config.bReadEvents)
     {
@@ -704,6 +708,16 @@ void UChatChannel::Unmute() const
 bool UChatChannel::IsMuted() const
 {
     return UUserManager::Get()->GetCurrentUser().MutedChannels.ContainsByPredicate([&](const FMutedChannel& C) { return C.Cid == Properties.Cid; });
+}
+
+void UChatChannel::OnUserBanned(const FUserBannedEvent& Event)
+{
+    Properties.GetMember(UUserManager::Get()->UpsertUser(Event.User))->bBanned = true;
+}
+
+void UChatChannel::OnUserUnbanned(const FUserUnbannedEvent& Event)
+{
+    Properties.GetMember(UUserManager::Get()->UpsertUser(Event.User))->bBanned = false;
 }
 
 void UChatChannel::MergeState(const FChannelStateResponseFieldsDto& Dto)

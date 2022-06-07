@@ -105,9 +105,9 @@ TOptional<FString> FChannelProperties::GetImageUrl() const
     return ExtraData.GetString(TEXT("image"));
 }
 
-const FMember* FChannelProperties::GetCurrentUserMember() const
+FMember* FChannelProperties::GetMember(const FUserRef& User)
 {
-    return Members.FindByKey(UUserManager::Get()->GetCurrentUser().User);
+    return Members.FindByKey(User);
 }
 
 FChannelProperties& FChannelProperties::SetName(const FString& Value)

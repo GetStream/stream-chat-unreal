@@ -51,7 +51,7 @@ struct STREAMCHAT_API FChannelProperties
     TOptional<FString> GetName() const;
     TOptional<FString> GetImageUrl() const;
 
-    const FMember* GetCurrentUserMember() const;
+    FMember* GetMember(const FUserRef&);
     /// Get user information of channel members other than the currently logged-in user
     TArray<FUserRef> GetOtherMemberUsers() const;
 
