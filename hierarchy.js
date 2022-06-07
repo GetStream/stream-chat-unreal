@@ -36,10 +36,13 @@ var hierarchy =
         [ "FNotificationMarkReadEvent", "struct_f_notification_mark_read_event.html", null ],
         [ "FTypingStartEvent", "struct_f_typing_start_event.html", null ],
         [ "FTypingStopEvent", "struct_f_typing_stop_event.html", null ],
+        [ "FUserBannedEvent", "struct_f_user_banned_event.html", null ],
+        [ "FUserUnbannedEvent", "struct_f_user_unbanned_event.html", null ],
         [ "FUserWatchingStartEvent", "struct_f_user_watching_start_event.html", null ],
         [ "FUserWatchingStopEvent", "struct_f_user_watching_stop_event.html", null ]
       ] ],
       [ "FHealthCheckEvent", "struct_f_health_check_event.html", null ],
+      [ "FNotificationMutesUpdatedEvent", "struct_f_notification_mutes_updated_event.html", null ],
       [ "FUserPresenceChangedEvent", "struct_f_user_presence_changed_event.html", null ]
     ] ],
     [ "FChatSocketEvents", "class_f_chat_socket_events.html", null ],
@@ -72,6 +75,7 @@ var hierarchy =
     [ "FMessageStore", "struct_f_message_store.html", null ],
     [ "FMuteChannelRequestDto", "struct_f_mute_channel_request_dto.html", null ],
     [ "FMuteUserRequestDto", "struct_f_mute_user_request_dto.html", null ],
+    [ "FOwnUser", "struct_f_own_user.html", null ],
     [ "FPaginationOptions", "struct_f_pagination_options.html", [
       [ "FBanPaginationOptions", "struct_f_ban_pagination_options.html", null ],
       [ "FUserPaginationOptions", "struct_f_user_pagination_options.html", [

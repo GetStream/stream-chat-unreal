@@ -107,14 +107,14 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>FUser</b> (const FString &amp;InId)</td></tr>
 <tr class="memdesc:abd4a2a4bdf9906a3c178c2d16b1f37a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new sparsely-identified user for local use. <br /></td></tr>
 <tr class="separator:abd4a2a4bdf9906a3c178c2d16b1f37a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a214d9e47238b80a3c49486d010092132"><td class="memItemLeft" align="right" valign="top"><a id="a214d9e47238b80a3c49486d010092132" name="a214d9e47238b80a3c49486d010092132"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FUser</b> (const <a class="el" href="struct_f_user_dto.html">FUserDto</a> &amp;)</td></tr>
+<tr class="memdesc:a214d9e47238b80a3c49486d010092132"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert from User. <br /></td></tr>
+<tr class="separator:a214d9e47238b80a3c49486d010092132"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3db093158b56bcbfd517b867e9d9a7ea"><td class="memItemLeft" align="right" valign="top"><a id="a3db093158b56bcbfd517b867e9d9a7ea" name="a3db093158b56bcbfd517b867e9d9a7ea"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>FUser</b> (const <a class="el" href="struct_f_user_object_dto.html">FUserObjectDto</a> &amp;)</td></tr>
 <tr class="memdesc:a3db093158b56bcbfd517b867e9d9a7ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert from UserObject. <br /></td></tr>
 <tr class="separator:a3db093158b56bcbfd517b867e9d9a7ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d9bd51bd66f8e6ddecb0b50d773ec87"><td class="memItemLeft" align="right" valign="top"><a id="a3d9bd51bd66f8e6ddecb0b50d773ec87" name="a3d9bd51bd66f8e6ddecb0b50d773ec87"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FUser</b> (const <a class="el" href="struct_f_own_user_dto.html">FOwnUserDto</a> &amp;, UUserManager *)</td></tr>
-<tr class="memdesc:a3d9bd51bd66f8e6ddecb0b50d773ec87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert from OwnUser. <br /></td></tr>
-<tr class="separator:a3d9bd51bd66f8e6ddecb0b50d773ec87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab702eb2a7904d2b130a75efd5ba5c636"><td class="memItemLeft" align="right" valign="top"><a id="ab702eb2a7904d2b130a75efd5ba5c636" name="ab702eb2a7904d2b130a75efd5ba5c636"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>operator FUserDto</b> () const</td></tr>
 <tr class="memdesc:ab702eb2a7904d2b130a75efd5ba5c636"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert to UserDto. <br /></td></tr>
@@ -127,6 +127,9 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>operator FUserObjectRequestDto</b> () const</td></tr>
 <tr class="memdesc:a5836dc51a24eb37cc5db5342f3b62889"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert to UserObjectRequestDto. <br /></td></tr>
 <tr class="separator:a5836dc51a24eb37cc5db5342f3b62889"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc6397345b58ee0253a259c1f5e29758"><td class="memItemLeft" align="right" valign="top"><a id="acc6397345b58ee0253a259c1f5e29758" name="acc6397345b58ee0253a259c1f5e29758"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Update</b> (const <a class="el" href="struct_f_user.html">FUser</a> &amp;User)</td></tr>
+<tr class="separator:acc6397345b58ee0253a259c1f5e29758"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6d7c7be26e391c611a7a5dc64731086"><td class="memItemLeft" align="right" valign="top"><a id="af6d7c7be26e391c611a7a5dc64731086" name="af6d7c7be26e391c611a7a5dc64731086"></a>
 const FString &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetNameOrId</b> () const</td></tr>
 <tr class="separator:af6d7c7be26e391c611a7a5dc64731086"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,9 +145,6 @@ const FDateTime &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetL
 FText&#160;</td><td class="memItemRight" valign="bottom"><b>GetLastSeenText</b> () const</td></tr>
 <tr class="memdesc:a983c59f140225b87337010bdd5402b57"><td class="mdescLeft">&#160;</td><td class="mdescRight">e.g. Last seen 10 minutes ago <br /></td></tr>
 <tr class="separator:a983c59f140225b87337010bdd5402b57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc6397345b58ee0253a259c1f5e29758"><td class="memItemLeft" align="right" valign="top"><a id="acc6397345b58ee0253a259c1f5e29758" name="acc6397345b58ee0253a259c1f5e29758"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Update</b> (const <a class="el" href="struct_f_user.html">FUser</a> &amp;User)</td></tr>
-<tr class="separator:acc6397345b58ee0253a259c1f5e29758"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -180,25 +180,6 @@ FDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>DeletedAt</b> = 
 FDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>LastActive</b> = FDateTime{0}</td></tr>
 <tr class="memdesc:a434112e6a7a328b26a6937018bde5c34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Date of last activity. <br /></td></tr>
 <tr class="separator:a434112e6a7a328b26a6937018bde5c34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad90587a3bef0d5ed648e654948828941"><td class="memItemLeft" align="right" valign="top"><a id="ad90587a3bef0d5ed648e654948828941" name="ad90587a3bef0d5ed648e654948828941"></a>
-int32&#160;</td><td class="memItemRight" valign="bottom"><b>UnreadCount</b> = 0</td></tr>
-<tr class="separator:ad90587a3bef0d5ed648e654948828941"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adbdf3cfb6fe413fe8ffbb830944bf2f9"><td class="memItemLeft" align="right" valign="top"><a id="adbdf3cfb6fe413fe8ffbb830944bf2f9" name="adbdf3cfb6fe413fe8ffbb830944bf2f9"></a>
-int32&#160;</td><td class="memItemRight" valign="bottom"><b>TotalUnreadCount</b> = 0</td></tr>
-<tr class="memdesc:adbdf3cfb6fe413fe8ffbb830944bf2f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Only populated for current user. <br /></td></tr>
-<tr class="separator:adbdf3cfb6fe413fe8ffbb830944bf2f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9eff7e0a96e7e68f3620c6d51a021609"><td class="memItemLeft" align="right" valign="top"><a id="a9eff7e0a96e7e68f3620c6d51a021609" name="a9eff7e0a96e7e68f3620c6d51a021609"></a>
-int32&#160;</td><td class="memItemRight" valign="bottom"><b>UnreadChannels</b> = 0</td></tr>
-<tr class="memdesc:a9eff7e0a96e7e68f3620c6d51a021609"><td class="mdescLeft">&#160;</td><td class="mdescRight">Only populated for current user. <br /></td></tr>
-<tr class="separator:a9eff7e0a96e7e68f3620c6d51a021609"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13d93a7637fd041be3404cd83b4410ef"><td class="memItemLeft" align="right" valign="top"><a id="a13d93a7637fd041be3404cd83b4410ef" name="a13d93a7637fd041be3404cd83b4410ef"></a>
-TArray&lt; FMutedUser &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>MutedUsers</b></td></tr>
-<tr class="memdesc:a13d93a7637fd041be3404cd83b4410ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Only populated for current user. <br /></td></tr>
-<tr class="separator:a13d93a7637fd041be3404cd83b4410ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae68653d4311b7f84e7716db412d58644"><td class="memItemLeft" align="right" valign="top"><a id="ae68653d4311b7f84e7716db412d58644" name="ae68653d4311b7f84e7716db412d58644"></a>
-TArray&lt; FMutedChannel &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>MutedChannels</b></td></tr>
-<tr class="memdesc:ae68653d4311b7f84e7716db412d58644"><td class="mdescLeft">&#160;</td><td class="mdescRight">Only populated for current user. <br /></td></tr>
-<tr class="separator:ae68653d4311b7f84e7716db412d58644"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c6905c0374bd38c926c50be07a01bc8"><td class="memItemLeft" align="right" valign="top"><a id="a7c6905c0374bd38c926c50be07a01bc8" name="a7c6905c0374bd38c926c50be07a01bc8"></a>
 FDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>BanExpires</b> = FDateTime{0}</td></tr>
 <tr class="memdesc:a7c6905c0374bd38c926c50be07a01bc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expiration date of the ban. <br /></td></tr>

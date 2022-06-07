@@ -87,6 +87,7 @@ $(document).ready(function(){initNavTree('struct_f_member.html',''); initResizab
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="struct_f_member-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">FMember Struct Reference<div class="ingroups"><a class="el" href="group___stream_chat.html">Stream Chat</a></div></div></div>
 </div><!--header-->
@@ -111,6 +112,12 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>FMember</b> (const <a class="el" href="struct_f_channel_member_dto.html">FChannelMemberDto</a> &amp;, UUserManager *)</td></tr>
 <tr class="memdesc:a915d65aa9a4a6e665d6ff9af0ed909eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a member from a DTO from the API. <br /></td></tr>
 <tr class="separator:a915d65aa9a4a6e665d6ff9af0ed909eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46b5774613af943a70400b41f0a40eeb"><td class="memItemLeft" align="right" valign="top"><a id="a46b5774613af943a70400b41f0a40eeb" name="a46b5774613af943a70400b41f0a40eeb"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;) const</td></tr>
+<tr class="separator:a46b5774613af943a70400b41f0a40eeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e1db8d5966bb656834dbe3313d1d3a7"><td class="memItemLeft" align="right" valign="top"><a id="a8e1db8d5966bb656834dbe3313d1d3a7" name="a8e1db8d5966bb656834dbe3313d1d3a7"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="struct_f_member.html">FMember</a> &amp;) const</td></tr>
+<tr class="separator:a8e1db8d5966bb656834dbe3313d1d3a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -118,6 +125,24 @@ Public Attributes</h2></td></tr>
 <a class="el" href="struct_f_user_ref.html">FUserRef</a>&#160;</td><td class="memItemRight" valign="bottom"><b>User</b></td></tr>
 <tr class="memdesc:a05c01f5c0abca5a2f0bfab1e8fc30cac"><td class="mdescLeft">&#160;</td><td class="mdescRight">The user information of this member. <br /></td></tr>
 <tr class="separator:a05c01f5c0abca5a2f0bfab1e8fc30cac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a900a38fcb42e5f10312aa3742fab638a"><td class="memItemLeft" align="right" valign="top"><a id="a900a38fcb42e5f10312aa3742fab638a" name="a900a38fcb42e5f10312aa3742fab638a"></a>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>BanExpires</b> = FDateTime{0}</td></tr>
+<tr class="memdesc:a900a38fcb42e5f10312aa3742fab638a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expiration date of the ban. <br /></td></tr>
+<tr class="separator:a900a38fcb42e5f10312aa3742fab638a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3f57e836d45c4d58a70dbb724286512"><td class="memItemLeft" align="right" valign="top"><a id="af3f57e836d45c4d58a70dbb724286512" name="af3f57e836d45c4d58a70dbb724286512"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>bBanned</b> = false</td></tr>
+<tr class="memdesc:af3f57e836d45c4d58a70dbb724286512"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether member is banned in this channel or not. <br /></td></tr>
+<tr class="separator:af3f57e836d45c4d58a70dbb724286512"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57547478b40e7d00e35efec69d5ca8e9"><td class="memItemLeft" align="right" valign="top"><a id="a57547478b40e7d00e35efec69d5ca8e9" name="a57547478b40e7d00e35efec69d5ca8e9"></a>
+FString&#160;</td><td class="memItemRight" valign="bottom"><b>ChannelRole</b></td></tr>
+<tr class="memdesc:a57547478b40e7d00e35efec69d5ca8e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Role of the member in the channel. <br /></td></tr>
+<tr class="separator:a57547478b40e7d00e35efec69d5ca8e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:aa9e5dc811231394e381ff9ff80a6aebd"><td class="memItemLeft" align="right" valign="top"><a id="aa9e5dc811231394e381ff9ff80a6aebd" name="aa9e5dc811231394e381ff9ff80a6aebd"></a>
+uint32&#160;</td><td class="memItemRight" valign="bottom"><b>GetTypeHash</b> (const <a class="el" href="struct_f_member.html">FMember</a> &amp;M)</td></tr>
+<tr class="separator:aa9e5dc811231394e381ff9ff80a6aebd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Contains information about a member of a chat channel. </p>

@@ -22,10 +22,12 @@ var searchData=
   ['mml_19',['Mml',['../struct_f_message_request_dto.html#aaaffb243ad1068d68462da12c25d28c9',1,'FMessageRequestDto::Mml()'],['../struct_f_message_dto.html#a7a1eead86619a84881840f70cabe9ea7',1,'FMessageDto::Mml()']]],
   ['moreinfo_20',['MoreInfo',['../struct_f_error_response_dto.html#a984f93721b5a17bc2d3133d8126bc810',1,'FErrorResponseDto']]],
   ['mute_21',['Mute',['../struct_f_mute_user_response_dto.html#a713f2b3602f621d70f70331cbc0d7fb2',1,'FMuteUserResponseDto']]],
-  ['mutechannels_22',['MuteChannels',['../class_f_chat_api.html#a6c54f41a3abbab8df8488a1de2aa12db',1,'FChatApi']]],
-  ['mutedchannels_23',['MutedChannels',['../struct_f_user.html#ae68653d4311b7f84e7716db412d58644',1,'FUser']]],
-  ['mutedusers_24',['MutedUsers',['../struct_f_user.html#a13d93a7637fd041be3404cd83b4410ef',1,'FUser']]],
-  ['muteexpiresat_25',['MuteExpiresAt',['../struct_f_channel_response_dto.html#ab084032cdef730ca70af4721e7a6bd0a',1,'FChannelResponseDto::MuteExpiresAt()'],['../struct_f_channel_properties.html#ac68111b087f5e1efa68e6d9b91a8d60d',1,'FChannelProperties::MuteExpiresAt()']]],
-  ['mutes_26',['Mutes',['../struct_f_mute_user_response_dto.html#a022ae3bc6a7d5593c22d11a4a3fbf08a',1,'FMuteUserResponseDto']]],
-  ['muteusers_27',['MuteUsers',['../class_f_chat_api.html#ab811c2b71259baffea358f8e1385acca',1,'FChatApi']]]
+  ['mutebp_22',['MuteBP',['../class_u_chat_channel.html#ab5741335e2c975fb9eafc6a59b94e111',1,'UChatChannel']]],
+  ['mutechannels_23',['MuteChannels',['../class_f_chat_api.html#a6c54f41a3abbab8df8488a1de2aa12db',1,'FChatApi']]],
+  ['mutedchannels_24',['MutedChannels',['../struct_f_own_user.html#a420eac30bfe5755a124c8f43a1abf0d1',1,'FOwnUser']]],
+  ['mutedusers_25',['MutedUsers',['../struct_f_own_user.html#a267ef79e600c4db73b7c47d9b8d6b82c',1,'FOwnUser']]],
+  ['muteexpiresat_26',['MuteExpiresAt',['../struct_f_channel_response_dto.html#ab084032cdef730ca70af4721e7a6bd0a',1,'FChannelResponseDto::MuteExpiresAt()'],['../struct_f_channel_properties.html#ac68111b087f5e1efa68e6d9b91a8d60d',1,'FChannelProperties::MuteExpiresAt()']]],
+  ['mutes_27',['Mutes',['../struct_f_mute_user_response_dto.html#a022ae3bc6a7d5593c22d11a4a3fbf08a',1,'FMuteUserResponseDto']]],
+  ['muteuserbp_28',['MuteUserBP',['../class_u_stream_chat_client_component.html#a47b35b743dca85a1e73fceaabdcada3d',1,'UStreamChatClientComponent']]],
+  ['muteusers_29',['MuteUsers',['../class_f_chat_api.html#ab811c2b71259baffea358f8e1385acca',1,'FChatApi']]]
 ];
