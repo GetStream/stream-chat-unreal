@@ -38,7 +38,6 @@ protected:
 
 private:
     virtual void OnSetup() override;
-    virtual void OnTheme() override;
 
     UFUNCTION()
     void OnUserClicked(const FUserRef& User, bool bSelected);

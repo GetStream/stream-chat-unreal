@@ -37,7 +37,7 @@ protected:
 
 private:
     virtual void NativeOnInitialized() override;
-    virtual void OnTheme() override;
+    virtual void NativePreConstruct() override;
 
     UFUNCTION()
     void OnButtonClicked();

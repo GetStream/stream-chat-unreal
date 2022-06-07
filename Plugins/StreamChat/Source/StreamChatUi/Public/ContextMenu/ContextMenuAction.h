@@ -37,8 +37,7 @@ public:
     UPROPERTY(EditAnywhere, Category = Visuals)
     EContextMenuButtonStyle Style;
 
-    void SetClient(UStreamChatClientComponent*);
-    void SetChannel(UChatChannel*);
+    void SetContext(UStreamChatClientComponent*, UChatChannel*);
     void Perform(const FMessage&, UWidget* OwningWidget);
     bool ShouldDisplay(EMessageSide, const FMessage&) const;
 

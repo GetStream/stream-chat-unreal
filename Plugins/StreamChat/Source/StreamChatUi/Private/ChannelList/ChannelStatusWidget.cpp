@@ -8,13 +8,11 @@
 
 UChannelStatusWidget::UChannelStatusWidget()
 {
-    bWantsTheme = true;
-    bWantsClient = true;
 }
 
 void UChannelStatusWidget::Setup(UChatChannel* InChannel)
 {
-    Channel = InChannel;
+    StatusChannel = InChannel;
 
     Super::Setup();
 }
@@ -27,20 +25,20 @@ void UChannelStatusWidget::OnSetup()
     }
 }
 
-void UChannelStatusWidget::OnClient()
+void UChannelStatusWidget::NativePreConstruct()
 {
-    ClientContext->OnChannelSelected.AddDynamic(this, &UChannelStatusWidget::UpdateSelection);
-    UpdateSelection(ClientContext->SelectedChannel);
-}
+    Super::NativePreConstruct();
 
-void UChannelStatusWidget::OnTheme()
-{
-    NormalStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->HeaderButtonNormalBackgroundColor)};
-    NormalStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->HeaderButtonSelectedBackgroundColor)};
-    NormalStyle.Hovered.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->HeaderButtonHoveredBackgroundColor)};
-    SelectedStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->HeaderButtonSelectedBackgroundColor)};
-    SelectedStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->HeaderButtonSelectedBackgroundColor)};
-    SelectedStyle.Hovered.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->HeaderButtonSelectedBackgroundColor)};
+    GetClientContext()->OnChannelSelected.AddDynamic(this, &UChannelStatusWidget::UpdateSelection);
+    UpdateSelection(GetClientContext()->SelectedChannel);
+
+    // Theming
+    NormalStyle.Normal.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->HeaderButtonNormalBackgroundColor)};
+    NormalStyle.Pressed.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->HeaderButtonSelectedBackgroundColor)};
+    NormalStyle.Hovered.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->HeaderButtonHoveredBackgroundColor)};
+    SelectedStyle.Normal.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->HeaderButtonSelectedBackgroundColor)};
+    SelectedStyle.Pressed.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->HeaderButtonSelectedBackgroundColor)};
+    SelectedStyle.Hovered.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->HeaderButtonSelectedBackgroundColor)};
     if (Button)
     {
         Button->SetStyle(NormalStyle);
@@ -48,7 +46,7 @@ void UChannelStatusWidget::OnTheme()
 
     if (Divider)
     {
-        Divider->SetColorAndOpacity(Theme->GetPaletteColor(Theme->ChannelStatusDividerColor));
+        Divider->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->ChannelStatusDividerColor));
     }
 
     if (TitleTextBlock)
@@ -58,9 +56,9 @@ void UChannelStatusWidget::OnTheme()
 }
 void UChannelStatusWidget::NativeDestruct()
 {
-    if (ClientContext)
+    if (GetClientContext())
     {
-        ClientContext->OnChannelSelected.RemoveDynamic(this, &UChannelStatusWidget::UpdateSelection);
+        GetClientContext()->OnChannelSelected.RemoveDynamic(this, &UChannelStatusWidget::UpdateSelection);
     }
     if (Button)
     {
@@ -93,12 +91,12 @@ bool UChannelStatusWidget::IsForChannel(const UChatChannel* QueryChannel) const
 
 FLinearColor UChannelStatusWidget::GetTitleColor()
 {
-    return Theme->GetPaletteColor(Theme->ChannelStatusTitleTextColor);
+    return GetTheme()->GetPaletteColor(GetTheme()->ChannelStatusTitleTextColor);
 }
 
 void UChannelStatusWidget::OnButtonClicked()
 {
-    OnChannelStatusButtonClickedNative.Broadcast(Channel);
-    OnChannelStatusButtonClicked.Broadcast(Channel);
-    ClientContext->SelectChannel(Channel);
+    OnChannelStatusButtonClickedNative.Broadcast(StatusChannel);
+    OnChannelStatusButtonClicked.Broadcast(StatusChannel);
+    GetClientContext()->SelectChannel(StatusChannel);
 }

@@ -3,7 +3,6 @@
 #pragma once
 
 #include "Common/PaginateScrollWidget.h"
-#include "Components/ScrollBox.h"
 #include "CoreMinimal.h"
 #include "SectionHeadingWidget.h"
 #include "UserStatusWidget.h"
@@ -34,7 +33,7 @@ protected:
 
 private:
     virtual void OnSetup() override;
-    virtual void OnClient() override;
+    virtual void NativePreConstruct() override;
     virtual void Paginate(EPaginationDirection Directions, TFunction<void()> Callback) override;
     void Refetch();
     void PopulateScrollBox();

@@ -22,56 +22,30 @@ public:
     void Setup();
 
 protected:
-    /// Called with the current theme when it's available. You need to enable WantsTheme for this to be fired.
-    UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Theme"))
-    void OnTheme_BP();
-    /// Called with the chat client when it's available. You need to enable WantsClient for this to be fired.
-    UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Client"))
-    void OnClient_BP();
-    /// Called with the current chat channel when it's available. You need to enable WantsChannel for this to be fired.
-    UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Channel"))
-    void OnChannel_BP();
+    virtual void NativePreConstruct() override;
 
-    /// Should the OnTheme function be called with the current theme, when it is available?
-    UPROPERTY(EditDefaultsOnly, Category = Defaults)
-    bool bWantsTheme = false;
-    /// Should the OnClient function be called with the current chat client, when it is available?
-    UPROPERTY(EditDefaultsOnly, Category = Defaults)
-    bool bWantsClient = false;
-    /// Should the OnChannel function be called with the current channel, when it is available?
-    UPROPERTY(EditDefaultsOnly, Category = Defaults)
-    bool bWantsChannel = false;
+    /// The chat client context if this widget is below a ClientContextWidget in the hierarchy
+    UFUNCTION(BlueprintGetter)
+    UClientContextWidget* GetClientContext() const;
+    /// The chat client if this widget is below a ClientContextWidget in the hierarchy
+    UFUNCTION(BlueprintGetter)
+    UStreamChatClientComponent* GetClient() const;
+    /// The channel context if this widget is below a such a context in the hierarchy
+    UFUNCTION(BlueprintGetter)
+    UChannelContextWidget* GetChannelContext() const;
+    /// The channel if this widget is below a ChannelContextWidget in the hierarchy
+    UFUNCTION(BlueprintGetter)
+    UChatChannel* GetChannel() const;
+    /// The theme if this widget is below a ThemeContextWidget in the hierarchy
+    UFUNCTION(BlueprintGetter)
+    UThemeDataAsset* GetTheme() const;
+
     /// Call the internal OnSetup function automatically. Needed if you don't have a custom Setup function.
     UPROPERTY(EditDefaultsOnly, Category = Defaults)
     bool bAutoSetup = false;
 
-    /// The chat client context if this widget is below a ClientContextWidget in the hierarchy and if WantsClient is true.
-    UPROPERTY(BlueprintReadOnly, Transient, Category = Stream)
-    UClientContextWidget* ClientContext;
-    /// The chat client if this widget is below a ClientContextWidget in the hierarchy and if WantsClient is true.
-    UPROPERTY(BlueprintReadOnly, Transient, Category = Stream)
-    UStreamChatClientComponent* Client;
-    /// The channel context if this widget is below a such a context in the hierarchy and if WantsChannel is true.
-    UPROPERTY(BlueprintReadOnly, Transient, Category = Stream)
-    UChannelContextWidget* ChannelContext;
-    /// The channel if this widget is below a ChannelContextWidget in the hierarchy and if WantsChannel is true.
-    UPROPERTY(BlueprintReadOnly, Transient, Category = Stream)
-    UChatChannel* Channel;
-    /// The theme if this widget is below a ThemeContextWidget in the hierarchy and if WantsTheme is true.
-    UPROPERTY(BlueprintReadOnly, Transient, Category = Stream)
-    UThemeDataAsset* Theme;
-
 private:
     virtual bool Initialize() override;
-
-    // Don't allow (pre)construction. This should all be done in OnSetup or OnPreConstruct
-    virtual void NativeConstruct() override final;
-    virtual void NativePreConstruct() override final;
-
-    // Called after added to widget hierarchy and OnTheme, OnClient, OnChannel
-    virtual void OnPreConstruct()
-    {
-    }
 
     /// You should override this to perform all child widget initialization (e.g. text, image, etc + bound widgets).
     /// Widget bindings, defaults and setup properties will be valid here.
@@ -80,16 +54,20 @@ private:
     {
     }
 
-    /// Called with when the current theme is available (in pre-construction)
-    virtual void OnTheme()
-    {
-    }
-    /// Called when the chat client is available (in pre-construction)
-    virtual void OnClient()
-    {
-    }
-    /// Called when the current chat channel is available (in pre-construction)
-    virtual void OnChannel()
-    {
-    }
+    /// The chat client context if this widget is below a ClientContextWidget in the hierarchy and if WantsClient is true.
+    UPROPERTY(BlueprintGetter = GetClientContext, Transient, Category = Stream)
+    mutable UClientContextWidget* ClientContext;
+    /// The chat client if this widget is below a ClientContextWidget in the hierarchy and if WantsClient is true.
+    UPROPERTY(BlueprintGetter = GetClient, Transient, Category = Stream)
+    mutable UStreamChatClientComponent* Client;
+    /// The channel context if this widget is below a such a context in the hierarchy and if WantsChannel is true.
+    UPROPERTY(BlueprintGetter = GetChannelContext, Transient, Category = Stream)
+    mutable UChannelContextWidget* ChannelContext;
+    /// The channel if this widget is below a ChannelContextWidget in the hierarchy and if WantsChannel is true.
+    UPROPERTY(BlueprintGetter = GetChannel, Transient, Category = Stream)
+    mutable UChatChannel* Channel;
+    /// The theme if this widget is below a ThemeContextWidget in the hierarchy and if WantsTheme is true.
+    UPROPERTY(BlueprintGetter = GetTheme, Transient, Category = Stream)
+    mutable UThemeDataAsset* Theme;
+    bool bConstructed = false;
 };

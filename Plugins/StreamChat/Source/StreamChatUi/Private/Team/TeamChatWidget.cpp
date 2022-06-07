@@ -6,7 +6,6 @@
 
 UTeamChatWidget::UTeamChatWidget()
 {
-    bWantsTheme = true;
 }
 
 void UTeamChatWidget::Setup(UStreamChatClientComponent* InClient)
@@ -31,19 +30,21 @@ void UTeamChatWidget::OnSetup()
     }
 }
 
-void UTeamChatWidget::OnTheme()
+void UTeamChatWidget::NativePreConstruct()
 {
+    Super::NativePreConstruct();
+
     if (MessageListContainer)
     {
-        MessageListContainer->SetBrushColor(Theme->GetPaletteColor(Theme->MessageListContainerBackgroundColor));
+        MessageListContainer->SetBrushColor(GetTheme()->GetPaletteColor(GetTheme()->MessageListContainerBackgroundColor));
     }
     if (ChannelListContainer)
     {
-        ChannelListContainer->SetBrushColor(Theme->GetPaletteColor(Theme->ChannelListContainerBackgroundColor));
+        ChannelListContainer->SetBrushColor(GetTheme()->GetPaletteColor(GetTheme()->ChannelListContainerBackgroundColor));
     }
     if (Divider)
     {
-        Divider->SetColorAndOpacity(Theme->GetPaletteColor(Theme->TeamChatDividerColor));
+        Divider->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->TeamChatDividerColor));
     }
 }
 

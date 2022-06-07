@@ -41,6 +41,6 @@ protected:
     EMessageSide Side;
 
 private:
-    virtual void OnSetup() override;
+    virtual void NativePreConstruct() override;
     void AddButton(UContextMenuAction* Action, EContextMenuButtonPosition Position);
 };

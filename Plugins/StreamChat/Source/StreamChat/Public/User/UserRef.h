@@ -37,6 +37,7 @@ struct STREAMCHAT_API FUserRef
     bool operator==(const FUserRef&) const;
     /// Do these reference different users?
     bool operator!=(const FUserRef&) const;
+    friend uint32 GetTypeHash(const FUserRef& U);
 
     /// Will dereferencing this yield a valid user?
     bool IsValid() const;

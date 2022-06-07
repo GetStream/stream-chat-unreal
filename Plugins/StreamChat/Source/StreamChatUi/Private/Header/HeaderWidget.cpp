@@ -7,7 +7,6 @@
 
 UHeaderWidget::UHeaderWidget()
 {
-    bWantsTheme = true;
     bAutoSetup = true;
 }
 
@@ -61,22 +60,24 @@ void UHeaderWidget::OnSetup()
     }
 }
 
-void UHeaderWidget::OnTheme()
+void UHeaderWidget::NativePreConstruct()
 {
+    Super::NativePreConstruct();
+
     if (Border)
     {
-        Border->SetBrushColor(Theme->GetPaletteColor(Theme->HeaderBackgroundColor));
+        Border->SetBrushColor(GetTheme()->GetPaletteColor(GetTheme()->HeaderBackgroundColor));
     }
     if (Button)
     {
-        ButtonStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->HeaderButtonNormalBackgroundColor)};
-        ButtonStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->HeaderButtonSelectedBackgroundColor)};
-        ButtonStyle.Hovered.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->HeaderButtonHoveredBackgroundColor)};
+        ButtonStyle.Normal.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->HeaderButtonNormalBackgroundColor)};
+        ButtonStyle.Pressed.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->HeaderButtonSelectedBackgroundColor)};
+        ButtonStyle.Hovered.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->HeaderButtonHoveredBackgroundColor)};
         Button->SetStyle(ButtonStyle);
     }
     if (HeaderTitleTextBlock)
     {
-        HeaderTitleTextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Theme->HeaderTitleTextColor));
+        HeaderTitleTextBlock->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->HeaderTitleTextColor));
     }
 }
 

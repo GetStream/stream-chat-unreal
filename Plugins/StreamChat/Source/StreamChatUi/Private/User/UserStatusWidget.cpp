@@ -5,7 +5,6 @@
 
 UUserStatusWidget::UUserStatusWidget()
 {
-    bWantsTheme = true;
 }
 
 void UUserStatusWidget::Setup(const FUserRef& InUser)
@@ -32,11 +31,12 @@ void UUserStatusWidget::OnSetup()
     }
 }
 
-void UUserStatusWidget::OnTheme()
+void UUserStatusWidget::NativePreConstruct()
 {
+    Super::NativePreConstruct();
     if (SubtitleTextBlock)
     {
-        SubtitleTextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Theme->StatusSubtitleTextColor));
+        SubtitleTextBlock->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->StatusSubtitleTextColor));
     }
 }
 

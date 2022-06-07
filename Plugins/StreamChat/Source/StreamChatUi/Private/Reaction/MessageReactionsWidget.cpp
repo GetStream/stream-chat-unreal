@@ -3,13 +3,11 @@
 #include "Reaction/MessageReactionsWidget.h"
 
 #include "Components/HorizontalBoxSlot.h"
-#include "Context/ChannelContextWidget.h"
 #include "Reaction/BottomReactionWidget.h"
 #include "User/UserManager.h"
 
 UMessageReactionsWidget::UMessageReactionsWidget()
 {
-    bWantsChannel = true;
 }
 
 void UMessageReactionsWidget::Setup(const FMessage& InMessage, const EMessageSide InSide)
@@ -24,10 +22,10 @@ void UMessageReactionsWidget::Setup(const FMessage& InMessage, const EMessageSid
 
 void UMessageReactionsWidget::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
-    if (!bFetchingReactions && !Message.Reactions.HasAllDataLocally() && ensure(Channel))
+    if (!bFetchingReactions && !Message.Reactions.HasAllDataLocally() && GetChannel())
     {
         bFetchingReactions = true;
-        Channel->GetReactions(Message, {200, Message.Reactions.LocalCount() - 1}, [&](const TArray<FReaction>&) { bFetchingReactions = false; });
+        GetChannel()->GetReactions(Message, {200, Message.Reactions.LocalCount() - 1}, [&](const TArray<FReaction>&) { bFetchingReactions = false; });
     }
     Super::NativeOnMouseEnter(InGeometry, InMouseEvent);
 }
@@ -50,16 +48,16 @@ void UMessageReactionsWidget::OnSetup()
             Widget->OnBottomReactionClickedNative.AddLambda(
                 [this](const FReactionGroup& Reaction)
                 {
-                    if (ensure(Channel))
+                    if (GetChannel())
                     {
                         const TOptional<FReaction> OwnReaction = Reaction.GetOwnReaction(UUserManager::Get());
                         if (OwnReaction.IsSet())
                         {
-                            Channel->DeleteReaction(Message, OwnReaction.GetValue());
+                            GetChannel()->DeleteReaction(Message, OwnReaction.GetValue());
                         }
                         else
                         {
-                            Channel->SendReaction(Message, Reaction.Type, false);
+                            GetChannel()->SendReaction(Message, Reaction.Type, false);
                         }
                     }
                 });

@@ -6,7 +6,6 @@
 
 UReactionPickerButtonWidget::UReactionPickerButtonWidget()
 {
-    bWantsTheme = true;
 }
 
 void UReactionPickerButtonWidget::Setup(const FName& InReactionType, const EMessageSide InSide)
@@ -29,16 +28,17 @@ void UReactionPickerButtonWidget::OnSetup()
     }
 }
 
-void UReactionPickerButtonWidget::OnTheme()
+void UReactionPickerButtonWidget::NativePreConstruct()
 {
+    Super::NativePreConstruct();
     if (Button)
     {
         Button->WidgetStyle.Normal.DrawAs = ESlateBrushDrawType::NoDrawType;
         Button->WidgetStyle.Pressed.DrawAs = ESlateBrushDrawType::Box;
         Button->WidgetStyle.Hovered.DrawAs = ESlateBrushDrawType::Box;
-        Button->WidgetStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ReactionPickerBackgroundColor)};
-        Button->WidgetStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ReactionPickerSelectedColor)};
-        Button->WidgetStyle.Hovered.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->ReactionPickerSelectedColor)};
+        Button->WidgetStyle.Normal.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->ReactionPickerBackgroundColor)};
+        Button->WidgetStyle.Pressed.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->ReactionPickerSelectedColor)};
+        Button->WidgetStyle.Hovered.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->ReactionPickerSelectedColor)};
     }
 }
 

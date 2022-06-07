@@ -13,8 +13,6 @@ const FName ReactionTypes[] = {TEXT("love"), TEXT("like"), TEXT("sad"), TEXT("ha
 
 UReactionPickerWidget::UReactionPickerWidget()
 {
-    bWantsChannel = true;
-    bWantsTheme = true;
 }
 
 void UReactionPickerWidget::Setup(const FMessage& InMessage)
@@ -39,27 +37,25 @@ void UReactionPickerWidget::OnSetup()
     }
 }
 
-void UReactionPickerWidget::OnTheme()
+void UReactionPickerWidget::NativePreConstruct()
 {
+    Super::NativePreConstruct();
     if (Border)
     {
-        Border->SetBrushColor(Theme->GetPaletteColor(Theme->ReactionPickerBackgroundColor));
+        Border->SetBrushColor(GetTheme()->GetPaletteColor(GetTheme()->ReactionPickerBackgroundColor));
     }
 }
 
 void UReactionPickerWidget::OnReactionButtonClicked(const FName& ReactionType)
 {
-    if (ensure(Channel))
+    const TOptional<FReaction> OwnReaction = Message.Reactions.GetOwnReaction(ReactionType, UUserManager::Get());
+    if (OwnReaction.IsSet())
     {
-        const TOptional<FReaction> OwnReaction = Message.Reactions.GetOwnReaction(ReactionType, UUserManager::Get());
-        if (OwnReaction.IsSet())
-        {
-            Channel->DeleteReaction(Message, OwnReaction.GetValue());
-        }
-        else
-        {
-            Channel->SendReaction(Message, ReactionType, false);
-        }
+        GetChannel()->DeleteReaction(Message, OwnReaction.GetValue());
+    }
+    else
+    {
+        GetChannel()->SendReaction(Message, ReactionType, false);
     }
 
     FSlateApplication::Get().DismissMenuByWidget(TakeWidget());

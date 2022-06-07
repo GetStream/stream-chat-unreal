@@ -22,11 +22,17 @@ void UContextMenuWidget::AddButton(UContextMenuAction* Action, const EContextMen
     ButtonsPanel->AddChildToVerticalBox(Widget);
 }
 
-void UContextMenuWidget::OnSetup()
+void UContextMenuWidget::NativePreConstruct()
 {
+    Super::NativePreConstruct();
     if (!ButtonsPanel)
     {
         return;
+    }
+
+    for (UContextMenuAction* Action : Actions)
+    {
+        Action->SetContext(GetClient(), GetChannel());
     }
 
     // Spawn buttons

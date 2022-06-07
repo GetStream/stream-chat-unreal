@@ -6,7 +6,6 @@
 
 UTeamChatMobileWidget::UTeamChatMobileWidget()
 {
-    bWantsTheme = true;
 }
 
 void UTeamChatMobileWidget::Setup(UStreamChatClientComponent* InClient)
@@ -19,8 +18,10 @@ void UTeamChatMobileWidget::Setup(UStreamChatClientComponent* InClient)
     Super::Setup();
 }
 
-void UTeamChatMobileWidget::OnPreConstruct()
+void UTeamChatMobileWidget::NativePreConstruct()
 {
+    Super::NativePreConstruct();
+
     SwitchToChannelList();
 }
 
@@ -40,7 +41,7 @@ void UTeamChatMobileWidget::SwitchToChannelList()
     ChannelListWidget->Setup();
     Container->AddChild(ChannelListWidget);
 
-    Container->SetBrushColor(Theme->GetPaletteColor(Theme->ChannelListContainerBackgroundColor));
+    Container->SetBrushColor(GetTheme()->GetPaletteColor(GetTheme()->ChannelListContainerBackgroundColor));
 }
 
 void UTeamChatMobileWidget::SwitchToMessageList(UChatChannel* SelectedChannel)
@@ -59,7 +60,7 @@ void UTeamChatMobileWidget::SwitchToMessageList(UChatChannel* SelectedChannel)
     ChannelWidget->Setup(SelectedChannel);
     Container->AddChild(ChannelWidget);
 
-    Container->SetBrushColor(Theme->GetPaletteColor(Theme->MessageListContainerBackgroundColor));
+    Container->SetBrushColor(GetTheme()->GetPaletteColor(GetTheme()->MessageListContainerBackgroundColor));
 }
 
 void UTeamChatMobileWidget::OnSetup()

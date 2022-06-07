@@ -6,7 +6,6 @@
 
 UTextBubbleWidget::UTextBubbleWidget()
 {
-    bWantsTheme = true;
 }
 
 void UTextBubbleWidget::Setup(const FMessage& InMessage, const EMessageSide InSide, EMessagePosition InPosition)
@@ -26,16 +25,18 @@ void UTextBubbleWidget::OnSetup()
     }
 }
 
-void UTextBubbleWidget::OnTheme()
+void UTextBubbleWidget::NativePreConstruct()
 {
+    Super::NativePreConstruct();
+
     const bool bSingleEmoji = IsSingleEmoji();
     if (TextBlock)
     {
-        TextBlock->SetHtmlStyles(Theme->BubbleHtmlStyles);
+        TextBlock->SetHtmlStyles(GetTheme()->BubbleHtmlStyles);
 
         if (Message.Type == EMessageType::Deleted)
         {
-            TextBlock->SetDefaultColorAndOpacity(Theme->GetPaletteColor(Theme->DeletedMessageTextColor));
+            TextBlock->SetDefaultColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->DeletedMessageTextColor));
         }
         else if (bSingleEmoji)
         {
@@ -99,13 +100,13 @@ const FLinearColor& UTextBubbleWidget::GetBubbleColor() const
 {
     if (Message.Type == EMessageType::Deleted)
     {
-        return Theme->GetPaletteColor(Theme->DeletedBubbleColor);
+        return GetTheme()->GetPaletteColor(GetTheme()->DeletedBubbleColor);
     }
     if (Side == EMessageSide::Me)
     {
-        return Theme->GetPaletteColor(Theme->MeBubbleColor);
+        return GetTheme()->GetPaletteColor(GetTheme()->MeBubbleColor);
     }
-    return Theme->GetPaletteColor(Theme->YouBubbleColor);
+    return GetTheme()->GetPaletteColor(GetTheme()->YouBubbleColor);
 }
 
 FText UTextBubbleWidget::GetText() const

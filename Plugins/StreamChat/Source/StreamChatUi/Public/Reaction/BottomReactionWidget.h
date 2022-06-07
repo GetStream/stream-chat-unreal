@@ -61,7 +61,7 @@ protected:
 private:
     virtual void NativeDestruct() override;
     virtual void OnSetup() override;
-    virtual void OnTheme() override;
+    virtual void NativePreConstruct() override;
 
     virtual void NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
     virtual void NativeOnMouseLeave(const FPointerEvent& InMouseEvent) override;

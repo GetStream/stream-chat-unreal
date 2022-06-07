@@ -8,9 +8,6 @@
 
 UContextMenuButtonWidget::UContextMenuButtonWidget()
 {
-    bWantsTheme = true;
-    bWantsChannel = true;
-    bWantsClient = true;
 }
 
 void UContextMenuButtonWidget::Setup(const FMessage& InMessage, const EContextMenuButtonPosition InPosition, UContextMenuAction* InAction)
@@ -58,18 +55,20 @@ void UContextMenuButtonWidget::OnSetup()
     }
 }
 
-void UContextMenuButtonWidget::OnTheme()
+void UContextMenuButtonWidget::NativePreConstruct()
 {
+    Super::NativePreConstruct();
+
     if (TopBorderImage)
     {
-        TopBorderImage->SetColorAndOpacity(Theme->GetPaletteColor(Theme->ContextMenuBorderColor));
+        TopBorderImage->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->ContextMenuBorderColor));
     }
     if (Button)
     {
         UTexture2D* Texture = GetButtonTexture();
         const FMargin Margin = GetButtonMargin();
-        const FSlateBoxBrush NormalBrush = FSlateBoxBrush(Texture, Margin, Theme->GetPaletteColor(Theme->ContextMenuDefaultButtonColor));
-        const FSlateBoxBrush SelectedBrush = FSlateBoxBrush(Texture, Margin, Theme->GetPaletteColor(Theme->ContextMenuPressedButtonColor));
+        const FSlateBoxBrush NormalBrush = FSlateBoxBrush(Texture, Margin, GetTheme()->GetPaletteColor(GetTheme()->ContextMenuDefaultButtonColor));
+        const FSlateBoxBrush SelectedBrush = FSlateBoxBrush(Texture, Margin, GetTheme()->GetPaletteColor(GetTheme()->ContextMenuPressedButtonColor));
         Button->WidgetStyle.SetNormal(NormalBrush);
         Button->WidgetStyle.SetHovered(NormalBrush);
         Button->WidgetStyle.SetPressed(SelectedBrush);
@@ -85,22 +84,6 @@ void UContextMenuButtonWidget::OnTheme()
     if (TextBlock)
     {
         TextBlock->SetColorAndOpacity(GetTextColor());
-    }
-}
-
-void UContextMenuButtonWidget::OnClient()
-{
-    if (Action)
-    {
-        Action->SetClient(Client);
-    }
-}
-
-void UContextMenuButtonWidget::OnChannel()
-{
-    if (Action)
-    {
-        Action->SetChannel(Channel);
     }
 }
 
@@ -147,9 +130,9 @@ const FLinearColor& UContextMenuButtonWidget::GetIconColor() const
         switch (Action->Style)
         {
             case EContextMenuButtonStyle::Standard:
-                return Theme->GetPaletteColor(Theme->ContextMenuDefaultIconColor);
+                return GetTheme()->GetPaletteColor(GetTheme()->ContextMenuDefaultIconColor);
             case EContextMenuButtonStyle::Negative:
-                return Theme->GetPaletteColor(Theme->ContextMenuNegativeIconColor);
+                return GetTheme()->GetPaletteColor(GetTheme()->ContextMenuNegativeIconColor);
         }
     }
     return FLinearColor::Red;
@@ -162,9 +145,9 @@ const FLinearColor& UContextMenuButtonWidget::GetTextColor() const
         switch (Action->Style)
         {
             case EContextMenuButtonStyle::Standard:
-                return Theme->GetPaletteColor(Theme->ContextMenuDefaultTextColor);
+                return GetTheme()->GetPaletteColor(GetTheme()->ContextMenuDefaultTextColor);
             case EContextMenuButtonStyle::Negative:
-                return Theme->GetPaletteColor(Theme->ContextMenuNegativeTextColor);
+                return GetTheme()->GetPaletteColor(GetTheme()->ContextMenuNegativeTextColor);
         }
     }
     return FLinearColor::Red;

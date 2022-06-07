@@ -47,10 +47,10 @@ protected:
     FGetMessageWidget OnGetMessageWidgetEvent;
 
 private:
+    virtual void NativePreConstruct() override;
     virtual void NativeDestruct() override;
     virtual void ReleaseSlateResources(bool bReleaseChildren) override;
 
-    virtual void OnChannel() override;
     UWidget* CreateMessageWidget(const FMessageRef&);
     void Paginate(const EPaginationDirection PaginationDirection, const TFunction<void()> Callback);
 

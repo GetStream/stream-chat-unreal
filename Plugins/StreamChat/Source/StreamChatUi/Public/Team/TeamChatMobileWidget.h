@@ -23,7 +23,6 @@ public:
     UTeamChatMobileWidget();
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(UStreamChatClientComponent* InClient);
-    virtual void OnPreConstruct() override;
 
 protected:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
@@ -43,6 +42,7 @@ protected:
 
 private:
     virtual void OnSetup() override;
+    virtual void NativePreConstruct() override;
 
     UFUNCTION()
     void ChannelSelected(UChatChannel* SelectedChannel);

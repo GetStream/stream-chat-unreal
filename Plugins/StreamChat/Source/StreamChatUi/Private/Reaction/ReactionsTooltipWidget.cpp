@@ -6,7 +6,6 @@
 
 UReactionsTooltipWidget::UReactionsTooltipWidget()
 {
-    bWantsTheme = true;
 }
 
 void UReactionsTooltipWidget::Setup(const FReactionGroup& InReactionGroup)
@@ -46,14 +45,16 @@ void UReactionsTooltipWidget::OnSetup()
     }
 }
 
-void UReactionsTooltipWidget::OnTheme()
+void UReactionsTooltipWidget::NativePreConstruct()
 {
+    Super::NativePreConstruct();
+
     if (BackgroundBorder)
     {
-        BackgroundBorder->SetBrushColor(Theme->GetPaletteColor(Theme->ReactionsTooltipBackgroundColor));
+        BackgroundBorder->SetBrushColor(GetTheme()->GetPaletteColor(GetTheme()->ReactionsTooltipBackgroundColor));
     }
     if (IconBorder)
     {
-        IconBorder->SetBrushColor(Theme->GetPaletteColor(Theme->ReactionsTooltipIconHighlightColor));
+        IconBorder->SetBrushColor(GetTheme()->GetPaletteColor(GetTheme()->ReactionsTooltipIconHighlightColor));
     }
 }

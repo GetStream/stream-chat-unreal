@@ -4,7 +4,7 @@
 
 void UInGameChatWidget::Setup(UChatChannel* InChannel)
 {
-    Channel = InChannel;
+    MyChannel = InChannel;
 
     Super::Setup();
 }
@@ -13,6 +13,6 @@ void UInGameChatWidget::OnSetup()
 {
     if (FadingMessageList)
     {
-        FadingMessageList->Setup(Channel);
+        FadingMessageList->Setup(MyChannel);
     }
 }

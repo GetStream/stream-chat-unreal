@@ -9,11 +9,11 @@
 
 UOnlineStatusSubheaderWidget::UOnlineStatusSubheaderWidget()
 {
-    bWantsChannel = true;
 }
 
-void UOnlineStatusSubheaderWidget::OnChannel()
+void UOnlineStatusSubheaderWidget::NativePreConstruct()
 {
+    Super::NativePreConstruct();
     // TODO subscribe to user presence events
 
     UpdateLabel();
@@ -37,9 +37,9 @@ void UOnlineStatusSubheaderWidget::UpdateLabel() const
 
 FText UOnlineStatusSubheaderWidget::GetLabel() const
 {
-    if (Channel->Properties.Members.Num() <= 2)
+    if (GetChannel()->Properties.Members.Num() <= 2)
     {
-        if (const FMember* Member = Channel->Properties.Members.FindByPredicate([this](const FMember& M) { return !M.User.IsCurrent(); }))
+        if (const FMember* Member = GetChannel()->Properties.Members.FindByPredicate([this](const FMember& M) { return !M.User.IsCurrent(); }))
         {
             return GetSingleUserLabel(Member->User);
         }
@@ -59,8 +59,8 @@ FText UOnlineStatusSubheaderWidget::GetSingleUserLabel(const FUserRef& User) con
 
 FText UOnlineStatusSubheaderWidget::GetMultiUserLabel() const
 {
-    const uint32 TotalCount = Channel->Properties.Members.Num();
-    const uint32 OnlineCount = Algo::CountIf(Channel->Properties.Members, [](const FMember& M) { return M.User->bOnline; });
+    const uint32 TotalCount = GetChannel()->Properties.Members.Num();
+    const uint32 OnlineCount = Algo::CountIf(GetChannel()->Properties.Members, [](const FMember& M) { return M.User->bOnline; });
 
     FFormatNamedArguments Args;
     Args.Add(TEXT("TotalCount"), TotalCount);

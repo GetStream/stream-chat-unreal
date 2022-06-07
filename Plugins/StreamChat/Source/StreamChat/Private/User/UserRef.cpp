@@ -66,3 +66,8 @@ FUserUpdatedMultiDelegate& FUserRef::OnUpdate() const
 {
     return Manager->OnUserUpdated(*this);
 }
+
+uint32 GetTypeHash(const FUserRef& U)
+{
+    return GetTypeHash(U.UserId);
+}

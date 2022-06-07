@@ -35,8 +35,7 @@ public:
 
 protected:
     virtual void OnSetup() override;
-    virtual void OnTheme() override;
-    virtual void OnClient() override;
+    virtual void NativePreConstruct() override;
     virtual void NativeDestruct() override;
 
     UFUNCTION()
@@ -50,6 +49,9 @@ protected:
 
     UPROPERTY(meta = (BindWidget))
     UImage* Divider;
+
+    UPROPERTY(Transient)
+    UChatChannel* StatusChannel;
 
 private:
     virtual FLinearColor GetTitleColor();

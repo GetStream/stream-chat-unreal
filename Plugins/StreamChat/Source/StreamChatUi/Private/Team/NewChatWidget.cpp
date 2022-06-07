@@ -8,7 +8,6 @@
 
 UNewChatWidget::UNewChatWidget()
 {
-    bWantsTheme = true;
 }
 
 void UNewChatWidget::Setup()
@@ -35,10 +34,6 @@ void UNewChatWidget::OnSetup()
     {
         Composer->OnSendMessage.AddDynamic(this, &UNewChatWidget::OnSendMessage);
     }
-}
-
-void UNewChatWidget::OnTheme()
-{
 }
 
 void UNewChatWidget::OnUserClicked(const FUserRef& User, const bool bSelected)

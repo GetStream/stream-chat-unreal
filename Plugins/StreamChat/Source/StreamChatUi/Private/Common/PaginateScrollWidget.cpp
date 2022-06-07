@@ -5,8 +5,10 @@
 #include "TimerManager.h"
 #include "UiBlueprintLibrary.h"
 
-void UPaginateScrollWidget::OnPreConstruct()
+void UPaginateScrollWidget::NativePreConstruct()
 {
+    Super::NativePreConstruct();
+
     if (ScrollBox)
     {
         ScrollBox->OnUserScrolled.AddUniqueDynamic(this, &UPaginateScrollWidget::OnUserScroll);

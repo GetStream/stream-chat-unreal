@@ -19,7 +19,7 @@ public:
     UOnlineStatusSubheaderWidget();
 
 protected:
-    virtual void OnChannel() override;
+    virtual void NativePreConstruct() override;
     virtual void NativeDestruct() override;
 
     UPROPERTY(meta = (BindWidget))

@@ -22,5 +22,5 @@ protected:
     UBorder* Border;
 
 private:
-    virtual void OnTheme() override;
+    virtual void NativePreConstruct() override;
 };

@@ -26,9 +26,17 @@ struct FMember
     /// Create a member from a DTO from the API
     explicit FMember(const FChannelMemberDto&, UUserManager*);
 
+    bool operator==(const FUserRef&) const;
+    bool operator==(const FMember&) const;
+    friend uint32 GetTypeHash(const FMember& M);
+    ;
+
     /// The user information of this member
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Member") FUserRef User;
+
+    /// Role of the member in the channel
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Member")
-    FUserRef User;
+    FString ChannelRole;
 
     // TODO rest of the fields
 };

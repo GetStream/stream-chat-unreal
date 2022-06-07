@@ -10,7 +10,6 @@
 
 UBottomReactionWidget::UBottomReactionWidget()
 {
-    bWantsTheme = true;
 }
 
 void UBottomReactionWidget::Setup(const FReactionGroup& InReactionGroup)
@@ -53,11 +52,12 @@ void UBottomReactionWidget::OnSetup()
     }
 }
 
-void UBottomReactionWidget::OnTheme()
+void UBottomReactionWidget::NativePreConstruct()
 {
+    Super::NativePreConstruct();
     if (Border)
     {
-        Border->SetBrushColor(Theme->GetPaletteColor(Theme->BottomReactionBorderColor));
+        Border->SetBrushColor(GetTheme()->GetPaletteColor(GetTheme()->BottomReactionBorderColor));
     }
     if (Button)
     {
@@ -68,20 +68,20 @@ void UBottomReactionWidget::OnTheme()
         const EMessageSide Side = GetSide();
         if (Side == EMessageSide::Me)
         {
-            Button->WidgetStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->MeBottomReactionColor)};
-            Button->WidgetStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->MeBottomReactionColor)};
-            Button->WidgetStyle.Hovered.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->MeBottomReactionColor)};
+            Button->WidgetStyle.Normal.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->MeBottomReactionColor)};
+            Button->WidgetStyle.Pressed.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->MeBottomReactionColor)};
+            Button->WidgetStyle.Hovered.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->MeBottomReactionColor)};
         }
         else if (Side == EMessageSide::You)
         {
-            Button->WidgetStyle.Normal.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->YouBottomReactionColor)};
-            Button->WidgetStyle.Pressed.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->YouBottomReactionColor)};
-            Button->WidgetStyle.Hovered.TintColor = FSlateColor{Theme->GetPaletteColor(Theme->YouBottomReactionColor)};
+            Button->WidgetStyle.Normal.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->YouBottomReactionColor)};
+            Button->WidgetStyle.Pressed.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->YouBottomReactionColor)};
+            Button->WidgetStyle.Hovered.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->YouBottomReactionColor)};
         }
     }
     if (ReactionCountTextBlock)
     {
-        ReactionCountTextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Theme->BottomReactionTextColor));
+        ReactionCountTextBlock->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->BottomReactionTextColor));
     }
 }
 

@@ -9,30 +9,54 @@
 
 UChannelListWidget::UChannelListWidget()
 {
-    bWantsClient = true;
-    bWantsTheme = true;
     Limit = 10;
 }
 
 void UChannelListWidget::NativeDestruct()
 {
-    if (Client)
+    if (GetClient())
     {
-        Client->ChannelsUpdated.RemoveDynamic(this, &UChannelListWidget::OnChannelsUpdated);
+        GetClient()->ChannelsUpdated.RemoveDynamic(this, &UChannelListWidget::OnChannelsUpdated);
     }
     Super::NativeDestruct();
 }
 
-void UChannelListWidget::ReleaseSlateResources(bool bReleaseChildren)
+void UChannelListWidget::ReleaseSlateResources(const bool bReleaseChildren)
 {
     Super::ReleaseSlateResources(bReleaseChildren);
 
     PaginateListWidget.Reset();
 }
 
+void UChannelListWidget::NativePreConstruct()
+{
+    Super::NativePreConstruct();
+
+    GetClient()->ChannelsUpdated.AddDynamic(this, &UChannelListWidget::OnChannelsUpdated);
+
+    GetClientContext()->OnBack.AddDynamic(this, &UChannelListWidget::OnBack);
+    GetClientContext()->OnChannelSelected.AddDynamic(this, &UChannelListWidget::OnChannelSelected);
+
+    if (ListView)
+    {
+        PaginateListWidget = SNew(SPaginateListWidget<UChatChannel*>)
+                                 .Limit(Limit)
+                                 .PaginationDirection(EPaginationDirection::Bottom)
+                                 .ListItemsSource(&GetClient()->GetChannels())
+                                 .CreateListViewWidget_UObject(this, &UChannelListWidget::CreateChannelWidget)
+                                 .DoPaginate_UObject(this, &UChannelListWidget::Paginate);
+        ListView->SetContent(PaginateListWidget.ToSharedRef());
+    }
+
+    if (Divider)
+    {
+        Divider->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->TeamChatDividerColor));
+    }
+}
+
 void UChannelListWidget::Paginate(const EPaginationDirection Direction, const TFunction<void()> Callback)
 {
-    Client->QueryAdditionalChannels(Limit, Callback);
+    GetClient()->QueryAdditionalChannels(Limit, Callback);
 }
 
 UWidget* UChannelListWidget::CreateChannelWidget(UChatChannel* const& InChannel)
@@ -50,39 +74,12 @@ UWidget* UChannelListWidget::CreateChannelWidget(UChatChannel* const& InChannel)
     return Widget;
 }
 
-void UChannelListWidget::OnClient()
-{
-    Client->ChannelsUpdated.AddDynamic(this, &UChannelListWidget::OnChannelsUpdated);
-
-    ClientContext->OnBack.AddDynamic(this, &UChannelListWidget::OnBack);
-    ClientContext->OnChannelSelected.AddDynamic(this, &UChannelListWidget::OnChannelSelected);
-
-    if (ListView)
-    {
-        PaginateListWidget = SNew(SPaginateListWidget<UChatChannel*>)
-                                 .Limit(Limit)
-                                 .PaginationDirection(EPaginationDirection::Bottom)
-                                 .ListItemsSource(&Client->GetChannels())
-                                 .CreateListViewWidget_UObject(this, &UChannelListWidget::CreateChannelWidget)
-                                 .DoPaginate_UObject(this, &UChannelListWidget::Paginate);
-        ListView->SetContent(PaginateListWidget.ToSharedRef());
-    }
-}
-
 void UChannelListWidget::OnBack()
 {
     // if (IsNewChatActive())
     {
-        Client->CancelNewChat();
+        GetClient()->CancelNewChat();
         RebuildChannelList();
-    }
-}
-
-void UChannelListWidget::OnTheme()
-{
-    if (Divider)
-    {
-        Divider->SetColorAndOpacity(Theme->GetPaletteColor(Theme->TeamChatDividerColor));
     }
 }
 
@@ -109,10 +106,10 @@ void UChannelListWidget::OnChannelsUpdated(const TArray<UChatChannel*>&)
 {
     RebuildChannelList();
 
-    if (!CurrentChannel && bAutoSelectFirstChannel && Client->GetChannels().Num() > 0)
+    if (!CurrentChannel && bAutoSelectFirstChannel && GetClient()->GetChannels().Num() > 0)
     {
         // Select first channel.
-        CurrentChannel = Client->GetChannels()[0];
-        ClientContext->SelectChannel(CurrentChannel);
+        CurrentChannel = GetClient()->GetChannels()[0];
+        GetClientContext()->SelectChannel(CurrentChannel);
     }
 }
