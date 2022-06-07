@@ -1,19 +1,19 @@
 // Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
-#include "ContextMenu/BanUserContextMenuAction.h"
+#include "ContextMenu/UnbanUserContextMenuAction.h"
 
 #include "Context/ClientContextWidget.h"
 #include "ContextMenu/ContextMenuWidget.h"
 #include "User/UserManager.h"
 
-void UBanUserContextMenuAction::OnPerform(const FMessage& Message, UWidget* OwningWidget)
+void UUnbanUserContextMenuAction::OnPerform(const FMessage& Message, UWidget* OwningWidget)
 {
-    Client->BanUser(Message.User);
+    Client->UnbanUser(Message.User);
 }
 
-bool UBanUserContextMenuAction::OnShouldDisplay(const EMessageSide, const FMessage& Message) const
+bool UUnbanUserContextMenuAction::OnShouldDisplay(const EMessageSide, const FMessage& Message) const
 {
-    if (Message.User.IsCurrent() || Message.User->bBanned)
+    if (Message.User.IsCurrent() || !Message.User->bBanned)
     {
         return false;
     }
