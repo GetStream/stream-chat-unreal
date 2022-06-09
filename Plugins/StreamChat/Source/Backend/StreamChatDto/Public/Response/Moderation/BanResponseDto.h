@@ -30,7 +30,7 @@ struct FBanResponseDto
     FDateTime Expires = FDateTime{0};
 
     UPROPERTY()
-    bool bShadow;
+    bool bShadow = false;
 
     UPROPERTY()
     FUserObjectDto User;
