@@ -109,7 +109,7 @@
         },
         {
             "Name": "StreamChatApiTest",
-            "Type": "Runtime",
+            "Type": "DeveloperTool",
             "LoadingPhase": "Default",
             "WhitelistPlatforms": [
                 "Win64",
