@@ -14,7 +14,8 @@ build:
 
 # Run unit tests
 test:
-    ue4 test StreamChat -- -nosound
+    #!/usr/bin/env bash
+    ue4 test StreamChat -- -nosound -LogCmds="global off, LogAutomationCommandLine on, LogAutomationController on" | tee >(grep -q "EXIT CODE: 0")
 
 # Convert svg assets to pngs
 convert-svg:
