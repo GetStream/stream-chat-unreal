@@ -1,4 +1,5 @@
 set dotenv-load := false
+set shell := ["bash", "-uc"]
 
 # List recipes
 default:
@@ -14,7 +15,6 @@ build:
 
 # Run unit tests
 test:
-    #!/usr/bin/env bash
     ue4 test StreamChat -- -nosound -LogCmds="global off, LogAutomationCommandLine on, LogAutomationController on" | tee >(grep -q "EXIT CODE: 0")
 
 # Convert svg assets to pngs
