@@ -28,10 +28,11 @@ struct STREAMCHAT_API FChannelProperties
     explicit FChannelProperties(const FChannelResponseDto& Dto, UUserManager*);
     explicit FChannelProperties(const FChannelResponseDto& Dto, const TArray<FChannelMemberDto>& InMembers, UUserManager*);
 
+    // For initial channel creation
+    explicit FChannelProperties(const FString& Type, const FString& Id = TEXT(""), const FString& Team = TEXT(""));
+
     /// Convert to a channel request DTO to send to the API
     explicit operator FChannelRequestDto() const;
-
-    static FChannelProperties WithType(const FString&);
 
     /// Set the members using just their User IDs
     FChannelProperties& SetMembers(const TArray<FString>& UserIds);
@@ -39,7 +40,6 @@ struct STREAMCHAT_API FChannelProperties
     /// Set the members using a list of Users
     FChannelProperties& SetMembers(const TArray<FUserRef>& Users);
 
-    FChannelProperties& SetId(const FString&);
     FChannelProperties& SetName(const FString&);
     FChannelProperties& SetImageUrl(const FString&);
 
