@@ -99,6 +99,8 @@ struct STREAMCHAT_API FFilter
     static FFilter Equal(const FName& Field, const FString& Value);
     /// Construct an $eq filter
     static FFilter Equal(const FName& Field, bool bValue);
+    /// Construct an $eq filter
+    static FFilter Equal(const FName& Field, TYPE_OF_NULLPTR);
     /// Construct a $neq filter
     static FFilter NotEqual(const FName& Field, int32 Value);
     /// Construct a $neq filter
@@ -107,38 +109,32 @@ struct STREAMCHAT_API FFilter
     static FFilter NotEqual(const FName& Field, const FString& Value);
     /// Construct a $neq filter
     static FFilter NotEqual(const FName& Field, bool bValue);
+    /// Construct a $neq filter
+    static FFilter NotEqual(const FName& Field, TYPE_OF_NULLPTR);
     /// Construct a $gt filter
     static FFilter Greater(const FName& Field, int32 Value);
     /// Construct a $gt filter
     static FFilter Greater(const FName& Field, float Value);
     /// Construct a $gt filter
     static FFilter Greater(const FName& Field, const FString& Value);
-    /// Construct a $gt filter
-    static FFilter Greater(const FName& Field, bool bValue);
     /// Construct a $gte filter
     static FFilter GreaterOrEqual(const FName& Field, int32 Value);
     /// Construct a $gte filter
     static FFilter GreaterOrEqual(const FName& Field, float Value);
     /// Construct a $gte filter
     static FFilter GreaterOrEqual(const FName& Field, const FString& Value);
-    /// Construct a $gte filter
-    static FFilter GreaterOrEqual(const FName& Field, bool bValue);
     /// Construct a $lt filter
     static FFilter Less(const FName& Field, int32 Value);
     /// Construct a $lt filter
     static FFilter Less(const FName& Field, float Value);
     /// Construct a $lt filter
     static FFilter Less(const FName& Field, const FString& Value);
-    /// Construct a $lt filter
-    static FFilter Less(const FName& Field, bool bValue);
     /// Construct a $lte filter
     static FFilter LessOrEqual(const FName& Field, int32 Value);
     /// Construct a $lte filter
     static FFilter LessOrEqual(const FName& Field, float Value);
     /// Construct a $lte filter
     static FFilter LessOrEqual(const FName& Field, const FString& Value);
-    /// Construct a $lte filter
-    static FFilter LessOrEqual(const FName& Field, bool bValue);
 
     /// Construct an $in filter
     static FFilter In(const FName& Field, const TArray<int32>& Values);
@@ -175,6 +171,7 @@ private:
     static FFilter MakeComparison(EFilterOperator Operator, const FName& Field, T Value);
     static FFilter MakeComparison(EFilterOperator Operator, const FName& Field, const FString& Value);
     static FFilter MakeComparison(EFilterOperator Operator, const FName& Field, bool bValue);
+    static FFilter MakeComparison(EFilterOperator Operator, const FName& Field, TYPE_OF_NULLPTR);
     template <class T>
     static FFilter MakeArrayComparison(EFilterOperator Operator, const FName& Field, const TArray<T>& Values);
     static FFilter MakeArrayComparison(EFilterOperator Operator, const FName& Field, const TArray<FString>& Values);

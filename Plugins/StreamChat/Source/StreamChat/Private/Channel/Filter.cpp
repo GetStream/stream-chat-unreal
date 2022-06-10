@@ -127,6 +127,11 @@ FFilter FFilter::Equal(const FName& Field, const bool bValue)
     return MakeComparison(EFilterOperator::Equal, Field, bValue);
 }
 
+FFilter FFilter::Equal(const FName& Field, TYPE_OF_NULLPTR)
+{
+    return MakeComparison(EFilterOperator::Equal, Field, nullptr);
+}
+
 FFilter FFilter::NotEqual(const FName& Field, const int32 Value)
 {
     return MakeComparison(EFilterOperator::NotEqual, Field, Value);
@@ -147,6 +152,11 @@ FFilter FFilter::NotEqual(const FName& Field, const bool bValue)
     return MakeComparison(EFilterOperator::NotEqual, Field, bValue);
 }
 
+FFilter FFilter::NotEqual(const FName& Field, TYPE_OF_NULLPTR)
+{
+    return MakeComparison(EFilterOperator::NotEqual, Field, nullptr);
+}
+
 FFilter FFilter::Greater(const FName& Field, int32 const Value)
 {
     return MakeComparison(EFilterOperator::Greater, Field, Value);
@@ -160,11 +170,6 @@ FFilter FFilter::Greater(const FName& Field, float const Value)
 FFilter FFilter::Greater(const FName& Field, const FString& Value)
 {
     return MakeComparison(EFilterOperator::Greater, Field, Value);
-}
-
-FFilter FFilter::Greater(const FName& Field, bool const bValue)
-{
-    return MakeComparison(EFilterOperator::Greater, Field, bValue);
 }
 
 FFilter FFilter::GreaterOrEqual(const FName& Field, int32 const Value)
@@ -182,11 +187,6 @@ FFilter FFilter::GreaterOrEqual(const FName& Field, const FString& Value)
     return MakeComparison(EFilterOperator::GreaterOrEqual, Field, Value);
 }
 
-FFilter FFilter::GreaterOrEqual(const FName& Field, bool const bValue)
-{
-    return MakeComparison(EFilterOperator::GreaterOrEqual, Field, bValue);
-}
-
 FFilter FFilter::Less(const FName& Field, int32 const Value)
 {
     return MakeComparison(EFilterOperator::Less, Field, Value);
@@ -202,11 +202,6 @@ FFilter FFilter::Less(const FName& Field, const FString& Value)
     return MakeComparison(EFilterOperator::Less, Field, Value);
 }
 
-FFilter FFilter::Less(const FName& Field, bool const bValue)
-{
-    return MakeComparison(EFilterOperator::Less, Field, bValue);
-}
-
 FFilter FFilter::LessOrEqual(const FName& Field, int32 const Value)
 {
     return MakeComparison(EFilterOperator::LessOrEqual, Field, Value);
@@ -220,11 +215,6 @@ FFilter FFilter::LessOrEqual(const FName& Field, float const Value)
 FFilter FFilter::LessOrEqual(const FName& Field, const FString& Value)
 {
     return MakeComparison(EFilterOperator::LessOrEqual, Field, Value);
-}
-
-FFilter FFilter::LessOrEqual(const FName& Field, bool const bValue)
-{
-    return MakeComparison(EFilterOperator::LessOrEqual, Field, bValue);
 }
 
 FFilter FFilter::In(const FName& Field, const TArray<int32>& Values)
@@ -283,6 +273,11 @@ FFilter FFilter::MakeComparison(const EFilterOperator Operator, const FName& Fie
 FFilter FFilter::MakeComparison(const EFilterOperator Operator, const FName& Field, bool bValue)
 {
     return {Operator, Field, MakeShared<FJsonValueBoolean>(bValue)};
+}
+
+FFilter FFilter::MakeComparison(EFilterOperator Operator, const FName& Field, TYPE_OF_NULLPTR)
+{
+    return {Operator, Field, MakeShared<FJsonValueNull>()};
 }
 
 FFilter FFilter::MakeArrayComparison(const EFilterOperator Operator, const FName& Field, const TArray<FString>& Values)
