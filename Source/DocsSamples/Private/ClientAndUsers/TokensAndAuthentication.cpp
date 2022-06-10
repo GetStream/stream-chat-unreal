@@ -7,19 +7,17 @@ namespace
 {
 UStreamChatClientComponent* Client = nullptr;
 
-// https://getstream.io/chat/docs/unreal/logout/?language=unreal
-void LogOut()
+// https://getstream.io/chat/docs/unreal/tokens_and_authentication/?language=unreal#developer-tokens
+void DeveloperTokens()
 {
-    Client->DisconnectUser();
-
-    const FString Token{TEXT("{{ api_key }}")};
-    const FUser OtherUser{TEXT("tommaso")};
+    const FUser User{TEXT("john")};
+    const FString Token = Client->DevToken(User.Id);
     Client->ConnectUser(
-        OtherUser,
+        User,
         Token,
         [](const FOwnUser& UserRef)
         {
-            // New connection established
+            // Connection established
         });
 }
 
