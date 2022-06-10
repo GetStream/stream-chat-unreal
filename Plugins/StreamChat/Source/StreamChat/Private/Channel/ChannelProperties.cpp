@@ -45,19 +45,16 @@ FChannelProperties::FChannelProperties(const FChannelResponseDto& Dto, const TAr
     }
 }
 
+FChannelProperties::FChannelProperties(const FString& Type, const FString& Id, const FString& Team) : Type{Type}, Id{Id}, Team{Team}
+{
+}
+
 FChannelProperties::operator FChannelRequestDto() const
 {
     FChannelRequestDto Dto{bAutoTranslationEnabled, AutoTranslationLanguage, bDisabled, bFrozen, {}, Team, ExtraData};
     Algo::Transform(Members, Dto.Members, [&](const FMember& M) { return M.User->Id; });
 
     return Dto;
-}
-
-FChannelProperties FChannelProperties::WithType(const FString& InType)
-{
-    FChannelProperties Props;
-    Props.Type = InType;
-    return Props;
 }
 
 TArray<FUserRef> FChannelProperties::GetOtherMemberUsers() const
@@ -93,12 +90,6 @@ FChannelProperties& FChannelProperties::SetMembers(const TArray<FUserRef>& Users
 {
     Algo::Transform(Users, Members, [&](const FUserRef& UserRef) { return FMember{UserRef}; });
     MemberCount = Members.Num();
-    return *this;
-}
-
-FChannelProperties& FChannelProperties::SetId(const FString& InId)
-{
-    Id = InId;
     return *this;
 }
 
