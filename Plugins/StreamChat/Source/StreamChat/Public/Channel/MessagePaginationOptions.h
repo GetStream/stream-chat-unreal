@@ -16,6 +16,8 @@ USTRUCT(BlueprintType)
 struct STREAMCHAT_API FMessagePaginationOptions : public FUserPaginationOptions
 {
     GENERATED_BODY()
+
+    FMessagePaginationOptions(int32 Limit = -1, int32 Offset = -1);
     explicit operator FMessagePaginationParamsRequestDto() const;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat")

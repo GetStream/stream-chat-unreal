@@ -2,6 +2,10 @@
 
 #include "User/UserPaginationOptions.h"
 
+FUserPaginationOptions::FUserPaginationOptions(const int32 Limit, const int32 Offset) : FPaginationOptions{Limit, Offset}
+{
+}
+
 FUserPaginationOptions::operator FPaginationParamsRequestDto() const
 {
     return FPaginationParamsRequestDto{

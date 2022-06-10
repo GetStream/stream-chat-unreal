@@ -2,6 +2,10 @@
 
 #include "Channel/MessagePaginationOptions.h"
 
+FMessagePaginationOptions::FMessagePaginationOptions(const int32 Limit, const int32 Offset) : FUserPaginationOptions{Limit, Offset}
+{
+}
+
 FMessagePaginationOptions::operator FMessagePaginationParamsRequestDto() const
 {
     return FMessagePaginationParamsRequestDto{
