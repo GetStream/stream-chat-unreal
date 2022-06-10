@@ -2,6 +2,10 @@
 
 #include "PaginationOptions.h"
 
+FPaginationOptions::FPaginationOptions(const int32 Limit, const int32 Offset) : Limit{Limit}, Offset{Offset}
+{
+}
+
 TOptional<uint32> FPaginationOptions::GetLimitAsOptional() const
 {
     return Limit >= 0 ? static_cast<uint32>(Limit) : TOptional<uint32>{};

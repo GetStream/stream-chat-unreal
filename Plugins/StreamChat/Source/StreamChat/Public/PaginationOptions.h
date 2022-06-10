@@ -15,6 +15,8 @@ struct STREAMCHAT_API FPaginationOptions
 {
     GENERATED_BODY()
 
+    FPaginationOptions(int32 Limit = -1, int32 Offset = -1);
+
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat")
     int32 Limit = -1;
 
