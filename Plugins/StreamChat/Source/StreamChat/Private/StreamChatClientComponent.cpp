@@ -330,6 +330,7 @@ void UStreamChatClientComponent::QueryChannels(
         Flags,
         FilterJson,
         Util::Convert<FSortParamRequestDto>(SortOptions),
+        // TODO expose member and message limit
         {},
         {},
         PaginationOptions.GetLimitAsOptional(),
