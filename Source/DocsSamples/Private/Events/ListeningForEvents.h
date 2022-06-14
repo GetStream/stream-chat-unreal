@@ -1,5 +1,7 @@
 ﻿// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
 
+#pragma once
+
 #include "Channel/ChatChannel.h"
 #include "CoreMinimal.h"
 #include "Event/Channel/MessageDeletedEvent.h"
