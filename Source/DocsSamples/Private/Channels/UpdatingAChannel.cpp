@@ -6,7 +6,6 @@
 namespace UpdatingAChannel
 {
 UStreamChatClientComponent* Client = nullptr;
-UChatChannel* Channel = nullptr;
 FString Type;
 FString Id;
 
@@ -47,6 +46,9 @@ void PartialUpdate()
         });
 }
 
+namespace
+{
+UChatChannel* Channel = nullptr;
 // https://getstream.io/chat/docs/unreal/channel_update/?language=unreal#full-update-(overwrite)
 void FullUpdate()
 {
@@ -56,4 +58,6 @@ void FullUpdate()
     const FMessage Message{TEXT("Thierry changed the channel color to green")};
     Channel->Update(Data, Message);
 }
+
+}    // namespace
 }    // namespace UpdatingAChannel

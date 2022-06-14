@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "StreamChatClientComponent.h"
 
-namespace
+namespace MessagesOverview
 {
 UChatChannel* Channel = nullptr;
 
@@ -29,11 +29,8 @@ void GetAMessage()
     // Not yet supported in the Unreal SDK
 }
 
-}    // namespace
-
 namespace ExistingMessage
 {
-UChatChannel* Channel = nullptr;
 FMessage Message;
 
 // https://getstream.io/chat/docs/unreal/send_message/?language=unreal#update-a-message
@@ -52,3 +49,5 @@ void DeleteAMessage()
     Channel->DeleteMessage(Message);
 }
 }    // namespace ExistingMessage
+
+}    // namespace MessagesOverview

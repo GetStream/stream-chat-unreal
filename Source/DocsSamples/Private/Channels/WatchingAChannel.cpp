@@ -8,7 +8,6 @@
 namespace WatchingAChannel
 {
 UStreamChatClientComponent* Client = nullptr;
-UChatChannel* Channel = nullptr;
 
 // https://getstream.io/chat/docs/unreal/watch_channel/?language=unreal#to-start-watching-a-channel
 void ToStartWatchingAChannel()
@@ -41,11 +40,18 @@ void WatchingMultipleChannels()
             // Started watching channels
         });
 }
+
+namespace WithChannel
+{
+UChatChannel* Channel = nullptr;
+
 // https://getstream.io/chat/docs/unreal/watch_channel/?language=unreal#stop-watching-a-channel
 void StopWatchingAChannel()
 {
     Channel->StopWatching();
 }
+
+}    // namespace WithChannel
 
 // https://getstream.io/chat/docs/unreal/watch_channel/?language=unreal#watcher-count
 void WatcherCount()
@@ -62,6 +68,9 @@ void WatcherCount()
             Channel->State.WatcherCount;
         });
 }
+
+namespace WithChannel
+{
 
 // https://getstream.io/chat/docs/unreal/watch_channel/?language=unreal#paginating-channel-watchers-with-channel.query
 void PaginatingChannelWatchersWithChannelQuery()
@@ -100,5 +109,7 @@ void ListeningToChangesInWatchers()
             Event.User;
         });
 }
+
+}    // namespace WithChannel
 
 }    // namespace WatchingAChannel
