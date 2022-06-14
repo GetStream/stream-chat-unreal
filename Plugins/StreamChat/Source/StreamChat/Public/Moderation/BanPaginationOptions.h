@@ -16,6 +16,8 @@ struct STREAMCHAT_API FBanPaginationOptions : public FPaginationOptions
 {
     GENERATED_BODY()
 
+    FBanPaginationOptions(int32 Limit = -1, int32 Offset = -1);
+
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat")
     FDateTime CreatedAtAfter = FDateTime{0};
 
