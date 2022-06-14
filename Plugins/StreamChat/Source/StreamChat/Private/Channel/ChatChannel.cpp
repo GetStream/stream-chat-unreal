@@ -511,7 +511,7 @@ void UChatChannel::SearchMessages(
         [&](auto Callback) { SearchMessages(OptionalQuery, OptionalMessageFilter, Sort, OptionalMessageLimit, Callback); });
 }
 
-void UChatChannel::SendReaction(const FMessage& Message, const FName& ReactionType, const int32 Score, const bool bEnforceUnique)
+FReaction UChatChannel::SendReaction(const FMessage& Message, const FName& ReactionType, const int32 Score, const bool bEnforceUnique)
 {
     FMessage NewMessage{Message};
     // Remove all previous reactions current user did
@@ -527,6 +527,7 @@ void UChatChannel::SendReaction(const FMessage& Message, const FName& ReactionTy
 
     const TOptional<uint32> OptionalScore = Score > 1 ? static_cast<uint32>(Score) : TOptional<uint32>{};
     Api->SendReaction(Message.Id, ReactionType, bEnforceUnique, OptionalScore);
+    return NewReaction;
 }
 
 void UChatChannel::GetReactions(const FMessage& Message, const FPaginationOptions& Pagination, TFunction<void(const TArray<FReaction>&)> Callback)

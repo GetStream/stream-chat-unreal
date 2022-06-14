@@ -14,7 +14,7 @@ struct FReactionDto;
  * @ingroup StreamChat
  */
 USTRUCT(BlueprintType)
-struct FReaction
+struct STREAMCHAT_API FReaction
 {
     GENERATED_BODY()
 

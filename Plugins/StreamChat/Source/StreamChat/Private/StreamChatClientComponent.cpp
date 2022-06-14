@@ -437,10 +437,16 @@ void UStreamChatClientComponent::QueryUsers(
     const FFilter& Filter,
     const TArray<FUserSortOption>& Sort,
     const bool bPresence,
-    const TOptional<uint32> Limit,
-    const TOptional<uint32> Offset,
+    const TOptional<FPaginationOptions> PaginationOptions,
     TFunction<void(const TArray<FUserRef>&)> Callback) const
 {
+    TOptional<uint32> Limit;
+    TOptional<uint32> Offset;
+    if (PaginationOptions.IsSet())
+    {
+        Limit = PaginationOptions.GetValue().Limit;
+        Offset = PaginationOptions.GetValue().Offset;
+    }
     Api->QueryUsers(
         Socket->GetConnectionId(),
         bPresence,

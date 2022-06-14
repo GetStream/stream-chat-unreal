@@ -152,16 +152,14 @@ public:
      * @param Filter Conditions to use to filter the users, @see https://getstream.io/chat/docs/unreal/query_users
      * @param Sort The sorting used for the users matching the filters.
      * Sorting is based on field and direction, multiple sorting options can be provided.
-     * @param Limit The number of users to return
-     * @param Offset The pagination offset
+     * @param PaginationOptions The number of users to return and pagination offset
      * @param Callback Called when response is received
      */
     void QueryUsers(
         const FFilter& Filter = {},
         const TArray<FUserSortOption>& Sort = {},
         bool bPresence = true,
-        TOptional<uint32> Limit = {},
-        TOptional<uint32> Offset = {},
+        const TOptional<FPaginationOptions> PaginationOptions = {},
         TFunction<void(const TArray<FUserRef>&)> Callback = {}) const;
 
     /**
@@ -295,7 +293,10 @@ public:
      * @param ChannelProperties Properties of the channel to watch
      * @param OutChannel Object which can be used to interact with the channel
      */
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo, AdvancedDisplay = Id))
+    UFUNCTION(
+        BlueprintCallable,
+        Category = "Stream Chat|Client",
+        meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo, AdvancedDisplay = Id))
     void WatchChannel(const FChannelProperties& ChannelProperties, const UObject* WorldContextObject, FLatentActionInfo LatentInfo, UChatChannel*& OutChannel);
 
     ///@}

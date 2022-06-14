@@ -30,13 +30,12 @@ void UUserListWidget::Paginate(const EPaginationDirection Directions, const TFun
     {
         return;
     }
-    const FUserSortOption SortName{EUserSortField::Custom, ESortDirection::Ascending, TEXT("name")};
+    const FUserSortOption SortByName{EUserSortField::Custom, ESortDirection::Ascending, TEXT("name")};
     GetClient()->QueryUsers(
         Filter,
-        {SortName},
+        {SortByName},
         false,
-        30,
-        Users.Num(),
+        {{30, Users.Num()}},
         [WeakThis = TWeakObjectPtr<UUserListWidget>(this), Callback](const TArray<FUserRef>& QueryUsers)
         {
             if (WeakThis.IsValid())
