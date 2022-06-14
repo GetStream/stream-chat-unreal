@@ -117,6 +117,11 @@ FFilter FFilter::Equal(const FName& Field, const float Value)
     return MakeComparison(EFilterOperator::Equal, Field, Value);
 }
 
+FFilter FFilter::Equal(const FName& Field, const TCHAR* Value)
+{
+    return MakeComparison(EFilterOperator::Equal, Field, Value);
+}
+
 FFilter FFilter::Equal(const FName& Field, const FString& Value)
 {
     return MakeComparison(EFilterOperator::Equal, Field, Value);
@@ -138,6 +143,11 @@ FFilter FFilter::NotEqual(const FName& Field, const int32 Value)
 }
 
 FFilter FFilter::NotEqual(const FName& Field, const float Value)
+{
+    return MakeComparison(EFilterOperator::NotEqual, Field, Value);
+}
+
+FFilter FFilter::NotEqual(const FName& Field, const TCHAR* Value)
 {
     return MakeComparison(EFilterOperator::NotEqual, Field, Value);
 }
@@ -266,6 +276,11 @@ FFilter FFilter::Empty(const FName& Field)
 }
 
 FFilter FFilter::MakeComparison(const EFilterOperator Operator, const FName& Field, const FString& Value)
+{
+    return {Operator, Field, MakeShared<FJsonValueString>(Value)};
+}
+
+FFilter FFilter::MakeComparison(const EFilterOperator Operator, const FName& Field, const TCHAR* Value)
 {
     return {Operator, Field, MakeShared<FJsonValueString>(Value)};
 }
