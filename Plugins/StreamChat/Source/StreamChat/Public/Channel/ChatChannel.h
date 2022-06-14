@@ -330,10 +330,7 @@ public:
      * @param MessageLimit Number of messages to return (Optional)
      * @param OutMessages The result of the search
      */
-    UFUNCTION(
-        BlueprintCallable,
-        Category = "Stream Chat|Channel",
-        meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo, AutoCreateRefTerm = "Sort,MessageFilter"))
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo, AutoCreateRefTerm = "Sort,MessageFilter"))
     void SearchMessages(
         const FString& Query,
         const FFilter& MessageFilter,
