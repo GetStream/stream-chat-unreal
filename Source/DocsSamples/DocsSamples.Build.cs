@@ -21,11 +21,13 @@ public class DocsSamples : ModuleRules
                 "Slate",
                 "SlateCore",
                 "StreamChat",
+                // TODO These are all needed due to the reliance on templates for events
                 "Json",
                 "JsonUtilities",
                 "StreamJson",
                 "StreamChatApi",
                 "StreamChatWebSocket",
+                "StreamChatDto",
             }
         );
     }
