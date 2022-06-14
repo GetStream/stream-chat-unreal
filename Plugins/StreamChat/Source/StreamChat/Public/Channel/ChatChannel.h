@@ -330,7 +330,10 @@ public:
      * @param MessageLimit Number of messages to return (Optional)
      * @param OutMessages The result of the search
      */
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo, AutoCreateRefTerm = "Sort,MessageFilter"))
+    UFUNCTION(
+        BlueprintCallable,
+        Category = "Stream Chat|Channel",
+        meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo, AutoCreateRefTerm = "Sort,MessageFilter"))
     void SearchMessages(
         const FString& Query,
         const FFilter& MessageFilter,
@@ -393,7 +396,7 @@ public:
      * @param Score The score of the reaction. Defaults to 1.
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Reaction")
-    void SendReaction(const FMessage& Message, const FName& ReactionType, int32 Score = 1, bool bEnforceUnique = false);
+    FReaction SendReaction(const FMessage& Message, const FName& ReactionType, int32 Score = 1, bool bEnforceUnique = false);
 
     /**
      * @brief Fetch or paginate more reactions for a given message

@@ -14,8 +14,7 @@ void QueryUsers1()
         FFilter::In(TEXT("id"), {TEXT("john"), TEXT("jack"), TEXT("jessie")}),
         {},      // Sort
         true,    // Presence
-        {},      // Limit
-        {},      // Offset
+        {},      // Pagination options
         [](const TArray<FUserRef>& Users)
         {
             // Do something with Users
@@ -27,9 +26,8 @@ void QueryUsers2()
     Client->QueryUsers(
         FFilter::In(TEXT("id"), {TEXT("john"), TEXT("jack"), TEXT("jessie")}),
         {FUserSortOption{EUserSortField::LastActive}},
-        true,    // bPresence
-        20,      // Limit
-        0,       // Offset
+        true,         // bPresence
+        {{20, 0}},    // Pagination options
         [](const TArray<FUserRef>& Users)
         {
             // Do something with Users
@@ -45,8 +43,7 @@ void QueryBannedUsers()
         }),
         {FUserSortOption{EUserSortField::LastActive}},
         true,    // Presence
-        {},      // Limit
-        {},      // Offset
+        {},      // Pagination options
         [](const TArray<FUserRef>& Users)
         {
             // Do something with Users
@@ -60,8 +57,7 @@ void AutocompleteByName()
         FFilter::Autocomplete(TEXT("name"), TEXT("ro")),
         {},      // Sort
         true,    // Presence
-        {},      // Limit
-        {},      // Offset
+        {},      // Pagination options
         [](const TArray<FUserRef>& Users)
         {
             // Do something with Users
@@ -75,8 +71,7 @@ void AutocompleteById()
         FFilter::Autocomplete(TEXT("id"), TEXT("userid")),
         {},      // Sort
         true,    // Presence
-        {},      // Limit
-        {},      // Offset
+        {},      // Pagination options
         [](const TArray<FUserRef>& Users)
         {
             // Do something with Users
