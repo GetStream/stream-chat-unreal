@@ -84,7 +84,8 @@ void QueryBansEndpoint()
         });
 
     // Get the page of bans which were created before or equal to the current time for the same channel
-    const FBanPaginationOptions PaginationOptions{{}, {}, FDateTime::UtcNow()};
+    FBanPaginationOptions PaginationOptions;
+    PaginationOptions.CreatedAtBeforeOrEqual = FDateTime::UtcNow();
     Client->QueryBannedUsers(
         FFilter::Equal(TEXT("channel_cid"), TEXT("livestream:123")),
         {{EBanSortField::CreatedAt, ESortDirection::Descending}},
