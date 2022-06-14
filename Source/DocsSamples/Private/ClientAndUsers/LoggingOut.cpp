@@ -3,7 +3,8 @@
 #include "CoreMinimal.h"
 #include "StreamChatClientComponent.h"
 #include "User/User.h"
-namespace
+
+namespace LoggingOut
 {
 UStreamChatClientComponent* Client = nullptr;
 
@@ -23,4 +24,4 @@ void LogOut()
         });
 }
 
-}    // namespace
+}    // namespace LoggingOut

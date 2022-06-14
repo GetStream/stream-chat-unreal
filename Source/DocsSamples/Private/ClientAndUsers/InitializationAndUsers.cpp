@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "StreamChatClientComponent.h"
 #include "User/User.h"
+
 class UInitializationAndUsers final : public UObject
 {
     UStreamChatClientComponent* Client = nullptr;

@@ -2,7 +2,8 @@
 
 #include "CoreMinimal.h"
 #include "StreamChatClientComponent.h"
-namespace
+
+namespace UpdatingAChannel
 {
 UStreamChatClientComponent* Client = nullptr;
 UChatChannel* Channel = nullptr;
@@ -55,4 +56,4 @@ void FullUpdate()
     const FMessage Message{TEXT("Thierry changed the channel color to green")};
     Channel->Update(Data, Message);
 }
-}    // namespace
+}    // namespace UpdatingAChannel

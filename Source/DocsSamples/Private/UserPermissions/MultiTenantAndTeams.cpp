@@ -2,7 +2,8 @@
 
 #include "CoreMinimal.h"
 #include "StreamChatClientComponent.h"
-namespace
+
+namespace MultiTenantAndTeams
 {
 UStreamChatClientComponent* Client = nullptr;
 
@@ -58,4 +59,4 @@ void QueryChannels()
     Client->QueryChannels(FFilter::Empty(TEXT("team")));
 }
 
-}    // namespace
+}    // namespace MultiTenantAndTeams

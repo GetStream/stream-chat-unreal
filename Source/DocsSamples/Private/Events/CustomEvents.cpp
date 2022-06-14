@@ -5,7 +5,7 @@
 #include "Channel/ChatChannel.h"
 #include "CoreMinimal.h"
 
-namespace
+namespace CustomEvents
 {
 UChatChannel* Channel = nullptr;
 
@@ -15,4 +15,4 @@ void ToAChannel()
     // Send the custom event
     Channel->SendEvent(FMyCustomEvent{5000.f});
 }
-}    // namespace
+}    // namespace CustomEvents

@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "StreamChatClientComponent.h"
 
-namespace
+namespace Search
 {
 UStreamChatClientComponent* Client = nullptr;
 
@@ -22,4 +22,4 @@ void Search()
         });
 }
 
-}    // namespace
+}    // namespace Search

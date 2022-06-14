@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "StreamChatClientComponent.h"
 
-namespace
+namespace Invites
 {
 UStreamChatClientComponent* Client;
 
@@ -42,4 +42,4 @@ void QueryForPendingInvites()
 {
     Client->QueryChannels(FFilter::Equal(TEXT("invite"), TEXT("pending")));
 }
-}    // namespace
+}    // namespace Invites

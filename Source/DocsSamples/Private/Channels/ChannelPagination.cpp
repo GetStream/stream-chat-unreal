@@ -3,7 +3,7 @@
 #include "Channel/ChatChannel.h"
 #include "CoreMinimal.h"
 
-namespace
+namespace ChannelPagination
 {
 UChatChannel* Channel = nullptr;
 
@@ -17,4 +17,4 @@ void ChannelPagination()
     const FUserPaginationOptions WatcherPagination{2, 0};
     Channel->Query(EChannelFlags::State, MessagesPagination, MemberPagination, WatcherPagination);
 }
-}    // namespace
+}    // namespace ChannelPagination

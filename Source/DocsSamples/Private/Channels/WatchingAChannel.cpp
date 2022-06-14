@@ -5,7 +5,7 @@
 #include "Event/User/UserWatchingStopEvent.h"
 #include "StreamChatClientComponent.h"
 
-namespace
+namespace WatchingAChannel
 {
 UStreamChatClientComponent* Client = nullptr;
 UChatChannel* Channel = nullptr;
@@ -101,4 +101,4 @@ void ListeningToChangesInWatchers()
         });
 }
 
-}    // namespace
+}    // namespace WatchingAChannel

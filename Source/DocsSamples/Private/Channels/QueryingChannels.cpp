@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "StreamChatClientComponent.h"
 
-namespace
+namespace QueryingChannels
 {
 UStreamChatClientComponent* Client = nullptr;
 FUserRef User;
@@ -67,4 +67,4 @@ void Pagination()
             // Started watching channels
         });
 }
-}    // namespace
+}    // namespace QueryingChannels

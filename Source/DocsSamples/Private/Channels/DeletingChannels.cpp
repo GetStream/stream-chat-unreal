@@ -3,7 +3,7 @@
 #include "Channel/ChatChannel.h"
 #include "CoreMinimal.h"
 
-namespace
+namespace DeletingChannels
 {
 UChatChannel* Channel = nullptr;
 
@@ -12,4 +12,4 @@ void DeletingAChannel()
 {
     Channel->Delete();
 }
-}    // namespace
+}    // namespace DeletingChannels

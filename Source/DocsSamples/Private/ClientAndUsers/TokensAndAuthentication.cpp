@@ -3,7 +3,8 @@
 #include "CoreMinimal.h"
 #include "StreamChatClientComponent.h"
 #include "User/User.h"
-namespace
+
+namespace TokensAndAuthentication
 {
 UStreamChatClientComponent* Client = nullptr;
 
@@ -21,4 +22,4 @@ void DeveloperTokens()
         });
 }
 
-}    // namespace
+}    // namespace TokensAndAuthentication
