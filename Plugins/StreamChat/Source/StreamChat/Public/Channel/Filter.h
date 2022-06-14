@@ -96,6 +96,8 @@ struct STREAMCHAT_API FFilter
     /// Construct an $eq filter
     static FFilter Equal(const FName& Field, float Value);
     /// Construct an $eq filter
+    static FFilter Equal(const FName& Field, const TCHAR* Value);
+    /// Construct an $eq filter
     static FFilter Equal(const FName& Field, const FString& Value);
     /// Construct an $eq filter
     static FFilter Equal(const FName& Field, bool bValue);
@@ -105,6 +107,8 @@ struct STREAMCHAT_API FFilter
     static FFilter NotEqual(const FName& Field, int32 Value);
     /// Construct a $neq filter
     static FFilter NotEqual(const FName& Field, float Value);
+    /// Construct a $neq filter
+    static FFilter NotEqual(const FName& Field, const TCHAR* Value);
     /// Construct a $neq filter
     static FFilter NotEqual(const FName& Field, const FString& Value);
     /// Construct a $neq filter
@@ -169,6 +173,7 @@ private:
 
     template <class T>
     static FFilter MakeComparison(EFilterOperator Operator, const FName& Field, T Value);
+    static FFilter MakeComparison(EFilterOperator Operator, const FName& Field, const TCHAR* Value);
     static FFilter MakeComparison(EFilterOperator Operator, const FName& Field, const FString& Value);
     static FFilter MakeComparison(EFilterOperator Operator, const FName& Field, bool bValue);
     static FFilter MakeComparison(EFilterOperator Operator, const FName& Field, TYPE_OF_NULLPTR);
