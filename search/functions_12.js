@@ -6,7 +6,7 @@ var searchData=
   ['sendevent_3',['SendEvent',['../class_u_chat_channel.html#aed47eb30b9ab1fde4d67b88caa12d317',1,'UChatChannel']]],
   ['sendmessage_4',['SendMessage',['../class_u_chat_channel.html#a9b55744dd39b09853302c5af29f2f4f2',1,'UChatChannel']]],
   ['sendnewmessage_5',['SendNewMessage',['../class_f_chat_api.html#ad2072ebbcd0e7e18da86600a6c738f4e',1,'FChatApi']]],
-  ['sendreaction_6',['SendReaction',['../class_f_chat_api.html#ac9a351590dba97ccb344912c54993591',1,'FChatApi::SendReaction()'],['../class_u_chat_channel.html#aecb2736baaa6927892e77e5515020184',1,'UChatChannel::SendReaction()']]],
+  ['sendreaction_6',['SendReaction',['../class_f_chat_api.html#ac9a351590dba97ccb344912c54993591',1,'FChatApi::SendReaction()'],['../class_u_chat_channel.html#a09127b08fcaedd082c22a7da20c7aaa9',1,'UChatChannel::SendReaction()']]],
   ['setmembers_7',['SetMembers',['../struct_f_channel_properties.html#a73faf453dcdd3b1416ff1df77e8b84e2',1,'FChannelProperties::SetMembers(const TArray&lt; FString &gt; &amp;UserIds)'],['../struct_f_channel_properties.html#a5204b02127fb53c81616f9a3ca0a95e9',1,'FChannelProperties::SetMembers(const TArray&lt; FUserRef &gt; &amp;Users)']]],
   ['setmembers_5fuser_8',['SetMembers_User',['../class_u_channel_properties_blueprint_library.html#a067c5af94a999f10946dde216116ddec',1,'UChannelPropertiesBlueprintLibrary']]],
   ['setmembers_5fuserid_9',['SetMembers_UserId',['../class_u_channel_properties_blueprint_library.html#a923ed25ae053f882c6a5fce745cbfccb',1,'UChannelPropertiesBlueprintLibrary']]],

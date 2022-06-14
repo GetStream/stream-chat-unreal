@@ -8,7 +8,7 @@ var searchData=
   ['sending_5',['Sending',['../group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91ae4b0c2b6d59cb4cf3e169a9886008087',1,'Message.h']]],
   ['sendmessage_6',['SendMessage',['../class_u_chat_channel.html#a9b55744dd39b09853302c5af29f2f4f2',1,'UChatChannel']]],
   ['sendnewmessage_7',['SendNewMessage',['../class_f_chat_api.html#ad2072ebbcd0e7e18da86600a6c738f4e',1,'FChatApi']]],
-  ['sendreaction_8',['SendReaction',['../class_f_chat_api.html#ac9a351590dba97ccb344912c54993591',1,'FChatApi::SendReaction()'],['../class_u_chat_channel.html#aecb2736baaa6927892e77e5515020184',1,'UChatChannel::SendReaction()']]],
+  ['sendreaction_8',['SendReaction',['../class_f_chat_api.html#ac9a351590dba97ccb344912c54993591',1,'FChatApi::SendReaction()'],['../class_u_chat_channel.html#a09127b08fcaedd082c22a7da20c7aaa9',1,'UChatChannel::SendReaction()']]],
   ['sent_9',['Sent',['../group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91a7f8c0283f16925caed8e632086b81b9c',1,'Message.h']]],
   ['set_10',['Set',['../struct_f_update_channel_partial_request_dto.html#ab1b301ba7d2bad765c4cf7da59f12ebc',1,'FUpdateChannelPartialRequestDto::Set()'],['../struct_f_update_user_partial_request_dto.html#a0d1fbbf15acb9a56834dbd1246190660',1,'FUpdateUserPartialRequestDto::Set()']]],
   ['setmembers_11',['SetMembers',['../struct_f_channel_properties.html#a73faf453dcdd3b1416ff1df77e8b84e2',1,'FChannelProperties::SetMembers(const TArray&lt; FString &gt; &amp;UserIds)'],['../struct_f_channel_properties.html#a5204b02127fb53c81616f9a3ca0a95e9',1,'FChannelProperties::SetMembers(const TArray&lt; FUserRef &gt; &amp;Users)']]],

@@ -26,7 +26,7 @@ var class_u_chat_channel =
     [ "SearchMessages", "class_u_chat_channel.html#abd9c334382f0b34ae03f96cf6113b384", null ],
     [ "SendEvent", "class_u_chat_channel.html#aed47eb30b9ab1fde4d67b88caa12d317", null ],
     [ "SendMessage", "class_u_chat_channel.html#a9b55744dd39b09853302c5af29f2f4f2", null ],
-    [ "SendReaction", "class_u_chat_channel.html#aecb2736baaa6927892e77e5515020184", null ],
+    [ "SendReaction", "class_u_chat_channel.html#a09127b08fcaedd082c22a7da20c7aaa9", null ],
     [ "ShadowBanMemberBP", "class_u_chat_channel.html#a5f54b4b306807075a3b775f6e3a03bd8", null ],
     [ "ShadowUnbanMember", "class_u_chat_channel.html#a7b642a9ec446edd47d50fa3c4654d81b", null ],
     [ "Show", "class_u_chat_channel.html#ac6eb55611d3ac58988e1dad3d65460d8", null ],
