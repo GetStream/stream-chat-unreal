@@ -4,7 +4,7 @@
 #include "CoreMinimal.h"
 #include "User/User.h"
 
-namespace
+namespace QueryingMembers
 {
 UChatChannel* Channel = nullptr;
 FUserRef LastMember;
@@ -85,4 +85,4 @@ void Filters()
     // query for user.email (currently the only supported custom field)
     Channel->QueryMembers(FFilter::Equal(TEXT("email"), TEXT("marcelo@getstream.io")));
 }
-}    // namespace
+}    // namespace QueryingMembers

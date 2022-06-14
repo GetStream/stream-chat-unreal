@@ -5,7 +5,7 @@
 #include "Moderation/Ban.h"
 #include "StreamChatClientComponent.h"
 
-namespace
+namespace ModerationTools
 {
 UStreamChatClientComponent* Client;
 UChatChannel* Channel;
@@ -110,4 +110,4 @@ void ShadowBan()
     // remove global shadow ban
     Client->ShadowUnbanUser(User);
 }
-}    // namespace
+}    // namespace ModerationTools

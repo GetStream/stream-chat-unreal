@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 
-namespace
+namespace PinnedMessages
 {
 
 // https://getstream.io/chat/docs/unreal/pinned_messages/?language=unreal#pin-and-unpin-a-message
@@ -23,4 +23,4 @@ void PaginateOverAllPinnedMessages()
     // Not yet supported in the Unreal SDK
 }
 
-}    // namespace
+}    // namespace PinnedMessages

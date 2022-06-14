@@ -5,7 +5,7 @@
 #include "StreamChatClientComponent.h"
 #include "User/User.h"
 
-namespace
+namespace UserPresence
 {
 UStreamChatClientComponent* Client;
 
@@ -51,4 +51,4 @@ void ListeningToPresenceChanges()
             // Handle change
         });
 }
-}    // namespace
+}    // namespace UserPresence

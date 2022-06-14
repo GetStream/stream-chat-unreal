@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "StreamChatClientComponent.h"
-namespace
+namespace CreatingChannels
 {
 UStreamChatClientComponent* Client = nullptr;
 
@@ -31,4 +31,4 @@ void CreatingAChannelForAListOfMembers()
             // Channel created
         });
 }
-}    // namespace
+}    // namespace CreatingChannels

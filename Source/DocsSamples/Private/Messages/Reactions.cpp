@@ -4,7 +4,7 @@
 #include "CoreMinimal.h"
 #include "Reaction/Reaction.h"
 
-namespace
+namespace Reactions
 {
 UChatChannel* Channel;
 FMessage Message;
@@ -54,4 +54,4 @@ void CumulativeClapReactions()
     Channel->SendReaction(Message, TEXT("like"), 20);
 }
 
-}    // namespace
+}    // namespace Reactions

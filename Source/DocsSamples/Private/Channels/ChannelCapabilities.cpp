@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 
-namespace
+namespace ChannelCapabilities
 {
 
 // https://getstream.io/chat/docs/unreal/channel_capabilities/?language=unreal
@@ -10,4 +10,4 @@ void ChannelCapabilities()
 {
     // Not yet supported in the Unreal SDK
 }
-}    // namespace
+}    // namespace ChannelCapabilities

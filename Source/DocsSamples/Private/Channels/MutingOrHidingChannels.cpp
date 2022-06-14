@@ -4,7 +4,7 @@
 #include "CoreMinimal.h"
 #include "StreamChatClientComponent.h"
 
-namespace
+namespace MutingOrHidingChannels
 {
 UStreamChatClientComponent* Client;
 UChatChannel* Channel = nullptr;
@@ -60,4 +60,4 @@ void HidingAChannel()
     // hide the channel and clear the message history
     Channel->Hide(true);
 }
-}    // namespace
+}    // namespace MutingOrHidingChannels

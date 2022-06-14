@@ -4,7 +4,7 @@
 #include "Channel/Message.h"
 #include "CoreMinimal.h"
 
-namespace
+namespace SilentMessages
 {
 UChatChannel* Channel = nullptr;
 FUserRef SystemUser;
@@ -18,4 +18,4 @@ void SilentMessages()
     Channel->SendMessage(Message);
 }
 
-}    // namespace
+}    // namespace SilentMessages

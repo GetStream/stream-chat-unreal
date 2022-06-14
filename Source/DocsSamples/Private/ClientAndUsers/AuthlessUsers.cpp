@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "StreamChatClientComponent.h"
 #include "User/User.h"
-namespace
+namespace AuthlessUsers
 {
 UStreamChatClientComponent* Client = nullptr;
 
@@ -29,4 +29,4 @@ void AnonymousUsers()
         });
 }
 
-}    // namespace
+}    // namespace AuthlessUsers

@@ -3,7 +3,7 @@
 #include "Channel/ChatChannel.h"
 #include "CoreMinimal.h"
 
-namespace
+namespace UpdatingChannelMembers
 {
 UChatChannel* Channel = nullptr;
 
@@ -30,4 +30,4 @@ void LeavingAChannel()
 
 // Adding & Removing Moderators to a Channel: server-side only
 
-}    // namespace
+}    // namespace UpdatingChannelMembers

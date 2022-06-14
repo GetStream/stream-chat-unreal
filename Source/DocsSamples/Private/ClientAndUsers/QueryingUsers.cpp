@@ -2,8 +2,8 @@
 
 #include "CoreMinimal.h"
 #include "StreamChatClientComponent.h"
-#include "User/User.h"
-namespace
+
+namespace QueryingUsers
 {
 UStreamChatClientComponent* Client = nullptr;
 
@@ -78,4 +78,4 @@ void AutocompleteById()
         });
 }
 
-}    // namespace
+}    // namespace QueryingUsers

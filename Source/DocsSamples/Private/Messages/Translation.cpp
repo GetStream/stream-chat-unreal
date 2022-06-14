@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "StreamChatClientComponent.h"
 
-namespace
+namespace Translation
 {
 UStreamChatClientComponent* Client = nullptr;
 
@@ -13,4 +13,4 @@ void MessageTranslationEndpoint()
     // Not yet supported in the Unreal SDK
 }
 
-}    // namespace
+}    // namespace Translation

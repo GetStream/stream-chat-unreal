@@ -3,7 +3,7 @@
 #include "Channel/ChatChannel.h"
 #include "CoreMinimal.h"
 
-namespace
+namespace MessageFormat
 {
 UChatChannel* Channel;
 
@@ -14,4 +14,4 @@ void OpenGraphScraper()
     Channel->SendMessage(Message);
 }
 
-}    // namespace
+}    // namespace MessageFormat

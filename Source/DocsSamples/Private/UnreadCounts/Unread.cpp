@@ -6,7 +6,7 @@
 #include "Event/Notification/NotificationMessageNewEvent.h"
 #include "StreamChatClientComponent.h"
 
-namespace
+namespace Unread
 {
 UStreamChatClientComponent* Client = nullptr;
 UChatChannel* Channel = nullptr;
@@ -47,4 +47,4 @@ void ReadEvents()
         });
 }
 
-}    // namespace
+}    // namespace Unread

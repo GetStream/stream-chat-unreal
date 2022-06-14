@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 
-namespace
+namespace ThreadsAndReplies
 {
 
 // https://getstream.io/chat/docs/unreal/threads/?language=unreal
@@ -22,4 +22,4 @@ void QuoteMessage()
 {
     // Not yet supported in the Unreal SDK
 }
-}    // namespace
+}    // namespace ThreadsAndReplies

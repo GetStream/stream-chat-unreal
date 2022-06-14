@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 
-namespace
+namespace FileUploads
 {
 
 // https://getstream.io/chat/docs/unreal/file_uploads/?language=unreal#how-to-upload-a-file-or-image
@@ -23,4 +23,4 @@ void UsingYourOwnCdn()
     // Not yet supported in the Unreal SDK
 }
 
-}    // namespace
+}    // namespace FileUploads

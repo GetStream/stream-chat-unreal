@@ -20,7 +20,12 @@ public class DocsSamples : ModuleRules
                 "Engine",
                 "Slate",
                 "SlateCore",
-                "StreamChat"
+                "StreamChat",
+                "Json",
+                "JsonUtilities",
+                "StreamJson",
+                "StreamChatApi",
+                "StreamChatWebSocket",
             }
         );
     }
