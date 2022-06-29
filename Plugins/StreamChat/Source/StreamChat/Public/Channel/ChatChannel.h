@@ -244,8 +244,9 @@ public:
      *
      * @param Message A message struct containing information of the message to be sent
      */
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message")
-    void SendMessage(const FMessage& Message);
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message", DisplayName = "Send Message", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo))
+    void SendMessageBP(const FMessage& Message, const UObject* WorldContextObject, FLatentActionInfo LatentInfo, bool& bSuccess);
+    void SendMessage(const FMessage& Message, const TFunction<void(const bool& bSuccess)> = {});
 
     /**
      * @brief Update (user might see "Edit") a message which exists on this channel

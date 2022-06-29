@@ -28,6 +28,11 @@ public:
         }
     }
 
+    bool IsSuccessful() const
+    {
+        return ResponseOrError.template IsType<T>();
+    }
+
     // Get a pointer to the held response, or nullptr if error
     const T* Get() const
     {
