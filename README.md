@@ -30,7 +30,7 @@
     </a>
     &nbsp;
     <a href="https://github.com/GetStream/stream-chat-unreal/graphs/commit-activity">
-        <img src="https://img.shields.io/github/commit-activity/m/GetStream/stream-chat-flutter" alt="GitHub commit activity">
+        <img src="https://img.shields.io/github/commit-activity/m/GetStream/stream-chat-unreal" alt="GitHub commit activity">
     </a>
 </p>
 
