@@ -7,6 +7,18 @@ namespace ThrottlingAndSlowMode
 {
 
 UChatChannel* Channel = nullptr;
+FMessage Message = {};
+FTimerHandle TimerHandle;
+UWorld* GetWorld()
+{
+    return nullptr;
+}
+void DisableSendMessageUI()
+{
+}
+void EnableSendMessageUI()
+{
+}
 
 // https://getstream.io/chat/docs/unreal/slow_mode/?language=unreal#channel-slow-mode
 void ChannelSlowMode()
@@ -23,6 +35,18 @@ void ChannelSlowMode()
 
 void UiCooldown()
 {
-    // Channel->SendMessage()
+    Channel->SendMessage(
+        Message,
+        [](const bool& bSuccess)
+        {
+            if (Channel->Properties.Cooldown > 0)
+            {
+                // first lock the UI so that the user is aware of the cooldown
+                DisableSendMessageUI();
+                // restore the UI after the cooldown is finished
+                GetWorld()->GetTimerManager().SetTimer(
+                    TimerHandle, [] { EnableSendMessageUI(); }, Channel->Properties.Cooldown.GetTotalSeconds(), false);
+            }
+        });
 }
 }    // namespace ThrottlingAndSlowMode

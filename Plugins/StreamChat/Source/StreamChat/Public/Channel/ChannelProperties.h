@@ -84,9 +84,9 @@ struct STREAMCHAT_API FChannelProperties
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel Properties")
     TArray<FMember> Members;
 
-    /// Cooldown period after sending each message
+    /// Cooldown period after sending each message. No cooldown if zero.
     UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel Properties")
-    int32 Cooldown = 0;
+    FTimespan Cooldown = FTimespan::Zero();
 
     /// The date of channel creation
     UPROPERTY()
