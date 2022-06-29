@@ -85,8 +85,8 @@ struct STREAMCHAT_API FChannelProperties
     TArray<FMember> Members;
 
     /// Cooldown period after sending each message
-    UPROPERTY()
-    uint32 Cooldown = TNumericLimits<uint32>::Max();
+    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel Properties")
+    int32 Cooldown = 0;
 
     /// The date of channel creation
     UPROPERTY()

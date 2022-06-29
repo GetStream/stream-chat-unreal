@@ -98,12 +98,6 @@ void FRequestBuilder::SendInternal()
                     HttpResponse.StatusCode,
                     *OriginalRequest->GetVerb(),
                     *OriginalRequest->GetURL());
-                UE_LOG(LogHttpClient, Verbose, TEXT("HTTP response [Body=%s]"), *HttpResponse.Text);
-                RequestBuilder.Client->OnResponseDelegate.Broadcast(HttpResponse);
-                if (RequestBuilder.RetainedCallback)
-                {
-                    RequestBuilder.RetainedCallback(HttpResponse);
-                }
             }
             else
             {
@@ -115,6 +109,13 @@ void FRequestBuilder::SendInternal()
                     *OriginalRequest->GetVerb(),
                     *OriginalRequest->GetURL());
                 RequestBuilder.Client->OnErrorDelegate.Broadcast(HttpResponse, RequestBuilder);
+            }
+
+            UE_LOG(LogHttpClient, Verbose, TEXT("HTTP response [Body=%s]"), *HttpResponse.Text);
+            RequestBuilder.Client->OnResponseDelegate.Broadcast(HttpResponse);
+            if (RequestBuilder.RetainedCallback)
+            {
+                RequestBuilder.RetainedCallback(HttpResponse);
             }
         });
 

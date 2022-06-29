@@ -25,6 +25,8 @@ struct FHttpResponse
     template <class T>
     T Json() const;
 
+    bool HTTPREQUESTS_API IsSuccessful() const;
+
     UPROPERTY(BlueprintReadOnly, Category = "HTTP Response")
     int32 StatusCode = -1;
 

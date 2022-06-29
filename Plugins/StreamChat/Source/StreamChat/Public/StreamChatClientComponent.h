@@ -419,7 +419,7 @@ public:
         const FFilter& Filter,
         const TArray<FBanSortOption>& SortOptions = {},
         const TOptional<FBanPaginationOptions> PaginationOptions = {},
-        TCallback<TArray<FBan>> Callback = {});
+        const TFunction<void(const TArray<FBan>&)> Callback = {});
 
     /**
      * @brief Flag message for moderation

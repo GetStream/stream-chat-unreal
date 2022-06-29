@@ -82,8 +82,9 @@ void FChatApiSpec::Define()
                         {},
                         {},
                         {},
-                        [=](const FChannelStateResponseDto& Dto)
+                        [=](const TResponse<FChannelStateResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             TestFalse("Not hidden", Dto.Channel.bHidden);
                             TestEqual("Response.Channel.Cid", Dto.Channel.Cid, NewCid);
                             TestEqual("Response.Channel.Id", Dto.Channel.Id, NewChannelId);
@@ -106,8 +107,9 @@ void FChatApiSpec::Define()
                         {},
                         {},
                         {},
-                        [=](const FChannelsResponseDto& Dto)
+                        [=](const TResponse<FChannelsResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             TestEqual("One channel in response", Dto.Channels.Num(), 1);
                             TestDone.Execute();
                         });
@@ -120,8 +122,9 @@ void FChatApiSpec::Define()
                     Api->MuteChannels(
                         {NewCid},
                         {},
-                        [=](const FMuteChannelResponseDto& Dto)
+                        [=](const TResponse<FMuteChannelResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             TestEqual("Correct channel muted", Dto.ChannelMute.Channel.Cid, NewCid);
                             TestEqual("No channel mute expiry", Dto.ChannelMute.Expires.GetTicks(), 0);
                             TestTrue(
@@ -137,8 +140,9 @@ void FChatApiSpec::Define()
                 {
                     Api->UnmuteChannels(
                         {NewCid},
-                        [=](const FResponseDto& Dto)
+                        [=](const TResponse<FResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
                             TestDone.Execute();
                         });
@@ -156,8 +160,9 @@ void FChatApiSpec::Define()
                         NewChannelId,
                         Set,
                         {},
-                        [=](const FUpdateChannelPartialResponseDto& Dto)
+                        [=](const TResponse<FUpdateChannelPartialResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             TestEqual("Channel name partial updated", Dto.Channel.AdditionalFields.GetString(TEXT("name")), {NewName});
                             TestDone.Execute();
                         });
@@ -175,8 +180,9 @@ void FChatApiSpec::Define()
                         ChannelType,
                         NewChannelId,
                         Data,
-                        [=](const FUpdateChannelResponseDto& Dto)
+                        [=](const TResponse<FUpdateChannelResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             const FString ResponseName = Dto.Channel.AdditionalFields.GetString(TEXT("name")).GetValue();
                             AddInfo(ResponseName);
                             TestEqual("Name updated", ResponseName, NewName);
@@ -198,8 +204,9 @@ void FChatApiSpec::Define()
                         ChannelType,
                         NewChannelId,
                         Data,
-                        [=](const FUpdateChannelResponseDto& Dto)
+                        [=](const TResponse<FUpdateChannelResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             const FChannelMemberDto* Found = Dto.Members.FindByPredicate([&](const FChannelMemberDto& A) { return A.UserId == User.Id; });
                             TestNotNull("User added", Found);
                             TestTrue("User is moderator", Found->bIsModerator);
@@ -221,8 +228,9 @@ void FChatApiSpec::Define()
                         {},
                         {},
                         {},
-                        [=](const FMembersResponseDto& Dto)
+                        [=](const TResponse<FMembersResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             const FChannelMemberDto* Found = Dto.Members.FindByPredicate([&](const FChannelMemberDto& A) { return A.UserId == User.Id; });
                             TestNotNull("User queried", Found);
                             TestTrue("User is moderator", Found->bIsModerator);
@@ -238,8 +246,9 @@ void FChatApiSpec::Define()
                         ChannelType,
                         NewChannelId,
                         false,
-                        [=](const FResponseDto& Dto)
+                        [=](const TResponse<FResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
                             TestDone.Execute();
                         });
@@ -252,8 +261,9 @@ void FChatApiSpec::Define()
                     Api->ShowChannel(
                         ChannelType,
                         NewChannelId,
-                        [=](const FResponseDto& Dto)
+                        [=](const TResponse<FResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
                             TestDone.Execute();
                         });
@@ -273,8 +283,9 @@ void FChatApiSpec::Define()
                         ChannelType,
                         NewChannelId,
                         Data,
-                        [=](const FUpdateChannelResponseDto& Dto)
+                        [=](const TResponse<FUpdateChannelResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             const FChannelMemberDto* Found = Dto.Members.FindByPredicate([&](const FChannelMemberDto& A) { return A.UserId == User.Id; });
                             TestNull("User removed", Found);
                             TestEqual("Message sent", Dto.Message.Text, MsgText);
@@ -289,8 +300,9 @@ void FChatApiSpec::Define()
                     Api->DeleteChannel(
                         ChannelType,
                         NewChannelId,
-                        [=](const FDeleteChannelResponseDto& Dto)
+                        [=](const TResponse<FDeleteChannelResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             TestEqual("Response.Channel.Cid", Dto.Channel.Cid, NewCid);
                             TestEqual("Response.Channel.Id", Dto.Channel.Id, NewChannelId);
                             AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
@@ -314,8 +326,9 @@ void FChatApiSpec::Define()
                         {},
                         {},
                         {},
-                        [=](const FChannelsResponseDto& Dto)
+                        [=](const TResponse<FChannelsResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             TestEqual("No channels in response", Dto.Channels.Num(), 0);
                             TestDone.Execute();
                         });
@@ -337,8 +350,9 @@ void FChatApiSpec::Define()
                         {},
                         100,
                         {},
-                        [=](const FUsersResponseDto& Dto)
+                        [=](const TResponse<FUsersResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             TestTrue("Users returned", Dto.Users.Num() > 0);
                             const FUserResponseDto* FoundUser =
                                 Dto.Users.FindByPredicate([=](const FUserResponseDto& UserDto) { return UserDto.Id == User.Id; });
@@ -365,8 +379,9 @@ void FChatApiSpec::Define()
                     const FUserObjectRequestDto GuestUserDto{FUserDto{TEXT("test-guest-user")}};
                     Api->CreateGuest(
                         GuestUserDto,
-                        [=](const FGuestResponseDto& Dto)
+                        [=](const TResponse<FGuestResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             // Check for "guest-{uuid}-test-guest-user
                             const FRegexPattern Pattern{TEXT("guest-[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}-test-guest-user")};
                             FRegexMatcher Regex{Pattern, Dto.User.Id};
@@ -389,8 +404,9 @@ void FChatApiSpec::Define()
                     const FChatApi::FPartialUpdateUser Update{GuestUserId, Set, {}};
                     Api->PartialUpdateUsers(
                         {Update},
-                        [=](const FUpdateUsersResponseDto& Dto)
+                        [=](const TResponse<FUpdateUsersResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             TestEqual("User partial updated", Dto.Users[GuestUserId].AdditionalFields.GetString(TEXT("name")).GetValue(), NewName);
                             TestDone.Execute();
                         });
@@ -407,8 +423,9 @@ void FChatApiSpec::Define()
                     Update.AdditionalFields.SetString(TEXT("name"), NewName);
                     Api->UpsertUsers(
                         {{GuestUserId, Update}},
-                        [=](const FUpdateUsersResponseDto& Dto)
+                        [=](const TResponse<FUpdateUsersResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             TestEqual("User upserted", Dto.Users[GuestUserId].AdditionalFields.GetString(TEXT("name")).GetValue(), NewName);
                             TestDone.Execute();
                         });
@@ -426,8 +443,9 @@ void FChatApiSpec::Define()
                     Api->AddDevice(
                         DeviceId,
                         EPushProvider::Firebase,
-                        [=](const FResponseDto& Dto)
+                        [=](const TResponse<FResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             TestTrue("Response received", Dto.Duration.Len() > 0);
                             TestDone.Execute();
                         });
@@ -439,8 +457,9 @@ void FChatApiSpec::Define()
                 {
                     Api->RemoveDevice(
                         DeviceId,
-                        [=](const FResponseDto& Dto)
+                        [=](const TResponse<FResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             TestTrue("Response received", Dto.Duration.Len() > 0);
                             TestDone.Execute();
                         });
@@ -451,8 +470,9 @@ void FChatApiSpec::Define()
                 [=](const FDoneDelegate& TestDone)
                 {
                     Api->ListDevices(
-                        [=](const FListDevicesResponseDto& Dto)
+                        [=](const TResponse<FListDevicesResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             TestEqual("Device exists", Dto.Devices[0].Id, DeviceId);
                             TestDone.Execute();
                         });
@@ -470,8 +490,9 @@ void FChatApiSpec::Define()
                     Api->MuteUsers(
                         {BanUserId},
                         {},
-                        [=](const FMuteUserResponseDto& Dto)
+                        [=](const TResponse<FMuteUserResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             TestEqual("User muted", Dto.Mute.Target.Id, BanUserId);
                             /*
                             TestTrue(
@@ -489,8 +510,9 @@ void FChatApiSpec::Define()
                 {
                     Api->UnmuteUsers(
                         {BanUserId},
-                        [=](const FResponseDto& Dto)
+                        [=](const TResponse<FResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             TestTrue("Response received", Dto.Duration.Len() > 0);
                             TestDone.Execute();
                         });
@@ -513,8 +535,9 @@ void FChatApiSpec::Define()
                         {},
                         {},
                         {},
-                        [=](const FResponseDto& Dto)
+                        [=](const TResponse<FResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             TestTrue("Response received", Dto.Duration.Len() > 0);
                             TestDone.Execute();
                         });
@@ -533,8 +556,9 @@ void FChatApiSpec::Define()
                         {},
                         {},
                         {},
-                        [=](const FQueryBannedUsersResponseDto& Dto)
+                        [=](const TResponse<FQueryBannedUsersResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             const FBanResponseDto* Ban = Dto.Bans.FindByPredicate([&](const FBanResponseDto& B) { return B.User.Id == BanUserId; });
                             TestNotNull("User was banned", Ban);
                             TestEqual("Banned in channel", Ban->Channel.Cid, Cid);
@@ -551,8 +575,9 @@ void FChatApiSpec::Define()
                         BanUserId,
                         ChannelType,
                         ChannelId,
-                        [=](const FResponseDto& Dto)
+                        [=](const TResponse<FResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             TestTrue("Response received", Dto.Duration.Len() > 0);
                             TestDone.Execute();
                         });
@@ -572,8 +597,9 @@ void FChatApiSpec::Define()
                         {},
                         {},
                         {},
-                        [=](const FQueryBannedUsersResponseDto& Dto)
+                        [=](const TResponse<FQueryBannedUsersResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             const FBanResponseDto* Ban = Dto.Bans.FindByPredicate([&](const FBanResponseDto& B) { return B.User.Id == BanUserId; });
                             TestNull("User was unbanned", Ban);
                             TestDone.Execute();
@@ -597,8 +623,9 @@ void FChatApiSpec::Define()
                         ChannelId,
                         Request,
                         false,
-                        [=](const FMessageResponseDto& Dto)
+                        [=](const TResponse<FMessageResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             TestEqual("Message text is same as input", Dto.Message.Text, MsgText);
                             MessageId = Dto.Message.Id;
                             TestDone.Execute();
@@ -612,8 +639,9 @@ void FChatApiSpec::Define()
                     Api->Flag(
                         MessageId,
                         {},
-                        [=](const FFlagResponseDto& Dto)
+                        [=](const TResponse<FFlagResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             TestEqual("Message ID matches query", Dto.Flag.TargetMessageId, MessageId);
                             TestDone.Execute();
                         });
@@ -626,8 +654,9 @@ void FChatApiSpec::Define()
                     Api->DeleteMessage(
                         MessageId,
                         true,
-                        [=](const FMessageResponseDto& Dto)
+                        [=](const TResponse<FMessageResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             TestEqual("Message text is same as input", Dto.Message.Text, MsgText);
                             TestEqual("Message is deleted", Dto.Message.Type, EMessageTypeDto::Deleted);
                             TestDone.Execute();
@@ -652,8 +681,9 @@ void FChatApiSpec::Define()
                         {},
                         {},
                         {},
-                        [=](const FChannelStateResponseDto& Dto)
+                        [=](const TResponse<FChannelStateResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             TestEqual("Response.Channel.Cid", Dto.Channel.Cid, Cid);
                             TestDone.Execute();
                         });
@@ -671,8 +701,9 @@ void FChatApiSpec::Define()
                         {},
                         {},
                         {{5, 0}},
-                        [=](const FChannelStateResponseDto& Dto)
+                        [=](const TResponse<FChannelStateResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             TestEqual("Response.Channel.Cid", Dto.Channel.Cid, Cid);
                             TestTrue("Watched", Dto.Watchers.ContainsByPredicate([&](const FUserObjectDto& U) { return U.Id == User.Id; }));
                             TestDone.Execute();
@@ -687,8 +718,9 @@ void FChatApiSpec::Define()
                         ChannelType,
                         ChannelId,
                         Socket->GetConnectionId(),
-                        [=](const FResponseDto& Dto)
+                        [=](const TResponse<FResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
                             TestDone.Execute();
                         });
@@ -707,8 +739,9 @@ void FChatApiSpec::Define()
                         {},
                         {},
                         {},
-                        [=](const FChannelStateResponseDto& Dto)
+                        [=](const TResponse<FChannelStateResponseDto>& Response)
                         {
+                            const auto& Dto = Response.GetRef();
                             TestFalse("Stopped watching", Dto.Watchers.ContainsByPredicate([&](const FUserObjectDto& U) { return U.Id == User.Id; }));
                             TestDone.Execute();
                         });

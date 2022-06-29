@@ -8,6 +8,7 @@
 #include "Request/Channel/MessagePaginationParamsRequestDto.h"
 #include "Request/Channel/PaginationParamsRequestDto.h"
 #include "Request/SortParamRequestDto.h"
+#include "RequestBuilder.h"
 #include "StreamJson.h"
 
 struct FUserObjectRequestDto;
@@ -46,7 +47,7 @@ struct FUpdateUsersResponseDto;
 struct FUsersResponseDto;
 
 template <class T>
-using TCallback = TFunction<void(const T&)>;
+using TCallback = TFunction<void(const TResponse<T>&)>;
 
 /**
  * @brief All Stream Chat REST API requests can be made via this object

@@ -191,7 +191,7 @@ void UStreamChatClientComponent::QueryBannedUsers(
     const FFilter& Filter,
     const TArray<FBanSortOption>& SortOptions,
     const TOptional<FBanPaginationOptions> PaginationOptions,
-    TCallback<TArray<FBan>> Callback)
+    const TFunction<void(const TArray<FBan>&)> Callback)
 {
     TOptional<FDateTime> CreatedAtAfterOrEqual;
     TOptional<FDateTime> CreatedAtAfter;
@@ -217,12 +217,15 @@ void UStreamChatClientComponent::QueryBannedUsers(
         CreatedAtBefore,
         Limit,
         Offset,
-        [WeakThis = TWeakObjectPtr<UStreamChatClientComponent>(this), Callback](const FQueryBannedUsersResponseDto& Dto)
+        [WeakThis = TWeakObjectPtr<UStreamChatClientComponent>(this), Callback](const TResponse<FQueryBannedUsersResponseDto>& Response)
         {
-            if (Callback)
+            if (const auto* Dto = Response.Get())
             {
-                const TArray<FBan> Bans = Util::Convert<FBan>(Dto.Bans, UUserManager::Get());
-                Callback(Bans);
+                if (Callback)
+                {
+                    const TArray<FBan> Bans = Util::Convert<FBan>(Dto->Bans, UUserManager::Get());
+                    Callback(Bans);
+                }
             }
         });
 }
@@ -269,15 +272,16 @@ void UStreamChatClientComponent::ConnectGuestUser(const FUser& User, TFunction<v
 
     Api->CreateGuest(
         FUserObjectRequestDto(User),
-        [WeakThis = TWeakObjectPtr<UStreamChatClientComponent>(this), Callback](const FGuestResponseDto& Response)
+        [WeakThis = TWeakObjectPtr<UStreamChatClientComponent>(this), Callback](const TResponse<FGuestResponseDto>& Response)
         {
-            if (!WeakThis.IsValid())
+            const auto* Dto = Response.Get();
+            if (!WeakThis.IsValid() || !Dto)
             {
                 return;
             }
 
-            const FToken GuestToken = FToken::Jwt(Response.AccessToken);
-            const FUser GuestUser = *UUserManager::Get()->UpsertUser(Response.User);
+            const FToken GuestToken = FToken::Jwt(Dto->AccessToken);
+            const FUser GuestUser = *UUserManager::Get()->UpsertUser(Dto->User);
             WeakThis->TokenManager->SetTokenProvider(MakeUnique<FConstantTokenProvider>(GuestToken), GuestUser.Id);
             WeakThis->ConnectUserInternal(GuestUser, Callback);
         });
@@ -335,16 +339,17 @@ void UStreamChatClientComponent::QueryChannels(
         {},
         PaginationOptions.GetLimitAsOptional(),
         PaginationOptions.GetOffsetAsOptional(),
-        [WeakThis = TWeakObjectPtr<UStreamChatClientComponent>(this), Callback](const FChannelsResponseDto& Response)
+        [WeakThis = TWeakObjectPtr<UStreamChatClientComponent>(this), Callback](const TResponse<FChannelsResponseDto>& Response)
         {
-            if (!WeakThis.IsValid())
+            const auto* Dto = Response.Get();
+            if (!WeakThis.IsValid() || !Dto)
             {
                 return;
             }
 
             // TODO Perf?
             TArray<UChatChannel*> NewChannels;
-            for (const FChannelStateResponseFieldsDto& ResponseChannel : Response.Channels)
+            for (const FChannelStateResponseFieldsDto& ResponseChannel : Dto->Channels)
             {
                 const auto Pred = [&ResponseChannel, &NewChannels](const UChatChannel* Channel)
                 {
@@ -393,13 +398,14 @@ void UStreamChatClientComponent::QueryChannel(const FChannelProperties& ChannelP
         {},
         {},
         {},
-        [WeakThis = TWeakObjectPtr<UStreamChatClientComponent>(this), Callback](const FChannelStateResponseDto& Dto)
+        [WeakThis = TWeakObjectPtr<UStreamChatClientComponent>(this), Callback](const TResponse<FChannelStateResponseDto>& Response)
         {
-            if (!WeakThis.IsValid())
+            const auto* Dto = Response.Get();
+            if (!WeakThis.IsValid() || !Dto)
             {
                 return;
             }
-            UChatChannel* Channel = WeakThis->CreateChannelObject(Dto);
+            UChatChannel* Channel = WeakThis->CreateChannelObject(*Dto);
 
             WeakThis->Channels.Insert(Channel, 0);
             WeakThis->ChannelsUpdated.Broadcast(WeakThis->Channels);
@@ -454,13 +460,14 @@ void UStreamChatClientComponent::QueryUsers(
         Util::Convert<FSortParamRequestDto>(Sort),
         Limit,
         Offset,
-        [Callback](const FUsersResponseDto& Dto)
+        [Callback](const TResponse<FUsersResponseDto>& Response)
         {
-            if (Callback)
+            const auto* Dto = Response.Get();
+            if (Callback && Dto)
             {
                 UUserManager* UserManager = UUserManager::Get();
                 TArray<FUserRef> Users;
-                Algo::Transform(Dto.Users, Users, [UserManager](const FUserResponseDto& UserResponseDto) { return UserManager->UpsertUser(UserResponseDto); });
+                Algo::Transform(Dto->Users, Users, [UserManager](const FUserResponseDto& UserResponseDto) { return UserManager->UpsertUser(UserResponseDto); });
                 Callback(Users);
             }
         });
@@ -488,11 +495,12 @@ void UStreamChatClientComponent::SearchMessages(
         MessageLimit,
         {},
         {},
-        [Callback](const FSearchResponseDto& Response)
+        [Callback](const TResponse<FSearchResponseDto>& Response)
         {
-            if (Callback)
+            const auto* Dto = Response.Get();
+            if (Callback && Dto)
             {
-                Callback(Util::Convert<FMessage>(Response.Results, UUserManager::Get()));
+                Callback(Util::Convert<FMessage>(Dto->Results, UUserManager::Get()));
             }
         });
 }
@@ -515,11 +523,12 @@ void UStreamChatClientComponent::RemoveDevice(const FString& DeviceId) const
 void UStreamChatClientComponent::ListDevices(TFunction<void(TArray<FDevice>)> Callback) const
 {
     Api->ListDevices(
-        [Callback](const FListDevicesResponseDto& Dto)
+        [Callback](const TResponse<FListDevicesResponseDto>& Response)
         {
-            if (Callback)
+            const auto* Dto = Response.Get();
+            if (Callback && Dto)
             {
-                const TArray<FDevice> Devices = Util::Convert<FDevice>(Dto.Devices, UUserManager::Get());
+                const TArray<FDevice> Devices = Util::Convert<FDevice>(Dto->Devices, UUserManager::Get());
                 Callback(Devices);
             }
         });

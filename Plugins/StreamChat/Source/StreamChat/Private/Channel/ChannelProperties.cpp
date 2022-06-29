@@ -16,7 +16,7 @@ FChannelProperties::FChannelProperties(const FChannelResponseDto& Dto, UUserMana
     , Config{Dto.Config}
     , MemberCount{Dto.MemberCount}
     , Members{Util::Convert<FMember>(Dto.Members, UserManager)}
-    , Cooldown{Dto.Cooldown}
+    , Cooldown{Dto.Cooldown == TNumericLimits<uint32>::Max() ? 0 : static_cast<int32>(Dto.Cooldown)}
     , CreatedAt{Dto.CreatedAt}
     , UpdatedAt{Dto.UpdatedAt}
     , DeletedAt{Dto.DeletedAt}

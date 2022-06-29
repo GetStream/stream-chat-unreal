@@ -523,6 +523,18 @@ public:
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Channel|Moderation")
     bool IsMuted() const;
 
+    /**
+     * @brief Enable slow mode with the given cooldown
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Moderation")
+    void EnableSlowMode(FTimespan Cooldown);
+
+    /**
+     * @brief Disable slow mode (no more cooldown between consecutive messages)
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Moderation")
+    void DisableSlowMode();
+
 private:
     void OnUserBanned(const FUserBannedEvent&);
     void OnUserUnbanned(const FUserUnbannedEvent&);

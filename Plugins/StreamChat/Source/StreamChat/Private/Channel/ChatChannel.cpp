@@ -92,7 +92,7 @@ void UChatChannel::Delete(TFunction<void()> Callback) const
     Api->DeleteChannel(
         Properties.Type,
         Properties.Id,
-        [Callback](const FDeleteChannelResponseDto&)
+        [Callback](const TResponse<FDeleteChannelResponseDto>&)
         {
             if (Callback)
             {
@@ -108,15 +108,18 @@ void UChatChannel::PartialUpdate(const TSharedRef<FJsonObject>& Set, const TArra
         Properties.Id,
         Set,
         Unset,
-        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback](const FUpdateChannelPartialResponseDto& Dto)
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback](const TResponse<FUpdateChannelPartialResponseDto>& Response)
         {
-            if (WeakThis.IsValid())
+            if (const auto* Dto = Response.Get())
             {
-                WeakThis->Properties.Merge(Dto.Channel, Dto.Members, UUserManager::Get());
-            }
-            if (Callback)
-            {
-                Callback();
+                if (WeakThis.IsValid())
+                {
+                    WeakThis->Properties.Merge(Dto->Channel, Dto->Members, UUserManager::Get());
+                }
+                if (Callback)
+                {
+                    Callback();
+                }
             }
         });
 }
@@ -129,16 +132,19 @@ void UChatChannel::Update(const FAdditionalFields& Data, const TOptional<FMessag
         Properties.Type,
         Properties.Id,
         RequestDto,
-        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback](const FUpdateChannelResponseDto& Dto)
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback](const TResponse<FUpdateChannelResponseDto>& Response)
         {
-            if (WeakThis.IsValid())
+            if (const auto* Dto = Response.Get())
             {
-                WeakThis->Properties = FChannelProperties{Dto.Channel, Dto.Members, UUserManager::Get()};
-                WeakThis->State.AddMessage(FMessage{Dto.Message, UUserManager::Get()});
-            }
-            if (Callback)
-            {
-                Callback();
+                if (WeakThis.IsValid())
+                {
+                    WeakThis->Properties = FChannelProperties{Dto->Channel, Dto->Members, UUserManager::Get()};
+                    WeakThis->State.AddMessage(FMessage{Dto->Message, UUserManager::Get()});
+                }
+                if (Callback)
+                {
+                    Callback();
+                }
             }
         });
 }
@@ -156,15 +162,18 @@ void UChatChannel::QueryMembers(
         {},
         Util::Convert<FSortParamRequestDto>(Sort),
         Util::Convert<FMessagePaginationParamsRequestDto>(Pagination),
-        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback](const FMembersResponseDto& Dto)
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback](const TResponse<FMembersResponseDto>& Response)
         {
-            if (WeakThis.IsValid())
+            if (const auto* Dto = Response.Get())
             {
-                WeakThis->Properties.AppendMembers(Dto.Members, UUserManager::Get());
-            }
-            if (Callback)
-            {
-                Callback(Util::Convert<FMember>(Dto.Members, UUserManager::Get()));
+                if (WeakThis.IsValid())
+                {
+                    WeakThis->Properties.AppendMembers(Dto->Members, UUserManager::Get());
+                }
+                if (Callback)
+                {
+                    Callback(Util::Convert<FMember>(Dto->Members, UUserManager::Get()));
+                }
             }
         });
 }
@@ -189,15 +198,18 @@ void UChatChannel::AddMembers(const TArray<FString>& MemberIds, const TOptional<
         Properties.Type,
         Properties.Id,
         RequestDto,
-        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback](const FUpdateChannelResponseDto& Dto)
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback](const TResponse<FUpdateChannelResponseDto>& Response)
         {
-            if (WeakThis.IsValid())
+            if (const auto* Dto = Response.Get())
             {
-                WeakThis->Properties = FChannelProperties{Dto.Channel, Dto.Members, UUserManager::Get()};
-            }
-            if (Callback)
-            {
-                Callback();
+                if (WeakThis.IsValid())
+                {
+                    WeakThis->Properties = FChannelProperties{Dto->Channel, Dto->Members, UUserManager::Get()};
+                }
+                if (Callback)
+                {
+                    Callback();
+                }
             }
         });
 }
@@ -214,15 +226,18 @@ void UChatChannel::RemoveMembers(const TArray<FString>& MemberIds, const TOption
         Properties.Type,
         Properties.Id,
         RequestDto,
-        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback](const FUpdateChannelResponseDto& Dto)
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback](const TResponse<FUpdateChannelResponseDto>& Response)
         {
-            if (WeakThis.IsValid())
+            if (const auto* Dto = Response.Get())
             {
-                WeakThis->Properties = FChannelProperties{Dto.Channel, Dto.Members, UUserManager::Get()};
-            }
-            if (Callback)
-            {
-                Callback();
+                if (WeakThis.IsValid())
+                {
+                    WeakThis->Properties = FChannelProperties{Dto->Channel, Dto->Members, UUserManager::Get()};
+                }
+                if (Callback)
+                {
+                    Callback();
+                }
             }
         });
 }
@@ -233,7 +248,7 @@ void UChatChannel::Hide(const bool bClearHistory, TFunction<void()> Callback) co
         Properties.Type,
         Properties.Id,
         bClearHistory,
-        [Callback](const FResponseDto&)
+        [Callback](const TResponse<FResponseDto>&)
         {
             if (Callback)
             {
@@ -247,7 +262,7 @@ void UChatChannel::Show(TFunction<void()> Callback) const
     Api->ShowChannel(
         Properties.Type,
         Properties.Id,
-        [Callback](const FResponseDto&)
+        [Callback](const TResponse<FResponseDto>&)
         {
             if (Callback)
             {
@@ -262,7 +277,7 @@ void UChatChannel::StopWatching(TFunction<void()> Callback) const
         Properties.Type,
         Properties.Id,
         Socket->GetConnectionId(),
-        [Callback](const FResponseDto&)
+        [Callback](const TResponse<FResponseDto>&)
         {
             if (Callback)
             {
@@ -301,14 +316,16 @@ void UChatChannel::SendMessage(const FMessage& Message)
         Properties.Id,
         Request,
         false,
-        [](const FMessageResponseDto& Response)
+        [](const TResponse<FMessageResponseDto>& Response)
         {
-            // No need to add message here as the backend will send a websocket message
-            UE_LOG(LogTemp, Log, TEXT("Sent message [Id=%s]"), *Response.Message.Id);
+            if (const auto* Dto = Response.Get())
+            {
+                // No need to add message here as the backend will send a websocket message
+                UE_LOG(LogTemp, Log, TEXT("Sent message [Id=%s]"), *Dto->Message.Id);
+            }
         });
     MessageSent.Broadcast(NewMessage);
 
-    // TODO Cooldown?
     // TODO Retry logic
 }
 
@@ -323,12 +340,15 @@ void UChatChannel::UpdateMessage(const FMessage& Message)
     const FMessageRequestDto Request = UpdatedMessage.ToRequestDto(Properties.Cid);
     Api->UpdateMessage(
         Request,
-        [WeakThis = TWeakObjectPtr<UChatChannel>(this)](const FMessageResponseDto& Response)
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this)](const TResponse<FMessageResponseDto>& Response)
         {
-            if (WeakThis.IsValid())
+            if (const auto* Dto = Response.Get())
             {
-                WeakThis->AddMessage(FMessage{Response.Message, UUserManager::Get()});
-                UE_LOG(LogTemp, Log, TEXT("Updated message [Id=%s]"), *Response.Message.Id);
+                if (WeakThis.IsValid())
+                {
+                    WeakThis->AddMessage(FMessage{Dto->Message, UUserManager::Get()});
+                    UE_LOG(LogTemp, Log, TEXT("Updated message [Id=%s]"), *Dto->Message.Id);
+                }
             }
         });
     // TODO retry?
@@ -360,12 +380,15 @@ void UChatChannel::DeleteMessage(const FMessage& Message)
     Api->DeleteMessage(
         DeletedMessage.Id,
         false,
-        [WeakThis = TWeakObjectPtr<UChatChannel>(this)](const FMessageResponseDto& Response)
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this)](const TResponse<FMessageResponseDto>& Response)
         {
-            if (WeakThis.IsValid())
+            if (const auto* Dto = Response.Get())
             {
-                WeakThis->AddMessage(FMessage{Response.Message, UUserManager::Get()});
-                UE_LOG(LogTemp, Log, TEXT("Deleted message [Id=%s]"), *Response.Message.Id);
+                if (WeakThis.IsValid())
+                {
+                    WeakThis->AddMessage(FMessage{Dto->Message, UUserManager::Get()});
+                    UE_LOG(LogTemp, Log, TEXT("Deleted message [Id=%s]"), *Dto->Message.Id);
+                }
             }
         });
 
@@ -441,7 +464,7 @@ void UChatChannel::Query(
         Util::Convert<FMessagePaginationParamsRequestDto>(MessagePagination),
         Util::Convert<FPaginationParamsRequestDto>(MemberPagination),
         Util::Convert<FPaginationParamsRequestDto>(WatcherPagination),
-        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback](const FChannelStateResponseDto& Dto)
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback](const TResponse<FChannelStateResponseDto>& Response)
         {
             if (!WeakThis.IsValid())
             {
@@ -452,11 +475,14 @@ void UChatChannel::Query(
                 return;
             }
 
-            WeakThis->MergeState(Dto);
-
-            if (Callback)
+            if (const auto* Dto = Response.Get())
             {
-                Callback();
+                WeakThis->MergeState(*Dto);
+
+                if (Callback)
+                {
+                    Callback();
+                }
             }
         });
 }
@@ -482,12 +508,15 @@ void UChatChannel::SearchMessages(
         MessageLimit,
         {},
         {},
-        [Callback](const FSearchResponseDto& Response)
+        [Callback](const TResponse<FSearchResponseDto>& Response)
         {
-            // Don't add the messages to this channel's state, just return
-            if (Callback)
+            if (const auto* Dto = Response.Get())
             {
-                Callback(Util::Convert<FMessage>(Response.Results, UUserManager::Get()));
+                // Don't add the messages to this channel's state, just return
+                if (Callback)
+                {
+                    Callback(Util::Convert<FMessage>(Dto->Results, UUserManager::Get()));
+                }
             }
         });
 }
@@ -536,20 +565,23 @@ void UChatChannel::GetReactions(const FMessage& Message, const FPaginationOption
         Message.Id,
         Pagination.GetLimitAsOptional(),
         Pagination.GetOffsetAsOptional(),
-        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback, NewMessage = Message](const FGetReactionsResponseDto& Dto) mutable
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback, NewMessage = Message](const TResponse<FGetReactionsResponseDto>& Response) mutable
         {
-            const TArray<FReaction> Reactions = Util::Convert<FReaction>(Dto.Reactions, UUserManager::Get());
-            if (WeakThis.IsValid())
+            if (const auto* Dto = Response.Get())
             {
-                for (auto&& Reaction : Reactions)
+                const TArray<FReaction> Reactions = Util::Convert<FReaction>(Dto->Reactions, UUserManager::Get());
+                if (WeakThis.IsValid())
                 {
-                    NewMessage.Reactions.AddReaction(Reaction, false);
+                    for (auto&& Reaction : Reactions)
+                    {
+                        NewMessage.Reactions.AddReaction(Reaction, false);
+                    }
+                    WeakThis->AddMessage(NewMessage);
                 }
-                WeakThis->AddMessage(NewMessage);
-            }
-            if (Callback)
-            {
-                Callback(Reactions);
+                if (Callback)
+                {
+                    Callback(Reactions);
+                }
             }
         });
 }
@@ -691,12 +723,15 @@ void UChatChannel::Mute(const TOptional<FTimespan>& Timeout)
     Api->MuteChannels(
         {Properties.Cid},
         Timeout,
-        [WeakThis = TWeakObjectPtr<UChatChannel>(this)](const FMuteChannelResponseDto& Dto)
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this)](const TResponse<FMuteChannelResponseDto>& Response)
         {
-            UUserManager::Get()->UpsertUser(Dto.OwnUser);
-            if (WeakThis.IsValid())
+            if (const auto* Dto = Response.Get())
             {
-                WeakThis->Properties.Merge(Dto.ChannelMute.Channel, UUserManager::Get());
+                UUserManager::Get()->UpsertUser(Dto->OwnUser);
+                if (WeakThis.IsValid())
+                {
+                    WeakThis->Properties.Merge(Dto->ChannelMute.Channel, UUserManager::Get());
+                }
             }
         });
 }
@@ -709,6 +744,22 @@ void UChatChannel::Unmute() const
 bool UChatChannel::IsMuted() const
 {
     return UUserManager::Get()->GetCurrentUser().MutedChannels.ContainsByPredicate([&](const FMutedChannel& C) { return C.Cid == Properties.Cid; });
+}
+
+void UChatChannel::EnableSlowMode(const FTimespan Cooldown)
+{
+    const TSharedRef<FJsonValueNumber> CooldownInSecond = MakeShared<FJsonValueNumber>(Cooldown.GetTotalSeconds());
+    const TSharedRef<FJsonObject> Set = MakeShared<FJsonObject>();
+    Set->SetField(TEXT("cooldown"), CooldownInSecond);
+    PartialUpdate(Set);
+}
+
+void UChatChannel::DisableSlowMode()
+{
+    const TSharedRef<FJsonValueNumber> CooldownInSecond = MakeShared<FJsonValueNumber>(0.);
+    const TSharedRef<FJsonObject> Set = MakeShared<FJsonObject>();
+    Set->SetField(TEXT("cooldown"), CooldownInSecond);
+    PartialUpdate(Set);
 }
 
 void UChatChannel::OnUserBanned(const FUserBannedEvent& Event)
