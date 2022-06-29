@@ -11,6 +11,39 @@ class FHttpClient;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogHttpClient, Verbose, All);
 
+template <class T>
+struct TResponse
+{
+public:
+    // Deserialize response if success
+    explicit TResponse(const FHttpResponse& Response)
+    {
+        if (Response.IsSuccessful())
+        {
+            ResponseOrError.template Set<T>(Response.Json<T>());
+        }
+        else
+        {
+            ResponseOrError.template Set<FString>(TEXT("Error"));
+        }
+    }
+
+    // Get a pointer to the held response, or nullptr if error
+    const T* Get() const
+    {
+        return ResponseOrError.template TryGet<T>();
+    }
+
+    // Get a ref to the held response if you're SURE this isn't an error
+    const T& GetRef() const
+    {
+        return ResponseOrError.template Get<T>();
+    }
+
+private:
+    TVariant<T, FString> ResponseOrError;
+};
+
 class HTTPREQUESTS_API FRequestBuilder
 {
 public:
@@ -56,7 +89,7 @@ public:
      * @param Callback A function to be called when the response is received
      */
     template <class T>
-    void Send(TFunction<void(const T&)> Callback);
+    void Send(TFunction<void(const TResponse<T>&)> Callback);
 
     void Resend();
 
@@ -79,14 +112,14 @@ FRequestBuilder& FRequestBuilder::Json(const T& Struct, ENamingConvention Naming
 }
 
 template <class T>
-void FRequestBuilder::Send(TFunction<void(const T&)> Callback)
+void FRequestBuilder::Send(TFunction<void(const TResponse<T>&)> Callback)
 {
     Send(
         [Callback](const FHttpResponse& Response)
         {
             if (Callback)
             {
-                Callback(Response.Json<T>());
+                Callback(TResponse<T>(Response));
             }
         });
 }

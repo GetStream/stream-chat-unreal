@@ -12,3 +12,8 @@ FHttpResponse::FHttpResponse(const FHttpResponsePtr Response)
         Text = Response->GetContentAsString();
     }
 }
+
+bool FHttpResponse::IsSuccessful() const
+{
+    return StatusCode >= 200 && StatusCode < 300;
+}
