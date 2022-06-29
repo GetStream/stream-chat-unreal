@@ -286,7 +286,12 @@ void UChatChannel::StopWatching(TFunction<void()> Callback) const
         });
 }
 
-void UChatChannel::SendMessage(const FMessage& Message)
+void UChatChannel::SendMessageBP(const FMessage& Message, const UObject* WorldContextObject, const FLatentActionInfo LatentInfo, bool& bSuccess)
+{
+    TCallbackAction<bool>::CreateLatentAction(WorldContextObject, LatentInfo, bSuccess, [&](auto Callback) { SendMessage(Message, Callback); });
+}
+
+void UChatChannel::SendMessage(const FMessage& Message, const TFunction<void(const bool& bSuccess)> Callback)
 {
     // TODO Wait for attachments to upload
 
@@ -316,12 +321,16 @@ void UChatChannel::SendMessage(const FMessage& Message)
         Properties.Id,
         Request,
         false,
-        [](const TResponse<FMessageResponseDto>& Response)
+        [Callback](const TResponse<FMessageResponseDto>& Response)
         {
             if (const auto* Dto = Response.Get())
             {
                 // No need to add message here as the backend will send a websocket message
                 UE_LOG(LogTemp, Log, TEXT("Sent message [Id=%s]"), *Dto->Message.Id);
+            }
+            if (Callback)
+            {
+                Callback(Response.IsSuccessful());
             }
         });
     MessageSent.Broadcast(NewMessage);
