@@ -2,6 +2,7 @@
 
 #include "Channel/ChatChannel.h"
 #include "CoreMinimal.h"
+#include "Engine/World.h"
 
 namespace ThrottlingAndSlowMode
 {
