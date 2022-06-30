@@ -3,6 +3,7 @@
 #include "Channel/ChatChannel.h"
 #include "CoreMinimal.h"
 #include "Engine/World.h"
+#include "TimerManager.h"
 
 namespace ThrottlingAndSlowMode
 {
