@@ -6,7 +6,7 @@ var searchData=
   ['sendchannelevent_3',['SendChannelEvent',['../class_f_chat_api.html#a2eac1e34b8f4d2b6f1f26eaadc46d9bb',1,'FChatApi']]],
   ['sendevent_4',['SendEvent',['../class_u_chat_channel.html#aed47eb30b9ab1fde4d67b88caa12d317',1,'UChatChannel']]],
   ['sending_5',['Sending',['../group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91ae4b0c2b6d59cb4cf3e169a9886008087',1,'Message.h']]],
-  ['sendmessage_6',['SendMessage',['../class_u_chat_channel.html#a9b55744dd39b09853302c5af29f2f4f2',1,'UChatChannel']]],
+  ['sendmessagebp_6',['SendMessageBP',['../class_u_chat_channel.html#ae73e70b87afbbe33f97ff58864dfe5fc',1,'UChatChannel']]],
   ['sendnewmessage_7',['SendNewMessage',['../class_f_chat_api.html#ad2072ebbcd0e7e18da86600a6c738f4e',1,'FChatApi']]],
   ['sendreaction_8',['SendReaction',['../class_f_chat_api.html#ac9a351590dba97ccb344912c54993591',1,'FChatApi::SendReaction()'],['../class_u_chat_channel.html#a09127b08fcaedd082c22a7da20c7aaa9',1,'UChatChannel::SendReaction()']]],
   ['sent_9',['Sent',['../group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91a7f8c0283f16925caed8e632086b81b9c',1,'Message.h']]],

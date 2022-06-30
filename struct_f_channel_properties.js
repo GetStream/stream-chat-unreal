@@ -16,7 +16,7 @@ var struct_f_channel_properties =
     [ "bMuted", "struct_f_channel_properties.html#acab52295d38cda12370ab68a9daaf0c9", null ],
     [ "Cid", "struct_f_channel_properties.html#a6f790c40747c427d016a47b6ace2c97e", null ],
     [ "Config", "struct_f_channel_properties.html#a0a9cd9a35e2ae83083b52eff29be5ba2", null ],
-    [ "Cooldown", "struct_f_channel_properties.html#aa0d73a4ea7099ce926e0f4a3894e1a68", null ],
+    [ "Cooldown", "struct_f_channel_properties.html#ac2e9a26e521e7b7453ace2315e3f6160", null ],
     [ "CreatedAt", "struct_f_channel_properties.html#af93eba8d970102ca57331e1fa449a004", null ],
     [ "CreatedBy", "struct_f_channel_properties.html#ae90d61ab7700760689043bd5dd8c5e0b", null ],
     [ "DeletedAt", "struct_f_channel_properties.html#ab12fd49282c39d4685ac6fcf31e9ed51", null ],

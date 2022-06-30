@@ -14,7 +14,8 @@ var searchData=
   ['devices_11',['Devices',['../struct_f_list_devices_response_dto.html#af897e7e50561ce763e9d526cc8ffaf05',1,'FListDevicesResponseDto']]],
   ['direction_12',['Direction',['../struct_f_ban_sort_option.html#a93f7b8ad11924fe14cc08b41ceee5d90',1,'FBanSortOption::Direction()'],['../struct_f_user_sort_option.html#a31d0863f1e6f10fd779a75770011deb8',1,'FUserSortOption::Direction()'],['../struct_f_message_sort_option.html#a786c7589b83976fc38ef11de8ee28921',1,'FMessageSortOption::Direction()'],['../struct_f_channel_sort_option.html#ab7463c8d9a16af5932a719ff4906e25a',1,'FChannelSortOption::Direction()']]],
   ['disabledreason_13',['DisabledReason',['../struct_f_device_dto.html#abaa10defcfbb994cdf75788626c1de93',1,'FDeviceDto::DisabledReason()'],['../struct_f_device.html#a768f6f913144024226797cbfe2bdcc87',1,'FDevice::DisabledReason()']]],
-  ['disconnectuser_14',['DisconnectUser',['../class_u_stream_chat_client_component.html#ab1abed0a192360951268e62a6a78a8e7',1,'UStreamChatClientComponent']]],
-  ['dto_15',['DTO',['../group___stream_chat_dto.html',1,'']]],
-  ['duration_16',['Duration',['../struct_f_channel_state_response_dto.html#a31d383c9dc1f6a722aff18287f1ece55',1,'FChannelStateResponseDto::Duration()'],['../struct_f_error_response_dto.html#a1ab858457411848c082e4e52a438409b',1,'FErrorResponseDto::Duration()'],['../struct_f_response_dto.html#a0fb9b30ff5ec56d24d83d1d86594792a',1,'FResponseDto::Duration()']]]
+  ['disableslowmode_14',['DisableSlowMode',['../class_u_chat_channel.html#a4de7b55733940b71f28822e76f1b8208',1,'UChatChannel']]],
+  ['disconnectuser_15',['DisconnectUser',['../class_u_stream_chat_client_component.html#ab1abed0a192360951268e62a6a78a8e7',1,'UStreamChatClientComponent']]],
+  ['dto_16',['DTO',['../group___stream_chat_dto.html',1,'']]],
+  ['duration_17',['Duration',['../struct_f_channel_state_response_dto.html#a31d383c9dc1f6a722aff18287f1ece55',1,'FChannelStateResponseDto::Duration()'],['../struct_f_error_response_dto.html#a1ab858457411848c082e4e52a438409b',1,'FErrorResponseDto::Duration()'],['../struct_f_response_dto.html#a0fb9b30ff5ec56d24d83d1d86594792a',1,'FResponseDto::Duration()']]]
 ];

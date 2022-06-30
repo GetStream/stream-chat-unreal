@@ -1,8 +1,5 @@
 var NAVTREEINDEX3 =
 {
-"struct_f_search_response_dto.html#abe613a54f138e87dee7a225708d447e7":[1,2,54,2],
-"struct_f_search_response_dto.html#af857edb6118bda2ad5c7827e744b15e0":[1,2,54,3],
-"struct_f_search_result_dto.html":[1,2,55],
 "struct_f_search_result_dto.html#a08af9db68dccfcea7241434ddcbb6d73":[1,2,55,0],
 "struct_f_search_result_message_dto.html":[1,2,56],
 "struct_f_search_warning_dto.html":[1,2,57],
