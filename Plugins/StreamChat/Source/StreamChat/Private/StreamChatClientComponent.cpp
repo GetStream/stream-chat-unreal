@@ -505,6 +505,15 @@ void UStreamChatClientComponent::SearchMessages(
         });
 }
 
+void UStreamChatClientComponent::MarkAllRead() const
+{
+    Api->MarkChannelsRead();
+    for (UChatChannel* Channel : Channels)
+    {
+        Channel->MarkReadLocal();
+    }
+}
+
 FString UStreamChatClientComponent::DevToken(const FString& UserId)
 {
     return Jwt::Development(UserId);

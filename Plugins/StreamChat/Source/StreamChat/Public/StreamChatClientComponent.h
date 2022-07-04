@@ -182,6 +182,12 @@ public:
         TOptional<uint32> MessageLimit = {},
         TFunction<void(const TArray<FMessage>&)> Callback = {}) const;
 
+    /**
+     * @brief Mark all channels as read for the current user
+     */
+    UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "Stream Chat|Client")
+    void MarkAllRead() const;
+
     UFUNCTION(BlueprintPure, Category = "Stream Chat|Client")
     const TArray<UChatChannel*>& GetChannels() const;
 

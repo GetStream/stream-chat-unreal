@@ -286,6 +286,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message", meta = (AutoCreateRefTerm = Message))
     void MarkRead(const FMessage& Message);
 
+    /// Clear unread count locally
+    void MarkReadLocal();
+
     /**
      * @brief Get messages, members or other channel fields.
      * @param Callback Called when response is received.

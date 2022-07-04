@@ -445,15 +445,23 @@ void UChatChannel::MarkRead(const FMessage& Message)
     MarkRead(MessageId);
 }
 
+void UChatChannel::MarkReadLocal()
+{
+    if (Properties.Config.bReadEvents && State.UnreadCount() > 0)
+    {
+        // Clear unread count straight away locally
+        State.MarkRead();
+        UnreadChanged.Broadcast(0);
+    }
+}
+
 void UChatChannel::MarkRead(const TOptional<FString>& MessageId)
 {
     if (Properties.Config.bReadEvents && State.UnreadCount() > 0)
     {
         Api->MarkChannelRead(Properties.Type, Properties.Id, MessageId);
 
-        // Clear unread count straight away locally
-        State.MarkRead();
-        UnreadChanged.Broadcast(0);
+        MarkReadLocal();
     }
 }
 
