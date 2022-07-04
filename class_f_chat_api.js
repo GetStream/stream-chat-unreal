@@ -6,6 +6,7 @@ var class_f_chat_api =
     [ "DeleteMessage", "class_f_chat_api.html#ae5a2afce79f513753908df1a2a113737", null ],
     [ "DeleteReaction", "class_f_chat_api.html#a087fe492162348826a07657a604f033a", null ],
     [ "Flag", "class_f_chat_api.html#a7b94fa410465c09fcd55f9bd4eecfb33", null ],
+    [ "GetMessage", "class_f_chat_api.html#ae6a313f0a8176cda5d21eef61c5868fc", null ],
     [ "GetReactions", "class_f_chat_api.html#a9039541e4eb718e46891fc8a71cb18bf", null ],
     [ "HideChannel", "class_f_chat_api.html#af0871c645d89799123feb8e167473c6a", null ],
     [ "ListDevices", "class_f_chat_api.html#aa53ac9ae2aae2315225f20c32f490b4e", null ],

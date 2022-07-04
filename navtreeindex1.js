@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a3a2d5fe857d8f9541136a124c2edec6c":[1,4,29,12],
+"group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a5f61fcb6e17f7a46a46a47c7977c90c1":[1,4,29,13],
 "group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a66c1b4c7f3dc385b68a9fa903ccd016d":[1,4,29,8],
 "group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a6f2f0aefb3d22da0f3839453add5f937":[1,4,29,3],
 "group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a84f83bc640fb8de5e4c4551106b65f22":[1,4,29,9],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "struct_f_connection_recovered_event.html":[1,3,16],
 "struct_f_delete_channel_response_dto.html":[1,2,40],
 "struct_f_device.html":[3,0,28],
-"struct_f_device.html#a00ed5a95ea7e5af9156fa9728de29066":[3,0,28,3],
-"struct_f_device.html#a768f6f913144024226797cbfe2bdcc87":[3,0,28,2],
-"struct_f_device.html#ac4a5c6ebb6a2a33cac57d77555d09323":[3,0,28,4]
+"struct_f_device.html#a00ed5a95ea7e5af9156fa9728de29066":[3,0,28,3]
 };

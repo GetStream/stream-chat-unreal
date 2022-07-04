@@ -169,6 +169,9 @@ Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Messages</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p ><a href="https://getstream.io/chat/docs/rest/#Messages">https://getstream.io/chat/docs/rest/#Messages</a> </p>
 </div></td></tr>
+<tr class="memitem:ae6a313f0a8176cda5d21eef61c5868fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#ae6a313f0a8176cda5d21eef61c5868fc">GetMessage</a> (const FString &amp;MessageId, TCallback&lt; <a class="el" href="struct_f_message_response_dto.html">FMessageResponseDto</a> &gt; Callback={}) const</td></tr>
+<tr class="memdesc:ae6a313f0a8176cda5d21eef61c5868fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a message by its message ID.  <a href="class_f_chat_api.html#ae6a313f0a8176cda5d21eef61c5868fc">More...</a><br /></td></tr>
+<tr class="separator:ae6a313f0a8176cda5d21eef61c5868fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2072ebbcd0e7e18da86600a6c738f4e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#ad2072ebbcd0e7e18da86600a6c738f4e">SendNewMessage</a> (const FString &amp;ChannelType, const FString &amp;ChannelId, const <a class="el" href="struct_f_message_request_dto.html">FMessageRequestDto</a> &amp;MessageRequest, bool bSkipPush=false, TCallback&lt; <a class="el" href="struct_f_message_response_dto.html">FMessageResponseDto</a> &gt; Callback={}) const</td></tr>
 <tr class="memdesc:ad2072ebbcd0e7e18da86600a6c738f4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a message to the given.  <a href="class_f_chat_api.html#ad2072ebbcd0e7e18da86600a6c738f4e">More...</a><br /></td></tr>
 <tr class="separator:ad2072ebbcd0e7e18da86600a6c738f4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -525,6 +528,43 @@ static TSharedRef&lt; <a class="el" href="class_f_chat_api.html">FChatApi</a> &g
     <tr><td class="paramname">TargetMessageId</td><td>ID of message to flag (optional) </td></tr>
     <tr><td class="paramname">TargetUserId</td><td>ID of user to flag (optional) </td></tr>
     <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae6a313f0a8176cda5d21eef61c5868fc" name="ae6a313f0a8176cda5d21eef61c5868fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6a313f0a8176cda5d21eef61c5868fc">&#9670;&nbsp;</a></span>GetMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FChatApi::GetMessage </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>MessageId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TCallback&lt; <a class="el" href="struct_f_message_response_dto.html">FMessageResponseDto</a> &gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get a message by its message ID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MessageId</td><td>The message ID of an existing message </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received </td></tr>
   </table>
   </dd>
 </dl>

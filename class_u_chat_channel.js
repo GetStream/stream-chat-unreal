@@ -7,6 +7,7 @@ var class_u_chat_channel =
     [ "DeleteReaction", "class_u_chat_channel.html#ac60976fa7382c9c22cb41ca570610bcf", null ],
     [ "DisableSlowMode", "class_u_chat_channel.html#a4de7b55733940b71f28822e76f1b8208", null ],
     [ "EnableSlowMode", "class_u_chat_channel.html#a60ee7f7ae0a9d2808b32b6126f6ec1a1", null ],
+    [ "GetMessageBP", "class_u_chat_channel.html#aa287a72c1e845a91f168c86b6f546860", null ],
     [ "GetReactions", "class_u_chat_channel.html#a799b0cb722dd0b91c9e0714b47dfb6f1", null ],
     [ "Hide", "class_u_chat_channel.html#a04f40f2ee5819990ee220d64696b6695", null ],
     [ "IsMuted", "class_u_chat_channel.html#a83d9e184ebe6e82bdff8efc777403d4e", null ],
