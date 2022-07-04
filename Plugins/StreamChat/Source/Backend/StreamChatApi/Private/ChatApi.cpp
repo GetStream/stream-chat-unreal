@@ -51,7 +51,6 @@
 #include "Response/User/UsersResponseDto.h"
 #include "Token.h"
 #include "TokenManager.h"
-#include "UserDto.h"
 
 namespace
 {
@@ -554,6 +553,13 @@ void FChatApi::QueryMembers(
 
     const FString Payload = Json::Serialize(Body);
     Client->Get(Url).Query({{TEXT("payload"), Payload}}).Send(Callback);
+}
+
+void FChatApi::GetMessage(const FString& MessageId, const TCallback<FMessageResponseDto> Callback) const
+{
+    const FString Path = FString::Printf(TEXT("messages/%s"), *MessageId);
+    const FString Url = BuildUrl(Path);
+    Client->Get(Url).Send(Callback);
 }
 
 void FChatApi::SendChannelEventInternal(

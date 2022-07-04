@@ -249,6 +249,14 @@ public:
     void SendMessage(const FMessage& Message, const TFunction<void(const bool& bSuccess)> = {});
 
     /**
+     * @brief Get a single message by its ID from the server
+     *
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message", DisplayName = "Get Message", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo))
+    void GetMessageBP(const FString& MessageId, const UObject* WorldContextObject, FLatentActionInfo LatentInfo, FMessage& OutMessage);
+    void GetMessage(const FString& MessageId, const TFunction<void(const FMessage&)> Callback = {});
+
+    /**
      * @brief Update (user might see "Edit") a message which exists on this channel
      *
      * @param Message Message which already exists in this channel
