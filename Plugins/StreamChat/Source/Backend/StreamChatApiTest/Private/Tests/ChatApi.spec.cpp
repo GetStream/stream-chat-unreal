@@ -44,6 +44,7 @@ const FString NewCid = FString::Printf(TEXT("%s:%s"), *ChannelType, *NewChannelI
 const FString DeviceId = TEXT("random-device-id");
 const FString BanUserId = TEXT("tutorial-unreal");
 const FString MsgText{TEXT("My test message!")};
+const FString UpdatedMsgText{TEXT("My new message")};
 FString MessageId;
 FString GuestUserId;
 
@@ -608,7 +609,7 @@ void FChatApiSpec::Define()
         });
 
     Describe(
-        "Flag message",
+        "Message",
         [=]
         {
             // Create message
@@ -627,6 +628,39 @@ void FChatApiSpec::Define()
                         {
                             const auto& Dto = Response.GetRef();
                             TestEqual("Message text is same as input", Dto.Message.Text, MsgText);
+                            MessageId = Dto.Message.Id;
+                            TestDone.Execute();
+                        });
+                });
+
+            // Update message
+            LatentBeforeEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    FMessageRequestDto Request;
+                    Request.Id = MessageId;
+                    Request.Text = UpdatedMsgText;
+                    Api->UpdateMessage(
+                        Request,
+                        [=](const TResponse<FMessageResponseDto>& Response)
+                        {
+                            const auto& Dto = Response.GetRef();
+                            TestEqual("Message text is same as input", Dto.Message.Text, UpdatedMsgText);
+                            MessageId = Dto.Message.Id;
+                            TestDone.Execute();
+                        });
+                });
+
+            // Get message
+            LatentBeforeEach(
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->GetMessage(
+                        MessageId,
+                        [=](const TResponse<FMessageResponseDto>& Response)
+                        {
+                            const auto& Dto = Response.GetRef();
+                            TestEqual("Fetched message", Dto.Message.Text, UpdatedMsgText);
                             MessageId = Dto.Message.Id;
                             TestDone.Execute();
                         });
@@ -657,7 +691,7 @@ void FChatApiSpec::Define()
                         [=](const TResponse<FMessageResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
-                            TestEqual("Message text is same as input", Dto.Message.Text, MsgText);
+                            TestEqual("Message text is same as input", Dto.Message.Text, UpdatedMsgText);
                             TestEqual("Message is deleted", Dto.Message.Type, EMessageTypeDto::Deleted);
                             TestDone.Execute();
                         });

@@ -26,7 +26,7 @@ void ComplexExample()
 // https://getstream.io/chat/docs/unreal/send_message/?language=unreal#get-a-message
 void GetAMessage()
 {
-    // Not yet supported in the Unreal SDK
+    Channel->GetMessage(TEXT("message-id"));
 }
 
 namespace ExistingMessage

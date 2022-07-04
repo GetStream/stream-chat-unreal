@@ -338,6 +338,26 @@ void UChatChannel::SendMessage(const FMessage& Message, const TFunction<void(con
     // TODO Retry logic
 }
 
+void UChatChannel::GetMessageBP(const FString& MessageId, const UObject* WorldContextObject, FLatentActionInfo LatentInfo, FMessage& OutMessage)
+{
+}
+
+void UChatChannel::GetMessage(const FString& MessageId, const TFunction<void(const FMessage&)> Callback)
+{
+    Api->GetMessage(
+        MessageId,
+        [Callback](const TResponse<FMessageResponseDto> Response)
+        {
+            if (const auto* Dto = Response.Get())
+            {
+                if (Callback)
+                {
+                    Callback(Util::Convert<FMessage>(Dto->Message, UUserManager::Get()));
+                }
+            }
+        });
+}
+
 void UChatChannel::UpdateMessage(const FMessage& Message)
 {
     // TODO Attachments

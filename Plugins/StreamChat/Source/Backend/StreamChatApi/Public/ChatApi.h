@@ -357,6 +357,13 @@ public:
      */
 
     /**
+     * @brief Get a message by its message ID
+     * @param MessageId The message ID of an existing message
+     * @param Callback Called when response is received
+     */
+    void GetMessage(const FString& MessageId, TCallback<FMessageResponseDto> Callback = {}) const;
+
+    /**
      * @brief Send a message to the given @param ChannelId of the given @param ChannelType .
      * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
      * @param ChannelId A unique identifier for the channel
