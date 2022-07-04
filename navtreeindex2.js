@@ -1,5 +1,7 @@
 var NAVTREEINDEX2 =
 {
+"struct_f_device.html#ac62ad7c68f58094bc9a2ffc1f5362b40":[3,0,28,0],
+"struct_f_device.html#ac6cf63eaad065370f7351ea01e2933bd":[3,0,28,1],
 "struct_f_device.html#adfb429d5b3c62427ac28197efb3802af":[3,0,28,5],
 "struct_f_device_dto.html":[1,2,46],
 "struct_f_device_dto.html#a0a6028f47684ed142dc2791a8b3e87d7":[1,2,46,4],
@@ -247,7 +249,5 @@ var NAVTREEINDEX2 =
 "struct_f_search_response_dto.html":[1,2,54],
 "struct_f_search_response_dto.html#a395b784d43269ae08214835f537035c9":[1,2,54,0],
 "struct_f_search_response_dto.html#aa39c5dee375726e63535e520faa7e997":[1,2,54,1],
-"struct_f_search_response_dto.html#abe613a54f138e87dee7a225708d447e7":[1,2,54,2],
-"struct_f_search_response_dto.html#af857edb6118bda2ad5c7827e744b15e0":[1,2,54,3],
-"struct_f_search_result_dto.html":[1,2,55]
+"struct_f_search_response_dto.html#abe613a54f138e87dee7a225708d447e7":[1,2,54,2]
 };

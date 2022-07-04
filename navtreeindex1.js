@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a66c1b4c7f3dc385b68a9fa903ccd016d":[1,4,29,8],
+"group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a6f2f0aefb3d22da0f3839453add5f937":[1,4,29,3],
 "group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a84f83bc640fb8de5e4c4551106b65f22":[1,4,29,9],
 "group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a8768a6821cd735aea4f5b0df88c1fc6a":[1,4,29,2],
 "group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5aa4cbdbb6070a5abb35fc95ecf1e22c14":[1,4,29,5],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "struct_f_device.html":[3,0,28],
 "struct_f_device.html#a00ed5a95ea7e5af9156fa9728de29066":[3,0,28,3],
 "struct_f_device.html#a768f6f913144024226797cbfe2bdcc87":[3,0,28,2],
-"struct_f_device.html#ac4a5c6ebb6a2a33cac57d77555d09323":[3,0,28,4],
-"struct_f_device.html#ac62ad7c68f58094bc9a2ffc1f5362b40":[3,0,28,0],
-"struct_f_device.html#ac6cf63eaad065370f7351ea01e2933bd":[3,0,28,1]
+"struct_f_device.html#ac4a5c6ebb6a2a33cac57d77555d09323":[3,0,28,4]
 };

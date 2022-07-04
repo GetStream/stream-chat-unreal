@@ -14,6 +14,7 @@ var class_u_chat_channel =
     [ "KeyStroke", "class_u_chat_channel.html#a8102ae8974c78a297db1229334c593c2", null ],
     [ "MarkRead", "class_u_chat_channel.html#a4c14c007dc5cae06c50b45fd747bf13b", null ],
     [ "MarkRead", "class_u_chat_channel.html#aebd79c869ab9e0a304e7df8b48d42bfb", null ],
+    [ "MarkReadLocal", "class_u_chat_channel.html#aaf72201671a13f0a169843c793089de4", null ],
     [ "MuteBP", "class_u_chat_channel.html#ab5741335e2c975fb9eafc6a59b94e111", null ],
     [ "On", "class_u_chat_channel.html#a14dc1b83dd8413eb75de2a9de6436a31", null ],
     [ "On", "class_u_chat_channel.html#a9351ad594e8f4a2af0876b4980594647", null ],
