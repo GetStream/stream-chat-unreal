@@ -183,8 +183,8 @@ void UChatChannel::Truncate(
     const bool bSkipPush,
     TFunction<void()> Callback)
 {
-    const TOptional<FMessageRequestDto> OptionalMessage =
-        Message.IsSet() ? TOptional{PrepareMessage(Message.GetValue()).ToRequestDto(Properties.Cid)} : TOptional<FMessageRequestDto>{};
+    const auto OptionalMessage =
+        Message.IsSet() ? TOptional<FMessageRequestDto>{PrepareMessage(Message.GetValue()).ToRequestDto(Properties.Cid)} : TOptional<FMessageRequestDto>{};
 
     Api->TruncateChannel(
         Properties.Type,
