@@ -101,6 +101,8 @@ var annotated_dup =
     [ "FSendMessageRequestDto", "struct_f_send_message_request_dto.html", "struct_f_send_message_request_dto" ],
     [ "FSendReactionRequestDto", "struct_f_send_reaction_request_dto.html", "struct_f_send_reaction_request_dto" ],
     [ "FSortParamRequestDto", "struct_f_sort_param_request_dto.html", null ],
+    [ "FTruncateChannelRequestDto", "struct_f_truncate_channel_request_dto.html", "struct_f_truncate_channel_request_dto" ],
+    [ "FTruncateChannelResponseDto", "struct_f_truncate_channel_response_dto.html", null ],
     [ "FTypingStartEvent", "struct_f_typing_start_event.html", null ],
     [ "FTypingStopEvent", "struct_f_typing_stop_event.html", null ],
     [ "FUpdateChannelPartialRequestDto", "struct_f_update_channel_partial_request_dto.html", "struct_f_update_channel_partial_request_dto" ],

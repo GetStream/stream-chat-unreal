@@ -166,6 +166,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abc359b112a04e15b5bb8825678c1d917"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#abc359b112a04e15b5bb8825678c1d917">QueryMembers</a> (const FString &amp;ChannelType, const TOptional&lt; TSharedRef&lt; FJsonObject &gt; &gt; &amp;Filter={}, const TOptional&lt; FString &gt; &amp;ChannelId={}, const TOptional&lt; TArray&lt; FString &gt; &gt; &amp;Members={}, const TArray&lt; <a class="el" href="struct_f_sort_param_request_dto.html">FSortParamRequestDto</a> &gt; &amp;SortOptions={}, const <a class="el" href="struct_f_message_pagination_params_request_dto.html">FMessagePaginationParamsRequestDto</a> &amp;Pagination={}, TCallback&lt; <a class="el" href="struct_f_members_response_dto.html">FMembersResponseDto</a> &gt; Callback={}) const</td></tr>
 <tr class="memdesc:abc359b112a04e15b5bb8825678c1d917"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find and filter channel members.  <a href="class_f_chat_api.html#abc359b112a04e15b5bb8825678c1d917">More...</a><br /></td></tr>
 <tr class="separator:abc359b112a04e15b5bb8825678c1d917"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3e3b33c9c5fba54587a028a4fefa4d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_chat_api.html#aa3e3b33c9c5fba54587a028a4fefa4d2">TruncateChannel</a> (const FString &amp;ChannelType, const FString &amp;ChannelId, bool bHardDelete=false, const TOptional&lt; FDateTime &gt; &amp;TruncatedAt={}, const TOptional&lt; <a class="el" href="struct_f_message_request_dto.html">FMessageRequestDto</a> &gt; &amp;Message={}, bool bSkipPush=false, TCallback&lt; <a class="el" href="struct_f_truncate_channel_response_dto.html">FTruncateChannelResponseDto</a> &gt; Callback={}) const</td></tr>
+<tr class="memdesc:aa3e3b33c9c5fba54587a028a4fefa4d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete all messages of a channel.  <a href="class_f_chat_api.html#aa3e3b33c9c5fba54587a028a4fefa4d2">More...</a><br /></td></tr>
+<tr class="separator:aa3e3b33c9c5fba54587a028a4fefa4d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Messages</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p ><a href="https://getstream.io/chat/docs/rest/#Messages">https://getstream.io/chat/docs/rest/#Messages</a> </p>
 </div></td></tr>
@@ -1790,6 +1793,78 @@ template&lt;class TEvent &gt; </div>
     <tr><td class="paramname">ChannelId</td><td>A unique identifier for the channel </td></tr>
     <tr><td class="paramname">ConnectionId</td><td>Websocket connection ID to interact with. </td></tr>
     <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa3e3b33c9c5fba54587a028a4fefa4d2" name="aa3e3b33c9c5fba54587a028a4fefa4d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3e3b33c9c5fba54587a028a4fefa4d2">&#9670;&nbsp;</a></span>TruncateChannel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FChatApi::TruncateChannel </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ChannelType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;&#160;</td>
+          <td class="paramname"><em>ChannelId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bHardDelete</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TOptional&lt; FDateTime &gt; &amp;&#160;</td>
+          <td class="paramname"><em>TruncatedAt</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TOptional&lt; <a class="el" href="struct_f_message_request_dto.html">FMessageRequestDto</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Message</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bSkipPush</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TCallback&lt; <a class="el" href="struct_f_truncate_channel_response_dto.html">FTruncateChannelResponseDto</a> &gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Delete all messages of a channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ChannelType</td><td>Name of built-in or custom channel type (e.g. messaging, team, livestream) </td></tr>
+    <tr><td class="paramname">ChannelId</td><td>A unique identifier for the channel </td></tr>
+    <tr><td class="paramname">bHardDelete</td><td>Actually delete messages, instead of soft-deleting (hiding) them </td></tr>
+    <tr><td class="paramname">TruncatedAt</td><td>Truncate this channel only up to given time </td></tr>
+    <tr><td class="paramname">Message</td><td>A system message to be added after truncation </td></tr>
+    <tr><td class="paramname">bSkipPush</td><td>If a message is included, don't send the push notification </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received </td></tr>
   </table>
   </dd>
 </dl>

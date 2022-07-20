@@ -115,6 +115,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsValid</b> () const<
 <tr class="memitem:a971cf362c2d961d6f121a4b2daa8e3e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a971cf362c2d961d6f121a4b2daa8e3e0">Update</a> (const FAdditionalFields &amp;Data, const TOptional&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;Message={}, TFunction&lt; void()&gt; Callback={})</td></tr>
 <tr class="memdesc:a971cf362c2d961d6f121a4b2daa8e3e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Change channel data. Any data that is present on the channel and not included in a full update will be deleted.  <a href="class_u_chat_channel.html#a971cf362c2d961d6f121a4b2daa8e3e0">More...</a><br /></td></tr>
 <tr class="separator:a971cf362c2d961d6f121a4b2daa8e3e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bc22ef8325b2e055047cdbad59ed9f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a6bc22ef8325b2e055047cdbad59ed9f6">Truncate</a> (bool bHardDelete=false, const TOptional&lt; FDateTime &gt; &amp;TruncatedAt={}, const TOptional&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;Message={}, bool bSkipPush=false, TFunction&lt; void()&gt; Callback={})</td></tr>
+<tr class="memdesc:a6bc22ef8325b2e055047cdbad59ed9f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete all messages in this channel.  <a href="class_u_chat_channel.html#a6bc22ef8325b2e055047cdbad59ed9f6">More...</a><br /></td></tr>
+<tr class="separator:a6bc22ef8325b2e055047cdbad59ed9f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8079737719a8928c643630d4fab9c298"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a8079737719a8928c643630d4fab9c298">QueryMembers</a> (const <a class="el" href="struct_f_filter.html">FFilter</a> &amp;Filter={}, const TArray&lt; <a class="el" href="struct_f_user_sort_option.html">FUserSortOption</a> &gt; &amp;Sort={}, const <a class="el" href="struct_f_message_pagination_options.html">FMessagePaginationOptions</a> &amp;Pagination={}, TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_member.html">FMember</a> &gt; &amp;)&gt; Callback={})</td></tr>
 <tr class="memdesc:a8079737719a8928c643630d4fab9c298"><td class="mdescLeft">&#160;</td><td class="mdescRight">List and paginate members for this channel.  <a href="class_u_chat_channel.html#a8079737719a8928c643630d4fab9c298">More...</a><br /></td></tr>
 <tr class="separator:a8079737719a8928c643630d4fab9c298"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1441,6 +1444,64 @@ template&lt;class TEvent , class UserClass &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6bc22ef8325b2e055047cdbad59ed9f6" name="a6bc22ef8325b2e055047cdbad59ed9f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bc22ef8325b2e055047cdbad59ed9f6">&#9670;&nbsp;</a></span>Truncate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UChatChannel::Truncate </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bHardDelete</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TOptional&lt; FDateTime &gt; &amp;&#160;</td>
+          <td class="paramname"><em>TruncatedAt</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TOptional&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>Message</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>bSkipPush</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TFunction&lt; void()&gt;&#160;</td>
+          <td class="paramname"><em>Callback</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Delete all messages in this channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bHardDelete</td><td>Actually delete messages, instead of soft-deleting (hiding) them </td></tr>
+    <tr><td class="paramname">TruncatedAt</td><td>Truncate this channel only up to given time </td></tr>
+    <tr><td class="paramname">Message</td><td>A system message to be added after truncation </td></tr>
+    <tr><td class="paramname">bSkipPush</td><td>If a message is included, don't send the push notification </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received </td></tr>
   </table>
   </dd>
 </dl>

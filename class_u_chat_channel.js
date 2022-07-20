@@ -36,6 +36,7 @@ var class_u_chat_channel =
     [ "Show", "class_u_chat_channel.html#ac6eb55611d3ac58988e1dad3d65460d8", null ],
     [ "StopTyping", "class_u_chat_channel.html#a9e9708a5be8e8ac9ece17712399a9dbf", null ],
     [ "StopWatching", "class_u_chat_channel.html#afa3d454879743cca0045534056a17c4f", null ],
+    [ "Truncate", "class_u_chat_channel.html#a6bc22ef8325b2e055047cdbad59ed9f6", null ],
     [ "UnbanMember", "class_u_chat_channel.html#a545a25547dd36404aa689380393dccfa", null ],
     [ "Unmute", "class_u_chat_channel.html#a34c32e6de01270b9c04f9dd54461fa11", null ],
     [ "Unsubscribe", "class_u_chat_channel.html#ad7a707550c3a5b6eb6a6a807ce541a21", null ],
