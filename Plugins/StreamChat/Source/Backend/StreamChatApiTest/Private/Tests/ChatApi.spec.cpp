@@ -15,6 +15,7 @@
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/Channel/DeleteChannelResponseDto.h"
 #include "Response/Channel/MembersResponseDto.h"
+#include "Response/Channel/TruncateChannelResponseDto.h"
 #include "Response/Channel/UpdateChannelPartialResponseDto.h"
 #include "Response/Channel/UpdateChannelResponseDto.h"
 #include "Response/Device/ListDevicesResponseDto.h"
@@ -331,6 +332,49 @@ void FChatApiSpec::Define()
                         {
                             const auto& Dto = Response.GetRef();
                             TestEqual("No channels in response", Dto.Channels.Num(), 0);
+                            TestDone.Execute();
+                        });
+                });
+
+            LatentIt(
+                "should send a message",
+                [=](const FDoneDelegate& TestDone)
+                {
+                    FMessageRequestDto Request;
+                    Request.Cid = Cid;
+                    Request.Text = MsgText;
+                    Api->SendNewMessage(
+                        ChannelType,
+                        ChannelId,
+                        Request,
+                        false,
+                        [=](const TResponse<FMessageResponseDto>& Response)
+                        {
+                            const auto& Dto = Response.GetRef();
+                            TestEqual("Message text is same as input", Dto.Message.Text, MsgText);
+                            MessageId = Dto.Message.Id;
+                            TestDone.Execute();
+                        });
+                });
+            LatentIt(
+                "should truncate channel",
+                [=](const FDoneDelegate& TestDone)
+                {
+                    Api->TruncateChannel(
+                        ChannelType,
+                        ChannelId,
+                        {},
+                        {},
+                        {},
+                        {},
+                        [=](const TResponse<FTruncateChannelResponseDto>& Response)
+                        {
+                            const auto& Dto = Response.GetRef();
+                            TestEqual("Message is empty", Dto.Message.CreatedAt.GetTicks(), 0);
+                            TestEqual("Correct channel", Dto.Channel.Cid, Cid);
+                            TestEqual("Channel has no messages", Dto.Channel.LastMessageAt.GetTicks(), 0);
+                            const double SecsSinceTrunc = (FDateTime::UtcNow() - Dto.Channel.TruncatedAt).GetTotalSeconds();
+                            TestTrue("Truncated recently", SecsSinceTrunc < 10.);
                             TestDone.Execute();
                         });
                 });
