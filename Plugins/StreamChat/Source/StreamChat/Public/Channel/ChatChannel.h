@@ -106,6 +106,21 @@ public:
     void Update(const FAdditionalFields& Data, const TOptional<FMessage>& Message = {}, TFunction<void()> Callback = {});
 
     /**
+     * @brief Delete all messages in this channel
+     * @param bHardDelete Actually delete messages, instead of soft-deleting (hiding) them
+     * @param TruncatedAt Truncate this channel only up to given time
+     * @param Message A system message to be added after truncation
+     * @param bSkipPush If a message is included, don't send the push notification
+     * @param Callback Called when response is received
+     */
+    void Truncate(
+        bool bHardDelete = false,
+        const TOptional<FDateTime>& TruncatedAt = {},
+        const TOptional<FMessage>& Message = {},
+        bool bSkipPush = false,
+        TFunction<void()> Callback = {});
+
+    /**
      * @brief List and paginate members for this channel.
      * @param Filter Conditions to use to filter the members
      * @param Sort The sorting used for the members matching the filters.
