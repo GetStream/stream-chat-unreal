@@ -7,11 +7,11 @@
 #include "Request/Channel/ChannelRequestDto.h"
 #include "Request/Channel/MessagePaginationParamsRequestDto.h"
 #include "Request/Channel/PaginationParamsRequestDto.h"
+#include "Request/Message/MessageRequestDto.h"
 #include "Request/SortParamRequestDto.h"
 #include "RequestBuilder.h"
 #include "StreamJson.h"
 
-struct FUserObjectRequestDto;
 class FHttpClient;
 class FRequestBuilder;
 class FTokenManager;
@@ -30,7 +30,6 @@ struct FListDevicesResponseDto;
 struct FMarkReadRequestDto;
 struct FMarkReadResponseDto;
 struct FMembersResponseDto;
-struct FMessageRequestDto;
 struct FMessageResponseDto;
 struct FMuteChannelResponseDto;
 struct FMuteUserResponseDto;
@@ -40,10 +39,12 @@ struct FReactionResponseDto;
 struct FResponseDto;
 struct FSearchResponseDto;
 struct FToken;
+struct FTruncateChannelResponseDto;
 struct FUpdateChannelPartialResponseDto;
 struct FUpdateChannelRequestDto;
 struct FUpdateChannelResponseDto;
 struct FUpdateUsersResponseDto;
+struct FUserObjectRequestDto;
 struct FUsersResponseDto;
 
 template <class T>
@@ -346,6 +347,15 @@ public:
         const TArray<FSortParamRequestDto>& SortOptions = {},
         const FMessagePaginationParamsRequestDto& Pagination = {},
         TCallback<FMembersResponseDto> Callback = {}) const;
+
+    void TruncateChannel(
+        const FString& ChannelType,
+        const FString& ChannelId,
+        bool bHardDelete = false,
+        const TOptional<FDateTime>& TruncatedAt = {},
+        const TOptional<FMessageRequestDto>& MessageRequest = {},
+        bool bSkipPush = false,
+        TCallback<FTruncateChannelResponseDto> Callback = {}) const;
 
 ///@}
 #pragma endregion Channels
