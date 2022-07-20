@@ -9,6 +9,7 @@
 #include "Request/Channel/MarkReadRequestDto.h"
 #include "Request/Channel/QueryChannelsRequestDto.h"
 #include "Request/Channel/QueryMembersRequestDto.h"
+#include "Request/Channel/TruncateChannelRequestDto.h"
 #include "Request/Channel/UpdateChannelPartialRequestDto.h"
 #include "Request/Channel/UpdateChannelRequestDto.h"
 #include "Request/Device/DeviceFieldsDto.h"
@@ -32,6 +33,7 @@
 #include "Response/Channel/DeleteChannelResponseDto.h"
 #include "Response/Channel/MarkReadResponseDto.h"
 #include "Response/Channel/MembersResponseDto.h"
+#include "Response/Channel/TruncateChannelResponseDto.h"
 #include "Response/Channel/UpdateChannelPartialResponseDto.h"
 #include "Response/Channel/UpdateChannelResponseDto.h"
 #include "Response/Device/ListDevicesResponseDto.h"
@@ -560,6 +562,29 @@ void FChatApi::GetMessage(const FString& MessageId, const TCallback<FMessageResp
     const FString Path = FString::Printf(TEXT("messages/%s"), *MessageId);
     const FString Url = BuildUrl(Path);
     Client->Get(Url).Send(Callback);
+}
+
+void FChatApi::TruncateChannel(
+    const FString& ChannelType,
+    const FString& ChannelId,
+    const bool bHardDelete,
+    const TOptional<FDateTime>& TruncatedAt,
+    const TOptional<FMessageRequestDto>& MessageRequest,
+    const bool bSkipPush,
+    const TCallback<FTruncateChannelResponseDto> Callback) const
+{
+    const FString Path = FString::Printf(TEXT("channels/%s/%s/truncate"), *ChannelType, *ChannelId);
+    const FString Url = BuildUrl(Path);
+    FTruncateChannelRequestDto Body{
+        bHardDelete,
+        bSkipPush,
+        TruncatedAt.Get(FDateTime{0}),
+    };
+    if (MessageRequest.IsSet())
+    {
+        Body.SetMessage(MessageRequest.GetValue());
+    }
+    Client->Post(Url).Json(Body).Send(Callback);
 }
 
 void FChatApi::SendChannelEventInternal(
