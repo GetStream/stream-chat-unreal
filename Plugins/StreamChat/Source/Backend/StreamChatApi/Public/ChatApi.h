@@ -348,12 +348,22 @@ public:
         const FMessagePaginationParamsRequestDto& Pagination = {},
         TCallback<FMembersResponseDto> Callback = {}) const;
 
+    /**
+     * @brief Delete all messages of a channel
+     * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
+     * @param ChannelId A unique identifier for the channel
+     * @param bHardDelete Actually delete messages, instead of soft-deleting (hiding) them
+     * @param TruncatedAt Truncate this channel only up to given time
+     * @param Message A system message to be added after truncation
+     * @param bSkipPush If a message is included, don't send the push notification
+     * @param Callback Called when response is received
+     */
     void TruncateChannel(
         const FString& ChannelType,
         const FString& ChannelId,
         bool bHardDelete = false,
         const TOptional<FDateTime>& TruncatedAt = {},
-        const TOptional<FMessageRequestDto>& MessageRequest = {},
+        const TOptional<FMessageRequestDto>& Message = {},
         bool bSkipPush = false,
         TCallback<FTruncateChannelResponseDto> Callback = {}) const;
 

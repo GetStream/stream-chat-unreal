@@ -26,6 +26,7 @@
 #include "Response/Channel/ChannelStateResponseDto.h"
 #include "Response/Channel/DeleteChannelResponseDto.h"
 #include "Response/Channel/MembersResponseDto.h"
+#include "Response/Channel/TruncateChannelResponseDto.h"
 #include "Response/Channel/UpdateChannelPartialResponseDto.h"
 #include "Response/Channel/UpdateChannelResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
@@ -36,6 +37,32 @@
 #include "TimerManager.h"
 #include "User/UserManager.h"
 #include "Util.h"
+
+namespace
+{
+FMessage PrepareMessage(const FMessage& Message)
+{
+    FMessage NewMessage = Message;
+    NewMessage.State = EMessageSendState::Sending;
+    if (NewMessage.Id.IsEmpty())
+    {
+        NewMessage.Id = FGuid::NewGuid().ToString(EGuidFormats::DigitsWithHyphens);
+    }
+    if (!NewMessage.User.IsValid())
+    {
+        NewMessage.User = UUserManager::Get()->GetCurrentUser().User;
+    }
+    if (NewMessage.CreatedAt.GetTicks() == 0)
+    {
+        NewMessage.CreatedAt = FDateTime::UtcNow();
+    }
+    if (NewMessage.UpdatedAt.GetTicks() == 0)
+    {
+        NewMessage.UpdatedAt = FDateTime::UtcNow();
+    }
+    return NewMessage;
+}
+}    // namespace
 
 UChatChannel* UChatChannel::Create(
     UObject* Outer,
@@ -144,6 +171,39 @@ void UChatChannel::Update(const FAdditionalFields& Data, const TOptional<FMessag
                 if (Callback)
                 {
                     Callback();
+                }
+            }
+        });
+}
+
+void UChatChannel::Truncate(
+    const bool bHardDelete,
+    const TOptional<FDateTime>& TruncatedAt,
+    const TOptional<FMessage>& Message,
+    const bool bSkipPush,
+    TFunction<void()> Callback)
+{
+    const TOptional<FMessageRequestDto> OptionalMessage =
+        Message.IsSet() ? TOptional{PrepareMessage(Message.GetValue()).ToRequestDto(Properties.Cid)} : TOptional<FMessageRequestDto>{};
+
+    Api->TruncateChannel(
+        Properties.Type,
+        Properties.Id,
+        bHardDelete,
+        TruncatedAt,
+        OptionalMessage,
+        bSkipPush,
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this), Callback](const TResponse<FTruncateChannelResponseDto>& Response)
+        {
+            if (const auto* Dto = Response.Get())
+            {
+                if (WeakThis.IsValid())
+                {
+                    WeakThis->Properties.Merge(Dto->Channel, UUserManager::Get());
+                    if (Callback)
+                    {
+                        Callback();
+                    }
                 }
             }
         });
@@ -295,25 +355,7 @@ void UChatChannel::SendMessage(const FMessage& Message, const TFunction<void(con
 {
     // TODO Wait for attachments to upload
 
-    FMessage NewMessage = Message;
-    NewMessage.State = EMessageSendState::Sending;
-    if (NewMessage.Id.IsEmpty())
-    {
-        NewMessage.Id = FGuid::NewGuid().ToString(EGuidFormats::DigitsWithHyphens);
-    }
-    if (!NewMessage.User.IsValid())
-    {
-        NewMessage.User = UUserManager::Get()->GetCurrentUser().User;
-    }
-    if (NewMessage.CreatedAt.GetTicks() == 0)
-    {
-        NewMessage.CreatedAt = FDateTime::UtcNow();
-    }
-    if (NewMessage.UpdatedAt.GetTicks() == 0)
-    {
-        NewMessage.UpdatedAt = FDateTime::UtcNow();
-    }
-
+    const FMessage NewMessage = PrepareMessage(Message);
     const FMessageRequestDto Request = NewMessage.ToRequestDto(Properties.Cid);
     AddMessage(NewMessage);
     Api->SendNewMessage(

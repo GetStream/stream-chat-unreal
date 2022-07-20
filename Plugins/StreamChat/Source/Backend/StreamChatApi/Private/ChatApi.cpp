@@ -569,7 +569,7 @@ void FChatApi::TruncateChannel(
     const FString& ChannelId,
     const bool bHardDelete,
     const TOptional<FDateTime>& TruncatedAt,
-    const TOptional<FMessageRequestDto>& MessageRequest,
+    const TOptional<FMessageRequestDto>& Message,
     const bool bSkipPush,
     const TCallback<FTruncateChannelResponseDto> Callback) const
 {
@@ -580,9 +580,9 @@ void FChatApi::TruncateChannel(
         bSkipPush,
         TruncatedAt.Get(FDateTime{0}),
     };
-    if (MessageRequest.IsSet())
+    if (Message.IsSet())
     {
-        Body.SetMessage(MessageRequest.GetValue());
+        Body.SetMessage(Message.GetValue());
     }
     Client->Post(Url).Json(Body).Send(Callback);
 }
