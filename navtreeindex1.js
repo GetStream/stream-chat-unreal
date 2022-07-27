@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a19bb0af2c3c530538cb41aff7f235b96":[1,4,29,1],
 "group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a1cfdf0e8d0c87a228c1f40d9bee7888b":[1,4,29,4],
 "group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a2a8eb028670e972535e8e246be645821":[1,4,29,10],
 "group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a3a2d5fe857d8f9541136a124c2edec6c":[1,4,29,12],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "struct_f_command_dto.html":[1,2,53],
 "struct_f_connect_request_dto.html":[1,2,14],
 "struct_f_connection_changed_event.html":[1,3,15],
-"struct_f_connection_recovered_event.html":[1,3,16],
-"struct_f_delete_channel_response_dto.html":[1,2,41]
+"struct_f_connection_recovered_event.html":[1,3,16]
 };

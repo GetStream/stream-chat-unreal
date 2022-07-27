@@ -94,102 +94,101 @@ $(document).ready(function(){initNavTree('_user_8h_source.html',''); initResizab
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;Kismet/BlueprintFunctionLibrary.h&quot;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;Moderation/MutedChannel.h&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;Moderation/MutedUser.h&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;User.generated.h&quot;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">struct </span><a class="code hl_struct" href="struct_f_user_dto.html">FUserDto</a>;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">struct </span><a class="code hl_struct" href="struct_f_user_object_dto.html">FUserObjectDto</a>;</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">struct </span><a class="code hl_struct" href="struct_f_user_object_request_dto.html">FUserObjectRequestDto</a>;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>USTRUCT(BlueprintType)</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="struct_f_user.html">   20</a></span>struct STREAMCHAT_API <a class="code hl_struct" href="struct_f_user.html">FUser</a></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    GENERATED_BODY()</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="struct_f_user.html#aa6d4f9df91b8dc5500e963b1be2900c9">   25</a></span>    <a class="code hl_struct" href="struct_f_user.html">FUser</a>();</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    explicit <a class="code hl_struct" href="struct_f_user.html">FUser</a>(const FString&amp; InId);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    explicit <a class="code hl_struct" href="struct_f_user.html">FUser</a>(const <a class="code hl_struct" href="struct_f_user_dto.html">FUserDto</a>&amp;);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    explicit <a class="code hl_struct" href="struct_f_user.html">FUser</a>(const <a class="code hl_struct" href="struct_f_user_object_dto.html">FUserObjectDto</a>&amp;);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    explicit operator <a class="code hl_struct" href="struct_f_user_dto.html">FUserDto</a>() const;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    explicit operator <a class="code hl_struct" href="struct_f_user_object_dto.html">FUserObjectDto</a>() const;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    explicit operator <a class="code hl_struct" href="struct_f_user_object_request_dto.html">FUserObjectRequestDto</a>() const;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">void</span> Update(const <a class="code hl_struct" href="struct_f_user.html">FUser</a>&amp; User);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="comment">// Get name, falling back to id</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    const FString&amp; GetNameOrId() const;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    FString GetInitials(int32 Limit = 2) const;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    const FDateTime&amp; GetLastActive() const;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    FText GetLastSeenText() const;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = &quot;Stream Chat|User&quot;)</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="struct_f_user.html#ac9ebcfe4ceccb6acbbefa3e98216fe9b">   54</a></span>    FString <a class="code hl_variable" href="struct_f_user_dto.html#a9fc9adaed04a41d8b5a6fdf10c9fd001">Id</a>;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    UPROPERTY(BlueprintReadOnly, Category = &quot;Stream Chat|User&quot;)</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="struct_f_user.html#ac369595516b6f561144f92c50d95ca7a">   58</a></span>    <span class="keywordtype">bool</span> bOnline = false;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    UPROPERTY(BlueprintReadWrite, Category = &quot;Stream Chat|User&quot;, AdvancedDisplay)</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="struct_f_user.html#a73e81750f09c7f54f9fd810f53196421">   62</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="struct_f_user_dto.html#a4f1faf35f061f86a8fe192df346bcae1">bInvisible</a> = false;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = &quot;Stream Chat|User&quot;, AdvancedDisplay)</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="struct_f_user.html#afe39d344b0fc2db6e265feb8700424ce">   66</a></span>    FDateTime CreatedAt = FDateTime{0};</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|User&quot;</span>, AdvancedDisplay)</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="struct_f_user.html#a121e1d3c57557c18449da3eb4df549ed">   70</a></span>    FDateTime UpdatedAt = FDateTime{0};</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|User&quot;</span>, AdvancedDisplay)</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="struct_f_user.html#a107e3550167fb3f95fc239a37080aaf1">   74</a></span>    FDateTime DeactivatedAt = FDateTime{0};</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|User&quot;</span>, AdvancedDisplay)</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="struct_f_user.html#a48d27f5a5ed4f5e2b0d399d50fbd200f">   78</a></span>    FDateTime DeletedAt = FDateTime{0};</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|User&quot;</span>, AdvancedDisplay)</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="struct_f_user.html#a434112e6a7a328b26a6937018bde5c34">   82</a></span>    FDateTime <a class="code hl_enumvalue" href="group___stream_chat.html#gga168ebbcdbfc643c147a18bf919d9a7a1a00ced7fb1ad8328edf91ef4493b43c2e">LastActive</a> = FDateTime{0};</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    UPROPERTY(BlueprintReadWrite, Category = <span class="stringliteral">&quot;Stream Chat|User&quot;</span>, AdvancedDisplay)</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="struct_f_user.html#a7c6905c0374bd38c926c50be07a01bc8">   86</a></span>    FDateTime <a class="code hl_variable" href="struct_f_user_dto.html#ab57d983041773f465a9096b6a4b52376">BanExpires</a> = FDateTime{0};</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    UPROPERTY(BlueprintReadWrite, Category = <span class="stringliteral">&quot;Stream Chat|User&quot;</span>, AdvancedDisplay)</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="struct_f_user.html#adb815a310fc4a1bb89b454adf075450d">   90</a></span>    bool <a class="code hl_variable" href="struct_f_user_dto.html#a53526facbe994dbb37b206805bf734af">bBanned</a> = false;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    UPROPERTY(BlueprintReadWrite, Category = &quot;Stream Chat|User&quot;, AdvancedDisplay)</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="struct_f_user.html#a43fe7b4a5186fdfd962e92018df162bb">   94</a></span>    FString <a class="code hl_variable" href="struct_f_user_dto.html#a167692c46414a4861aa6acc232a18e3c">Language</a>;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    UPROPERTY(BlueprintReadWrite, Category = &quot;Stream Chat|User&quot;, AdvancedDisplay)</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="struct_f_user.html#a85296b532bd5eccd363ec0e176055ddc">   98</a></span>    FDateTime <a class="code hl_variable" href="struct_f_user_dto.html#a739ec7a197f0b56b74e1d3cae92bb9d2">RevokeTokensIssuedBefore</a> = FDateTime{0};</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    UPROPERTY(BlueprintReadWrite, Category = <span class="stringliteral">&quot;Stream Chat|User&quot;</span>, AdvancedDisplay)</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="struct_f_user.html#aa969a42428798bdb84a9239b559ba476">  102</a></span>    FString <a class="code hl_variable" href="struct_f_user_dto.html#a296194a8d3462bc0e0750e12acceeb65">Role</a>;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    UPROPERTY(BlueprintReadWrite, Category = &quot;Stream Chat|User&quot;, AdvancedDisplay)</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="struct_f_user.html#a352048f005fa9060e99d11f368ed9875">  106</a></span>    TArray&lt;FString&gt; <a class="code hl_variable" href="struct_f_user_dto.html#a3bba47a1d2d2275de05647fb5067a750">Teams</a>;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="comment">// Not in the API spec, but common</span></div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = &quot;Stream Chat|User&quot;)</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="struct_f_user.html#a93c3bd7ac953ce1bf092845e7fb43422">  111</a></span>    FString Name;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="comment">// Not in the API spec, but common</span></div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = &quot;Stream Chat|User&quot;)</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="struct_f_user.html#a2ca45f74018a8256b0a4a9955d52d6c7">  116</a></span>    FString Image;</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>};</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>UCLASS()</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="class_u_user_blueprint_library.html">  124</a></span>class STREAMCHAT_API <a class="code hl_class" href="class_u_user_blueprint_library.html">UUserBlueprintLibrary</a> final : public UBlueprintFunctionLibrary</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>{</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    GENERATED_BODY()</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    UFUNCTION(BlueprintCallable, Category = <span class="stringliteral">&quot;Stream Chat|User&quot;</span>)</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keyword">static</span> <span class="keywordtype">bool</span> GenerateUserId(<span class="keyword">const</span> FString&amp; Name, FString&amp; OutUserId);</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    UFUNCTION(BlueprintCallable, Category = <span class="stringliteral">&quot;Stream Chat|User&quot;</span>)</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="keyword">static</span> <span class="keywordtype">bool</span> SanitizeName(<span class="keyword">const</span> FString&amp; Name, FString&amp; SanitizedName);</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>};</div>
-<div class="ttc" id="aclass_u_user_blueprint_library_html"><div class="ttname"><a href="class_u_user_blueprint_library.html">UUserBlueprintLibrary</a></div><div class="ttdoc">Blueprint functions for the User struct.</div><div class="ttdef"><b>Definition:</b> User.h:125</div></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;User.generated.h&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">struct </span><a class="code hl_struct" href="struct_f_user_dto.html">FUserDto</a>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">struct </span><a class="code hl_struct" href="struct_f_user_object_dto.html">FUserObjectDto</a>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">struct </span><a class="code hl_struct" href="struct_f_user_object_request_dto.html">FUserObjectRequestDto</a>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>USTRUCT(BlueprintType)</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="struct_f_user.html">   19</a></span>struct STREAMCHAT_API <a class="code hl_struct" href="struct_f_user.html">FUser</a></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="struct_f_user.html#aa6d4f9df91b8dc5500e963b1be2900c9">   24</a></span>    <a class="code hl_struct" href="struct_f_user.html">FUser</a>();</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    explicit <a class="code hl_struct" href="struct_f_user.html">FUser</a>(const FString&amp; InId);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    explicit <a class="code hl_struct" href="struct_f_user.html">FUser</a>(const <a class="code hl_struct" href="struct_f_user_dto.html">FUserDto</a>&amp;);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    explicit <a class="code hl_struct" href="struct_f_user.html">FUser</a>(const <a class="code hl_struct" href="struct_f_user_object_dto.html">FUserObjectDto</a>&amp;);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    explicit operator <a class="code hl_struct" href="struct_f_user_dto.html">FUserDto</a>() const;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    explicit operator <a class="code hl_struct" href="struct_f_user_object_dto.html">FUserObjectDto</a>() const;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    explicit operator <a class="code hl_struct" href="struct_f_user_object_request_dto.html">FUserObjectRequestDto</a>() const;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">void</span> Update(const <a class="code hl_struct" href="struct_f_user.html">FUser</a>&amp; User);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="comment">// Get name, falling back to id</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    const FString&amp; GetNameOrId() const;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    FString GetInitials(int32 Limit = 2) const;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    const FDateTime&amp; GetLastActive() const;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    FText GetLastSeenText() const;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = &quot;Stream Chat|User&quot;)</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="struct_f_user.html#ac9ebcfe4ceccb6acbbefa3e98216fe9b">   53</a></span>    FString <a class="code hl_variable" href="struct_f_user_dto.html#a9fc9adaed04a41d8b5a6fdf10c9fd001">Id</a>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    UPROPERTY(BlueprintReadOnly, Category = &quot;Stream Chat|User&quot;)</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="struct_f_user.html#ac369595516b6f561144f92c50d95ca7a">   57</a></span>    <span class="keywordtype">bool</span> bOnline = false;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    UPROPERTY(BlueprintReadWrite, Category = &quot;Stream Chat|User&quot;, AdvancedDisplay)</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="struct_f_user.html#a73e81750f09c7f54f9fd810f53196421">   61</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="struct_f_user_dto.html#a4f1faf35f061f86a8fe192df346bcae1">bInvisible</a> = false;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = &quot;Stream Chat|User&quot;, AdvancedDisplay)</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="struct_f_user.html#afe39d344b0fc2db6e265feb8700424ce">   65</a></span>    FDateTime CreatedAt = FDateTime{0};</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|User&quot;</span>, AdvancedDisplay)</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="struct_f_user.html#a121e1d3c57557c18449da3eb4df549ed">   69</a></span>    FDateTime UpdatedAt = FDateTime{0};</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|User&quot;</span>, AdvancedDisplay)</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="struct_f_user.html#a107e3550167fb3f95fc239a37080aaf1">   73</a></span>    FDateTime DeactivatedAt = FDateTime{0};</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|User&quot;</span>, AdvancedDisplay)</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="struct_f_user.html#a48d27f5a5ed4f5e2b0d399d50fbd200f">   77</a></span>    FDateTime DeletedAt = FDateTime{0};</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|User&quot;</span>, AdvancedDisplay)</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="struct_f_user.html#a434112e6a7a328b26a6937018bde5c34">   81</a></span>    FDateTime <a class="code hl_enumvalue" href="group___stream_chat.html#gga168ebbcdbfc643c147a18bf919d9a7a1a00ced7fb1ad8328edf91ef4493b43c2e">LastActive</a> = FDateTime{0};</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    UPROPERTY(BlueprintReadWrite, Category = <span class="stringliteral">&quot;Stream Chat|User&quot;</span>, AdvancedDisplay)</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="struct_f_user.html#a7c6905c0374bd38c926c50be07a01bc8">   85</a></span>    FDateTime <a class="code hl_variable" href="struct_f_user_dto.html#ab57d983041773f465a9096b6a4b52376">BanExpires</a> = FDateTime{0};</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    UPROPERTY(BlueprintReadWrite, Category = <span class="stringliteral">&quot;Stream Chat|User&quot;</span>, AdvancedDisplay)</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="struct_f_user.html#adb815a310fc4a1bb89b454adf075450d">   89</a></span>    bool <a class="code hl_variable" href="struct_f_user_dto.html#a53526facbe994dbb37b206805bf734af">bBanned</a> = false;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    UPROPERTY(BlueprintReadWrite, Category = &quot;Stream Chat|User&quot;, AdvancedDisplay)</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="struct_f_user.html#a43fe7b4a5186fdfd962e92018df162bb">   93</a></span>    FString <a class="code hl_variable" href="struct_f_user_dto.html#a167692c46414a4861aa6acc232a18e3c">Language</a>;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    UPROPERTY(BlueprintReadWrite, Category = &quot;Stream Chat|User&quot;, AdvancedDisplay)</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="struct_f_user.html#a85296b532bd5eccd363ec0e176055ddc">   97</a></span>    FDateTime <a class="code hl_variable" href="struct_f_user_dto.html#a739ec7a197f0b56b74e1d3cae92bb9d2">RevokeTokensIssuedBefore</a> = FDateTime{0};</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    UPROPERTY(BlueprintReadWrite, Category = <span class="stringliteral">&quot;Stream Chat|User&quot;</span>, AdvancedDisplay)</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="struct_f_user.html#aa969a42428798bdb84a9239b559ba476">  101</a></span>    FString <a class="code hl_variable" href="struct_f_user_dto.html#a296194a8d3462bc0e0750e12acceeb65">Role</a>;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    UPROPERTY(BlueprintReadWrite, Category = &quot;Stream Chat|User&quot;, AdvancedDisplay)</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="struct_f_user.html#a352048f005fa9060e99d11f368ed9875">  105</a></span>    TArray&lt;FString&gt; <a class="code hl_variable" href="struct_f_user_dto.html#a3bba47a1d2d2275de05647fb5067a750">Teams</a>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="comment">// Not in the API spec, but common</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = &quot;Stream Chat|User&quot;)</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="struct_f_user.html#a93c3bd7ac953ce1bf092845e7fb43422">  110</a></span>    FString Name;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="comment">// Not in the API spec, but common</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = &quot;Stream Chat|User&quot;)</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="struct_f_user.html#a2ca45f74018a8256b0a4a9955d52d6c7">  115</a></span>    FString Image;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>};</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>UCLASS()</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="class_u_user_blueprint_library.html">  123</a></span>class STREAMCHAT_API <a class="code hl_class" href="class_u_user_blueprint_library.html">UUserBlueprintLibrary</a> final : public UBlueprintFunctionLibrary</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>{</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    UFUNCTION(BlueprintCallable, Category = <span class="stringliteral">&quot;Stream Chat|User&quot;</span>)</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keyword">static</span> <span class="keywordtype">bool</span> GenerateUserId(<span class="keyword">const</span> FString&amp; Name, FString&amp; OutUserId);</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    UFUNCTION(BlueprintCallable, Category = <span class="stringliteral">&quot;Stream Chat|User&quot;</span>)</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keyword">static</span> <span class="keywordtype">bool</span> SanitizeName(<span class="keyword">const</span> FString&amp; Name, FString&amp; SanitizedName);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>};</div>
+<div class="ttc" id="aclass_u_user_blueprint_library_html"><div class="ttname"><a href="class_u_user_blueprint_library.html">UUserBlueprintLibrary</a></div><div class="ttdoc">Blueprint functions for the User struct.</div><div class="ttdef"><b>Definition:</b> User.h:124</div></div>
 <div class="ttc" id="agroup___stream_chat_html_gga168ebbcdbfc643c147a18bf919d9a7a1a00ced7fb1ad8328edf91ef4493b43c2e"><div class="ttname"><a href="group___stream_chat.html#gga168ebbcdbfc643c147a18bf919d9a7a1a00ced7fb1ad8328edf91ef4493b43c2e">EUserSortField::LastActive</a></div><div class="ttdeci">@ LastActive</div><div class="ttdoc">When the user was last active.</div></div>
 <div class="ttc" id="astruct_f_user_dto_html"><div class="ttname"><a href="struct_f_user_dto.html">FUserDto</a></div><div class="ttdoc">Common fields for users.</div><div class="ttdef"><b>Definition:</b> UserDto.h:16</div></div>
 <div class="ttc" id="astruct_f_user_dto_html_a167692c46414a4861aa6acc232a18e3c"><div class="ttname"><a href="struct_f_user_dto.html#a167692c46414a4861aa6acc232a18e3c">FUserDto::Language</a></div><div class="ttdeci">FString Language</div><div class="ttdoc">Preferred language of a user.</div><div class="ttdef"><b>Definition:</b> UserDto.h:60</div></div>
@@ -200,7 +199,7 @@ $(document).ready(function(){initNavTree('_user_8h_source.html',''); initResizab
 <div class="ttc" id="astruct_f_user_dto_html_a739ec7a197f0b56b74e1d3cae92bb9d2"><div class="ttname"><a href="struct_f_user_dto.html#a739ec7a197f0b56b74e1d3cae92bb9d2">FUserDto::RevokeTokensIssuedBefore</a></div><div class="ttdeci">FDateTime RevokeTokensIssuedBefore</div><div class="ttdoc">Revocation date for tokens.</div><div class="ttdef"><b>Definition:</b> UserDto.h:64</div></div>
 <div class="ttc" id="astruct_f_user_dto_html_a9fc9adaed04a41d8b5a6fdf10c9fd001"><div class="ttname"><a href="struct_f_user_dto.html#a9fc9adaed04a41d8b5a6fdf10c9fd001">FUserDto::Id</a></div><div class="ttdeci">FString Id</div><div class="ttdoc">Unique user identifier.</div><div class="ttdef"><b>Definition:</b> UserDto.h:44</div></div>
 <div class="ttc" id="astruct_f_user_dto_html_ab57d983041773f465a9096b6a4b52376"><div class="ttname"><a href="struct_f_user_dto.html#ab57d983041773f465a9096b6a4b52376">FUserDto::BanExpires</a></div><div class="ttdeci">FDateTime BanExpires</div><div class="ttdoc">Expiration date of the ban.</div><div class="ttdef"><b>Definition:</b> UserDto.h:48</div></div>
-<div class="ttc" id="astruct_f_user_html"><div class="ttname"><a href="struct_f_user.html">FUser</a></div><div class="ttdoc">A Stream Chat user.</div><div class="ttdef"><b>Definition:</b> User.h:21</div></div>
+<div class="ttc" id="astruct_f_user_html"><div class="ttname"><a href="struct_f_user.html">FUser</a></div><div class="ttdoc">A Stream Chat user.</div><div class="ttdef"><b>Definition:</b> User.h:20</div></div>
 <div class="ttc" id="astruct_f_user_object_dto_html"><div class="ttname"><a href="struct_f_user_object_dto.html">FUserObjectDto</a></div><div class="ttdoc">#/components/schemas/UserObject Used in both requests and responses</div><div class="ttdef"><b>Definition:</b> UserObjectDto.h:17</div></div>
 <div class="ttc" id="astruct_f_user_object_request_dto_html"><div class="ttname"><a href="struct_f_user_object_request_dto.html">FUserObjectRequestDto</a></div><div class="ttdoc">#/components/schemas/UserObjectRequest</div><div class="ttdef"><b>Definition:</b> UserObjectRequestDto.h:16</div></div>
 </div><!-- fragment --></div><!-- contents -->

@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"struct_f_delete_channel_response_dto.html":[1,2,41],
 "struct_f_device.html":[3,0,28],
 "struct_f_device.html#a00ed5a95ea7e5af9156fa9728de29066":[3,0,28,3],
 "struct_f_device.html#a768f6f913144024226797cbfe2bdcc87":[3,0,28,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "struct_f_search_request_dto.html#a1a9da6c7937eda7b4d56961ca1e21d77":[1,2,18,1],
 "struct_f_search_request_dto.html#a212dd36831b231bdeb175ee61bac5bfd":[1,2,18,4],
 "struct_f_search_request_dto.html#a623bd0d678d67b48adb622ad80764059":[1,2,18,5],
-"struct_f_search_request_dto.html#ae6b8cbfb7bf8b4c7a88ec93bb930ada1":[1,2,18,2],
-"struct_f_search_request_dto.html#af35fd26ede54ad31e28fc24232d3be83":[1,2,18,3]
+"struct_f_search_request_dto.html#ae6b8cbfb7bf8b4c7a88ec93bb930ada1":[1,2,18,2]
 };

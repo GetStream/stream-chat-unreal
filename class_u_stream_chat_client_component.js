@@ -35,6 +35,7 @@ var class_u_stream_chat_client_component =
     [ "ShadowUnbanUser", "class_u_stream_chat_client_component.html#a136da36f3a2a1d55a490813affefd32f", null ],
     [ "UnbanUser", "class_u_stream_chat_client_component.html#a81f007e47d4a929205530d6f1532987c", null ],
     [ "UnmuteUser", "class_u_stream_chat_client_component.html#a40b0b86d6b374c18ea9f580060805773", null ],
+    [ "UpsertUsers", "class_u_stream_chat_client_component.html#a8b6c449d6ed7cbe57df3d390829acedc", null ],
     [ "WatchChannel", "class_u_stream_chat_client_component.html#aa78cae04fd73d3df82ef147487a5a71c", null ],
     [ "WatchChannel", "class_u_stream_chat_client_component.html#a705b3527835b5c7354ee5eeb8859320a", null ],
     [ "ChannelsUpdated", "class_u_stream_chat_client_component.html#a4782f198e76dd5dbd7ab4300eacfc9e8", null ]
