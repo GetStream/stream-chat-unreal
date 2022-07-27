@@ -85,6 +85,12 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client")
     void DisconnectUser();
 
+    /**
+     * @brief Create or update one or more users
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client")
+    void UpsertUsers(const TArray<FUser>& Users);
+
     /// Create a null chat channel for starting a new chat/group
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client")
     UChatChannel* NewChat();

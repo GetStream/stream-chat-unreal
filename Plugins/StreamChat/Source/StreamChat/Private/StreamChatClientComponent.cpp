@@ -22,6 +22,7 @@
 #include "Response/Moderation/MuteUserResponseDto.h"
 #include "Response/Moderation/QueryBannedUsersResponseDto.h"
 #include "Response/User/GuestResponseDto.h"
+#include "Response/User/UpdateUsersResponseDto.h"
 #include "Response/User/UsersResponseDto.h"
 #include "StreamChatSettings.h"
 #include "Token.h"
@@ -48,7 +49,8 @@ void UStreamChatClientComponent::BeginPlay()
 void UStreamChatClientComponent::ConnectUserInternal(const FUser& User, const TFunction<void(const FOwnUser&)> Callback)
 {
     const FUserRef UserRef = UUserManager::Get()->UpsertUser(User);
-    Socket = IChatSocket::Create(TokenManager.ToSharedRef(), ApiKey, GetDefault<UStreamChatSettings>()->Host, FUserObjectDto(User));
+    const FUserObjectDto UserDto{User};
+    Socket = IChatSocket::Create(TokenManager.ToSharedRef(), ApiKey, GetDefault<UStreamChatSettings>()->Host, UserDto);
     Socket->Connect(
         [Callback](const FOwnUserDto& Dto)
         {
@@ -296,6 +298,26 @@ void UStreamChatClientComponent::DisconnectUser()
     }
     TokenManager->Reset();
     UUserManager::Get()->ResetCurrentUser();
+}
+
+void UStreamChatClientComponent::UpsertUsers(const TArray<FUser>& Users)
+{
+    TMap<FString, FUserObjectRequestDto> Dtos;
+    for (auto&& User : Users)
+    {
+        Dtos.Add(User.Id, FUserObjectRequestDto{User});
+    }
+    Api->UpsertUsers(
+        Dtos,
+        [](const TResponse<FUpdateUsersResponseDto>& Response)
+        {
+            if (const auto* Dto = Response.Get())
+            {
+                TArray<FUserObjectDto> UserObjectDtos;
+                Dto->Users.GenerateValueArray(UserObjectDtos);
+                UUserManager::Get()->UpsertUsers(UserObjectDtos);
+            }
+        });
 }
 
 UChatChannel* UStreamChatClientComponent::NewChat()
