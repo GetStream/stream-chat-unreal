@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "StreamChatClientComponent.h"
 #include "User/User.h"
-namespace AuthlessUsers
+namespace ManagingUsers
 {
 UStreamChatClientComponent* Client = nullptr;
 FUser User;
@@ -14,4 +14,4 @@ void ServerSideUserUpdatesBatch()
     Client->UpsertUsers({User});
 }
 
-}    // namespace AuthlessUsers
+}    // namespace ManagingUsers
