@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "Moderation/MutedChannel.h"
-#include "Moderation/MutedUser.h"
 
 #include "User.generated.h"
 

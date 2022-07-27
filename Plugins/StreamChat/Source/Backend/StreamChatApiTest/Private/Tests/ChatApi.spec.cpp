@@ -457,7 +457,7 @@ void FChatApiSpec::Define()
                         });
                 });
 
-            // Partial update user
+            // Upsert users
             LatentAfterEach(
                 [=](const FDoneDelegate& TestDone)
                 {
