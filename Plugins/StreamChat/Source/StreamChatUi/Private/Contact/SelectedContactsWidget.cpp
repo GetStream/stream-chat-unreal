@@ -5,11 +5,6 @@
 #include "ThemeDataAsset.h"
 #include "TimerManager.h"
 
-USelectedContactsWidget::USelectedContactsWidget()
-{
-    bAutoSetup = true;
-}
-
 void USelectedContactsWidget::SetUsers(const TArray<FUserRef>& Users)
 {
     Contacts = Users;

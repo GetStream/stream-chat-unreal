@@ -89,7 +89,7 @@ UTexture2D* UTimestampWidget::GetStatusIcon() const
     {
         return IconClock;
     }
-    if (GetChannel()->State.IsMessageRead(Message))
+    if (GetChannel() && GetChannel()->State.IsMessageRead(Message))
     {
         return IconCheckAll;
     }

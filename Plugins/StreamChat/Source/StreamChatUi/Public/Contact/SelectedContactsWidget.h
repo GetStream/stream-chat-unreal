@@ -20,7 +20,6 @@ class STREAMCHATUI_API USelectedContactsWidget final : public UStreamWidget
     GENERATED_BODY()
 
 public:
-    USelectedContactsWidget();
     UFUNCTION(BlueprintCallable, Category = "Stream|Selected Contacts")
     void SetUsers(const TArray<FUserRef>& Users);
 

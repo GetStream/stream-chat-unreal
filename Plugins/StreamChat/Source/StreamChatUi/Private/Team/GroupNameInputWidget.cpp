@@ -4,11 +4,6 @@
 
 #include "ThemeDataAsset.h"
 
-UGroupNameInputWidget::UGroupNameInputWidget()
-{
-    bAutoSetup = true;
-}
-
 FText UGroupNameInputWidget::GetGroupName() const
 {
     if (GroupName)

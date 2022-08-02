@@ -12,25 +12,28 @@ void UMessageListHeaderWidget::NativePreConstruct()
 {
     Super::NativePreConstruct();
 
-    GetChannel()->OnTypingIndicator.AddDynamic(this, &UMessageListHeaderWidget::OnTypingIndicator);
-
-    if (Header)
+    if (GetChannel())
     {
-        const FText Title = FText::FromString(UUiBlueprintLibrary::GetChannelTitle(GetChannel()));
-        Header->SetTitle(Title);
-        ShowOnlineStatusSubheader();
-    }
+        GetChannel()->OnTypingIndicator.AddDynamic(this, &UMessageListHeaderWidget::OnTypingIndicator);
 
-    if (Avatar)
-    {
-        const TOptional<FString> Image = GetChannel()->Properties.GetImageUrl();
-        if (Image.IsSet())
+        if (Header)
         {
-            Avatar->SetupWithUrl(Image.GetValue());
+            const FText Title = FText::FromString(UUiBlueprintLibrary::GetChannelTitle(GetChannel()));
+            Header->SetTitle(Title);
+            ShowOnlineStatusSubheader();
         }
-        else
+
+        if (Avatar)
         {
-            Avatar->Setup(GetChannel()->Properties.GetOtherMemberUsers());
+            const TOptional<FString> Image = GetChannel()->Properties.GetImageUrl();
+            if (Image.IsSet())
+            {
+                Avatar->SetupWithUrl(Image.GetValue());
+            }
+            else
+            {
+                Avatar->Setup(GetChannel()->Properties.GetOtherMemberUsers());
+            }
         }
     }
 }

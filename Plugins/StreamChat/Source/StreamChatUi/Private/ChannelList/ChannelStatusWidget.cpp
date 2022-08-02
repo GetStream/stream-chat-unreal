@@ -29,8 +29,11 @@ void UChannelStatusWidget::NativePreConstruct()
 {
     Super::NativePreConstruct();
 
-    GetClientContext()->OnChannelSelected.AddDynamic(this, &UChannelStatusWidget::UpdateSelection);
-    UpdateSelection(GetClientContext()->SelectedChannel);
+    if (GetClientContext())
+    {
+        GetClientContext()->OnChannelSelected.AddDynamic(this, &UChannelStatusWidget::UpdateSelection);
+        UpdateSelection(GetClientContext()->SelectedChannel);
+    }
 
     // Theming
     NormalStyle.Normal.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->HeaderButtonNormalBackgroundColor)};

@@ -17,11 +17,10 @@ class STREAMCHATUI_API UStreamWidget : public UUserWidget
 {
     GENERATED_BODY()
 
-public:
+protected:
     /// This must be called in your custom Setup(...) function.
     void Setup();
 
-protected:
     virtual void NativePreConstruct() override;
 
     /// The chat client context if this widget is below a ClientContextWidget in the hierarchy
@@ -39,10 +38,6 @@ protected:
     /// The theme if this widget is below a ThemeContextWidget in the hierarchy
     UFUNCTION(BlueprintGetter)
     UThemeDataAsset* GetTheme() const;
-
-    /// Call the internal OnSetup function automatically. Needed if you don't have a custom Setup function.
-    UPROPERTY(EditDefaultsOnly, Category = Defaults)
-    bool bAutoSetup = false;
 
 private:
     virtual bool Initialize() override;
@@ -70,4 +65,5 @@ private:
     UPROPERTY(BlueprintGetter = GetTheme, Transient, Category = Stream)
     mutable UThemeDataAsset* Theme;
     bool bConstructed = false;
+    bool bSetupCalled = false;
 };

@@ -5,11 +5,6 @@
 #include "Context/ClientContextWidget.h"
 #include "ThemeDataAsset.h"
 
-UChannelListHeaderWidget::UChannelListHeaderWidget()
-{
-    bAutoSetup = true;
-}
-
 void UChannelListHeaderWidget::OnSetup()
 {
     if (Button)
