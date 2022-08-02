@@ -17,9 +17,6 @@ class STREAMCHATUI_API UChannelListHeaderWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 
-public:
-    UChannelListHeaderWidget();
-
 protected:
     UPROPERTY(meta = (BindWidget))
     UImage* Icon;

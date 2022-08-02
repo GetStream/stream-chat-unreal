@@ -21,6 +21,8 @@ void UUserListWidget::OnSetup()
 
 void UUserListWidget::NativePreConstruct()
 {
+    Super::NativePreConstruct();
+
     Refetch();
 }
 

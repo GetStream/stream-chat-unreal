@@ -20,8 +20,6 @@ class STREAMCHATUI_API UHeaderWidget final : public UStreamWidget
     GENERATED_BODY()
 
 public:
-    UHeaderWidget();
-
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void SetTitle(const FText& InTitle);
 

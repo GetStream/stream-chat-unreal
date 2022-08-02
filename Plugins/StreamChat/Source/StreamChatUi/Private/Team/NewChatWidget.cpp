@@ -6,20 +6,10 @@
 #include "StreamChatClientComponent.h"
 #include "User/UserManager.h"
 
-UNewChatWidget::UNewChatWidget()
-{
-}
-
-void UNewChatWidget::Setup()
-{
-    Super::Setup();
-}
-
 void UNewChatWidget::OnSetup()
 {
     if (UserList)
     {
-        UserList->SetQuery();
         UserList->OnUserClicked.AddDynamic(this, &UNewChatWidget::OnUserClicked);
     }
     if (GroupName)
@@ -33,6 +23,16 @@ void UNewChatWidget::OnSetup()
     if (Composer)
     {
         Composer->OnSendMessage.AddDynamic(this, &UNewChatWidget::OnSendMessage);
+    }
+}
+
+void UNewChatWidget::NativePreConstruct()
+{
+    Super::NativePreConstruct();
+
+    if (UserList)
+    {
+        UserList->SetQuery();
     }
 }
 

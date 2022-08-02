@@ -19,11 +19,6 @@ class STREAMCHATUI_API UNewChatWidget final : public UStreamWidget
 {
     GENERATED_BODY()
 
-public:
-    UNewChatWidget();
-    UFUNCTION(BlueprintCallable, Category = "Stream Chat")
-    void Setup();
-
 protected:
     UPROPERTY(meta = (BindWidget))
     UHeaderWidget* Header;
@@ -38,6 +33,7 @@ protected:
 
 private:
     virtual void OnSetup() override;
+    virtual void NativePreConstruct() override;
 
     UFUNCTION()
     void OnUserClicked(const FUserRef& User, bool bSelected);

@@ -20,8 +20,6 @@ class STREAMCHATUI_API UGroupNameInputWidget final : public UStreamWidget
     GENERATED_BODY()
 
 public:
-    UGroupNameInputWidget();
-
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FGroupNameChanged, const FText&, Text);
     UPROPERTY(BlueprintAssignable)
     FGroupNameChanged OnGroupNameChanged;

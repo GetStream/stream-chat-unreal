@@ -37,6 +37,11 @@ void UOnlineStatusSubheaderWidget::UpdateLabel() const
 
 FText UOnlineStatusSubheaderWidget::GetLabel() const
 {
+    if (!GetChannel())
+    {
+        return FText::GetEmpty();
+    }
+
     if (GetChannel()->Properties.Members.Num() <= 2)
     {
         if (const FMember* Member = GetChannel()->Properties.Members.FindByPredicate([this](const FMember& M) { return !M.User.IsCurrent(); }))

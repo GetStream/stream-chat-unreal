@@ -12,15 +12,6 @@ UChannelListWidget::UChannelListWidget()
     Limit = 10;
 }
 
-void UChannelListWidget::NativeDestruct()
-{
-    if (GetClient())
-    {
-        GetClient()->ChannelsUpdated.RemoveDynamic(this, &UChannelListWidget::OnChannelsUpdated);
-    }
-    Super::NativeDestruct();
-}
-
 void UChannelListWidget::ReleaseSlateResources(const bool bReleaseChildren)
 {
     Super::ReleaseSlateResources(bReleaseChildren);
@@ -32,26 +23,46 @@ void UChannelListWidget::NativePreConstruct()
 {
     Super::NativePreConstruct();
 
-    GetClient()->ChannelsUpdated.AddDynamic(this, &UChannelListWidget::OnChannelsUpdated);
-
-    GetClientContext()->OnBack.AddDynamic(this, &UChannelListWidget::OnBack);
-    GetClientContext()->OnChannelSelected.AddDynamic(this, &UChannelListWidget::OnChannelSelected);
-
-    if (ListView)
+    if (GetClient())
     {
-        PaginateListWidget = SNew(SPaginateListWidget<UChatChannel*>)
-                                 .Limit(Limit)
-                                 .PaginationDirection(EPaginationDirection::Bottom)
-                                 .ListItemsSource(&GetClient()->GetChannels())
-                                 .CreateListViewWidget_UObject(this, &UChannelListWidget::CreateChannelWidget)
-                                 .DoPaginate_UObject(this, &UChannelListWidget::Paginate);
-        ListView->SetContent(PaginateListWidget.ToSharedRef());
+        GetClient()->ChannelsUpdated.AddDynamic(this, &UChannelListWidget::OnChannelsUpdated);
+
+        if (ListView)
+        {
+            PaginateListWidget = SNew(SPaginateListWidget<UChatChannel*>)
+                                     .Limit(Limit)
+                                     .PaginationDirection(EPaginationDirection::Bottom)
+                                     .ListItemsSource(&GetClient()->GetChannels())
+                                     .CreateListViewWidget_UObject(this, &UChannelListWidget::CreateChannelWidget)
+                                     .DoPaginate_UObject(this, &UChannelListWidget::Paginate);
+            ListView->SetContent(PaginateListWidget.ToSharedRef());
+        }
+    }
+
+    if (GetClientContext())
+    {
+        GetClientContext()->OnBack.AddUniqueDynamic(this, &UChannelListWidget::OnBack);
+        GetClientContext()->OnChannelSelected.AddUniqueDynamic(this, &UChannelListWidget::OnChannelSelected);
     }
 
     if (Divider)
     {
         Divider->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->TeamChatDividerColor));
     }
+}
+
+void UChannelListWidget::NativeDestruct()
+{
+    if (GetClient())
+    {
+        GetClient()->ChannelsUpdated.RemoveDynamic(this, &UChannelListWidget::OnChannelsUpdated);
+    }
+    if (GetClientContext())
+    {
+        GetClientContext()->OnBack.RemoveDynamic(this, &UChannelListWidget::OnBack);
+        GetClientContext()->OnChannelSelected.RemoveDynamic(this, &UChannelListWidget::OnChannelSelected);
+    }
+    Super::NativeDestruct();
 }
 
 void UChannelListWidget::Paginate(const EPaginationDirection Direction, const TFunction<void()> Callback)

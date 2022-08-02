@@ -5,11 +5,6 @@
 #include "Components/NamedSlot.h"
 #include "ThemeDataAsset.h"
 
-UHeaderWidget::UHeaderWidget()
-{
-    bAutoSetup = true;
-}
-
 void UHeaderWidget::SetTitle(const FText& InTitle)
 {
     Title = InTitle;

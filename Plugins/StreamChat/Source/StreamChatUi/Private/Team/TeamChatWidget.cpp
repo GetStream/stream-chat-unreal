@@ -66,7 +66,6 @@ void UTeamChatWidget::ChannelSelected(UChatChannel* SelectedChannel)
     {
         // Invalid channel means new chat
         UNewChatWidget* Widget = CreateWidget<UNewChatWidget>(this, NewChatWidgetClass);
-        Widget->Setup();
         MessageListContainer->AddChild(Widget);
     }
 }

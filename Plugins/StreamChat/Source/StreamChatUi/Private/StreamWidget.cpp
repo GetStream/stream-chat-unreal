@@ -9,6 +9,7 @@
 
 void UStreamWidget::Setup()
 {
+    bSetupCalled = true;
     OnSetup();
 }
 
@@ -81,7 +82,8 @@ bool UStreamWidget::Initialize()
 {
     if (Super::Initialize())
     {
-        if (IsDesignTime() || bAutoSetup)
+        // We'll just auto call OnSetup() if the inherited class didn't do it
+        if (IsDesignTime() || !bSetupCalled)
         {
             OnSetup();
         }
