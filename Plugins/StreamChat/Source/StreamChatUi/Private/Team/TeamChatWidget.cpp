@@ -26,7 +26,7 @@ void UTeamChatWidget::OnSetup()
     }
     if (ClientContextWidget)
     {
-        ClientContextWidget->OnChannelSelected.AddDynamic(this, &UTeamChatWidget::ChannelSelected);
+        ClientContextWidget->OnChannelSelected.AddUniqueDynamic(this, &UTeamChatWidget::ChannelSelected);
     }
 }
 
