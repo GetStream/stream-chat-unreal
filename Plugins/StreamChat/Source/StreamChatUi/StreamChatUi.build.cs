@@ -15,7 +15,8 @@ public class StreamChatUi : ModuleRules
             "HTTP",
             "RenderCore",
             "RHI",
-            "Json", "XmlParser"
+            "Json",
+            "XmlParser"
         });
 
         PublicDependencyModuleNames.AddRange(new[] {
@@ -24,7 +25,8 @@ public class StreamChatUi : ModuleRules
             "Engine",
             "UMG",
             "SlateCore",
-            "StreamChat"
+            "StreamChat",
+            "StreamJson",
         });
     }
 }
