@@ -16,7 +16,7 @@ struct FChannelResponseDto;
  * @brief Encapsulates the static properties of a channel
  * @ingroup StreamChat
  */
-USTRUCT(BlueprintType)
+USTRUCT(BlueprintType, meta = (HasNativeMake))
 struct STREAMCHAT_API FChannelProperties
 {
     GENERATED_BODY()
@@ -29,7 +29,7 @@ struct STREAMCHAT_API FChannelProperties
     explicit FChannelProperties(const FChannelResponseDto& Dto, const TArray<FChannelMemberDto>& InMembers, UUserManager*);
 
     // For initial channel creation
-    explicit FChannelProperties(const FString& Type, const FString& Id = TEXT(""), const FString& Team = TEXT(""));
+    explicit FChannelProperties(const FString& Type, const FString& Id = TEXT(""), const FString& Team = TEXT(""), const FAdditionalFields& ExtraData = {});
 
     /// Convert to a channel request DTO to send to the API
     explicit operator FChannelRequestDto() const;
@@ -148,12 +148,12 @@ struct STREAMCHAT_API FChannelProperties
     FString Team;
 
     /// Extra data for this channel
-    UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|Channel Properties")
+    UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|Channel Properties", AdvancedDisplay)
     FAdditionalFields ExtraData;
 };
 
 /**
- * @brief Blueprint functions for the Additional Fields struct
+ * @brief Blueprint functions for the Channel Properties struct
  * @ingroup StreamChat
  */
 UCLASS()
@@ -162,11 +162,21 @@ class STREAMCHAT_API UChannelPropertiesBlueprintLibrary final : public UBlueprin
     GENERATED_BODY()
 
 public:
-    /// Set the members using just their User IDs
-    UFUNCTION(BlueprintPure, Category = "Stream Chat|Channel Properties", meta = (DisplayName = "Set Members (User ID)"))
-    static void SetMembers_UserId(UPARAM(ref) FChannelProperties& ChannelProperties, const TArray<FString>& UserIds, FChannelProperties& Out);
-
-    /// Set the members using an array of UserRefs
-    UFUNCTION(BlueprintPure, Category = "Stream Chat|Channel Properties", meta = (DisplayName = "Set Members (User)"))
-    static void SetMembers_User(UPARAM(ref) FChannelProperties& ChannelProperties, const TArray<FUserRef>& Users, FChannelProperties& Out);
+    /// Make a channel properties struct using a custom ID
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Channel Properties", meta = (NativeMakeFunc, DisplayName = "Make Channel Properties (ID)", AdvancedDisplay = "Team,ExtraData", AutoCreateRefTerm = ExtraData))
+    static FChannelProperties MakeChannelPropertiesId(const FString& Type, const FString& Id, const FString& Team, const FAdditionalFields& ExtraData);
+    /// Make a channel properties struct using a list of user IDs
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Channel Properties", meta = (NativeMakeFunc, DisplayName = "Make Channel Properties (User IDs)", AdvancedDisplay = "Team,ExtraData", AutoCreateRefTerm = ExtraData))
+    static FChannelProperties MakeChannelPropertiesUserIds(
+        const FString& Type,
+        const TArray<FString>& UserIds,
+        const FString& Team,
+        const FAdditionalFields& ExtraData);
+    /// Make a channel properties struct using a list of user refs
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Channel Properties", meta = (NativeMakeFunc, DisplayName = "Make Channel Properties (Users)", AdvancedDisplay = "Team,ExtraData", AutoCreateRefTerm = ExtraData))
+    static FChannelProperties MakeChannelPropertiesUsers(
+        const FString& Type,
+        const TArray<FUserRef>& Users,
+        const FString& Team,
+        const FAdditionalFields& ExtraData);
 };

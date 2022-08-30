@@ -45,7 +45,8 @@ FChannelProperties::FChannelProperties(const FChannelResponseDto& Dto, const TAr
     }
 }
 
-FChannelProperties::FChannelProperties(const FString& Type, const FString& Id, const FString& Team) : Type{Type}, Id{Id}, Team{Team}
+FChannelProperties::FChannelProperties(const FString& Type, const FString& Id, const FString& Team, const FAdditionalFields& ExtraData)
+    : Type{Type}, Id{Id}, Team{Team}, ExtraData{ExtraData}
 {
 }
 
@@ -146,12 +147,29 @@ void FChannelProperties::AppendMembers(const TArray<FChannelMemberDto>& InMember
     SetMembers(NewMembers.Array());
 }
 
-void UChannelPropertiesBlueprintLibrary::SetMembers_UserId(FChannelProperties& ChannelProperties, const TArray<FString>& UserIds, FChannelProperties& Out)
+FChannelProperties UChannelPropertiesBlueprintLibrary::MakeChannelPropertiesId(
+    const FString& Type,
+    const FString& Id,
+    const FString& Team,
+    const FAdditionalFields& ExtraData)
 {
-    Out = ChannelProperties.SetMembers(UserIds);
+    return FChannelProperties{Type, Id, Team, ExtraData};
 }
 
-void UChannelPropertiesBlueprintLibrary::SetMembers_User(FChannelProperties& ChannelProperties, const TArray<FUserRef>& Users, FChannelProperties& Out)
+FChannelProperties UChannelPropertiesBlueprintLibrary::MakeChannelPropertiesUserIds(
+    const FString& Type,
+    const TArray<FString>& UserIds,
+    const FString& Team,
+    const FAdditionalFields& ExtraData)
 {
-    Out = ChannelProperties.SetMembers(Users);
+    return FChannelProperties{Type, TEXT(""), Team, ExtraData}.SetMembers(UserIds);
+}
+
+FChannelProperties UChannelPropertiesBlueprintLibrary::MakeChannelPropertiesUsers(
+    const FString& Type,
+    const TArray<FUserRef>& Users,
+    const FString& Team,
+    const FAdditionalFields& ExtraData)
+{
+    return FChannelProperties{Type, TEXT(""), Team, ExtraData}.SetMembers(Users);
 }

@@ -37,7 +37,7 @@ struct FUserPresenceChangedEvent;
  * Should be added to a client-side actor, e.g. HUD.
  * @ingroup StreamChat
  */
-UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
+UCLASS(ClassGroup = (Stream), meta = (BlueprintSpawnableComponent))
 class STREAMCHAT_API UStreamChatClientComponent final : public UActorComponent
 {
     GENERATED_BODY()
