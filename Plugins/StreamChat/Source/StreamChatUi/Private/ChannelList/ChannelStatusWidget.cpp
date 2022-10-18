@@ -21,7 +21,7 @@ void UChannelStatusWidget::OnSetup()
 {
     if (Button)
     {
-        Button->OnClicked.AddDynamic(this, &UChannelStatusWidget::OnButtonClicked);
+        Button->OnClicked.AddUniqueDynamic(this, &UChannelStatusWidget::OnButtonClicked);
     }
 }
 
