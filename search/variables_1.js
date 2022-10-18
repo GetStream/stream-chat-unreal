@@ -40,7 +40,7 @@ var searchData=
   ['bstate_37',['bState',['../struct_f_query_channels_request_dto.html#a82b00c38b719ff5ac4a8e621a689ed29',1,'FQueryChannelsRequestDto::bState()'],['../struct_f_channel_get_or_create_request_dto.html#a8a1cf020893e4ef0b94d1a28ad769ce7',1,'FChannelGetOrCreateRequestDto::bState()']]],
   ['btypingevents_38',['bTypingEvents',['../struct_f_channel_config_with_info_dto.html#ab53c234e995c2b445300c95e92af8275',1,'FChannelConfigWithInfoDto::bTypingEvents()'],['../struct_f_channel_config.html#a2c935b890acf6ea9b044218b45c536c7',1,'FChannelConfig::bTypingEvents()']]],
   ['buploads_39',['bUploads',['../struct_f_channel_config_with_info_dto.html#a5269102cc32a0153bb64887954a919dd',1,'FChannelConfigWithInfoDto::bUploads()'],['../struct_f_channel_config.html#a67b73088591db483fdae6db99b8a0e8b',1,'FChannelConfig::bUploads()']]],
-  ['burlenrichment_40',['bURLEnrichment',['../struct_f_channel_config_with_info_dto.html#a35b45d0a3f5d4c029fb4b60d63e4be84',1,'FChannelConfigWithInfoDto']]],
-  ['burlenrichment_41',['bUrlEnrichment',['../struct_f_channel_config.html#a714a4b1f199d9e0c18c5c6b5289ff7cf',1,'FChannelConfig']]],
+  ['burlenrichment_40',['bUrlEnrichment',['../struct_f_channel_config.html#a714a4b1f199d9e0c18c5c6b5289ff7cf',1,'FChannelConfig']]],
+  ['burlenrichment_41',['bURLEnrichment',['../struct_f_channel_config_with_info_dto.html#a35b45d0a3f5d4c029fb4b60d63e4be84',1,'FChannelConfigWithInfoDto']]],
   ['bwatch_42',['bWatch',['../struct_f_channel_get_or_create_request_dto.html#a83f8dd45ca7aad69622d1a1b85806cfe',1,'FChannelGetOrCreateRequestDto::bWatch()'],['../struct_f_query_channels_request_dto.html#a6ce1221876ebf9d627d41ad0f2b5eab0',1,'FQueryChannelsRequestDto::bWatch()']]]
 ];
