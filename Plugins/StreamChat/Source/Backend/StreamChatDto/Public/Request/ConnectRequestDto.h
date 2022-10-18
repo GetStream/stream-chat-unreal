@@ -17,9 +17,14 @@ struct FConnectRequestDto
 {
     GENERATED_BODY()
 
+    void SetDevice(const FDeviceFieldsDto& Device)
+    {
+        AdditionalFields.Set(TEXT("device"), Device);
+    }
+
     UPROPERTY()
     FUserObjectDto UserDetails;
 
     UPROPERTY()
-    FDeviceFieldsDto Device;
+    FAdditionalFields AdditionalFields;
 };
