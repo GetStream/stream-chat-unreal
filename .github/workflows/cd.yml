@@ -227,7 +227,7 @@ jobs:
         if: ${{ matrix.platform == 'Mac' }}
         run: ditto -V -c -k --sequesterRsrc --keepParent "${{ matrix.what }}.app" "${{ matrix.what }}-${{ matrix.platform }}.zip"
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         if: ${{ matrix.platform == 'Mac' }}
         with:
           name: ${{ matrix.what }}-${{ matrix.platform }}
@@ -235,7 +235,7 @@ jobs:
             ${{ matrix.what }}-${{ matrix.platform }}.zip
         name: 📁 Upload artifact
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         if: ${{ matrix.platform != 'Mac' }}
         with:
           name: ${{ matrix.what }}-${{ matrix.platform }}
@@ -281,7 +281,7 @@ jobs:
           mkdir Plugins/StreamChat/dist/Content/SourceFiles
           find Plugins/StreamChat/dist -type f '(' -name "*.png" -o -name "*.svg" ')' -exec mv -i {} Plugins/StreamChat/dist/Content/SourceFiles \;
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: StreamChat.${{ matrix.engine }}
           path: |
