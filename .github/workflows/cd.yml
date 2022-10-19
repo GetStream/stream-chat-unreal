@@ -312,7 +312,7 @@ jobs:
             core.exportVariable('VERSION', version);
 
       - name: 📥 Download
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
 
       - name: 📇 Zip
         run: |
