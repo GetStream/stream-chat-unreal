@@ -211,11 +211,12 @@ jobs:
 
       - name: Notarize
         if: ${{ matrix.platform == 'Mac' }}
-        uses: devbotsxyz/xcode-notarize@v1
+        uses: jeevcat/xcode-notarize@main
         with:
           product-path: "${{ matrix.what }}.app"
           appstore-connect-username: ${{ secrets.NOTARIZATION_USERNAME }}
           appstore-connect-password: ${{ secrets.NOTARIZATION_PASSWORD }}
+          verbose: true
 
       - name: Staple
         if: ${{ matrix.platform == 'Mac' }}
