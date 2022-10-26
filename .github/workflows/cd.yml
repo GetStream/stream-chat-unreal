@@ -73,7 +73,7 @@ jobs:
 
       - name: Generate bundle version
         if: ${{ matrix.platform == 'IOS' }}
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
             const fs = require('fs');
@@ -299,7 +299,7 @@ jobs:
 
     steps:
       - name: 🔎 Determine version
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
             // Getting the release version from the PR source branch
