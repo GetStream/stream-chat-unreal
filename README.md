@@ -28,10 +28,6 @@
     <a href="https://github.com/GetStream/stream-chat-unreal/releases/latest">
         <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/GetStream/stream-chat-unreal">
     </a>
-    &nbsp;
-    <a href="https://github.com/GetStream/stream-chat-unreal/graphs/commit-activity">
-        <img src="https://img.shields.io/github/commit-activity/m/GetStream/stream-chat-unreal" alt="GitHub commit activity">
-    </a>
 </p>
 
 ---
