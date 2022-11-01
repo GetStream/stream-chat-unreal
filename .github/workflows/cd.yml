@@ -141,6 +141,7 @@ jobs:
           ue4 package $build_config -package $MAYBE_DISTRIBUTION -platform=${{ matrix.platform }} -mapstocook=${{ matrix.map }} | sed -e 's/.*LogInit: Display: \(.*\): Warning: \(.*\)/::warning title=\1::\2/' -e 's/.*LogInit: Display: \(.*\): Error: \(.*\)/::error title=\1::\2/' -e 's/.*ERROR: \(.*\)/::error::\1/'
 
       - name: 🔏 Codesign executable
+        shell: bash
         if: ${{ matrix.platform == 'Mac' }}
         env:
           MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
