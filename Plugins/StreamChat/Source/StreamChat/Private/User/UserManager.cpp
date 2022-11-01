@@ -51,7 +51,6 @@ bool UUserManager::HasUser(const FUserRef& Ref) const
 
 const FOwnUser& UUserManager::GetCurrentUser() const
 {
-    // TODO good idea?
     return CurrentUser.GetValue();
 }
 

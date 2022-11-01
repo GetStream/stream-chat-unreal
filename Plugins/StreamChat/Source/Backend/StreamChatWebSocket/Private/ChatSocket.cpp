@@ -253,7 +253,7 @@ void FChatSocket::OnHealthCheckEvent(const FHealthCheckEvent& HealthCheckEvent)
 
 void FChatSocket::OnHealthyConnect(const FOwnUserDto& OwnUser)
 {
-    UE_LOG(LogChatSocket, Log, TEXT("Connection successful [ConnectionId=%s]"), *ConnectionId);
+    UE_LOG(LogChatSocket, Log, TEXT("Connection successful [ConnectionId=%s,UserId=%s]"), *ConnectionId, *OwnUser.Id);
 
     if (PendingOnConnectCallback.IsBound())
     {

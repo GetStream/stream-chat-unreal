@@ -45,17 +45,6 @@ void USelectedContactsWidget::SetGroupMode(const bool bIsGroupMode)
 void USelectedContactsWidget::OnSetup()
 {
     SetUsers(Contacts);
-
-    if (AddUserButton)
-    {
-        AddUserButton->OnClicked.AddDynamic(this, &USelectedContactsWidget::OnAddUserClicked);
-    }
-    if (SearchText)
-    {
-        SearchText->OnTextCommitted.AddDynamic(this, &USelectedContactsWidget::OnSearchTextCommit);
-    }
-
-    GetWorld()->GetTimerManager().SetTimerForNextTick([this] { SetTypingMode(true); });
 }
 
 void USelectedContactsWidget::NativePreConstruct()
@@ -77,6 +66,36 @@ void USelectedContactsWidget::NativePreConstruct()
     {
         SearchText->WidgetStyle.SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->SelectedContactsInputTextColor));
     }
+}
+
+void USelectedContactsWidget::NativeConstruct()
+{
+    Super::NativeConstruct();
+
+    if (AddUserButton)
+    {
+        AddUserButton->OnClicked.AddDynamic(this, &USelectedContactsWidget::OnAddUserClicked);
+    }
+    if (SearchText)
+    {
+        SearchText->OnTextCommitted.AddDynamic(this, &USelectedContactsWidget::OnSearchTextCommit);
+    }
+
+    GetWorld()->GetTimerManager().SetTimerForNextTick([this] { SetTypingMode(true); });
+}
+
+void USelectedContactsWidget::NativeDestruct()
+{
+    if (AddUserButton)
+    {
+        AddUserButton->OnClicked.RemoveDynamic(this, &USelectedContactsWidget::OnAddUserClicked);
+    }
+    if (SearchText)
+    {
+        SearchText->OnTextCommitted.RemoveDynamic(this, &USelectedContactsWidget::OnSearchTextCommit);
+    }
+    GetWorld()->GetTimerManager().ClearAllTimersForObject(this);
+    Super::NativeDestruct();
 }
 
 void USelectedContactsWidget::PopulateWrapBox()

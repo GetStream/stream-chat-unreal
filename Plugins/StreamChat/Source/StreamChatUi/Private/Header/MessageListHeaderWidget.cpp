@@ -14,8 +14,6 @@ void UMessageListHeaderWidget::NativePreConstruct()
 
     if (GetChannel())
     {
-        GetChannel()->OnTypingIndicator.AddDynamic(this, &UMessageListHeaderWidget::OnTypingIndicator);
-
         if (Header)
         {
             const FText Title = FText::FromString(UUiBlueprintLibrary::GetChannelTitle(GetChannel()));
@@ -36,6 +34,24 @@ void UMessageListHeaderWidget::NativePreConstruct()
             }
         }
     }
+}
+
+void UMessageListHeaderWidget::NativeConstruct()
+{
+    Super::NativeConstruct();
+    if (GetChannel())
+    {
+        GetChannel()->OnTypingIndicator.AddDynamic(this, &UMessageListHeaderWidget::OnTypingIndicator);
+    }
+}
+
+void UMessageListHeaderWidget::NativeDestruct()
+{
+    if (GetChannel())
+    {
+        GetChannel()->OnTypingIndicator.RemoveDynamic(this, &UMessageListHeaderWidget::OnTypingIndicator);
+    }
+    Super::NativeDestruct();
 }
 
 void UMessageListHeaderWidget::OnTypingIndicator(const ETypingIndicatorState TypingState, const FUserRef& User)

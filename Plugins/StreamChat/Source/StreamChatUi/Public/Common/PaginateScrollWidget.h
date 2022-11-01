@@ -27,7 +27,7 @@ public:
     FPaginatingMessagesDelegate OnPaginatingMessages;
 
 protected:
-    virtual void NativePreConstruct() override;
+    virtual void NativeConstruct() override;
     virtual void NativeDestruct() override;
 
     /// Attempts to maintain scroll location when replacing the children of the scroll box

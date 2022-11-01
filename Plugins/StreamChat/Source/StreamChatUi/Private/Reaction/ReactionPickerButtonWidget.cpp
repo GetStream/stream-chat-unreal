@@ -18,10 +18,6 @@ void UReactionPickerButtonWidget::Setup(const FName& InReactionType, const EMess
 
 void UReactionPickerButtonWidget::OnSetup()
 {
-    if (Button)
-    {
-        Button->OnClicked.AddUniqueDynamic(this, &UReactionPickerButtonWidget::OnButtonClicked);
-    }
     if (Icon)
     {
         Icon->Setup(ReactionType, Side);
@@ -40,6 +36,25 @@ void UReactionPickerButtonWidget::NativePreConstruct()
         Button->WidgetStyle.Pressed.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->ReactionPickerSelectedColor)};
         Button->WidgetStyle.Hovered.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->ReactionPickerSelectedColor)};
     }
+}
+
+void UReactionPickerButtonWidget::NativeConstruct()
+{
+    Super::NativeConstruct();
+    if (Button)
+    {
+        Button->OnClicked.AddDynamic(this, &UReactionPickerButtonWidget::OnButtonClicked);
+    }
+}
+
+void UReactionPickerButtonWidget::NativeDestruct()
+{
+    if (Button)
+    {
+        Button->OnClicked.RemoveDynamic(this, &UReactionPickerButtonWidget::OnButtonClicked);
+    }
+
+    Super::NativeDestruct();
 }
 
 void UReactionPickerButtonWidget::OnButtonClicked()

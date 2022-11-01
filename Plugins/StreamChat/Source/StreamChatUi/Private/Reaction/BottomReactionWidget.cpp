@@ -19,13 +19,6 @@ void UBottomReactionWidget::Setup(const FReactionGroup& InReactionGroup)
     Super::Setup();
 }
 
-void UBottomReactionWidget::NativeDestruct()
-{
-    CancelTooltip();
-
-    Super::NativeDestruct();
-}
-
 void UBottomReactionWidget::OnSetup()
 {
     const EMessageSide Side = GetSide();
@@ -40,15 +33,9 @@ void UBottomReactionWidget::OnSetup()
         ReactionCountTextBlock->SetText(FText::AsNumber(ReactionGroup.Count));
     }
 
-    if (Button)
-    {
-        Button->OnClicked.AddUniqueDynamic(this, &UBottomReactionWidget::OnButtonClicked);
-    }
-
     if (Anchor)
     {
         Anchor->Placement = MenuPlacement_CenteredBelowAnchor;
-        Anchor->OnGetUserMenuContentEvent.BindDynamic(this, &UBottomReactionWidget::CreateTooltip);
     }
 }
 
@@ -83,6 +70,31 @@ void UBottomReactionWidget::NativePreConstruct()
     {
         ReactionCountTextBlock->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->BottomReactionTextColor));
     }
+}
+
+void UBottomReactionWidget::NativeConstruct()
+{
+    Super::NativeConstruct();
+    if (Anchor)
+    {
+        Anchor->OnGetUserMenuContentEvent.BindDynamic(this, &UBottomReactionWidget::CreateTooltip);
+    }
+    if (Button)
+    {
+        Button->OnClicked.AddDynamic(this, &UBottomReactionWidget::OnButtonClicked);
+    }
+}
+
+void UBottomReactionWidget::NativeDestruct()
+{
+    CancelTooltip();
+
+    if (Button)
+    {
+        Button->OnClicked.RemoveDynamic(this, &UBottomReactionWidget::OnButtonClicked);
+    }
+
+    Super::NativeDestruct();
 }
 
 void UBottomReactionWidget::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)

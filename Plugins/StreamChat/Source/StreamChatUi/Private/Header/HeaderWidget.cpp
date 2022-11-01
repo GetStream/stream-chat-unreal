@@ -48,11 +48,6 @@ void UHeaderWidget::OnSetup()
     {
         HeaderTitleTextBlock->SetText(Title);
     }
-
-    if (Button)
-    {
-        Button->OnClicked.AddDynamic(this, &UHeaderWidget::OnButtonClick);
-    }
 }
 
 void UHeaderWidget::NativePreConstruct()
@@ -74,6 +69,24 @@ void UHeaderWidget::NativePreConstruct()
     {
         HeaderTitleTextBlock->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->HeaderTitleTextColor));
     }
+}
+
+void UHeaderWidget::NativeConstruct()
+{
+    Super::NativeConstruct();
+    if (Button)
+    {
+        Button->OnClicked.AddDynamic(this, &UHeaderWidget::OnButtonClick);
+    }
+}
+
+void UHeaderWidget::NativeDestruct()
+{
+    if (Button)
+    {
+        Button->OnClicked.RemoveDynamic(this, &UHeaderWidget::OnButtonClick);
+    }
+    Super::NativeDestruct();
 }
 
 void UHeaderWidget::OnButtonClick()

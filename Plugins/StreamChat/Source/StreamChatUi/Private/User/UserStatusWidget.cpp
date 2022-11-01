@@ -23,7 +23,6 @@ void UUserStatusWidget::OnSetup()
     if (Header)
     {
         Header->SetTitle(FText::FromString(User->GetNameOrId()));
-        Header->OnHeaderButtonClicked.AddDynamic(this, &UUserStatusWidget::ButtonClicked);
     }
     if (SubtitleTextBlock)
     {
@@ -38,6 +37,24 @@ void UUserStatusWidget::NativePreConstruct()
     {
         SubtitleTextBlock->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->StatusSubtitleTextColor));
     }
+}
+
+void UUserStatusWidget::NativeConstruct()
+{
+    Super::NativeConstruct();
+    if (Header)
+    {
+        Header->OnHeaderButtonClicked.AddDynamic(this, &UUserStatusWidget::ButtonClicked);
+    }
+}
+
+void UUserStatusWidget::NativeDestruct()
+{
+    if (Header)
+    {
+        Header->OnHeaderButtonClicked.RemoveDynamic(this, &UUserStatusWidget::ButtonClicked);
+    }
+    Super::NativeDestruct();
 }
 
 void UUserStatusWidget::ButtonClicked()

@@ -24,10 +24,6 @@ void UTeamChatWidget::OnSetup()
     {
         MessageListContainer->SetPadding({0.f});
     }
-    if (ClientContextWidget)
-    {
-        ClientContextWidget->OnChannelSelected.AddUniqueDynamic(this, &UTeamChatWidget::ChannelSelected);
-    }
 }
 
 void UTeamChatWidget::NativePreConstruct()
@@ -46,6 +42,24 @@ void UTeamChatWidget::NativePreConstruct()
     {
         Divider->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->TeamChatDividerColor));
     }
+}
+
+void UTeamChatWidget::NativeConstruct()
+{
+    Super::NativeConstruct();
+    if (ClientContextWidget)
+    {
+        ClientContextWidget->OnChannelSelected.AddDynamic(this, &UTeamChatWidget::ChannelSelected);
+    }
+}
+
+void UTeamChatWidget::NativeDestruct()
+{
+    if (ClientContextWidget)
+    {
+        ClientContextWidget->OnChannelSelected.RemoveDynamic(this, &UTeamChatWidget::ChannelSelected);
+    }
+    Super::NativeDestruct();
 }
 
 void UTeamChatWidget::ChannelSelected(UChatChannel* SelectedChannel)

@@ -15,15 +15,28 @@ void UUserListWidget::SetQuery(const FFilter& UsersQueryFilter)
     Refetch();
 }
 
-void UUserListWidget::OnSetup()
+void UUserListWidget::NativeConstruct()
 {
-}
-
-void UUserListWidget::NativePreConstruct()
-{
-    Super::NativePreConstruct();
+    Super::NativeConstruct();
 
     Refetch();
+}
+
+void UUserListWidget::NativeDestruct()
+{
+    if (ScrollBox)
+    {
+        for (UWidget* Child : ScrollBox->GetAllChildren())
+        {
+            if (UUserStatusWidget* Widget = Cast<UUserStatusWidget>(Child))
+            {
+                Widget->OnUserStatusClicked.RemoveDynamic(this, &UUserListWidget::UserStatusClicked);
+            }
+        }
+        ScrollBox->ClearChildren();
+    }
+
+    Super::NativeDestruct();
 }
 
 void UUserListWidget::Paginate(const EPaginationDirection Directions, const TFunction<void()> Callback)
@@ -40,7 +53,7 @@ void UUserListWidget::Paginate(const EPaginationDirection Directions, const TFun
         {{30, Users.Num()}},
         [WeakThis = TWeakObjectPtr<UUserListWidget>(this), Callback](const TArray<FUserRef>& QueryUsers)
         {
-            if (WeakThis.IsValid())
+            if (WeakThis.IsValid() && WeakThis->IsConstructed())
             {
                 WeakThis->Users.Append(QueryUsers);
                 WeakThis->PopulateScrollBox();

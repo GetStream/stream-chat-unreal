@@ -48,6 +48,7 @@ protected:
 
 private:
     virtual void NativePreConstruct() override;
+    virtual void NativeConstruct() override;
     virtual void NativeDestruct() override;
     virtual void ReleaseSlateResources(bool bReleaseChildren) override;
 

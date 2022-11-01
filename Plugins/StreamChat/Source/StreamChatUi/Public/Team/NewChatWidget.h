@@ -32,8 +32,9 @@ protected:
     UMessageComposerWidget* Composer;
 
 private:
-    virtual void OnSetup() override;
     virtual void NativePreConstruct() override;
+    virtual void NativeConstruct() override;
+    virtual void NativeDestruct() override;
 
     UFUNCTION()
     void OnUserClicked(const FUserRef& User, bool bSelected);

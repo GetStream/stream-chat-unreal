@@ -83,15 +83,6 @@ void UIconButton::SynchronizeProperties()
     NativePreConstruct();
 }
 
-void UIconButton::NativeOnInitialized()
-{
-    Super::NativeOnInitialized();
-    if (Button)
-    {
-        Button->OnClicked.AddUniqueDynamic(this, &UIconButton::OnButtonClicked);
-    }
-}
-
 void UIconButton::NativePreConstruct()
 {
     Super::NativePreConstruct();
@@ -101,6 +92,24 @@ void UIconButton::NativePreConstruct()
     SetEnabledBackgroundColor(EnabledBackgroundColor);
     SetDisabledBackgroundColor(DisabledBackgroundColor);
     SetEnabled(bEnabled);
+}
+
+void UIconButton::NativeConstruct()
+{
+    Super::NativeConstruct();
+    if (Button)
+    {
+        Button->OnClicked.AddDynamic(this, &UIconButton::OnButtonClicked);
+    }
+}
+
+void UIconButton::NativeDestruct()
+{
+    if (Button)
+    {
+        Button->OnClicked.RemoveDynamic(this, &UIconButton::OnButtonClicked);
+    }
+    Super::NativeDestruct();
 }
 
 void UIconButton::OnButtonClicked()

@@ -33,11 +33,6 @@ void UContextMenuButtonWidget::OnSetup()
         }
     }
 
-    if (Button)
-    {
-        Button->OnClicked.AddUniqueDynamic(this, &UContextMenuButtonWidget::OnButtonClicked);
-    }
-
     if (IconImage)
     {
         if (Action)
@@ -63,6 +58,7 @@ void UContextMenuButtonWidget::NativePreConstruct()
     {
         TopBorderImage->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->ContextMenuBorderColor));
     }
+
     if (Button)
     {
         UTexture2D* Texture = GetButtonTexture();
@@ -85,6 +81,24 @@ void UContextMenuButtonWidget::NativePreConstruct()
     {
         TextBlock->SetColorAndOpacity(GetTextColor());
     }
+}
+
+void UContextMenuButtonWidget::NativeConstruct()
+{
+    Super::NativeConstruct();
+    if (Button)
+    {
+        Button->OnClicked.AddDynamic(this, &UContextMenuButtonWidget::OnButtonClicked);
+    }
+}
+
+void UContextMenuButtonWidget::NativeDestruct()
+{
+    if (Button)
+    {
+        Button->OnClicked.RemoveDynamic(this, &UContextMenuButtonWidget::OnButtonClicked);
+    }
+    Super::NativeDestruct();
 }
 
 void UContextMenuButtonWidget::OnButtonClicked()

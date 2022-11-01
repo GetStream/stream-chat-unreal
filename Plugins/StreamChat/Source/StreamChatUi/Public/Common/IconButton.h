@@ -70,8 +70,9 @@ protected:
 
 private:
     virtual void SynchronizeProperties() override;
-    virtual void NativeOnInitialized() override;
     virtual void NativePreConstruct() override;
+    virtual void NativeConstruct() override;
+    virtual void NativeDestruct() override;
 
     UFUNCTION()
     void OnButtonClicked();

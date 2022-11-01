@@ -13,19 +13,18 @@ UBackButton::UBackButton()
 void UBackButton::NativeOnInitialized()
 {
     Super::NativeOnInitialized();
-    if (Button)
-    {
-        Button->OnClicked.AddUniqueDynamic(this, &UBackButton::OnButtonClicked);
-    }
 }
 
 void UBackButton::NativePreConstruct()
 {
     Super::NativePreConstruct();
-    const FSlateColor Color{GetTheme()->GetPaletteColor(GetTheme()->BackButtonSelectedColor)};
-    Button->WidgetStyle.Normal.DrawAs = ESlateBrushDrawType::NoDrawType;
-    Button->WidgetStyle.Hovered.TintColor = Color;
-    Button->WidgetStyle.Pressed.TintColor = Color;
+    if (Button)
+    {
+        const FSlateColor Color{GetTheme()->GetPaletteColor(GetTheme()->BackButtonSelectedColor)};
+        Button->WidgetStyle.Normal.DrawAs = ESlateBrushDrawType::NoDrawType;
+        Button->WidgetStyle.Hovered.TintColor = Color;
+        Button->WidgetStyle.Pressed.TintColor = Color;
+    }
 
     if (Icon)
     {
@@ -35,6 +34,24 @@ void UBackButton::NativePreConstruct()
             ButtonSlot->SetPadding(IconPadding);
         }
     }
+}
+
+void UBackButton::NativeConstruct()
+{
+    Super::NativeConstruct();
+    if (Button)
+    {
+        Button->OnClicked.AddDynamic(this, &UBackButton::OnButtonClicked);
+    }
+}
+
+void UBackButton::NativeDestruct()
+{
+    if (Button)
+    {
+        Button->OnClicked.RemoveDynamic(this, &UBackButton::OnButtonClicked);
+    }
+    Super::NativeDestruct();
 }
 
 void UBackButton::OnButtonClicked()

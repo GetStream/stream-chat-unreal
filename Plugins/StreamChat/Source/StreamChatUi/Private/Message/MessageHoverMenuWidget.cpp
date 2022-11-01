@@ -49,17 +49,31 @@ void UMessageHoverMenuWidget::OnSetup()
 
     if (OptionsButton)
     {
-        OptionsButton->OnClicked.AddDynamic(this, &UMessageHoverMenuWidget::OnOptionsButtonClicked);
-
         OptionsButton->WidgetStyle.NormalPadding = {};
         OptionsButton->WidgetStyle.PressedPadding = {};
     }
     if (ReactionButton)
     {
-        ReactionButton->OnClicked.AddDynamic(this, &UMessageHoverMenuWidget::OnReactionButtonClicked);
-
         ReactionButton->WidgetStyle.NormalPadding = {};
         ReactionButton->WidgetStyle.PressedPadding = {};
+    }
+
+    if (ReactionMenuAnchor)
+    {
+        ReactionMenuAnchor->SetPlacement(MenuPlacement_CenteredBelowAnchor);
+    }
+}
+
+void UMessageHoverMenuWidget::NativeConstruct()
+{
+    Super::NativeConstruct();
+    if (OptionsButton)
+    {
+        OptionsButton->OnClicked.AddDynamic(this, &UMessageHoverMenuWidget::OnOptionsButtonClicked);
+    }
+    if (ReactionButton)
+    {
+        ReactionButton->OnClicked.AddDynamic(this, &UMessageHoverMenuWidget::OnReactionButtonClicked);
     }
 
     if (OptionsMenuAnchor)
@@ -69,8 +83,20 @@ void UMessageHoverMenuWidget::OnSetup()
     if (ReactionMenuAnchor)
     {
         ReactionMenuAnchor->OnGetUserMenuContentEvent.BindDynamic(this, &UMessageHoverMenuWidget::CreateReactionsMenu);
-        ReactionMenuAnchor->SetPlacement(MenuPlacement_CenteredBelowAnchor);
     }
+}
+
+void UMessageHoverMenuWidget::NativeDestruct()
+{
+    if (OptionsButton)
+    {
+        OptionsButton->OnClicked.RemoveDynamic(this, &UMessageHoverMenuWidget::OnOptionsButtonClicked);
+    }
+    if (ReactionButton)
+    {
+        ReactionButton->OnClicked.RemoveDynamic(this, &UMessageHoverMenuWidget::OnReactionButtonClicked);
+    }
+    Super::NativeDestruct();
 }
 
 void UMessageHoverMenuWidget::OnOptionsButtonClicked()
