@@ -14,9 +14,14 @@ UOnlineStatusSubheaderWidget::UOnlineStatusSubheaderWidget()
 void UOnlineStatusSubheaderWidget::NativePreConstruct()
 {
     Super::NativePreConstruct();
+    UpdateLabel();
+}
+
+void UOnlineStatusSubheaderWidget::NativeConstruct()
+{
+    Super::NativeConstruct();
     // TODO subscribe to user presence events
 
-    UpdateLabel();
     GetWorld()->GetTimerManager().SetTimer(Handle, this, &UOnlineStatusSubheaderWidget::UpdateLabel, 60.f, true);
 }
 

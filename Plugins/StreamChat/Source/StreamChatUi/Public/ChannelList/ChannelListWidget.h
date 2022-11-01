@@ -42,10 +42,11 @@ protected:
     TSubclassOf<UNewChatChannelStatusWidget> NewChatChannelStatusWidgetClass = UNewChatChannelStatusWidget::StaticClass();
 
 private:
+    virtual void NativePreConstruct() override;
+    virtual void NativeConstruct() override;
     virtual void NativeDestruct() override;
     virtual void ReleaseSlateResources(bool bReleaseChildren) override;
 
-    virtual void NativePreConstruct() override;
     void Paginate(const EPaginationDirection Direction, const TFunction<void()> Callback);
     UWidget* CreateChannelWidget(UChatChannel* const&);
 

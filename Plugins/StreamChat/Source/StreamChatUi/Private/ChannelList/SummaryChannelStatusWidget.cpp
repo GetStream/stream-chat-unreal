@@ -13,8 +13,6 @@ bool USummaryChannelStatusWidget::IsForChannel(const UChatChannel* QueryChannel)
 
 void USummaryChannelStatusWidget::OnSetup()
 {
-    Super::OnSetup();
-
     if (ChannelContextProvider)
     {
         ChannelContextProvider->Setup(StatusChannel);
@@ -22,8 +20,6 @@ void USummaryChannelStatusWidget::OnSetup()
 
     if (StatusChannel)
     {
-        StatusChannel->MessagesUpdated.AddDynamic(this, &USummaryChannelStatusWidget::OnMessagesUpdated);
-        StatusChannel->UnreadChanged.AddDynamic(this, &USummaryChannelStatusWidget::OnUnreadChanged);
         OnMessagesUpdated();
         OnUnreadChanged(StatusChannel->State.UnreadCount());
     }
@@ -55,6 +51,26 @@ void USummaryChannelStatusWidget::NativePreConstruct()
     {
         RecentMessageTextBlock->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->ChannelStatusRecentMessageTextColor));
     }
+}
+
+void USummaryChannelStatusWidget::NativeConstruct()
+{
+    Super::NativeConstruct();
+    if (StatusChannel)
+    {
+        StatusChannel->MessagesUpdated.AddDynamic(this, &USummaryChannelStatusWidget::OnMessagesUpdated);
+        StatusChannel->UnreadChanged.AddDynamic(this, &USummaryChannelStatusWidget::OnUnreadChanged);
+    }
+}
+
+void USummaryChannelStatusWidget::NativeDestruct()
+{
+    if (StatusChannel)
+    {
+        StatusChannel->MessagesUpdated.RemoveDynamic(this, &USummaryChannelStatusWidget::OnMessagesUpdated);
+        StatusChannel->UnreadChanged.RemoveDynamic(this, &USummaryChannelStatusWidget::OnUnreadChanged);
+    }
+    Super::NativeDestruct();
 }
 
 FLinearColor USummaryChannelStatusWidget::GetTitleColor()

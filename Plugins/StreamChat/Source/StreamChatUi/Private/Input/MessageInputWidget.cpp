@@ -26,14 +26,6 @@ void UMessageInputWidget::SetText(const FText InText)
     TextBox->SetText(InText);
 }
 
-void UMessageInputWidget::NativeOnInitialized()
-{
-    Super::NativeOnInitialized();
-
-    TextBox->OnTextChanged.AddUniqueDynamic(this, &UMessageInputWidget::OnInputTextChanged);
-    TextBox->OnTextCommitted.AddUniqueDynamic(this, &UMessageInputWidget::OnInputTextCommit);
-}
-
 void UMessageInputWidget::OnInputTextChanged(const FText& Text)
 {
     OnTextChanged.Broadcast(Text);
@@ -56,6 +48,26 @@ void UMessageInputWidget::NativePreConstruct()
     {
         Border->SetBrushColor(GetTheme()->GetPaletteColor(GetTheme()->MessageInputBorderColor));
     }
+}
+
+void UMessageInputWidget::NativeConstruct()
+{
+    Super::NativeConstruct();
+    if (TextBox)
+    {
+        TextBox->OnTextChanged.AddDynamic(this, &UMessageInputWidget::OnInputTextChanged);
+        TextBox->OnTextCommitted.AddDynamic(this, &UMessageInputWidget::OnInputTextCommit);
+    }
+}
+
+void UMessageInputWidget::NativeDestruct()
+{
+    if (TextBox)
+    {
+        TextBox->OnTextChanged.RemoveDynamic(this, &UMessageInputWidget::OnInputTextChanged);
+        TextBox->OnTextCommitted.RemoveDynamic(this, &UMessageInputWidget::OnInputTextCommit);
+    }
+    Super::NativeDestruct();
 }
 
 FReply UMessageInputWidget::NativeOnFocusReceived(const FGeometry& InGeometry, const FFocusEvent& InFocusEvent)

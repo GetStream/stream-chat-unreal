@@ -45,6 +45,8 @@ protected:
 private:
     virtual void OnSetup() override;
     virtual void NativePreConstruct() override;
+    virtual void NativeConstruct() override;
+    virtual void NativeDestruct() override;
 
     UFUNCTION()
     void ChannelSelected(UChatChannel* SelectedChannel);

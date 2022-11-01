@@ -34,8 +34,8 @@ public:
     FChannelStatusButtonClickedNative OnChannelStatusButtonClickedNative;
 
 protected:
-    virtual void OnSetup() override;
     virtual void NativePreConstruct() override;
+    virtual void NativeConstruct() override;
     virtual void NativeDestruct() override;
 
     UFUNCTION()

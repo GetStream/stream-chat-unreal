@@ -23,31 +23,34 @@ void UChannelListWidget::NativePreConstruct()
 {
     Super::NativePreConstruct();
 
-    if (GetClient())
+    if (GetClient() && ListView)
     {
-        GetClient()->ChannelsUpdated.AddDynamic(this, &UChannelListWidget::OnChannelsUpdated);
-
-        if (ListView)
-        {
-            PaginateListWidget = SNew(SPaginateListWidget<UChatChannel*>)
-                                     .Limit(Limit)
-                                     .PaginationDirection(EPaginationDirection::Bottom)
-                                     .ListItemsSource(&GetClient()->GetChannels())
-                                     .CreateListViewWidget_UObject(this, &UChannelListWidget::CreateChannelWidget)
-                                     .DoPaginate_UObject(this, &UChannelListWidget::Paginate);
-            ListView->SetContent(PaginateListWidget.ToSharedRef());
-        }
-    }
-
-    if (GetClientContext())
-    {
-        GetClientContext()->OnBack.AddUniqueDynamic(this, &UChannelListWidget::OnBack);
-        GetClientContext()->OnChannelSelected.AddUniqueDynamic(this, &UChannelListWidget::OnChannelSelected);
+        PaginateListWidget = SNew(SPaginateListWidget<UChatChannel*>)
+                                 .Limit(Limit)
+                                 .PaginationDirection(EPaginationDirection::Bottom)
+                                 .ListItemsSource(&GetClient()->GetChannels())
+                                 .CreateListViewWidget_UObject(this, &UChannelListWidget::CreateChannelWidget)
+                                 .DoPaginate_UObject(this, &UChannelListWidget::Paginate);
+        ListView->SetContent(PaginateListWidget.ToSharedRef());
     }
 
     if (Divider)
     {
         Divider->SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->TeamChatDividerColor));
+    }
+}
+
+void UChannelListWidget::NativeConstruct()
+{
+    Super::NativeConstruct();
+    if (GetClient())
+    {
+        GetClient()->ChannelsUpdated.AddDynamic(this, &UChannelListWidget::OnChannelsUpdated);
+    }
+    if (GetClientContext())
+    {
+        GetClientContext()->OnBack.AddDynamic(this, &UChannelListWidget::OnBack);
+        GetClientContext()->OnChannelSelected.AddDynamic(this, &UChannelListWidget::OnChannelSelected);
     }
 }
 
@@ -87,11 +90,8 @@ UWidget* UChannelListWidget::CreateChannelWidget(UChatChannel* const& InChannel)
 
 void UChannelListWidget::OnBack()
 {
-    // if (IsNewChatActive())
-    {
-        GetClient()->CancelNewChat();
-        RebuildChannelList();
-    }
+    CurrentChannel = nullptr;
+    GetClient()->CancelNewChat();
 }
 
 void UChannelListWidget::RebuildChannelList()

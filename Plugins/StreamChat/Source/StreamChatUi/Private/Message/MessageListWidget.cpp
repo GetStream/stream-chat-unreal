@@ -39,31 +39,34 @@ void UMessageListWidget::NativePreConstruct()
 {
     Super::NativePreConstruct();
 
+    if (GetChannel() && ListView)
+    {
+        PaginateListWidget = SNew(SPaginateListWidget<FMessageRef>)
+                                 .Limit(Limit)
+                                 .PaginationDirection(EPaginationDirection::Top)
+                                 .ListItemsSource(&GetChannel()->State.Messages.GetMessages())
+                                 .CreateListViewWidget_UObject(this, &UMessageListWidget::CreateMessageWidget)
+                                 .OnPaginating_Lambda([=](const EPaginationDirection Direction, const EHttpRequestState State)
+                                                      { OnPaginatingMessages.Broadcast(Direction, State); })
+                                 .DoPaginate_UObject(this, &UMessageListWidget::Paginate);
+        ListView->SetContent(PaginateListWidget.ToSharedRef());
+    }
+
+    OnMessagesUpdated();
+}
+
+void UMessageListWidget::NativeConstruct()
+{
+    Super::NativeConstruct();
     if (GetChannel())
     {
-        if (ListView)
-        {
-            PaginateListWidget = SNew(SPaginateListWidget<FMessageRef>)
-                                     .Limit(Limit)
-                                     .PaginationDirection(EPaginationDirection::Top)
-                                     .ListItemsSource(&GetChannel()->State.Messages.GetMessages())
-                                     .CreateListViewWidget_UObject(this, &UMessageListWidget::CreateMessageWidget)
-                                     .OnPaginating_Lambda([=](const EPaginationDirection Direction, const EHttpRequestState State)
-                                                          { OnPaginatingMessages.Broadcast(Direction, State); })
-                                     .DoPaginate_UObject(this, &UMessageListWidget::Paginate);
-            ListView->SetContent(PaginateListWidget.ToSharedRef());
-        }
-
         GetChannel()->MessagesUpdated.AddDynamic(this, &UMessageListWidget::OnMessagesUpdated);
         GetChannel()->MessageSent.AddDynamic(this, &UMessageListWidget::ScrollToBottom);
     }
-
     if (GetChannelContext())
     {
         GetChannelContext()->OnStartEditMessage.AddDynamic(this, &UMessageListWidget::ScrollToBottom);
     }
-
-    OnMessagesUpdated();
 }
 
 void UMessageListWidget::NativeDestruct()
@@ -73,7 +76,6 @@ void UMessageListWidget::NativeDestruct()
         GetChannel()->MessagesUpdated.RemoveDynamic(this, &UMessageListWidget::OnMessagesUpdated);
         GetChannel()->MessageSent.RemoveDynamic(this, &UMessageListWidget::ScrollToBottom);
     }
-
     if (GetChannelContext())
     {
         GetChannelContext()->OnStartEditMessage.RemoveDynamic(this, &UMessageListWidget::ScrollToBottom);

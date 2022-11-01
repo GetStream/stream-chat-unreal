@@ -45,7 +45,8 @@ protected:
     FTimespan MessageLifetime = FTimespan::FromSeconds(20.f);
 
 private:
-    virtual void OnSetup() override;
+    virtual void NativeConstruct() override;
+    virtual void NativeDestruct() override;
 
     UFUNCTION()
     void MessagesUpdated();

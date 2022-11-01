@@ -41,7 +41,6 @@ void UAvatarWidget::OnSetup()
     if (Users.Num() == 1)
     {
         UpdateOnlineStatus(Users[0]->bOnline);
-        Users[0].OnUpdate().AddUniqueDynamic(this, &UAvatarWidget::OnUserUpdated);
     }
     else
     {
@@ -49,6 +48,15 @@ void UAvatarWidget::OnSetup()
     }
 
     CreateProfilePics();
+}
+
+void UAvatarWidget::NativeConstruct()
+{
+    Super::NativeConstruct();
+    if (Users.Num() == 1)
+    {
+        Users[0].OnUpdate().AddDynamic(this, &UAvatarWidget::OnUserUpdated);
+    }
 }
 
 void UAvatarWidget::NativeDestruct()

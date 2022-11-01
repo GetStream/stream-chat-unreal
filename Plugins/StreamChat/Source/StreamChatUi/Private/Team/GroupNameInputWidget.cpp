@@ -13,18 +13,6 @@ FText UGroupNameInputWidget::GetGroupName() const
     return FText::GetEmpty();
 }
 
-void UGroupNameInputWidget::OnSetup()
-{
-    if (ClearButton)
-    {
-        ClearButton->OnClicked.AddDynamic(this, &UGroupNameInputWidget::OnClearClicked);
-    }
-    if (GroupName)
-    {
-        GroupName->OnTextChanged.AddDynamic(this, &UGroupNameInputWidget::OnGroupNameChange);
-    }
-}
-
 void UGroupNameInputWidget::NativePreConstruct()
 {
     Super::NativePreConstruct();
@@ -45,6 +33,32 @@ void UGroupNameInputWidget::NativePreConstruct()
     {
         GroupName->WidgetStyle.SetColorAndOpacity(GetTheme()->GetPaletteColor(GetTheme()->SelectedContactsInputTextColor));
     }
+}
+
+void UGroupNameInputWidget::NativeConstruct()
+{
+    Super::NativeConstruct();
+    if (ClearButton)
+    {
+        ClearButton->OnClicked.AddDynamic(this, &UGroupNameInputWidget::OnClearClicked);
+    }
+    if (GroupName)
+    {
+        GroupName->OnTextChanged.AddDynamic(this, &UGroupNameInputWidget::OnGroupNameChange);
+    }
+}
+
+void UGroupNameInputWidget::NativeDestruct()
+{
+    if (ClearButton)
+    {
+        ClearButton->OnClicked.RemoveDynamic(this, &UGroupNameInputWidget::OnClearClicked);
+    }
+    if (GroupName)
+    {
+        GroupName->OnTextChanged.RemoveDynamic(this, &UGroupNameInputWidget::OnGroupNameChange);
+    }
+    Super::NativeDestruct();
 }
 
 void UGroupNameInputWidget::OnClearClicked()

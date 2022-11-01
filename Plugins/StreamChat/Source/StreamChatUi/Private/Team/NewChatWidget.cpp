@@ -6,8 +6,19 @@
 #include "StreamChatClientComponent.h"
 #include "User/UserManager.h"
 
-void UNewChatWidget::OnSetup()
+void UNewChatWidget::NativePreConstruct()
 {
+    Super::NativePreConstruct();
+
+    if (UserList)
+    {
+        UserList->SetQuery();
+    }
+}
+
+void UNewChatWidget::NativeConstruct()
+{
+    Super::NativeConstruct();
     if (UserList)
     {
         UserList->OnUserClicked.AddDynamic(this, &UNewChatWidget::OnUserClicked);
@@ -26,14 +37,25 @@ void UNewChatWidget::OnSetup()
     }
 }
 
-void UNewChatWidget::NativePreConstruct()
+void UNewChatWidget::NativeDestruct()
 {
-    Super::NativePreConstruct();
-
     if (UserList)
     {
-        UserList->SetQuery();
+        UserList->OnUserClicked.RemoveDynamic(this, &UNewChatWidget::OnUserClicked);
     }
+    if (GroupName)
+    {
+        GroupName->OnGroupNameChanged.RemoveDynamic(this, &UNewChatWidget::OnGroupNameChanged);
+    }
+    if (SelectedContacts)
+    {
+        SelectedContacts->OnSearchTextChanged.RemoveDynamic(this, &UNewChatWidget::OnSearchTextChanged);
+    }
+    if (Composer)
+    {
+        Composer->OnSendMessage.RemoveDynamic(this, &UNewChatWidget::OnSendMessage);
+    }
+    Super::NativeDestruct();
 }
 
 void UNewChatWidget::OnUserClicked(const FUserRef& User, const bool bSelected)

@@ -21,21 +21,36 @@ void UFadingMessageListWidget::Setup(UChatChannel* InChannel)
     Super::Setup();
 }
 
-void UFadingMessageListWidget::OnSetup()
+void UFadingMessageListWidget::NativeConstruct()
 {
+    Super::NativeConstruct();
     if (MyChannel)
     {
-        MyChannel->MessagesUpdated.AddUniqueDynamic(this, &UFadingMessageListWidget::MessagesUpdated);
+        MyChannel->MessagesUpdated.AddDynamic(this, &UFadingMessageListWidget::MessagesUpdated);
     }
 
     if (ChatInputBox)
     {
-        ChatInputBox->OnTextCommitted.AddUniqueDynamic(this, &UFadingMessageListWidget::TextCommitted);
+        ChatInputBox->OnTextCommitted.AddDynamic(this, &UFadingMessageListWidget::TextCommitted);
     }
-
     FOnInputAction Delegate;
     Delegate.BindDynamic(this, &UFadingMessageListWidget::OpenChat);
     ListenForInputAction(OpenChatInputActionName, IE_Pressed, false, Delegate);
+}
+
+void UFadingMessageListWidget::NativeDestruct()
+{
+    if (MyChannel)
+    {
+        MyChannel->MessagesUpdated.RemoveDynamic(this, &UFadingMessageListWidget::MessagesUpdated);
+    }
+
+    if (ChatInputBox)
+    {
+        ChatInputBox->OnTextCommitted.RemoveDynamic(this, &UFadingMessageListWidget::TextCommitted);
+    }
+    StopListeningForInputAction(OpenChatInputActionName, IE_Pressed);
+    Super::NativeDestruct();
 }
 
 void UFadingMessageListWidget::MessagesUpdated()

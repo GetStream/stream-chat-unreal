@@ -46,8 +46,9 @@ protected:
     UBorder* Border;
 
 private:
-    virtual void NativeOnInitialized() override;
     virtual void NativePreConstruct() override;
+    virtual void NativeConstruct() override;
+    virtual void NativeDestruct() override;
     virtual FReply NativeOnFocusReceived(const FGeometry& InGeometry, const FFocusEvent& InFocusEvent) override;
 
     UFUNCTION()
