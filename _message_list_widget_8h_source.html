@@ -132,21 +132,22 @@ $(document).ready(function(){initNavTree('_message_list_widget_8h_source.html','
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>private:</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    virtual <span class="keywordtype">void</span> NativePreConstruct() override;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    virtual <span class="keywordtype">void</span> NativeDestruct() override;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    virtual <span class="keywordtype">void</span> ReleaseSlateResources(<span class="keywordtype">bool</span> bReleaseChildren) override;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    UWidget* CreateMessageWidget(const FMessageRef&amp;);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordtype">void</span> Paginate(const EPaginationDirection PaginationDirection, const TFunction&lt;<span class="keywordtype">void</span>()&gt; Callback);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    UFUNCTION()</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordtype">void</span> OnMessagesUpdated();</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    UFUNCTION()</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordtype">void</span> ScrollToBottom(const <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp; Message);</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    EMessagePosition GetPosition(const <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp; Message) const;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    TSharedPtr&lt;SPaginateListWidget&lt;FMessageRef&gt;&gt; PaginateListWidget;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>};</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    virtual <span class="keywordtype">void</span> NativeConstruct() override;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    virtual <span class="keywordtype">void</span> NativeDestruct() override;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    virtual <span class="keywordtype">void</span> ReleaseSlateResources(<span class="keywordtype">bool</span> bReleaseChildren) override;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    UWidget* CreateMessageWidget(const FMessageRef&amp;);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordtype">void</span> Paginate(const EPaginationDirection PaginationDirection, const TFunction&lt;<span class="keywordtype">void</span>()&gt; Callback);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    UFUNCTION()</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordtype">void</span> OnMessagesUpdated();</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    UFUNCTION()</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordtype">void</span> ScrollToBottom(const <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp; Message);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    EMessagePosition GetPosition(const <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp; Message) const;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    TSharedPtr&lt;SPaginateListWidget&lt;FMessageRef&gt;&gt; PaginateListWidget;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>};</div>
 <div class="ttc" id="aclass_u_channel_context_widget_html"><div class="ttname"><a href="class_u_channel_context_widget.html">UChannelContextWidget</a></div><div class="ttdoc">Provide a reference to a UChatChannel to child widgets.</div><div class="ttdef"><b>Definition:</b> ChannelContextWidget.h:21</div></div>
 <div class="ttc" id="aclass_u_message_widget_html"><div class="ttname"><a href="class_u_message_widget.html">UMessageWidget</a></div><div class="ttdoc">Encapsulates a text bubble, reactions and the mouse hover menu for a message.</div><div class="ttdef"><b>Definition:</b> MessageWidget.h:21</div></div>
 <div class="ttc" id="astruct_f_message_html"><div class="ttname"><a href="struct_f_message.html">FMessage</a></div><div class="ttdoc">Represents a Stream Chat message.</div><div class="ttdef"><b>Definition:</b> Message.h:66</div></div>
