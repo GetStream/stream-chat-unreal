@@ -1,7 +1,7 @@
 {
     "FileVersion": 3,
-    "Version": 23,
-    "VersionName": "1.2.4",
+    "Version": 24,
+    "VersionName": "1.2.5",
     "EngineVersion": "5.0.0",
     "FriendlyName": "Stream Chat",
     "Description": "Official Unreal Plugin for Stream Chat",
