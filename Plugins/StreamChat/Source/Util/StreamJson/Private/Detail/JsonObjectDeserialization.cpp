@@ -37,7 +37,7 @@ UClass* FindClass(const FString& ClassString)
         return nullptr;
     }
 #if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 1
-    return FPackageName::IsShortPackageName(ClassString) ? FindFirstObject<UClass>(*ClassString) : UClass::TryFindTypeSlow<UClass>(ClassString)
+    return FPackageName::IsShortPackageName(ClassString) ? FindFirstObject<UClass>(*ClassString) : UClass::TryFindTypeSlow<UClass>(ClassString);
 #else
     return FindObject<UClass>(ANY_PACKAGE, *ClassString);
 #endif
