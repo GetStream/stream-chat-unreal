@@ -30,6 +30,19 @@ const TCHAR* ImportText(const FProperty& Property, const TCHAR* Buffer, void* Da
 #endif
 }
 
+UClass* FindClass(const FString& ClassString)
+{
+    if (ClassString.IsEmpty())
+    {
+        return nullptr;
+    }
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 1
+    return FPackageName::IsShortPackageName(ClassString) ? FindFirstObject<UClass>(*ClassString) : UClass::TryFindTypeSlow<UClass>(ClassString)
+#else
+    return FindObject<UClass>(ANY_PACKAGE, *ClassString);
+#endif
+}
+
 /** Parse an FText from a json object (assumed to be of the form where keys are culture codes and values are strings) */
 bool GetTextFromObject(const TSharedRef<FJsonObject>& Obj, FText& TextOut)
 {
@@ -463,13 +476,9 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
             // If a specific subclass was stored in the Json, use that instead of the PropertyClass
             FString ClassString = Obj->GetStringField(ObjectClassNameKey);
             Obj->RemoveField(ObjectClassNameKey);
-            if (!ClassString.IsEmpty())
+            if (UClass* FoundClass = FindClass(ClassString))
             {
-                if (UClass* FoundClass =
-                        FPackageName::IsShortPackageName(ClassString) ? FindFirstObject<UClass>(*ClassString) : UClass::TryFindTypeSlow<UClass>(ClassString))
-                {
-                    PropertyClass = FoundClass;
-                }
+                PropertyClass = FoundClass;
             }
 
             UObject* CreatedObj = StaticAllocateObject(PropertyClass, Outer, NAME_None, EObjectFlags::RF_NoFlags, EInternalObjectFlags::None, false);
