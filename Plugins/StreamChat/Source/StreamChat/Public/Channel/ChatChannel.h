@@ -210,7 +210,7 @@ public:
     template <class TEvent, class UserClass>
     typename TEnableIf<TIsDerivedFrom<UserClass, UObject>::IsDerived, FDelegateHandle>::Type On(
         UserClass* Obj,
-        TEventDelegateMethodPtr<TEvent, UserClass> Method);
+        TEventDelegateUObjectMethodPtr<TEvent, UserClass> Method);
 
     /**
      * @brief Subscribe to a channel event using a shared pointer-based (fast, not thread-safe) member function
@@ -223,7 +223,7 @@ public:
     template <class TEvent, class UserClass>
     typename TEnableIf<!TIsDerivedFrom<UserClass, UObject>::IsDerived, FDelegateHandle>::Type On(
         UserClass* Obj,
-        TEventDelegateMethodPtr<TEvent, UserClass> Method);
+        TEventDelegateSpMethodPtr<TEvent, UserClass> Method);
 
     /**
      * @brief Subscribe to a channel event using a C++ lambda
@@ -594,7 +594,7 @@ FDelegateHandle UChatChannel::On(TEventDelegate<TEvent> Callback)
 template <class TEvent, class UserClass>
 typename TEnableIf<TIsDerivedFrom<UserClass, UObject>::IsDerived, FDelegateHandle>::Type UChatChannel::On(
     UserClass* Obj,
-    TEventDelegateMethodPtr<TEvent, UserClass> Method)
+    TEventDelegateUObjectMethodPtr<TEvent, UserClass> Method)
 {
     const TEventDelegate<TEvent> Delegate = TEventDelegate<TEvent>::CreateUObject(Obj, Method);
     return On<TEvent>(Delegate);
@@ -603,7 +603,7 @@ typename TEnableIf<TIsDerivedFrom<UserClass, UObject>::IsDerived, FDelegateHandl
 template <class TEvent, class UserClass>
 typename TEnableIf<!TIsDerivedFrom<UserClass, UObject>::IsDerived, FDelegateHandle>::Type UChatChannel::On(
     UserClass* Obj,
-    TEventDelegateMethodPtr<TEvent, UserClass> Method)
+    TEventDelegateSpMethodPtr<TEvent, UserClass> Method)
 {
     const TEventDelegate<TEvent> Delegate = TEventDelegate<TEvent>::CreateSP(Obj, Method);
     return On<TEvent>(Delegate);

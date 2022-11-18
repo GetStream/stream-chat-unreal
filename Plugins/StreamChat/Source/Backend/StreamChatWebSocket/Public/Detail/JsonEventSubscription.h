@@ -4,14 +4,24 @@
 
 #include "CoreMinimal.h"
 #include "Dom/JsonObject.h"
+#include "Launch/Resources/Version.h"
 #include "StreamJson.h"
 
 template <class TEvent>
 using TEventMulticastDelegate = TMulticastDelegate<void(const TEvent& Event)>;
 template <class TEvent>
 using TEventDelegate = typename TEventMulticastDelegate<TEvent>::FDelegate;
+#if ENGINE_MAJOR_VERSION == 4 && ENGINE_MINOR_VERSION <= 27
 template <class TEvent, class UserClass>
-using TEventDelegateMethodPtr = typename TEventDelegate<TEvent>::template TMethodPtr<UserClass>;
+using TEventDelegateUObjectMethodPtr = typename TEventDelegate<TEvent>::template TUObjectMethodDelegate<UserClass>::FMethodPtr;
+template <class TEvent, class UserClass>
+using TEventDelegateSpMethodPtr = typename TEventDelegate<TEvent>::template TSPMethodDelegate<UserClass>::FMethodPtr;
+#else
+template <class TEvent, class UserClass>
+using TEventDelegateUObjectMethodPtr = typename TEventDelegate<TEvent>::template TMethodPtr<UserClass>;
+template <class TEvent, class UserClass>
+using TEventDelegateSpMethodPtr = typename TEventDelegate<TEvent>::template TMethodPtr<UserClass>;
+#endif
 
 class IJsonEventSubscription
 {
