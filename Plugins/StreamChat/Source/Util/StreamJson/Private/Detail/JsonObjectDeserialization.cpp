@@ -24,7 +24,7 @@ const FString ObjectClassNameKey = "_ClassName";
 const TCHAR* ImportText(const FProperty& Property, const TCHAR* Buffer, void* Data)
 {
 #if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 1
-    return Property.ImportText_Direct(Buffer, Data, PPF_None, nullptr);
+    return Property.ImportText_Direct(Buffer, Data, nullptr, PPF_None);
 #else
     return Property.ImportText(Buffer, Data, PPF_None, nullptr);
 #endif
@@ -465,7 +465,8 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
             Obj->RemoveField(ObjectClassNameKey);
             if (!ClassString.IsEmpty())
             {
-                if (UClass* FoundClass = FindObject<UClass>(ANY_PACKAGE, *ClassString))
+                if (UClass* FoundClass =
+                        FPackageName::IsShortPackageName(ClassString) ? FindFirstObject<UClass>(*ClassString) : UClass::TryFindTypeSlow<UClass>(ClassString))
                 {
                     PropertyClass = FoundClass;
                 }
