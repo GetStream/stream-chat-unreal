@@ -116,7 +116,7 @@ void USummaryChannelStatusWidget::UpdateChannelTitleText() const
     if (TitleTextBlock && StatusChannel)
     {
         const FString Title = UUiBlueprintLibrary::GetChannelTitle(StatusChannel);
-        const FString Shortened = WidgetUtil::TruncateWithEllipsis(Title, ChannelTitleAvailableSpace, TitleTextBlock->Font);
+        const FString Shortened = WidgetUtil::TruncateWithEllipsis(Title, ChannelTitleAvailableSpace, TitleTextBlock->GetFont());
         const FText Text = FText::FromString(Shortened);
         TitleTextBlock->SetText(Text);
     }
@@ -130,7 +130,7 @@ void USummaryChannelStatusWidget::UpdateRecentMessageText() const
         {
             RecentMessageTextBlock->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
             const FString LastText = StatusChannel->State.Messages.Last().Text;
-            const FString Shortened = WidgetUtil::TruncateWithEllipsis(LastText, RecentMessageAvailableSpace, RecentMessageTextBlock->Font);
+            const FString Shortened = WidgetUtil::TruncateWithEllipsis(LastText, RecentMessageAvailableSpace, RecentMessageTextBlock->GetFont());
             const FText Text = FText::FromString(Shortened);
             RecentMessageTextBlock->SetText(Text);
         }
