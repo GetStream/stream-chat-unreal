@@ -322,9 +322,7 @@ public:
     template <class TEvent>
     using TEventDelegate = typename TEventMulticastDelegate<TEvent>::FDelegate;
     template <class TEvent, class UserClass>
-    using TEventDelegateUObjectMethodPtr = typename TEventDelegate<TEvent>::template TUObjectMethodDelegate<UserClass>::FMethodPtr;
-    template <class TEvent, class UserClass>
-    using TEventDelegateSpMethodPtr = typename TEventDelegate<TEvent>::template TSPMethodDelegate<UserClass>::FMethodPtr;
+    using TEventDelegateMethodPtr = typename TEventDelegate<TEvent>::template TMethodPtr<UserClass>;
 
     /// Subscribe to a client event using your own delegate object
     template <class TEvent>
@@ -340,7 +338,7 @@ public:
     template <class TEvent, class UserClass>
     typename TEnableIf<TIsDerivedFrom<UserClass, UObject>::IsDerived, FDelegateHandle>::Type On(
         UserClass* Obj,
-        TEventDelegateUObjectMethodPtr<TEvent, UserClass> Method);
+        TEventDelegateMethodPtr<TEvent, UserClass> Method);
 
     /**
      * Subscribe to a client event using a shared pointer-based (fast, not thread-safe) member function delegate.
@@ -352,7 +350,7 @@ public:
     template <class TEvent, class UserClass>
     typename TEnableIf<!TIsDerivedFrom<UserClass, UObject>::IsDerived, FDelegateHandle>::Type On(
         UserClass* Obj,
-        TEventDelegateSpMethodPtr<TEvent, UserClass> Method);
+        TEventDelegateMethodPtr<TEvent, UserClass> Method);
 
     /**
      * Subscribe to a client event using a C++ lambda
@@ -487,7 +485,7 @@ FDelegateHandle UStreamChatClientComponent::On(TEventDelegate<TEvent> Callback)
 template <class TEvent, class UserClass>
 typename TEnableIf<TIsDerivedFrom<UserClass, UObject>::IsDerived, FDelegateHandle>::Type UStreamChatClientComponent::On(
     UserClass* Obj,
-    TEventDelegateUObjectMethodPtr<TEvent, UserClass> Method)
+    TEventDelegateMethodPtr<TEvent, UserClass> Method)
 {
     const TEventDelegate<TEvent> Delegate = TEventDelegate<TEvent>::CreateUObject(Obj, Method);
     return On<TEvent>(Delegate);
@@ -496,7 +494,7 @@ typename TEnableIf<TIsDerivedFrom<UserClass, UObject>::IsDerived, FDelegateHandl
 template <class TEvent, class UserClass>
 typename TEnableIf<!TIsDerivedFrom<UserClass, UObject>::IsDerived, FDelegateHandle>::Type UStreamChatClientComponent::On(
     UserClass* Obj,
-    TEventDelegateSpMethodPtr<TEvent, UserClass> Method)
+    TEventDelegateMethodPtr<TEvent, UserClass> Method)
 {
     const TEventDelegate<TEvent> Delegate = TEventDelegate<TEvent>::CreateSP(Obj, Method);
     return On<TEvent>(Delegate);

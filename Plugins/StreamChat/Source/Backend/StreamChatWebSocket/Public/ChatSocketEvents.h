@@ -19,11 +19,11 @@ public:
 
     /// Subscribe to a WebSocket event using a UObject-based member function delegate.
     template <class TEvent, class UserClass>
-    FDelegateHandle SubscribeUObject(UserClass* Obj, TEventDelegateUObjectMethodPtr<TEvent, UserClass> Method);
+    FDelegateHandle SubscribeUObject(UserClass* Obj, TEventDelegateMethodPtr<TEvent, UserClass> Method);
 
     /// Subscribe to a WebSocket event using a shared pointer-based (fast, not thread-safe) member function delegate.
     template <class TEvent, class UserClass>
-    FDelegateHandle SubscribeSp(UserClass* Obj, TEventDelegateSpMethodPtr<TEvent, UserClass> Method);
+    FDelegateHandle SubscribeSp(UserClass* Obj, TEventDelegateMethodPtr<TEvent, UserClass> Method);
 
     /// Subscribe to a WebSocket event using a UObject-based member function delegate.
     template <class TEvent, typename FunctorType, typename... VarTypes>
@@ -51,13 +51,13 @@ FDelegateHandle FChatSocketEvents::Subscribe(TEventDelegate<TEvent> Callback)
 }
 
 template <class TEvent, class UserClass>
-FDelegateHandle FChatSocketEvents::SubscribeUObject(UserClass* Obj, TEventDelegateUObjectMethodPtr<TEvent, UserClass> Method)
+FDelegateHandle FChatSocketEvents::SubscribeUObject(UserClass* Obj, TEventDelegateMethodPtr<TEvent, UserClass> Method)
 {
     return Detail::SubscribeToUObjectEvent<TEvent, UserClass>(Subscriptions, Obj, Method);
 }
 
 template <class TEvent, class UserClass>
-FDelegateHandle FChatSocketEvents::SubscribeSp(UserClass* Obj, TEventDelegateSpMethodPtr<TEvent, UserClass> Method)
+FDelegateHandle FChatSocketEvents::SubscribeSp(UserClass* Obj, TEventDelegateMethodPtr<TEvent, UserClass> Method)
 {
     return Detail::SubscribeToSpEvent<TEvent, UserClass>(Subscriptions, Obj, Method);
 }

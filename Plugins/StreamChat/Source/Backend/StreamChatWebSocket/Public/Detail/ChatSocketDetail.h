@@ -26,14 +26,14 @@ template <class TEvent, class UserClass>
 FDelegateHandle SubscribeToUObjectEvent(
     TMap<FName, FEventSubscriptionPtr>& Subscriptions,
     UserClass* InObj,
-    TEventDelegateUObjectMethodPtr<TEvent, UserClass> InMethod)
+    TEventDelegateMethodPtr<TEvent, UserClass> InMethod)
 {
     const TEventDelegate<TEvent> Delegate = TEventDelegate<TEvent>::CreateUObject(InObj, InMethod);
     return Detail::SubscribeToEvent<TEvent>(Subscriptions, Delegate);
 }
 
 template <class TEvent, class UserClass>
-FDelegateHandle SubscribeToSpEvent(TMap<FName, FEventSubscriptionPtr>& Subscriptions, UserClass* InObj, TEventDelegateSpMethodPtr<TEvent, UserClass> InMethod)
+FDelegateHandle SubscribeToSpEvent(TMap<FName, FEventSubscriptionPtr>& Subscriptions, UserClass* InObj, TEventDelegateMethodPtr<TEvent, UserClass> InMethod)
 {
     const TEventDelegate<TEvent> Delegate = TEventDelegate<TEvent>::CreateSP(InObj, InMethod);
     return Detail::SubscribeToEvent<TEvent>(Subscriptions, Delegate);

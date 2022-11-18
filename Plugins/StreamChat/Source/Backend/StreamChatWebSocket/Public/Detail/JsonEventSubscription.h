@@ -11,9 +11,7 @@ using TEventMulticastDelegate = TMulticastDelegate<void(const TEvent& Event)>;
 template <class TEvent>
 using TEventDelegate = typename TEventMulticastDelegate<TEvent>::FDelegate;
 template <class TEvent, class UserClass>
-using TEventDelegateUObjectMethodPtr = typename TEventDelegate<TEvent>::template TUObjectMethodDelegate<UserClass>::FMethodPtr;
-template <class TEvent, class UserClass>
-using TEventDelegateSpMethodPtr = typename TEventDelegate<TEvent>::template TSPMethodDelegate<UserClass>::FMethodPtr;
+using TEventDelegateMethodPtr = typename TEventDelegate<TEvent>::template TMethodPtr<UserClass>;
 
 class IJsonEventSubscription
 {
