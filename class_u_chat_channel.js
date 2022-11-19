@@ -20,7 +20,7 @@ var class_u_chat_channel =
     [ "On", "class_u_chat_channel.html#a14dc1b83dd8413eb75de2a9de6436a31", null ],
     [ "On", "class_u_chat_channel.html#a9351ad594e8f4a2af0876b4980594647", null ],
     [ "On", "class_u_chat_channel.html#a73bff64fcd97a9cf60f023fc8abc7cb5", null ],
-    [ "On", "class_u_chat_channel.html#a9d6785286eccd01939f684c44101e396", null ],
+    [ "On", "class_u_chat_channel.html#abadde6897e55a02be93d47b1d62170c2", null ],
     [ "PartialUpdate", "class_u_chat_channel.html#a569dfa3818b1f12d334fbb00fe1abd64", null ],
     [ "Query", "class_u_chat_channel.html#ae5690b0358c30ad8ac99fb37746eadfd", null ],
     [ "QueryAdditionalMessages", "class_u_chat_channel.html#a51c7135aad87cd3184dd8fe0f7733ff1", null ],

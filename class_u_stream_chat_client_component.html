@@ -245,22 +245,22 @@ template&lt;class TEvent &gt; </td></tr>
 template&lt;class TEvent &gt; </td></tr>
 <tr class="memitem:a653e75d25f54e9e4c99a05e7caabe452"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>TEventDelegate</b> = typename TEventMulticastDelegate&lt; TEvent &gt;::FDelegate</td></tr>
 <tr class="separator:a653e75d25f54e9e4c99a05e7caabe452"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d3d87a8196b5b1e53a6f1bb02a7547d"><td class="memTemplParams" colspan="2"><a id="a2d3d87a8196b5b1e53a6f1bb02a7547d" name="a2d3d87a8196b5b1e53a6f1bb02a7547d"></a>
+<tr class="memitem:ab1fb3c625d023f99167b4851dd56baca"><td class="memTemplParams" colspan="2"><a id="ab1fb3c625d023f99167b4851dd56baca" name="ab1fb3c625d023f99167b4851dd56baca"></a>
 template&lt;class TEvent , class UserClass &gt; </td></tr>
-<tr class="memitem:a2d3d87a8196b5b1e53a6f1bb02a7547d"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>TEventDelegateUObjectMethodPtr</b> = typename TEventDelegate&lt; TEvent &gt;::template TUObjectMethodDelegate&lt; UserClass &gt;::FMethodPtr</td></tr>
-<tr class="separator:a2d3d87a8196b5b1e53a6f1bb02a7547d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ec955f99d115672ad46f86b82690c9f"><td class="memTemplParams" colspan="2"><a id="a4ec955f99d115672ad46f86b82690c9f" name="a4ec955f99d115672ad46f86b82690c9f"></a>
+<tr class="memitem:ab1fb3c625d023f99167b4851dd56baca"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>TEventDelegateUObjectMethodPtr</b> = typename TEventDelegate&lt; TEvent &gt;::template TMethodPtr&lt; UserClass &gt;</td></tr>
+<tr class="separator:ab1fb3c625d023f99167b4851dd56baca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56213d8d2e16c4cb8f4517e870796c1a"><td class="memTemplParams" colspan="2"><a id="a56213d8d2e16c4cb8f4517e870796c1a" name="a56213d8d2e16c4cb8f4517e870796c1a"></a>
 template&lt;class TEvent , class UserClass &gt; </td></tr>
-<tr class="memitem:a4ec955f99d115672ad46f86b82690c9f"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>TEventDelegateSpMethodPtr</b> = typename TEventDelegate&lt; TEvent &gt;::template TSPMethodDelegate&lt; UserClass &gt;::FMethodPtr</td></tr>
-<tr class="separator:a4ec955f99d115672ad46f86b82690c9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56213d8d2e16c4cb8f4517e870796c1a"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>TEventDelegateSpMethodPtr</b> = typename TEventDelegate&lt; TEvent &gt;::template TMethodPtr&lt; UserClass &gt;</td></tr>
+<tr class="separator:a56213d8d2e16c4cb8f4517e870796c1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8faa7f538db03c650b73e9ac381eb15b"><td class="memTemplParams" colspan="2"><a id="a8faa7f538db03c650b73e9ac381eb15b" name="a8faa7f538db03c650b73e9ac381eb15b"></a>
 template&lt;class TEvent &gt; </td></tr>
 <tr class="memitem:a8faa7f538db03c650b73e9ac381eb15b"><td class="memTemplItemLeft" align="right" valign="top">FDelegateHandle&#160;</td><td class="memTemplItemRight" valign="bottom"><b>On</b> (TEventDelegate&lt; TEvent &gt; Callback)</td></tr>
 <tr class="memdesc:a8faa7f538db03c650b73e9ac381eb15b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe to a client event using your own delegate object. <br /></td></tr>
 <tr class="separator:a8faa7f538db03c650b73e9ac381eb15b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03464a6c70a6848cff3e0744099a7a86"><td class="memTemplParams" colspan="2">template&lt;class TEvent , class UserClass &gt; </td></tr>
-<tr class="memitem:a03464a6c70a6848cff3e0744099a7a86"><td class="memTemplItemLeft" align="right" valign="top">TEnableIf&lt; TIsDerivedFrom&lt; UserClass, UObject &gt;::IsDerived, FDelegateHandle &gt;<a class="el" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">::Type</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#a03464a6c70a6848cff3e0744099a7a86">On</a> (UserClass *Obj, TEventDelegateUObjectMethodPtr&lt; TEvent, UserClass &gt; Method)</td></tr>
-<tr class="separator:a03464a6c70a6848cff3e0744099a7a86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad60192eaa1c1303e2c42f4ff301ac2f5"><td class="memTemplParams" colspan="2">template&lt;class TEvent , class UserClass &gt; </td></tr>
+<tr class="memitem:ad60192eaa1c1303e2c42f4ff301ac2f5"><td class="memTemplItemLeft" align="right" valign="top">TEnableIf&lt; TIsDerivedFrom&lt; UserClass, UObject &gt;::IsDerived, FDelegateHandle &gt;<a class="el" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">::Type</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#ad60192eaa1c1303e2c42f4ff301ac2f5">On</a> (UserClass *Obj, TEventDelegateUObjectMethodPtr&lt; TEvent, UserClass &gt; Method)</td></tr>
+<tr class="separator:ad60192eaa1c1303e2c42f4ff301ac2f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c33fda79441595223429c1e769e320f"><td class="memTemplParams" colspan="2">template&lt;class TEvent , class UserClass &gt; </td></tr>
 <tr class="memitem:a0c33fda79441595223429c1e769e320f"><td class="memTemplItemLeft" align="right" valign="top">TEnableIf&lt;!TIsDerivedFrom&lt; UserClass, UObject &gt;::IsDerived, FDelegateHandle &gt;<a class="el" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">::Type</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_u_stream_chat_client_component.html#a0c33fda79441595223429c1e769e320f">On</a> (UserClass *Obj, TEventDelegateSpMethodPtr&lt; TEvent, UserClass &gt; Method)</td></tr>
 <tr class="separator:a0c33fda79441595223429c1e769e320f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -900,8 +900,8 @@ template&lt;class TEvent , class UserClass &gt; </div>
 
 </div>
 </div>
-<a id="a03464a6c70a6848cff3e0744099a7a86" name="a03464a6c70a6848cff3e0744099a7a86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03464a6c70a6848cff3e0744099a7a86">&#9670;&nbsp;</a></span>On() <span class="overload">[3/3]</span></h2>
+<a id="ad60192eaa1c1303e2c42f4ff301ac2f5" name="ad60192eaa1c1303e2c42f4ff301ac2f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad60192eaa1c1303e2c42f4ff301ac2f5">&#9670;&nbsp;</a></span>On() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -909,7 +909,7 @@ template&lt;class TEvent , class UserClass &gt; </div>
 template&lt;class TEvent , class UserClass &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">TEnableIf&lt; TIsDerivedFrom&lt; UserClass, UObject &gt;::IsDerived, FDelegateHandle &gt;<a class="el" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">::Type</a> UStreamChatClientComponent::On </td>
+          <td class="memname">TEnableIf&lt;!TIsDerivedFrom&lt; UserClass, UObject &gt;::IsDerived, FDelegateHandle &gt;<a class="el" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">::Type</a> UStreamChatClientComponent::On </td>
           <td>(</td>
           <td class="paramtype">UserClass *&#160;</td>
           <td class="paramname"><em>Obj</em>, </td>

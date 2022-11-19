@@ -22,7 +22,7 @@ var class_u_stream_chat_client_component =
     [ "On", "class_u_stream_chat_client_component.html#a7d38cc193bb913b0aa09b8269e6bbe4b", null ],
     [ "On", "class_u_stream_chat_client_component.html#a8faa7f538db03c650b73e9ac381eb15b", null ],
     [ "On", "class_u_stream_chat_client_component.html#a0c33fda79441595223429c1e769e320f", null ],
-    [ "On", "class_u_stream_chat_client_component.html#a03464a6c70a6848cff3e0744099a7a86", null ],
+    [ "On", "class_u_stream_chat_client_component.html#ad60192eaa1c1303e2c42f4ff301ac2f5", null ],
     [ "QueryAdditionalChannels", "class_u_stream_chat_client_component.html#adba9ca31b5bd31c24da7bbb63a7cfc73", null ],
     [ "QueryBannedUsers", "class_u_stream_chat_client_component.html#a6ddd4f30443b462afb6e9696dc4d4c69", null ],
     [ "QueryChannel", "class_u_stream_chat_client_component.html#a029182849c427dd2d2fe325326042d6c", null ],

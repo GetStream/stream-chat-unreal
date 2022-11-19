@@ -149,10 +149,10 @@ template&lt;class TEvent &gt; </td></tr>
 <tr class="memitem:a9351ad594e8f4a2af0876b4980594647"><td class="memTemplItemLeft" align="right" valign="top">FDelegateHandle&#160;</td><td class="memTemplItemRight" valign="bottom"><b>On</b> (TEventDelegate&lt; TEvent &gt; Callback)</td></tr>
 <tr class="memdesc:a9351ad594e8f4a2af0876b4980594647"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe to a channel event using your own delegate object. <br /></td></tr>
 <tr class="separator:a9351ad594e8f4a2af0876b4980594647"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d6785286eccd01939f684c44101e396"><td class="memTemplParams" colspan="2">template&lt;class TEvent , class UserClass &gt; </td></tr>
-<tr class="memitem:a9d6785286eccd01939f684c44101e396"><td class="memTemplItemLeft" align="right" valign="top">TEnableIf&lt; TIsDerivedFrom&lt; UserClass, UObject &gt;::IsDerived, FDelegateHandle &gt;<a class="el" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">::Type</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a9d6785286eccd01939f684c44101e396">On</a> (UserClass *Obj, TEventDelegateUObjectMethodPtr&lt; TEvent, UserClass &gt; Method)</td></tr>
-<tr class="memdesc:a9d6785286eccd01939f684c44101e396"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe to a channel event using a UObject-based member function delegate.  <a href="class_u_chat_channel.html#a9d6785286eccd01939f684c44101e396">More...</a><br /></td></tr>
-<tr class="separator:a9d6785286eccd01939f684c44101e396"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abadde6897e55a02be93d47b1d62170c2"><td class="memTemplParams" colspan="2">template&lt;class TEvent , class UserClass &gt; </td></tr>
+<tr class="memitem:abadde6897e55a02be93d47b1d62170c2"><td class="memTemplItemLeft" align="right" valign="top">TEnableIf&lt; TIsDerivedFrom&lt; UserClass, UObject &gt;::IsDerived, FDelegateHandle &gt;<a class="el" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">::Type</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#abadde6897e55a02be93d47b1d62170c2">On</a> (UserClass *Obj, TEventDelegateUObjectMethodPtr&lt; TEvent, UserClass &gt; Method)</td></tr>
+<tr class="memdesc:abadde6897e55a02be93d47b1d62170c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe to a channel event using a UObject-based member function delegate.  <a href="class_u_chat_channel.html#abadde6897e55a02be93d47b1d62170c2">More...</a><br /></td></tr>
+<tr class="separator:abadde6897e55a02be93d47b1d62170c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73bff64fcd97a9cf60f023fc8abc7cb5"><td class="memTemplParams" colspan="2">template&lt;class TEvent , class UserClass &gt; </td></tr>
 <tr class="memitem:a73bff64fcd97a9cf60f023fc8abc7cb5"><td class="memTemplItemLeft" align="right" valign="top">TEnableIf&lt;!TIsDerivedFrom&lt; UserClass, UObject &gt;::IsDerived, FDelegateHandle &gt;<a class="el" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">::Type</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html#a73bff64fcd97a9cf60f023fc8abc7cb5">On</a> (UserClass *Obj, TEventDelegateSpMethodPtr&lt; TEvent, UserClass &gt; Method)</td></tr>
 <tr class="memdesc:a73bff64fcd97a9cf60f023fc8abc7cb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe to a channel event using a shared pointer-based (fast, not thread-safe) member function delegate.  <a href="class_u_chat_channel.html#a73bff64fcd97a9cf60f023fc8abc7cb5">More...</a><br /></td></tr>
@@ -780,8 +780,8 @@ template&lt;class TEvent , class UserClass &gt; </div>
 
 </div>
 </div>
-<a id="a9d6785286eccd01939f684c44101e396" name="a9d6785286eccd01939f684c44101e396"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d6785286eccd01939f684c44101e396">&#9670;&nbsp;</a></span>On() <span class="overload">[3/3]</span></h2>
+<a id="abadde6897e55a02be93d47b1d62170c2" name="abadde6897e55a02be93d47b1d62170c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abadde6897e55a02be93d47b1d62170c2">&#9670;&nbsp;</a></span>On() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -789,7 +789,7 @@ template&lt;class TEvent , class UserClass &gt; </div>
 template&lt;class TEvent , class UserClass &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">TEnableIf&lt; TIsDerivedFrom&lt; UserClass, UObject &gt;::IsDerived, FDelegateHandle &gt;<a class="el" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">::Type</a> UChatChannel::On </td>
+          <td class="memname">TEnableIf&lt;!TIsDerivedFrom&lt; UserClass, UObject &gt;::IsDerived, FDelegateHandle &gt;<a class="el" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">::Type</a> UChatChannel::On </td>
           <td>(</td>
           <td class="paramtype">UserClass *&#160;</td>
           <td class="paramname"><em>Obj</em>, </td>
