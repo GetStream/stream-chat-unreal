@@ -45,6 +45,7 @@ bump-version version:
         "./Plugins/StreamChat/StreamChat.uplugin",
         "./Plugins/StreamChat/StreamChat.uplugin.4.27",
         "./Plugins/StreamChat/StreamChat.uplugin.5.0",
+        "./Plugins/StreamChat/StreamChat.uplugin.5.1",
     ]) {
         const data = fs.readFileSync(fileName);
         const file = JSON.parse(data);

@@ -21,6 +21,28 @@ namespace
 {
 const FString ObjectClassNameKey = "_ClassName";
 
+const TCHAR* ImportText(const FProperty& Property, const TCHAR* Buffer, void* Data)
+{
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 1
+    return Property.ImportText_Direct(Buffer, Data, nullptr, PPF_None);
+#else
+    return Property.ImportText(Buffer, Data, PPF_None, nullptr);
+#endif
+}
+
+UClass* FindClass(const FString& ClassString)
+{
+    if (ClassString.IsEmpty())
+    {
+        return nullptr;
+    }
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 1
+    return FPackageName::IsShortPackageName(ClassString) ? FindFirstObject<UClass>(*ClassString) : UClass::TryFindTypeSlow<UClass>(ClassString);
+#else
+    return FindObject<UClass>(ANY_PACKAGE, *ClassString);
+#endif
+}
+
 /** Parse an FText from a json object (assumed to be of the form where keys are culture codes and values are strings) */
 bool GetTextFromObject(const TSharedRef<FJsonObject>& Obj, FText& TextOut)
 {
@@ -422,14 +444,14 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
             if (!TheCppStructOps->ImportTextItem(ImportTextPtr, OutValue, PPF_None, nullptr, GWarn))
             {
                 // Fall back to trying the tagged property approach if custom ImportTextItem couldn't get it done
-                Property->ImportText(ImportTextPtr, OutValue, PPF_None, nullptr);
+                ImportText(*Property, ImportTextPtr, OutValue);
             }
         }
         else if (JsonValue->Type == EJson::String)
         {
             FString ImportTextString = JsonValue->AsString();
             const TCHAR* ImportTextPtr = *ImportTextString;
-            Property->ImportText(ImportTextPtr, OutValue, PPF_None, nullptr);
+            ImportText(*Property, ImportTextPtr, OutValue);
         }
         else
         {
@@ -454,12 +476,9 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
             // If a specific subclass was stored in the Json, use that instead of the PropertyClass
             FString ClassString = Obj->GetStringField(ObjectClassNameKey);
             Obj->RemoveField(ObjectClassNameKey);
-            if (!ClassString.IsEmpty())
+            if (UClass* FoundClass = FindClass(ClassString))
             {
-                if (UClass* FoundClass = FindObject<UClass>(ANY_PACKAGE, *ClassString))
-                {
-                    PropertyClass = FoundClass;
-                }
+                PropertyClass = FoundClass;
             }
 
             UObject* CreatedObj = StaticAllocateObject(PropertyClass, Outer, NAME_None, EObjectFlags::RF_NoFlags, EInternalObjectFlags::None, false);
@@ -485,7 +504,7 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
         else if (JsonValue->Type == EJson::String)
         {
             // Default to expect a string for everything else
-            if (Property->ImportText(*JsonValue->AsString(), OutValue, 0, nullptr) == nullptr)
+            if (ImportText(*Property, *JsonValue->AsString(), OutValue) == nullptr)
             {
                 UE_LOG(
                     LogJson,
@@ -500,7 +519,7 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
     else
     {
         // Default to expect a string for everything else
-        if (Property->ImportText(*JsonValue->AsString(), OutValue, 0, nullptr) == nullptr)
+        if (ImportText(*Property, *JsonValue->AsString(), OutValue) == nullptr)
         {
             UE_LOG(
                 LogJson,

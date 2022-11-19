@@ -225,6 +225,7 @@ public:
     FString ApiKey;
 
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FChannelsUpdatedDelegate, const TArray<UChatChannel*>&, Channels);
+
     /// Fired when any of the channels we have locally change
     UPROPERTY(BlueprintAssignable, Category = "Stream Chat|Channel")
     FChannelsUpdatedDelegate ChannelsUpdated;
@@ -321,10 +322,17 @@ public:
     using TEventMulticastDelegate = TMulticastDelegate<void(const TEvent& Event)>;
     template <class TEvent>
     using TEventDelegate = typename TEventMulticastDelegate<TEvent>::FDelegate;
+#if ENGINE_MAJOR_VERSION == 4 && ENGINE_MINOR_VERSION <= 27
     template <class TEvent, class UserClass>
     using TEventDelegateUObjectMethodPtr = typename TEventDelegate<TEvent>::template TUObjectMethodDelegate<UserClass>::FMethodPtr;
     template <class TEvent, class UserClass>
     using TEventDelegateSpMethodPtr = typename TEventDelegate<TEvent>::template TSPMethodDelegate<UserClass>::FMethodPtr;
+#else
+    template <class TEvent, class UserClass>
+    using TEventDelegateUObjectMethodPtr = typename TEventDelegate<TEvent>::template TMethodPtr<UserClass>;
+    template <class TEvent, class UserClass>
+    using TEventDelegateSpMethodPtr = typename TEventDelegate<TEvent>::template TMethodPtr<UserClass>;
+#endif
 
     /// Subscribe to a client event using your own delegate object
     template <class TEvent>

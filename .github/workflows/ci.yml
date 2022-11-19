@@ -23,7 +23,7 @@ jobs:
   build-plugin:
     strategy:
       matrix:
-        engine: ["4.27", "5.0"]
+        engine: ["4.27", "5.0", "5.1"]
     name: 🔌 Build Plugin UE${{ matrix.engine }}
     runs-on: [self-hosted]
 
@@ -124,16 +124,16 @@ jobs:
         name: 🛒 Checkout
         with:
           lfs: true
-      - name: ☝️ Select UE5.0
+      - name: ☝️ Select UE5.1
         shell: bash
         run: |
           if [[ "$OSTYPE" == "darwin"* ]]; then
-            ue4 setroot "/Users/Shared/Epic Games/UE_5.0"
+            ue4 setroot "/Users/Shared/Epic Games/UE_5.1"
           else
-            ue4 setroot "C:\UE\UE_5.0"
+            ue4 setroot "C:\UE\UE_5.1"
           fi
 
-          just set-engine 5.0
+          just set-engine 5.1
 
       - name: 🔨 Build
         shell: bash

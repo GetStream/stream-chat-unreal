@@ -60,16 +60,16 @@ jobs:
         with:
           lfs: true
 
-      - name: ☝️ Select UE5.0
+      - name: ☝️ Select UE5.1
         shell: bash
         run: |
           if [[ "$OSTYPE" == "darwin"* ]]; then
-            ue4 setroot "/Users/Shared/Epic Games/UE_5.0"
+            ue4 setroot "/Users/Shared/Epic Games/UE_5.1"
           else
-            ue4 setroot "C:\UE\UE_5.0"
+            ue4 setroot "C:\UE\UE_5.1"
           fi
 
-          just set-engine 5.0
+          just set-engine 5.1
 
       - name: Generate bundle version
         if: ${{ matrix.platform == 'IOS' }}
@@ -180,13 +180,13 @@ jobs:
           echo -e "\n==> Fix rpaths in executable"
           # These rpaths lead to invalid locations. They need to be removed, otherwise the notarized app won't pass the Gatekeeper.
           declare -a bad_exe_rpaths=(
-            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_5.0/Engine/Binaries/ThirdParty/PhysX3/Mac"
+            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_5.1/Engine/Binaries/ThirdParty/PhysX3/Mac"
             "@loader_path/../../../../../../Engine/Binaries/ThirdParty/PhysX3/Mac"
-            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_5.0/Engine/Binaries/ThirdParty/Vorbis/Mac"
+            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_5.1/Engine/Binaries/ThirdParty/Vorbis/Mac"
             "@loader_path/../../../../../../Engine/Binaries/ThirdParty/Ogg/Mac"
-            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_5.0/Engine/Binaries/ThirdParty/Ogg/Mac"
+            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_5.1/Engine/Binaries/ThirdParty/Ogg/Mac"
             "@loader_path/../../../../../../Engine/Binaries/ThirdParty/Vorbis/Mac"
-            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_5.0/Engine/Binaries/ThirdParty/Intel/TBB/Mac"
+            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_5.1/Engine/Binaries/ThirdParty/Intel/TBB/Mac"
             "@loader_path/../../../../../../Engine/Binaries/ThirdParty/Intel/TBB/Mac"
             "@executable_path/../../../"
           )
@@ -249,7 +249,7 @@ jobs:
   plugin:
     strategy:
       matrix:
-        engine: ["4.27", "5.0"]
+        engine: ["4.27", "5.0", "5.1"]
 
     name: 🔌 Package plugin UE${{ matrix.engine }}
     runs-on: [self-hosted, UE_IOS]

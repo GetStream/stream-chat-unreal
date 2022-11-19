@@ -6,6 +6,18 @@
 #include "UiBlueprintLibrary.h"
 #include "WidgetUtil.h"
 
+namespace
+{
+const FSlateFontInfo& GetFont(UTextBlock* TextBlock)
+{
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 1
+    return TextBlock->GetFont();
+#else
+    return TextBlock->Font;
+#endif
+}
+}    // namespace
+
 bool USummaryChannelStatusWidget::IsForChannel(const UChatChannel* QueryChannel) const
 {
     return QueryChannel && StatusChannel && QueryChannel->Properties.Cid == StatusChannel->Properties.Cid;
@@ -116,7 +128,7 @@ void USummaryChannelStatusWidget::UpdateChannelTitleText() const
     if (TitleTextBlock && StatusChannel)
     {
         const FString Title = UUiBlueprintLibrary::GetChannelTitle(StatusChannel);
-        const FString Shortened = WidgetUtil::TruncateWithEllipsis(Title, ChannelTitleAvailableSpace, TitleTextBlock->Font);
+        const FString Shortened = WidgetUtil::TruncateWithEllipsis(Title, ChannelTitleAvailableSpace, GetFont(TitleTextBlock));
         const FText Text = FText::FromString(Shortened);
         TitleTextBlock->SetText(Text);
     }
@@ -130,7 +142,7 @@ void USummaryChannelStatusWidget::UpdateRecentMessageText() const
         {
             RecentMessageTextBlock->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
             const FString LastText = StatusChannel->State.Messages.Last().Text;
-            const FString Shortened = WidgetUtil::TruncateWithEllipsis(LastText, RecentMessageAvailableSpace, RecentMessageTextBlock->Font);
+            const FString Shortened = WidgetUtil::TruncateWithEllipsis(LastText, RecentMessageAvailableSpace, GetFont(RecentMessageTextBlock));
             const FText Text = FText::FromString(Shortened);
             RecentMessageTextBlock->SetText(Text);
         }

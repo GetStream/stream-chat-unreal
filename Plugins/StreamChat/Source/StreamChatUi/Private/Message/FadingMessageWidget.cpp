@@ -2,6 +2,7 @@
 
 #include "Message/FadingMessageWidget.h"
 
+#include "Animation/WidgetAnimation.h"
 #include "TimerManager.h"
 #include "User/User.h"
 

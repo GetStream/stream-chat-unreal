@@ -31,13 +31,15 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Content)
     FText HintText;
 
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnEditableTextBoxChangedEvent, const FText&, Text);
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnEditableTextBoxCommittedEvent, const FText&, Text, ETextCommit::Type, CommitMethod);
     /** Called whenever the text is changed programmatically or interactively by the user */
     UPROPERTY(BlueprintAssignable, Category = "TextBox|Event")
-    UEditableTextBox::FOnEditableTextBoxChangedEvent OnTextChanged;
+    FOnEditableTextBoxChangedEvent OnTextChanged;
 
     /** Called whenever the text is committed.  This happens when the user presses enter or the text box loses focus. */
     UPROPERTY(BlueprintAssignable, Category = "TextBox|Event")
-    UEditableTextBox::FOnEditableTextBoxCommittedEvent OnTextCommitted;
+    FOnEditableTextBoxCommittedEvent OnTextCommitted;
 
 protected:
     UPROPERTY(meta = (BindWidget))
