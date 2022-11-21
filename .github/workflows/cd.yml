@@ -180,8 +180,6 @@ jobs:
           echo -e "\n==> Fix rpaths in executable"
           # These rpaths lead to invalid locations. They need to be removed, otherwise the notarized app won't pass the Gatekeeper.
           declare -a bad_exe_rpaths=(
-            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_5.1/Engine/Binaries/ThirdParty/PhysX3/Mac"
-            "@loader_path/../../../../../../Engine/Binaries/ThirdParty/PhysX3/Mac"
             "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_5.1/Engine/Binaries/ThirdParty/Vorbis/Mac"
             "@loader_path/../../../../../../Engine/Binaries/ThirdParty/Ogg/Mac"
             "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_5.1/Engine/Binaries/ThirdParty/Ogg/Mac"
