@@ -261,13 +261,21 @@ jobs:
       - name: ☝️ Select UE${{ matrix.engine }}
         shell: bash
         run: |
+          just set-engine ${{ matrix.engine }}
+
+          rm $HOME/.bash_profile
+          touch $HOME/.bash_profile
           if [[ "$OSTYPE" == "darwin"* ]]; then
             ue4 setroot "/Users/Shared/Epic Games/UE_${{ matrix.engine }}"
+            "/Users/Shared/Epic Games/UE_${{ matrix.engine }}/Engine/Extras/Android/SetupAndroid.command"
           else
             ue4 setroot "C:\UE\UE_${{ matrix.engine }}"
+            cmd "/C C:\UE\UE_${{ matrix.engine }}/Engine/Extras/Android/SetupAndroid.bat"
           fi
 
-          just set-engine ${{ matrix.engine }}
+          source $HOME/.bash_profile
+
+          env
 
       - name: 📦 Package plugin
         run: |
