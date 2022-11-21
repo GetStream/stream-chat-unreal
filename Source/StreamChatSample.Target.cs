@@ -6,7 +6,10 @@ public class StreamChatSampleTarget : TargetRules
 {
 	public StreamChatSampleTarget(TargetInfo Target) : base(Target)
 	{
-#if UE_5_1_OR_LATER
+#if UE_4_27_OR_EARLIER
+		bOverrideBuildEnvironment = true;
+		AdditionalCompilerArguments = "-Wno-unused-but-set-variable";
+#elif UE_5_1_OR_LATER
 		IncludeOrderVersion = EngineIncludeOrderVersion.Latest;
 #endif
 
