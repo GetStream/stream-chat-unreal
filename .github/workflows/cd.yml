@@ -63,13 +63,18 @@ jobs:
       - name: ☝️ Select UE5.1
         shell: bash
         run: |
+          just set-engine 5.1
+
           if [[ "$OSTYPE" == "darwin"* ]]; then
             ue4 setroot "/Users/Shared/Epic Games/UE_5.1"
+            rm $HOME/.bash_profile
+            touch $HOME/.bash_profile
+            "/Users/Shared/Epic Games/UE_5.1/Engine/Extras/Android/SetupAndroid.command"
+            source $HOME/.bash_profile
           else
             ue4 setroot "C:\UE\UE_5.1"
+            cmd "/C C:\UE\UE_5.1/Engine/Extras/Android/SetupAndroid.bat"
           fi
-
-          just set-engine 5.1
 
       - name: Generate bundle version
         if: ${{ matrix.platform == 'IOS' }}
@@ -263,19 +268,16 @@ jobs:
         run: |
           just set-engine ${{ matrix.engine }}
 
-          rm $HOME/.bash_profile
-          touch $HOME/.bash_profile
           if [[ "$OSTYPE" == "darwin"* ]]; then
             ue4 setroot "/Users/Shared/Epic Games/UE_${{ matrix.engine }}"
+            rm $HOME/.bash_profile
+            touch $HOME/.bash_profile
             "/Users/Shared/Epic Games/UE_${{ matrix.engine }}/Engine/Extras/Android/SetupAndroid.command"
+            source $HOME/.bash_profile
           else
             ue4 setroot "C:\UE\UE_${{ matrix.engine }}"
             cmd "/C C:\UE\UE_${{ matrix.engine }}/Engine/Extras/Android/SetupAndroid.bat"
           fi
-
-          source $HOME/.bash_profile
-
-          env
 
       - name: 📦 Package plugin
         run: |
