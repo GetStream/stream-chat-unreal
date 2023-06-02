@@ -127,15 +127,19 @@ jobs:
         name: 🛒 Checkout
         with:
           lfs: true
+
       - name: ☝️ Select UE5.1
+        if: runner.os == 'macOS'
         shell: bash
         run: |
-          if [[ "$OSTYPE" == "darwin"* ]]; then
-            ue4 setroot "/Users/Shared/Epic Games/UE_5.1"
-          else
-            ue4 setroot "C:\UE\UE_5.1"
-          fi
+          ue4 setroot "/Users/Shared/Epic Games/UE_5.1"
+          just set-engine 5.1
 
+      - name: ☝️ Select UE${{ matrix.engine }}
+        if: runner.os == 'Windows'
+        shell: cmd
+        run: |
+          ue4 setroot "C:\UE\UE_5.1"
           just set-engine 5.1
 
       - name: 🔨 Build
