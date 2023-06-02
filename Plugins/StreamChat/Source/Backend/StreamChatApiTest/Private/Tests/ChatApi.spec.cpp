@@ -7,6 +7,7 @@
 #include "Dom/JsonObject.h"
 #include "IChatSocket.h"
 #include "Misc/AutomationTest.h"
+#include "Misc/Guid.h"
 #include "PushProvider.h"
 #include "Request/Channel/UpdateChannelRequestDto.h"
 #include "Request/Message/MessageRequestDto.h"
@@ -32,7 +33,6 @@
 #include "TokenManager.h"
 #include "User/Jwt.h"
 #include "User/User.h"
-#include "Misc/Guid.h"
 
 BEGIN_DEFINE_SPEC(FChatApiSpec, "StreamChat.ChatApi", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)
 const FString ApiKey = TEXT("kmajgxb2rk4p");

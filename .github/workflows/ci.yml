@@ -37,14 +37,17 @@ jobs:
           lfs: true
 
       - name: ☝️ Select UE${{ matrix.engine }}
+        if: runner.os == 'macOS'
         shell: bash
         run: |
-          if [[ "$OSTYPE" == "darwin"* ]]; then
-            ue4 setroot "/Users/Shared/Epic Games/UE_${{ matrix.engine }}"
-          else
-            ue4 setroot "C:\UE\UE_${{ matrix.engine }}"
-          fi
-
+          ue4 setroot "/Users/Shared/Epic Games/UE_${{ matrix.engine }}"
+          just set-engine ${{ matrix.engine }}
+          
+      - name: ☝️ Select UE${{ matrix.engine }}
+        if: runner.os == 'Windows'
+        shell: cmd
+        run: |
+          ue4 setroot "C:\UE\UE_${{ matrix.engine }}"
           just set-engine ${{ matrix.engine }}
 
       - name: 🔨 Build plugin
