@@ -32,6 +32,7 @@
 #include "TokenManager.h"
 #include "User/Jwt.h"
 #include "User/User.h"
+#include "Misc/Guid.h"
 
 BEGIN_DEFINE_SPEC(FChatApiSpec, "StreamChat.ChatApi", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)
 const FString ApiKey = TEXT("kmajgxb2rk4p");
@@ -40,7 +41,7 @@ const FUserObjectDto User{FUserDto{TEXT("TestUser")}};
 const FString ChannelType = TEXT("messaging");
 const FString ChannelId = TEXT("unrealdevs");
 const FString Cid = FString::Printf(TEXT("%s:%s"), *ChannelType, *ChannelId);
-const FString NewChannelId = TEXT("test-channel");
+const FString NewChannelId = TEXT("test-channel_" + FGuid::NewGuid().ToString());
 const FString NewCid = FString::Printf(TEXT("%s:%s"), *ChannelType, *NewChannelId);
 const FString DeviceId = TEXT("random-device-id");
 const FString BanUserId = TEXT("tutorial-unreal");
