@@ -143,11 +143,40 @@ jobs:
           just set-engine 5.1
 
       - name: 🔨 Build
+        if: runner.os == 'macOS'
         shell: bash
         run: |
           ue4 build -NoPCH -NoSharedPCH -DisableUnity -platform=${{ matrix.platform }} | sed -e 's/.*LogInit: Display: \(.*\): Warning: \(.*\)/::warning title=\1::\2/' -e 's/.*LogInit: Display: \(.*\): Error: \(.*\)/::error title=\1::\2/' -e 's/.*ERROR: \(.*\)/::error::\1/'
 
+      - name: 🔨 Build
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          ue4 build -NoPCH -NoSharedPCH -DisableUnity -platform=${{ matrix.platform }} 2>&1 | ForEach-Object {
+            if ($_ -match '.*LogInit: Display: (.+): Warning: (.+)') {
+                                                                "::warning title=$($Matches[1])::$($Matches[2])"
+            } elseif ($_ -match '.*LogInit: Display: (.+): Error: (.+)') {
+                                                                    "::error title=$($Matches[1])::$($Matches[2])"
+            } elseif ($_ -match '.*ERROR: (.+)') {
+                "::error::$($Matches[1])"
+            }
+          }
       - name: 🧑‍🍳 Cook
+        if: runner.os == 'macOS'
         shell: bash
         run: |
           ue4 uat BuildCookRun -project=$PWD/StreamChatSample.uproject -cook -skipstage -targetplatform=${{ matrix.platform }} | sed -e 's/.*LogInit: Display: \(.*\): Warning: \(.*\)/::warning title=\1::\2/' -e 's/.*LogInit: Display: \(.*\): Error: \(.*\)/::error title=\1::\2/' -e 's/.*ERROR: \(.*\)/::error::\1/'
+
+      - name: 🧑‍🍳 Cook
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          ue4 uat BuildCookRun -project="$PWD/StreamChatSample.uproject" -cook -skipstage -targetplatform=$env:platform 2>&1 | ForEach-Object {
+            if ($_ -match '.*LogInit: Display: (.+): Warning: (.+)') {
+                                                                "::warning title=$($Matches[1])::$($Matches[2])"
+            } elseif ($_ -match '.*LogInit: Display: (.+): Error: (.+)') {
+                                                                    "::error title=$($Matches[1])::$($Matches[2])"
+            } elseif ($_ -match '.*ERROR: (.+)') {
+                "::error::$($Matches[1])"
+            }
+          }
