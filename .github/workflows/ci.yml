@@ -171,7 +171,7 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          ue4 uat BuildCookRun -project="$PWD/StreamChatSample.uproject" -cook -skipstage -targetplatform=$env:platform 2>&1 | ForEach-Object {
+          ue4 uat BuildCookRun -project="$PWD/StreamChatSample.uproject" -cook -skipstage -targetplatform=${{ matrix.platform }} 2>&1 | ForEach-Object {
             if ($_ -match '.*LogInit: Display: (.+): Warning: (.+)') {
                                                                 "::warning title=$($Matches[1])::$($Matches[2])"
             } elseif ($_ -match '.*LogInit: Display: (.+): Error: (.+)') {
