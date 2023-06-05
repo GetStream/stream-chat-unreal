@@ -248,6 +248,9 @@ void UChatChannel::AddMembers(const TArray<FString>& MemberIds, const TOptional<
         {
             FChannelMemberRequestDto Dto;
             Dto.UserId = Id;
+            FUserObjectRequestDto User;
+            User.Id = Id;
+            Dto.User = User;
             return Dto;
         });
     if (Message.IsSet())

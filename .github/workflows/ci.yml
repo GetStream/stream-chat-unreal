@@ -118,7 +118,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [Linux, Mac, "Win64", Android, IOS]
+        #platform: [Linux, Mac, "Win64", Android, IOS] temp disable Mac until Mac self-hosted runner is setup
+        platform: [Linux, "Win64", Android, IOS]
     name: 🤡 Build samples ${{ matrix.platform }}
     runs-on: [self-hosted, 'UE_${{ matrix.platform }}']
 
@@ -127,23 +128,56 @@ jobs:
         name: 🛒 Checkout
         with:
           lfs: true
+
       - name: ☝️ Select UE5.1
+        if: runner.os == 'macOS'
         shell: bash
         run: |
-          if [[ "$OSTYPE" == "darwin"* ]]; then
-            ue4 setroot "/Users/Shared/Epic Games/UE_5.1"
-          else
-            ue4 setroot "C:\UE\UE_5.1"
-          fi
+          ue4 setroot "/Users/Shared/Epic Games/UE_5.1"
+          just set-engine 5.1
 
+      - name: ☝️ Select UE${{ matrix.engine }}
+        if: runner.os == 'Windows'
+        shell: cmd
+        run: |
+          ue4 setroot "C:\UE\UE_5.1"
           just set-engine 5.1
 
       - name: 🔨 Build
+        if: runner.os == 'macOS'
         shell: bash
         run: |
           ue4 build -NoPCH -NoSharedPCH -DisableUnity -platform=${{ matrix.platform }} | sed -e 's/.*LogInit: Display: \(.*\): Warning: \(.*\)/::warning title=\1::\2/' -e 's/.*LogInit: Display: \(.*\): Error: \(.*\)/::error title=\1::\2/' -e 's/.*ERROR: \(.*\)/::error::\1/'
 
+      - name: 🔨 Build
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          ue4 build -NoPCH -NoSharedPCH -DisableUnity -platform=${{ matrix.platform }} 2>&1 | ForEach-Object {
+            if ($_ -match '.*LogInit: Display: (.+): Warning: (.+)') {
+                                                                "::warning title=$($Matches[1])::$($Matches[2])"
+            } elseif ($_ -match '.*LogInit: Display: (.+): Error: (.+)') {
+                                                                    "::error title=$($Matches[1])::$($Matches[2])"
+            } elseif ($_ -match '.*ERROR: (.+)') {
+                "::error::$($Matches[1])"
+            }
+          }
       - name: 🧑‍🍳 Cook
+        if: runner.os == 'macOS'
         shell: bash
         run: |
           ue4 uat BuildCookRun -project=$PWD/StreamChatSample.uproject -cook -skipstage -targetplatform=${{ matrix.platform }} | sed -e 's/.*LogInit: Display: \(.*\): Warning: \(.*\)/::warning title=\1::\2/' -e 's/.*LogInit: Display: \(.*\): Error: \(.*\)/::error title=\1::\2/' -e 's/.*ERROR: \(.*\)/::error::\1/'
+
+      - name: 🧑‍🍳 Cook
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          ue4 uat BuildCookRun -project="$PWD/StreamChatSample.uproject" -cook -skipstage -targetplatform=${{ matrix.platform }} 2>&1 | ForEach-Object {
+            if ($_ -match '.*LogInit: Display: (.+): Warning: (.+)') {
+                                                                "::warning title=$($Matches[1])::$($Matches[2])"
+            } elseif ($_ -match '.*LogInit: Display: (.+): Error: (.+)') {
+                                                                    "::error title=$($Matches[1])::$($Matches[2])"
+            } elseif ($_ -match '.*ERROR: (.+)') {
+                "::error::$($Matches[1])"
+            }
+          }

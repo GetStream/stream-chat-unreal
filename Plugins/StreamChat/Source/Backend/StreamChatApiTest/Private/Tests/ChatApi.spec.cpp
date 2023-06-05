@@ -7,6 +7,7 @@
 #include "Dom/JsonObject.h"
 #include "IChatSocket.h"
 #include "Misc/AutomationTest.h"
+#include "Misc/Guid.h"
 #include "PushProvider.h"
 #include "Request/Channel/UpdateChannelRequestDto.h"
 #include "Request/Message/MessageRequestDto.h"
@@ -40,7 +41,7 @@ const FUserObjectDto User{FUserDto{TEXT("TestUser")}};
 const FString ChannelType = TEXT("messaging");
 const FString ChannelId = TEXT("unrealdevs");
 const FString Cid = FString::Printf(TEXT("%s:%s"), *ChannelType, *ChannelId);
-const FString NewChannelId = TEXT("test-channel");
+const FString NewChannelId = TEXT("test-channel_" + FGuid::NewGuid().ToString());
 const FString NewCid = FString::Printf(TEXT("%s:%s"), *ChannelType, *NewChannelId);
 const FString DeviceId = TEXT("random-device-id");
 const FString BanUserId = TEXT("tutorial-unreal");
