@@ -12,7 +12,7 @@ jobs:
     name: Create release PR
     runs-on: ubuntu-latest
     steps:
-      - uses: extractions/setup-just@v1
+      - uses: extractions/setup-just@v4
       - uses: actions/checkout@v3
         name: 🛒 Checkout
         with:
