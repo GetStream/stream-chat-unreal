@@ -90,7 +90,7 @@ jobs:
           with open(output, 'w') as f:
               TestSuite.to_file(f, [ts], prettyprint=False)
       - name: 📤 Upload test report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           path: Saved/Automation/Reports/report.xml
           name: test-report
