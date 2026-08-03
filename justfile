@@ -99,7 +99,8 @@ _engine:
         "/c/ProgramData/Epic/UnrealEngineLauncher/LauncherInstalled.dat" \
         "/mnt/c/ProgramData/Epic/UnrealEngineLauncher/LauncherInstalled.dat"; do
         if [[ -f "$manifest" ]]; then
-            found=$(python3 -c 'import json,sys; d=json.load(open(sys.argv[1])); ue=[i["InstallLocation"] for i in d.get("InstallationList",[]) if i.get("AppName","").startswith("UE_")]; print(sorted(ue)[-1] if ue else "")' "$manifest" 2>/dev/null || true)
+            # Pick the highest engine version, not the alphabetically-last install path
+            found=$(python3 -c 'import json,re,sys; d=json.load(open(sys.argv[1])); ue=[((int(m.group(1)),int(m.group(2))), i["InstallLocation"]) for i in d.get("InstallationList",[]) for m in [re.fullmatch(r"UE_(\d+)\.(\d+)", i.get("AppName",""))] if m]; print(sorted(ue)[-1][1] if ue else "")' "$manifest" 2>/dev/null || true)
             if [[ -n "$found" && -d "$found" ]]; then echo "$found"; exit 0; fi
         fi
     done
