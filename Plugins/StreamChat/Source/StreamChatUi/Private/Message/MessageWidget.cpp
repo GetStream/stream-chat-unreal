@@ -9,6 +9,40 @@
 #include "Components/VerticalBoxSlot.h"
 #include "Framework/Application/SlateApplication.h"
 
+namespace
+{
+/**
+ * Move a child to the end of its parent, preserving the slot settings that AddChild would otherwise
+ * reset. Used because UPanelWidget::ReplaceChildAt is only compiled into editor builds.
+ */
+void MoveChildToEnd(UPanelWidget& Parent, UWidget& Child)
+{
+    FMargin Padding{};
+    FSlateChildSize Size{};
+    EHorizontalAlignment HorizontalAlignment = HAlign_Fill;
+    EVerticalAlignment VerticalAlignment = VAlign_Fill;
+    const bool bHadHorizontalSlot = Child.Slot && Child.Slot->IsA<UHorizontalBoxSlot>();
+    if (bHadHorizontalSlot)
+    {
+        const UHorizontalBoxSlot* Previous = CastChecked<UHorizontalBoxSlot>(Child.Slot);
+        Padding = Previous->GetPadding();
+        Size = Previous->GetSize();
+        HorizontalAlignment = Previous->GetHorizontalAlignment();
+        VerticalAlignment = Previous->GetVerticalAlignment();
+    }
+
+    Parent.RemoveChild(&Child);
+
+    if (UHorizontalBoxSlot* Moved = Cast<UHorizontalBoxSlot>(Parent.AddChild(&Child)); Moved && bHadHorizontalSlot)
+    {
+        Moved->SetPadding(Padding);
+        Moved->SetSize(Size);
+        Moved->SetHorizontalAlignment(HorizontalAlignment);
+        Moved->SetVerticalAlignment(VerticalAlignment);
+    }
+}
+}    // namespace
+
 UMessageWidget::UMessageWidget()
 {
     // Ensure hovering events are fired
@@ -28,18 +62,16 @@ void UMessageWidget::OnSetup()
 {
     if (HoverMenuTargetPanel)
     {
-        // TODO replacing children can be buggy. Should use Grid.
         if (UPanelWidget* HoverMenuParent = Cast<UPanelWidget>(HoverMenuTargetPanel->GetParent()))
         {
-            if (Side == EMessageSide::Me)
+            // The hover menu sits before the bubble for our own messages and after it for everyone
+            // else. UPanelWidget::ReplaceChildAt would express that directly but is editor only, so
+            // the widget that belongs last is moved there instead.
+            UWidget* Last = Side == EMessageSide::Me ? static_cast<UWidget*>(TextBubble) : HoverMenuTargetPanel;
+            UWidget* First = Side == EMessageSide::Me ? HoverMenuTargetPanel : static_cast<UWidget*>(TextBubble);
+            if (First && Last && HoverMenuParent->GetChildIndex(First) > HoverMenuParent->GetChildIndex(Last))
             {
-                HoverMenuParent->ReplaceChildAt(0, HoverMenuTargetPanel);
-                HoverMenuParent->ReplaceChildAt(1, TextBubble);
-            }
-            else if (Side == EMessageSide::You)
-            {
-                HoverMenuParent->ReplaceChildAt(0, TextBubble);
-                HoverMenuParent->ReplaceChildAt(1, HoverMenuTargetPanel);
+                MoveChildToEnd(*HoverMenuParent, *Last);
             }
         }
     }

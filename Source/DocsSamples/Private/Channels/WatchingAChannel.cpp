@@ -65,7 +65,7 @@ void WatcherCount()
         [](const UChatChannel* Channel)
         {
             // Do something with:
-            Channel->State.WatcherCount;
+            (void) Channel->State.WatcherCount;
         });
 }
 
@@ -88,7 +88,7 @@ void PaginatingChannelWatchersWithChannelQuery()
         []
         {
             // Do something with:
-            Channel->State.Watchers;
+            (void) Channel->State.Watchers;
         });
 }
 
@@ -99,14 +99,14 @@ void ListeningToChangesInWatchers()
         [](const FUserWatchingStartEvent& Event)
         {
             // Do something with:
-            Event.User;
+            (void) Event.User;
         });
 
     Channel->On<FUserWatchingStopEvent>(
         [](const FUserWatchingStopEvent& Event)
         {
             // Do something with:
-            Event.User;
+            (void) Event.User;
         });
 }
 
