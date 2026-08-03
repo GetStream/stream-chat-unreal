@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #include "ImageDownloadSubsystem.h"
 
@@ -14,7 +14,7 @@
 
 namespace
 {
-void RenderRawData_RenderThread(FTexture2DDynamicResource* TextureResource, const TSharedRef<TArray64<uint8>>& RawData)
+void RenderRawData_RenderThread(FRHICommandListImmediate& RHICmdList, FTexture2DDynamicResource* TextureResource, const TSharedRef<TArray64<uint8>>& RawData)
 {
     check(IsInRenderingThread());
 
@@ -23,13 +23,15 @@ void RenderRawData_RenderThread(FTexture2DDynamicResource* TextureResource, cons
         return;
     }
 
-    FRHITexture2D* TextureRHI = TextureResource->GetTexture2DRHI();
+    // The RHI texture types were unified in UE5, so the base FRHITexture is used here rather than the deprecated FRHITexture2D
+    FRHITexture* TextureRHI = TextureResource->GetTexture2DRHI();
 
-    const int32 Width = TextureRHI->GetSizeX();
-    const int32 Height = TextureRHI->GetSizeY();
+    const FIntPoint Extent = TextureRHI->GetDesc().Extent;
+    const int32 Width = Extent.X;
+    const int32 Height = Extent.Y;
 
     uint32 DestStride = 0;
-    uint8* DestData = static_cast<uint8*>(RHILockTexture2D(TextureRHI, 0, RLM_WriteOnly, DestStride, false, false));
+    uint8* DestData = static_cast<uint8*>(RHICmdList.LockTexture2D(TextureRHI, 0, RLM_WriteOnly, DestStride, false, false));
 
     for (int32 Y = 0; Y < Height; Y++)
     {
@@ -47,7 +49,7 @@ void RenderRawData_RenderThread(FTexture2DDynamicResource* TextureResource, cons
         }
     }
 
-    RHIUnlockTexture2D(TextureRHI, 0, false, false);
+    RHICmdList.UnlockTexture2D(TextureRHI, 0, false, false);
 }
 
 UTexture2DDynamic* TryCreateTexture(const void* Data, const int64 Size, const EImageFormat Format)
@@ -87,7 +89,7 @@ UTexture2DDynamic* TryCreateTexture(const void* Data, const int64 Size, const EI
     }
 
     ENQUEUE_RENDER_COMMAND(FWriteRawDataToTexture)
-    ([TextureResource, RawData](FRHICommandListImmediate&) { RenderRawData_RenderThread(TextureResource, RawData); });
+    ([TextureResource, RawData](FRHICommandListImmediate& RHICmdList) { RenderRawData_RenderThread(RHICmdList, TextureResource, RawData); });
 
     return Texture;
 }

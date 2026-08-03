@@ -1,11 +1,10 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #include "Detail/JsonObjectDeserialization.h"
 
 #include "AdditionalFields.h"
 #include "Internationalization/Culture.h"
 #include "JsonObjectWrapper.h"
-#include "Launch/Resources/Version.h"
 #include "Misc/FeedbackContext.h"
 #include "NamingConventionConversion.h"
 #include "Serialization/JsonReader.h"
@@ -23,11 +22,7 @@ const FString ObjectClassNameKey = "_ClassName";
 
 const TCHAR* ImportText(const FProperty& Property, const TCHAR* Buffer, void* Data)
 {
-#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 1
     return Property.ImportText_Direct(Buffer, Data, nullptr, PPF_None);
-#else
-    return Property.ImportText(Buffer, Data, PPF_None, nullptr);
-#endif
 }
 
 UClass* FindClass(const FString& ClassString)
@@ -36,11 +31,7 @@ UClass* FindClass(const FString& ClassString)
     {
         return nullptr;
     }
-#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 1
     return FPackageName::IsShortPackageName(ClassString) ? FindFirstObject<UClass>(*ClassString) : UClass::TryFindTypeSlow<UClass>(ClassString);
-#else
-    return FindObject<UClass>(ANY_PACKAGE, *ClassString);
-#endif
 }
 
 /** Parse an FText from a json object (assumed to be of the form where keys are culture codes and values are strings) */
@@ -482,11 +473,7 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
             }
 
             UObject* CreatedObj = StaticAllocateObject(PropertyClass, Outer, NAME_None, EObjectFlags::RF_NoFlags, EInternalObjectFlags::None, false);
-#if ENGINE_MAJOR_VERSION == 4 && ENGINE_MINOR_VERSION <= 27
-            (*PropertyClass->ClassConstructor)(FObjectInitializer(CreatedObj, PropertyClass->ClassDefaultObject, false, false));
-#else
             (*PropertyClass->ClassConstructor)(FObjectInitializer(CreatedObj, PropertyClass->ClassDefaultObject, EObjectInitializerOptions::None));
-#endif
 
             ObjectProperty->SetObjectPropertyValue(OutValue, CreatedObj);
 

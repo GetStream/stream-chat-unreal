@@ -65,20 +65,20 @@ jobs:
         with:
           lfs: true
 
-      - name: ☝️ Select UE5.1
+      - name: ☝️ Select UE5.8
         shell: bash
         run: |
-          just set-engine 5.1
+          just set-engine 5.8
 
           if [[ "$OSTYPE" == "darwin"* ]]; then
-            ue4 setroot "/Users/Shared/Epic Games/UE_5.1"
+            ue4 setroot "/Users/Shared/Epic Games/UE_5.8"
             rm $HOME/.bash_profile
             touch $HOME/.bash_profile
-            "/Users/Shared/Epic Games/UE_5.1/Engine/Extras/Android/SetupAndroid.command"
+            "/Users/Shared/Epic Games/UE_5.8/Engine/Extras/Android/SetupAndroid.command"
             source $HOME/.bash_profile
           else
-            ue4 setroot "C:\UE\UE_5.1"
-            cmd "/C C:\UE\UE_5.1/Engine/Extras/Android/SetupAndroid.bat"
+            ue4 setroot "C:\UE\UE_5.8"
+            cmd "/C C:\UE\UE_5.8/Engine/Extras/Android/SetupAndroid.bat"
           fi
 
       - name: Generate bundle version
@@ -190,11 +190,11 @@ jobs:
           echo -e "\n==> Fix rpaths in executable"
           # These rpaths lead to invalid locations. They need to be removed, otherwise the notarized app won't pass the Gatekeeper.
           declare -a bad_exe_rpaths=(
-            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_5.1/Engine/Binaries/ThirdParty/Vorbis/Mac"
+            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_5.8/Engine/Binaries/ThirdParty/Vorbis/Mac"
             "@loader_path/../../../../../../Engine/Binaries/ThirdParty/Ogg/Mac"
-            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_5.1/Engine/Binaries/ThirdParty/Ogg/Mac"
+            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_5.8/Engine/Binaries/ThirdParty/Ogg/Mac"
             "@loader_path/../../../../../../Engine/Binaries/ThirdParty/Vorbis/Mac"
-            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_5.1/Engine/Binaries/ThirdParty/Intel/TBB/Mac"
+            "@loader_path/../../../../../../../../../../Shared/Epic Games/UE_5.8/Engine/Binaries/ThirdParty/Intel/TBB/Mac"
             "@loader_path/../../../../../../Engine/Binaries/ThirdParty/Intel/TBB/Mac"
             "@executable_path/../../../"
           )
@@ -257,7 +257,7 @@ jobs:
   plugin:
     strategy:
       matrix:
-        engine: ["4.27", "5.0", "5.1"]
+        engine: ["5.5", "5.7", "5.8"]
 
     name: 🔌 Package plugin UE${{ matrix.engine }}
     runs-on: [self-hosted, UE_IOS]
