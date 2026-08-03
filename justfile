@@ -23,9 +23,27 @@ convert-svg:
 # On mac you need to install inkscape: brew install inkscape
 # And symlink the CLI: ln -s /Applications/Inkscape.app/Contents/MacOS/inkscape /usr/local/bin/inkscape
 
-# Format .cpp/.h files using clang-format
+# Format .cpp/.h files using the same clang-format version CI checks with
 format:
-    git ls-files '*.cpp' '*.h' | xargs clang-format -i
+    #!/usr/bin/env bash
+    set -euo pipefail
+    # CI lints with a pinned clang-format, and versions disagree on things like how TEXT() string
+    # continuations are wrapped, so formatting with a different one produces a red build.
+    WANT=$(grep -oE 'clangFormatVersion: *[0-9]+' .github/workflows/ci.yml | grep -oE '[0-9]+$')
+    CF="${CLANG_FORMAT:-clang-format}"
+    if ! command -v "$CF" > /dev/null; then
+        echo "clang-format not found. Install the version CI uses with: pip install clang-format==$WANT.0.1" >&2
+        exit 1
+    fi
+    GOT=$("$CF" --version | grep -oE '[0-9]+' | head -1)
+    if [[ "$GOT" != "$WANT" ]]; then
+        echo "clang-format $GOT found, but CI lints with $WANT, and they format differently." >&2
+        echo "Install the pinned version and point CLANG_FORMAT at it:" >&2
+        echo "  pip install clang-format==$WANT.0.1" >&2
+        echo "  CLANG_FORMAT=\$(python3 -c 'import clang_format,os;print(os.path.join(os.path.dirname(clang_format.__file__),\"data\",\"bin\",\"clang-format\"))') just format" >&2
+        exit 1
+    fi
+    git ls-files '*.cpp' '*.h' | xargs "$CF" -i
 
 # Add copyright notice to all cs, cpp and h files
 fix-copyright:

@@ -73,11 +73,10 @@ void FHttpRequestsSpec::Define()
                                 TestEqual(
                                     "Body",
                                     Post.Body,
-                                    TEXT(
-                                        "quia et suscipit\n"
-                                        "suscipit recusandae consequuntur expedita et cum\n"
-                                        "reprehenderit molestiae ut ut quas totam\n"
-                                        "nostrum rerum est autem sunt rem eveniet architecto"));
+                                    TEXT("quia et suscipit\n"
+                                         "suscipit recusandae consequuntur expedita et cum\n"
+                                         "reprehenderit molestiae ut ut quas totam\n"
+                                         "nostrum rerum est autem sunt rem eveniet architecto"));
 
                                 TestDone.Execute();
                             });
