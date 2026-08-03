@@ -52,6 +52,11 @@ use [v1.3.0](https://github.com/GetStream/stream-chat-unreal/releases/tag/v1.3.0
 Only versions exercised by the maintained CI and release matrix are listed as supported; UE 5.6 is not
 currently part of that matrix.
 
+On macOS, note that each engine version accepts only a range of Xcode versions, which is Epic's
+constraint rather than this SDK's — UE 5.5 tops out at Xcode 16, while 5.7 and 5.8 accept Xcode 26. If
+a build fails with `Platform Mac is not a valid platform to build`, your Xcode is outside the range
+that engine allows; the range for a given engine is in `Engine/Config/Apple/Apple_SDK.json`.
+
 ## Getting started
 
 1. Download the [latest release](https://github.com/GetStream/stream-chat-unreal/releases/latest) and copy it into the `Plugins` directory of your project.

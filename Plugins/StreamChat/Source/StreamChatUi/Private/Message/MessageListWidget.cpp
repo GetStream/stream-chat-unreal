@@ -46,7 +46,7 @@ void UMessageListWidget::NativePreConstruct()
                                  .PaginationDirection(EPaginationDirection::Top)
                                  .ListItemsSource(&GetChannel()->State.Messages.GetMessages())
                                  .CreateListViewWidget_UObject(this, &UMessageListWidget::CreateMessageWidget)
-                                 .OnPaginating_Lambda([=, this](const EPaginationDirection Direction, const EHttpRequestState State)
+                                 .OnPaginating_Lambda([this](const EPaginationDirection Direction, const EHttpRequestState State)
                                                       { OnPaginatingMessages.Broadcast(Direction, State); })
                                  .DoPaginate_UObject(this, &UMessageListWidget::Paginate);
         ListView->SetContent(PaginateListWidget.ToSharedRef());

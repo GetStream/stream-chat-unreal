@@ -73,10 +73,11 @@ void FHttpRequestsSpec::Define()
                                 TestEqual(
                                     "Body",
                                     Post.Body,
-                                    TEXT("quia et suscipit\n"
-                                         "suscipit recusandae consequuntur expedita et cum\n"
-                                         "reprehenderit molestiae ut ut quas totam\n"
-                                         "nostrum rerum est autem sunt rem eveniet architecto"));
+                                    TEXT(
+                                        "quia et suscipit\n"
+                                        "suscipit recusandae consequuntur expedita et cum\n"
+                                        "reprehenderit molestiae ut ut quas totam\n"
+                                        "nostrum rerum est autem sunt rem eveniet architecto"));
 
                                 TestDone.Execute();
                             });
@@ -98,7 +99,7 @@ void FHttpRequestsSpec::Define()
                     Client->Post(TEXT("https://jsonplaceholder.typicode.com/posts"))
                         .Json(FJsonPlaceholderPost{FakeUserId, -1, FakeTitle, FakeBody}, ENamingConvention::UpperCamelCase)
                         .Send(
-                            [=, this](const FHttpResponse Response)
+                            [this, &TestDone, FakeUserId, FakeTitle, FakeBody](const FHttpResponse Response)
                             {
                                 AddInfo(Response.Text);
                                 TestEqual("Response code", Response.StatusCode, 201);
