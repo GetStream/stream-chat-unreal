@@ -74,7 +74,7 @@ bool UStructToJsonObjectStringInternal(const TSharedRef<FJsonObject>& JsonObject
 bool JsonObjectSerialization::UStructToJsonAttributes(
     const UStruct* StructDefinition,
     const void* Struct,
-    TMap<FJsonObject::FStringType, TSharedPtr<FJsonValue>>& OutJsonAttributes,
+    FJsonAttributeMap& OutJsonAttributes,
     const ENamingConvention NamingConvention)
 {
     // Skip deprecated, transient and skip serialization by default when writing
@@ -108,7 +108,7 @@ bool JsonObjectSerialization::UStructToJsonAttributes(
             for (auto&& Elem : Fields->GetFields())
             {
                 const FString Key = ApplyNamingConventionToPropertyName(Elem.Key.ToString(), NamingConvention);
-                OutJsonAttributes.Add(FJsonObject::FStringType(Key), Elem.Value);
+                OutJsonAttributes.Add(FJsonAttributeKey(Key), Elem.Value);
             }
             continue;
         }
@@ -190,7 +190,7 @@ bool JsonObjectSerialization::UStructToJsonAttributes(
 
         // set the value on the output object
         const FString VariableName = ApplyNamingConventionToPropertyName(Property->GetName(), NamingConvention);
-        OutJsonAttributes.Add(FJsonObject::FStringType(VariableName), JsonValue);
+        OutJsonAttributes.Add(FJsonAttributeKey(VariableName), JsonValue);
     }
 
     return true;

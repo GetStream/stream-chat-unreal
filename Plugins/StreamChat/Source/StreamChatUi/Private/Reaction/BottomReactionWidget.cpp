@@ -35,7 +35,7 @@ void UBottomReactionWidget::OnSetup()
 
     if (Anchor)
     {
-        Anchor->Placement = MenuPlacement_CenteredBelowAnchor;
+        Anchor->SetPlacement(MenuPlacement_CenteredBelowAnchor);
     }
 }
 
@@ -48,23 +48,27 @@ void UBottomReactionWidget::NativePreConstruct()
     }
     if (Button)
     {
-        Button->WidgetStyle.Normal.DrawAs = ESlateBrushDrawType::Box;
-        Button->WidgetStyle.Pressed.DrawAs = ESlateBrushDrawType::Box;
-        Button->WidgetStyle.Hovered.DrawAs = ESlateBrushDrawType::Box;
+        FButtonStyle Style = Button->GetStyle();
+        Style.Normal.DrawAs = ESlateBrushDrawType::Box;
+        Style.Pressed.DrawAs = ESlateBrushDrawType::Box;
+        Style.Hovered.DrawAs = ESlateBrushDrawType::Box;
 
         const EMessageSide Side = GetSide();
         if (Side == EMessageSide::Me)
         {
-            Button->WidgetStyle.Normal.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->MeBottomReactionColor)};
-            Button->WidgetStyle.Pressed.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->MeBottomReactionColor)};
-            Button->WidgetStyle.Hovered.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->MeBottomReactionColor)};
+            const FSlateColor Color{GetTheme()->GetPaletteColor(GetTheme()->MeBottomReactionColor)};
+            Style.Normal.TintColor = Color;
+            Style.Pressed.TintColor = Color;
+            Style.Hovered.TintColor = Color;
         }
         else if (Side == EMessageSide::You)
         {
-            Button->WidgetStyle.Normal.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->YouBottomReactionColor)};
-            Button->WidgetStyle.Pressed.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->YouBottomReactionColor)};
-            Button->WidgetStyle.Hovered.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->YouBottomReactionColor)};
+            const FSlateColor Color{GetTheme()->GetPaletteColor(GetTheme()->YouBottomReactionColor)};
+            Style.Normal.TintColor = Color;
+            Style.Pressed.TintColor = Color;
+            Style.Hovered.TintColor = Color;
         }
+        Button->SetStyle(Style);
     }
     if (ReactionCountTextBlock)
     {

@@ -65,11 +65,13 @@ void UContextMenuButtonWidget::NativePreConstruct()
         const FMargin Margin = GetButtonMargin();
         const FSlateBoxBrush NormalBrush = FSlateBoxBrush(Texture, Margin, GetTheme()->GetPaletteColor(GetTheme()->ContextMenuDefaultButtonColor));
         const FSlateBoxBrush SelectedBrush = FSlateBoxBrush(Texture, Margin, GetTheme()->GetPaletteColor(GetTheme()->ContextMenuPressedButtonColor));
-        Button->WidgetStyle.SetNormal(NormalBrush);
-        Button->WidgetStyle.SetHovered(NormalBrush);
-        Button->WidgetStyle.SetPressed(SelectedBrush);
-        Button->WidgetStyle.NormalPadding = {};
-        Button->WidgetStyle.PressedPadding = {};
+        FButtonStyle Style = Button->GetStyle();
+        Style.SetNormal(NormalBrush);
+        Style.SetHovered(NormalBrush);
+        Style.SetPressed(SelectedBrush);
+        Style.NormalPadding = {};
+        Style.PressedPadding = {};
+        Button->SetStyle(Style);
     }
 
     if (IconImage)

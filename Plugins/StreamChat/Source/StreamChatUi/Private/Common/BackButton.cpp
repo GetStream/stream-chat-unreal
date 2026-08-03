@@ -21,9 +21,11 @@ void UBackButton::NativePreConstruct()
     if (Button)
     {
         const FSlateColor Color{GetTheme()->GetPaletteColor(GetTheme()->BackButtonSelectedColor)};
-        Button->WidgetStyle.Normal.DrawAs = ESlateBrushDrawType::NoDrawType;
-        Button->WidgetStyle.Hovered.TintColor = Color;
-        Button->WidgetStyle.Pressed.TintColor = Color;
+        FButtonStyle Style = Button->GetStyle();
+        Style.Normal.DrawAs = ESlateBrushDrawType::NoDrawType;
+        Style.Hovered.TintColor = Color;
+        Style.Pressed.TintColor = Color;
+        Button->SetStyle(Style);
     }
 
     if (Icon)

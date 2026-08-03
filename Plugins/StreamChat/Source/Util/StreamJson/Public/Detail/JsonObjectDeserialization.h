@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Dom/JsonObject.h"
+#include "Detail/JsonAttributes.h"
 
 class FJsonValue;
 
@@ -48,7 +48,7 @@ bool JsonObjectToUStruct(const TSharedRef<FJsonObject>& JsonObject, OutStructTyp
  *
  * @return False if any properties matched but failed to deserialize
  */
-bool JsonAttributesToUStruct(const TMap<FJsonObject::FStringType, TSharedPtr<FJsonValue>>& JsonAttributes, const UStruct* StructDefinition, void* OutStruct);
+bool JsonAttributesToUStruct(const FJsonAttributeMap& JsonAttributes, const UStruct* StructDefinition, void* OutStruct);
 
 /**
  * @brief Converts from a json string containing an object to a UStruct
