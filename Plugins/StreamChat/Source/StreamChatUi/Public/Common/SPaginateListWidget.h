@@ -69,11 +69,10 @@ private:
 template <class ItemType>
 void SPaginateListWidget<ItemType>::Construct(const FArguments& InArgs)
 {
-    SStreamListView<ItemType>::Construct(
-        FSuperArguments()
-            .ListItemsSource(InArgs._ListItemsSource)
-            .CreateListViewWidget(InArgs._CreateListViewWidget)
-            .OnListViewScrolled(this, &SPaginateListWidget<ItemType>::OnScroll));
+    SStreamListView<ItemType>::Construct(FSuperArguments()
+                                             .ListItemsSource(InArgs._ListItemsSource)
+                                             .CreateListViewWidget(InArgs._CreateListViewWidget)
+                                             .OnListViewScrolled(this, &SPaginateListWidget<ItemType>::OnScroll));
 
     this->Limit = InArgs._Limit;
     this->PaginateScrollThreshold = InArgs._PaginateScrollThreshold;

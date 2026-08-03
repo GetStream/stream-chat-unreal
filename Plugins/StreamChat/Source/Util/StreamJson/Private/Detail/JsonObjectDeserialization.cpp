@@ -338,9 +338,8 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
                 UE_LOG(
                     LogJson,
                     Error,
-                    TEXT(
-                        "JsonValueToUProperty - Attempted to import FText from JSON object with invalid keys for "
-                        "property %s"),
+                    TEXT("JsonValueToUProperty - Attempted to import FText from JSON object with invalid keys for "
+                         "property %s"),
                     *Property->GetNameCPP());
                 return false;
             }
@@ -351,10 +350,9 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
             UE_LOG(
                 LogJson,
                 Error,
-                TEXT(
-                    "JsonValueToUProperty - Attempted to import FText from JSON that was neither string nor object "
-                    "for property "
-                    "%s"),
+                TEXT("JsonValueToUProperty - Attempted to import FText from JSON that was neither string nor object "
+                     "for property "
+                     "%s"),
                 *Property->GetNameCPP());
             return false;
         }
