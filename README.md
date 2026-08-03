@@ -35,9 +35,9 @@
 The **Stream Chat SDK** is the official Unreal SDK for [Stream Chat](https://getstream.io/chat/sdk/unreal/), a service for building chat and messaging into games and applications.
 
 > [!NOTE]
-> This SDK is in beta. The APIs below are implemented and covered by tests, but the surface may still
-> change between releases, and some Stream Chat features are not yet available in Unreal — see
-> [Feature support](#feature-support).
+> This SDK is in beta. Its surface may still change between releases, C++ and Blueprint coverage can
+> differ by operation, and some Stream Chat features are not yet available in Unreal — see [Feature
+> support](#feature-support).
 
 ## Requirements
 
@@ -45,10 +45,12 @@ The **Stream Chat SDK** is the official Unreal SDK for [Stream Chat](https://get
 |---|---|
 | **Unreal Engine** | 5.5, 5.7, 5.8 |
 | **Platforms** | Windows (Win64), macOS, Linux, Android, iOS |
-| **Language** | C++ and Blueprint — every operation is available from both |
+| **Language** | C++ and Blueprint — some lower-level and pagination APIs are C++ only |
 
 Older engine versions are not supported by the current release. If you are on UE 4.27, 5.0, or 5.1,
 use [v1.3.0](https://github.com/GetStream/stream-chat-unreal/releases/tag/v1.3.0).
+Only versions exercised by the maintained CI and release matrix are listed as supported; UE 5.6 is not
+currently part of that matrix.
 
 ## Getting started
 
@@ -63,9 +65,10 @@ Vault. New installs should use the GitHub releases above.
 
 Implemented:
 
-- **Messaging** — send, edit, delete (soft and hard), fetch, and full-text search, with cursor-based pagination in both directions
+- **Messaging** — send, edit, fetch, full-text search, soft delete through the channel API, and hard
+  delete through the lower-level C++ API, with C++ pagination in both directions
 - **Channels** — query, watch, create, update, truncate, hide/show, freeze, and member management
-- **Reactions** — send with score and enforce-unique semantics, remove, and paginate
+- **Reactions** — send with score and enforce-unique semantics, remove, and paginate from C++
 - **Read state** — mark read, mark all read, unread counts, and per-user read tracking
 - **Typing indicators** — keystroke debouncing and stop events
 - **Moderation** — ban, shadow ban, mute users, mute channels, flag messages and users, query banned users

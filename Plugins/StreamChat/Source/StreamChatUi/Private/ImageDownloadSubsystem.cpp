@@ -10,6 +10,7 @@
 #include "Interfaces/IHttpRequest.h"
 #include "Interfaces/IHttpResponse.h"
 #include "Modules/ModuleManager.h"
+#include "RHICommandList.h"
 #include "RHIResources.h"
 
 namespace

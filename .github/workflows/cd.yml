@@ -199,16 +199,19 @@ jobs:
             "@executable_path/../../../"
           )
 
+          executable_path="$app/Contents/MacOS/$executable"
           for i in "${bad_exe_rpaths[@]}"; do
-            echo "Removing bad rpath in executable: $i"
-            install_name_tool -delete_rpath "$i" $app/Contents/MacOS/$executable
+            if otool -l "$executable_path" | grep -F "path $i (" >/dev/null; then
+              echo "Removing bad rpath in executable: $i"
+              install_name_tool -delete_rpath "$i" "$executable_path"
+            fi
           done
 
-
-          find $app -name '*.dylib' -print0 | while IFS= read -r -d '' i; do
-            if otool -l "$i" | grep -q LC_RPATH; then
-              echo "--> Replace rpath in dylib: $i"
-              install_name_tool -rpath /Volumes/Work/Perforce/UE4/Engine/Binaries/ThirdParty/PhysX3/Mac @loader_path $i
+          legacy_physx_rpath="/Volumes/Work/Perforce/UE4/Engine/Binaries/ThirdParty/PhysX3/Mac"
+          find "$app" -name '*.dylib' -print0 | while IFS= read -r -d '' i; do
+            if otool -l "$i" | grep -F "path $legacy_physx_rpath (" >/dev/null; then
+              echo "--> Replace legacy PhysX rpath in dylib: $i"
+              install_name_tool -rpath "$legacy_physx_rpath" @loader_path "$i"
             fi
           done
 
@@ -237,7 +240,7 @@ jobs:
         if: ${{ matrix.platform == 'Mac' }}
         run: ditto -V -c -k --sequesterRsrc --keepParent "${{ matrix.what }}.app" "${{ matrix.what }}-${{ matrix.platform }}.zip"
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: ${{ matrix.platform == 'Mac' }}
         with:
           name: ${{ matrix.what }}-${{ matrix.platform }}
@@ -245,7 +248,7 @@ jobs:
             ${{ matrix.what }}-${{ matrix.platform }}.zip
         name: 📁 Upload artifact
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: ${{ matrix.platform != 'Mac' }}
         with:
           name: ${{ matrix.what }}-${{ matrix.platform }}
@@ -296,7 +299,7 @@ jobs:
           mkdir Plugins/StreamChat/dist/Content/SourceFiles
           find Plugins/StreamChat/dist -type f '(' -name "*.png" -o -name "*.svg" ')' -exec mv -i {} Plugins/StreamChat/dist/Content/SourceFiles \;
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: StreamChat.${{ matrix.engine }}
           path: |
@@ -327,7 +330,7 @@ jobs:
             core.exportVariable('VERSION', version);
 
       - name: 📥 Download
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
 
       - name: 📇 Zip
         run: |

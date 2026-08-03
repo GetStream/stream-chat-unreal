@@ -95,10 +95,10 @@ jobs:
           with open(output, 'w') as f:
               TestSuite.to_file(f, [ts], prettyprint=False)
       - name: 📤 Upload test report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           path: Saved/Automation/Reports/report.xml
-          name: test-report
+          name: test-report-${{ matrix.engine }}
 
   report:
     name: 🧪 Publish test results
@@ -111,13 +111,14 @@ jobs:
       pull-requests: write
     steps:
       - name: 📥 Download test report
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
-          name: test-report
+          pattern: test-report-*
+          path: test-reports
       - name: ⚗️ Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
-          junit_files: report.xml
+          junit_files: test-reports/**/report.xml
 
   build-samples:
     strategy:
