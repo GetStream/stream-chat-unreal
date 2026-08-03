@@ -99,7 +99,8 @@ void FHttpRequestsSpec::Define()
                     Client->Post(TEXT("https://jsonplaceholder.typicode.com/posts"))
                         .Json(FJsonPlaceholderPost{FakeUserId, -1, FakeTitle, FakeBody}, ENamingConvention::UpperCamelCase)
                         .Send(
-                            [this, &TestDone, FakeUserId, FakeTitle, FakeBody](const FHttpResponse Response)
+                            // TestDone is captured by value because the response arrives after the enclosing scope is gone
+                            [this, TestDone, FakeUserId, FakeTitle, FakeBody](const FHttpResponse Response)
                             {
                                 AddInfo(Response.Text);
                                 TestEqual("Response code", Response.StatusCode, 201);

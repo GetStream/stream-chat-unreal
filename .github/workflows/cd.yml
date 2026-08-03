@@ -260,7 +260,7 @@ jobs:
   plugin:
     strategy:
       matrix:
-        engine: ["5.5", "5.7", "5.8"]
+        engine: ["5.7", "5.8"]
 
     name: 🔌 Package plugin UE${{ matrix.engine }}
     runs-on: [self-hosted, UE_IOS]

@@ -27,7 +27,7 @@
         <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/GetStream/stream-chat-unreal">
     </a>
     &nbsp;
-    <img alt="Unreal Engine 5.5 | 5.7 | 5.8" src="https://img.shields.io/badge/Unreal%20Engine-5.5%20%7C%205.7%20%7C%205.8-blue">
+    <img alt="Unreal Engine 5.7 | 5.8" src="https://img.shields.io/badge/Unreal%20Engine-5.7%20%7C%205.8-blue">
 </p>
 
 ---
@@ -43,19 +43,17 @@ The **Stream Chat SDK** is the official Unreal SDK for [Stream Chat](https://get
 
 | | |
 |---|---|
-| **Unreal Engine** | 5.5, 5.7, 5.8 |
+| **Unreal Engine** | 5.7, 5.8 |
 | **Platforms** | Windows (Win64), macOS, Linux, Android, iOS |
 | **Language** | C++ and Blueprint — some lower-level and pagination APIs are C++ only |
 
-Older engine versions are not supported by the current release. If you are on UE 4.27, 5.0, or 5.1,
-use [v1.3.0](https://github.com/GetStream/stream-chat-unreal/releases/tag/v1.3.0).
-Only versions exercised by the maintained CI and release matrix are listed as supported; UE 5.6 is not
-currently part of that matrix.
+Only the versions exercised by the maintained CI and release matrix are listed as supported.
+[v1.3.0](https://github.com/GetStream/stream-chat-unreal/releases/tag/v1.3.0) covers UE 4.27, 5.0, and
+5.1; no release supports 5.2 through 5.6.
 
-On macOS, note that each engine version accepts only a range of Xcode versions, which is Epic's
-constraint rather than this SDK's — UE 5.5 tops out at Xcode 16, while 5.7 and 5.8 accept Xcode 26. If
-a build fails with `Platform Mac is not a valid platform to build`, your Xcode is outside the range
-that engine allows; the range for a given engine is in `Engine/Config/Apple/Apple_SDK.json`.
+On macOS, each engine version accepts only a range of Xcode versions, which is Epic's constraint rather
+than this SDK's. If a build fails with `Platform Mac is not a valid platform to build`, your Xcode is
+outside the range that engine allows — the range is in `Engine/Config/Apple/Apple_SDK.json`.
 
 ## Getting started
 
@@ -88,7 +86,7 @@ git lfs pull
 brew install just
 ```
 
-You also need Unreal Engine 5.5, 5.7, or 5.8. The recipes locate it automatically via the Epic
+You also need Unreal Engine 5.7 or 5.8. The recipes locate it automatically via the Epic
 launcher's install manifest, falling back to the default install paths. If your engine lives
 somewhere unusual, set `UE_ROOT`:
 

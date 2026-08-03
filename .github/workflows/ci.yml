@@ -28,7 +28,7 @@ jobs:
   build-plugin:
     strategy:
       matrix:
-        engine: ["5.5", "5.7", "5.8"]
+        engine: ["5.7", "5.8"]
     name: 🔌 Build Plugin UE${{ matrix.engine }}
     runs-on: [self-hosted]
 

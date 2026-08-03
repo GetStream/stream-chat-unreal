@@ -43,7 +43,6 @@ bump-version version:
     const fs = require('fs');
     for (const fileName of [
         "./Plugins/StreamChat/StreamChat.uplugin",
-        "./Plugins/StreamChat/StreamChat.uplugin.5.5",
         "./Plugins/StreamChat/StreamChat.uplugin.5.7",
         "./Plugins/StreamChat/StreamChat.uplugin.5.8",
     ]) {
@@ -105,8 +104,8 @@ _engine:
         fi
     done
     # Fall back to the default install locations, newest first
-    for candidate in "/Users/Shared/Epic Games/UE_5.8" "/Users/Shared/Epic Games/UE_5.7" "/Users/Shared/Epic Games/UE_5.5" \
-                     "/c/Program Files/Epic Games/UE_5.8" "/c/Program Files/Epic Games/UE_5.7" "/c/Program Files/Epic Games/UE_5.5"; do
+    for candidate in "/Users/Shared/Epic Games/UE_5.8" "/Users/Shared/Epic Games/UE_5.7" \
+                     "/c/Program Files/Epic Games/UE_5.8" "/c/Program Files/Epic Games/UE_5.7"; do
         if [[ -d "$candidate" ]]; then echo "$candidate"; exit 0; fi
     done
     echo "Could not find an Unreal Engine install. Set UE_ROOT, e.g.:" >&2
