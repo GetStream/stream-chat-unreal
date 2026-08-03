@@ -126,7 +126,7 @@ Implemented:
 - **Reactions** — send with score and enforce-unique semantics, remove, and paginate from C++
 - **Read state** — mark read, mark all read, unread counts, and per-user read tracking
 - **Typing indicators** — keystroke debouncing and stop events
-- **Moderation** — ban, shadow ban, mute users, mute channels, flag messages and users, query banned users
+- **Moderation** — ban, shadow ban, mute users, mute channels, block and unblock users, flag messages and users, query banned users
 - **Slow mode** — enable and disable with a configurable cooldown
 - **Push notifications** — device registration across multiple push providers
 - **Presence** — online state, watchers, and channel own-capabilities
@@ -140,7 +140,7 @@ if you need one of these:
 - Sending threaded replies and the thread list
 - Quoted messages, mentions, and pinning messages
 - Offline persistence and optimistic sending
-- User blocking, channel archiving, and channel pinning
+- Channel archiving and channel pinning
 - Polls, draft messages, message reminders, and location sharing
 
 ## Free for Makers

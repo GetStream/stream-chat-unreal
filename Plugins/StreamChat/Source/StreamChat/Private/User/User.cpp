@@ -17,6 +17,7 @@ FUser::FUser(const FUserDto& Dto)
     , RevokeTokensIssuedBefore{Dto.RevokeTokensIssuedBefore}
     , Role{Dto.Role}
     , Teams{Dto.Teams}
+    , BlockedUserIds{Dto.BlockedUserIds}
     , Name{Dto.AdditionalFields.GetString(TEXT("name")).Get(TEXT(""))}
     , Image{Dto.AdditionalFields.GetString(TEXT("image")).Get(TEXT(""))}
 {
@@ -37,6 +38,7 @@ FUser::FUser(const FUserObjectDto& Dto)
     , RevokeTokensIssuedBefore{Dto.RevokeTokensIssuedBefore}
     , Role{Dto.Role}
     , Teams{Dto.Teams}
+    , BlockedUserIds{Dto.BlockedUserIds}
     , Name{Dto.AdditionalFields.GetString(TEXT("name")).Get(TEXT(""))}
     , Image{Dto.AdditionalFields.GetString(TEXT("image")).Get(TEXT(""))}
 {

@@ -104,6 +104,10 @@ struct STREAMCHAT_API FUser
     UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|User", AdvancedDisplay)
     TArray<FString> Teams;
 
+    /// Ids of the users that this user has blocked. Only populated for the currently connected user.
+    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|User", AdvancedDisplay)
+    TArray<FString> BlockedUserIds;
+
     /// The human-readable name of the user
     // Not in the API spec, but common
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat|User")

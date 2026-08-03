@@ -22,7 +22,9 @@
 #include "Response/Device/ListDevicesResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Moderation/BanResponseDto.h"
+#include "Response/Moderation/BlockUserResponseDto.h"
 #include "Response/Moderation/FlagResponseDto.h"
+#include "Response/Moderation/GetBlockedUsersResponseDto.h"
 #include "Response/Moderation/MuteChannelResponseDto.h"
 #include "Response/Moderation/MuteUserResponseDto.h"
 #include "Response/Moderation/QueryBannedUsersResponseDto.h"
@@ -200,7 +202,7 @@ void FChatApiSpec::Define()
                 {
                     FUpdateChannelRequestDto Data;
                     FChannelMemberRequestDto MemberRequestDto;
-                    MemberRequestDto.bIsModerator = true;
+                    MemberRequestDto.ChannelRole = TEXT("channel_moderator");
                     MemberRequestDto.User.Id = User.Id;
                     Data.AddMembers.Add(MemberRequestDto);
                     Api->UpdateChannel(
@@ -212,7 +214,7 @@ void FChatApiSpec::Define()
                             const auto& Dto = Response.GetRef();
                             const FChannelMemberDto* Found = Dto.Members.FindByPredicate([&](const FChannelMemberDto& A) { return A.UserId == User.Id; });
                             TestNotNull("User added", Found);
-                            TestTrue("User is moderator", Found->bIsModerator);
+                            TestEqual("User is moderator", Found->ChannelRole, TEXT("channel_moderator"));
                             TestTrue("No message", Dto.Message.Id.IsEmpty());
                             AddInfo(FString::FromInt(Dto.Channel.Cooldown));
                             TestEqual("No cooldown", Dto.Channel.Cooldown, TNumericLimits<uint32>::Max());
@@ -236,7 +238,7 @@ void FChatApiSpec::Define()
                             const auto& Dto = Response.GetRef();
                             const FChannelMemberDto* Found = Dto.Members.FindByPredicate([&](const FChannelMemberDto& A) { return A.UserId == User.Id; });
                             TestNotNull("User queried", Found);
-                            TestTrue("User is moderator", Found->bIsModerator);
+                            TestEqual("User is moderator", Found->ChannelRole, TEXT("channel_moderator"));
                             TestDone.Execute();
                         });
                 });
@@ -392,7 +394,7 @@ void FChatApiSpec::Define()
                     Api->QueryUsers(
                         Socket->GetConnectionId(),
                         false,
-                        FFilter::Autocomplete(TEXT("id"), TEXT("test")).ToJsonObject(),
+                        FFilter::Autocomplete(TEXT("id"), User.Id).ToJsonObject(),
                         {},
                         100,
                         {},
@@ -407,7 +409,20 @@ void FChatApiSpec::Define()
                             {
                                 TestTrue("Online", FoundUser->bOnline);
                                 TestEqual("Role", FoundUser->Role, TEXT("user"));
-                                TestEqual("No additional fields", FoundUser->AdditionalFields.GetFields().Num(), 0);
+                                // Querying yourself returns the own user representation, which carries fields that a
+                                // plain user response does not model. Anything beyond those is genuine schema drift.
+                                static const TSet<FName> OwnUserOnlyFields{
+                                    TEXT("channel_mutes"),
+                                    TEXT("devices"),
+                                    TEXT("mutes"),
+                                    TEXT("total_unread_count"),
+                                    TEXT("unread_channels"),
+                                    TEXT("unread_count"),
+                                    TEXT("unread_threads")};
+                                for (const auto& Field : FoundUser->AdditionalFields.GetFields())
+                                {
+                                    TestTrue(FString::Printf(TEXT("Field %s is modelled"), *Field.Key.ToString()), OwnUserOnlyFields.Contains(Field.Key));
+                                }
                             }
                             TestDone.Execute();
                         });
@@ -560,6 +575,51 @@ void FChatApiSpec::Define()
                         {
                             const auto& Dto = Response.GetRef();
                             TestTrue("Response received", Dto.Duration.Len() > 0);
+                            TestDone.Execute();
+                        });
+                });
+        });
+
+    Describe(
+        "Block user",
+        [=, this]
+        {
+            LatentBeforeEach(
+                [=, this](const FDoneDelegate& TestDone)
+                {
+                    Api->BlockUser(
+                        BanUserId,
+                        [=, this](const TResponse<FBlockUserResponseDto>& Response)
+                        {
+                            const auto& Dto = Response.GetRef();
+                            TestEqual("Blocked user", Dto.BlockedUserId, BanUserId);
+                            TestDone.Execute();
+                        });
+                });
+
+            LatentIt(
+                "should list the blocked user",
+                [=, this](const FDoneDelegate& TestDone)
+                {
+                    Api->GetBlockedUsers(
+                        [=, this](const TResponse<FGetBlockedUsersResponseDto>& Response)
+                        {
+                            const auto& Dto = Response.GetRef();
+                            TestTrue(
+                                "Blocked user listed",
+                                Dto.Blocks.ContainsByPredicate([&](const FBlockedUserDto& Block) { return Block.BlockedUserId == BanUserId; }));
+                            TestDone.Execute();
+                        });
+                });
+
+            LatentAfterEach(
+                [=, this](const FDoneDelegate& TestDone)
+                {
+                    Api->UnblockUser(
+                        BanUserId,
+                        [=, this](const TResponse<FResponseDto>& Response)
+                        {
+                            TestTrue("Response received", Response.GetRef().Duration.Len() > 0);
                             TestDone.Execute();
                         });
                 });

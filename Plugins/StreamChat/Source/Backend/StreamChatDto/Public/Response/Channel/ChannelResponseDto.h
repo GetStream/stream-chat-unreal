@@ -52,6 +52,10 @@ struct FChannelResponseDto
     UPROPERTY()
     FDateTime DeletedAt = FDateTime{0};
 
+    /// Whether this channel is blocked, which happens when the current user has blocked the other member of a 1-on-1 channel
+    UPROPERTY()
+    bool bBlocked = false;
+
     UPROPERTY()
     bool bDisabled = false;
 

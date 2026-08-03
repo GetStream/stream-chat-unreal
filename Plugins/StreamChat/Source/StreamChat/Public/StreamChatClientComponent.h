@@ -469,6 +469,32 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client")
     void UnmuteUser(const FUserRef& User) const;
 
+    /**
+     * @brief Block a user
+     *
+     * Every 1-on-1 channel shared with that user is hidden from the blocking user, and their events
+     * and push notifications no longer arrive. Group channels are unaffected.
+     *
+     * @param User A reference to a user
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client|Moderation")
+    void BlockUser(const FUserRef& User) const;
+
+    /**
+     * @brief Unblock a previously blocked user
+     *
+     * @param User A reference to a user
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client|Moderation")
+    void UnblockUser(const FUserRef& User) const;
+
+    /**
+     * @brief Get the users blocked by the currently connected user
+     *
+     * @param Callback Called with the ids of the blocked users
+     */
+    void GetBlockedUsers(TFunction<void(const TArray<FString>&)> Callback) const;
+
     ///@}
 #pragma endregion Moderation
 };

@@ -55,6 +55,10 @@ struct STREAMCHATDTO_API FUserDto
     UPROPERTY()
     bool bInvisible = false;
 
+    /// Ids of the users that this user has blocked
+    UPROPERTY()
+    TArray<FString> BlockedUserIds;
+
     /// Preferred language of a user
     UPROPERTY()
     FString Language;
