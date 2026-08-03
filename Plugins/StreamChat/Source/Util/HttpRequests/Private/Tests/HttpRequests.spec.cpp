@@ -4,7 +4,7 @@
 #include "JsonPlaceholderPost.h"
 #include "Misc/AutomationTest.h"
 
-BEGIN_DEFINE_SPEC(FHttpRequestsSpec, "StreamChat.HttpRequests", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)
+BEGIN_DEFINE_SPEC(FHttpRequestsSpec, "StreamChat.HttpRequests", EAutomationTestFlags::ProductFilter | EAutomationTestFlags_ApplicationContextMask)
 TSharedRef<FHttpClient> Client = MakeShared<FHttpClient>();
 const int32 TotalSimultaneousRequests = 20;
 TArray<FHttpResponse> SimultaneousResponses;
@@ -98,7 +98,7 @@ void FHttpRequestsSpec::Define()
                     Client->Post(TEXT("https://jsonplaceholder.typicode.com/posts"))
                         .Json(FJsonPlaceholderPost{FakeUserId, -1, FakeTitle, FakeBody}, ENamingConvention::UpperCamelCase)
                         .Send(
-                            [=](const FHttpResponse Response)
+                            [=, this](const FHttpResponse Response)
                             {
                                 AddInfo(Response.Text);
                                 TestEqual("Response code", Response.StatusCode, 201);

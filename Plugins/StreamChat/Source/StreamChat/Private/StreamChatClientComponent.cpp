@@ -93,7 +93,7 @@ void UStreamChatClientComponent::OnNewMessage(const FMessageNewEvent& Event)
     {
         // We could sort the entire array, but moving the channel to the first position should be enough
         UChatChannel* Channel = Channels[Index];
-        Channels.RemoveAt(Index, 1, false);
+        Channels.RemoveAt(Index, 1, EAllowShrinking::No);
         Channels.Insert(Channel, 0);
         ChannelsUpdated.Broadcast(Channels);
     }

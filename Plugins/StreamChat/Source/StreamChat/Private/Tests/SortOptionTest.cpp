@@ -12,7 +12,7 @@
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FSortOptionToJsonTest,
     "StreamChat.SortOption.Convert to JSON",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 
 bool FSortOptionToJsonTest::RunTest(const FString& Parameters)
 {

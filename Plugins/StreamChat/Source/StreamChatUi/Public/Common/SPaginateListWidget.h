@@ -69,10 +69,11 @@ private:
 template <class ItemType>
 void SPaginateListWidget<ItemType>::Construct(const FArguments& InArgs)
 {
-    SStreamListView<ItemType>::Construct(FSuperArguments()
-                                             .ListItemsSource(InArgs._ListItemsSource)
-                                             .CreateListViewWidget(InArgs._CreateListViewWidget)
-                                             .OnListViewScrolled(this, &SPaginateListWidget<ItemType>::OnScroll));
+    SStreamListView<ItemType>::Construct(
+        FSuperArguments()
+            .ListItemsSource(InArgs._ListItemsSource)
+            .CreateListViewWidget(InArgs._CreateListViewWidget)
+            .OnListViewScrolled(this, &SPaginateListWidget<ItemType>::OnScroll));
 
     this->Limit = InArgs._Limit;
     this->PaginateScrollThreshold = InArgs._PaginateScrollThreshold;
@@ -106,7 +107,8 @@ template <class ItemType>
 void SPaginateListWidget<ItemType>::OnScroll(const double CurrentOffset)
 {
     const int32 FirstItemIndex = FMath::TruncToInt(CurrentOffset);
-    FirstItem = this->ItemsSource->IsValidIndex(FirstItemIndex) ? (*this->ItemsSource)[FirstItemIndex] : TOptional<ItemType>{};
+    const TArrayView<const ItemType> Items = this->GetItems();
+    FirstItem = Items.IsValidIndex(FirstItemIndex) ? Items[FirstItemIndex] : TOptional<ItemType>{};
 
     ConditionallyPaginate();
 }
@@ -175,7 +177,7 @@ void SPaginateListWidget<ItemType>::Paginate(const EPaginationDirection Directio
             if (This->FirstItem.IsSet())
             {
                 const float FirstOffset = FMath::Fractional(This->DesiredScrollOffset);
-                const int32 NewIndex = This->ItemsSource->Find(This->FirstItem.GetValue());
+                const int32 NewIndex = This->GetItems().Find(This->FirstItem.GetValue());
                 This->ScrollTo(static_cast<float>(NewIndex) + FirstOffset);
             }
         });
@@ -214,5 +216,5 @@ EPaginationDirection SPaginateListWidget<ItemType>::GetDirections() const
 template <class ItemType>
 uint32 SPaginateListWidget<ItemType>::GetItemCount() const
 {
-    return this->ItemsSource->Num();
+    return this->GetItems().Num();
 }

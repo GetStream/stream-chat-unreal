@@ -34,7 +34,7 @@
 #include "User/Jwt.h"
 #include "User/User.h"
 
-BEGIN_DEFINE_SPEC(FChatApiSpec, "StreamChat.ChatApi", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)
+BEGIN_DEFINE_SPEC(FChatApiSpec, "StreamChat.ChatApi", EAutomationTestFlags::ProductFilter | EAutomationTestFlags_ApplicationContextMask)
 const FString ApiKey = TEXT("kmajgxb2rk4p");
 const FString Host = TEXT("chat.stream-io-api.com");
 const FUserObjectDto User{FUserDto{TEXT("TestUser")}};
@@ -62,19 +62,19 @@ void FChatApiSpec::Define()
 
     // Connect WebSocket
     LatentBeforeEach(
-        [=](const FDoneDelegate& TestDone)
+        [=, this](const FDoneDelegate& TestDone)
         {
             Socket = IChatSocket::Create(TokenManager, ApiKey, Host, User);
-            Socket->Connect([=](const FOwnUserDto&) { TestDone.Execute(); });
+            Socket->Connect([=, this](const FOwnUserDto&) { TestDone.Execute(); });
         });
 
     Describe(
         "Channel",
-        [=]
+        [=, this]
         {
             // Create channel
             LatentBeforeEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->QueryChannel(
                         ChannelType,
@@ -85,7 +85,7 @@ void FChatApiSpec::Define()
                         {},
                         {},
                         {},
-                        [=](const TResponse<FChannelStateResponseDto>& Response)
+                        [=, this](const TResponse<FChannelStateResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestFalse("Not hidden", Dto.Channel.bHidden);
@@ -97,7 +97,7 @@ void FChatApiSpec::Define()
                 });
 
             LatentBeforeEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     const TSharedRef<FJsonObject> Filter = MakeShared<FJsonObject>();
                     Filter->SetStringField(TEXT("id"), NewChannelId);
@@ -110,7 +110,7 @@ void FChatApiSpec::Define()
                         {},
                         {},
                         {},
-                        [=](const TResponse<FChannelsResponseDto>& Response)
+                        [=, this](const TResponse<FChannelsResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestEqual("One channel in response", Dto.Channels.Num(), 1);
@@ -120,12 +120,12 @@ void FChatApiSpec::Define()
 
             // Mute channel
             LatentBeforeEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->MuteChannels(
                         {NewCid},
                         {},
-                        [=](const TResponse<FMuteChannelResponseDto>& Response)
+                        [=, this](const TResponse<FMuteChannelResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestEqual("Correct channel muted", Dto.ChannelMute.Channel.Cid, NewCid);
@@ -139,11 +139,11 @@ void FChatApiSpec::Define()
 
             // Unmute channel
             LatentBeforeEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->UnmuteChannels(
                         {NewCid},
-                        [=](const TResponse<FResponseDto>& Response)
+                        [=, this](const TResponse<FResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
@@ -153,7 +153,7 @@ void FChatApiSpec::Define()
 
             // Partial update channel
             LatentBeforeEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     const FString NewName = TEXT("New channel name");
                     const TSharedRef<FJsonObject> Set = MakeShared<FJsonObject>();
@@ -163,7 +163,7 @@ void FChatApiSpec::Define()
                         NewChannelId,
                         Set,
                         {},
-                        [=](const TResponse<FUpdateChannelPartialResponseDto>& Response)
+                        [=, this](const TResponse<FUpdateChannelPartialResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestEqual("Channel name partial updated", Dto.Channel.AdditionalFields.GetString(TEXT("name")), {NewName});
@@ -173,7 +173,7 @@ void FChatApiSpec::Define()
 
             // Update channel
             LatentBeforeEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     const FString NewName = TEXT("MY CHANNEL");
                     FUpdateChannelRequestDto Data;
@@ -183,7 +183,7 @@ void FChatApiSpec::Define()
                         ChannelType,
                         NewChannelId,
                         Data,
-                        [=](const TResponse<FUpdateChannelResponseDto>& Response)
+                        [=, this](const TResponse<FUpdateChannelResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             const FString ResponseName = Dto.Channel.AdditionalFields.GetString(TEXT("name")).GetValue();
@@ -196,7 +196,7 @@ void FChatApiSpec::Define()
 
             // Add members
             LatentBeforeEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     FUpdateChannelRequestDto Data;
                     FChannelMemberRequestDto MemberRequestDto;
@@ -207,7 +207,7 @@ void FChatApiSpec::Define()
                         ChannelType,
                         NewChannelId,
                         Data,
-                        [=](const TResponse<FUpdateChannelResponseDto>& Response)
+                        [=, this](const TResponse<FUpdateChannelResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             const FChannelMemberDto* Found = Dto.Members.FindByPredicate([&](const FChannelMemberDto& A) { return A.UserId == User.Id; });
@@ -222,7 +222,7 @@ void FChatApiSpec::Define()
 
             // Query members
             LatentBeforeEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->QueryMembers(
                         ChannelType,
@@ -231,7 +231,7 @@ void FChatApiSpec::Define()
                         {},
                         {},
                         {},
-                        [=](const TResponse<FMembersResponseDto>& Response)
+                        [=, this](const TResponse<FMembersResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             const FChannelMemberDto* Found = Dto.Members.FindByPredicate([&](const FChannelMemberDto& A) { return A.UserId == User.Id; });
@@ -243,13 +243,13 @@ void FChatApiSpec::Define()
 
             // Hide channel
             LatentBeforeEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->HideChannel(
                         ChannelType,
                         NewChannelId,
                         false,
-                        [=](const TResponse<FResponseDto>& Response)
+                        [=, this](const TResponse<FResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
@@ -259,12 +259,12 @@ void FChatApiSpec::Define()
 
             // Show channel
             LatentBeforeEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->ShowChannel(
                         ChannelType,
                         NewChannelId,
-                        [=](const TResponse<FResponseDto>& Response)
+                        [=, this](const TResponse<FResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
@@ -274,7 +274,7 @@ void FChatApiSpec::Define()
 
             // Remove members
             LatentBeforeEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     FUpdateChannelRequestDto Data;
                     FMessageRequestDto MessageRequest;
@@ -286,7 +286,7 @@ void FChatApiSpec::Define()
                         ChannelType,
                         NewChannelId,
                         Data,
-                        [=](const TResponse<FUpdateChannelResponseDto>& Response)
+                        [=, this](const TResponse<FUpdateChannelResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             const FChannelMemberDto* Found = Dto.Members.FindByPredicate([&](const FChannelMemberDto& A) { return A.UserId == User.Id; });
@@ -298,12 +298,12 @@ void FChatApiSpec::Define()
 
             // Delete channel
             LatentBeforeEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->DeleteChannel(
                         ChannelType,
                         NewChannelId,
-                        [=](const TResponse<FDeleteChannelResponseDto>& Response)
+                        [=, this](const TResponse<FDeleteChannelResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestEqual("Response.Channel.Cid", Dto.Channel.Cid, NewCid);
@@ -316,7 +316,7 @@ void FChatApiSpec::Define()
             // Check channel deleted
             LatentIt(
                 "should have deleted test channel",
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     const TSharedRef<FJsonObject> Filter = MakeShared<FJsonObject>();
                     Filter->SetStringField(TEXT("id"), NewChannelId);
@@ -329,7 +329,7 @@ void FChatApiSpec::Define()
                         {},
                         {},
                         {},
-                        [=](const TResponse<FChannelsResponseDto>& Response)
+                        [=, this](const TResponse<FChannelsResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestEqual("No channels in response", Dto.Channels.Num(), 0);
@@ -339,7 +339,7 @@ void FChatApiSpec::Define()
 
             LatentIt(
                 "should send a message",
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     FMessageRequestDto Request;
                     Request.Cid = Cid;
@@ -349,7 +349,7 @@ void FChatApiSpec::Define()
                         ChannelId,
                         Request,
                         false,
-                        [=](const TResponse<FMessageResponseDto>& Response)
+                        [=, this](const TResponse<FMessageResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestEqual("Message text is same as input", Dto.Message.Text, MsgText);
@@ -359,7 +359,7 @@ void FChatApiSpec::Define()
                 });
             LatentIt(
                 "should truncate channel",
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->TruncateChannel(
                         ChannelType,
@@ -368,7 +368,7 @@ void FChatApiSpec::Define()
                         {},
                         {},
                         {},
-                        [=](const TResponse<FTruncateChannelResponseDto>& Response)
+                        [=, this](const TResponse<FTruncateChannelResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestEqual("Message is empty", Dto.Message.CreatedAt.GetTicks(), 0);
@@ -383,11 +383,11 @@ void FChatApiSpec::Define()
 
     Describe(
         "Users",
-        [=]
+        [=, this]
         {
             LatentIt(
                 "should return some known users",
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->QueryUsers(
                         Socket->GetConnectionId(),
@@ -396,12 +396,12 @@ void FChatApiSpec::Define()
                         {},
                         100,
                         {},
-                        [=](const TResponse<FUsersResponseDto>& Response)
+                        [=, this](const TResponse<FUsersResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestTrue("Users returned", Dto.Users.Num() > 0);
                             const FUserResponseDto* FoundUser =
-                                Dto.Users.FindByPredicate([=](const FUserResponseDto& UserDto) { return UserDto.Id == User.Id; });
+                                Dto.Users.FindByPredicate([=, this](const FUserResponseDto& UserDto) { return UserDto.Id == User.Id; });
                             TestNotNull("User found", FoundUser);
                             if (FoundUser)
                             {
@@ -416,16 +416,16 @@ void FChatApiSpec::Define()
 
     Describe(
         "Guest",
-        [=]
+        [=, this]
         {
             LatentIt(
                 "should create guest user",
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     const FUserObjectRequestDto GuestUserDto{FUserDto{TEXT("test-guest-user")}};
                     Api->CreateGuest(
                         GuestUserDto,
-                        [=](const TResponse<FGuestResponseDto>& Response)
+                        [=, this](const TResponse<FGuestResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             // Check for "guest-{uuid}-test-guest-user
@@ -442,7 +442,7 @@ void FChatApiSpec::Define()
 
             // Partial update user
             LatentAfterEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     const FString NewName = TEXT("New user name");
                     const TSharedRef<FJsonObject> Set = MakeShared<FJsonObject>();
@@ -450,7 +450,7 @@ void FChatApiSpec::Define()
                     const FChatApi::FPartialUpdateUser Update{GuestUserId, Set, {}};
                     Api->PartialUpdateUsers(
                         {Update},
-                        [=](const TResponse<FUpdateUsersResponseDto>& Response)
+                        [=, this](const TResponse<FUpdateUsersResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestEqual("User partial updated", Dto.Users[GuestUserId].AdditionalFields.GetString(TEXT("name")).GetValue(), NewName);
@@ -460,7 +460,7 @@ void FChatApiSpec::Define()
 
             // Upsert users
             LatentAfterEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     FUserObjectRequestDto Update;
                     Update.Id = GuestUserId;
@@ -469,7 +469,7 @@ void FChatApiSpec::Define()
                     Update.AdditionalFields.SetString(TEXT("name"), NewName);
                     Api->UpsertUsers(
                         {{GuestUserId, Update}},
-                        [=](const TResponse<FUpdateUsersResponseDto>& Response)
+                        [=, this](const TResponse<FUpdateUsersResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestEqual("User upserted", Dto.Users[GuestUserId].AdditionalFields.GetString(TEXT("name")).GetValue(), NewName);
@@ -480,16 +480,16 @@ void FChatApiSpec::Define()
 
     Describe(
         "Device",
-        [=]
+        [=, this]
         {
             LatentIt(
                 "should add device",
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->AddDevice(
                         DeviceId,
                         EPushProvider::Firebase,
-                        [=](const TResponse<FResponseDto>& Response)
+                        [=, this](const TResponse<FResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestTrue("Response received", Dto.Duration.Len() > 0);
@@ -499,11 +499,11 @@ void FChatApiSpec::Define()
 
             // Remove device
             LatentAfterEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->RemoveDevice(
                         DeviceId,
-                        [=](const TResponse<FResponseDto>& Response)
+                        [=, this](const TResponse<FResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestTrue("Response received", Dto.Duration.Len() > 0);
@@ -513,10 +513,10 @@ void FChatApiSpec::Define()
 
             // List devices
             LatentAfterEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->ListDevices(
-                        [=](const TResponse<FListDevicesResponseDto>& Response)
+                        [=, this](const TResponse<FListDevicesResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestEqual("Device exists", Dto.Devices[0].Id, DeviceId);
@@ -527,16 +527,16 @@ void FChatApiSpec::Define()
 
     Describe(
         "Mute user",
-        [=]
+        [=, this]
         {
             // Mute user
             LatentBeforeEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->MuteUsers(
                         {BanUserId},
                         {},
-                        [=](const TResponse<FMuteUserResponseDto>& Response)
+                        [=, this](const TResponse<FMuteUserResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestEqual("User muted", Dto.Mute.Target.Id, BanUserId);
@@ -552,11 +552,11 @@ void FChatApiSpec::Define()
             // Unmute user
             LatentIt(
                 "should unmute user",
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->UnmuteUsers(
                         {BanUserId},
-                        [=](const TResponse<FResponseDto>& Response)
+                        [=, this](const TResponse<FResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestTrue("Response received", Dto.Duration.Len() > 0);
@@ -567,11 +567,11 @@ void FChatApiSpec::Define()
 
     Describe(
         "Ban user",
-        [=]
+        [=, this]
         {
             // Ban user
             LatentBeforeEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->BanUser(
                         BanUserId,
@@ -581,7 +581,7 @@ void FChatApiSpec::Define()
                         {},
                         {},
                         {},
-                        [=](const TResponse<FResponseDto>& Response)
+                        [=, this](const TResponse<FResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestTrue("Response received", Dto.Duration.Len() > 0);
@@ -591,7 +591,7 @@ void FChatApiSpec::Define()
 
             // User was banned
             LatentBeforeEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->QueryBannedUsers(
                         FFilter::Equal(TEXT("channel_cid"), Cid).ToJsonObject(),
@@ -602,7 +602,7 @@ void FChatApiSpec::Define()
                         {},
                         {},
                         {},
-                        [=](const TResponse<FQueryBannedUsersResponseDto>& Response)
+                        [=, this](const TResponse<FQueryBannedUsersResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             const FBanResponseDto* Ban = Dto.Bans.FindByPredicate([&](const FBanResponseDto& B) { return B.User.Id == BanUserId; });
@@ -615,13 +615,13 @@ void FChatApiSpec::Define()
 
             // Unban user
             LatentBeforeEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->UnbanUser(
                         BanUserId,
                         ChannelType,
                         ChannelId,
-                        [=](const TResponse<FResponseDto>& Response)
+                        [=, this](const TResponse<FResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestTrue("Response received", Dto.Duration.Len() > 0);
@@ -632,7 +632,7 @@ void FChatApiSpec::Define()
             // User was unbanned
             LatentIt(
                 "should ban user",
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->QueryBannedUsers(
                         FFilter::Equal(TEXT("channel_cid"), Cid).ToJsonObject(),
@@ -643,7 +643,7 @@ void FChatApiSpec::Define()
                         {},
                         {},
                         {},
-                        [=](const TResponse<FQueryBannedUsersResponseDto>& Response)
+                        [=, this](const TResponse<FQueryBannedUsersResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             const FBanResponseDto* Ban = Dto.Bans.FindByPredicate([&](const FBanResponseDto& B) { return B.User.Id == BanUserId; });
@@ -655,11 +655,11 @@ void FChatApiSpec::Define()
 
     Describe(
         "Message",
-        [=]
+        [=, this]
         {
             // Create message
             LatentBeforeEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     FMessageRequestDto Request;
                     Request.Cid = Cid;
@@ -669,7 +669,7 @@ void FChatApiSpec::Define()
                         ChannelId,
                         Request,
                         false,
-                        [=](const TResponse<FMessageResponseDto>& Response)
+                        [=, this](const TResponse<FMessageResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestEqual("Message text is same as input", Dto.Message.Text, MsgText);
@@ -680,14 +680,14 @@ void FChatApiSpec::Define()
 
             // Update message
             LatentBeforeEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     FMessageRequestDto Request;
                     Request.Id = MessageId;
                     Request.Text = UpdatedMsgText;
                     Api->UpdateMessage(
                         Request,
-                        [=](const TResponse<FMessageResponseDto>& Response)
+                        [=, this](const TResponse<FMessageResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestEqual("Message text is same as input", Dto.Message.Text, UpdatedMsgText);
@@ -698,11 +698,11 @@ void FChatApiSpec::Define()
 
             // Get message
             LatentBeforeEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->GetMessage(
                         MessageId,
-                        [=](const TResponse<FMessageResponseDto>& Response)
+                        [=, this](const TResponse<FMessageResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestEqual("Fetched message", Dto.Message.Text, UpdatedMsgText);
@@ -713,12 +713,12 @@ void FChatApiSpec::Define()
 
             LatentIt(
                 "Flag message",
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->Flag(
                         MessageId,
                         {},
-                        [=](const TResponse<FFlagResponseDto>& Response)
+                        [=, this](const TResponse<FFlagResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestEqual("Message ID matches query", Dto.Flag.TargetMessageId, MessageId);
@@ -728,12 +728,12 @@ void FChatApiSpec::Define()
 
             // Delete message
             LatentAfterEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->DeleteMessage(
                         MessageId,
                         true,
-                        [=](const TResponse<FMessageResponseDto>& Response)
+                        [=, this](const TResponse<FMessageResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestEqual("Message text is same as input", Dto.Message.Text, UpdatedMsgText);
@@ -745,11 +745,11 @@ void FChatApiSpec::Define()
 
     Describe(
         "Watch/unwatch channel",
-        [=]
+        [=, this]
         {
             // TODO: Should be able to combine this and next query, once backend fixes race condition
             LatentBeforeEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->QueryChannel(
                         ChannelType,
@@ -760,7 +760,7 @@ void FChatApiSpec::Define()
                         {},
                         {},
                         {},
-                        [=](const TResponse<FChannelStateResponseDto>& Response)
+                        [=, this](const TResponse<FChannelStateResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestEqual("Response.Channel.Cid", Dto.Channel.Cid, Cid);
@@ -769,7 +769,7 @@ void FChatApiSpec::Define()
                 });
 
             LatentBeforeEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->QueryChannel(
                         ChannelType,
@@ -780,7 +780,7 @@ void FChatApiSpec::Define()
                         {},
                         {},
                         {{5, 0}},
-                        [=](const TResponse<FChannelStateResponseDto>& Response)
+                        [=, this](const TResponse<FChannelStateResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestEqual("Response.Channel.Cid", Dto.Channel.Cid, Cid);
@@ -791,13 +791,13 @@ void FChatApiSpec::Define()
 
             LatentIt(
                 "Stop watching channel",
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->StopWatchingChannel(
                         ChannelType,
                         ChannelId,
                         Socket->GetConnectionId(),
-                        [=](const TResponse<FResponseDto>& Response)
+                        [=, this](const TResponse<FResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             AddInfo(FString::Printf(TEXT("Duration: %s"), *Dto.Duration));
@@ -807,7 +807,7 @@ void FChatApiSpec::Define()
 
             // Delete message
             LatentAfterEach(
-                [=](const FDoneDelegate& TestDone)
+                [=, this](const FDoneDelegate& TestDone)
                 {
                     Api->QueryChannel(
                         ChannelType,
@@ -818,7 +818,7 @@ void FChatApiSpec::Define()
                         {},
                         {},
                         {},
-                        [=](const TResponse<FChannelStateResponseDto>& Response)
+                        [=, this](const TResponse<FChannelStateResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestFalse("Stopped watching", Dto.Watchers.ContainsByPredicate([&](const FUserObjectDto& U) { return U.Id == User.Id; }));
@@ -827,5 +827,5 @@ void FChatApiSpec::Define()
                 });
         });
 
-    AfterEach([=] { Socket->Disconnect(); });
+    AfterEach([=, this] { Socket->Disconnect(); });
 }

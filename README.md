@@ -61,6 +61,58 @@ currently part of that matrix.
 If you previously acquired the plugin through the Epic Games Launcher, it remains available from your
 Vault. New installs should use the GitHub releases above.
 
+## Running the demos
+
+This repository is also a playable sample project. Four demos ship with it, the flagship being a
+full team-chat app.
+
+### Prerequisites
+
+> [!IMPORTANT]
+> All `.uasset` and `.umap` files are stored in **Git LFS**. Without it you get 129-byte pointer files
+> instead of real assets, and the demos fail to start with
+> `The summary for the package ... is invalid`.
+
+```bash
+# 1. Install Git LFS and fetch the assets (only needed once)
+brew install git-lfs        # or: apt install git-lfs / winget install GitHub.GitLFS
+git lfs install
+git lfs pull
+
+# 2. Install just, which wraps the engine invocations
+brew install just
+```
+
+You also need Unreal Engine 5.5, 5.7, or 5.8. The recipes locate it automatically via the Epic
+launcher's install manifest, falling back to the default install paths. If your engine lives
+somewhere unusual, set `UE_ROOT`:
+
+```bash
+export UE_ROOT="/Users/Shared/Epic Games/UE_5.8"
+just engine   # prints the engine it resolved, to check your setup
+```
+
+### Run it
+
+```bash
+just build-editor   # compile the C++ (once, and after any code change)
+just demo           # launch the Team Chat demo in a standalone window
+```
+
+The demo connects to a Stream demo account, so it works with no signup — you should see channels and
+messages immediately. To try the others:
+
+```bash
+just run in-game-chat   # chat overlaid on a 3D scene
+just run jumpy-lion     # chat inside a small game
+just run tutorial       # the map used by the online tutorial
+just edit               # open the whole project in the Unreal Editor instead
+```
+
+The demo credentials are set in
+[`StreamChatSampleHud.cpp`](Source/StreamChatSample/StreamChatSampleHud.cpp) — swap the API key and
+user token there to point a demo at your own Stream app.
+
 ## Feature support
 
 Implemented:
@@ -95,9 +147,11 @@ than five team members and no more than $10,000 in monthly revenue.
 
 ## Contributing
 
-The SDK is fully open source — the complete implementation is in this repository.
+The SDK is fully open source — the complete implementation is in this repository. See
+[Running the demos](#running-the-demos) for the one-time Git LFS and engine setup.
 
-- Build the plugin: `just build`
+- Compile the editor target: `just build-editor`
+- Build the plugin on its own: `just build`
 - Run the unit tests: `just test`
 - Switch engine versions: `just set-engine 5.8`
 - Format C++ before committing: `just format`

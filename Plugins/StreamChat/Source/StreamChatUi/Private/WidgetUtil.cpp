@@ -5,7 +5,9 @@
 #include "Components/MenuAnchor.h"
 #include "Engine/Texture2DDynamic.h"
 #include "Fonts/FontMeasure.h"
+#include "Framework/Application/SlateApplication.h"
 #include "IImageWrapper.h"
+#include "Layout/Children.h"
 
 namespace
 {

@@ -3,6 +3,7 @@
 #include "Reaction/ReactionPickerWidget.h"
 
 #include "Channel/ChatChannel.h"
+#include "Framework/Application/SlateApplication.h"
 #include "ThemeDataAsset.h"
 #include "User/UserManager.h"
 

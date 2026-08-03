@@ -9,7 +9,7 @@
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FJsonDateTimeTest,
     "StreamChat.StreamJson.Deserialize.DateTime",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 bool FJsonDateTimeTest::RunTest(const FString& Parameters)
 {
     {

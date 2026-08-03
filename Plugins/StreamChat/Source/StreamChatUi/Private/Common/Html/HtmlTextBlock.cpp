@@ -6,6 +6,7 @@
 #include "HtmlDecorators.h"
 #include "HtmlParser.h"
 #include "HtmlRichTextMarkupParser.h"
+#include "RenderDeferredCleanup.h"
 #include "RenderingThread.h"
 #include "Widgets/Text/SRichTextBlock.h"
 

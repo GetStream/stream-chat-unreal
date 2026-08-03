@@ -9,7 +9,7 @@
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FConvertFilterToJsonTest,
     "StreamChat.Filter.Convert to JSON",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 
 bool FConvertFilterToJsonTest::RunTest(const FString& Parameters)
 {

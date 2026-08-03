@@ -77,3 +77,93 @@ create-release-branch version: (bump-version version)
 set-engine version:
     cp StreamChatSample.uproject.{{version}} StreamChatSample.uproject
     cp Plugins/StreamChat/StreamChat.uplugin.{{version}} Plugins/StreamChat/StreamChat.uplugin
+
+# ---------------------------------------------------------------------------
+# Running the demos
+# ---------------------------------------------------------------------------
+
+# Locate an Unreal Engine install. Override with: UE_ROOT=/path/to/UE_5.8 just demo
+_engine:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if [[ -n "${UE_ROOT:-}" ]]; then
+        if [[ ! -x "$UE_ROOT/Engine/Build/BatchFiles/Mac/Build.sh" && ! -f "$UE_ROOT/Engine/Build/BatchFiles/Build.bat" ]]; then
+            echo "UE_ROOT is set to '$UE_ROOT' but that does not look like an engine install." >&2
+            exit 1
+        fi
+        echo "$UE_ROOT"; exit 0
+    fi
+    # Ask the Epic launcher where it installed the engine
+    for manifest in \
+        "$HOME/Library/Application Support/Epic/UnrealEngineLauncher/LauncherInstalled.dat" \
+        "/c/ProgramData/Epic/UnrealEngineLauncher/LauncherInstalled.dat" \
+        "/mnt/c/ProgramData/Epic/UnrealEngineLauncher/LauncherInstalled.dat"; do
+        if [[ -f "$manifest" ]]; then
+            found=$(python3 -c 'import json,sys; d=json.load(open(sys.argv[1])); ue=[i["InstallLocation"] for i in d.get("InstallationList",[]) if i.get("AppName","").startswith("UE_")]; print(sorted(ue)[-1] if ue else "")' "$manifest" 2>/dev/null || true)
+            if [[ -n "$found" && -d "$found" ]]; then echo "$found"; exit 0; fi
+        fi
+    done
+    # Fall back to the default install locations, newest first
+    for candidate in "/Users/Shared/Epic Games/UE_5.8" "/Users/Shared/Epic Games/UE_5.7" "/Users/Shared/Epic Games/UE_5.5" \
+                     "/c/Program Files/Epic Games/UE_5.8" "/c/Program Files/Epic Games/UE_5.7" "/c/Program Files/Epic Games/UE_5.5"; do
+        if [[ -d "$candidate" ]]; then echo "$candidate"; exit 0; fi
+    done
+    echo "Could not find an Unreal Engine install. Set UE_ROOT, e.g.:" >&2
+    echo "  UE_ROOT='/Users/Shared/Epic Games/UE_5.8' just demo" >&2
+    exit 1
+
+# Print the detected engine path
+engine:
+    @just _engine
+
+# Compile the editor target. Needed once before running a demo, and after any C++ change.
+build-editor:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    UE="$(just _engine)"
+    echo "==> Using engine: $UE"
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        "$UE/Engine/Build/BatchFiles/Mac/Build.sh" StreamChatSampleEditor Mac Development -project="$PWD/StreamChatSample.uproject" -waitmutex
+    elif [[ "$OSTYPE" == "linux"* ]]; then
+        "$UE/Engine/Build/BatchFiles/Linux/Build.sh" StreamChatSampleEditor Linux Development -project="$PWD/StreamChatSample.uproject" -waitmutex
+    else
+        "$UE/Engine/Build/BatchFiles/Build.bat" StreamChatSampleEditor Win64 Development -project="$PWD/StreamChatSample.uproject" -waitmutex
+    fi
+
+# Run the Team Chat demo in a standalone game window. This is the one to start with.
+demo: (run "team-chat")
+
+# Run a demo: team-chat | in-game-chat | jumpy-lion | tutorial
+run sample="team-chat":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    case "{{sample}}" in
+      team-chat)    MAP=/Game/TeamChatSample/Maps/TeamChatSample ;;
+      in-game-chat) MAP=/Game/InGameChatSample/Maps/InGameChatSample ;;
+      jumpy-lion)   MAP=/Game/JumpyLion/Maps/JumpyLion ;;
+      tutorial)     MAP=/Game/Tutorial/Maps/Tutorial ;;
+      *) echo "Unknown demo '{{sample}}'. Choose: team-chat | in-game-chat | jumpy-lion | tutorial" >&2; exit 1 ;;
+    esac
+    UE="$(just _engine)"
+    echo "==> Running {{sample}} ($MAP)"
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        EDITOR="$UE/Engine/Binaries/Mac/UnrealEditor"
+    elif [[ "$OSTYPE" == "linux"* ]]; then
+        EDITOR="$UE/Engine/Binaries/Linux/UnrealEditor"
+    else
+        EDITOR="$UE/Engine/Binaries/Win64/UnrealEditor.exe"
+    fi
+    "$EDITOR" "$PWD/StreamChatSample.uproject" "$MAP" -game -windowed -ResX=1280 -ResY=800
+
+# Open the project in the Unreal Editor
+edit:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    UE="$(just _engine)"
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        open -a "$UE/Engine/Binaries/Mac/UnrealEditor.app" --args "$PWD/StreamChatSample.uproject"
+    elif [[ "$OSTYPE" == "linux"* ]]; then
+        "$UE/Engine/Binaries/Linux/UnrealEditor" "$PWD/StreamChatSample.uproject"
+    else
+        "$UE/Engine/Binaries/Win64/UnrealEditor.exe" "$PWD/StreamChatSample.uproject"
+    fi

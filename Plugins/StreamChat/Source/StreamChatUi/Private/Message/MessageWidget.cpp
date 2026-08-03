@@ -7,6 +7,7 @@
 #include "Components/HorizontalBoxSlot.h"
 #include "Components/Spacer.h"
 #include "Components/VerticalBoxSlot.h"
+#include "Framework/Application/SlateApplication.h"
 
 UMessageWidget::UMessageWidget()
 {

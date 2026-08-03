@@ -9,7 +9,7 @@
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FHashStringMaxText,
     "StreamChat.WidgetUtil.HashStringWithMax",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 
 bool FHashStringMaxText::RunTest(const FString& Parameters)
 {

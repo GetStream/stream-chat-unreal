@@ -9,9 +9,12 @@
 #include "IImageWrapperModule.h"
 #include "Interfaces/IHttpRequest.h"
 #include "Interfaces/IHttpResponse.h"
+#include "Misc/Paths.h"
 #include "Modules/ModuleManager.h"
 #include "RHICommandList.h"
 #include "RHIResources.h"
+#include "RenderingThread.h"
+#include "TextureResource.h"
 
 namespace
 {

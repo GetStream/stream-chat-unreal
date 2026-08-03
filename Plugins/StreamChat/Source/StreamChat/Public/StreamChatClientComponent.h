@@ -15,6 +15,7 @@
 #include "IChatSocket.h"
 #include "Moderation/BanPaginationOptions.h"
 #include "PaginationOptions.h"
+#include "Templates/IsInvocable.h"
 #include "User/OwnUser.h"
 #include "User/User.h"
 

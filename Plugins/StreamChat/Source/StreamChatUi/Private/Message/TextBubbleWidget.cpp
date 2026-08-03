@@ -2,6 +2,7 @@
 
 #include "Message/TextBubbleWidget.h"
 
+#include "Framework/Application/SlateApplication.h"
 #include "ThemeDataAsset.h"
 
 UTextBubbleWidget::UTextBubbleWidget()

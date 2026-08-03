@@ -3,9 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Dom/JsonObject.h"
 #include "NamingConvention.h"
 
-class FJsonObject;
 class FJsonValue;
 
 /**
@@ -27,7 +27,7 @@ namespace JsonObjectSerialization
 bool UStructToJsonAttributes(
     const UStruct* StructDefinition,
     const void* Struct,
-    TMap<FString, TSharedPtr<FJsonValue> >& OutJsonAttributes,
+    TMap<FJsonObject::FStringType, TSharedPtr<FJsonValue>>& OutJsonAttributes,
     ENamingConvention NamingConvention = ENamingConvention::SnakeCase);
 
 FString STREAMJSON_API UEnumToString(const UEnum* EnumDefinition, int64 Value, ENamingConvention NamingConvention = ENamingConvention::SnakeCase);

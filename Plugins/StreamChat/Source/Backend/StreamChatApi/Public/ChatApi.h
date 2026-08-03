@@ -12,6 +12,8 @@
 #include "RequestBuilder.h"
 #include "StreamJson.h"
 
+#include <type_traits>
+
 class FHttpClient;
 class FRequestBuilder;
 class FTokenManager;
@@ -587,7 +589,7 @@ template <class TEvent>
 void FChatApi::SendChannelEvent(const FString& ChannelType, const FString& ChannelId, const TEvent& Event, const TCallback<FEventResponseDto> Callback)
 {
     static_assert(
-        TIsSame<decltype(TEvent::StaticType()), decltype(TEvent::StaticType())>::Value,
+        std::is_same_v<decltype(TEvent::StaticType()), FName>,
         "TEvent must have a static method 'StaticType' which returns a FName to use with SendChannelEvent.");
     SendChannelEventInternal(ChannelType, ChannelId, JsonObject::UStructToJsonObject<TEvent>(Event), Callback);
 }

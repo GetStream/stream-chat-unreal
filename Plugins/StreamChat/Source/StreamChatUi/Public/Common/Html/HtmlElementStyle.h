@@ -15,7 +15,7 @@ struct FHtmlElementStyle
     FHtmlElementStyle();
 
     /** The font object (valid when used from UMG or a Slate widget style asset) */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SlateStyleRules, meta = (AllowedClasses = "Font", DisplayName = "Font Family", editcondition = "bOverride_FontObject"))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SlateStyleRules, meta = (AllowedClasses = "/Script/Engine.Font", DisplayName = "Font Family", editcondition = "bOverride_FontObject"))
     const UObject* FontObject = nullptr;
 
     /** The name of the font to use from the default typeface (None will use the first entry) */
@@ -47,7 +47,7 @@ struct FHtmlElementStyle
     FSlateBrush UnderlineBrush;
 
     /** The material to use when rendering this font */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SlateStyleRules, meta = (AllowedClasses = "MaterialInterface", editcondition = "bOverride_FontMaterial"))
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SlateStyleRules, meta = (AllowedClasses = "/Script/Engine.MaterialInterface", editcondition = "bOverride_FontMaterial"))
     UObject* FontMaterial = nullptr;
 
     /** Settings for applying an outline to a font */

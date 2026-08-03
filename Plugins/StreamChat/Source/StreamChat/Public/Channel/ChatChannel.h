@@ -15,6 +15,7 @@
 #include "Message.h"
 #include "MessagePaginationOptions.h"
 #include "PaginationOptions.h"
+#include "Templates/IsInvocable.h"
 #include "User/UserPaginationOptions.h"
 #include "User/UserRef.h"
 

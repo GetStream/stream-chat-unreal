@@ -77,7 +77,7 @@ FString NamingConventionConversion::ConvertNameToSnakeCase(const FStringView InN
             {
                 break;
             }
-            SnakeCaseName.RemoveAt(CharIndex, 1, false);
+            SnakeCaseName.RemoveAt(CharIndex, 1, EAllowShrinking::No);
         }
 
         PrevBreak = NameBreak;
