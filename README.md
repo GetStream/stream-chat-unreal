@@ -35,8 +35,9 @@
 The **Stream Chat SDK** is the official Unreal SDK for [Stream Chat](https://getstream.io/chat/sdk/unreal/), a service for building chat and messaging into games and applications.
 
 > [!NOTE]
-> C++ and Blueprint coverage can differ by operation, and some Stream Chat features are not yet
-> available in Unreal — see [Feature support](#feature-support).
+> This SDK is in beta. Its surface may still change between releases, C++ and Blueprint coverage can
+> differ by operation, and some Stream Chat features are not yet available in Unreal — see [Feature
+> support](#feature-support).
 
 ## Requirements
 

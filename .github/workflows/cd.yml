@@ -32,7 +32,7 @@ jobs:
   samples:
     strategy:
       matrix:
-        platform: [Mac, Android, IOS]
+        platform: [Mac, "Win64", Android, IOS]
         what: [team-chat, jumpy-lion]
         exclude:
           # exclude Jumpy Lion on mobile
@@ -47,6 +47,8 @@ jobs:
             map: /Game/JumpyLion/Maps/JumpyLion.JumpyLion
           - platform: Mac
             path: Mac
+          - platform: Win64
+            path: Windows
           - platform: Android
             path: Android
           - platform: IOS
@@ -65,11 +67,17 @@ jobs:
         shell: bash
         run: |
           just set-engine 5.8
-          ue4 setroot "/Users/Shared/Epic Games/UE_5.8"
-          rm $HOME/.bash_profile
-          touch $HOME/.bash_profile
-          "/Users/Shared/Epic Games/UE_5.8/Engine/Extras/Android/SetupAndroid.command"
-          source $HOME/.bash_profile
+
+          if [[ "$OSTYPE" == "darwin"* ]]; then
+            ue4 setroot "/Users/Shared/Epic Games/UE_5.8"
+            rm $HOME/.bash_profile
+            touch $HOME/.bash_profile
+            "/Users/Shared/Epic Games/UE_5.8/Engine/Extras/Android/SetupAndroid.command"
+            source $HOME/.bash_profile
+          else
+            ue4 setroot "C:\UE\UE_5.8"
+            cmd "/C C:\UE\UE_5.8/Engine/Extras/Android/SetupAndroid.bat"
+          fi
 
       - name: Generate bundle version
         if: ${{ matrix.platform == 'IOS' }}
@@ -265,11 +273,17 @@ jobs:
         shell: bash
         run: |
           just set-engine ${{ matrix.engine }}
-          ue4 setroot "/Users/Shared/Epic Games/UE_${{ matrix.engine }}"
-          rm $HOME/.bash_profile
-          touch $HOME/.bash_profile
-          "/Users/Shared/Epic Games/UE_${{ matrix.engine }}/Engine/Extras/Android/SetupAndroid.command"
-          source $HOME/.bash_profile
+
+          if [[ "$OSTYPE" == "darwin"* ]]; then
+            ue4 setroot "/Users/Shared/Epic Games/UE_${{ matrix.engine }}"
+            rm $HOME/.bash_profile
+            touch $HOME/.bash_profile
+            "/Users/Shared/Epic Games/UE_${{ matrix.engine }}/Engine/Extras/Android/SetupAndroid.command"
+            source $HOME/.bash_profile
+          else
+            ue4 setroot "C:\UE\UE_${{ matrix.engine }}"
+            cmd "/C C:\UE\UE_${{ matrix.engine }}/Engine/Extras/Android/SetupAndroid.bat"
+          fi
 
       - name: 📦 Package plugin
         run: |
