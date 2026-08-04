@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Launch screen for the sample app.
+
+    The engine ships a precompiled LaunchScreen.storyboardc whose image view fills the window with
+    contentMode=scaleAspectFill. LaunchScreenIOS.png is square, so aspect-fill scales it to the
+    *longer* screen edge: on a 393x852pt handset the 1024px artwork is drawn 852pt wide and the logo
+    inside it comes out ~656pt wide in a 393pt window, clipping its left and right tips off screen.
+
+    UnrealBuildTool looks for Build/IOS/Resources/Interface/LaunchScreen.storyboard ahead of the
+    engine's compiled copy (XcodeProject.cs, ProcessAssets), so supplying this file replaces it and
+    Xcode compiles it into the bundle. The image view is aspect-fit and sized against the view rather
+    than the window, so the whole logo is always visible at the same proportion on every device.
+-->
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Launch Screen-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <!--
+                    storyboardIdentifier must stay "LaunchScreen": IOSAppDelegate.cpp and
+                    IOSSceneDelegate.cpp both do instantiateViewControllerWithIdentifier:@"LaunchScreen"
+                    and this controller becomes the app's root view controller. Without it the app
+                    dies at startup with NSInvalidArgumentException.
+                -->
+                <viewController storyboardIdentifier="LaunchScreen" id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreenIOS.png" translatesAutoresizingMaskIntoConstraints="NO" id="Lgo-00-Img">
+                                <rect key="frame" x="39.5" y="269" width="314" height="314"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" red="0.0" green="0.37254901960784315" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Lgo-00-Img" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Cst-ctr-X"/>
+                            <constraint firstItem="Lgo-00-Img" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Cst-ctr-Y"/>
+                            <!-- Square, because the artwork is square and the logo is centred inside it. -->
+                            <constraint firstAttribute="height" secondItem="Lgo-00-Img" secondAttribute="width" multiplier="1:1" id="Cst-asp-1"/>
+                            <!-- Preferred size. Yields a logo ~62% of the screen width in portrait. -->
+                            <constraint firstItem="Lgo-00-Img" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.8" priority="750" id="Cst-pref"/>
+                            <!-- Caps, so landscape and tablets shrink instead of overflowing. -->
+                            <constraint firstItem="Lgo-00-Img" firstAttribute="width" relation="lessThanOrEqual" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.8" id="Cst-cap-W"/>
+                            <constraint firstItem="Lgo-00-Img" firstAttribute="height" relation="lessThanOrEqual" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.8" id="Cst-cap-H"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="53" y="375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="LaunchScreenIOS.png" width="1024" height="1024"/>
+    </resources>
+</document>
