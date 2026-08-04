@@ -73,7 +73,10 @@ bump-version version:
         // Set version string
         file.VersionName = "{{version}}";
 
-        fs.writeFile(fileName, JSON.stringify(file, null, 4), function writeJSON(err) {
+        // JSON.stringify does not end with a newline, so write one: without it every release
+        // rewrites the last line of all three files and the version diff is noisier than it needs
+        // to be.
+        fs.writeFile(fileName, JSON.stringify(file, null, 4) + "\n", function writeJSON(err) {
             if (err) return console.error(err);
             console.log("Writing to " + fileName);
         });
