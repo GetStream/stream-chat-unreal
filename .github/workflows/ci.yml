@@ -124,8 +124,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        #platform: [Linux, Mac, "Win64", Android, IOS] temp disable Mac until Mac self-hosted runner is setup
-        platform: [Linux, "Win64", Android, IOS]
+        platform: [Mac, "Win64", Android, IOS]
     name: 🤡 Build samples ${{ matrix.platform }}
     runs-on: [self-hosted, 'UE_${{ matrix.platform }}']
 
