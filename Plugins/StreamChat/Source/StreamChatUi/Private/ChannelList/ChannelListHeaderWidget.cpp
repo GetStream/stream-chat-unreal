@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #include "ChannelList/ChannelListHeaderWidget.h"
 
@@ -14,9 +14,11 @@ void UChannelListHeaderWidget::NativePreConstruct()
     }
     if (Button)
     {
-        Button->WidgetStyle.Normal.DrawAs = ESlateBrushDrawType::Box;
-        Button->WidgetStyle.Pressed.DrawAs = ESlateBrushDrawType::Box;
-        Button->WidgetStyle.Hovered.DrawAs = ESlateBrushDrawType::Box;
+        FButtonStyle Style = Button->GetStyle();
+        Style.Normal.DrawAs = ESlateBrushDrawType::Box;
+        Style.Pressed.DrawAs = ESlateBrushDrawType::Box;
+        Style.Hovered.DrawAs = ESlateBrushDrawType::Box;
+        Button->SetStyle(Style);
     }
 }
 

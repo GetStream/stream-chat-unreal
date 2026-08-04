@@ -28,7 +28,7 @@ jobs:
   build-plugin:
     strategy:
       matrix:
-        engine: ["4.27", "5.0", "5.1"]
+        engine: ["5.7", "5.8"]
     name: 🔌 Build Plugin UE${{ matrix.engine }}
     runs-on: [self-hosted]
 
@@ -95,10 +95,10 @@ jobs:
           with open(output, 'w') as f:
               TestSuite.to_file(f, [ts], prettyprint=False)
       - name: 📤 Upload test report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           path: Saved/Automation/Reports/report.xml
-          name: test-report
+          name: test-report-${{ matrix.engine }}
 
   report:
     name: 🧪 Publish test results
@@ -111,13 +111,14 @@ jobs:
       pull-requests: write
     steps:
       - name: 📥 Download test report
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
-          name: test-report
+          pattern: test-report-*
+          path: test-reports
       - name: ⚗️ Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
         with:
-          junit_files: report.xml
+          junit_files: test-reports/**/report.xml
 
   build-samples:
     strategy:
@@ -134,19 +135,19 @@ jobs:
         with:
           lfs: true
 
-      - name: ☝️ Select UE5.1
+      - name: ☝️ Select UE5.8
         if: runner.os == 'macOS'
         shell: bash
         run: |
-          ue4 setroot "/Users/Shared/Epic Games/UE_5.1"
-          just set-engine 5.1
+          ue4 setroot "/Users/Shared/Epic Games/UE_5.8"
+          just set-engine 5.8
 
-      - name: ☝️ Select UE${{ matrix.engine }}
+      - name: ☝️ Select UE5.8
         if: runner.os == 'Windows'
         shell: cmd
         run: |
-          ue4 setroot "C:\UE\UE_5.1"
-          just set-engine 5.1
+          ue4 setroot "C:\UE\UE_5.8"
+          just set-engine 5.8
 
       - name: 🔨 Build
         if: runner.os == 'macOS'

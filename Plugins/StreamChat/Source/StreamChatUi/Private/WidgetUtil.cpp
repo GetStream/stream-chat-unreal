@@ -1,11 +1,13 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #include "WidgetUtil.h"
 
 #include "Components/MenuAnchor.h"
 #include "Engine/Texture2DDynamic.h"
 #include "Fonts/FontMeasure.h"
+#include "Framework/Application/SlateApplication.h"
 #include "IImageWrapper.h"
+#include "Layout/Children.h"
 
 namespace
 {

@@ -1,12 +1,12 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #include "Detail/JsonObjectDeserialization.h"
 
 #include "AdditionalFields.h"
 #include "Internationalization/Culture.h"
 #include "JsonObjectWrapper.h"
-#include "Launch/Resources/Version.h"
 #include "Misc/FeedbackContext.h"
+#include "Misc/PackageName.h"
 #include "NamingConventionConversion.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
@@ -23,11 +23,7 @@ const FString ObjectClassNameKey = "_ClassName";
 
 const TCHAR* ImportText(const FProperty& Property, const TCHAR* Buffer, void* Data)
 {
-#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 1
     return Property.ImportText_Direct(Buffer, Data, nullptr, PPF_None);
-#else
-    return Property.ImportText(Buffer, Data, PPF_None, nullptr);
-#endif
 }
 
 UClass* FindClass(const FString& ClassString)
@@ -36,11 +32,7 @@ UClass* FindClass(const FString& ClassString)
     {
         return nullptr;
     }
-#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 1
     return FPackageName::IsShortPackageName(ClassString) ? FindFirstObject<UClass>(*ClassString) : UClass::TryFindTypeSlow<UClass>(ClassString);
-#else
-    return FindObject<UClass>(ANY_PACKAGE, *ClassString);
-#endif
 }
 
 /** Parse an FText from a json object (assumed to be of the form where keys are culture codes and values are strings) */
@@ -72,9 +64,9 @@ bool GetTextFromObject(const TSharedRef<FJsonObject>& Obj, FText& TextOut)
             for (const auto& Pair : Obj->Values)
             {
                 // only consider coupled entries now (base ones would have been matched on first path) (i.e. "en-US")
-                if (Pair.Key.FindChar('-', SeparatorPos))
+                if (MakeStringView(Pair.Key).FindChar('-', SeparatorPos))
                 {
-                    if (Pair.Key.StartsWith(LocaleToMatch))
+                    if (MakeStringView(Pair.Key).StartsWith(LocaleToMatch))
                     {
                         TextOut = FText::FromString(Pair.Value->AsString());
                         return true;
@@ -96,7 +88,7 @@ bool JsonValueToFPropertyWithContainer(
     void* Container);
 
 bool JsonAttributesToUStructWithContainer(
-    const TMap<FString, TSharedPtr<FJsonValue>>& JsonAttributes,
+    const FJsonAttributeMap& JsonAttributes,
     const UStruct* StructDefinition,
     void* OutStruct,
     const UStruct* ContainerStruct,
@@ -264,7 +256,8 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
                 {
                     int32 NewIndex = Helper.AddDefaultValue_Invalid_NeedsRehash();
 
-                    TSharedPtr<FJsonValueString> TempKeyValue = MakeShared<FJsonValueString>(Entry.Key);
+                    // Json object keys are shared strings, but a FJsonValueString wraps an FString
+                    TSharedPtr<FJsonValueString> TempKeyValue = MakeShared<FJsonValueString>(FString(MakeStringView(Entry.Key)));
 
                     const bool bKeySuccess =
                         JsonValueToFPropertyWithContainer(TempKeyValue, MapProperty->KeyProp, Helper.GetKeyPtr(NewIndex), ContainerStruct, Container);
@@ -482,11 +475,7 @@ bool ConvertScalarJsonValueToFPropertyWithContainer(
             }
 
             UObject* CreatedObj = StaticAllocateObject(PropertyClass, Outer, NAME_None, EObjectFlags::RF_NoFlags, EInternalObjectFlags::None, false);
-#if ENGINE_MAJOR_VERSION == 4 && ENGINE_MINOR_VERSION <= 27
-            (*PropertyClass->ClassConstructor)(FObjectInitializer(CreatedObj, PropertyClass->ClassDefaultObject, false, false));
-#else
-            (*PropertyClass->ClassConstructor)(FObjectInitializer(CreatedObj, PropertyClass->ClassDefaultObject, EObjectInitializerOptions::None));
-#endif
+            (*PropertyClass->ClassConstructor)(FObjectInitializer(CreatedObj, PropertyClass->GetDefaultObject(), EObjectInitializerOptions::None));
 
             ObjectProperty->SetObjectPropertyValue(OutValue, CreatedObj);
 
@@ -585,7 +574,7 @@ bool JsonValueToFPropertyWithContainer(
     for (int Index = 0; Index != ItemsToRead; ++Index)
     {
         if (!ConvertScalarJsonValueToFPropertyWithContainer(
-                ArrayValue[Index], Property, static_cast<char*>(OutValue) + Index * Property->ElementSize, ContainerStruct, Container))
+                ArrayValue[Index], Property, static_cast<char*>(OutValue) + Index * Property->GetElementSize(), ContainerStruct, Container))
         {
             return false;
         }
@@ -594,7 +583,7 @@ bool JsonValueToFPropertyWithContainer(
 }
 
 bool JsonAttributesToUStructWithContainer(
-    const TMap<FString, TSharedPtr<FJsonValue>>& JsonAttributes,
+    const FJsonAttributeMap& JsonAttributes,
     const UStruct* StructDefinition,
     void* OutStruct,
     const UStruct* ContainerStruct,
@@ -609,7 +598,7 @@ bool JsonAttributesToUStructWithContainer(
         return true;
     }
 
-    TSet<FString> UnclaimedPropertyNames;
+    TSet<FJsonAttributeKey> UnclaimedPropertyNames;
     JsonAttributes.GetKeys(UnclaimedPropertyNames);
     if (UnclaimedPropertyNames.Num() <= 0)
     {
@@ -633,7 +622,7 @@ bool JsonAttributesToUStructWithContainer(
 
         // find a json value matching this property name
         const FString PropertyName = Property->GetName();
-        FString FoundPropertyName = PropertyName;
+        FJsonAttributeKey FoundPropertyName(PropertyName);
         const TSharedPtr<FJsonValue>* JsonValue = JsonAttributes.Find(FoundPropertyName);
         // Try again stripping things like 'b'
         if (!JsonValue && CastField<FBoolProperty>(Property))
@@ -675,14 +664,14 @@ bool JsonAttributesToUStructWithContainer(
 
     if (AdditionalFields.Num() > 0)
     {
-        for (const FString& UnclaimedName : UnclaimedPropertyNames)
+        for (const FJsonAttributeKey& UnclaimedName : UnclaimedPropertyNames)
         {
             for (FAdditionalFields* Fields : AdditionalFields)
             {
                 const TSharedPtr<FJsonValue>* Value = JsonAttributes.Find(UnclaimedName);
                 if (Value && Value->IsValid())
                 {
-                    Fields->SetJsonValue(FName(UnclaimedName), Value->ToSharedRef());
+                    Fields->SetJsonValue(FName(*UnclaimedName), Value->ToSharedRef());
                 }
             }
         }
@@ -697,10 +686,7 @@ bool JsonObjectDeserialization::JsonObjectToUStruct(const TSharedRef<FJsonObject
     return JsonAttributesToUStruct(JsonObject->Values, StructDefinition, OutStruct);
 }
 
-bool JsonObjectDeserialization::JsonAttributesToUStruct(
-    const TMap<FString, TSharedPtr<FJsonValue>>& JsonAttributes,
-    const UStruct* StructDefinition,
-    void* OutStruct)
+bool JsonObjectDeserialization::JsonAttributesToUStruct(const FJsonAttributeMap& JsonAttributes, const UStruct* StructDefinition, void* OutStruct)
 {
     return JsonAttributesToUStructWithContainer(JsonAttributes, StructDefinition, OutStruct, StructDefinition, OutStruct);
 }

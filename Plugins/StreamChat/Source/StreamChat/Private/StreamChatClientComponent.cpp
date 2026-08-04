@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #include "StreamChatClientComponent.h"
 
@@ -19,6 +19,7 @@
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/Device/ListDevicesResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
+#include "Response/Moderation/GetBlockedUsersResponseDto.h"
 #include "Response/Moderation/MuteUserResponseDto.h"
 #include "Response/Moderation/QueryBannedUsersResponseDto.h"
 #include "Response/User/GuestResponseDto.h"
@@ -93,7 +94,7 @@ void UStreamChatClientComponent::OnNewMessage(const FMessageNewEvent& Event)
     {
         // We could sort the entire array, but moving the channel to the first position should be enough
         UChatChannel* Channel = Channels[Index];
-        Channels.RemoveAt(Index, 1, false);
+        Channels.RemoveAt(Index, 1, EAllowShrinking::No);
         Channels.Insert(Channel, 0);
         ChannelsUpdated.Broadcast(Channels);
     }
@@ -589,6 +590,33 @@ void UStreamChatClientComponent::MuteUser(const FUserRef& User, const TOptional<
 void UStreamChatClientComponent::UnmuteUser(const FUserRef& User) const
 {
     Api->UnmuteUsers({User->Id});
+}
+
+void UStreamChatClientComponent::BlockUser(const FUserRef& User) const
+{
+    Api->BlockUser(User->Id);
+}
+
+void UStreamChatClientComponent::UnblockUser(const FUserRef& User) const
+{
+    Api->UnblockUser(User->Id);
+}
+
+void UStreamChatClientComponent::GetBlockedUsers(TFunction<void(const TArray<FString>&)> Callback) const
+{
+    Api->GetBlockedUsers(
+        [Callback](const TResponse<FGetBlockedUsersResponseDto>& Response)
+        {
+            TArray<FString> BlockedUserIds;
+            for (const FBlockedUserDto& Block : Response.GetRef().Blocks)
+            {
+                BlockedUserIds.Add(Block.BlockedUserId);
+            }
+            if (Callback)
+            {
+                Callback(BlockedUserIds);
+            }
+        });
 }
 
 const TArray<UChatChannel*>& UStreamChatClientComponent::GetChannels() const

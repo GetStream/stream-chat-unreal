@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -12,10 +12,13 @@
 #include "RequestBuilder.h"
 #include "StreamJson.h"
 
+#include <type_traits>
+
 class FHttpClient;
 class FRequestBuilder;
 class FTokenManager;
 enum class EPushProvider : uint8;
+struct FBlockUserResponseDto;
 struct FChannelResponseDto;
 struct FChannelSortOption;
 struct FChannelStateResponseDto;
@@ -23,6 +26,7 @@ struct FChannelsResponseDto;
 struct FDeleteChannelResponseDto;
 struct FEventResponseDto;
 struct FFlagResponseDto;
+struct FGetBlockedUsersResponseDto;
 struct FGetReactionsResponseDto;
 struct FGuestResponseDto;
 struct FHttpResponse;
@@ -160,6 +164,30 @@ public:
      * @param Callback Called when response is received.
      */
     void UnmuteChannels(const TArray<FString>& TargetCids, TCallback<FResponseDto> Callback = {}) const;
+
+    /**
+     * @brief Block a user
+     *
+     * Blocking hides all 1-on-1 channels shared with that user, and stops their events and push
+     * notifications reaching the blocking user. Group channels are unaffected.
+     *
+     * @param TargetUserId Id of the user to block
+     * @param Callback Called when response is received.
+     */
+    void BlockUser(const FString& TargetUserId, TCallback<FBlockUserResponseDto> Callback = {}) const;
+
+    /**
+     * @brief Unblock a previously blocked user
+     * @param TargetUserId Id of the user to unblock
+     * @param Callback Called when response is received.
+     */
+    void UnblockUser(const FString& TargetUserId, TCallback<FResponseDto> Callback = {}) const;
+
+    /**
+     * @brief Get the users blocked by the current user
+     * @param Callback Called when response is received.
+     */
+    void GetBlockedUsers(TCallback<FGetBlockedUsersResponseDto> Callback = {}) const;
 
 ///@}
 #pragma endregion Moderation
@@ -587,7 +615,7 @@ template <class TEvent>
 void FChatApi::SendChannelEvent(const FString& ChannelType, const FString& ChannelId, const TEvent& Event, const TCallback<FEventResponseDto> Callback)
 {
     static_assert(
-        TIsSame<decltype(TEvent::StaticType()), decltype(TEvent::StaticType())>::Value,
+        std::is_same_v<decltype(TEvent::StaticType()), FName>,
         "TEvent must have a static method 'StaticType' which returns a FName to use with SendChannelEvent.");
     SendChannelEventInternal(ChannelType, ChannelId, JsonObject::UStructToJsonObject<TEvent>(Event), Callback);
 }

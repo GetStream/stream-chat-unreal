@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 using UnrealBuildTool;
 
@@ -7,7 +7,10 @@ public class StreamChatApiTest : ModuleRules
     public StreamChatApiTest(ReadOnlyTargetRules Target) : base(Target)
     {
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-        CppStandard = CppStandardVersion.Cpp17;
+
+        // The specs capture 'this' through a '=' default, which C++20 requires. A project whose
+        // DefaultBuildSettings predates V4 still defaults to C++17, so ask for C++20 explicitly.
+        CppStandard = CppStandardVersion.Cpp20;
 
         PrivateDependencyModuleNames.AddRange(new[] {
             "StreamChatApi",

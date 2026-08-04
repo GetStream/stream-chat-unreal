@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -6,7 +6,6 @@
 #include "CoreMinimal.h"
 #include "Framework/Text/IRichTextMarkupParser.h"
 #include "HtmlElementStyle.h"
-#include "Launch/Resources/Version.h"
 #include "Styling/SlateStyle.h"
 
 #include "HtmlTextBlock.generated.h"
@@ -18,15 +17,11 @@ public:
     {
     }
 
-#if ENGINE_MAJOR_VERSION == 4 && ENGINE_MINOR_VERSION <= 27
-    virtual const FSlateWidgetStyle* GetWidgetStyleInternal(const FName DesiredTypeName, const FName StyleName) const override;
-#else
     virtual const FSlateWidgetStyle* GetWidgetStyleInternal(
         const FName DesiredTypeName,
         const FName StyleName,
         const FSlateWidgetStyle* DefaultStyle,
         bool bWarnIfNotFound) const override;
-#endif
 
 private:
     FHtmlElementStyles Styles;

@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #include "NamingConventionConversion.h"
 
@@ -9,7 +9,7 @@
 BEGIN_DEFINE_SPEC(
     FNamingConventionConversionSpec,
     "StreamChat.NamingConventionConversion",
-    EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)
+    EAutomationTestFlags::ProductFilter | EAutomationTestFlags_ApplicationContextMask)
 END_DEFINE_SPEC(FNamingConventionConversionSpec)
 
 void FNamingConventionConversionSpec::Define()

@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #include "Common/Html/HtmlTextBlock.h"
 
@@ -6,6 +6,7 @@
 #include "HtmlDecorators.h"
 #include "HtmlParser.h"
 #include "HtmlRichTextMarkupParser.h"
+#include "RenderDeferredCleanup.h"
 #include "RenderingThread.h"
 #include "Widgets/Text/SRichTextBlock.h"
 
@@ -28,15 +29,11 @@ private:
 };
 }    // namespace
 
-#if ENGINE_MAJOR_VERSION == 4 && ENGINE_MINOR_VERSION <= 27
-const FSlateWidgetStyle* FHtmlSlateStyleSet::GetWidgetStyleInternal(const FName DesiredTypeName, const FName StyleName) const
-#else
 const FSlateWidgetStyle* FHtmlSlateStyleSet::GetWidgetStyleInternal(
     const FName DesiredTypeName,
     const FName StyleName,
     const FSlateWidgetStyle* DefaultStyle,
     bool bWarnIfNotFound) const
-#endif
 {
     TArray<FString> Tags;
     StyleName.ToString().ParseIntoArray(Tags, TEXT("_"));

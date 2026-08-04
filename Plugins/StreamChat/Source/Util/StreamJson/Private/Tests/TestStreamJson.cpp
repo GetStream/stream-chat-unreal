@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #include "Misc/AutomationTest.h"
 #include "StreamJson.h"
@@ -9,7 +9,7 @@
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FJsonTestDeserializeOutOfOrder,
     "StreamChat.StreamJson.Deserialize.OutOfOrder",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 bool FJsonTestDeserializeOutOfOrder::RunTest(const FString& Parameters)
 {
     const FString Json = R"(
@@ -29,7 +29,7 @@ bool FJsonTestDeserializeOutOfOrder::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FJsonTestDeserializeBasicTypes,
     "StreamChat.StreamJson.Deserialize.BasicTypes",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 bool FJsonTestDeserializeBasicTypes::RunTest(const FString& Parameters)
 {
     const FString Json = R"(
@@ -55,7 +55,7 @@ bool FJsonTestDeserializeBasicTypes::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FJsonTestDeserializeArrays,
     "StreamChat.StreamJson.Deserialize.Arrays",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 bool FJsonTestDeserializeArrays::RunTest(const FString& Parameters)
 {
     const FString Json = R"(
@@ -81,7 +81,7 @@ bool FJsonTestDeserializeArrays::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FJsonTestDeserializeNested,
     "StreamChat.StreamJson.Deserialize.Nested",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 bool FJsonTestDeserializeNested::RunTest(const FString& Parameters)
 {
     const FString Json = R"(
@@ -119,7 +119,7 @@ bool FJsonTestDeserializeNested::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FJsonTestDeserializeUpperCamelCaseStringEnums,
     "StreamChat.StreamJson.Deserialize.UpperCamelCaseStringEnums",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 bool FJsonTestDeserializeUpperCamelCaseStringEnums::RunTest(const FString& Parameters)
 {
     const FString Json = R"(
@@ -135,7 +135,7 @@ bool FJsonTestDeserializeUpperCamelCaseStringEnums::RunTest(const FString& Param
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FJsonTestDeserializeSnakeCaseStringEnums,
     "StreamChat.StreamJson.Deserialize.SnakeCaseStringEnums",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 bool FJsonTestDeserializeSnakeCaseStringEnums::RunTest(const FString& Parameters)
 {
     const FString Json = R"(
@@ -151,7 +151,7 @@ bool FJsonTestDeserializeSnakeCaseStringEnums::RunTest(const FString& Parameters
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FJsonTestDeserializeSnakeCaseNumEnums,
     "StreamChat.StreamJson.Deserialize.SnakeCaseNumEnums",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 bool FJsonTestDeserializeSnakeCaseNumEnums::RunTest(const FString& Parameters)
 {
     const FString Json = R"(
@@ -167,7 +167,7 @@ bool FJsonTestDeserializeSnakeCaseNumEnums::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FJsonTestDeserializeSnakeCasePropNameEnums,
     "StreamChat.StreamJson.Deserialize.SnakeCasePropNameEnums",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 bool FJsonTestDeserializeSnakeCasePropNameEnums::RunTest(const FString& Parameters)
 {
     const FString Json = R"(
@@ -193,7 +193,7 @@ bool FJsonTestDeserializeSnakeCasePropNameEnums::RunTest(const FString& Paramete
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FJsonTestDeserializeExtraFields,
     "StreamChat.StreamJson.Deserialize.ExtraFields",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 bool FJsonTestDeserializeExtraFields::RunTest(const FString& Parameters)
 {
     {
@@ -223,7 +223,7 @@ bool FJsonTestDeserializeExtraFields::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FJsonTestSerializeBasicTypes,
     "StreamChat.StreamJson.Serialize.BasicTypes",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 bool FJsonTestSerializeBasicTypes::RunTest(const FString& Parameters)
 {
     const FTestJson Obj = {
@@ -238,7 +238,7 @@ bool FJsonTestSerializeBasicTypes::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FJsonTestSerializeUpperCamelCasePropNames,
     "StreamChat.StreamJson.Serialize.UpperCamelCasePropNames",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 bool FJsonTestSerializeUpperCamelCasePropNames::RunTest(const FString& Parameters)
 {
     const FTestJson Obj = {
@@ -253,7 +253,7 @@ bool FJsonTestSerializeUpperCamelCasePropNames::RunTest(const FString& Parameter
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FJsonTestSerializeUpperCamelCaseEnumValues,
     "StreamChat.StreamJson.Serialize.UpperCamelCaseEnumValues",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 bool FJsonTestSerializeUpperCamelCaseEnumValues::RunTest(const FString& Parameters)
 {
     constexpr FTestEnum Obj{ETestEnum::SecondEnumValue};
@@ -266,7 +266,7 @@ bool FJsonTestSerializeUpperCamelCaseEnumValues::RunTest(const FString& Paramete
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FJsonTestSerializeSnakeCaseEnumValues,
     "StreamChat.StreamJson.Serialize.SnakeCaseEnumValues",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 bool FJsonTestSerializeSnakeCaseEnumValues::RunTest(const FString& Parameters)
 {
     constexpr FTestEnum Obj{ETestEnum::SecondEnumValue};
@@ -279,7 +279,7 @@ bool FJsonTestSerializeSnakeCaseEnumValues::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FJsonTestSerializeNestedSnakeCaseEnumValues,
     "StreamChat.StreamJson.Serialize.NestedSnakeCaseEnumValues",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 bool FJsonTestSerializeNestedSnakeCaseEnumValues::RunTest(const FString& Parameters)
 {
     constexpr FTestNestedEnum Obj{{ETestEnum::SecondEnumValue}};
@@ -292,7 +292,7 @@ bool FJsonTestSerializeNestedSnakeCaseEnumValues::RunTest(const FString& Paramet
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FJsonTestSerializeAdditionalFields,
     "StreamChat.StreamJson.Serialize.AdditionalFields",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 bool FJsonTestSerializeAdditionalFields::RunTest(const FString& Parameters)
 {
     FAdditionalFields Fields;
@@ -313,7 +313,7 @@ bool FJsonTestSerializeAdditionalFields::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FJsonTestSerializeExtraFields,
     "StreamChat.StreamJson.Serialize.ExtraFields",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 bool FJsonTestSerializeExtraFields::RunTest(const FString& Parameters)
 {
     {

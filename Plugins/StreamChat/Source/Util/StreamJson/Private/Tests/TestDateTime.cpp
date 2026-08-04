@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #include "Misc/AutomationTest.h"
 #include "StreamJson.h"
@@ -9,7 +9,7 @@
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FJsonDateTimeTest,
     "StreamChat.StreamJson.Deserialize.DateTime",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 bool FJsonDateTimeTest::RunTest(const FString& Parameters)
 {
     {

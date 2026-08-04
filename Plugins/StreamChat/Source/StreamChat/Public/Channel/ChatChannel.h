@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -15,6 +15,7 @@
 #include "Message.h"
 #include "MessagePaginationOptions.h"
 #include "PaginationOptions.h"
+#include "Templates/IsInvocable.h"
 #include "User/UserPaginationOptions.h"
 #include "User/UserRef.h"
 

@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -54,6 +54,10 @@ struct STREAMCHATDTO_API FUserDto
     /// Whether a user should appear online or not
     UPROPERTY()
     bool bInvisible = false;
+
+    /// Ids of the users that this user has blocked
+    UPROPERTY()
+    TArray<FString> BlockedUserIds;
 
     /// Preferred language of a user
     UPROPERTY()

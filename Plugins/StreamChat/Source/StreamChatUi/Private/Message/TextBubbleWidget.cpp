@@ -1,7 +1,8 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #include "Message/TextBubbleWidget.h"
 
+#include "Framework/Application/SlateApplication.h"
 #include "ThemeDataAsset.h"
 
 UTextBubbleWidget::UTextBubbleWidget()

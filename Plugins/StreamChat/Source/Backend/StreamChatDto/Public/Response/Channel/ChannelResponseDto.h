@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -51,6 +51,10 @@ struct FChannelResponseDto
     /// The date of channel deletion
     UPROPERTY()
     FDateTime DeletedAt = FDateTime{0};
+
+    /// Whether this channel is blocked, which happens when the current user has blocked the other member of a 1-on-1 channel
+    UPROPERTY()
+    bool bBlocked = false;
 
     UPROPERTY()
     bool bDisabled = false;

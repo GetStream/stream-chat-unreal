@@ -1,10 +1,10 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #include "HttpClient.h"
 #include "JsonPlaceholderPost.h"
 #include "Misc/AutomationTest.h"
 
-BEGIN_DEFINE_SPEC(FHttpRequestsSpec, "StreamChat.HttpRequests", EAutomationTestFlags::ProductFilter | EAutomationTestFlags::ApplicationContextMask)
+BEGIN_DEFINE_SPEC(FHttpRequestsSpec, "StreamChat.HttpRequests", EAutomationTestFlags::ProductFilter | EAutomationTestFlags_ApplicationContextMask)
 TSharedRef<FHttpClient> Client = MakeShared<FHttpClient>();
 const int32 TotalSimultaneousRequests = 20;
 TArray<FHttpResponse> SimultaneousResponses;
@@ -98,7 +98,8 @@ void FHttpRequestsSpec::Define()
                     Client->Post(TEXT("https://jsonplaceholder.typicode.com/posts"))
                         .Json(FJsonPlaceholderPost{FakeUserId, -1, FakeTitle, FakeBody}, ENamingConvention::UpperCamelCase)
                         .Send(
-                            [=](const FHttpResponse Response)
+                            // TestDone is captured by value because the response arrives after the enclosing scope is gone
+                            [this, TestDone, FakeUserId, FakeTitle, FakeBody](const FHttpResponse Response)
                             {
                                 AddInfo(Response.Text);
                                 TestEqual("Response code", Response.StatusCode, 201);

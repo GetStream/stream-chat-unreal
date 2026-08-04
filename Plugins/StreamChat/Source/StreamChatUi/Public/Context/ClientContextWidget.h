@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 // Fill out your copyright notice in the Description page of Project Settings.
 
@@ -19,6 +19,8 @@ class STREAMCHATUI_API UClientContextWidget final : public UContextWidget
     GENERATED_BODY()
 
 public:
+    UClientContextWidget();
+
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(UStreamChatClientComponent* InClient);
     static UClientContextWidget* Get(const UWidget* Widget);

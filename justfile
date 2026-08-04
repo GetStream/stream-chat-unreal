@@ -23,13 +23,31 @@ convert-svg:
 # On mac you need to install inkscape: brew install inkscape
 # And symlink the CLI: ln -s /Applications/Inkscape.app/Contents/MacOS/inkscape /usr/local/bin/inkscape
 
-# Format .cpp/.h files using clang-format
+# Format .cpp/.h files using the same clang-format version CI checks with
 format:
-    git ls-files '*.cpp' '*.h' | xargs clang-format -i
+    #!/usr/bin/env bash
+    set -euo pipefail
+    # CI lints with a pinned clang-format, and versions disagree on things like how TEXT() string
+    # continuations are wrapped, so formatting with a different one produces a red build.
+    WANT=$(grep -oE 'clangFormatVersion: *[0-9]+' .github/workflows/ci.yml | grep -oE '[0-9]+$')
+    CF="${CLANG_FORMAT:-clang-format}"
+    if ! command -v "$CF" > /dev/null; then
+        echo "clang-format not found. Install the version CI uses with: pip install clang-format==$WANT.0.1" >&2
+        exit 1
+    fi
+    GOT=$("$CF" --version | grep -oE '[0-9]+' | head -1)
+    if [[ "$GOT" != "$WANT" ]]; then
+        echo "clang-format $GOT found, but CI lints with $WANT, and they format differently." >&2
+        echo "Install the pinned version and point CLANG_FORMAT at it:" >&2
+        echo "  pip install clang-format==$WANT.0.1" >&2
+        echo "  CLANG_FORMAT=\$(python3 -c 'import clang_format,os;print(os.path.join(os.path.dirname(clang_format.__file__),\"data\",\"bin\",\"clang-format\"))') just format" >&2
+        exit 1
+    fi
+    git ls-files '*.cpp' '*.h' | xargs "$CF" -i
 
 # Add copyright notice to all cs, cpp and h files
 fix-copyright:
-    for f in $(rg -t cpp -t h -t cs -g '!ThirdParty' --files-without-match -F "Copyright 2022 Stream.IO, Inc. All Rights Reserved."); do dos2unix $f; sed -i '' '1s;^;// Copyright 2022 Stream.IO, Inc. All Rights Reserved.\n\n;' $f; done
+    for f in $(rg -t cpp -t h -t cs -g '!ThirdParty' --files-without-match -F "Copyright 2026 Stream.IO, Inc. All Rights Reserved."); do dos2unix $f; sed -i '' '1s;^;// Copyright 2026 Stream.IO, Inc. All Rights Reserved.\n\n;' $f; done
 
 bump-version version:
     #!/usr/bin/env node
@@ -43,9 +61,8 @@ bump-version version:
     const fs = require('fs');
     for (const fileName of [
         "./Plugins/StreamChat/StreamChat.uplugin",
-        "./Plugins/StreamChat/StreamChat.uplugin.4.27",
-        "./Plugins/StreamChat/StreamChat.uplugin.5.0",
-        "./Plugins/StreamChat/StreamChat.uplugin.5.1",
+        "./Plugins/StreamChat/StreamChat.uplugin.5.7",
+        "./Plugins/StreamChat/StreamChat.uplugin.5.8",
     ]) {
         const data = fs.readFileSync(fileName);
         const file = JSON.parse(data);
@@ -77,3 +94,94 @@ create-release-branch version: (bump-version version)
 set-engine version:
     cp StreamChatSample.uproject.{{version}} StreamChatSample.uproject
     cp Plugins/StreamChat/StreamChat.uplugin.{{version}} Plugins/StreamChat/StreamChat.uplugin
+
+# ---------------------------------------------------------------------------
+# Running the demos
+# ---------------------------------------------------------------------------
+
+# Locate an Unreal Engine install. Override with: UE_ROOT=/path/to/UE_5.8 just demo
+_engine:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if [[ -n "${UE_ROOT:-}" ]]; then
+        if [[ ! -x "$UE_ROOT/Engine/Build/BatchFiles/Mac/Build.sh" && ! -f "$UE_ROOT/Engine/Build/BatchFiles/Build.bat" ]]; then
+            echo "UE_ROOT is set to '$UE_ROOT' but that does not look like an engine install." >&2
+            exit 1
+        fi
+        echo "$UE_ROOT"; exit 0
+    fi
+    # Ask the Epic launcher where it installed the engine
+    for manifest in \
+        "$HOME/Library/Application Support/Epic/UnrealEngineLauncher/LauncherInstalled.dat" \
+        "/c/ProgramData/Epic/UnrealEngineLauncher/LauncherInstalled.dat" \
+        "/mnt/c/ProgramData/Epic/UnrealEngineLauncher/LauncherInstalled.dat"; do
+        if [[ -f "$manifest" ]]; then
+            # Pick the highest engine version, not the alphabetically-last install path
+            found=$(python3 -c 'import json,re,sys; d=json.load(open(sys.argv[1])); ue=[((int(m.group(1)),int(m.group(2))), i["InstallLocation"]) for i in d.get("InstallationList",[]) for m in [re.fullmatch(r"UE_(\d+)\.(\d+)", i.get("AppName",""))] if m]; print(sorted(ue)[-1][1] if ue else "")' "$manifest" 2>/dev/null || true)
+            if [[ -n "$found" && -d "$found" ]]; then echo "$found"; exit 0; fi
+        fi
+    done
+    # Fall back to the default install locations, newest first
+    for candidate in "/Users/Shared/Epic Games/UE_5.8" "/Users/Shared/Epic Games/UE_5.7" \
+                     "/c/Program Files/Epic Games/UE_5.8" "/c/Program Files/Epic Games/UE_5.7"; do
+        if [[ -d "$candidate" ]]; then echo "$candidate"; exit 0; fi
+    done
+    echo "Could not find an Unreal Engine install. Set UE_ROOT, e.g.:" >&2
+    echo "  UE_ROOT='/Users/Shared/Epic Games/UE_5.8' just demo" >&2
+    exit 1
+
+# Print the detected engine path
+engine:
+    @just _engine
+
+# Compile the editor target. Needed once before running a demo, and after any C++ change.
+build-editor:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    UE="$(just _engine)"
+    echo "==> Using engine: $UE"
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        "$UE/Engine/Build/BatchFiles/Mac/Build.sh" StreamChatSampleEditor Mac Development -project="$PWD/StreamChatSample.uproject" -waitmutex
+    elif [[ "$OSTYPE" == "linux"* ]]; then
+        "$UE/Engine/Build/BatchFiles/Linux/Build.sh" StreamChatSampleEditor Linux Development -project="$PWD/StreamChatSample.uproject" -waitmutex
+    else
+        "$UE/Engine/Build/BatchFiles/Build.bat" StreamChatSampleEditor Win64 Development -project="$PWD/StreamChatSample.uproject" -waitmutex
+    fi
+
+# Run the Team Chat demo in a standalone game window. This is the one to start with.
+demo: (run "team-chat")
+
+# Run a demo: team-chat | in-game-chat | jumpy-lion | tutorial
+run sample="team-chat":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    case "{{sample}}" in
+      team-chat)    MAP=/Game/TeamChatSample/Maps/TeamChatSample ;;
+      in-game-chat) MAP=/Game/InGameChatSample/Maps/InGameChatSample ;;
+      jumpy-lion)   MAP=/Game/JumpyLion/Maps/JumpyLion ;;
+      tutorial)     MAP=/Game/Tutorial/Maps/Tutorial ;;
+      *) echo "Unknown demo '{{sample}}'. Choose: team-chat | in-game-chat | jumpy-lion | tutorial" >&2; exit 1 ;;
+    esac
+    UE="$(just _engine)"
+    echo "==> Running {{sample}} ($MAP)"
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        EDITOR="$UE/Engine/Binaries/Mac/UnrealEditor"
+    elif [[ "$OSTYPE" == "linux"* ]]; then
+        EDITOR="$UE/Engine/Binaries/Linux/UnrealEditor"
+    else
+        EDITOR="$UE/Engine/Binaries/Win64/UnrealEditor.exe"
+    fi
+    "$EDITOR" "$PWD/StreamChatSample.uproject" "$MAP" -game -windowed -ResX=1280 -ResY=800
+
+# Open the project in the Unreal Editor
+edit:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    UE="$(just _engine)"
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        open -a "$UE/Engine/Binaries/Mac/UnrealEditor.app" --args "$PWD/StreamChatSample.uproject"
+    elif [[ "$OSTYPE" == "linux"* ]]; then
+        "$UE/Engine/Binaries/Linux/UnrealEditor" "$PWD/StreamChatSample.uproject"
+    else
+        "$UE/Engine/Binaries/Win64/UnrealEditor.exe" "$PWD/StreamChatSample.uproject"
+    fi

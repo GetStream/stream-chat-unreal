@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #include "Reaction/ReactionPickerButtonWidget.h"
 
@@ -29,12 +29,14 @@ void UReactionPickerButtonWidget::NativePreConstruct()
     Super::NativePreConstruct();
     if (Button)
     {
-        Button->WidgetStyle.Normal.DrawAs = ESlateBrushDrawType::NoDrawType;
-        Button->WidgetStyle.Pressed.DrawAs = ESlateBrushDrawType::Box;
-        Button->WidgetStyle.Hovered.DrawAs = ESlateBrushDrawType::Box;
-        Button->WidgetStyle.Normal.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->ReactionPickerBackgroundColor)};
-        Button->WidgetStyle.Pressed.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->ReactionPickerSelectedColor)};
-        Button->WidgetStyle.Hovered.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->ReactionPickerSelectedColor)};
+        FButtonStyle Style = Button->GetStyle();
+        Style.Normal.DrawAs = ESlateBrushDrawType::NoDrawType;
+        Style.Pressed.DrawAs = ESlateBrushDrawType::Box;
+        Style.Hovered.DrawAs = ESlateBrushDrawType::Box;
+        Style.Normal.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->ReactionPickerBackgroundColor)};
+        Style.Pressed.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->ReactionPickerSelectedColor)};
+        Style.Hovered.TintColor = FSlateColor{GetTheme()->GetPaletteColor(GetTheme()->ReactionPickerSelectedColor)};
+        Button->SetStyle(Style);
     }
 }
 

@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #include "Containers/UnrealString.h"
 #include "CoreTypes.h"
@@ -10,7 +10,7 @@
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FParseQueryTest,
     "StreamChat.HttpRequests.QueryUtils.Parse query",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 
 bool FParseQueryTest::RunTest(const FString& Parameters)
 {
@@ -37,7 +37,7 @@ bool FParseQueryTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FAddQueryToUrlTest,
     "StreamChat.HttpRequests.QueryUtils.Add query to URL",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 
 bool FAddQueryToUrlTest::RunTest(const FString& Parameters)
 {

@@ -1,11 +1,11 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Detail/JsonAttributes.h"
 
 class FJsonValue;
-class FJsonObject;
 
 /**
  * @brief Handles converting Json objects to UStructs
@@ -48,7 +48,7 @@ bool JsonObjectToUStruct(const TSharedRef<FJsonObject>& JsonObject, OutStructTyp
  *
  * @return False if any properties matched but failed to deserialize
  */
-bool JsonAttributesToUStruct(const TMap<FString, TSharedPtr<FJsonValue>>& JsonAttributes, const UStruct* StructDefinition, void* OutStruct);
+bool JsonAttributesToUStruct(const FJsonAttributeMap& JsonAttributes, const UStruct* StructDefinition, void* OutStruct);
 
 /**
  * @brief Converts from a json string containing an object to a UStruct

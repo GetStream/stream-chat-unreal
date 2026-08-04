@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -15,6 +15,7 @@
 #include "IChatSocket.h"
 #include "Moderation/BanPaginationOptions.h"
 #include "PaginationOptions.h"
+#include "Templates/IsInvocable.h"
 #include "User/OwnUser.h"
 #include "User/User.h"
 
@@ -322,17 +323,10 @@ public:
     using TEventMulticastDelegate = TMulticastDelegate<void(const TEvent& Event)>;
     template <class TEvent>
     using TEventDelegate = typename TEventMulticastDelegate<TEvent>::FDelegate;
-#if ENGINE_MAJOR_VERSION == 4 && ENGINE_MINOR_VERSION <= 27
-    template <class TEvent, class UserClass>
-    using TEventDelegateUObjectMethodPtr = typename TEventDelegate<TEvent>::template TUObjectMethodDelegate<UserClass>::FMethodPtr;
-    template <class TEvent, class UserClass>
-    using TEventDelegateSpMethodPtr = typename TEventDelegate<TEvent>::template TSPMethodDelegate<UserClass>::FMethodPtr;
-#else
     template <class TEvent, class UserClass>
     using TEventDelegateUObjectMethodPtr = typename TEventDelegate<TEvent>::template TMethodPtr<UserClass>;
     template <class TEvent, class UserClass>
     using TEventDelegateSpMethodPtr = typename TEventDelegate<TEvent>::template TMethodPtr<UserClass>;
-#endif
 
     /// Subscribe to a client event using your own delegate object
     template <class TEvent>
@@ -474,6 +468,32 @@ public:
      */
     UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client")
     void UnmuteUser(const FUserRef& User) const;
+
+    /**
+     * @brief Block a user
+     *
+     * Every 1-on-1 channel shared with that user is hidden from the blocking user, and their events
+     * and push notifications no longer arrive. Group channels are unaffected.
+     *
+     * @param User A reference to a user
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client|Moderation")
+    void BlockUser(const FUserRef& User) const;
+
+    /**
+     * @brief Unblock a previously blocked user
+     *
+     * @param User A reference to a user
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Client|Moderation")
+    void UnblockUser(const FUserRef& User) const;
+
+    /**
+     * @brief Get the users blocked by the currently connected user
+     *
+     * @param Callback Called with the ids of the blocked users
+     */
+    void GetBlockedUsers(TFunction<void(const TArray<FString>&)> Callback) const;
 
     ///@}
 #pragma endregion Moderation

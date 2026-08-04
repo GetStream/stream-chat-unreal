@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #include "Common/Html/HtmlParser.h"
 #include "Common/Html/HtmlRichTextMarkupParser.h"
@@ -11,7 +11,7 @@
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FHtmlParserTest,
     "StreamChat.Html.HtmlParser",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 
 bool FHtmlParserTest::RunTest(const FString& Parameters)
 {
@@ -317,7 +317,7 @@ bool FHtmlParserTest::RunTest(const FString& Parameters)
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FHtmlRichTextMarkupParserTest,
     "StreamChat.Html.RichTextMarkupParser",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 
 bool FHtmlRichTextMarkupParserTest::RunTest(const FString& Parameters)
 {

@@ -1,10 +1,17 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Context/ClientContextWidget.h"
 
 #include "WidgetUtil.h"
+
+UClientContextWidget::UClientContextWidget()
+{
+    // This context wraps a whole screen, so it is the one that should clear the notch and the home
+    // indicator. Nested contexts leave bApplySafeAreaPadding off to avoid insetting twice.
+    bApplySafeAreaPadding = true;
+}
 
 void UClientContextWidget::Setup(UStreamChatClientComponent* InClient)
 {

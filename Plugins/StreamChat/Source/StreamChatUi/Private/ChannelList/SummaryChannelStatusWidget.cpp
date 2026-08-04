@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #include "ChannelList/SummaryChannelStatusWidget.h"
 
@@ -10,11 +10,7 @@ namespace
 {
 const FSlateFontInfo& GetFont(UTextBlock* TextBlock)
 {
-#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 1
     return TextBlock->GetFont();
-#else
-    return TextBlock->Font;
-#endif
 }
 }    // namespace
 

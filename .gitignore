@@ -62,6 +62,9 @@ Build/**/*.*
 
 !Build/**/*.properties
 
+# The iOS launch screen is authored here; only the compiled .storyboardc is a build artifact
+!Build/**/*.storyboard
+
 # Used to codesign macOS packaged builds
 !Build/Mac/entitlements.plist
 

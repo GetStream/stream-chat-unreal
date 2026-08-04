@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #include "NamingConventionConversion.h"
 
@@ -77,7 +77,7 @@ FString NamingConventionConversion::ConvertNameToSnakeCase(const FStringView InN
             {
                 break;
             }
-            SnakeCaseName.RemoveAt(CharIndex, 1, false);
+            SnakeCaseName.RemoveAt(CharIndex, 1, EAllowShrinking::No);
         }
 
         PrevBreak = NameBreak;

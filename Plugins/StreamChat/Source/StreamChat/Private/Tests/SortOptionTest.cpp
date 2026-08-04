@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #include "Channel/ChannelSortOption.h"
 #include "CoreTypes.h"
@@ -12,7 +12,7 @@
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     FSortOptionToJsonTest,
     "StreamChat.SortOption.Convert to JSON",
-    EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter)
+    EAutomationTestFlags_ApplicationContextMask | EAutomationTestFlags::ProductFilter)
 
 bool FSortOptionToJsonTest::RunTest(const FString& Parameters)
 {

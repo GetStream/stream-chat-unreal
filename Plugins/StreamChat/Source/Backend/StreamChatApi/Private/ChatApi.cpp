@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #include "ChatApi.h"
 
@@ -18,6 +18,7 @@
 #include "Request/Message/SendMessageRequestDto.h"
 #include "Request/Message/UpdateMessageRequestDto.h"
 #include "Request/Moderation/BanRequestDto.h"
+#include "Request/Moderation/BlockUserRequestDto.h"
 #include "Request/Moderation/FlagRequestDto.h"
 #include "Request/Moderation/MuteChannelRequestDto.h"
 #include "Request/Moderation/MuteUserRequestDto.h"
@@ -41,7 +42,9 @@
 #include "Response/Event/EventResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
+#include "Response/Moderation/BlockUserResponseDto.h"
 #include "Response/Moderation/FlagResponseDto.h"
+#include "Response/Moderation/GetBlockedUsersResponseDto.h"
 #include "Response/Moderation/MuteChannelResponseDto.h"
 #include "Response/Moderation/MuteUserResponseDto.h"
 #include "Response/Moderation/QueryBannedUsersResponseDto.h"
@@ -195,6 +198,26 @@ void FChatApi::UnmuteChannels(const TArray<FString>& TargetCids, const TCallback
     const FString Url = BuildUrl(TEXT("moderation/unmute/channel"));
     const FMuteChannelRequestDto Body{TargetCids};
     Client->Post(Url).Json(Body).Send(Callback);
+}
+
+void FChatApi::BlockUser(const FString& TargetUserId, const TCallback<FBlockUserResponseDto> Callback) const
+{
+    const FString Url = BuildUrl(TEXT("users/block"));
+    const FBlockUserRequestDto Body{TargetUserId};
+    Client->Post(Url).Json(Body).Send(Callback);
+}
+
+void FChatApi::UnblockUser(const FString& TargetUserId, const TCallback<FResponseDto> Callback) const
+{
+    const FString Url = BuildUrl(TEXT("users/unblock"));
+    const FBlockUserRequestDto Body{TargetUserId};
+    Client->Post(Url).Json(Body).Send(Callback);
+}
+
+void FChatApi::GetBlockedUsers(const TCallback<FGetBlockedUsersResponseDto> Callback) const
+{
+    const FString Url = BuildUrl(TEXT("users/block"));
+    Client->Get(Url).Send(Callback);
 }
 
 void FChatApi::QueryUsers(

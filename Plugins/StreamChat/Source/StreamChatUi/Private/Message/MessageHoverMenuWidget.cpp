@@ -1,4 +1,4 @@
-// Copyright 2022 Stream.IO, Inc. All Rights Reserved.
+// Copyright 2026 Stream.IO, Inc. All Rights Reserved.
 
 #include "Message/MessageHoverMenuWidget.h"
 
@@ -49,13 +49,17 @@ void UMessageHoverMenuWidget::OnSetup()
 
     if (OptionsButton)
     {
-        OptionsButton->WidgetStyle.NormalPadding = {};
-        OptionsButton->WidgetStyle.PressedPadding = {};
+        FButtonStyle Style = OptionsButton->GetStyle();
+        Style.NormalPadding = {};
+        Style.PressedPadding = {};
+        OptionsButton->SetStyle(Style);
     }
     if (ReactionButton)
     {
-        ReactionButton->WidgetStyle.NormalPadding = {};
-        ReactionButton->WidgetStyle.PressedPadding = {};
+        FButtonStyle Style = ReactionButton->GetStyle();
+        Style.NormalPadding = {};
+        Style.PressedPadding = {};
+        ReactionButton->SetStyle(Style);
     }
 
     if (ReactionMenuAnchor)
