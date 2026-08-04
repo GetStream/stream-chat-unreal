@@ -25,10 +25,8 @@
 var NAVTREE =
 [
   [ "Stream Chat Unreal SDK", "index.html", [
-    [ "Stream Chat Unreal C++ SDK Documentation", "index.html", [
-      [ "More information", "index.html#autotoc_md1", null ]
-    ] ],
-    [ "Modules", "modules.html", "modules" ],
+    [ "Stream Chat Unreal C++ SDK Documentation", "index.html", "index" ],
+    [ "Topics", "topics.html", "topics" ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -52,9 +50,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a19bb0af2c3c530538cb41aff7f235b96",
-"struct_f_delete_channel_response_dto.html",
-"struct_f_search_request_dto.html#af35fd26ede54ad31e28fc24232d3be83"
+"group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa917470f33aa08d56080ec48f1edb2c6b",
+"struct_f_channel_state.html#a591082f72ff629a497d40ab526c79145",
+"struct_f_reaction_group.html#af442f6d95071418868a78017b1e1206b"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

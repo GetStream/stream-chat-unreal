@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['stream_20chat_0',['Stream Chat',['../group___stream_chat.html',1,'']]]
+  ['json_0',['JSON',['../group___stream_chat_json.html',1,'']]]
 ];

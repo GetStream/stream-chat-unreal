@@ -13,6 +13,7 @@ var struct_f_user =
     [ "BanExpires", "struct_f_user.html#a7c6905c0374bd38c926c50be07a01bc8", null ],
     [ "bBanned", "struct_f_user.html#adb815a310fc4a1bb89b454adf075450d", null ],
     [ "bInvisible", "struct_f_user.html#a73e81750f09c7f54f9fd810f53196421", null ],
+    [ "BlockedUserIds", "struct_f_user.html#af7e9163bdbf7018075757f21e7043024", null ],
     [ "bOnline", "struct_f_user.html#ac369595516b6f561144f92c50d95ca7a", null ],
     [ "CreatedAt", "struct_f_user.html#afe39d344b0fc2db6e265feb8700424ce", null ],
     [ "DeactivatedAt", "struct_f_user.html#a107e3550167fb3f95fc239a37080aaf1", null ],

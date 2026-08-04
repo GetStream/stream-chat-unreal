@@ -111,6 +111,9 @@ var group___stream_chat_dto =
       [ "Timeout", "struct_f_ban_request_dto.html#acc298ef71ffc7e557573a5cadf574887", null ],
       [ "Type", "struct_f_ban_request_dto.html#a25120bf3356c025f7a359aeada0d3c4d", null ]
     ] ],
+    [ "FBlockUserRequestDto", "struct_f_block_user_request_dto.html", [
+      [ "BlockedUserId", "struct_f_block_user_request_dto.html#a2f89825884eac3e043fbd81b1cadf16c", null ]
+    ] ],
     [ "FFlagRequestDto", "struct_f_flag_request_dto.html", [
       [ "TargetMessageId", "struct_f_flag_request_dto.html#a1c18b9004f6e1c8bb9dc1151f3135ea4", null ],
       [ "TargetUserId", "struct_f_flag_request_dto.html#a0084634d43a100ad0339747db5e5d569", null ]
@@ -200,6 +203,7 @@ var group___stream_chat_dto =
     [ "FChannelResponseDto", "struct_f_channel_response_dto.html", [
       [ "AutoTranslationLanguage", "struct_f_channel_response_dto.html#ab19afd64e7b5fabb2a59be6f62727526", null ],
       [ "bAutoTranslationEnabled", "struct_f_channel_response_dto.html#a04db63f9af490deb9b66315328a72be7", null ],
+      [ "bBlocked", "struct_f_channel_response_dto.html#a6dab0cf69e6e9a953d37381bc8d9b2ea", null ],
       [ "bFrozen", "struct_f_channel_response_dto.html#ab4bcd6cee8af9e4a6ac707e002810d7d", null ],
       [ "bHidden", "struct_f_channel_response_dto.html#a973ad9b6a6615208024d2d0102a98bef", null ],
       [ "bMuted", "struct_f_channel_response_dto.html#a8b27bdb8375fa2093b682f03d04167d2", null ],
@@ -321,6 +325,12 @@ var group___stream_chat_dto =
       [ "WarningDescription", "struct_f_search_warning_dto.html#a2a869f9170376cf1c2587bcffc824cdb", null ]
     ] ],
     [ "FBanResponseDto", "struct_f_ban_response_dto.html", null ],
+    [ "FBlockUserResponseDto", "struct_f_block_user_response_dto.html", [
+      [ "BlockedByUserId", "struct_f_block_user_response_dto.html#a4add95c7d0d06329927338598c9e256f", null ],
+      [ "BlockedUserId", "struct_f_block_user_response_dto.html#a24687ea15f694c0368961a43cd5b9b8b", null ],
+      [ "CreatedAt", "struct_f_block_user_response_dto.html#a0749ad63f29a29e9417a6d9de2ddf4e1", null ],
+      [ "Duration", "struct_f_block_user_response_dto.html#a4c1c4e8b3fd78b18a2d9741b04a8fb8c", null ]
+    ] ],
     [ "FChannelMuteDto", "struct_f_channel_mute_dto.html", [
       [ "CreatedAt", "struct_f_channel_mute_dto.html#abad8e05950719a3fa7386519f67df981", null ],
       [ "Expires", "struct_f_channel_mute_dto.html#a955759157aa710d3258d06bf809d7044", null ],
@@ -334,6 +344,17 @@ var group___stream_chat_dto =
       [ "UpdatedAt", "struct_f_flag_dto.html#a0fc05c7d6c5644058b66406d097acfb7", null ]
     ] ],
     [ "FFlagResponseDto", "struct_f_flag_response_dto.html", null ],
+    [ "FBlockedUserDto", "struct_f_blocked_user_dto.html", [
+      [ "BlockedUser", "struct_f_blocked_user_dto.html#a3499d15ced1a5dc6d68c089262504ecd", null ],
+      [ "BlockedUserId", "struct_f_blocked_user_dto.html#abc1e93c6fe4252ce9a0ed309d4b97529", null ],
+      [ "CreatedAt", "struct_f_blocked_user_dto.html#a1b767339388f7124d5aae5de166cb4b5", null ],
+      [ "User", "struct_f_blocked_user_dto.html#abcf8e120ed512755f60f8edba54e255a", null ],
+      [ "UserId", "struct_f_blocked_user_dto.html#ab694a496967b2b31cbba39c03764c2cc", null ]
+    ] ],
+    [ "FGetBlockedUsersResponseDto", "struct_f_get_blocked_users_response_dto.html", [
+      [ "Blocks", "struct_f_get_blocked_users_response_dto.html#a2f308676a41cde9679282cfd7e91acd8", null ],
+      [ "Duration", "struct_f_get_blocked_users_response_dto.html#a06b76df14de9507f14f466537ae08305", null ]
+    ] ],
     [ "FMuteChannelResponseDto", "struct_f_mute_channel_response_dto.html", [
       [ "ChannelMute", "struct_f_mute_channel_response_dto.html#a2dd1213e43edfa493c61d7f18c289223", null ],
       [ "ChannelMutes", "struct_f_mute_channel_response_dto.html#a2703442908954c9ae00a18475a8cc16f", null ],
@@ -379,6 +400,7 @@ var group___stream_chat_dto =
       [ "BanExpires", "struct_f_user_dto.html#ab57d983041773f465a9096b6a4b52376", null ],
       [ "bBanned", "struct_f_user_dto.html#a53526facbe994dbb37b206805bf734af", null ],
       [ "bInvisible", "struct_f_user_dto.html#a4f1faf35f061f86a8fe192df346bcae1", null ],
+      [ "BlockedUserIds", "struct_f_user_dto.html#af8bb8206c171c75539f426540601b60d", null ],
       [ "Id", "struct_f_user_dto.html#a9fc9adaed04a41d8b5a6fdf10c9fd001", null ],
       [ "Language", "struct_f_user_dto.html#a167692c46414a4861aa6acc232a18e3c", null ],
       [ "RevokeTokensIssuedBefore", "struct_f_user_dto.html#a739ec7a197f0b56b74e1d3cae92bb9d2", null ],

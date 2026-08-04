@@ -6,14 +6,14 @@ var namespaces_dup =
       [ "UStructToJsonObject", "namespace_json_object.html#a60b6f2811146e94a037e5be463889220", null ]
     ] ],
     [ "JsonObjectDeserialization", "namespace_json_object_deserialization.html", [
-      [ "JsonAttributesToUStruct", "namespace_json_object_deserialization.html#aa967aad31db1226f487e9aae978d96c7", null ],
+      [ "JsonAttributesToUStruct", "namespace_json_object_deserialization.html#ac70b06dc46c5e7a0e07fc855406f4262", null ],
       [ "JsonObjectStringToJsonObject", "namespace_json_object_deserialization.html#a890e1afb0fb819bbcd81f9f243ba485e", null ],
       [ "JsonObjectStringToUStruct", "namespace_json_object_deserialization.html#a08062e6c8c6fbd0e62c191de29d54772", null ],
       [ "JsonObjectToUStruct", "namespace_json_object_deserialization.html#aaceeb85c66719a2de40d176517ac19cb", null ],
       [ "JsonObjectToUStruct", "namespace_json_object_deserialization.html#a6297bc5a072f30410a3c2b26f3fdf246", null ]
     ] ],
     [ "JsonObjectSerialization", "namespace_json_object_serialization.html", [
-      [ "UStructToJsonAttributes", "namespace_json_object_serialization.html#ac6ece5ebd6cb1cada8e3b949cdffbc31", null ]
+      [ "UStructToJsonAttributes", "namespace_json_object_serialization.html#a26ab6f4753f8878608793ad82f850ff3", null ]
     ] ],
     [ "Jwt", "namespace_jwt.html", [
       [ "Development", "namespace_jwt.html#ae46dfb72a31d89e7cb2cdf66e534490a", null ]

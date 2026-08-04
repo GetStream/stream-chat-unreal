@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['query_0',['Query',['../class_u_chat_channel.html#ae5690b0358c30ad8ac99fb37746eadfd',1,'UChatChannel::Query()'],['../group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a66c1b4c7f3dc385b68a9fa903ccd016d',1,'Query():&#160;Filter.h'],['../struct_f_search_request_dto.html#a212dd36831b231bdeb175ee61bac5bfd',1,'FSearchRequestDto::Query()']]],
+  ['query_0',['Query',['../struct_f_search_request_dto.html#a212dd36831b231bdeb175ee61bac5bfd',1,'FSearchRequestDto::Query'],['../class_u_chat_channel.html#ae5690b0358c30ad8ac99fb37746eadfd',1,'UChatChannel::Query()'],['../group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a66c1b4c7f3dc385b68a9fa903ccd016d',1,'Query:&#160;Filter.h']]],
   ['queryadditionalchannels_1',['QueryAdditionalChannels',['../class_u_stream_chat_client_component.html#adba9ca31b5bd31c24da7bbb63a7cfc73',1,'UStreamChatClientComponent']]],
   ['queryadditionalmessages_2',['QueryAdditionalMessages',['../class_u_chat_channel.html#a51c7135aad87cd3184dd8fe0f7733ff1',1,'UChatChannel']]],
   ['querybannedusers_3',['QueryBannedUsers',['../class_f_chat_api.html#a4d6b227fab2a8c7a4bb7a75a4620f54d',1,'FChatApi::QueryBannedUsers()'],['../class_u_stream_chat_client_component.html#a6ddd4f30443b462afb6e9696dc4d4c69',1,'UStreamChatClientComponent::QueryBannedUsers()']]],

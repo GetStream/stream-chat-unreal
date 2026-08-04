@@ -1,4 +1,4 @@
-var modules =
+var topics =
 [
     [ "REST API", "group___stream_chat_api.html", "group___stream_chat_api" ],
     [ "REST API Tests", "group___stream_chat_api_test.html", null ],
