@@ -5,6 +5,7 @@
 #include "WidgetUtil.h"
 #include "Widgets/DeclarativeSyntaxSupport.h"
 #include "Widgets/Layout/SBox.h"
+#include "Widgets/Layout/SSafeZone.h"
 #include "Widgets/SNullWidget.h"
 #include "Widgets/Text/STextBlock.h"
 
@@ -38,6 +39,13 @@ TSharedRef<SWidget> UContextWidget::RebuildWidget()
         {
             MyBox->SetContent(ContentSlot->Content->TakeWidget());
         }
+    }
+
+    if (bApplySafeAreaPadding)
+    {
+        // SSafeZone reads the insets the platform reports and keeps following them across rotations,
+        // so the box is wrapped rather than padded by hand. Content still goes into MyBox either way.
+        return SNew(SSafeZone).IsTitleSafe(true)[MyBox.ToSharedRef()];
     }
 
     return MyBox.ToSharedRef();

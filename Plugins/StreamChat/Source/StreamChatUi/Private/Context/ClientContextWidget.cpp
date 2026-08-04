@@ -6,6 +6,13 @@
 
 #include "WidgetUtil.h"
 
+UClientContextWidget::UClientContextWidget()
+{
+    // This context wraps a whole screen, so it is the one that should clear the notch and the home
+    // indicator. Nested contexts leave bApplySafeAreaPadding off to avoid insetting twice.
+    bApplySafeAreaPadding = true;
+}
+
 void UClientContextWidget::Setup(UStreamChatClientComponent* InClient)
 {
     Client = InClient;

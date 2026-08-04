@@ -19,6 +19,8 @@ class STREAMCHATUI_API UClientContextWidget final : public UContextWidget
     GENERATED_BODY()
 
 public:
+    UClientContextWidget();
+
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(UStreamChatClientComponent* InClient);
     static UClientContextWidget* Get(const UWidget* Widget);
