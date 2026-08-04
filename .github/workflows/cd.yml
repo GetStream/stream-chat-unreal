@@ -314,6 +314,11 @@ jobs:
     needs: [samples, plugin]
     runs-on: macos-latest
 
+    permissions:
+      # release-action creates the v<version> tag and the draft release with GITHUB_TOKEN, so this
+      # job needs write access to contents. The workflow default above stays read only.
+      contents: write
+
     steps:
       - name: 🔎 Determine version
         uses: actions/github-script@v6
