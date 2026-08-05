@@ -51,8 +51,8 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa917470f33aa08d56080ec48f1edb2c6b",
-"struct_f_channel_state.html#a591082f72ff629a497d40ab526c79145",
-"struct_f_reaction_group.html#af442f6d95071418868a78017b1e1206b"
+"struct_f_channel_state.html#a4d408ab5707b05c780eb937cd965e43c",
+"struct_f_reaction_group.html#a8e1dc034c0c1401a8cae04993ea638ad"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

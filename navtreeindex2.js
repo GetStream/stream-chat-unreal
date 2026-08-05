@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"struct_f_channel_state.html#a4d408ab5707b05c780eb937cd965e43c":[1,4,7,4],
 "struct_f_channel_state.html#a591082f72ff629a497d40ab526c79145":[1,4,7,2],
 "struct_f_channel_state.html#a5ea3db97ae2b64801848d07a0671c9b3":[1,4,7,3],
 "struct_f_channel_state.html#a7eb3c589b1a6d6f35541df633ec8245d":[1,4,7,7],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "struct_f_reaction_group.html":[1,4,18],
 "struct_f_reaction_group.html#a71064050fd31523a919aeb33ae65363e":[1,4,18,1],
 "struct_f_reaction_group.html#a7da3ed913174d43c9f59e7fcf5835194":[1,4,18,3],
-"struct_f_reaction_group.html#a86ff335c306dccb3f01db644783bb8fe":[1,4,18,0],
-"struct_f_reaction_group.html#a8e1dc034c0c1401a8cae04993ea638ad":[1,4,18,2]
+"struct_f_reaction_group.html#a86ff335c306dccb3f01db644783bb8fe":[1,4,18,0]
 };

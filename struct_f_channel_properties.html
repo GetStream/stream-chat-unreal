@@ -231,6 +231,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>bFrozen</b> = false</
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>bHidden</b> = false</td></tr>
 <tr class="memdesc:a514bd2b7fb82e715a7a9a39cc6af9276"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether this channel is hidden by current user or not. <br /></td></tr>
 <tr class="separator:a514bd2b7fb82e715a7a9a39cc6af9276"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceb49eb5fc856ef32903f96de44e5bdc" id="r_aceb49eb5fc856ef32903f96de44e5bdc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aceb49eb5fc856ef32903f96de44e5bdc">bBlocked</a> = false</td></tr>
+<tr class="separator:aceb49eb5fc856ef32903f96de44e5bdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acab52295d38cda12370ab68a9daaf0c9" id="r_acab52295d38cda12370ab68a9daaf0c9"><td class="memItemLeft" align="right" valign="top"><a id="acab52295d38cda12370ab68a9daaf0c9" name="acab52295d38cda12370ab68a9daaf0c9"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>bMuted</b> = false</td></tr>
 <tr class="memdesc:acab52295d38cda12370ab68a9daaf0c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether this channel is muted or not. <br /></td></tr>
@@ -267,6 +269,21 @@ FAdditionalFields&#160;</td><td class="memItemRight" valign="bottom"><b>ExtraDat
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Encapsulates the static properties of a channel. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="aceb49eb5fc856ef32903f96de44e5bdc" name="aceb49eb5fc856ef32903f96de44e5bdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aceb49eb5fc856ef32903f96de44e5bdc">&#9670;&#160;</a></span>bBlocked</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FChannelProperties::bBlocked = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Whether the other member of this 1-on-1 channel is blocked by the current user. Only ever true for 1-on-1 channels; blocking does not affect group channels. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="class_u_stream_chat_client_component.html#ad0d67e535099175fee63143356d4c772" title="Block a user.">UStreamChatClientComponent::BlockUser</a> </dd></dl>
+
+</div>
+</div>
 <a id="a1fd2b51b68b8ce926483a882a76e6ab2" name="a1fd2b51b68b8ce926483a882a76e6ab2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1fd2b51b68b8ce926483a882a76e6ab2">&#9670;&#160;</a></span>Id</h2>
 

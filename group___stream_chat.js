@@ -31,6 +31,7 @@ var group___stream_chat =
       [ "SetMembers", "struct_f_channel_properties.html#a5204b02127fb53c81616f9a3ca0a95e9", null ],
       [ "AutoTranslationLanguage", "struct_f_channel_properties.html#a0516cd1e38141aa0176120e6d32716bd", null ],
       [ "bAutoTranslationEnabled", "struct_f_channel_properties.html#af3bc793bbb7a10fcfc9275428ae5a541", null ],
+      [ "bBlocked", "struct_f_channel_properties.html#aceb49eb5fc856ef32903f96de44e5bdc", null ],
       [ "bFrozen", "struct_f_channel_properties.html#ae7942ea7bc29459243c577a6f9d797c4", null ],
       [ "bHidden", "struct_f_channel_properties.html#a514bd2b7fb82e715a7a9a39cc6af9276", null ],
       [ "bMuted", "struct_f_channel_properties.html#acab52295d38cda12370ab68a9daaf0c9", null ],
