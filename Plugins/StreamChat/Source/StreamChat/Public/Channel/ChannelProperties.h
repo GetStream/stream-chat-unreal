@@ -119,6 +119,12 @@ struct STREAMCHAT_API FChannelProperties
     UPROPERTY()
     bool bHidden = false;
 
+    /// Whether the other member of this 1-on-1 channel is blocked by the current user.
+    /// Only ever true for 1-on-1 channels; blocking does not affect group channels.
+    /// @see UStreamChatClientComponent::BlockUser
+    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel Properties")
+    bool bBlocked = false;
+
     /// Whether this channel is muted or not
     UPROPERTY()
     bool bMuted = false;

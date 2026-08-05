@@ -25,6 +25,7 @@ FChannelProperties::FChannelProperties(const FChannelResponseDto& Dto, UUserMana
     , bDisabled{Dto.bDisabled}
     , bFrozen{Dto.bFrozen}
     , bHidden{Dto.bHidden}
+    , bBlocked{Dto.bBlocked}
     , bMuted{Dto.bMuted}
     , MuteExpiresAt{Dto.MuteExpiresAt}
     , HideMessagesBefore{Dto.HideMessagesBefore}
