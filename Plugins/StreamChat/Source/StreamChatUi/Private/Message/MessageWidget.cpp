@@ -136,6 +136,8 @@ void UMessageWidget::OnSetup()
         }
     }
 
+    CreateAttachmentWidgets();
+
     // Align everything in the outer panel to the left or right
     if (AlignPanel)
     {
@@ -195,4 +197,39 @@ void UMessageWidget::NativeOnMouseLeave(const FPointerEvent& InMouseEvent)
 bool UMessageWidget::ShouldDisplayHoverMenu() const
 {
     return HoverMenuTargetPanel && Message.Type != EMessageType::Deleted;
+}
+
+void UMessageWidget::CreateAttachmentWidgets()
+{
+    if (!AlignPanel)
+    {
+        return;
+    }
+
+    for (UAttachmentWidget* Previous : Attachments)
+    {
+        AlignPanel->RemoveChild(Previous);
+    }
+    Attachments.Reset();
+
+    if (Message.Type == EMessageType::Deleted)
+    {
+        return;
+    }
+
+    // WBP_Message has no slot for these, so they go straight into the panel that handles the
+    // left/right alignment, ahead of the bubble. The loop below then aligns them like everything
+    // else in there.
+    int32 Index = 0;
+    for (const FAttachment& Attachment : Message.Attachments)
+    {
+        UAttachmentWidget* Widget = CreateWidget<UAttachmentWidget>(this, AttachmentWidgetClass);
+        Widget->Setup(Attachment, Side);
+
+        if (UVerticalBoxSlot* BoxSlot = Cast<UVerticalBoxSlot>(AlignPanel->InsertChildAt(Index++, Widget)))
+        {
+            BoxSlot->SetPadding(AttachmentPadding);
+        }
+        Attachments.Add(Widget);
+    }
 }

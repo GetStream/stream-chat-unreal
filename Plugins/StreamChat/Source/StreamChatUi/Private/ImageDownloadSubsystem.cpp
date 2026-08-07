@@ -155,13 +155,23 @@ void UImageDownloadSubsystem::DownloadImage(const FString& Url, TFunction<void(U
     const auto OnRequest =
         [WeakThis = TWeakObjectPtr<UImageDownloadSubsystem>(this), Url, Callback](FHttpRequestPtr, const FHttpResponsePtr HttpResponse, const bool bSucceeded)
     {
-        if (!bSucceeded || !HttpResponse.IsValid() || HttpResponse->GetContentLength() <= 0)
+        if (!bSucceeded || !HttpResponse.IsValid())
         {
             Callback(nullptr);
             return;
         }
 
-        UTexture2DDynamic* Texture = TryCreateTexture(HttpResponse->GetContent().GetData(), HttpResponse->GetContentLength());
+        // The received bytes, not GetContentLength(): that reports the Content-Length header, which a
+        // chunked response does not send. Stream's CDN serves images chunked, so trusting the header
+        // threw away every image it returned before it was ever decoded.
+        const TArray<uint8>& Content = HttpResponse->GetContent();
+        if (Content.Num() == 0)
+        {
+            Callback(nullptr);
+            return;
+        }
+
+        UTexture2DDynamic* Texture = TryCreateTexture(Content.GetData(), Content.Num());
         if (!Texture)
         {
             Callback(nullptr);
@@ -212,8 +222,11 @@ void UImageDownloadSubsystem::CacheToDisk(const FString& Url, const FHttpRespons
         return;
     }
 
-    void* Data = const_cast<void*>(static_cast<const void*>(Response->GetContent().GetData()));
-    FileWriter->Serialize(Data, Response->GetContentLength());
+    // Length of what actually arrived, for the same reason as above: a chunked response reports no
+    // Content-Length, and writing that many bytes would truncate the cache entry or worse
+    const TArray<uint8>& Content = Response->GetContent();
+    void* Data = const_cast<void*>(static_cast<const void*>(Content.GetData()));
+    FileWriter->Serialize(Data, Content.Num());
     FileWriter->Close();
 }
 
