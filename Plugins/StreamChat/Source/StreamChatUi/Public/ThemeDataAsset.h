@@ -50,6 +50,22 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Styles|Message Bubble")
     FHtmlElementStyles BubbleHtmlStyles;
 
+    /// The background color of a non-image attachment attached to a message sent by the current user
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Attachment")
+    FName MeAttachmentRowColor = TEXT("borders");
+    /// The background color of a non-image attachment attached to a message sent by another user
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Attachment")
+    FName YouAttachmentRowColor = TEXT("bars-bg");
+    /// The color of the filename of a non-image attachment
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Attachment")
+    FName AttachmentTitleTextColor = TEXT("text-high-emphasis");
+    /// The color of the type and size of a non-image attachment
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Attachment")
+    FName AttachmentSubtitleTextColor = TEXT("text-low-emphasis");
+    /// The color of the space an inline image occupies while it is still downloading
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Attachment")
+    FName AttachmentImagePlaceholderColor = TEXT("input-bg");
+
     /// The color of the background of the message composer
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Composer")
     FName MessageComposerBackgroundColor = TEXT("bars-bg");
@@ -59,6 +75,12 @@ public:
     /// The color of the header text (e.g. "Edit Message" or "Reply to Message")
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Composer")
     FName MessageComposerHeaderTextColor = TEXT("text-high-emphasis");
+    /// The color of the icon on the button which attaches a file to a message
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Composer")
+    FName MessageComposerAttachIconColor = TEXT("text-low-emphasis");
+    /// The color of the line reporting what is attached to the message being composed
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Composer")
+    FName MessageComposerAttachStatusTextColor = TEXT("text-low-emphasis");
 
     /// The color of the input text
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Input")

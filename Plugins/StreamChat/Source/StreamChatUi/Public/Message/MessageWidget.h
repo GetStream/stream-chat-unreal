@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "AttachmentWidget.h"
 #include "Channel/Message.h"
 #include "Components/Overlay.h"
 #include "CoreMinimal.h"
@@ -62,8 +63,15 @@ protected:
     UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
     TSubclassOf<UTimestampWidget> TimestampWidgetClass = UTimestampWidget::StaticClass();
 
+    UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
+    TSubclassOf<UAttachmentWidget> AttachmentWidgetClass = UAttachmentWidget::StaticClass();
+
     UPROPERTY(EditDefaultsOnly, Category = Defaults)
     int32 AvatarSize = 36;
+
+    /// Space around each attachment shown above the message
+    UPROPERTY(EditDefaultsOnly, Category = Defaults)
+    FMargin AttachmentPadding = FMargin{0.f, 0.f, 0.f, 2.f};
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
     FMessage Message;
@@ -80,6 +88,8 @@ private:
 
     bool ShouldDisplayHoverMenu() const;
 
+    void CreateAttachmentWidgets();
+
     // Only valid while hovered
     UPROPERTY(Transient)
     UMessageHoverMenuWidget* MouseHoverMenu;
@@ -87,4 +97,8 @@ private:
     // Only valid if message has reactions
     UPROPERTY(Transient)
     UMessageReactionsWidget* Reactions;
+
+    // Live in AlignPanel rather than a panel of their own, so tracked here to be replaced on re-setup
+    UPROPERTY(Transient)
+    TArray<UAttachmentWidget*> Attachments;
 };
