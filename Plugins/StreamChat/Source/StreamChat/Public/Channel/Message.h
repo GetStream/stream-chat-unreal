@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "Channel/Attachment.h"
 #include "CoreMinimal.h"
 #include "Reaction/Reactions.h"
 #include "Response/Channel/ChannelStateResponseFieldsDto.h"
@@ -129,6 +130,10 @@ struct STREAMCHAT_API FMessage
     /// Contains HTML markup of the message
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
     FString Html;
+
+    /// Files, images and link previews attached to this message
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat|Message")
+    TArray<FAttachment> Attachments;
 
     UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|Message", AdvancedDisplay)
     FAdditionalFields ExtraData;

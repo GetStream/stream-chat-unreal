@@ -265,6 +265,56 @@ public:
     void SendMessage(const FMessage& Message, const TFunction<void(const bool& bSuccess)> = {});
 
     /**
+     * @brief Upload a file to this channel, ready to be attached to a message.
+     *
+     * Uploading and sending are separate steps. Upload first, then put the resulting attachment in
+     * FMessage::Attachments and send that message. The SDK takes bytes rather than a path, so the
+     * choice of file picker, and the platform differences that come with it, stay in the app.
+     *
+     * Stream accepts any file type by default, up to 100 MB.
+     *
+     * @param FileName Original filename, shown to recipients and used to infer the MIME type
+     * @param Content Raw bytes of the file
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Attachment", DisplayName = "Upload File", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo))
+    void UploadFileBP(
+        const FString& FileName,
+        const TArray<uint8>& Content,
+        const UObject* WorldContextObject,
+        FLatentActionInfo LatentInfo,
+        FAttachment& OutAttachment);
+    void UploadFile(const FString& FileName, const TArray<uint8>& Content, const TFunction<void(const FAttachment&)> Callback = {});
+
+    /**
+     * @brief Upload an image to this channel, ready to be attached to a message.
+     *
+     * Prefer this over UploadFile for images: the backend recognises them, may generate a
+     * thumbnail, and clients render them inline. Accepts BMP, GIF, JPEG, PNG, WebP, HEIC, HEIF and
+     * SVG, up to 100 MB.
+     *
+     * @param FileName Original filename, shown to recipients and used to infer the MIME type
+     * @param Content Raw bytes of the image
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Attachment", DisplayName = "Upload Image", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo))
+    void UploadImageBP(
+        const FString& FileName,
+        const TArray<uint8>& Content,
+        const UObject* WorldContextObject,
+        FLatentActionInfo LatentInfo,
+        FAttachment& OutAttachment);
+    void UploadImage(const FString& FileName, const TArray<uint8>& Content, const TFunction<void(const FAttachment&)> Callback = {});
+
+    /**
+     * @brief Delete a previously uploaded attachment from this channel.
+     *
+     * Routed to the image or the file endpoint depending on the attachment, so callers do not have
+     * to remember which one it was uploaded through.
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Attachment", DisplayName = "Delete Attachment", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo))
+    void DeleteAttachmentBP(const FAttachment& Attachment, const UObject* WorldContextObject, FLatentActionInfo LatentInfo, bool& bSuccess);
+    void DeleteAttachment(const FAttachment& Attachment, const TFunction<void(const bool& bSuccess)> Callback = {});
+
+    /**
      * @brief Get a single message by its ID from the server
      *
      */

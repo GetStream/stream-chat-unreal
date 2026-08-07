@@ -26,6 +26,7 @@ FMessage::FMessage(const FMessageDto& Dto, UUserManager* UserManager)
     , Html{Dto.Html}
     , ExtraData{Dto.AdditionalFields}
 {
+    Algo::Transform(Dto.Attachments, Attachments, [](const FAttachmentDto& Attachment) { return FAttachment{Attachment}; });
 }
 
 FMessage::FMessage(const FSearchResultDto& Dto, UUserManager* UserManager) : FMessage{Dto.Message, UserManager}
@@ -39,5 +40,15 @@ FMessage::FMessage(const FString& Text)
 
 FMessageRequestDto FMessage::ToRequestDto(const FString& Cid) const
 {
-    return FMessageRequestDto{Cid, {}, Id, {}, Reactions.GetScores(), bIsSilent, Text, ExtraData};
+    // Assigned by name rather than positionally: the previous aggregate initialiser silently
+    // shifted every field along when a new one was added to the DTO.
+    FMessageRequestDto Dto;
+    Algo::Transform(Attachments, Dto.Attachments, [](const FAttachment& Attachment) { return Attachment.ToDto(); });
+    Dto.Cid = Cid;
+    Dto.Id = Id;
+    Dto.ReactionScores = Reactions.GetScores();
+    Dto.bSilent = bIsSilent;
+    Dto.Text = Text;
+    Dto.AdditionalFields = ExtraData;
+    return Dto;
 }

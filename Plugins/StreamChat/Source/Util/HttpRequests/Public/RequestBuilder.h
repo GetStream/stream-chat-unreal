@@ -68,6 +68,34 @@ public:
     FRequestBuilder& Query(const FQueryParameters& Query);
 
     /**
+     * Add a single file to the request as a multipart/form-data body.
+     *
+     * The body is assembled as bytes rather than a string, because file content is arbitrary binary
+     * and would not survive a round trip through FString. Stream's upload endpoints expect exactly
+     * one part, named `file`.
+     *
+     * @param FieldName Name of the form field, `file` for Stream's upload endpoints
+     * @param FileName Reported to the server as the original filename, and used to guess the MIME type
+     * @param Content Raw bytes of the file
+     * @param ContentType MIME type. Guessed from the filename extension when left empty
+     * @return Builder to continue creating a request
+     */
+    FRequestBuilder& Multipart(const FString& FieldName, const FString& FileName, const TArray<uint8>& Content, const FString& ContentType = {});
+
+    /**
+     * Assemble an RFC 7578 multipart body containing a single file part.
+     *
+     * Split out from Multipart() so it can be tested without a network round trip: the caller
+     * supplies the boundary, which makes the output deterministic.
+     */
+    static TArray<uint8> BuildMultipartBody(
+        const FString& Boundary,
+        const FString& FieldName,
+        const FString& FileName,
+        const TArray<uint8>& Content,
+        const FString& ContentType);
+
+    /**
      * Add a body to the request formatted as JSON
      *
      * @tparam T Input struct type
