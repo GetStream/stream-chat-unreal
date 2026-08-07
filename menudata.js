@@ -99,4 +99,5 @@ var menudata={children:[
 {text:"s",url:"functions_vars_s.html#index_s"},
 {text:"t",url:"functions_vars_t.html#index_t"},
 {text:"u",url:"functions_vars_u.html#index_u"},
-{text:"w",url:"functions_vars_w.html#index_w"}]}]}]}]}
+{text:"w",url:"functions_vars_w.html#index_w"}]},
+{text:"Typedefs",url:"functions_type.html"}]}]}]}

@@ -1,5 +1,9 @@
 var namespaces_dup =
 [
+    [ "AttachmentLayout", "namespace_attachment_layout.html", [
+      [ "FitToBudget", "namespace_attachment_layout.html#ad6e6ec71e46ba25b5caa643d856e3bc3", null ],
+      [ "WithResizeQuery", "namespace_attachment_layout.html#a046361be43382cb8d28f94b2f7c8ecca", null ]
+    ] ],
     [ "JsonField", "namespace_json_field.html", null ],
     [ "JsonObject", "namespace_json_object.html", [
       [ "UStructToJsonObject", "namespace_json_object.html#a5dea55afe2ca68491b1715287928658e", null ],

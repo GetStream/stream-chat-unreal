@@ -2,6 +2,7 @@ var hierarchy =
 [
     [ "FAttachment", "struct_f_attachment.html", null ],
     [ "FAttachmentDto", "struct_f_attachment_dto.html", null ],
+    [ "FAttachmentPicker", "class_f_attachment_picker.html", null ],
     [ "FBan", "struct_f_ban.html", null ],
     [ "FBanRequestDto", "struct_f_ban_request_dto.html", null ],
     [ "FBanResponseDto", "struct_f_ban_response_dto.html", null ],
@@ -90,6 +91,7 @@ var hierarchy =
       ] ]
     ] ],
     [ "FPaginationParamsRequestDto", "struct_f_pagination_params_request_dto.html", null ],
+    [ "FPickedAttachment", "struct_f_picked_attachment.html", null ],
     [ "FQueryBannedUsersRequestDto", "struct_f_query_banned_users_request_dto.html", null ],
     [ "FQueryChannelsRequestDto", "struct_f_query_channels_request_dto.html", null ],
     [ "FQueryMembersRequestDto", "struct_f_query_members_request_dto.html", null ],
@@ -150,6 +152,7 @@ var hierarchy =
     [ "FUserSortOption", "struct_f_user_sort_option.html", null ],
     [ "IChatSocket", "class_i_chat_socket.html", null ],
     [ "UAdditionalFieldsBlueprintLibrary", "class_u_additional_fields_blueprint_library.html", null ],
+    [ "UAttachmentWidget", "class_u_attachment_widget.html", null ],
     [ "UBackButton", "class_u_back_button.html", null ],
     [ "UBottomReactionWidget", "class_u_bottom_reaction_widget.html", null ],
     [ "UChannelContextWidget", "class_u_channel_context_widget.html", null ],
