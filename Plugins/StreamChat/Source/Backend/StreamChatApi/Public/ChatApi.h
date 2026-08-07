@@ -25,6 +25,7 @@ struct FChannelStateResponseDto;
 struct FChannelsResponseDto;
 struct FDeleteChannelResponseDto;
 struct FEventResponseDto;
+struct FFileUploadResponseDto;
 struct FFlagResponseDto;
 struct FGetBlockedUsersResponseDto;
 struct FGetReactionsResponseDto;
@@ -440,6 +441,64 @@ public:
      * @param Callback Called when response is received
      */
     void DeleteMessage(const FString& Id, bool bHard = false, TCallback<FMessageResponseDto> Callback = {}) const;
+
+    /**
+     * @brief Upload a file to a channel, so it can be attached to a message.
+     *
+     * Uploading and sending are separate steps: upload first, then put the returned URL in an
+     * attachment's AssetUrl when sending the message. Stream accepts any file type by default, up
+     * to 100 MB.
+     *
+     * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
+     * @param ChannelId A unique identifier for the channel
+     * @param FileName Original filename, shown to recipients and used to infer the MIME type
+     * @param Content Raw bytes of the file
+     * @param Callback Called when response is received, carrying the uploaded URL
+     */
+    void SendFile(
+        const FString& ChannelType,
+        const FString& ChannelId,
+        const FString& FileName,
+        const TArray<uint8>& Content,
+        TCallback<FFileUploadResponseDto> Callback = {}) const;
+
+    /**
+     * @brief Upload an image to a channel, so it can be attached to a message.
+     *
+     * Prefer this over SendFile for images: the backend recognises them, may generate a thumbnail,
+     * and clients can render them inline. Accepts BMP, GIF, JPEG, PNG, WebP, HEIC, HEIF and SVG, up
+     * to 100 MB. Put the returned URL in an attachment's ImageUrl.
+     *
+     * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
+     * @param ChannelId A unique identifier for the channel
+     * @param FileName Original filename, shown to recipients and used to infer the MIME type
+     * @param Content Raw bytes of the image
+     * @param Callback Called when response is received, carrying the uploaded URL
+     */
+    void SendImage(
+        const FString& ChannelType,
+        const FString& ChannelId,
+        const FString& FileName,
+        const TArray<uint8>& Content,
+        TCallback<FFileUploadResponseDto> Callback = {}) const;
+
+    /**
+     * @brief Delete a file previously uploaded to a channel
+     * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
+     * @param ChannelId A unique identifier for the channel
+     * @param Url The URL returned when the file was uploaded
+     * @param Callback Called when response is received
+     */
+    void DeleteFile(const FString& ChannelType, const FString& ChannelId, const FString& Url, TCallback<FResponseDto> Callback = {}) const;
+
+    /**
+     * @brief Delete an image previously uploaded to a channel
+     * @param ChannelType Name of built-in or custom channel type (e.g. messaging, team, livestream)
+     * @param ChannelId A unique identifier for the channel
+     * @param Url The URL returned when the image was uploaded
+     * @param Callback Called when response is received
+     */
+    void DeleteImage(const FString& ChannelType, const FString& ChannelId, const FString& Url, TCallback<FResponseDto> Callback = {}) const;
 
     /**
      * @brief Send a reaction for the given MessageId

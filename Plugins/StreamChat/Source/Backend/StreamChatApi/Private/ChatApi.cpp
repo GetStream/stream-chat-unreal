@@ -40,6 +40,7 @@
 #include "Response/Device/ListDevicesResponseDto.h"
 #include "Response/ErrorResponseDto.h"
 #include "Response/Event/EventResponseDto.h"
+#include "Response/Message/FileUploadResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
 #include "Response/Moderation/BlockUserResponseDto.h"
@@ -403,6 +404,43 @@ void FChatApi::DeleteMessage(const FString& Id, bool bHard, const TCallback<FMes
         Req.Query({{TEXT("hard"), true}});
     }
     Req.Send(Callback);
+}
+
+void FChatApi::SendFile(
+    const FString& ChannelType,
+    const FString& ChannelId,
+    const FString& FileName,
+    const TArray<uint8>& Content,
+    const TCallback<FFileUploadResponseDto> Callback) const
+{
+    const FString Path = FString::Printf(TEXT("channels/%s/%s/file"), *ChannelType, *ChannelId);
+    const FString Url = BuildUrl(Path);
+    // Stream expects a single part named `file` for both the file and image endpoints
+    Client->Post(Url).Multipart(TEXT("file"), FileName, Content).Send(Callback);
+}
+
+void FChatApi::SendImage(
+    const FString& ChannelType,
+    const FString& ChannelId,
+    const FString& FileName,
+    const TArray<uint8>& Content,
+    const TCallback<FFileUploadResponseDto> Callback) const
+{
+    const FString Path = FString::Printf(TEXT("channels/%s/%s/image"), *ChannelType, *ChannelId);
+    const FString Url = BuildUrl(Path);
+    Client->Post(Url).Multipart(TEXT("file"), FileName, Content).Send(Callback);
+}
+
+void FChatApi::DeleteFile(const FString& ChannelType, const FString& ChannelId, const FString& Url, const TCallback<FResponseDto> Callback) const
+{
+    const FString Path = FString::Printf(TEXT("channels/%s/%s/file"), *ChannelType, *ChannelId);
+    Client->Delete(BuildUrl(Path)).Query({{TEXT("url"), Url}}).Send(Callback);
+}
+
+void FChatApi::DeleteImage(const FString& ChannelType, const FString& ChannelId, const FString& Url, const TCallback<FResponseDto> Callback) const
+{
+    const FString Path = FString::Printf(TEXT("channels/%s/%s/image"), *ChannelType, *ChannelId);
+    Client->Delete(BuildUrl(Path)).Query({{TEXT("url"), Url}}).Send(Callback);
 }
 
 void FChatApi::SendReaction(

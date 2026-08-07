@@ -29,6 +29,7 @@
 #include "Response/Channel/TruncateChannelResponseDto.h"
 #include "Response/Channel/UpdateChannelPartialResponseDto.h"
 #include "Response/Channel/UpdateChannelResponseDto.h"
+#include "Response/Message/FileUploadResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
 #include "Response/Moderation/MuteChannelResponseDto.h"
@@ -352,6 +353,119 @@ void UChatChannel::StopWatching(TFunction<void()> Callback) const
 void UChatChannel::SendMessageBP(const FMessage& Message, const UObject* WorldContextObject, const FLatentActionInfo LatentInfo, bool& bSuccess)
 {
     TCallbackAction<bool>::CreateLatentAction(WorldContextObject, LatentInfo, bSuccess, [&](auto Callback) { SendMessage(Message, Callback); });
+}
+
+void UChatChannel::UploadFileBP(
+    const FString& FileName,
+    const TArray<uint8>& Content,
+    const UObject* WorldContextObject,
+    const FLatentActionInfo LatentInfo,
+    FAttachment& OutAttachment)
+{
+    TCallbackAction<FAttachment>::CreateLatentAction(
+        WorldContextObject, LatentInfo, OutAttachment, [&](auto Callback) { UploadFile(FileName, Content, Callback); });
+}
+
+void UChatChannel::UploadFile(const FString& FileName, const TArray<uint8>& Content, const TFunction<void(const FAttachment&)> Callback)
+{
+    Api->SendFile(
+        Properties.Type,
+        Properties.Id,
+        FileName,
+        Content,
+        [Callback, FileName](const TResponse<FFileUploadResponseDto>& Response)
+        {
+            if (!Callback)
+            {
+                return;
+            }
+            FAttachment Attachment;
+            if (const FFileUploadResponseDto* Dto = Response.Get())
+            {
+                // The upload endpoint returns only a URL, so the rest of the attachment is filled in
+                // here from what the caller already told us.
+                Attachment.Type = EAttachmentType::File;
+                Attachment.RawType = TEXT("file");
+                Attachment.AssetUrl = Dto->File;
+                Attachment.ThumbUrl = Dto->ThumbUrl;
+                Attachment.Title = FileName;
+            }
+            Callback(Attachment);
+        });
+}
+
+void UChatChannel::UploadImageBP(
+    const FString& FileName,
+    const TArray<uint8>& Content,
+    const UObject* WorldContextObject,
+    const FLatentActionInfo LatentInfo,
+    FAttachment& OutAttachment)
+{
+    TCallbackAction<FAttachment>::CreateLatentAction(
+        WorldContextObject, LatentInfo, OutAttachment, [&](auto Callback) { UploadImage(FileName, Content, Callback); });
+}
+
+void UChatChannel::UploadImage(const FString& FileName, const TArray<uint8>& Content, const TFunction<void(const FAttachment&)> Callback)
+{
+    Api->SendImage(
+        Properties.Type,
+        Properties.Id,
+        FileName,
+        Content,
+        [Callback, FileName](const TResponse<FFileUploadResponseDto>& Response)
+        {
+            if (!Callback)
+            {
+                return;
+            }
+            FAttachment Attachment;
+            if (const FFileUploadResponseDto* Dto = Response.Get())
+            {
+                Attachment.Type = EAttachmentType::Image;
+                Attachment.RawType = TEXT("image");
+                Attachment.ImageUrl = Dto->File;
+                Attachment.ThumbUrl = Dto->ThumbUrl;
+                Attachment.Title = FileName;
+            }
+            Callback(Attachment);
+        });
+}
+
+void UChatChannel::DeleteAttachmentBP(const FAttachment& Attachment, const UObject* WorldContextObject, const FLatentActionInfo LatentInfo, bool& bSuccess)
+{
+    TCallbackAction<bool>::CreateLatentAction(WorldContextObject, LatentInfo, bSuccess, [&](auto Callback) { DeleteAttachment(Attachment, Callback); });
+}
+
+void UChatChannel::DeleteAttachment(const FAttachment& Attachment, const TFunction<void(const bool& bSuccess)> Callback)
+{
+    const FString Url = Attachment.GetUrl();
+    if (Url.IsEmpty())
+    {
+        if (Callback)
+        {
+            Callback(false);
+        }
+        return;
+    }
+
+    const auto OnResponse = [Callback](const TResponse<FResponseDto>& Response)
+    {
+        if (Callback)
+        {
+            Callback(Response.IsSuccessful());
+        }
+    };
+
+    // Images and files are deleted through different endpoints, so pick from what was uploaded
+    // rather than making the caller remember.
+    if (Attachment.Type == EAttachmentType::Image)
+    {
+        Api->DeleteImage(Properties.Type, Properties.Id, Url, OnResponse);
+    }
+    else
+    {
+        Api->DeleteFile(Properties.Type, Properties.Id, Url, OnResponse);
+    }
 }
 
 void UChatChannel::SendMessage(const FMessage& Message, const TFunction<void(const bool& bSuccess)> Callback)

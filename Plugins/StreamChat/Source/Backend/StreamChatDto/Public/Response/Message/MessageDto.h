@@ -5,6 +5,7 @@
 #include "AdditionalFields.h"
 #include "CoreMinimal.h"
 #include "MessageTypeDto.h"
+#include "Response/Message/AttachmentDto.h"
 #include "Response/Reaction/ReactionDto.h"
 #include "UserObjectDto.h"
 
@@ -28,9 +29,8 @@ struct STREAMCHATDTO_API FMessageDto
 
     /// The list of attachments, either provided by the user or generated from a
     /// command or as a result of URL scraping.
-    // TODO Uncomment
-    // UPROPERTY()
-    // TArray<FAttachment> Attachments;
+    UPROPERTY()
+    TArray<FAttachmentDto> Attachments;
 
     /// Channel unique identifier
     UPROPERTY()

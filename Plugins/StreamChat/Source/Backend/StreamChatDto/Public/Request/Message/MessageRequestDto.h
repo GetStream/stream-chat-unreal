@@ -4,6 +4,7 @@
 
 #include "AdditionalFields.h"
 #include "CoreMinimal.h"
+#include "Response/Message/AttachmentDto.h"
 
 #include "MessageRequestDto.generated.h"
 
@@ -17,7 +18,10 @@ struct FMessageRequestDto
 {
     GENERATED_BODY()
 
-    // TODO Attachments
+    /// Files, images and links to attach to the message.
+    /// Upload the content first, then reference the returned URL here
+    UPROPERTY()
+    TArray<FAttachmentDto> Attachments;
 
     UPROPERTY()
     FString Cid;
