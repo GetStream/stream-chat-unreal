@@ -110,6 +110,9 @@ $(function(){initNavTree('group___stream_chat.html',''); initResizable(true); })
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_attachment.html">FAttachment</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A file, image or link attached to a message.  <a href="struct_f_attachment.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_channel_config.html">FChannelConfig</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The configuration, permissions and features of a channel, as defined by the "channel type".  <a href="struct_f_channel_config.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -199,6 +202,19 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:ga640e62db05d42071eaabcd5a151510b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of token.  <a href="#ga640e62db05d42071eaabcd5a151510b1">More...</a><br /></td></tr>
 <tr class="separator:ga640e62db05d42071eaabcd5a151510b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga9cf55c1af321cd2ac28b5097b5e4aa4e" id="r_ga9cf55c1af321cd2ac28b5097b5e4aa4e"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga9cf55c1af321cd2ac28b5097b5e4aa4e">EAttachmentType</a> : uint8 { <br />
+&#160;&#160;<a class="el" href="#gga9cf55c1af321cd2ac28b5097b5e4aa4ea88183b946cc5f0e8c96b2e66e1c74a7e">EAttachmentType::Unknown</a>
+, <a class="el" href="#gga9cf55c1af321cd2ac28b5097b5e4aa4eabe53a0541a6d36f6ecb879fa2c584b08">EAttachmentType::Image</a>
+, <a class="el" href="#gga9cf55c1af321cd2ac28b5097b5e4aa4ea0b27918290ff5323bea1e3b78a9cf04e">EAttachmentType::File</a>
+, <b>Video</b>
+, <br />
+&#160;&#160;<b>Audio</b>
+, <a class="el" href="#gga9cf55c1af321cd2ac28b5097b5e4aa4eaa4f394f1f349e8008f51e3a310cc6ec4">EAttachmentType::Giphy</a>
+, <a class="el" href="#gga9cf55c1af321cd2ac28b5097b5e4aa4ea97e7c9a7d06eac006a28bf05467fcc8b">EAttachmentType::Link</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:ga9cf55c1af321cd2ac28b5097b5e4aa4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">What kind of content an attachment holds.  <a href="#ga9cf55c1af321cd2ac28b5097b5e4aa4e">More...</a><br /></td></tr>
+<tr class="separator:ga9cf55c1af321cd2ac28b5097b5e4aa4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3b38841cfa7e76d2948c49d219950551" id="r_ga3b38841cfa7e76d2948c49d219950551"><td class="memItemLeft" align="right" valign="top"><a id="ga3b38841cfa7e76d2948c49d219950551" name="ga3b38841cfa7e76d2948c49d219950551"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga3b38841cfa7e76d2948c49d219950551">ESortDirection</a> : uint8 { <b>Ascending</b>
 , <b>Descending</b>
  }</td></tr>
@@ -312,6 +328,42 @@ Enumerations</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>This module is the main interface to the Stream Chat low level client functionality. </p>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="ga9cf55c1af321cd2ac28b5097b5e4aa4e" name="ga9cf55c1af321cd2ac28b5097b5e4aa4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga9cf55c1af321cd2ac28b5097b5e4aa4e">&#9670;&#160;</a></span>EAttachmentType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#ga9cf55c1af321cd2ac28b5097b5e4aa4e">EAttachmentType</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>What kind of content an attachment holds. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga9cf55c1af321cd2ac28b5097b5e4aa4ea88183b946cc5f0e8c96b2e66e1c74a7e" name="gga9cf55c1af321cd2ac28b5097b5e4aa4ea88183b946cc5f0e8c96b2e66e1c74a7e"></a>Unknown&#160;</td><td class="fielddoc"><p>A type this version of the SDK does not know about. The raw value is kept in <a class="el" href="struct_f_attachment.html#a63d4fcd1282baf764d632e0bf6d67cc6" title="The wire value of Type, kept so an unrecognised type still round trips unchanged.">FAttachment::RawType</a>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga9cf55c1af321cd2ac28b5097b5e4aa4eabe53a0541a6d36f6ecb879fa2c584b08" name="gga9cf55c1af321cd2ac28b5097b5e4aa4eabe53a0541a6d36f6ecb879fa2c584b08"></a>Image&#160;</td><td class="fielddoc"><p>A still image, rendered inline. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga9cf55c1af321cd2ac28b5097b5e4aa4ea0b27918290ff5323bea1e3b78a9cf04e" name="gga9cf55c1af321cd2ac28b5097b5e4aa4ea0b27918290ff5323bea1e3b78a9cf04e"></a>File&#160;</td><td class="fielddoc"><p>Any other uploaded file, offered as a download. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga9cf55c1af321cd2ac28b5097b5e4aa4eaa4f394f1f349e8008f51e3a310cc6ec4" name="gga9cf55c1af321cd2ac28b5097b5e4aa4eaa4f394f1f349e8008f51e3a310cc6ec4"></a>Giphy&#160;</td><td class="fielddoc"><p>A Giphy result, produced by the <code>/giphy</code> command. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga9cf55c1af321cd2ac28b5097b5e4aa4ea97e7c9a7d06eac006a28bf05467fcc8b" name="gga9cf55c1af321cd2ac28b5097b5e4aa4ea97e7c9a7d06eac006a28bf05467fcc8b"></a>Link&#160;</td><td class="fielddoc"><p>A preview the backend generated by scraping a URL in the message text. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="gad83c2a39fafdf07b890e3260924f9f56" name="gad83c2a39fafdf07b890e3260924f9f56"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gad83c2a39fafdf07b890e3260924f9f56">&#9670;&#160;</a></span>EBanSortField</h2>
 

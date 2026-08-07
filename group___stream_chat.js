@@ -1,5 +1,19 @@
 var group___stream_chat =
 [
+    [ "FAttachment", "struct_f_attachment.html", [
+      [ "GetUrl", "struct_f_attachment.html#a57ed21b38593e56df16e3277f22c9831", null ],
+      [ "ToDto", "struct_f_attachment.html#a2e1b9599ff40a3b9ccb46084da105da0", null ],
+      [ "AssetUrl", "struct_f_attachment.html#acf51465e336e218a5e10f5b43751a262", null ],
+      [ "ExtraData", "struct_f_attachment.html#a332cd8766745744a4ab1042839581fb0", null ],
+      [ "FileSize", "struct_f_attachment.html#a1549a5901df65a7eea3292a88fbc1d61", null ],
+      [ "ImageUrl", "struct_f_attachment.html#ad1b074a6167b311c6b5a8f9324c78651", null ],
+      [ "MimeType", "struct_f_attachment.html#a7f317653da28ee3a2cb20831006f7090", null ],
+      [ "RawType", "struct_f_attachment.html#a63d4fcd1282baf764d632e0bf6d67cc6", null ],
+      [ "Text", "struct_f_attachment.html#aaf79c0dfd7d4d673c24704ef219d8ea8", null ],
+      [ "ThumbUrl", "struct_f_attachment.html#a185c48e8d80a20844cb0bcfeafea33d6", null ],
+      [ "Title", "struct_f_attachment.html#aaa71971efc830ae7c718d5f2e48d2d91", null ],
+      [ "Type", "struct_f_attachment.html#a01c1859514282e1d6c1f891001c281bf", null ]
+    ] ],
     [ "FChannelConfig", "struct_f_channel_config.html", [
       [ "FChannelConfig", "struct_f_channel_config.html#a245e6e5d70c299a636963e80f46f4fe3", null ],
       [ "FChannelConfig", "struct_f_channel_config.html#a9ec94d8165b823256e58c90d6aa6036d", null ],
@@ -91,6 +105,7 @@ var group___stream_chat =
       [ "AddMembers", "class_u_chat_channel.html#a58a18eb168d0278f8970bbdb20c86b2b", null ],
       [ "BanMemberBP", "class_u_chat_channel.html#ab9d492cc6a277bc8380b65f1b5340682", null ],
       [ "Delete", "class_u_chat_channel.html#a4fb51ca0c405a0bf18da7cde44bc6018", null ],
+      [ "DeleteAttachmentBP", "class_u_chat_channel.html#a6213e08f95a09e7adb384cb865d5ddf6", null ],
       [ "DeleteMessage", "class_u_chat_channel.html#acd8d28c0f92e5aa93f9498a0307fe871", null ],
       [ "DeleteReaction", "class_u_chat_channel.html#ac60976fa7382c9c22cb41ca570610bcf", null ],
       [ "DisableSlowMode", "class_u_chat_channel.html#a4de7b55733940b71f28822e76f1b8208", null ],
@@ -130,6 +145,8 @@ var group___stream_chat =
       [ "Unsubscribe", "class_u_chat_channel.html#ad7a707550c3a5b6eb6a6a807ce541a21", null ],
       [ "Update", "class_u_chat_channel.html#a971cf362c2d961d6f121a4b2daa8e3e0", null ],
       [ "UpdateMessage", "class_u_chat_channel.html#ab5573d2437ef706d2bd0a4c3baff7cda", null ],
+      [ "UploadFileBP", "class_u_chat_channel.html#af47c821ea9d1368b7abefcc3e228b5df", null ],
+      [ "UploadImageBP", "class_u_chat_channel.html#aa9dd5041d361f2215b745fdbd8de91b4", null ],
       [ "MessageReceived", "class_u_chat_channel.html#a0f426d966a9351d06905cbdf0e374914", null ],
       [ "MessageSent", "class_u_chat_channel.html#a337613796335627050f7645c0b1d7823", null ],
       [ "MessagesUpdated", "class_u_chat_channel.html#a7eee9c31542dec3a10bc033af1de4c75", null ],
@@ -159,6 +176,7 @@ var group___stream_chat =
       [ "FMessage", "struct_f_message.html#a7e64696f404ed1586a13231e6ee7331c", null ],
       [ "FMessage", "struct_f_message.html#a2f18482b45463920b6cd94f44c155592", null ],
       [ "ToRequestDto", "struct_f_message.html#a84984fc8d09ddc31b4b178d15509b972", null ],
+      [ "Attachments", "struct_f_message.html#ac379f0b2704722bf3d079ad2cf83e073", null ],
       [ "bIsShadowed", "struct_f_message.html#a10689717c2aee4a96a85ef83f4be9858", null ],
       [ "CreatedAt", "struct_f_message.html#ae1f1401a4081a7317e6a0f5bee667697", null ],
       [ "DeletedAt", "struct_f_message.html#a335faf376af27f28fe1d7cc25f3c2288", null ],
@@ -263,6 +281,13 @@ var group___stream_chat =
     [ "UUserBlueprintLibrary", "class_u_user_blueprint_library.html", null ],
     [ "FUserPaginationOptions", "struct_f_user_pagination_options.html", null ],
     [ "UAdditionalFieldsBlueprintLibrary", "class_u_additional_fields_blueprint_library.html", null ],
+    [ "EAttachmentType", "group___stream_chat.html#ga9cf55c1af321cd2ac28b5097b5e4aa4e", [
+      [ "EAttachmentType::Unknown", "group___stream_chat.html#gga9cf55c1af321cd2ac28b5097b5e4aa4ea88183b946cc5f0e8c96b2e66e1c74a7e", null ],
+      [ "EAttachmentType::Image", "group___stream_chat.html#gga9cf55c1af321cd2ac28b5097b5e4aa4eabe53a0541a6d36f6ecb879fa2c584b08", null ],
+      [ "EAttachmentType::File", "group___stream_chat.html#gga9cf55c1af321cd2ac28b5097b5e4aa4ea0b27918290ff5323bea1e3b78a9cf04e", null ],
+      [ "EAttachmentType::Giphy", "group___stream_chat.html#gga9cf55c1af321cd2ac28b5097b5e4aa4eaa4f394f1f349e8008f51e3a310cc6ec4", null ],
+      [ "EAttachmentType::Link", "group___stream_chat.html#gga9cf55c1af321cd2ac28b5097b5e4aa4ea97e7c9a7d06eac006a28bf05467fcc8b", null ]
+    ] ],
     [ "EBanSortField", "group___stream_chat.html#gad83c2a39fafdf07b890e3260924f9f56", [
       [ "EBanSortField::ChannelCid", "group___stream_chat.html#ggad83c2a39fafdf07b890e3260924f9f56aab9a84720cb59d32b0f65cabe317c4ab", null ],
       [ "EBanSortField::UserId", "group___stream_chat.html#ggad83c2a39fafdf07b890e3260924f9f56a4733e94f511132be01e92cc23c017d16", null ],

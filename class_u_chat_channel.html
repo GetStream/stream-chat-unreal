@@ -225,6 +225,24 @@ FUnreadChangedDelegate&#160;</td><td class="memItemRight" valign="bottom"><b>Unr
 <tr class="memitem:a5b49b8ee742768438e15c4dd4d6e7431" id="r_a5b49b8ee742768438e15c4dd4d6e7431"><td class="memItemLeft" align="right" valign="top"><a id="a5b49b8ee742768438e15c4dd4d6e7431" name="a5b49b8ee742768438e15c4dd4d6e7431"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>SendMessage</b> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;Message, const TFunction&lt; void(const bool &amp;bSuccess)&gt;={})</td></tr>
 <tr class="separator:a5b49b8ee742768438e15c4dd4d6e7431"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af47c821ea9d1368b7abefcc3e228b5df" id="r_af47c821ea9d1368b7abefcc3e228b5df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af47c821ea9d1368b7abefcc3e228b5df">UploadFileBP</a> (const FString &amp;FileName, const TArray&lt; uint8 &gt; &amp;Content, const UObject *WorldContextObject, FLatentActionInfo LatentInfo, <a class="el" href="struct_f_attachment.html">FAttachment</a> &amp;OutAttachment)</td></tr>
+<tr class="memdesc:af47c821ea9d1368b7abefcc3e228b5df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upload a file to this channel, ready to be attached to a message.  <br /></td></tr>
+<tr class="separator:af47c821ea9d1368b7abefcc3e228b5df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bb4e081ea81899dcaf1ada834716768" id="r_a0bb4e081ea81899dcaf1ada834716768"><td class="memItemLeft" align="right" valign="top"><a id="a0bb4e081ea81899dcaf1ada834716768" name="a0bb4e081ea81899dcaf1ada834716768"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>UploadFile</b> (const FString &amp;FileName, const TArray&lt; uint8 &gt; &amp;Content, const TFunction&lt; void(const <a class="el" href="struct_f_attachment.html">FAttachment</a> &amp;)&gt; Callback={})</td></tr>
+<tr class="separator:a0bb4e081ea81899dcaf1ada834716768"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9dd5041d361f2215b745fdbd8de91b4" id="r_aa9dd5041d361f2215b745fdbd8de91b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa9dd5041d361f2215b745fdbd8de91b4">UploadImageBP</a> (const FString &amp;FileName, const TArray&lt; uint8 &gt; &amp;Content, const UObject *WorldContextObject, FLatentActionInfo LatentInfo, <a class="el" href="struct_f_attachment.html">FAttachment</a> &amp;OutAttachment)</td></tr>
+<tr class="memdesc:aa9dd5041d361f2215b745fdbd8de91b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upload an image to this channel, ready to be attached to a message.  <br /></td></tr>
+<tr class="separator:aa9dd5041d361f2215b745fdbd8de91b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f8dab02b670effebc07544dc98208be" id="r_a5f8dab02b670effebc07544dc98208be"><td class="memItemLeft" align="right" valign="top"><a id="a5f8dab02b670effebc07544dc98208be" name="a5f8dab02b670effebc07544dc98208be"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>UploadImage</b> (const FString &amp;FileName, const TArray&lt; uint8 &gt; &amp;Content, const TFunction&lt; void(const <a class="el" href="struct_f_attachment.html">FAttachment</a> &amp;)&gt; Callback={})</td></tr>
+<tr class="separator:a5f8dab02b670effebc07544dc98208be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6213e08f95a09e7adb384cb865d5ddf6" id="r_a6213e08f95a09e7adb384cb865d5ddf6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6213e08f95a09e7adb384cb865d5ddf6">DeleteAttachmentBP</a> (const <a class="el" href="struct_f_attachment.html">FAttachment</a> &amp;Attachment, const UObject *WorldContextObject, FLatentActionInfo LatentInfo, bool &amp;bSuccess)</td></tr>
+<tr class="memdesc:a6213e08f95a09e7adb384cb865d5ddf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a previously uploaded attachment from this channel.  <br /></td></tr>
+<tr class="separator:a6213e08f95a09e7adb384cb865d5ddf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e3210f01cfdf33d65a63efa8375e445" id="r_a4e3210f01cfdf33d65a63efa8375e445"><td class="memItemLeft" align="right" valign="top"><a id="a4e3210f01cfdf33d65a63efa8375e445" name="a4e3210f01cfdf33d65a63efa8375e445"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>DeleteAttachment</b> (const <a class="el" href="struct_f_attachment.html">FAttachment</a> &amp;Attachment, const TFunction&lt; void(const bool &amp;bSuccess)&gt; Callback={})</td></tr>
+<tr class="separator:a4e3210f01cfdf33d65a63efa8375e445"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa287a72c1e845a91f168c86b6f546860" id="r_aa287a72c1e845a91f168c86b6f546860"><td class="memItemLeft" align="right" valign="top"><a id="aa287a72c1e845a91f168c86b6f546860" name="aa287a72c1e845a91f168c86b6f546860"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>GetMessageBP</b> (const FString &amp;MessageId, const UObject *WorldContextObject, FLatentActionInfo LatentInfo, <a class="el" href="struct_f_message.html">FMessage</a> &amp;OutMessage)</td></tr>
 <tr class="memdesc:aa287a72c1e845a91f168c86b6f546860"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a single message by its ID from the server. <br /></td></tr>
@@ -431,6 +449,40 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>DisableSlowMode</b> (
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a6213e08f95a09e7adb384cb865d5ddf6" name="a6213e08f95a09e7adb384cb865d5ddf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6213e08f95a09e7adb384cb865d5ddf6">&#9670;&#160;</a></span>DeleteAttachmentBP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UChatChannel::DeleteAttachmentBP </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_f_attachment.html">FAttachment</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>Attachment</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const UObject *</td>          <td class="paramname"><span class="paramname"><em>WorldContextObject</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FLatentActionInfo</td>          <td class="paramname"><span class="paramname"><em>LatentInfo</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;</td>          <td class="paramname"><span class="paramname"><em>bSuccess</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Delete a previously uploaded attachment from this channel. </p>
+<p>Routed to the image or the file endpoint depending on the attachment, so callers do not have to remember which one it was uploaded through. </p>
 
 </div>
 </div>
@@ -1458,6 +1510,99 @@ template&lt;class TEvent &gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">Message</td><td>Message which already exists in this channel </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af47c821ea9d1368b7abefcc3e228b5df" name="af47c821ea9d1368b7abefcc3e228b5df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af47c821ea9d1368b7abefcc3e228b5df">&#9670;&#160;</a></span>UploadFileBP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UChatChannel::UploadFileBP </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>FileName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; uint8 &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>Content</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const UObject *</td>          <td class="paramname"><span class="paramname"><em>WorldContextObject</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FLatentActionInfo</td>          <td class="paramname"><span class="paramname"><em>LatentInfo</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_f_attachment.html">FAttachment</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>OutAttachment</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Upload a file to this channel, ready to be attached to a message. </p>
+<p>Uploading and sending are separate steps. Upload first, then put the resulting attachment in <a class="el" href="struct_f_message.html#ac379f0b2704722bf3d079ad2cf83e073" title="Files, images and link previews attached to this message.">FMessage::Attachments</a> and send that message. The SDK takes bytes rather than a path, so the choice of file picker, and the platform differences that come with it, stay in the app.</p>
+<p>Stream accepts any file type by default, up to 100 MB.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">FileName</td><td>Original filename, shown to recipients and used to infer the MIME type </td></tr>
+    <tr><td class="paramname">Content</td><td>Raw bytes of the file </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa9dd5041d361f2215b745fdbd8de91b4" name="aa9dd5041d361f2215b745fdbd8de91b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9dd5041d361f2215b745fdbd8de91b4">&#9670;&#160;</a></span>UploadImageBP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UChatChannel::UploadImageBP </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>FileName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; uint8 &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>Content</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const UObject *</td>          <td class="paramname"><span class="paramname"><em>WorldContextObject</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FLatentActionInfo</td>          <td class="paramname"><span class="paramname"><em>LatentInfo</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_f_attachment.html">FAttachment</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>OutAttachment</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Upload an image to this channel, ready to be attached to a message. </p>
+<p>Prefer this over UploadFile for images: the backend recognises them, may generate a thumbnail, and clients render them inline. Accepts BMP, GIF, JPEG, PNG, WebP, HEIC, HEIF and SVG, up to 100 MB.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">FileName</td><td>Original filename, shown to recipients and used to infer the MIME type </td></tr>
+    <tr><td class="paramname">Content</td><td>Raw bytes of the image </td></tr>
   </table>
   </dd>
 </dl>

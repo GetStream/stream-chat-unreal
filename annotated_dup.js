@@ -1,5 +1,7 @@
 var annotated_dup =
 [
+    [ "FAttachment", "struct_f_attachment.html", "struct_f_attachment" ],
+    [ "FAttachmentDto", "struct_f_attachment_dto.html", "struct_f_attachment_dto" ],
     [ "FBan", "struct_f_ban.html", "struct_f_ban" ],
     [ "FBanPaginationOptions", "struct_f_ban_pagination_options.html", null ],
     [ "FBanRequestDto", "struct_f_ban_request_dto.html", "struct_f_ban_request_dto" ],
@@ -37,6 +39,7 @@ var annotated_dup =
     [ "FErrorResponseDto", "struct_f_error_response_dto.html", "struct_f_error_response_dto" ],
     [ "FEventDto", "struct_f_event_dto.html", "struct_f_event_dto" ],
     [ "FEventResponseDto", "struct_f_event_response_dto.html", null ],
+    [ "FFileUploadResponseDto", "struct_f_file_upload_response_dto.html", "struct_f_file_upload_response_dto" ],
     [ "FFilter", "struct_f_filter.html", "struct_f_filter" ],
     [ "FFlagDto", "struct_f_flag_dto.html", "struct_f_flag_dto" ],
     [ "FFlagRequestDto", "struct_f_flag_request_dto.html", "struct_f_flag_request_dto" ],

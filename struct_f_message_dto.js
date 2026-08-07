@@ -1,6 +1,7 @@
 var struct_f_message_dto =
 [
     [ "GetDeletedAt", "struct_f_message_dto.html#adfae68c3d22afccc25f0cb7c95849c25", null ],
+    [ "Attachments", "struct_f_message_dto.html#a4729426a241b004010a5eb7d4bd192d3", null ],
     [ "bPinned", "struct_f_message_dto.html#a1bb973eefdd96e99c2280c183beb8283", null ],
     [ "bShadowed", "struct_f_message_dto.html#a38e6cb0b680005a5f3862d28188ce87e", null ],
     [ "bShowInChannel", "struct_f_message_dto.html#acec263cb4e373dcd190bd79bd3e9ac6c", null ],

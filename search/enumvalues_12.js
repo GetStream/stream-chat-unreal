@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['updatedat_0',['UpdatedAt',['../group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa0b2a8a8fed13280ecd74f7545bc2b962',1,'UpdatedAt:&#160;ChannelSortOption.h'],['../group___stream_chat.html#gga168ebbcdbfc643c147a18bf919d9a7a1a0b2a8a8fed13280ecd74f7545bc2b962',1,'UpdatedAt:&#160;ChannelSortOption.h']]],
-  ['updating_1',['Updating',['../group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91a6909beea5b50605780e3411f879fe916',1,'Message.h']]],
-  ['userid_2',['UserId',['../group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa4733e94f511132be01e92cc23c017d16',1,'UserId:&#160;ChannelSortOption.h'],['../group___stream_chat.html#ggad83c2a39fafdf07b890e3260924f9f56a4733e94f511132be01e92cc23c017d16',1,'UserId:&#160;ChannelSortOption.h']]]
+  ['unknown_0',['Unknown',['../group___stream_chat.html#gga9cf55c1af321cd2ac28b5097b5e4aa4ea88183b946cc5f0e8c96b2e66e1c74a7e',1,'Attachment.h']]],
+  ['updatedat_1',['UpdatedAt',['../group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa0b2a8a8fed13280ecd74f7545bc2b962',1,'UpdatedAt:&#160;ChannelSortOption.h'],['../group___stream_chat.html#gga168ebbcdbfc643c147a18bf919d9a7a1a0b2a8a8fed13280ecd74f7545bc2b962',1,'UpdatedAt:&#160;ChannelSortOption.h']]],
+  ['updating_2',['Updating',['../group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91a6909beea5b50605780e3411f879fe916',1,'Message.h']]],
+  ['userid_3',['UserId',['../group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa4733e94f511132be01e92cc23c017d16',1,'UserId:&#160;ChannelSortOption.h'],['../group___stream_chat.html#ggad83c2a39fafdf07b890e3260924f9f56a4733e94f511132be01e92cc23c017d16',1,'UserId:&#160;ChannelSortOption.h']]]
 ];

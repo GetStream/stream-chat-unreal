@@ -1,5 +1,7 @@
 var hierarchy =
 [
+    [ "FAttachment", "struct_f_attachment.html", null ],
+    [ "FAttachmentDto", "struct_f_attachment_dto.html", null ],
     [ "FBan", "struct_f_ban.html", null ],
     [ "FBanRequestDto", "struct_f_ban_request_dto.html", null ],
     [ "FBanResponseDto", "struct_f_ban_response_dto.html", null ],
@@ -56,6 +58,7 @@ var hierarchy =
     [ "FDeviceFieldsDto", "struct_f_device_fields_dto.html", null ],
     [ "FErrorResponseDto", "struct_f_error_response_dto.html", null ],
     [ "FEventDto", "struct_f_event_dto.html", null ],
+    [ "FFileUploadResponseDto", "struct_f_file_upload_response_dto.html", null ],
     [ "FFilter", "struct_f_filter.html", null ],
     [ "FFlagDto", "struct_f_flag_dto.html", null ],
     [ "FFlagRequestDto", "struct_f_flag_request_dto.html", null ],

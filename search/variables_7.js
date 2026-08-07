@@ -6,7 +6,8 @@ var searchData=
   ['idlt_3',['IdLt',['../struct_f_query_users_request_dto.html#a6f4abd82d1ac91c98cef36056eb310ba',1,'FQueryUsersRequestDto']]],
   ['idlte_4',['IdLte',['../struct_f_query_users_request_dto.html#a3c0e53e31d9e1a6a81b6d92ef2dee6fe',1,'FQueryUsersRequestDto']]],
   ['image_5',['Image',['../struct_f_user.html#a2ca45f74018a8256b0a4a9955d52d6c7',1,'FUser']]],
-  ['inviteacceptedat_6',['InviteAcceptedAt',['../struct_f_channel_member_request_dto.html#a488560ded7fb4ef215366b5ef67d7d6e',1,'FChannelMemberRequestDto::InviteAcceptedAt'],['../struct_f_channel_member_dto.html#ad74e316c7e86b7bf62eb15b095fe54a9',1,'FChannelMemberDto::InviteAcceptedAt']]],
-  ['inviterejectedat_7',['InviteRejectedAt',['../struct_f_channel_member_request_dto.html#aca6a1a7de3d30accee8204acf30cdff4',1,'FChannelMemberRequestDto::InviteRejectedAt'],['../struct_f_channel_member_dto.html#a68fadfd086ad0a9945e6670c613211bb',1,'FChannelMemberDto::InviteRejectedAt']]],
-  ['invites_8',['Invites',['../struct_f_update_channel_request_dto.html#a2fa985d2381f526c3d29c054bfa45b18',1,'FUpdateChannelRequestDto']]]
+  ['imageurl_6',['ImageUrl',['../struct_f_attachment_dto.html#a87e32b9c954f310dbe960e9e8770143d',1,'FAttachmentDto::ImageUrl'],['../struct_f_attachment.html#ad1b074a6167b311c6b5a8f9324c78651',1,'FAttachment::ImageUrl']]],
+  ['inviteacceptedat_7',['InviteAcceptedAt',['../struct_f_channel_member_request_dto.html#a488560ded7fb4ef215366b5ef67d7d6e',1,'FChannelMemberRequestDto::InviteAcceptedAt'],['../struct_f_channel_member_dto.html#ad74e316c7e86b7bf62eb15b095fe54a9',1,'FChannelMemberDto::InviteAcceptedAt']]],
+  ['inviterejectedat_8',['InviteRejectedAt',['../struct_f_channel_member_request_dto.html#aca6a1a7de3d30accee8204acf30cdff4',1,'FChannelMemberRequestDto::InviteRejectedAt'],['../struct_f_channel_member_dto.html#a68fadfd086ad0a9945e6670c613211bb',1,'FChannelMemberDto::InviteRejectedAt']]],
+  ['invites_9',['Invites',['../struct_f_update_channel_request_dto.html#a2fa985d2381f526c3d29c054bfa45b18',1,'FUpdateChannelRequestDto']]]
 ];

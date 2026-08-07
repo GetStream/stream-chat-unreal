@@ -205,6 +205,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae5a2afce79f513753908df1a2a113737" id="r_ae5a2afce79f513753908df1a2a113737"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae5a2afce79f513753908df1a2a113737">DeleteMessage</a> (const FString &amp;<a class="el" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa490aa6e856ccf208a054389e47ce0d06">Id</a>, bool bHard=false, TCallback&lt; <a class="el" href="struct_f_message_response_dto.html">FMessageResponseDto</a> &gt; Callback={}) const</td></tr>
 <tr class="memdesc:ae5a2afce79f513753908df1a2a113737"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete the message with the given ID.  <br /></td></tr>
 <tr class="separator:ae5a2afce79f513753908df1a2a113737"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45451db05db2d2e4e079d242cec0ddd4" id="r_a45451db05db2d2e4e079d242cec0ddd4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a45451db05db2d2e4e079d242cec0ddd4">SendFile</a> (const FString &amp;ChannelType, const FString &amp;ChannelId, const FString &amp;FileName, const TArray&lt; uint8 &gt; &amp;Content, TCallback&lt; <a class="el" href="struct_f_file_upload_response_dto.html">FFileUploadResponseDto</a> &gt; Callback={}) const</td></tr>
+<tr class="memdesc:a45451db05db2d2e4e079d242cec0ddd4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upload a file to a channel, so it can be attached to a message.  <br /></td></tr>
+<tr class="separator:a45451db05db2d2e4e079d242cec0ddd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade8faa13270cb9243c184966486c0e1d" id="r_ade8faa13270cb9243c184966486c0e1d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade8faa13270cb9243c184966486c0e1d">SendImage</a> (const FString &amp;ChannelType, const FString &amp;ChannelId, const FString &amp;FileName, const TArray&lt; uint8 &gt; &amp;Content, TCallback&lt; <a class="el" href="struct_f_file_upload_response_dto.html">FFileUploadResponseDto</a> &gt; Callback={}) const</td></tr>
+<tr class="memdesc:ade8faa13270cb9243c184966486c0e1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Upload an image to a channel, so it can be attached to a message.  <br /></td></tr>
+<tr class="separator:ade8faa13270cb9243c184966486c0e1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc40fab9643664ac51434a7984ad89cd" id="r_afc40fab9643664ac51434a7984ad89cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afc40fab9643664ac51434a7984ad89cd">DeleteFile</a> (const FString &amp;ChannelType, const FString &amp;ChannelId, const FString &amp;Url, TCallback&lt; <a class="el" href="struct_f_response_dto.html">FResponseDto</a> &gt; Callback={}) const</td></tr>
+<tr class="memdesc:afc40fab9643664ac51434a7984ad89cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a file previously uploaded to a channel.  <br /></td></tr>
+<tr class="separator:afc40fab9643664ac51434a7984ad89cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14e1b2d28ee82123ec198211da87ff05" id="r_a14e1b2d28ee82123ec198211da87ff05"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a14e1b2d28ee82123ec198211da87ff05">DeleteImage</a> (const FString &amp;ChannelType, const FString &amp;ChannelId, const FString &amp;Url, TCallback&lt; <a class="el" href="struct_f_response_dto.html">FResponseDto</a> &gt; Callback={}) const</td></tr>
+<tr class="memdesc:a14e1b2d28ee82123ec198211da87ff05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete an image previously uploaded to a channel.  <br /></td></tr>
+<tr class="separator:a14e1b2d28ee82123ec198211da87ff05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9a351590dba97ccb344912c54993591" id="r_ac9a351590dba97ccb344912c54993591"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9a351590dba97ccb344912c54993591">SendReaction</a> (const FString &amp;MessageId, const FName &amp;<a class="el" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">Type</a>, bool bEnforceUnique=true, TOptional&lt; uint32 &gt; Score={}, bool bSkipPush=false, TCallback&lt; <a class="el" href="struct_f_reaction_response_dto.html">FReactionResponseDto</a> &gt; Callback={}) const</td></tr>
 <tr class="memdesc:ac9a351590dba97ccb344912c54993591"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a reaction for the given MessageId.  <br /></td></tr>
 <tr class="separator:ac9a351590dba97ccb344912c54993591"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -422,6 +434,90 @@ static TSharedRef&lt; <a class="el" href="class_f_chat_api.html">FChatApi</a> &g
     <tr><td class="paramname">ChannelType</td><td>Name of built-in or custom channel type (e.g. messaging, team, livestream) </td></tr>
     <tr><td class="paramname">ChannelId</td><td>A unique identifier for the channel </td></tr>
     <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="afc40fab9643664ac51434a7984ad89cd" name="afc40fab9643664ac51434a7984ad89cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc40fab9643664ac51434a7984ad89cd">&#9670;&#160;</a></span>DeleteFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FChatApi::DeleteFile </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ChannelType</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ChannelId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>Url</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TCallback&lt; <a class="el" href="struct_f_response_dto.html">FResponseDto</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>Callback</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Delete a file previously uploaded to a channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ChannelType</td><td>Name of built-in or custom channel type (e.g. messaging, team, livestream) </td></tr>
+    <tr><td class="paramname">ChannelId</td><td>A unique identifier for the channel </td></tr>
+    <tr><td class="paramname">Url</td><td>The URL returned when the file was uploaded </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a14e1b2d28ee82123ec198211da87ff05" name="a14e1b2d28ee82123ec198211da87ff05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14e1b2d28ee82123ec198211da87ff05">&#9670;&#160;</a></span>DeleteImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FChatApi::DeleteImage </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ChannelType</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ChannelId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>Url</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TCallback&lt; <a class="el" href="struct_f_response_dto.html">FResponseDto</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>Callback</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Delete an image previously uploaded to a channel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ChannelType</td><td>Name of built-in or custom channel type (e.g. messaging, team, livestream) </td></tr>
+    <tr><td class="paramname">ChannelId</td><td>A unique identifier for the channel </td></tr>
+    <tr><td class="paramname">Url</td><td>The URL returned when the image was uploaded </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received </td></tr>
   </table>
   </dd>
 </dl>
@@ -1427,6 +1523,104 @@ template&lt;class TEvent &gt; </div>
     <tr><td class="paramname">ChannelType</td><td>Name of built-in or custom channel type (e.g. messaging, team, livestream) </td></tr>
     <tr><td class="paramname">ChannelId</td><td>The unique identifier of the channel </td></tr>
     <tr><td class="paramname">Callback</td><td>Called when response is received </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a45451db05db2d2e4e079d242cec0ddd4" name="a45451db05db2d2e4e079d242cec0ddd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45451db05db2d2e4e079d242cec0ddd4">&#9670;&#160;</a></span>SendFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FChatApi::SendFile </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ChannelType</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ChannelId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>FileName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; uint8 &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>Content</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TCallback&lt; <a class="el" href="struct_f_file_upload_response_dto.html">FFileUploadResponseDto</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>Callback</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Upload a file to a channel, so it can be attached to a message. </p>
+<p>Uploading and sending are separate steps: upload first, then put the returned URL in an attachment's AssetUrl when sending the message. Stream accepts any file type by default, up to 100 MB.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ChannelType</td><td>Name of built-in or custom channel type (e.g. messaging, team, livestream) </td></tr>
+    <tr><td class="paramname">ChannelId</td><td>A unique identifier for the channel </td></tr>
+    <tr><td class="paramname">FileName</td><td>Original filename, shown to recipients and used to infer the MIME type </td></tr>
+    <tr><td class="paramname">Content</td><td>Raw bytes of the file </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received, carrying the uploaded URL </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ade8faa13270cb9243c184966486c0e1d" name="ade8faa13270cb9243c184966486c0e1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade8faa13270cb9243c184966486c0e1d">&#9670;&#160;</a></span>SendImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FChatApi::SendImage </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ChannelType</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ChannelId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>FileName</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; uint8 &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>Content</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TCallback&lt; <a class="el" href="struct_f_file_upload_response_dto.html">FFileUploadResponseDto</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>Callback</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Upload an image to a channel, so it can be attached to a message. </p>
+<p>Prefer this over SendFile for images: the backend recognises them, may generate a thumbnail, and clients can render them inline. Accepts BMP, GIF, JPEG, PNG, WebP, HEIC, HEIF and SVG, up to 100 MB. Put the returned URL in an attachment's ImageUrl.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ChannelType</td><td>Name of built-in or custom channel type (e.g. messaging, team, livestream) </td></tr>
+    <tr><td class="paramname">ChannelId</td><td>A unique identifier for the channel </td></tr>
+    <tr><td class="paramname">FileName</td><td>Original filename, shown to recipients and used to infer the MIME type </td></tr>
+    <tr><td class="paramname">Content</td><td>Raw bytes of the image </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received, carrying the uploaded URL </td></tr>
   </table>
   </dd>
 </dl>

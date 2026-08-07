@@ -1,5 +1,6 @@
 var struct_f_message_request_dto =
 [
+    [ "Attachments", "struct_f_message_request_dto.html#a721dedf3451b16ad8a99e40c9124defc", null ],
     [ "Html", "struct_f_message_request_dto.html#a41f6cfe682e1521a72791f8fe00b8855", null ],
     [ "Id", "struct_f_message_request_dto.html#ab7f3fdf46bffdab16aacaad520c611da", null ],
     [ "Mml", "struct_f_message_request_dto.html#aaaffb243ad1068d68462da12c25d28c9", null ],

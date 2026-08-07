@@ -4,6 +4,7 @@ var struct_f_message =
     [ "FMessage", "struct_f_message.html#a7e64696f404ed1586a13231e6ee7331c", null ],
     [ "FMessage", "struct_f_message.html#a2f18482b45463920b6cd94f44c155592", null ],
     [ "ToRequestDto", "struct_f_message.html#a84984fc8d09ddc31b4b178d15509b972", null ],
+    [ "Attachments", "struct_f_message.html#ac379f0b2704722bf3d079ad2cf83e073", null ],
     [ "bIsShadowed", "struct_f_message.html#a10689717c2aee4a96a85ef83f4be9858", null ],
     [ "CreatedAt", "struct_f_message.html#ae1f1401a4081a7317e6a0f5bee667697", null ],
     [ "DeletedAt", "struct_f_message.html#a335faf376af27f28fe1d7cc25f3c2288", null ],

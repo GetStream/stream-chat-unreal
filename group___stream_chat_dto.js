@@ -81,6 +81,7 @@ var group___stream_chat_dto =
     [ "FDeviceFieldsDto", "struct_f_device_fields_dto.html", null ],
     [ "FSendEventRequestDto", "struct_f_send_event_request_dto.html", null ],
     [ "FMessageRequestDto", "struct_f_message_request_dto.html", [
+      [ "Attachments", "struct_f_message_request_dto.html#a721dedf3451b16ad8a99e40c9124defc", null ],
       [ "Html", "struct_f_message_request_dto.html#a41f6cfe682e1521a72791f8fe00b8855", null ],
       [ "Id", "struct_f_message_request_dto.html#ab7f3fdf46bffdab16aacaad520c611da", null ],
       [ "Mml", "struct_f_message_request_dto.html#aaaffb243ad1068d68462da12c25d28c9", null ],
@@ -278,9 +279,31 @@ var group___stream_chat_dto =
       [ "Type", "struct_f_event_dto.html#ac675828a3e845f64223826687b7417c2", null ]
     ] ],
     [ "FEventResponseDto", "struct_f_event_response_dto.html", null ],
+    [ "FAttachmentDto", "struct_f_attachment_dto.html", [
+      [ "AdditionalFields", "struct_f_attachment_dto.html#af5dec0299db571308b62209956d916e8", null ],
+      [ "AssetUrl", "struct_f_attachment_dto.html#a37d9dfaac55ea22687f64febf0602e68", null ],
+      [ "AuthorLink", "struct_f_attachment_dto.html#a3588ee6a5a6e5b4951ba100d45f8e7d2", null ],
+      [ "AuthorName", "struct_f_attachment_dto.html#acb152dcf0c9c620951e74d038a83ed85", null ],
+      [ "Fallback", "struct_f_attachment_dto.html#a428e1ecbd3d0c87c7f460abe647d8ce2", null ],
+      [ "FileSize", "struct_f_attachment_dto.html#a2032fd50f153de18b2a2733aaef79114", null ],
+      [ "ImageUrl", "struct_f_attachment_dto.html#a87e32b9c954f310dbe960e9e8770143d", null ],
+      [ "MimeType", "struct_f_attachment_dto.html#a75b71d995ce0b032f9fcffa6ba4be981", null ],
+      [ "OgScrapeUrl", "struct_f_attachment_dto.html#a078eab17c145e88bd57fcbcb51796739", null ],
+      [ "Text", "struct_f_attachment_dto.html#aced33fd399253adc3ad092104d152997", null ],
+      [ "ThumbUrl", "struct_f_attachment_dto.html#a393383a18cfc26e0e6f698c60b81df70", null ],
+      [ "Title", "struct_f_attachment_dto.html#a7031854c0f4cbe96793849d5dfc40458", null ],
+      [ "TitleLink", "struct_f_attachment_dto.html#ac250e5048f9b16bea23f42027f1bc6fe", null ],
+      [ "Type", "struct_f_attachment_dto.html#acd2d295fb1b0a290f3a2bb9cff6f2a34", null ]
+    ] ],
     [ "FCommandDto", "struct_f_command_dto.html", null ],
+    [ "FFileUploadResponseDto", "struct_f_file_upload_response_dto.html", [
+      [ "Duration", "struct_f_file_upload_response_dto.html#ab5696cae6e166bf93752364fd4ff78dd", null ],
+      [ "File", "struct_f_file_upload_response_dto.html#a918e1cee1799cf64a03b518e02ef7925", null ],
+      [ "ThumbUrl", "struct_f_file_upload_response_dto.html#a99419c90b6e6d2b031e362b3db2e15aa", null ]
+    ] ],
     [ "FMessageDto", "struct_f_message_dto.html", [
       [ "GetDeletedAt", "struct_f_message_dto.html#adfae68c3d22afccc25f0cb7c95849c25", null ],
+      [ "Attachments", "struct_f_message_dto.html#a4729426a241b004010a5eb7d4bd192d3", null ],
       [ "bPinned", "struct_f_message_dto.html#a1bb973eefdd96e99c2280c183beb8283", null ],
       [ "bShadowed", "struct_f_message_dto.html#a38e6cb0b680005a5f3862d28188ce87e", null ],
       [ "bShowInChannel", "struct_f_message_dto.html#acec263cb4e373dcd190bd79bd3e9ac6c", null ],
