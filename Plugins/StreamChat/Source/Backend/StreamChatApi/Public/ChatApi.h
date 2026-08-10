@@ -29,6 +29,8 @@ struct FFileUploadResponseDto;
 struct FFlagResponseDto;
 struct FGetBlockedUsersResponseDto;
 struct FGetReactionsResponseDto;
+struct FGetRepliesResponseDto;
+struct FGetThreadResponseDto;
 struct FGuestResponseDto;
 struct FHttpResponse;
 struct FListDevicesResponseDto;
@@ -39,6 +41,7 @@ struct FMessageResponseDto;
 struct FMuteChannelResponseDto;
 struct FMuteUserResponseDto;
 struct FQueryBannedUsersResponseDto;
+struct FQueryThreadsResponseDto;
 struct FReactionRequestDto;
 struct FReactionResponseDto;
 struct FResponseDto;
@@ -535,8 +538,78 @@ public:
      */
     void GetReactions(const FString& MessageId, TOptional<uint32> Limit, TOptional<uint32> Offset, TCallback<FGetReactionsResponseDto> Callback = {}) const;
 
+    /**
+     * @brief Fetch the replies of a thread, oldest first
+     *
+     * Replies are returned in creation order, so paginate backwards through a thread's history with
+     * IdLt set to the oldest reply held locally.
+     *
+     * @param ParentId ID of the message which started the thread
+     * @param Pagination Limit, and reply selection by reply ID.
+     * Only Limit, IdGt, IdGte, IdLt and IdLte are sent; the endpoint has no offset or created_at parameters.
+     * @param Callback Called when response is received
+     */
+    void GetReplies(const FString& ParentId, const FMessagePaginationParamsRequestDto& Pagination = {}, TCallback<FGetRepliesResponseDto> Callback = {}) const;
+
 ///@}
 #pragma endregion Messages
+
+#pragma region Threads
+    /** @name Threads
+     *  https://getstream.io/chat/docs/rest/#product:chat-threads
+     *  @{
+     */
+
+    /**
+     * @brief List the threads the current user participates in, across all their channels
+     *
+     * @param ConnectionId Websocket connection ID to interact with. Only needed when watching.
+     * @param Filter Conditions the returned threads must match, @see https://getstream.io/chat/docs/unreal/threads/
+     * @param SortOptions The sorting used for the threads matching the filter.
+     * Defaults server-side to unread threads first, then most recent reply first.
+     * @param Limit The number of threads to return (max 100)
+     * @param ReplyLimit How many of the latest replies to include per thread (max 10)
+     * @param ParticipantLimit How many participants to include per thread (max 100)
+     * @param MemberLimit How many members of each thread's channel to include (max 100)
+     * @param Next Value from a previous response, to fetch the following page
+     * @param bWatch Start watching the channels the returned threads belong to
+     * @param Callback Called when response is received
+     */
+    void QueryThreads(
+        const FString& ConnectionId = {},
+        const TOptional<TSharedRef<FJsonObject>>& Filter = {},
+        const TArray<FSortParamRequestDto>& SortOptions = {},
+        TOptional<uint32> Limit = {},
+        TOptional<uint32> ReplyLimit = {},
+        TOptional<uint32> ParticipantLimit = {},
+        TOptional<uint32> MemberLimit = {},
+        const TOptional<FString>& Next = {},
+        bool bWatch = false,
+        TCallback<FQueryThreadsResponseDto> Callback = {}) const;
+
+    /**
+     * @brief Fetch a single thread, identified by the ID of the message which started it
+     *
+     * @param MessageId ID of the message which started the thread
+     * @param ConnectionId Websocket connection ID to interact with. Only needed when watching.
+     * @param bWatch Start watching the channel the thread belongs to
+     * @param ReplyLimit How many of the latest replies to include
+     * @param ParticipantLimit How many participants to include (max 100).
+     * @attention Leaving this unset returns no participants at all, rather than a default number of them.
+     * @param MemberLimit How many members of the thread's channel to include (max 100)
+     * @param Callback Called when response is received
+     */
+    void GetThread(
+        const FString& MessageId,
+        const FString& ConnectionId = {},
+        bool bWatch = false,
+        TOptional<uint32> ReplyLimit = {},
+        TOptional<uint32> ParticipantLimit = {},
+        TOptional<uint32> MemberLimit = {},
+        TCallback<FGetThreadResponseDto> Callback = {}) const;
+
+///@}
+#pragma endregion Threads
 
 #pragma region Events
     /** @name Events

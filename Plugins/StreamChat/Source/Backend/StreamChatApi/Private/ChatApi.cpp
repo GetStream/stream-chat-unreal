@@ -24,6 +24,7 @@
 #include "Request/Moderation/MuteUserRequestDto.h"
 #include "Request/Moderation/QueryBannedUsersRequestDto.h"
 #include "Request/Reaction/SendReactionRequestDto.h"
+#include "Request/Thread/QueryThreadsRequestDto.h"
 #include "Request/User/GuestRequestDto.h"
 #include "Request/User/QueryUsersRequestDto.h"
 #include "Request/User/UpdateUserPartialRequestDto.h"
@@ -41,6 +42,7 @@
 #include "Response/ErrorResponseDto.h"
 #include "Response/Event/EventResponseDto.h"
 #include "Response/Message/FileUploadResponseDto.h"
+#include "Response/Message/GetRepliesResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
 #include "Response/Moderation/BlockUserResponseDto.h"
@@ -52,6 +54,8 @@
 #include "Response/Reaction/GetReactionsResponseDto.h"
 #include "Response/Reaction/ReactionResponseDto.h"
 #include "Response/ResponseDto.h"
+#include "Response/Thread/GetThreadResponseDto.h"
+#include "Response/Thread/QueryThreadsResponseDto.h"
 #include "Response/User/GuestResponseDto.h"
 #include "Response/User/UpdateUsersResponseDto.h"
 #include "Response/User/UsersResponseDto.h"
@@ -485,6 +489,100 @@ void FChatApi::GetReactions(const FString& MessageId, TOptional<uint32> Limit, T
     if (Offset.IsSet())
     {
         Query.Add(TEXT("offset"), FQueryParameter{static_cast<int32>(Offset.GetValue())});
+    }
+    Client->Get(Url).Query(Query).Send(Callback);
+}
+
+void FChatApi::GetReplies(const FString& ParentId, const FMessagePaginationParamsRequestDto& Pagination, const TCallback<FGetRepliesResponseDto> Callback) const
+{
+    const FString Path = FString::Printf(TEXT("messages/%s/replies"), *ParentId);
+    const FString Url = BuildUrl(Path);
+    FQueryParameters Query;
+    if (Pagination.Limit != TNumericLimits<uint32>::Max())
+    {
+        Query.Add(TEXT("limit"), FQueryParameter{static_cast<int32>(Pagination.Limit)});
+    }
+    // The endpoint pages by reply ID only. Offset and the created_at bounds that
+    // FMessagePaginationParamsRequestDto also carries are not accepted here, so they are not sent.
+    const TMap<FString, const FString*> IdBounds{
+        {TEXT("id_gt"), &Pagination.IdGt},
+        {TEXT("id_gte"), &Pagination.IdGte},
+        {TEXT("id_lt"), &Pagination.IdLt},
+        {TEXT("id_lte"), &Pagination.IdLte},
+    };
+    for (const auto& Bound : IdBounds)
+    {
+        if (!Bound.Value->IsEmpty())
+        {
+            Query.Add(Bound.Key, FQueryParameter{*Bound.Value});
+        }
+    }
+    Client->Get(Url).Query(Query).Send(Callback);
+}
+
+void FChatApi::QueryThreads(
+    const FString& ConnectionId,
+    const TOptional<TSharedRef<FJsonObject>>& Filter,
+    const TArray<FSortParamRequestDto>& SortOptions,
+    const TOptional<uint32> Limit,
+    const TOptional<uint32> ReplyLimit,
+    const TOptional<uint32> ParticipantLimit,
+    const TOptional<uint32> MemberLimit,
+    const TOptional<FString>& Next,
+    const bool bWatch,
+    const TCallback<FQueryThreadsResponseDto> Callback) const
+{
+    const FString Url = BuildUrl(TEXT("threads"));
+
+    FQueryThreadsRequestDto Body;
+    Body.Filter = Wrap(Filter);
+    Body.Limit = Limit.Get(TNumericLimits<uint32>::Max());
+    Body.ReplyLimit = ReplyLimit.Get(TNumericLimits<uint32>::Max());
+    Body.ParticipantLimit = ParticipantLimit.Get(TNumericLimits<uint32>::Max());
+    Body.MemberLimit = MemberLimit.Get(TNumericLimits<uint32>::Max());
+    Body.Next = Next.Get(TEXT(""));
+    Body.Sort = SortOptions;
+    Body.bWatch = bWatch;
+
+    FRequestBuilder Req = Client->Post(Url);
+    if (!ConnectionId.IsEmpty())
+    {
+        Req.Query({{TEXT("connection_id"), ConnectionId}});
+    }
+    Req.Json(Body).Send(Callback);
+}
+
+void FChatApi::GetThread(
+    const FString& MessageId,
+    const FString& ConnectionId,
+    const bool bWatch,
+    const TOptional<uint32> ReplyLimit,
+    const TOptional<uint32> ParticipantLimit,
+    const TOptional<uint32> MemberLimit,
+    const TCallback<FGetThreadResponseDto> Callback) const
+{
+    const FString Path = FString::Printf(TEXT("threads/%s"), *MessageId);
+    const FString Url = BuildUrl(Path);
+    FQueryParameters Query;
+    if (bWatch)
+    {
+        Query.Add(TEXT("watch"), FQueryParameter{true});
+    }
+    if (!ConnectionId.IsEmpty())
+    {
+        Query.Add(TEXT("connection_id"), FQueryParameter{ConnectionId});
+    }
+    if (ReplyLimit.IsSet())
+    {
+        Query.Add(TEXT("reply_limit"), FQueryParameter{static_cast<int32>(ReplyLimit.GetValue())});
+    }
+    if (ParticipantLimit.IsSet())
+    {
+        Query.Add(TEXT("participant_limit"), FQueryParameter{static_cast<int32>(ParticipantLimit.GetValue())});
+    }
+    if (MemberLimit.IsSet())
+    {
+        Query.Add(TEXT("member_limit"), FQueryParameter{static_cast<int32>(MemberLimit.GetValue())});
     }
     Client->Get(Url).Query(Query).Send(Callback);
 }

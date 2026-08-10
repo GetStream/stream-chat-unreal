@@ -45,6 +45,11 @@ FChannelState::FChannelState(const FChannelStateResponseFieldsDto& Dto, UUserMan
     // TODO Pinned messages
 }
 
+void FChannelState::AppendReplies(const FString& ParentId, const TArray<FMessageDto>& Dtos, UUserManager* UserManager)
+{
+    Messages.AppendReplies(ParentId, Dtos, UserManager);
+}
+
 void FChannelState::Append(const FChannelStateResponseFieldsDto& Dto, UUserManager* UserManager)
 {
     FChannelState NewState{Dto, UserManager};
@@ -55,8 +60,9 @@ void FChannelState::Append(const FChannelStateResponseFieldsDto& Dto, UUserManag
 void FChannelState::AddMessage(const FMessage& Message)
 {
     TRACE_CPUPROFILER_EVENT_SCOPE(TEXT("FChannelState::AddMessage"))
-    // TODO Threads
     // TODO Quoting
+    // The store routes thread replies to their thread. A reply never counts towards the channel's
+    // unread count, which CountMessageAsUnread already takes care of.
     if (Messages.AddMessage(Message))
     {
         if (CountMessageAsUnread(Message))

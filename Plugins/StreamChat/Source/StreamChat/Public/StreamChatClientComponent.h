@@ -5,6 +5,7 @@
 #include "Channel/ChannelProperties.h"
 #include "Channel/ChannelSortOption.h"
 #include "Channel/ChatChannel.h"
+#include "Channel/ChatThread.h"
 #include "Channel/Filter.h"
 #include "ChannelFlags.h"
 #include "ChatSocketEvents.h"
@@ -188,6 +189,46 @@ public:
         const TArray<FMessageSortOption>& Sort = {},
         TOptional<uint32> MessageLimit = {},
         TFunction<void(const TArray<FMessage>&)> Callback = {}) const;
+
+    /**
+     * @brief List the threads the current user participates in, across all of their channels
+     *
+     * This is the thread-list surface: one entry per thread, each carrying its parent message and a
+     * preview of its most recent replies. To read a whole thread, fetch its replies through the
+     * channel it belongs to with UChatChannel::QueryReplies.
+     *
+     * @param Filter Conditions the returned threads must match. Queryable fields include channel_cid,
+     * parent_message_id, created_by_user_id, has_unread, reply_count and last_message_at.
+     * @param SortOptions The sorting used for the threads matching the filter. Defaults server-side to
+     * threads with unread replies first, then most recent reply first.
+     * @param Limit The number of threads to return (max 100)
+     * @param ReplyLimit How many of the latest replies to preview per thread (max 10)
+     * @param Next Value from a previous response, to fetch the following page
+     * @param Callback Called with the threads and, if there are more, the token to pass as Next
+     */
+    void QueryThreads(
+        const TOptional<FFilter>& Filter = {},
+        const TArray<FThreadSortOption>& SortOptions = {},
+        TOptional<uint32> Limit = {},
+        TOptional<uint32> ReplyLimit = {},
+        const TOptional<FString>& Next = {},
+        TFunction<void(const TArray<FChatThread>& Threads, const FString& NextPage)> Callback = {}) const;
+
+    /**
+     * @brief Fetch a single thread by the ID of the message which started it
+     *
+     * @param ParentMessageId ID of the message which started the thread
+     * @param ReplyLimit How many of the latest replies to include
+     * @param ParticipantLimit How many participants to include (max 100).
+     * @attention Leaving this unset leaves FChatThread::ThreadParticipants empty: this endpoint
+     * returns no participants at all unless asked for a number of them.
+     * @param Callback Called when a response is received
+     */
+    void GetThread(
+        const FString& ParentMessageId,
+        TOptional<uint32> ReplyLimit = {},
+        TOptional<uint32> ParticipantLimit = {},
+        TFunction<void(const FChatThread&)> Callback = {}) const;
 
     /**
      * @brief Mark all channels as read for the current user

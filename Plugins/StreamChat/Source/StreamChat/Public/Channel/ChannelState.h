@@ -29,7 +29,10 @@ struct STREAMCHAT_API FChannelState
     /// Merge new information from the API into this state
     void Append(const FChannelStateResponseFieldsDto&, UUserManager*);
 
-    /// Locally add a message to this channel
+    /// Merge newly fetched replies of a thread into this state
+    void AppendReplies(const FString& ParentId, const TArray<FMessageDto>&, UUserManager*);
+
+    /// Locally add a message to this channel. A thread reply is routed to its thread.
     void AddMessage(const FMessage&);
 
     /// Has message been read by everyone else?
