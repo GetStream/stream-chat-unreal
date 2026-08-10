@@ -279,15 +279,42 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>MarkReadLocal</b> ()<
 <tr class="memdesc:ab88c80df5f628c7faf4aa8861e410c08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search the messages in this channel.  <br /></td></tr>
 <tr class="separator:ab88c80df5f628c7faf4aa8861e410c08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">Thread</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p>Reply in threads, and paginate a thread's replies. </p>
+</td></tr>
+<tr class="memitem:ad99fcb7b04ffee31e90b00073c13c63b" id="r_ad99fcb7b04ffee31e90b00073c13c63b"><td class="memItemLeft" align="right" valign="top">FRepliesUpdatedDelegate&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad99fcb7b04ffee31e90b00073c13c63b">RepliesUpdated</a></td></tr>
+<tr class="separator:ad99fcb7b04ffee31e90b00073c13c63b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a326958e1ab5c4308e390b7b5378d266e" id="r_a326958e1ab5c4308e390b7b5378d266e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a326958e1ab5c4308e390b7b5378d266e">SendReplyBP</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;Reply, const <a class="el" href="struct_f_message.html">FMessage</a> &amp;ParentMessage, bool bAlsoSendInChannel, const UObject *WorldContextObject, FLatentActionInfo LatentInfo, bool &amp;bSuccess)</td></tr>
+<tr class="memdesc:a326958e1ab5c4308e390b7b5378d266e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reply to a message, in that message's thread.  <br /></td></tr>
+<tr class="separator:a326958e1ab5c4308e390b7b5378d266e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12a3c4f0bf08577015f2f35fd978b366" id="r_a12a3c4f0bf08577015f2f35fd978b366"><td class="memItemLeft" align="right" valign="top"><a id="a12a3c4f0bf08577015f2f35fd978b366" name="a12a3c4f0bf08577015f2f35fd978b366"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>SendReply</b> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;Reply, const <a class="el" href="struct_f_message.html">FMessage</a> &amp;ParentMessage, bool bAlsoSendInChannel=false, const TFunction&lt; void(const bool &amp;bSuccess)&gt; Callback={})</td></tr>
+<tr class="separator:a12a3c4f0bf08577015f2f35fd978b366"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af072c4dff1b9058164266623fc2e13a1" id="r_af072c4dff1b9058164266623fc2e13a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af072c4dff1b9058164266623fc2e13a1">QueryReplies</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;ParentMessage, int32 Limit=20, TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;)&gt; Callback={})</td></tr>
+<tr class="memdesc:af072c4dff1b9058164266623fc2e13a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch the replies of a thread from the server, most recent last.  <br /></td></tr>
+<tr class="separator:af072c4dff1b9058164266623fc2e13a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84f9635d382aee9ef1a4717a4a2e0f8d" id="r_a84f9635d382aee9ef1a4717a4a2e0f8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a84f9635d382aee9ef1a4717a4a2e0f8d">QueryAdditionalReplies</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;ParentMessage, int32 Limit=20, TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;)&gt; Callback={})</td></tr>
+<tr class="memdesc:a84f9635d382aee9ef1a4717a4a2e0f8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch replies older than the oldest one held locally, for scrolling up a thread.  <br /></td></tr>
+<tr class="separator:a84f9635d382aee9ef1a4717a4a2e0f8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acefa2c8d9bc08e053386bb836c374c01" id="r_acefa2c8d9bc08e053386bb836c374c01"><td class="memItemLeft" align="right" valign="top"><a id="acefa2c8d9bc08e053386bb836c374c01" name="acefa2c8d9bc08e053386bb836c374c01"></a>
+const FMessages &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetReplies</b> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;ParentMessage) const</td></tr>
+<tr class="memdesc:acefa2c8d9bc08e053386bb836c374c01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the replies of a thread held locally, oldest first. Empty until they have been fetched. <br /></td></tr>
+<tr class="separator:acefa2c8d9bc08e053386bb836c374c01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54b16eeae69115e389c47c7e3927f543" id="r_a54b16eeae69115e389c47c7e3927f543"><td class="memItemLeft" align="right" valign="top">TArray&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54b16eeae69115e389c47c7e3927f543">GetRepliesBP</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;ParentMessage) const</td></tr>
+<tr class="memdesc:a54b16eeae69115e389c47c7e3927f543"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the replies of a thread held locally, oldest first.  <br /></td></tr>
+<tr class="separator:a54b16eeae69115e389c47c7e3927f543"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">Typing</h2></td></tr>
 <tr class="memitem:a93d772ef1c497a17a5af73a0be954084" id="r_a93d772ef1c497a17a5af73a0be954084"><td class="memItemLeft" align="right" valign="top"><a id="a93d772ef1c497a17a5af73a0be954084" name="a93d772ef1c497a17a5af73a0be954084"></a>
 FTypingIndicatorDelegate&#160;</td><td class="memItemRight" valign="bottom"><b>OnTypingIndicator</b></td></tr>
-<tr class="memdesc:a93d772ef1c497a17a5af73a0be954084"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired whenever any user starts or stops typing. <br /></td></tr>
+<tr class="memdesc:a93d772ef1c497a17a5af73a0be954084"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired whenever any user starts or stops typing, in the channel or in any of its threads. <br /></td></tr>
 <tr class="separator:a93d772ef1c497a17a5af73a0be954084"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8102ae8974c78a297db1229334c593c2" id="r_a8102ae8974c78a297db1229334c593c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8102ae8974c78a297db1229334c593c2">KeyStroke</a> (const FString &amp;ParentMessageId=TEXT(&quot;&quot;))</td></tr>
+<tr class="memitem:abca5e755ed8d8974bf187935523505d3" id="r_abca5e755ed8d8974bf187935523505d3"><td class="memItemLeft" align="right" valign="top">FThreadTypingIndicatorDelegate&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abca5e755ed8d8974bf187935523505d3">OnThreadTypingIndicator</a></td></tr>
+<tr class="separator:abca5e755ed8d8974bf187935523505d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8102ae8974c78a297db1229334c593c2" id="r_a8102ae8974c78a297db1229334c593c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8102ae8974c78a297db1229334c593c2">KeyStroke</a> (const FString &amp;<a class="el" href="group___stream_chat.html#gga4a7849feb763be9cddf038c482b755f7ad2997ad093de2311d068c42656641df3">ParentMessageId</a>=TEXT(&quot;&quot;))</td></tr>
 <tr class="memdesc:a8102ae8974c78a297db1229334c593c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Should be called on every keystroke. Sends <code>typing.start</code> and <code>typing.stop</code> events accordingly.  <br /></td></tr>
 <tr class="separator:a8102ae8974c78a297db1229334c593c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e9708a5be8e8ac9ece17712399a9dbf" id="r_a9e9708a5be8e8ac9ece17712399a9dbf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9e9708a5be8e8ac9ece17712399a9dbf">StopTyping</a> (const FString &amp;ParentMessageId=TEXT(&quot;&quot;))</td></tr>
+<tr class="memitem:a9e9708a5be8e8ac9ece17712399a9dbf" id="r_a9e9708a5be8e8ac9ece17712399a9dbf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9e9708a5be8e8ac9ece17712399a9dbf">StopTyping</a> (const FString &amp;<a class="el" href="group___stream_chat.html#gga4a7849feb763be9cddf038c482b755f7ad2997ad093de2311d068c42656641df3">ParentMessageId</a>=TEXT(&quot;&quot;))</td></tr>
 <tr class="memdesc:a9e9708a5be8e8ac9ece17712399a9dbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Should be called when the user sends the message (or aborts). Manually sends the typing.stop event, and cancels any pending typing.stop event queued by Keystroke()  <br /></td></tr>
 <tr class="separator:a9e9708a5be8e8ac9ece17712399a9dbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -574,6 +601,26 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>DisableSlowMode</b> (
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a54b16eeae69115e389c47c7e3927f543" name="a54b16eeae69115e389c47c7e3927f543"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54b16eeae69115e389c47c7e3927f543">&#9670;&#160;</a></span>GetRepliesBP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TArray&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; UChatChannel::GetRepliesBP </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_f_message.html">FMessage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>ParentMessage</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the replies of a thread held locally, oldest first. </p>
+<p>Empty until they have been fetched with Query Replies. </p>
 
 </div>
 </div>
@@ -957,6 +1004,43 @@ template&lt;class TEvent , class UserClass &gt; </div>
 
 </div>
 </div>
+<a id="a84f9635d382aee9ef1a4717a4a2e0f8d" name="a84f9635d382aee9ef1a4717a4a2e0f8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84f9635d382aee9ef1a4717a4a2e0f8d">&#9670;&#160;</a></span>QueryAdditionalReplies()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UChatChannel::QueryAdditionalReplies </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_f_message.html">FMessage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>ParentMessage</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32</td>          <td class="paramname"><span class="paramname"><em>Limit</em></span><span class="paramdefsep"> = </span><span class="paramdefval">20</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;)&gt;</td>          <td class="paramname"><span class="paramname"><em>Callback</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetch replies older than the oldest one held locally, for scrolling up a thread. </p>
+<dl class="section attention"><dt>Attention</dt><dd>Some replies of this thread must already have been fetched for this to do anything. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ParentMessage</td><td>The message in this channel whose thread to paginate </td></tr>
+    <tr><td class="paramname">Limit</td><td>Number of replies returned is limited by this value. Maximum 300. </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called with the fetched replies when a response is received </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a8079737719a8928c643630d4fab9c298" name="a8079737719a8928c643630d4fab9c298"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8079737719a8928c643630d4fab9c298">&#9670;&#160;</a></span>QueryMembers()</h2>
 
@@ -993,6 +1077,43 @@ template&lt;class TEvent , class UserClass &gt; </div>
     <tr><td class="paramname">Sort</td><td>The sorting used for the members matching the filters. Sorting is based on field and direction, multiple sorting options can be provided. </td></tr>
     <tr><td class="paramname">Pagination</td><td>Limit, offset, and member selection by user id GtId, GteId, LtId and LteId fields are for user IDs </td></tr>
     <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af072c4dff1b9058164266623fc2e13a1" name="af072c4dff1b9058164266623fc2e13a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af072c4dff1b9058164266623fc2e13a1">&#9670;&#160;</a></span>QueryReplies()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UChatChannel::QueryReplies </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_f_message.html">FMessage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>ParentMessage</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32</td>          <td class="paramname"><span class="paramname"><em>Limit</em></span><span class="paramdefsep"> = </span><span class="paramdefval">20</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;)&gt;</td>          <td class="paramname"><span class="paramname"><em>Callback</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetch the replies of a thread from the server, most recent last. </p>
+<p>A channel query returns the channel's history and not its threads, so a thread's replies have to be fetched separately, once per thread the user opens.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ParentMessage</td><td>The message in this channel whose thread to fetch </td></tr>
+    <tr><td class="paramname">Limit</td><td>Number of replies returned is limited by this value. Maximum 300. </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called with the fetched replies when a response is received </td></tr>
   </table>
   </dd>
 </dl>
@@ -1218,6 +1339,59 @@ template&lt;class TEvent , class UserClass &gt; </div>
     <tr><td class="paramname">ReactionType</td><td>The type of reaction to send </td></tr>
     <tr><td class="paramname">bEnforceUnique</td><td>Should all other reactions from this user be removed </td></tr>
     <tr><td class="paramname">Score</td><td>The score of the reaction. Defaults to 1. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a326958e1ab5c4308e390b7b5378d266e" name="a326958e1ab5c4308e390b7b5378d266e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a326958e1ab5c4308e390b7b5378d266e">&#9670;&#160;</a></span>SendReplyBP()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UChatChannel::SendReplyBP </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_f_message.html">FMessage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>Reply</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_f_message.html">FMessage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>ParentMessage</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>bAlsoSendInChannel</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const UObject *</td>          <td class="paramname"><span class="paramname"><em>WorldContextObject</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FLatentActionInfo</td>          <td class="paramname"><span class="paramname"><em>LatentInfo</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &amp;</td>          <td class="paramname"><span class="paramname"><em>bSuccess</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reply to a message, in that message's thread. </p>
+<p>Replying to a message which isn't in a thread yet starts one. A reply does not appear in the channel message list, and does not count towards the channel's unread count, unless bAlsoSendInChannel is set.</p>
+<p>Equivalent to setting ParentId (and bShowInChannel) on the message and calling SendMessage.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Reply</td><td>A message struct containing information of the reply to be sent </td></tr>
+    <tr><td class="paramname">ParentMessage</td><td>The message in this channel to reply to </td></tr>
+    <tr><td class="paramname">bAlsoSendInChannel</td><td>Additionally show this reply in the main channel message list </td></tr>
   </table>
   </dd>
 </dl>
@@ -1606,6 +1780,37 @@ template&lt;class TEvent &gt; </div>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="abca5e755ed8d8974bf187935523505d3" name="abca5e755ed8d8974bf187935523505d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abca5e755ed8d8974bf187935523505d3">&#9670;&#160;</a></span>OnThreadTypingIndicator</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FThreadTypingIndicatorDelegate UChatChannel::OnThreadTypingIndicator</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Fired whenever any user starts or stops typing in a thread, carrying the thread it happened in. OnTypingIndicator fires for these too, so subscribe here only to tell threads apart. </p>
+
+</div>
+</div>
+<a id="ad99fcb7b04ffee31e90b00073c13c63b" name="ad99fcb7b04ffee31e90b00073c13c63b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad99fcb7b04ffee31e90b00073c13c63b">&#9670;&#160;</a></span>RepliesUpdated</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FRepliesUpdatedDelegate UChatChannel::RepliesUpdated</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Fired when any of the replies we have locally for a thread change. MessagesUpdated also fires, so a channel-level message list needs no extra wiring. </p>
 
 </div>
 </div>

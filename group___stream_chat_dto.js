@@ -82,9 +82,11 @@ var group___stream_chat_dto =
     [ "FSendEventRequestDto", "struct_f_send_event_request_dto.html", null ],
     [ "FMessageRequestDto", "struct_f_message_request_dto.html", [
       [ "Attachments", "struct_f_message_request_dto.html#a721dedf3451b16ad8a99e40c9124defc", null ],
+      [ "bShowInChannel", "struct_f_message_request_dto.html#a80dd40bed8e7e74957b1b8c018cc59c6", null ],
       [ "Html", "struct_f_message_request_dto.html#a41f6cfe682e1521a72791f8fe00b8855", null ],
       [ "Id", "struct_f_message_request_dto.html#ab7f3fdf46bffdab16aacaad520c611da", null ],
       [ "Mml", "struct_f_message_request_dto.html#aaaffb243ad1068d68462da12c25d28c9", null ],
+      [ "ParentId", "struct_f_message_request_dto.html#a7df1a59df78b272740d7cae76d932c54", null ],
       [ "ReactionScores", "struct_f_message_request_dto.html#ad618a0e17f84e1bf126de384e52d89cd", null ],
       [ "Text", "struct_f_message_request_dto.html#ab24fd104212ec3a5b2263739aa4065b8", null ]
     ] ],
@@ -142,6 +144,17 @@ var group___stream_chat_dto =
       [ "bSkipPush", "struct_f_send_reaction_request_dto.html#a101a880f56b0cf8a9108d250a0746e48", null ]
     ] ],
     [ "FSortParamRequestDto", "struct_f_sort_param_request_dto.html", null ],
+    [ "FQueryThreadsRequestDto", "struct_f_query_threads_request_dto.html", [
+      [ "bWatch", "struct_f_query_threads_request_dto.html#a96db93b93016efff2ee12e98802a5436", null ],
+      [ "Filter", "struct_f_query_threads_request_dto.html#ad7cabe2747a1359260579f1fc962352d", null ],
+      [ "Limit", "struct_f_query_threads_request_dto.html#a3252e74daf2ea24c062d8d50a002394f", null ],
+      [ "MemberLimit", "struct_f_query_threads_request_dto.html#a437734fb1bf84f0aead759aacd144134", null ],
+      [ "Next", "struct_f_query_threads_request_dto.html#a264485a69e3b58c805c058e025085e2f", null ],
+      [ "ParticipantLimit", "struct_f_query_threads_request_dto.html#afa3d096cfd5b6728b1302d0c4448884f", null ],
+      [ "Prev", "struct_f_query_threads_request_dto.html#a52d76fff9ad148260096b97c7d54f39e", null ],
+      [ "ReplyLimit", "struct_f_query_threads_request_dto.html#afa454d597ab2d8334d3c4f0541b64a0e", null ],
+      [ "Sort", "struct_f_query_threads_request_dto.html#a93673300e29eebb5d2a5e96cafd4c636", null ]
+    ] ],
     [ "FGuestRequestDto", "struct_f_guest_request_dto.html", null ],
     [ "FQueryUsersRequestDto", "struct_f_query_users_request_dto.html", [
       [ "bPresence", "struct_f_query_users_request_dto.html#a1960e921ae5675c7a24e5a5ea31c153f", null ],
@@ -301,6 +314,9 @@ var group___stream_chat_dto =
       [ "File", "struct_f_file_upload_response_dto.html#a918e1cee1799cf64a03b518e02ef7925", null ],
       [ "ThumbUrl", "struct_f_file_upload_response_dto.html#a99419c90b6e6d2b031e362b3db2e15aa", null ]
     ] ],
+    [ "FGetRepliesResponseDto", "struct_f_get_replies_response_dto.html", [
+      [ "Messages", "struct_f_get_replies_response_dto.html#af24f7e5f4131a69b1d303673afafeb79", null ]
+    ] ],
     [ "FMessageDto", "struct_f_message_dto.html", [
       [ "GetDeletedAt", "struct_f_message_dto.html#adfae68c3d22afccc25f0cb7c95849c25", null ],
       [ "Attachments", "struct_f_message_dto.html#a4729426a241b004010a5eb7d4bd192d3", null ],
@@ -407,6 +423,43 @@ var group___stream_chat_dto =
     [ "FReactionResponseDto", "struct_f_reaction_response_dto.html", null ],
     [ "FResponseDto", "struct_f_response_dto.html", [
       [ "Duration", "struct_f_response_dto.html#a0fb9b30ff5ec56d24d83d1d86594792a", null ]
+    ] ],
+    [ "FGetThreadResponseDto", "struct_f_get_thread_response_dto.html", [
+      [ "Thread", "struct_f_get_thread_response_dto.html#af96b808d06d1f55ecb57e5d8d263fc17", null ]
+    ] ],
+    [ "FQueryThreadsResponseDto", "struct_f_query_threads_response_dto.html", [
+      [ "Next", "struct_f_query_threads_response_dto.html#a1ad04607989fcb2a345ffe629de110bc", null ],
+      [ "Prev", "struct_f_query_threads_response_dto.html#a6bc1e7432646e6c0efc989e95cec4434", null ],
+      [ "Threads", "struct_f_query_threads_response_dto.html#a799bd4ba661a953c2afff06aaea8a254", null ]
+    ] ],
+    [ "FThreadParticipantDto", "struct_f_thread_participant_dto.html", [
+      [ "ChannelCid", "struct_f_thread_participant_dto.html#af84ae2be9e54c70e384db156e1b352ce", null ],
+      [ "CreatedAt", "struct_f_thread_participant_dto.html#a3e0db5c0cd8c77872ba588928f5eae83", null ],
+      [ "LastReadAt", "struct_f_thread_participant_dto.html#a2ad6fad93d9c6f5a290e94a6a8806036", null ],
+      [ "LastThreadMessageAt", "struct_f_thread_participant_dto.html#a37ba9b77249691225b1690c338fd2c99", null ],
+      [ "LeftThreadAt", "struct_f_thread_participant_dto.html#a1e8a6463a58c21f238df8ac1b690cddb", null ],
+      [ "ThreadId", "struct_f_thread_participant_dto.html#a1af1e60379301f2c628642e7c38667bd", null ],
+      [ "User", "struct_f_thread_participant_dto.html#abd2282661d758d824451e03dac066ac7", null ],
+      [ "UserId", "struct_f_thread_participant_dto.html#a77fa7859f79d201f1a882df187e89dd5", null ]
+    ] ],
+    [ "FThreadStateResponseDto", "struct_f_thread_state_response_dto.html", [
+      [ "ActiveParticipantCount", "struct_f_thread_state_response_dto.html#a591e6a19a7201e91d75923eda68f380f", null ],
+      [ "Channel", "struct_f_thread_state_response_dto.html#a1613cf94877ab2a4c8bf3c77e90cdcfd", null ],
+      [ "ChannelCid", "struct_f_thread_state_response_dto.html#a4cdfd6daff5f6cbd7c1822101d4f0d7e", null ],
+      [ "CreatedAt", "struct_f_thread_state_response_dto.html#a4c851af7c5832fb55c01842cf0b05739", null ],
+      [ "CreatedBy", "struct_f_thread_state_response_dto.html#a40e6450378713730fc00036874dca6d4", null ],
+      [ "CreatedByUserId", "struct_f_thread_state_response_dto.html#afa03911fdf2c85fd0e694c83c8b30b6b", null ],
+      [ "DeletedAt", "struct_f_thread_state_response_dto.html#ae0759b5d534d0221b3bcaa9bf1af0c03", null ],
+      [ "LastMessageAt", "struct_f_thread_state_response_dto.html#ac8b528d1182cd21b12d59037e52dfd0e", null ],
+      [ "LatestReplies", "struct_f_thread_state_response_dto.html#a40d6482f31d15254bbed4e3f8b17c18b", null ],
+      [ "ParentMessage", "struct_f_thread_state_response_dto.html#a6ac55ddccbc75bb1e88f98b28ea36819", null ],
+      [ "ParentMessageId", "struct_f_thread_state_response_dto.html#a96787c5d3e410a4e540cf6b184742e19", null ],
+      [ "ParticipantCount", "struct_f_thread_state_response_dto.html#a124f9c5087ce80618214fbccb067e557", null ],
+      [ "Read", "struct_f_thread_state_response_dto.html#aaeab25ffe8161490dfdf90f3916ffab1", null ],
+      [ "ReplyCount", "struct_f_thread_state_response_dto.html#a3a88d40f0d35c5a1ffc91dd18bc931bf", null ],
+      [ "ThreadParticipants", "struct_f_thread_state_response_dto.html#a404bd8ff32b04cb221d849fd5576ef35", null ],
+      [ "Title", "struct_f_thread_state_response_dto.html#a649638e609518a5726449515db22df7e", null ],
+      [ "UpdatedAt", "struct_f_thread_state_response_dto.html#a0e726aa75322bf2c872dab7a02f759d2", null ]
     ] ],
     [ "FGuestResponseDto", "struct_f_guest_response_dto.html", [
       [ "AccessToken", "struct_f_guest_response_dto.html#ab5eb3c1d97bb8b476cfa71f876ac6a35", null ],

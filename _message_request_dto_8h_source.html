@@ -135,29 +135,34 @@ $(function(){initNavTree('_message_request_dto_8h_source.html',''); initResizabl
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    UPROPERTY()</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="struct_f_message_request_dto.html#aaaffb243ad1068d68462da12c25d28c9">   41</a></span>    FString Mml;</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="comment">// TODO ParentId, bShowInChannel</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="comment">// TODO PinExpires, bPinned, PinnedAt, PinnedBy</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="comment">// TODO quoted_message_id</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    UPROPERTY()</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="struct_f_message_request_dto.html#a7df1a59df78b272740d7cae76d932c54">   46</a></span>    FString <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faafaa6abc71ded82c59c64411193549cd">ParentId</a>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    UPROPERTY()</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="struct_f_message_request_dto.html#ad618a0e17f84e1bf126de384e52d89cd">   51</a></span>    TMap&lt;FName, int32&gt; ReactionScores;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="struct_f_message_request_dto.html#a80dd40bed8e7e74957b1b8c018cc59c6">   51</a></span>    <span class="keywordtype">bool</span> bShowInChannel = false;</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="comment">// Whether message is silent or not</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    UPROPERTY()</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordtype">bool</span> bSilent = false;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="comment">// TODO PinExpires, bPinned, PinnedAt, PinnedBy</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="comment">// TODO quoted_message_id</span></div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    UPROPERTY()</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="struct_f_message_request_dto.html#ab24fd104212ec3a5b2263739aa4065b8">   59</a></span>    FString <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa9dffbf69ffba8bc38bc4e01abf4b1675">Text</a>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="struct_f_message_request_dto.html#ad618a0e17f84e1bf126de384e52d89cd">   59</a></span>    TMap&lt;FName, int32&gt; ReactionScores;</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    UPROPERTY()</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    FAdditionalFields AdditionalFields;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>};</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="comment">// Whether message is silent or not</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    UPROPERTY()</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordtype">bool</span> bSilent = false;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    UPROPERTY()</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="struct_f_message_request_dto.html#ab24fd104212ec3a5b2263739aa4065b8">   67</a></span>    FString <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa9dffbf69ffba8bc38bc4e01abf4b1675">Text</a>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    UPROPERTY()</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    FAdditionalFields AdditionalFields;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>};</div>
 </div>
 <div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8fa490aa6e856ccf208a054389e47ce0d06"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa490aa6e856ccf208a054389e47ce0d06">EMessageSortField::Id</a></div><div class="ttdeci">@ Id</div><div class="ttdoc">Message ID.</div></div>
 <div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8fa7e2708aeb65763c54052f57ed1a1ec1d"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa7e2708aeb65763c54052f57ed1a1ec1d">EMessageSortField::Attachments</a></div><div class="ttdeci">@ Attachments</div><div class="ttdoc">Whether or not the message contains an attachment.</div></div>
 <div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8fa9dffbf69ffba8bc38bc4e01abf4b1675"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa9dffbf69ffba8bc38bc4e01abf4b1675">EMessageSortField::Text</a></div><div class="ttdeci">@ Text</div><div class="ttdoc">Text of the message.</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8faafaa6abc71ded82c59c64411193549cd"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faafaa6abc71ded82c59c64411193549cd">EMessageSortField::ParentId</a></div><div class="ttdeci">@ ParentId</div><div class="ttdoc">The parent message ID (if the message is a reply)</div></div>
 <div class="ttc" id="astruct_f_attachment_dto_html"><div class="ttname"><a href="struct_f_attachment_dto.html">FAttachmentDto</a></div><div class="ttdoc">#/components/schemas/Attachment A file, image or link attached to a message.</div><div class="ttdef"><b>Definition</b> AttachmentDto.h:22</div></div>
 <div class="ttc" id="astruct_f_message_request_dto_html"><div class="ttname"><a href="struct_f_message_request_dto.html">FMessageRequestDto</a></div><div class="ttdoc">#/components/schemas/MessageRequest</div><div class="ttdef"><b>Definition</b> MessageRequestDto.h:18</div></div>
 </div><!-- fragment --></div><!-- contents -->

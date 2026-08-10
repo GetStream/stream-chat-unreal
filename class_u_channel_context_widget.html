@@ -120,6 +120,20 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Setup</b> (<a class="
 <tr class="memitem:a44b38d846eab48b6b5f7e2d77be9af35" id="r_a44b38d846eab48b6b5f7e2d77be9af35"><td class="memItemLeft" align="right" valign="top"><a id="a44b38d846eab48b6b5f7e2d77be9af35" name="a44b38d846eab48b6b5f7e2d77be9af35"></a>
 <a class="el" href="class_u_chat_channel.html">UChatChannel</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>GetChannel</b> () const</td></tr>
 <tr class="separator:a44b38d846eab48b6b5f7e2d77be9af35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33311f0f529040b00bd733ecbbb2d86f" id="r_a33311f0f529040b00bd733ecbbb2d86f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a33311f0f529040b00bd733ecbbb2d86f">OpenThread</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;ParentMessage)</td></tr>
+<tr class="memdesc:a33311f0f529040b00bd733ecbbb2d86f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open the thread hanging off the given message.  <br /></td></tr>
+<tr class="separator:a33311f0f529040b00bd733ecbbb2d86f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a224769d586f3f180b85c96903d809456" id="r_a224769d586f3f180b85c96903d809456"><td class="memItemLeft" align="right" valign="top"><a id="a224769d586f3f180b85c96903d809456" name="a224769d586f3f180b85c96903d809456"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>CloseThread</b> ()</td></tr>
+<tr class="memdesc:a224769d586f3f180b85c96903d809456"><td class="mdescLeft">&#160;</td><td class="mdescRight">Leave the open thread and go back to the channel. Does nothing if no thread is open. <br /></td></tr>
+<tr class="separator:a224769d586f3f180b85c96903d809456"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa303689733bf71e47bcc3fda27f9ef73" id="r_aa303689733bf71e47bcc3fda27f9ef73"><td class="memItemLeft" align="right" valign="top"><a id="aa303689733bf71e47bcc3fda27f9ef73" name="aa303689733bf71e47bcc3fda27f9ef73"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsThreadOpen</b> () const</td></tr>
+<tr class="separator:aa303689733bf71e47bcc3fda27f9ef73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad91e2d925c82ace467302f124921cbbb" id="r_ad91e2d925c82ace467302f124921cbbb"><td class="memItemLeft" align="right" valign="top"><a id="ad91e2d925c82ace467302f124921cbbb" name="ad91e2d925c82ace467302f124921cbbb"></a>
+const <a class="el" href="struct_f_message.html">FMessage</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetThreadParentMessage</b> () const</td></tr>
+<tr class="memdesc:ad91e2d925c82ace467302f124921cbbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The message whose thread is open. Only meaningful while IsThreadOpen(). <br /></td></tr>
+<tr class="separator:ad91e2d925c82ace467302f124921cbbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -141,11 +155,36 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a4060cd2491a3907316be5951dfc081e2" id="r_a4060cd2491a3907316be5951dfc081e2"><td class="memItemLeft" align="right" valign="top"><a id="a4060cd2491a3907316be5951dfc081e2" name="a4060cd2491a3907316be5951dfc081e2"></a>
 FStartEditMessageDelegate&#160;</td><td class="memItemRight" valign="bottom"><b>OnStartEditMessage</b></td></tr>
 <tr class="separator:a4060cd2491a3907316be5951dfc081e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e6d3ee3173e25e92485e839a72ac5c6" id="r_a9e6d3ee3173e25e92485e839a72ac5c6"><td class="memItemLeft" align="right" valign="top"><a id="a9e6d3ee3173e25e92485e839a72ac5c6" name="a9e6d3ee3173e25e92485e839a72ac5c6"></a>
+FThreadChangedDelegate&#160;</td><td class="memItemRight" valign="bottom"><b>OnThreadChanged</b></td></tr>
+<tr class="memdesc:a9e6d3ee3173e25e92485e839a72ac5c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when a thread is opened or closed, so the message list, composer and header can follow. <br /></td></tr>
+<tr class="separator:a9e6d3ee3173e25e92485e839a72ac5c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Provide a reference to a <a class="el" href="class_u_chat_channel.html">UChatChannel</a> to child widgets. </p>
 <p>A widget that can be initialized with a ChatChannel in order to conveniently provide children with access to said channel as well as channel-related UI delegates </p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a33311f0f529040b00bd733ecbbb2d86f" name="a33311f0f529040b00bd733ecbbb2d86f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33311f0f529040b00bd733ecbbb2d86f">&#9670;&#160;</a></span>OpenThread()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UChannelContextWidget::OpenThread </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_f_message.html">FMessage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>ParentMessage</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Open the thread hanging off the given message. </p>
+<p>The message list switches to the thread's replies and the composer starts sending into it. Also fetches the thread's replies, since channel state does not carry them. </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>Source/StreamChatUi/Public/Context/<a class="el" href="_channel_context_widget_8h_source.html">ChannelContextWidget.h</a></li>
 <li>Source/StreamChatUi/Private/Context/<b>ChannelContextWidget.cpp</b></li>
 </ul>

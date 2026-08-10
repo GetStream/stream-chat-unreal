@@ -131,6 +131,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_user_sort_option.html">FUserSortOption</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The desired sort options for user queries.  <a href="struct_f_user_sort_option.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_thread_sort_option.html">FThreadSortOption</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The desired sort options for thread queries.  <a href="struct_f_thread_sort_option.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_ban_sort_option.html">FBanSortOption</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The desired sort options for ban queries.  <a href="struct_f_ban_sort_option.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -139,6 +142,9 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_chat_channel.html">UChatChannel</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The client-side representation of a Stream Chat channel.  <a href="class_u_chat_channel.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_chat_thread.html">FChatThread</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a Stream Chat thread: a message and the replies hanging off it.  <a href="struct_f_chat_thread.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_filter.html">FFilter</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A filter used for querying channels.  <a href="struct_f_filter.html#details">More...</a><br /></td></tr>
@@ -265,6 +271,20 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:ga168ebbcdbfc643c147a18bf919d9a7a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The desired sort field for user queries.  <a href="#ga168ebbcdbfc643c147a18bf919d9a7a1">More...</a><br /></td></tr>
 <tr class="separator:ga168ebbcdbfc643c147a18bf919d9a7a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4a7849feb763be9cddf038c482b755f7" id="r_ga4a7849feb763be9cddf038c482b755f7"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ga4a7849feb763be9cddf038c482b755f7">EThreadSortField</a> : uint8 { <br />
+&#160;&#160;<a class="el" href="#gga4a7849feb763be9cddf038c482b755f7a63dc52c66cd2994c2f24ebb1dd11a2bf">EThreadSortField::HasUnread</a>
+, <a class="el" href="#gga4a7849feb763be9cddf038c482b755f7a6b78356cab3a3397ccae2a7d130c2df1">EThreadSortField::LastMessageAt</a>
+, <a class="el" href="#gga4a7849feb763be9cddf038c482b755f7ad2997ad093de2311d068c42656641df3">EThreadSortField::ParentMessageId</a>
+, <a class="el" href="#gga4a7849feb763be9cddf038c482b755f7a46d295c8a97befd247d2d634ac8cc4b3">EThreadSortField::CreatedAt</a>
+, <br />
+&#160;&#160;<a class="el" href="#gga4a7849feb763be9cddf038c482b755f7a0b2a8a8fed13280ecd74f7545bc2b962">EThreadSortField::UpdatedAt</a>
+, <a class="el" href="#gga4a7849feb763be9cddf038c482b755f7afb929994ee4a037b613ef81d0718f78b">EThreadSortField::ReplyCount</a>
+, <a class="el" href="#gga4a7849feb763be9cddf038c482b755f7a2f763113175e55f3906f14366d0f0c67">EThreadSortField::ParticipantCount</a>
+, <a class="el" href="#gga4a7849feb763be9cddf038c482b755f7a268f3b474094acaa7155818d1fd739d8">EThreadSortField::ActiveParticipantCount</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:ga4a7849feb763be9cddf038c482b755f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The desired sort field for thread queries.  <a href="#ga4a7849feb763be9cddf038c482b755f7">More...</a><br /></td></tr>
+<tr class="separator:ga4a7849feb763be9cddf038c482b755f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad83c2a39fafdf07b890e3260924f9f56" id="r_gad83c2a39fafdf07b890e3260924f9f56"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gad83c2a39fafdf07b890e3260924f9f56">EBanSortField</a> : uint8 { <br />
 &#160;&#160;<a class="el" href="#ggad83c2a39fafdf07b890e3260924f9f56aab9a84720cb59d32b0f65cabe317c4ab">EBanSortField::ChannelCid</a>
 , <a class="el" href="#ggad83c2a39fafdf07b890e3260924f9f56a4733e94f511132be01e92cc23c017d16">EBanSortField::UserId</a>
@@ -573,11 +593,53 @@ Enumerations</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="ggae884ad235d4918a9a12ecb8741344cc7a902b0d55fddef6f8d651fe1035b7d4bd" name="ggae884ad235d4918a9a12ecb8741344cc7a902b0d55fddef6f8d651fe1035b7d4bd"></a>Error&#160;</td><td class="fielddoc"><p>An error message generated as a result of a failed command. It is also ephemeral, as it is not stored in the channel history and is only delivered to one user. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ggae884ad235d4918a9a12ecb8741344cc7a25d8df6e580905091a0d5ef5b9e05bf0" name="ggae884ad235d4918a9a12ecb8741344cc7a25d8df6e580905091a0d5ef5b9e05bf0"></a>Reply&#160;</td><td class="fielddoc"><p>A message in a reply thread. Messages created with <code>parent_id</code> are automatically of this type. </p>
+<tr><td class="fieldname"><a id="ggae884ad235d4918a9a12ecb8741344cc7a25d8df6e580905091a0d5ef5b9e05bf0" name="ggae884ad235d4918a9a12ecb8741344cc7a25d8df6e580905091a0d5ef5b9e05bf0"></a>Reply&#160;</td><td class="fielddoc"><p>A message in a reply thread. </p><dl class="section attention"><dt>Attention</dt><dd>The API reports thread replies as Regular, so this does not reliably identify one. Use <a class="el" href="struct_f_message.html#a8548fac482d1901d552ff2e3c99dc8e0" title="Is this message a reply in another message&#39;s thread?">FMessage::IsThreadReply()</a>, which goes by ParentId, instead. </dd></dl>
 </td></tr>
 <tr><td class="fieldname"><a id="ggae884ad235d4918a9a12ecb8741344cc7aa45da96d0bf6575970f2d27af22be28a" name="ggae884ad235d4918a9a12ecb8741344cc7aa45da96d0bf6575970f2d27af22be28a"></a>System&#160;</td><td class="fielddoc"><p>A message generated by a system event, like updating the channel or muting a user. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ggae884ad235d4918a9a12ecb8741344cc7a5fe6005bf6e415c950c011fb65f12b8f" name="ggae884ad235d4918a9a12ecb8741344cc7a5fe6005bf6e415c950c011fb65f12b8f"></a>Deleted&#160;</td><td class="fielddoc"><p>A soft deleted message. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="ga4a7849feb763be9cddf038c482b755f7" name="ga4a7849feb763be9cddf038c482b755f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4a7849feb763be9cddf038c482b755f7">&#9670;&#160;</a></span>EThreadSortField</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#ga4a7849feb763be9cddf038c482b755f7">EThreadSortField</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The desired sort field for thread queries. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga4a7849feb763be9cddf038c482b755f7a63dc52c66cd2994c2f24ebb1dd11a2bf" name="gga4a7849feb763be9cddf038c482b755f7a63dc52c66cd2994c2f24ebb1dd11a2bf"></a>HasUnread&#160;</td><td class="fielddoc"><p>Whether the thread has replies the current user hasn't read. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga4a7849feb763be9cddf038c482b755f7a6b78356cab3a3397ccae2a7d130c2df1" name="gga4a7849feb763be9cddf038c482b755f7a6b78356cab3a3397ccae2a7d130c2df1"></a>LastMessageAt&#160;</td><td class="fielddoc"><p>When the most recent reply was sent. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga4a7849feb763be9cddf038c482b755f7ad2997ad093de2311d068c42656641df3" name="gga4a7849feb763be9cddf038c482b755f7ad2997ad093de2311d068c42656641df3"></a>ParentMessageId&#160;</td><td class="fielddoc"><p>The ID of the message which started the thread. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga4a7849feb763be9cddf038c482b755f7a46d295c8a97befd247d2d634ac8cc4b3" name="gga4a7849feb763be9cddf038c482b755f7a46d295c8a97befd247d2d634ac8cc4b3"></a>CreatedAt&#160;</td><td class="fielddoc"><p>When the thread was started. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga4a7849feb763be9cddf038c482b755f7a0b2a8a8fed13280ecd74f7545bc2b962" name="gga4a7849feb763be9cddf038c482b755f7a0b2a8a8fed13280ecd74f7545bc2b962"></a>UpdatedAt&#160;</td><td class="fielddoc"><p>When the thread was last updated. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga4a7849feb763be9cddf038c482b755f7afb929994ee4a037b613ef81d0718f78b" name="gga4a7849feb763be9cddf038c482b755f7afb929994ee4a037b613ef81d0718f78b"></a>ReplyCount&#160;</td><td class="fielddoc"><p>The number of replies in the thread. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga4a7849feb763be9cddf038c482b755f7a2f763113175e55f3906f14366d0f0c67" name="gga4a7849feb763be9cddf038c482b755f7a2f763113175e55f3906f14366d0f0c67"></a>ParticipantCount&#160;</td><td class="fielddoc"><p>The number of users who have ever replied in the thread. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga4a7849feb763be9cddf038c482b755f7a268f3b474094acaa7155818d1fd739d8" name="gga4a7849feb763be9cddf038c482b755f7a268f3b474094acaa7155818d1fd739d8"></a>ActiveParticipantCount&#160;</td><td class="fielddoc"><p>The number of users still participating in the thread. </p>
 </td></tr>
 </table>
 

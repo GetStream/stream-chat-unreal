@@ -156,15 +156,28 @@ $(function(){initNavTree('_message_list_widget_8h_source.html',''); initResizabl
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    UFUNCTION()</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordtype">void</span> OnMessagesUpdated();</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    UFUNCTION()</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordtype">void</span> ScrollToBottom(const <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp; Message);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    EMessagePosition GetPosition(const <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp; Message) const;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    TSharedPtr&lt;SPaginateListWidget&lt;FMessageRef&gt;&gt; PaginateListWidget;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>};</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordtype">void</span> OnRepliesUpdated(const FString&amp; <a class="code hl_enumvalue" href="group___stream_chat.html#gga4a7849feb763be9cddf038c482b755f7ad2997ad093de2311d068c42656641df3">ParentMessageId</a>);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    UFUNCTION()</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordtype">void</span> <a class="code hl_variable" href="class_u_channel_context_widget.html#a9e6d3ee3173e25e92485e839a72ac5c6">OnThreadChanged</a>(<span class="keywordtype">bool</span> bThreadOpen, const <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp; ParentMessage);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    UFUNCTION()</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordtype">void</span> ScrollToBottom(const <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp; Message);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    EMessagePosition GetPosition(const <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp; Message) const;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordtype">void</span> RefreshItems();</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordtype">bool</span> IsThreadOpen() const;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    TSharedPtr&lt;SPaginateListWidget&lt;FMessageRef&gt;&gt; PaginateListWidget;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    FMessages Items;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    FString ThreadParentId;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>};</div>
 <div class="ttc" id="aclass_u_channel_context_widget_html"><div class="ttname"><a href="class_u_channel_context_widget.html">UChannelContextWidget</a></div><div class="ttdoc">Provide a reference to a UChatChannel to child widgets.</div><div class="ttdef"><b>Definition</b> ChannelContextWidget.h:21</div></div>
+<div class="ttc" id="aclass_u_channel_context_widget_html_a9e6d3ee3173e25e92485e839a72ac5c6"><div class="ttname"><a href="class_u_channel_context_widget.html#a9e6d3ee3173e25e92485e839a72ac5c6">UChannelContextWidget::OnThreadChanged</a></div><div class="ttdeci">FThreadChangedDelegate OnThreadChanged</div><div class="ttdoc">Fired when a thread is opened or closed, so the message list, composer and header can follow.</div><div class="ttdef"><b>Definition</b> ChannelContextWidget.h:65</div></div>
 <div class="ttc" id="aclass_u_message_widget_html"><div class="ttname"><a href="class_u_message_widget.html">UMessageWidget</a></div><div class="ttdoc">Encapsulates a text bubble, reactions and the mouse hover menu for a message.</div><div class="ttdef"><b>Definition</b> MessageWidget.h:22</div></div>
-<div class="ttc" id="astruct_f_message_html"><div class="ttname"><a href="struct_f_message.html">FMessage</a></div><div class="ttdoc">Represents a Stream Chat message.</div><div class="ttdef"><b>Definition</b> Message.h:67</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gga4a7849feb763be9cddf038c482b755f7ad2997ad093de2311d068c42656641df3"><div class="ttname"><a href="group___stream_chat.html#gga4a7849feb763be9cddf038c482b755f7ad2997ad093de2311d068c42656641df3">EThreadSortField::ParentMessageId</a></div><div class="ttdeci">@ ParentMessageId</div><div class="ttdoc">The ID of the message which started the thread.</div></div>
+<div class="ttc" id="astruct_f_message_html"><div class="ttname"><a href="struct_f_message.html">FMessage</a></div><div class="ttdoc">Represents a Stream Chat message.</div><div class="ttdef"><b>Definition</b> Message.h:69</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

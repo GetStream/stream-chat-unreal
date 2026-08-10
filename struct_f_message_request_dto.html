@@ -129,6 +129,10 @@ FString&#160;</td><td class="memItemRight" valign="bottom"><b>Id</b></td></tr>
 FString&#160;</td><td class="memItemRight" valign="bottom"><b>Mml</b></td></tr>
 <tr class="memdesc:aaaffb243ad1068d68462da12c25d28c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Should be empty if <code>text</code> is provided. <br /></td></tr>
 <tr class="separator:aaaffb243ad1068d68462da12c25d28c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7df1a59df78b272740d7cae76d932c54" id="r_a7df1a59df78b272740d7cae76d932c54"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7df1a59df78b272740d7cae76d932c54">ParentId</a></td></tr>
+<tr class="separator:a7df1a59df78b272740d7cae76d932c54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80dd40bed8e7e74957b1b8c018cc59c6" id="r_a80dd40bed8e7e74957b1b8c018cc59c6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80dd40bed8e7e74957b1b8c018cc59c6">bShowInChannel</a> = false</td></tr>
+<tr class="separator:a80dd40bed8e7e74957b1b8c018cc59c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad618a0e17f84e1bf126de384e52d89cd" id="r_ad618a0e17f84e1bf126de384e52d89cd"><td class="memItemLeft" align="right" valign="top"><a id="ad618a0e17f84e1bf126de384e52d89cd" name="ad618a0e17f84e1bf126de384e52d89cd"></a>
 TMap&lt; FName, int32 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ReactionScores</b></td></tr>
 <tr class="memdesc:ad618a0e17f84e1bf126de384e52d89cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">A map describing the count of score of every reaction. <br /></td></tr>
@@ -160,6 +164,36 @@ FAdditionalFields&#160;</td><td class="memItemRight" valign="bottom"><b>Addition
       </table>
 </div><div class="memdoc">
 <p>Files, images and links to attach to the message. Upload the content first, then reference the returned URL here </p>
+
+</div>
+</div>
+<a id="a80dd40bed8e7e74957b1b8c018cc59c6" name="a80dd40bed8e7e74957b1b8c018cc59c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80dd40bed8e7e74957b1b8c018cc59c6">&#9670;&#160;</a></span>bShowInChannel</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FMessageRequestDto::bShowInChannel = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Whether a thread reply should also appear in the main channel message list. Ignored by the backend unless <code>ParentId</code> is set. </p>
+
+</div>
+</div>
+<a id="a7df1a59df78b272740d7cae76d932c54" name="a7df1a59df78b272740d7cae76d932c54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7df1a59df78b272740d7cae76d932c54">&#9670;&#160;</a></span>ParentId</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FMessageRequestDto::ParentId</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The ID of the parent message. Setting this makes the message a reply in that message's thread, and the backend turns it into a message of type <code>reply</code>. </p>
 
 </div>
 </div>

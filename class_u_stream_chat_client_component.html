@@ -167,6 +167,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>CancelNewChat</b> ()<
 <tr class="memitem:a5f3eda6bd940dbaabba1c5d1a3f33c05" id="r_a5f3eda6bd940dbaabba1c5d1a3f33c05"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5f3eda6bd940dbaabba1c5d1a3f33c05">SearchMessages</a> (const <a class="el" href="struct_f_filter.html">FFilter</a> &amp;ChannelFilter={}, const TOptional&lt; FString &gt; &amp;<a class="el" href="group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a66c1b4c7f3dc385b68a9fa903ccd016d">Query</a>={}, const TOptional&lt; <a class="el" href="struct_f_filter.html">FFilter</a> &gt; &amp;MessageFilter={}, const TArray&lt; <a class="el" href="struct_f_message_sort_option.html">FMessageSortOption</a> &gt; &amp;Sort={}, TOptional&lt; uint32 &gt; MessageLimit={}, TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt; &amp;)&gt; Callback={}) const</td></tr>
 <tr class="memdesc:a5f3eda6bd940dbaabba1c5d1a3f33c05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Search all messages A channel filter is required. All other parameters are optional, but a minimum of either a query or message filter is additionally required.  <br /></td></tr>
 <tr class="separator:a5f3eda6bd940dbaabba1c5d1a3f33c05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af50f3994b289917628249c4f99e3e90c" id="r_af50f3994b289917628249c4f99e3e90c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af50f3994b289917628249c4f99e3e90c">QueryThreads</a> (const TOptional&lt; <a class="el" href="struct_f_filter.html">FFilter</a> &gt; &amp;Filter={}, const TArray&lt; <a class="el" href="struct_f_thread_sort_option.html">FThreadSortOption</a> &gt; &amp;SortOptions={}, TOptional&lt; uint32 &gt; Limit={}, TOptional&lt; uint32 &gt; ReplyLimit={}, const TOptional&lt; FString &gt; &amp;Next={}, TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_chat_thread.html">FChatThread</a> &gt; &amp;Threads, const FString &amp;NextPage)&gt; Callback={}) const</td></tr>
+<tr class="memdesc:af50f3994b289917628249c4f99e3e90c"><td class="mdescLeft">&#160;</td><td class="mdescRight">List the threads the current user participates in, across all of their channels.  <br /></td></tr>
+<tr class="separator:af50f3994b289917628249c4f99e3e90c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af47e148bd8d54e60e2f4afc50def9969" id="r_af47e148bd8d54e60e2f4afc50def9969"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af47e148bd8d54e60e2f4afc50def9969">GetThread</a> (const FString &amp;<a class="el" href="group___stream_chat.html#gga4a7849feb763be9cddf038c482b755f7ad2997ad093de2311d068c42656641df3">ParentMessageId</a>, TOptional&lt; uint32 &gt; ReplyLimit={}, TOptional&lt; uint32 &gt; ParticipantLimit={}, TFunction&lt; void(const <a class="el" href="struct_f_chat_thread.html">FChatThread</a> &amp;)&gt; Callback={}) const</td></tr>
+<tr class="memdesc:af47e148bd8d54e60e2f4afc50def9969"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch a single thread by the ID of the message which started it.  <br /></td></tr>
+<tr class="separator:af47e148bd8d54e60e2f4afc50def9969"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c2012df6e551396792ffb92b3775221" id="r_a3c2012df6e551396792ffb92b3775221"><td class="memItemLeft" align="right" valign="top"><a id="a3c2012df6e551396792ffb92b3775221" name="a3c2012df6e551396792ffb92b3775221"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>MarkAllRead</b> () const</td></tr>
 <tr class="memdesc:a3c2012df6e551396792ffb92b3775221"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark all channels as read for the current user. <br /></td></tr>
@@ -745,6 +751,54 @@ template&lt;class TEvent &gt; </td></tr>
 
 </div>
 </div>
+<a id="af47e148bd8d54e60e2f4afc50def9969" name="af47e148bd8d54e60e2f4afc50def9969"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af47e148bd8d54e60e2f4afc50def9969">&#9670;&#160;</a></span>GetThread()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UStreamChatClientComponent::GetThread </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ParentMessageId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TOptional&lt; uint32 &gt;</td>          <td class="paramname"><span class="paramname"><em>ReplyLimit</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TOptional&lt; uint32 &gt;</td>          <td class="paramname"><span class="paramname"><em>ParticipantLimit</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TFunction&lt; void(const <a class="el" href="struct_f_chat_thread.html">FChatThread</a> &amp;)&gt;</td>          <td class="paramname"><span class="paramname"><em>Callback</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetch a single thread by the ID of the message which started it. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ParentMessageId</td><td>ID of the message which started the thread </td></tr>
+    <tr><td class="paramname">ReplyLimit</td><td>How many of the latest replies to include </td></tr>
+    <tr><td class="paramname">ParticipantLimit</td><td>How many participants to include (max 100). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section attention"><dt>Attention</dt><dd>Leaving this unset leaves <a class="el" href="struct_f_chat_thread.html#af6db1abcffb3b61368589a63acc9da97" title="The users participating in this thread.">FChatThread::ThreadParticipants</a> empty: this endpoint returns no participants at all unless asked for a number of them. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Callback</td><td>Called when a response is received </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a0f03f8337f0c164ca3dbcfbc7736a4dd" name="a0f03f8337f0c164ca3dbcfbc7736a4dd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0f03f8337f0c164ca3dbcfbc7736a4dd">&#9670;&#160;</a></span>ListDevices()</h2>
 
@@ -1119,6 +1173,61 @@ template&lt;class TEvent , class UserClass &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>An array of channel objects which can be used to interact with the channels </dd></dl>
+
+</div>
+</div>
+<a id="af50f3994b289917628249c4f99e3e90c" name="af50f3994b289917628249c4f99e3e90c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af50f3994b289917628249c4f99e3e90c">&#9670;&#160;</a></span>QueryThreads()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UStreamChatClientComponent::QueryThreads </td>
+          <td>(</td>
+          <td class="paramtype">const TOptional&lt; <a class="el" href="struct_f_filter.html">FFilter</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>Filter</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; <a class="el" href="struct_f_thread_sort_option.html">FThreadSortOption</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>SortOptions</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TOptional&lt; uint32 &gt;</td>          <td class="paramname"><span class="paramname"><em>Limit</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TOptional&lt; uint32 &gt;</td>          <td class="paramname"><span class="paramname"><em>ReplyLimit</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TOptional&lt; FString &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>Next</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_chat_thread.html">FChatThread</a> &gt; &amp;Threads, const FString &amp;NextPage)&gt;</td>          <td class="paramname"><span class="paramname"><em>Callback</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>List the threads the current user participates in, across all of their channels. </p>
+<p>This is the thread-list surface: one entry per thread, each carrying its parent message and a preview of its most recent replies. To read a whole thread, fetch its replies through the channel it belongs to with <a class="el" href="class_u_chat_channel.html#af072c4dff1b9058164266623fc2e13a1" title="Fetch the replies of a thread from the server, most recent last.">UChatChannel::QueryReplies</a>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Filter</td><td>Conditions the returned threads must match. Queryable fields include channel_cid, parent_message_id, created_by_user_id, has_unread, reply_count and last_message_at. </td></tr>
+    <tr><td class="paramname">SortOptions</td><td>The sorting used for the threads matching the filter. Defaults server-side to threads with unread replies first, then most recent reply first. </td></tr>
+    <tr><td class="paramname">Limit</td><td>The number of threads to return (max 100) </td></tr>
+    <tr><td class="paramname">ReplyLimit</td><td>How many of the latest replies to preview per thread (max 10) </td></tr>
+    <tr><td class="paramname">Next</td><td>Value from a previous response, to fetch the following page </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called with the threads and, if there are more, the token to pass as Next </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

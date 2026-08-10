@@ -125,6 +125,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Append</b> (const TAr
 <tr class="memitem:a9e0d3fe83148478fc40092562a68a0a5" id="r_a9e0d3fe83148478fc40092562a68a0a5"><td class="memItemLeft" align="right" valign="top"><a id="a9e0d3fe83148478fc40092562a68a0a5" name="a9e0d3fe83148478fc40092562a68a0a5"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>AddMessage</b> (const <a class="el" href="struct_f_message_dto.html">FMessageDto</a> &amp;, UUserManager *)</td></tr>
 <tr class="separator:a9e0d3fe83148478fc40092562a68a0a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42208bb08a6ff6c5403eceaddde401a0" id="r_a42208bb08a6ff6c5403eceaddde401a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a42208bb08a6ff6c5403eceaddde401a0">AppendReplies</a> (const FString &amp;<a class="el" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faafaa6abc71ded82c59c64411193549cd">ParentId</a>, const TArray&lt; <a class="el" href="struct_f_message_dto.html">FMessageDto</a> &gt; &amp;, UUserManager *)</td></tr>
+<tr class="memdesc:a42208bb08a6ff6c5403eceaddde401a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locally upsert the replies of a thread, oldest first.  <br /></td></tr>
+<tr class="separator:a42208bb08a6ff6c5403eceaddde401a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8af131d29fa789928c84c32b68cef73d" id="r_a8af131d29fa789928c84c32b68cef73d"><td class="memItemLeft" align="right" valign="top"><a id="a8af131d29fa789928c84c32b68cef73d" name="a8af131d29fa789928c84c32b68cef73d"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsEmpty</b> () const</td></tr>
 <tr class="separator:a8af131d29fa789928c84c32b68cef73d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,18 +139,23 @@ const <a class="el" href="struct_f_message.html">FMessage</a> &amp;&#160;</td><t
 <tr class="separator:a6c7cec27f74ba41abb3e119c1f4afb80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf78eb14d19536c72c7e205c63fa39ae" id="r_adf78eb14d19536c72c7e205c63fa39ae"><td class="memItemLeft" align="right" valign="top"><a id="adf78eb14d19536c72c7e205c63fa39ae" name="adf78eb14d19536c72c7e205c63fa39ae"></a>
 TSharedPtr&lt; <a class="el" href="struct_f_message.html">FMessage</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Next</b> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;) const</td></tr>
-<tr class="memdesc:adf78eb14d19536c72c7e205c63fa39ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get message following the given message. <br /></td></tr>
+<tr class="memdesc:adf78eb14d19536c72c7e205c63fa39ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get message following the given message. Looks within the thread if given a thread reply. <br /></td></tr>
 <tr class="separator:adf78eb14d19536c72c7e205c63fa39ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac35fa6e8f040c96f355500ea256e5025" id="r_ac35fa6e8f040c96f355500ea256e5025"><td class="memItemLeft" align="right" valign="top"><a id="ac35fa6e8f040c96f355500ea256e5025" name="ac35fa6e8f040c96f355500ea256e5025"></a>
 FMessages&#160;</td><td class="memItemRight" valign="bottom"><b>FilterRecent</b> (const FTimespan &amp;Since) const</td></tr>
 <tr class="separator:ac35fa6e8f040c96f355500ea256e5025"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79731d98d98414eea16be9447fa5cf31" id="r_a79731d98d98414eea16be9447fa5cf31"><td class="memItemLeft" align="right" valign="top"><a id="a79731d98d98414eea16be9447fa5cf31" name="a79731d98d98414eea16be9447fa5cf31"></a>
 const FMessages &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetMessages</b> () const</td></tr>
-<tr class="memdesc:a79731d98d98414eea16be9447fa5cf31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get all the messages of this channel. <br /></td></tr>
+<tr class="memdesc:a79731d98d98414eea16be9447fa5cf31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get all the messages of this channel. Excludes thread replies not sent with bShowInChannel. <br /></td></tr>
 <tr class="separator:a79731d98d98414eea16be9447fa5cf31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85c700f33a4e637db8a79d581bd1cf22" id="r_a85c700f33a4e637db8a79d581bd1cf22"><td class="memItemLeft" align="right" valign="top"><a id="a85c700f33a4e637db8a79d581bd1cf22" name="a85c700f33a4e637db8a79d581bd1cf22"></a>
+const FMessages &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetReplies</b> (const FString &amp;<a class="el" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faafaa6abc71ded82c59c64411193549cd">ParentId</a>) const</td></tr>
+<tr class="memdesc:a85c700f33a4e637db8a79d581bd1cf22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the replies held locally for the given thread, oldest first. Empty if none are held. <br /></td></tr>
+<tr class="separator:a85c700f33a4e637db8a79d581bd1cf22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A store for a list of messages. </p>
+<p>Holds the channel's own message list, plus the replies of any thread that has been fetched or observed. A thread reply is not part of the channel message list unless it was sent with bShowInChannel, which is how the backend reports it too: querying channel state returns the channel's history, not its threads. Storing them separately is what stops a thread's replies from appearing interleaved with the channel history. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ae7bb221eb8edef00db06e596c81eb1c4" name="ae7bb221eb8edef00db06e596c81eb1c4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae7bb221eb8edef00db06e596c81eb1c4">&#9670;&#160;</a></span>AddMessage()</h2>
@@ -165,7 +173,37 @@ const FMessages &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetM
 </div><div class="memdoc">
 
 <p>Locally upsert a message to this store. </p>
+<p>A thread reply goes into its thread, and additionally into the channel message list if it was sent with bShowInChannel. Adding a reply which wasn't held yet also bumps the reply count of its parent, if the parent is held here.</p>
 <dl class="section return"><dt>Returns</dt><dd>Whether message was added (as opposed to updated) </dd></dl>
+
+</div>
+</div>
+<a id="a42208bb08a6ff6c5403eceaddde401a0" name="a42208bb08a6ff6c5403eceaddde401a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42208bb08a6ff6c5403eceaddde401a0">&#9670;&#160;</a></span>AppendReplies()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FMessageStore::AppendReplies </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ParentId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; <a class="el" href="struct_f_message_dto.html">FMessageDto</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>Dtos</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UUserManager *</td>          <td class="paramname"><span class="paramname"><em>UserManager</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Locally upsert the replies of a thread, oldest first. </p>
+<p>Replies already held for the thread are kept, and are ordered after the given ones, so paginating backwards through a thread keeps the list oldest-first. </p>
 
 </div>
 </div>

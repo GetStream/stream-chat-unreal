@@ -226,6 +226,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9039541e4eb718e46891fc8a71cb18bf" id="r_a9039541e4eb718e46891fc8a71cb18bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9039541e4eb718e46891fc8a71cb18bf">GetReactions</a> (const FString &amp;MessageId, TOptional&lt; uint32 &gt; Limit, TOptional&lt; uint32 &gt; Offset, TCallback&lt; <a class="el" href="struct_f_get_reactions_response_dto.html">FGetReactionsResponseDto</a> &gt; Callback={}) const</td></tr>
 <tr class="memdesc:a9039541e4eb718e46891fc8a71cb18bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch reactions for the given message, optionally paginating.  <br /></td></tr>
 <tr class="separator:a9039541e4eb718e46891fc8a71cb18bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8eb99b5f63ff88cc22f1a035afbc11d8" id="r_a8eb99b5f63ff88cc22f1a035afbc11d8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8eb99b5f63ff88cc22f1a035afbc11d8">GetReplies</a> (const FString &amp;<a class="el" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faafaa6abc71ded82c59c64411193549cd">ParentId</a>, const <a class="el" href="struct_f_message_pagination_params_request_dto.html">FMessagePaginationParamsRequestDto</a> &amp;Pagination={}, TCallback&lt; <a class="el" href="struct_f_get_replies_response_dto.html">FGetRepliesResponseDto</a> &gt; Callback={}) const</td></tr>
+<tr class="memdesc:a8eb99b5f63ff88cc22f1a035afbc11d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch the replies of a thread, oldest first.  <br /></td></tr>
+<tr class="separator:a8eb99b5f63ff88cc22f1a035afbc11d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Threads</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p><a href="https://getstream.io/chat/docs/rest/#product:chat-threads">https://getstream.io/chat/docs/rest/#product:chat-threads</a> </p>
+</div></td></tr>
+<tr class="memitem:a46c7a86ffe232f6483e05b4ea43c131a" id="r_a46c7a86ffe232f6483e05b4ea43c131a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46c7a86ffe232f6483e05b4ea43c131a">QueryThreads</a> (const FString &amp;ConnectionId={}, const TOptional&lt; TSharedRef&lt; FJsonObject &gt; &gt; &amp;Filter={}, const TArray&lt; <a class="el" href="struct_f_sort_param_request_dto.html">FSortParamRequestDto</a> &gt; &amp;SortOptions={}, TOptional&lt; uint32 &gt; Limit={}, TOptional&lt; uint32 &gt; ReplyLimit={}, TOptional&lt; uint32 &gt; ParticipantLimit={}, TOptional&lt; uint32 &gt; MemberLimit={}, const TOptional&lt; FString &gt; &amp;Next={}, bool bWatch=false, TCallback&lt; <a class="el" href="struct_f_query_threads_response_dto.html">FQueryThreadsResponseDto</a> &gt; Callback={}) const</td></tr>
+<tr class="memdesc:a46c7a86ffe232f6483e05b4ea43c131a"><td class="mdescLeft">&#160;</td><td class="mdescRight">List the threads the current user participates in, across all their channels.  <br /></td></tr>
+<tr class="separator:a46c7a86ffe232f6483e05b4ea43c131a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8ac07860a44a42b39a362020224b467" id="r_af8ac07860a44a42b39a362020224b467"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af8ac07860a44a42b39a362020224b467">GetThread</a> (const FString &amp;MessageId, const FString &amp;ConnectionId={}, bool bWatch=false, TOptional&lt; uint32 &gt; ReplyLimit={}, TOptional&lt; uint32 &gt; ParticipantLimit={}, TOptional&lt; uint32 &gt; MemberLimit={}, TCallback&lt; <a class="el" href="struct_f_get_thread_response_dto.html">FGetThreadResponseDto</a> &gt; Callback={}) const</td></tr>
+<tr class="memdesc:af8ac07860a44a42b39a362020224b467"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch a single thread, identified by the ID of the message which started it.  <br /></td></tr>
+<tr class="separator:af8ac07860a44a42b39a362020224b467"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Events</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p><a href="https://getstream.io/chat/docs/rest/#Events">https://getstream.io/chat/docs/rest/#Events</a> </p>
 </div></td></tr>
@@ -722,6 +734,109 @@ static TSharedRef&lt; <a class="el" href="class_f_chat_api.html">FChatApi</a> &g
     <tr><td class="paramname">MessageId</td><td>ID of the message to fetch reactions for </td></tr>
     <tr><td class="paramname">Limit</td><td>The number of reactions to return </td></tr>
     <tr><td class="paramname">Offset</td><td>The pagination offset </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8eb99b5f63ff88cc22f1a035afbc11d8" name="a8eb99b5f63ff88cc22f1a035afbc11d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8eb99b5f63ff88cc22f1a035afbc11d8">&#9670;&#160;</a></span>GetReplies()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FChatApi::GetReplies </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ParentId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_f_message_pagination_params_request_dto.html">FMessagePaginationParamsRequestDto</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>Pagination</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TCallback&lt; <a class="el" href="struct_f_get_replies_response_dto.html">FGetRepliesResponseDto</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>Callback</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetch the replies of a thread, oldest first. </p>
+<p>Replies are returned in creation order, so paginate backwards through a thread's history with IdLt set to the oldest reply held locally.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ParentId</td><td>ID of the message which started the thread </td></tr>
+    <tr><td class="paramname">Pagination</td><td>Limit, and reply selection by reply ID. Only Limit, IdGt, IdGte, IdLt and IdLte are sent; the endpoint has no offset or created_at parameters. </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af8ac07860a44a42b39a362020224b467" name="af8ac07860a44a42b39a362020224b467"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8ac07860a44a42b39a362020224b467">&#9670;&#160;</a></span>GetThread()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FChatApi::GetThread </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>MessageId</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ConnectionId</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>bWatch</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TOptional&lt; uint32 &gt;</td>          <td class="paramname"><span class="paramname"><em>ReplyLimit</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TOptional&lt; uint32 &gt;</td>          <td class="paramname"><span class="paramname"><em>ParticipantLimit</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TOptional&lt; uint32 &gt;</td>          <td class="paramname"><span class="paramname"><em>MemberLimit</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TCallback&lt; <a class="el" href="struct_f_get_thread_response_dto.html">FGetThreadResponseDto</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>Callback</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetch a single thread, identified by the ID of the message which started it. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MessageId</td><td>ID of the message which started the thread </td></tr>
+    <tr><td class="paramname">ConnectionId</td><td>Websocket connection ID to interact with. Only needed when watching. </td></tr>
+    <tr><td class="paramname">bWatch</td><td>Start watching the channel the thread belongs to </td></tr>
+    <tr><td class="paramname">ReplyLimit</td><td>How many of the latest replies to include </td></tr>
+    <tr><td class="paramname">ParticipantLimit</td><td>How many participants to include (max 100). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section attention"><dt>Attention</dt><dd>Leaving this unset returns no participants at all, rather than a default number of them. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">MemberLimit</td><td>How many members of the thread's channel to include (max 100) </td></tr>
     <tr><td class="paramname">Callback</td><td>Called when response is received </td></tr>
   </table>
   </dd>
@@ -1309,6 +1424,90 @@ static TSharedRef&lt; <a class="el" href="class_f_chat_api.html">FChatApi</a> &g
     <tr><td class="paramname">ChannelId</td><td>is required) </td></tr>
     <tr><td class="paramname">SortOptions</td><td>The sorting used for the members matching the filters. Sorting is based on field and direction, multiple sorting options can be provided. </td></tr>
     <tr><td class="paramname">Pagination</td><td>Limit, offset, and member selection by user id GtId, GteId, LtId and LteId fields are for user IDs </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called when response is received </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a46c7a86ffe232f6483e05b4ea43c131a" name="a46c7a86ffe232f6483e05b4ea43c131a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46c7a86ffe232f6483e05b4ea43c131a">&#9670;&#160;</a></span>QueryThreads()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void FChatApi::QueryThreads </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ConnectionId</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TOptional&lt; TSharedRef&lt; FJsonObject &gt; &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>Filter</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TArray&lt; <a class="el" href="struct_f_sort_param_request_dto.html">FSortParamRequestDto</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>SortOptions</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TOptional&lt; uint32 &gt;</td>          <td class="paramname"><span class="paramname"><em>Limit</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TOptional&lt; uint32 &gt;</td>          <td class="paramname"><span class="paramname"><em>ReplyLimit</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TOptional&lt; uint32 &gt;</td>          <td class="paramname"><span class="paramname"><em>ParticipantLimit</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TOptional&lt; uint32 &gt;</td>          <td class="paramname"><span class="paramname"><em>MemberLimit</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TOptional&lt; FString &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>Next</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>bWatch</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TCallback&lt; <a class="el" href="struct_f_query_threads_response_dto.html">FQueryThreadsResponseDto</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>Callback</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>List the threads the current user participates in, across all their channels. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ConnectionId</td><td>Websocket connection ID to interact with. Only needed when watching. </td></tr>
+    <tr><td class="paramname">Filter</td><td>Conditions the returned threads must match, </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a href="https://getstream.io/chat/docs/unreal/threads/">https://getstream.io/chat/docs/unreal/threads/</a> </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">SortOptions</td><td>The sorting used for the threads matching the filter. Defaults server-side to unread threads first, then most recent reply first. </td></tr>
+    <tr><td class="paramname">Limit</td><td>The number of threads to return (max 100) </td></tr>
+    <tr><td class="paramname">ReplyLimit</td><td>How many of the latest replies to include per thread (max 10) </td></tr>
+    <tr><td class="paramname">ParticipantLimit</td><td>How many participants to include per thread (max 100) </td></tr>
+    <tr><td class="paramname">MemberLimit</td><td>How many members of each thread's channel to include (max 100) </td></tr>
+    <tr><td class="paramname">Next</td><td>Value from a previous response, to fetch the following page </td></tr>
+    <tr><td class="paramname">bWatch</td><td>Start watching the channels the returned threads belong to </td></tr>
     <tr><td class="paramname">Callback</td><td>Called when response is received </td></tr>
   </table>
   </dd>

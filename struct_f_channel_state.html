@@ -125,9 +125,13 @@ Public Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Append</b> (const <a class="el" href="struct_f_channel_state_response_fields_dto.html">FChannelStateResponseFieldsDto</a> &amp;, UUserManager *)</td></tr>
 <tr class="memdesc:a5ea3db97ae2b64801848d07a0671c9b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merge new information from the API into this state. <br /></td></tr>
 <tr class="separator:a5ea3db97ae2b64801848d07a0671c9b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97146781787f51e4de9095e942c99f1e" id="r_a97146781787f51e4de9095e942c99f1e"><td class="memItemLeft" align="right" valign="top"><a id="a97146781787f51e4de9095e942c99f1e" name="a97146781787f51e4de9095e942c99f1e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>AppendReplies</b> (const FString &amp;<a class="el" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faafaa6abc71ded82c59c64411193549cd">ParentId</a>, const TArray&lt; <a class="el" href="struct_f_message_dto.html">FMessageDto</a> &gt; &amp;, UUserManager *)</td></tr>
+<tr class="memdesc:a97146781787f51e4de9095e942c99f1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merge newly fetched replies of a thread into this state. <br /></td></tr>
+<tr class="separator:a97146781787f51e4de9095e942c99f1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a591082f72ff629a497d40ab526c79145" id="r_a591082f72ff629a497d40ab526c79145"><td class="memItemLeft" align="right" valign="top"><a id="a591082f72ff629a497d40ab526c79145" name="a591082f72ff629a497d40ab526c79145"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>AddMessage</b> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;)</td></tr>
-<tr class="memdesc:a591082f72ff629a497d40ab526c79145"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locally add a message to this channel. <br /></td></tr>
+<tr class="memdesc:a591082f72ff629a497d40ab526c79145"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locally add a message to this channel. A thread reply is routed to its thread. <br /></td></tr>
 <tr class="separator:a591082f72ff629a497d40ab526c79145"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d408ab5707b05c780eb937cd965e43c" id="r_a4d408ab5707b05c780eb937cd965e43c"><td class="memItemLeft" align="right" valign="top"><a id="a4d408ab5707b05c780eb937cd965e43c" name="a4d408ab5707b05c780eb937cd965e43c"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsMessageRead</b> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;) const</td></tr>

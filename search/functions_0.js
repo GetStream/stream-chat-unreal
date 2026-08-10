@@ -7,5 +7,6 @@ var searchData=
   ['and_4',['And',['../struct_f_filter.html#af14d6d49c006bd366746230a0a7f9319',1,'FFilter']]],
   ['append_5',['Append',['../struct_f_channel_state.html#a5ea3db97ae2b64801848d07a0671c9b3',1,'FChannelState::Append()'],['../struct_f_message_store.html#a816bda5b4bb662a1cdc29df5066324ad',1,'FMessageStore::Append()']]],
   ['appendmembers_6',['AppendMembers',['../struct_f_channel_properties.html#a51237a9e96e6d50d84c2703971f4f543',1,'FChannelProperties']]],
-  ['autocomplete_7',['Autocomplete',['../struct_f_filter.html#ad0c69e6d197fecaf0bc31f5f4522ad2e',1,'FFilter']]]
+  ['appendreplies_7',['AppendReplies',['../struct_f_channel_state.html#a97146781787f51e4de9095e942c99f1e',1,'FChannelState::AppendReplies()'],['../struct_f_message_store.html#a42208bb08a6ff6c5403eceaddde401a0',1,'FMessageStore::AppendReplies()']]],
+  ['autocomplete_8',['Autocomplete',['../struct_f_filter.html#ad0c69e6d197fecaf0bc31f5f4522ad2e',1,'FFilter']]]
 ];

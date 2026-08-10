@@ -7,7 +7,7 @@ var searchData=
   ['unmutechannels_4',['UnmuteChannels',['../class_f_chat_api.html#a2861ba26901a4656b518e5be4d42aa7f',1,'FChatApi']]],
   ['unmuteuser_5',['UnmuteUser',['../class_u_stream_chat_client_component.html#a40b0b86d6b374c18ea9f580060805773',1,'UStreamChatClientComponent']]],
   ['unmuteusers_6',['UnmuteUsers',['../class_f_chat_api.html#af4ee8dbff41e1d21e1f65106b6206880',1,'FChatApi']]],
-  ['unreadcount_7',['UnreadCount',['../struct_f_channel_state.html#aa144fa0ffa10af7f750c79fb8eb96d7e',1,'FChannelState']]],
+  ['unreadcount_7',['UnreadCount',['../struct_f_channel_state.html#aa144fa0ffa10af7f750c79fb8eb96d7e',1,'FChannelState::UnreadCount()'],['../struct_f_chat_thread.html#ae4d0cacfd2144d96838a1e59626a6cd7',1,'FChatThread::UnreadCount()']]],
   ['unsubscribe_8',['Unsubscribe',['../class_u_chat_channel.html#ad7a707550c3a5b6eb6a6a807ce541a21',1,'UChatChannel']]],
   ['update_9',['Update',['../class_u_chat_channel.html#a971cf362c2d961d6f121a4b2daa8e3e0',1,'UChatChannel']]],
   ['updatechannel_10',['UpdateChannel',['../class_f_chat_api.html#a64e729dcaa5a9001d189870d95cb2784',1,'FChatApi']]],

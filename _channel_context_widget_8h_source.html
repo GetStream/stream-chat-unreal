@@ -137,14 +137,35 @@ $(function(){initNavTree('_channel_context_widget_8h_source.html',''); initResiz
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    UPROPERTY(BlueprintAssignable)</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    FStartEditMessageDelegate OnStartEditMessage;</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    UPROPERTY(Transient)</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_class" href="class_u_chat_channel.html">UChatChannel</a>* Channel;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>};</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    UFUNCTION(BlueprintCallable, Category = <span class="stringliteral">&quot;Stream Chat&quot;</span>)</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordtype">void</span> OpenThread(<span class="keyword">const</span> <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp; ParentMessage);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    UFUNCTION(BlueprintCallable, Category = <span class="stringliteral">&quot;Stream Chat&quot;</span>)</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordtype">void</span> CloseThread();</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    UFUNCTION(BlueprintPure, Category = <span class="stringliteral">&quot;Stream Chat&quot;</span>)</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordtype">bool</span> IsThreadOpen() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    UFUNCTION(BlueprintPure, Category = <span class="stringliteral">&quot;Stream Chat&quot;</span>)</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keyword">const</span> <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp; GetThreadParentMessage() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FThreadChangedDelegate, <span class="keywordtype">bool</span>, bThreadOpen, <span class="keyword">const</span> <a class="code hl_struct" href="struct_f_message.html">FMessage</a>&amp;, ParentMessage);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    UPROPERTY(BlueprintAssignable)</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="class_u_channel_context_widget.html#a9e6d3ee3173e25e92485e839a72ac5c6">   65</a></span>    FThreadChangedDelegate OnThreadChanged;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>private:</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    UPROPERTY(Transient)</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <a class="code hl_class" href="class_u_chat_channel.html">UChatChannel</a>* Channel;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    UPROPERTY(Transient)</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <a class="code hl_struct" href="struct_f_message.html">FMessage</a> ThreadParentMessage;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordtype">bool</span> bThreadOpen = false;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>};</div>
 </div>
 <div class="ttc" id="aclass_u_channel_context_widget_html"><div class="ttname"><a href="class_u_channel_context_widget.html">UChannelContextWidget</a></div><div class="ttdoc">Provide a reference to a UChatChannel to child widgets.</div><div class="ttdef"><b>Definition</b> ChannelContextWidget.h:21</div></div>
 <div class="ttc" id="aclass_u_chat_channel_html"><div class="ttname"><a href="class_u_chat_channel.html">UChatChannel</a></div><div class="ttdoc">The client-side representation of a Stream Chat channel.</div><div class="ttdef"><b>Definition</b> ChatChannel.h:75</div></div>
-<div class="ttc" id="astruct_f_message_html"><div class="ttname"><a href="struct_f_message.html">FMessage</a></div><div class="ttdoc">Represents a Stream Chat message.</div><div class="ttdef"><b>Definition</b> Message.h:67</div></div>
+<div class="ttc" id="astruct_f_message_html"><div class="ttname"><a href="struct_f_message.html">FMessage</a></div><div class="ttdoc">Represents a Stream Chat message.</div><div class="ttdef"><b>Definition</b> Message.h:69</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

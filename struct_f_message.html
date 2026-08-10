@@ -132,6 +132,14 @@ Public Member Functions</h2></td></tr>
 <a class="el" href="struct_f_message_request_dto.html">FMessageRequestDto</a>&#160;</td><td class="memItemRight" valign="bottom"><b>ToRequestDto</b> (const FString &amp;Cid) const</td></tr>
 <tr class="memdesc:a84984fc8d09ddc31b4b178d15509b972"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a message into a create/update request for sending to the API. <br /></td></tr>
 <tr class="separator:a84984fc8d09ddc31b4b178d15509b972"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8548fac482d1901d552ff2e3c99dc8e0" id="r_a8548fac482d1901d552ff2e3c99dc8e0"><td class="memItemLeft" align="right" valign="top"><a id="a8548fac482d1901d552ff2e3c99dc8e0" name="a8548fac482d1901d552ff2e3c99dc8e0"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsThreadReply</b> () const</td></tr>
+<tr class="memdesc:a8548fac482d1901d552ff2e3c99dc8e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is this message a reply in another message's thread? <br /></td></tr>
+<tr class="separator:a8548fac482d1901d552ff2e3c99dc8e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad23e4dc620037d72eefed5d2c4cfaded" id="r_ad23e4dc620037d72eefed5d2c4cfaded"><td class="memItemLeft" align="right" valign="top"><a id="ad23e4dc620037d72eefed5d2c4cfaded" name="ad23e4dc620037d72eefed5d2c4cfaded"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsThreadStart</b> () const</td></tr>
+<tr class="memdesc:ad23e4dc620037d72eefed5d2c4cfaded"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does this message have a thread of replies hanging off it? <br /></td></tr>
+<tr class="separator:ad23e4dc620037d72eefed5d2c4cfaded"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -175,10 +183,18 @@ TOptional&lt; FDateTime &gt;&#160;</td><td class="memItemRight" valign="bottom">
 <a class="el" href="struct_f_reactions.html">FReactions</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Reactions</b></td></tr>
 <tr class="memdesc:ad74d421c350e96e2b487b3ffd361934a"><td class="mdescLeft">&#160;</td><td class="mdescRight">All reactions of this message, grouped by their type. <br /></td></tr>
 <tr class="separator:ad74d421c350e96e2b487b3ffd361934a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63796defb157e51b8fad7328a3656a5c" id="r_a63796defb157e51b8fad7328a3656a5c"><td class="memItemLeft" align="right" valign="top"><a id="a63796defb157e51b8fad7328a3656a5c" name="a63796defb157e51b8fad7328a3656a5c"></a>
-FString&#160;</td><td class="memItemRight" valign="bottom"><b>ParentId</b></td></tr>
-<tr class="memdesc:a63796defb157e51b8fad7328a3656a5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty if not a reply in a thread. <br /></td></tr>
+<tr class="memitem:a63796defb157e51b8fad7328a3656a5c" id="r_a63796defb157e51b8fad7328a3656a5c"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a63796defb157e51b8fad7328a3656a5c">ParentId</a></td></tr>
 <tr class="separator:a63796defb157e51b8fad7328a3656a5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2e4953f3bcb28d058e3370cbb78f256" id="r_af2e4953f3bcb28d058e3370cbb78f256"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af2e4953f3bcb28d058e3370cbb78f256">bShowInChannel</a> = false</td></tr>
+<tr class="separator:af2e4953f3bcb28d058e3370cbb78f256"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7c4a541fcc3cb379841977ebcee4f66" id="r_ac7c4a541fcc3cb379841977ebcee4f66"><td class="memItemLeft" align="right" valign="top"><a id="ac7c4a541fcc3cb379841977ebcee4f66" name="ac7c4a541fcc3cb379841977ebcee4f66"></a>
+int32&#160;</td><td class="memItemRight" valign="bottom"><b>ReplyCount</b> = 0</td></tr>
+<tr class="memdesc:ac7c4a541fcc3cb379841977ebcee4f66"><td class="mdescLeft">&#160;</td><td class="mdescRight">How many replies this message's thread has. Zero unless this message started a thread. <br /></td></tr>
+<tr class="separator:ac7c4a541fcc3cb379841977ebcee4f66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36f9b2415d81b54d7a3998da8e5ae767" id="r_a36f9b2415d81b54d7a3998da8e5ae767"><td class="memItemLeft" align="right" valign="top"><a id="a36f9b2415d81b54d7a3998da8e5ae767" name="a36f9b2415d81b54d7a3998da8e5ae767"></a>
+TArray&lt; <a class="el" href="struct_f_user_ref.html">FUserRef</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ThreadParticipants</b></td></tr>
+<tr class="memdesc:a36f9b2415d81b54d7a3998da8e5ae767"><td class="mdescLeft">&#160;</td><td class="mdescRight">The users who have replied in this message's thread. Empty unless this message started a thread. <br /></td></tr>
+<tr class="separator:a36f9b2415d81b54d7a3998da8e5ae767"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a679b6941706ff597bad744b971785da7" id="r_a679b6941706ff597bad744b971785da7"><td class="memItemLeft" align="right" valign="top"><a id="a679b6941706ff597bad744b971785da7" name="a679b6941706ff597bad744b971785da7"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>bIsSilent</b> = false</td></tr>
 <tr class="separator:a679b6941706ff597bad744b971785da7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -200,7 +216,38 @@ FAdditionalFields&#160;</td><td class="memItemRight" valign="bottom"><b>ExtraDat
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents a Stream Chat message. </p>
-</div><hr/>The documentation for this struct was generated from the following files:<ul>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="af2e4953f3bcb28d058e3370cbb78f256" name="af2e4953f3bcb28d058e3370cbb78f256"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2e4953f3bcb28d058e3370cbb78f256">&#9670;&#160;</a></span>bShowInChannel</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FMessage::bShowInChannel = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Whether this thread reply should also appear in the main channel message list. Only meaningful together with ParentId. </p>
+
+</div>
+</div>
+<a id="a63796defb157e51b8fad7328a3656a5c" name="a63796defb157e51b8fad7328a3656a5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63796defb157e51b8fad7328a3656a5c">&#9670;&#160;</a></span>ParentId</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FMessage::ParentId</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The message this one is a reply to. Empty if this message is not a reply in a thread. Set this before sending to start or continue a thread. </p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
 <li>Source/StreamChat/Public/Channel/<a class="el" href="_message_8h_source.html">Message.h</a></li>
 <li>Source/StreamChat/Private/Channel/<b>Message.cpp</b></li>
 </ul>

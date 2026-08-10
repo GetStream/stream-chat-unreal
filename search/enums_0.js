@@ -10,6 +10,7 @@ var searchData=
   ['emessagetype_7',['EMessageType',['../group___stream_chat.html#gae884ad235d4918a9a12ecb8741344cc7',1,'Message.h']]],
   ['emessagetypedto_8',['EMessageTypeDto',['../group___stream_chat_dto.html#ga25892b8ff165ca27984b03e49e9899a5',1,'MessageTypeDto.h']]],
   ['esortdirection_9',['ESortDirection',['../group___stream_chat.html#ga3b38841cfa7e76d2948c49d219950551',1,'ChannelSortOption.h']]],
-  ['etokentype_10',['ETokenType',['../group___stream_chat.html#ga640e62db05d42071eaabcd5a151510b1',1,'Token.h']]],
-  ['eusersortfield_11',['EUserSortField',['../group___stream_chat.html#ga168ebbcdbfc643c147a18bf919d9a7a1',1,'ChannelSortOption.h']]]
+  ['ethreadsortfield_10',['EThreadSortField',['../group___stream_chat.html#ga4a7849feb763be9cddf038c482b755f7',1,'ChannelSortOption.h']]],
+  ['etokentype_11',['ETokenType',['../group___stream_chat.html#ga640e62db05d42071eaabcd5a151510b1',1,'Token.h']]],
+  ['eusersortfield_12',['EUserSortField',['../group___stream_chat.html#ga168ebbcdbfc643c147a18bf919d9a7a1',1,'ChannelSortOption.h']]]
 ];
