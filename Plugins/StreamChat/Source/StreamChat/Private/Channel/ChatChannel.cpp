@@ -30,6 +30,7 @@
 #include "Response/Channel/UpdateChannelPartialResponseDto.h"
 #include "Response/Channel/UpdateChannelResponseDto.h"
 #include "Response/Message/FileUploadResponseDto.h"
+#include "Response/Message/GetRepliesResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
 #include "Response/Moderation/MuteChannelResponseDto.h"
@@ -612,6 +613,101 @@ void UChatChannel::QueryAdditionalMessages(const EPaginationDirection Direction,
     Query(EChannelFlags::State, MessagePagination, {}, {}, Callback);
 }
 
+void UChatChannel::SendReplyBP(
+    const FMessage& Reply,
+    const FMessage& ParentMessage,
+    const bool bAlsoSendInChannel,
+    const UObject* WorldContextObject,
+    const FLatentActionInfo LatentInfo,
+    bool& bSuccess)
+{
+    TCallbackAction<bool>::CreateLatentAction(
+        WorldContextObject, LatentInfo, bSuccess, [&](auto Callback) { SendReply(Reply, ParentMessage, bAlsoSendInChannel, Callback); });
+}
+
+void UChatChannel::SendReply(
+    const FMessage& Reply,
+    const FMessage& ParentMessage,
+    const bool bAlsoSendInChannel,
+    const TFunction<void(const bool& bSuccess)> Callback)
+{
+    FMessage NewReply{Reply};
+    NewReply.ParentId = ParentMessage.Id;
+    NewReply.bShowInChannel = bAlsoSendInChannel;
+    // Type is deliberately left alone. The API reports replies as Regular and identifies them by
+    // their parent, so setting Reply here would make the optimistic copy disagree with the message
+    // the socket echoes back. Use FMessage::IsThreadReply() rather than the type to tell them apart.
+    SendMessage(NewReply, Callback);
+}
+
+void UChatChannel::QueryReplies(const FMessage& ParentMessage, const int32 Limit, TFunction<void(const TArray<FMessage>&)> Callback)
+{
+    FMessagePaginationOptions Pagination;
+    Pagination.Limit = Limit;
+    FetchReplies(ParentMessage.Id, Pagination, Callback);
+}
+
+void UChatChannel::QueryAdditionalReplies(const FMessage& ParentMessage, const int32 Limit, TFunction<void(const TArray<FMessage>&)> Callback)
+{
+    const FMessages& Replies = GetReplies(ParentMessage);
+    if (Replies.Num() == 0)
+    {
+        // Nothing held locally to paginate from. QueryReplies fetches the first page.
+        if (Callback)
+        {
+            Callback({});
+        }
+        return;
+    }
+
+    FMessagePaginationOptions Pagination;
+    Pagination.Limit = Limit;
+    // Replies are held oldest first, so the first one is the boundary to page back from
+    Pagination.IdLt = Replies[0]->Id;
+    FetchReplies(ParentMessage.Id, Pagination, Callback);
+}
+
+void UChatChannel::FetchReplies(const FString& ParentId, const FMessagePaginationOptions& Pagination, TFunction<void(const TArray<FMessage>&)> Callback)
+{
+    Api->GetReplies(
+        ParentId,
+        Util::Convert<FMessagePaginationParamsRequestDto>(Pagination),
+        [WeakThis = TWeakObjectPtr<UChatChannel>(this), ParentId, Callback](const TResponse<FGetRepliesResponseDto>& Response)
+        {
+            const auto* Dto = Response.Get();
+            if (!Dto || !WeakThis.IsValid())
+            {
+                return;
+            }
+
+            UUserManager* UserManager = UUserManager::Get();
+            WeakThis->State.AppendReplies(ParentId, Dto->Messages, UserManager);
+
+            WeakThis->RepliesUpdated.Broadcast(ParentId);
+            // A reply sent with show_in_channel lands in the channel list too, so redraw that as well
+            WeakThis->MessagesUpdated.Broadcast();
+
+            if (Callback)
+            {
+                Callback(Util::Convert<FMessage>(Dto->Messages, UserManager));
+            }
+        });
+}
+
+const FMessages& UChatChannel::GetReplies(const FMessage& ParentMessage) const
+{
+    return State.Messages.GetReplies(ParentMessage.Id);
+}
+
+TArray<FMessage> UChatChannel::GetRepliesBP(const FMessage& ParentMessage) const
+{
+    TArray<FMessage> Replies;
+    const FMessages& Held = GetReplies(ParentMessage);
+    Replies.Reserve(Held.Num());
+    Algo::Transform(Held, Replies, [](const FMessageRef& Reply) { return *Reply; });
+    return Replies;
+}
+
 void UChatChannel::MarkRead(const TOptional<FMessage>& Message)
 {
     const TOptional<FString> MessageId = Message.IsSet() ? Message.GetValue().Id : TOptional<FString>{};
@@ -867,12 +963,20 @@ void UChatChannel::OnTypingStart(const FTypingStartEvent& Event)
 {
     const FUserRef User = UUserManager::Get()->UpsertUser(Event.User);
     OnTypingIndicator.Broadcast(ETypingIndicatorState::StartTyping, User);
+    if (!Event.ParentId.IsEmpty())
+    {
+        OnThreadTypingIndicator.Broadcast(ETypingIndicatorState::StartTyping, User, Event.ParentId);
+    }
 }
 
 void UChatChannel::OnTypingStop(const FTypingStopEvent& Event)
 {
     const FUserRef User = UUserManager::Get()->UpsertUser(Event.User);
     OnTypingIndicator.Broadcast(ETypingIndicatorState::StopTyping, User);
+    if (!Event.ParentId.IsEmpty())
+    {
+        OnThreadTypingIndicator.Broadcast(ETypingIndicatorState::StopTyping, User, Event.ParentId);
+    }
 }
 
 void UChatChannel::BanMemberBP(const FUserRef& User, const FTimespan Timeout, const FString Reason, const bool bIpBan) const
@@ -981,6 +1085,10 @@ void UChatChannel::AddMessage(const FMessage& Message)
     State.AddMessage(Message);
 
     MessagesUpdated.Broadcast();
+    if (Message.IsThreadReply())
+    {
+        RepliesUpdated.Broadcast(Message.ParentId);
+    }
 }
 
 FMessage MakeMessage(const FMessageEvent& Event)

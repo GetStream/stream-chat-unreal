@@ -22,6 +22,8 @@
 #include "Response/Moderation/GetBlockedUsersResponseDto.h"
 #include "Response/Moderation/MuteUserResponseDto.h"
 #include "Response/Moderation/QueryBannedUsersResponseDto.h"
+#include "Response/Thread/GetThreadResponseDto.h"
+#include "Response/Thread/QueryThreadsResponseDto.h"
 #include "Response/User/GuestResponseDto.h"
 #include "Response/User/UpdateUsersResponseDto.h"
 #include "Response/User/UsersResponseDto.h"
@@ -524,6 +526,69 @@ void UStreamChatClientComponent::SearchMessages(
             if (Callback && Dto)
             {
                 Callback(Util::Convert<FMessage>(Dto->Results, UUserManager::Get()));
+            }
+        });
+}
+
+void UStreamChatClientComponent::QueryThreads(
+    const TOptional<FFilter>& Filter,
+    const TArray<FThreadSortOption>& SortOptions,
+    const TOptional<uint32> Limit,
+    const TOptional<uint32> ReplyLimit,
+    const TOptional<FString>& Next,
+    TFunction<void(const TArray<FChatThread>&, const FString&)> Callback) const
+{
+    TOptional<TSharedRef<FJsonObject>> FilterJson;
+    if (Filter.IsSet())
+    {
+        FilterJson.Emplace(Filter.GetValue().ToJsonObject());
+    }
+
+    Api->QueryThreads(
+        // A connection id is only needed to watch the threads' channels, which this does not do
+        {},
+        FilterJson,
+        Util::Convert<FSortParamRequestDto>(SortOptions),
+        Limit,
+        ReplyLimit,
+        // TODO expose participant and member limit
+        {},
+        {},
+        Next,
+        false,
+        [Callback](const TResponse<FQueryThreadsResponseDto>& Response)
+        {
+            if (const auto* Dto = Response.Get())
+            {
+                if (Callback)
+                {
+                    Callback(Util::Convert<FChatThread>(Dto->Threads, UUserManager::Get()), Dto->Next);
+                }
+            }
+        });
+}
+
+void UStreamChatClientComponent::GetThread(
+    const FString& ParentMessageId,
+    const TOptional<uint32> ReplyLimit,
+    const TOptional<uint32> ParticipantLimit,
+    TFunction<void(const FChatThread&)> Callback) const
+{
+    Api->GetThread(
+        ParentMessageId,
+        {},
+        false,
+        ReplyLimit,
+        ParticipantLimit,
+        {},
+        [Callback](const TResponse<FGetThreadResponseDto>& Response)
+        {
+            if (const auto* Dto = Response.Get())
+            {
+                if (Callback)
+                {
+                    Callback(FChatThread{Dto->Thread, UUserManager::Get()});
+                }
             }
         });
 }

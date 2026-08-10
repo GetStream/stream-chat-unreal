@@ -2,6 +2,7 @@
 
 #include "Header/MessageListHeaderWidget.h"
 
+#include "Context/ChannelContextWidget.h"
 #include "UiBlueprintLibrary.h"
 
 UMessageListHeaderWidget::UMessageListHeaderWidget()
@@ -16,8 +17,7 @@ void UMessageListHeaderWidget::NativePreConstruct()
     {
         if (Header)
         {
-            const FText Title = FText::FromString(UUiBlueprintLibrary::GetChannelTitle(GetChannel()));
-            Header->SetTitle(Title);
+            RefreshTitle();
             ShowOnlineStatusSubheader();
         }
 
@@ -43,6 +43,10 @@ void UMessageListHeaderWidget::NativeConstruct()
     {
         GetChannel()->OnTypingIndicator.AddDynamic(this, &UMessageListHeaderWidget::OnTypingIndicator);
     }
+    if (UChannelContextWidget* Context = UChannelContextWidget::TryGet(this))
+    {
+        Context->OnThreadChanged.AddDynamic(this, &UMessageListHeaderWidget::OnThreadChanged);
+    }
 }
 
 void UMessageListHeaderWidget::NativeDestruct()
@@ -51,7 +55,30 @@ void UMessageListHeaderWidget::NativeDestruct()
     {
         GetChannel()->OnTypingIndicator.RemoveDynamic(this, &UMessageListHeaderWidget::OnTypingIndicator);
     }
+    if (UChannelContextWidget* Context = UChannelContextWidget::TryGet(this))
+    {
+        Context->OnThreadChanged.RemoveDynamic(this, &UMessageListHeaderWidget::OnThreadChanged);
+    }
     Super::NativeDestruct();
+}
+
+void UMessageListHeaderWidget::OnThreadChanged(bool, const FMessage&)
+{
+    RefreshTitle();
+}
+
+void UMessageListHeaderWidget::RefreshTitle()
+{
+    if (!Header || !GetChannel())
+    {
+        return;
+    }
+
+    const UChannelContextWidget* Context = UChannelContextWidget::TryGet(this);
+    const bool bThreadOpen = Context && Context->IsThreadOpen();
+    // Being in a thread is easy to lose track of, and the composer banner alone is easy to miss
+    const FText Title = bThreadOpen ? ThreadTitleText : FText::FromString(UUiBlueprintLibrary::GetChannelTitle(GetChannel()));
+    Header->SetTitle(Title);
 }
 
 void UMessageListHeaderWidget::OnTypingIndicator(const ETypingIndicatorState TypingState, const FUserRef& User)

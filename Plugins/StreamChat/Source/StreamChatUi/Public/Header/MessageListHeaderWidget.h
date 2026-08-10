@@ -42,11 +42,19 @@ protected:
     UPROPERTY(EditDefaultsOnly, NoClear, Category = Defaults)
     TSubclassOf<UOnlineStatusSubheaderWidget> StatusWidgetClass = UOnlineStatusSubheaderWidget::StaticClass();
 
+    /// Title shown while a thread is open, in place of the channel name
+    UPROPERTY(EditDefaultsOnly, Category = Thread)
+    FText ThreadTitleText = NSLOCTEXT("StreamChat", "ThreadTitle", "Thread");
+
 private:
     UFUNCTION()
     void OnTypingIndicator(ETypingIndicatorState TypingState, const FUserRef& User);
 
+    UFUNCTION()
+    void OnThreadChanged(bool bThreadOpen, const FMessage& ParentMessage);
+
     void ShowOnlineStatusSubheader();
+    void RefreshTitle();
 
     UPROPERTY(Transient)
     UTypingIndicatorWidget* TypingIndicator;

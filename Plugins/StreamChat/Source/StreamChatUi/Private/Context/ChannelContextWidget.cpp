@@ -71,3 +71,48 @@ UChatChannel* UChannelContextWidget::GetChannel() const
 {
     return Channel;
 }
+
+void UChannelContextWidget::OpenThread(const FMessage& ParentMessage)
+{
+    if (ParentMessage.Id.IsEmpty())
+    {
+        return;
+    }
+
+    ThreadParentMessage = ParentMessage;
+    bThreadOpen = true;
+
+    // A channel query returns channel history and not thread history, so the replies have to be
+    // fetched when the thread is opened. Doing it here means every widget that follows
+    // OnThreadChanged gets a populated thread without each of them asking for it.
+    if (Channel)
+    {
+        Channel->QueryReplies(ParentMessage);
+    }
+
+    OnThreadChanged.Broadcast(true, ThreadParentMessage);
+}
+
+void UChannelContextWidget::CloseThread()
+{
+    if (!bThreadOpen)
+    {
+        return;
+    }
+
+    const FMessage ClosedParent = ThreadParentMessage;
+    bThreadOpen = false;
+    ThreadParentMessage = FMessage{};
+
+    OnThreadChanged.Broadcast(false, ClosedParent);
+}
+
+bool UChannelContextWidget::IsThreadOpen() const
+{
+    return bThreadOpen;
+}
+
+const FMessage& UChannelContextWidget::GetThreadParentMessage() const
+{
+    return ThreadParentMessage;
+}

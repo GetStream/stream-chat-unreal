@@ -20,6 +20,7 @@
 #include "Response/Channel/UpdateChannelPartialResponseDto.h"
 #include "Response/Channel/UpdateChannelResponseDto.h"
 #include "Response/Device/ListDevicesResponseDto.h"
+#include "Response/Message/GetRepliesResponseDto.h"
 #include "Response/Message/MessageResponseDto.h"
 #include "Response/Moderation/BanResponseDto.h"
 #include "Response/Moderation/BlockUserResponseDto.h"
@@ -29,6 +30,8 @@
 #include "Response/Moderation/MuteUserResponseDto.h"
 #include "Response/Moderation/QueryBannedUsersResponseDto.h"
 #include "Response/ResponseDto.h"
+#include "Response/Thread/GetThreadResponseDto.h"
+#include "Response/Thread/QueryThreadsResponseDto.h"
 #include "Response/User/GuestResponseDto.h"
 #include "Response/User/UpdateUsersResponseDto.h"
 #include "Response/User/UsersResponseDto.h"
@@ -49,8 +52,11 @@ const FString DeviceId = TEXT("random-device-id");
 const FString BanUserId = TEXT("tutorial-unreal");
 const FString MsgText{TEXT("My test message!")};
 const FString UpdatedMsgText{TEXT("My new message")};
+const FString ReplyText{TEXT("My test reply!")};
 FString MessageId;
 FString GuestUserId;
+FString ThreadParentId;
+FString ThreadReplyId;
 
 const TSharedRef<FTokenManager> TokenManager = MakeShared<FTokenManager>();
 const TSharedRef<FChatApi> Api = FChatApi::Create(ApiKey, Host, TokenManager);
@@ -798,6 +804,175 @@ void FChatApiSpec::Define()
                             const auto& Dto = Response.GetRef();
                             TestEqual("Message text is same as input", Dto.Message.Text, UpdatedMsgText);
                             TestEqual("Message is deleted", Dto.Message.Type, EMessageTypeDto::Deleted);
+                            TestDone.Execute();
+                        });
+                });
+        });
+
+    Describe(
+        "Thread",
+        [=, this]
+        {
+            // Start a thread: send the message the thread hangs off
+            LatentBeforeEach(
+                [=, this](const FDoneDelegate& TestDone)
+                {
+                    FMessageRequestDto Request;
+                    Request.Cid = Cid;
+                    Request.Text = MsgText;
+                    Api->SendNewMessage(
+                        ChannelType,
+                        ChannelId,
+                        Request,
+                        false,
+                        [=, this](const TResponse<FMessageResponseDto>& Response)
+                        {
+                            const auto& Dto = Response.GetRef();
+                            TestEqual("Parent is a regular message", Dto.Message.Type, EMessageTypeDto::Regular);
+                            TestEqual("Parent has no replies yet", static_cast<int32>(Dto.Message.ReplyCount), 0);
+                            ThreadParentId = Dto.Message.Id;
+                            TestDone.Execute();
+                        });
+                });
+
+            // Reply in the thread, and ask for it to show in the channel too
+            LatentBeforeEach(
+                [=, this](const FDoneDelegate& TestDone)
+                {
+                    FMessageRequestDto Request;
+                    Request.Cid = Cid;
+                    Request.Text = ReplyText;
+                    Request.ParentId = ThreadParentId;
+                    Request.bShowInChannel = true;
+                    Api->SendNewMessage(
+                        ChannelType,
+                        ChannelId,
+                        Request,
+                        false,
+                        [=, this](const TResponse<FMessageResponseDto>& Response)
+                        {
+                            const auto& Dto = Response.GetRef();
+                            TestEqual("Reply text is same as input", Dto.Message.Text, ReplyText);
+                            // The write path is what was missing: without parent_id on the wire the
+                            // backend takes this for a plain channel message instead of a reply.
+                            TestEqual("Reply is attached to the parent", Dto.Message.ParentId, ThreadParentId);
+                            TestTrue("Reply is shown in the channel", Dto.Message.bShowInChannel);
+                            // A reply is identified by its parent, not by its type: the API reports it
+                            // as regular despite EMessageTypeDto::Reply existing. Anything keying off
+                            // the type to spot a reply would quietly never match.
+                            TestEqual("Reply is reported as a regular message", Dto.Message.Type, EMessageTypeDto::Regular);
+                            ThreadReplyId = Dto.Message.Id;
+                            TestDone.Execute();
+                        });
+                });
+
+            LatentBeforeEach(
+                [=, this](const FDoneDelegate& TestDone)
+                {
+                    Api->GetReplies(
+                        ThreadParentId,
+                        {},
+                        [=, this](const TResponse<FGetRepliesResponseDto>& Response)
+                        {
+                            const auto& Dto = Response.GetRef();
+                            const FMessageDto* Reply = Dto.Messages.FindByPredicate([&](const FMessageDto& M) { return M.Id == ThreadReplyId; });
+                            TestNotNull("Reply returned by the thread", Reply);
+                            if (Reply)
+                            {
+                                TestEqual("Reply text", Reply->Text, ReplyText);
+                            }
+                            TestDone.Execute();
+                        });
+                });
+
+            LatentBeforeEach(
+                [=, this](const FDoneDelegate& TestDone)
+                {
+                    // Paginating back from the only reply leaves nothing older to return
+                    FMessagePaginationParamsRequestDto Pagination;
+                    Pagination.Limit = 1;
+                    Pagination.IdLt = ThreadReplyId;
+                    Api->GetReplies(
+                        ThreadParentId,
+                        Pagination,
+                        [=, this](const TResponse<FGetRepliesResponseDto>& Response)
+                        {
+                            const auto& Dto = Response.GetRef();
+                            TestEqual("No replies before the first one", Dto.Messages.Num(), 0);
+                            TestDone.Execute();
+                        });
+                });
+
+            LatentBeforeEach(
+                [=, this](const FDoneDelegate& TestDone)
+                {
+                    Api->QueryThreads(
+                        {},
+                        FFilter::Equal(TEXT("parent_message_id"), ThreadParentId).ToJsonObject(),
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        false,
+                        [=, this](const TResponse<FQueryThreadsResponseDto>& Response)
+                        {
+                            const auto& Dto = Response.GetRef();
+                            const FThreadStateResponseDto* Thread =
+                                Dto.Threads.FindByPredicate([&](const FThreadStateResponseDto& T) { return T.ParentMessageId == ThreadParentId; });
+                            TestNotNull("Thread listed", Thread);
+                            if (Thread)
+                            {
+                                TestEqual("Thread is in the right channel", Thread->ChannelCid, Cid);
+                                TestEqual("Thread has one reply", Thread->ReplyCount, 1);
+                                TestEqual("Thread was started by the test user", Thread->CreatedByUserId, User.Id);
+                                TestEqual("Thread parent message", Thread->ParentMessage.Id, ThreadParentId);
+                                TestTrue(
+                                    "Latest replies previewed",
+                                    Thread->LatestReplies.ContainsByPredicate([&](const FMessageDto& M) { return M.Id == ThreadReplyId; }));
+                            }
+                            TestDone.Execute();
+                        });
+                });
+
+            LatentIt(
+                "should get a single thread",
+                [=, this](const FDoneDelegate& TestDone)
+                {
+                    Api->GetThread(
+                        ThreadParentId,
+                        {},
+                        false,
+                        {},
+                        // Without a participant limit this endpoint returns no participants at all,
+                        // rather than defaulting to some number of them
+                        10,
+                        {},
+                        [=, this](const TResponse<FGetThreadResponseDto>& Response)
+                        {
+                            const auto& Dto = Response.GetRef();
+                            TestEqual("Requested thread returned", Dto.Thread.ParentMessageId, ThreadParentId);
+                            TestEqual("Thread has one reply", Dto.Thread.ReplyCount, 1);
+                            TestEqual("Thread has one participant", Dto.Thread.ParticipantCount, 1);
+                            const FThreadParticipantDto* Participant =
+                                Dto.Thread.ThreadParticipants.FindByPredicate([&](const FThreadParticipantDto& P) { return P.UserId == User.Id; });
+                            TestNotNull("Test user participates in the thread", Participant);
+                            TestDone.Execute();
+                        });
+                });
+
+            // Hard deleting the parent takes its replies with it
+            LatentAfterEach(
+                [=, this](const FDoneDelegate& TestDone)
+                {
+                    Api->DeleteMessage(
+                        ThreadParentId,
+                        true,
+                        [=, this](const TResponse<FMessageResponseDto>& Response)
+                        {
+                            const auto& Dto = Response.GetRef();
+                            TestEqual("Parent message is deleted", Dto.Message.Type, EMessageTypeDto::Deleted);
                             TestDone.Execute();
                         });
                 });

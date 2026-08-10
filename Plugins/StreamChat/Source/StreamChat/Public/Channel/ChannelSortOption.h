@@ -161,6 +161,56 @@ struct FUserSortOption
 };
 
 /**
+ * @brief The desired sort field for thread queries
+ * @ingroup StreamChat
+ */
+UENUM(BlueprintType)
+enum class EThreadSortField : uint8
+{
+    /// Whether the thread has replies the current user hasn't read
+    HasUnread,
+    /// When the most recent reply was sent
+    LastMessageAt,
+    /// The ID of the message which started the thread
+    ParentMessageId,
+    /// When the thread was started
+    CreatedAt,
+    /// When the thread was last updated
+    UpdatedAt,
+    /// The number of replies in the thread
+    ReplyCount,
+    /// The number of users who have ever replied in the thread
+    ParticipantCount,
+    /// The number of users still participating in the thread
+    ActiveParticipantCount,
+};
+
+/**
+ * @brief The desired sort options for thread queries
+ *
+ * The backend accepts only certain combinations of sort fields, so prefer a single option unless you
+ * know the combination is supported.
+ * @see https://getstream.io/chat/docs/unreal/threads/
+ * @ingroup StreamChat
+ */
+USTRUCT(BlueprintType)
+struct FThreadSortOption
+{
+    GENERATED_BODY()
+
+    /// Convert into a DTO for sending to the API
+    explicit operator FSortParamRequestDto() const;
+
+    /// Which field to sort by
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat")
+    EThreadSortField Field = EThreadSortField::LastMessageAt;
+
+    /// The direction in which to sort
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat")
+    ESortDirection Direction = ESortDirection::Descending;
+};
+
+/**
  * @brief The desired sort field for ban queries
  * @ingroup StreamChat
  */

@@ -21,6 +21,9 @@ FMessage::FMessage(const FMessageDto& Dto, UUserManager* UserManager)
     , DeletedAt{Dto.GetDeletedAt()}
     , Reactions{FReactions::CollectReactions(UserManager, Dto.ReactionCounts, Dto.ReactionScores, Dto.LatestReactions, Dto.OwnReactions)}
     , ParentId{Dto.ParentId}
+    , bShowInChannel{Dto.bShowInChannel}
+    , ReplyCount{static_cast<int32>(Dto.ReplyCount)}
+    , ThreadParticipants{UserManager->UpsertUsers(Dto.ThreadParticipants)}
     , bIsSilent{Dto.bSilent}
     , bIsShadowed{Dto.bShadowed}
     , Html{Dto.Html}
@@ -46,9 +49,22 @@ FMessageRequestDto FMessage::ToRequestDto(const FString& Cid) const
     Algo::Transform(Attachments, Dto.Attachments, [](const FAttachment& Attachment) { return Attachment.ToDto(); });
     Dto.Cid = Cid;
     Dto.Id = Id;
+    Dto.ParentId = ParentId;
     Dto.ReactionScores = Reactions.GetScores();
+    // Only meaningful on a reply, and the backend rejects it on anything else
+    Dto.bShowInChannel = IsThreadReply() && bShowInChannel;
     Dto.bSilent = bIsSilent;
     Dto.Text = Text;
     Dto.AdditionalFields = ExtraData;
     return Dto;
+}
+
+bool FMessage::IsThreadReply() const
+{
+    return !ParentId.IsEmpty();
+}
+
+bool FMessage::IsThreadStart() const
+{
+    return ReplyCount > 0;
 }

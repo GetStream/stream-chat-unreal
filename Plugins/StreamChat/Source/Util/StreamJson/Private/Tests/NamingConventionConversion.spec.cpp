@@ -60,6 +60,43 @@ void FNamingConventionConversionSpec::Define()
                TestEqual(*Pair.Key, NamingConventionConversion::ConvertPropertyNameToSnakeCase(Pair.Key), Pair.Value);
            }
        });
+
+    It("should produce the wire keys the thread endpoints expect",
+       EAsyncExecution::ThreadPool,
+       [this]()
+       {
+           // Field names from the thread DTOs. A reply sent with the wrong key for parent_id is
+           // accepted by the backend as a plain channel message, so a drift here loses threading
+           // silently rather than erroring, which is why the mapping is pinned.
+           const TMap<FString, FString> Expected{
+               {TEXT("ParentId"), TEXT("parent_id")},
+               {TEXT("bShowInChannel"), TEXT("show_in_channel")},
+               {TEXT("ReplyCount"), TEXT("reply_count")},
+               {TEXT("ThreadParticipants"), TEXT("thread_participants")},
+               {TEXT("ChannelCid"), TEXT("channel_cid")},
+               {TEXT("ParentMessageId"), TEXT("parent_message_id")},
+               {TEXT("ParentMessage"), TEXT("parent_message")},
+               {TEXT("CreatedByUserId"), TEXT("created_by_user_id")},
+               {TEXT("LatestReplies"), TEXT("latest_replies")},
+               {TEXT("LastMessageAt"), TEXT("last_message_at")},
+               {TEXT("ActiveParticipantCount"), TEXT("active_participant_count")},
+               {TEXT("ParticipantCount"), TEXT("participant_count")},
+               {TEXT("ReplyLimit"), TEXT("reply_limit")},
+               {TEXT("ParticipantLimit"), TEXT("participant_limit")},
+               {TEXT("MemberLimit"), TEXT("member_limit")},
+               {TEXT("LastReadAt"), TEXT("last_read_at")},
+               {TEXT("LastThreadMessageAt"), TEXT("last_thread_message_at")},
+               {TEXT("LeftThreadAt"), TEXT("left_thread_at")},
+               {TEXT("ThreadId"), TEXT("thread_id")},
+               {TEXT("bWatch"), TEXT("watch")},
+               {TEXT("Threads"), TEXT("threads")},
+               {TEXT("Messages"), TEXT("messages")},
+           };
+           for (const auto& Pair : Expected)
+           {
+               TestEqual(*Pair.Key, NamingConventionConversion::ConvertPropertyNameToSnakeCase(Pair.Key), Pair.Value);
+           }
+       });
 }
 
 #endif

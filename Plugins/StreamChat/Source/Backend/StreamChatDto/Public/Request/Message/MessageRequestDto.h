@@ -40,7 +40,15 @@ struct FMessageRequestDto
     UPROPERTY()
     FString Mml;
 
-    // TODO ParentId, bShowInChannel
+    /// The ID of the parent message. Setting this makes the message a reply in that message's
+    /// thread, and the backend turns it into a message of type `reply`.
+    UPROPERTY()
+    FString ParentId;
+
+    /// Whether a thread reply should also appear in the main channel message list.
+    /// Ignored by the backend unless `ParentId` is set.
+    UPROPERTY()
+    bool bShowInChannel = false;
 
     // TODO PinExpires, bPinned, PinnedAt, PinnedBy
 

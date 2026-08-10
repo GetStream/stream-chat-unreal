@@ -7,7 +7,11 @@
 #include "Components/HorizontalBoxSlot.h"
 #include "Components/Spacer.h"
 #include "Components/VerticalBoxSlot.h"
+#include "Context/ChannelContextWidget.h"
 #include "Framework/Application/SlateApplication.h"
+#include "ThemeDataAsset.h"
+#include "TimerManager.h"
+#include "WidgetUtil.h"
 
 namespace
 {
@@ -163,6 +167,137 @@ void UMessageWidget::OnSetup()
     }
 }
 
+void UMessageWidget::NativeConstruct()
+{
+    Super::NativeConstruct();
+
+    // Not in OnSetup: these need the channel context, and that means walking up to an ancestor.
+    // Setup() runs before the list view parents this widget, so there is no ancestor to find yet.
+    CreateThreadFooter();
+    CreateActionsMenuAnchor();
+}
+
+void UMessageWidget::NativeDestruct()
+{
+    CancelLongPress();
+    Super::NativeDestruct();
+}
+
+FReply UMessageWidget::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+    if (InMouseEvent.IsTouchEvent() || InMouseEvent.GetEffectingButton() == EKeys::LeftMouseButton)
+    {
+        BeginLongPress();
+    }
+
+    // Deliberately left unhandled. The list view needs this same press to start a scroll drag, and
+    // capturing it here would stop the conversation scrolling at all.
+    return Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
+}
+
+FReply UMessageWidget::NativeOnMouseButtonUp(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+    CancelLongPress();
+    return Super::NativeOnMouseButtonUp(InGeometry, InMouseEvent);
+}
+
+void UMessageWidget::BeginLongPress()
+{
+    if (!ShouldDisplayActionsMenu() || !ActionsMenuAnchor || !GetWorld())
+    {
+        return;
+    }
+
+    CancelLongPress();
+    PressPosition = FVector2D{GetCachedGeometry().GetAbsolutePosition()};
+    GetWorld()->GetTimerManager().SetTimer(LongPressTimer, this, &UMessageWidget::OnLongPressElapsed, LongPressSeconds, false);
+}
+
+void UMessageWidget::CancelLongPress()
+{
+    if (LongPressTimer.IsValid() && GetWorld())
+    {
+        GetWorld()->GetTimerManager().ClearTimer(LongPressTimer);
+    }
+    LongPressTimer.Invalidate();
+}
+
+void UMessageWidget::OnLongPressElapsed()
+{
+    LongPressTimer.Invalidate();
+
+    // The message moved, so the press was dragging the list rather than resting on this message. This
+    // is the only reliable signal: once the list view takes the pointer, no move or up event arrives.
+    const FVector2D Now{GetCachedGeometry().GetAbsolutePosition()};
+    if (!Now.Equals(PressPosition, LongPressMoveTolerance))
+    {
+        return;
+    }
+
+    // A quick tap whose release went to the list view instead of here: the finger is already gone
+    if (!IsHovered())
+    {
+        return;
+    }
+
+    if (ActionsMenuAnchor && !ActionsMenuAnchor->IsOpen())
+    {
+        ActionsMenuAnchor->Open(true);
+        WidgetUtil::HideDefaultMenuBackground(ActionsMenuAnchor);
+    }
+}
+
+bool UMessageWidget::ShouldDisplayActionsMenu() const
+{
+    return Message.Type != EMessageType::Deleted && !Message.Id.IsEmpty();
+}
+
+void UMessageWidget::CreateActionsMenuAnchor()
+{
+    if (!AlignPanel || !WidgetTree || ActionsMenuAnchor)
+    {
+        return;
+    }
+
+    ActionsMenuAnchor = WidgetTree->ConstructWidget<UMenuAnchor>();
+    ActionsMenuAnchor->OnGetUserMenuContentEvent.BindDynamic(this, &UMessageWidget::CreateActionsMenu);
+    ActionsMenuAnchor->SetPlacement(MenuPlacement_CenteredBelowAnchor);
+    // Nothing to see or hit until it opens, and it must never swallow a tap meant for the message
+    ActionsMenuAnchor->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+
+    if (UVerticalBoxSlot* BoxSlot = Cast<UVerticalBoxSlot>(AlignPanel->AddChild(ActionsMenuAnchor)))
+    {
+        BoxSlot->SetHorizontalAlignment(Side == EMessageSide::Me ? HAlign_Right : HAlign_Left);
+    }
+}
+
+UUserWidget* UMessageWidget::CreateActionsMenu()
+{
+    // The picker and the action list are configured on the hover menu's Blueprint, not on this widget.
+    // Taking them from its defaults reuses that wiring; the native classes have no widget tree behind
+    // them and would come up blank.
+    const UMessageHoverMenuWidget* MenuDefaults = MouseHoverMenuWidgetClass.GetDefaultObject();
+    const TSubclassOf<UContextMenuWidget> ActionsClass = MenuDefaults ? MenuDefaults->GetContextMenuWidgetClass() : nullptr;
+    if (!ActionsClass)
+    {
+        return nullptr;
+    }
+
+    UContextMenuWidget* Actions = CreateWidget<UContextMenuWidget>(this, ActionsClass);
+
+    // A menu anchor shows exactly one widget, so the picker rides along at the top of the action
+    // sheet rather than as a second menu. That is also where a phone user expects it.
+    if (const TSubclassOf<UReactionPickerWidget> PickerClass = MenuDefaults->GetReactionPickerWidgetClass())
+    {
+        UReactionPickerWidget* Picker = CreateWidget<UReactionPickerWidget>(this, PickerClass);
+        Picker->Setup(Message);
+        Actions->SetHeaderContent(Picker);
+    }
+
+    Actions->Setup(Message, Side);
+    return Actions;
+}
+
 void UMessageWidget::NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
     if (FSlateApplication::Get().AnyMenusVisible())
@@ -231,5 +366,95 @@ void UMessageWidget::CreateAttachmentWidgets()
             BoxSlot->SetPadding(AttachmentPadding);
         }
         Attachments.Add(Widget);
+    }
+}
+
+bool UMessageWidget::ShouldDisplayThreadFooter() const
+{
+    // Only a count, and only when there is something to count. Starting a thread is a message action,
+    // reached by long pressing the message, so no affordance is needed under messages without one.
+    if (Message.ReplyCount <= 0 || Message.Type == EMessageType::Deleted || Message.Id.IsEmpty())
+    {
+        return false;
+    }
+
+    // Threads do not nest, so a reply gets no footer of its own. Neither does anything shown while a
+    // thread is already open, which includes the parent at the top of that thread.
+    if (Message.IsThreadReply())
+    {
+        return false;
+    }
+
+    const UChannelContextWidget* Context = UChannelContextWidget::TryGet(this);
+    return Context && !Context->IsThreadOpen();
+}
+
+FText UMessageWidget::GetThreadFooterText() const
+{
+    if (Message.ReplyCount == 1)
+    {
+        return OneReplyText;
+    }
+    return FText::Format(ManyRepliesFormat, FText::AsNumber(Message.ReplyCount));
+}
+
+void UMessageWidget::CreateThreadFooter()
+{
+    if (!AlignPanel || !WidgetTree)
+    {
+        return;
+    }
+
+    if (ThreadFooterButton)
+    {
+        AlignPanel->RemoveChild(ThreadFooterButton);
+        ThreadFooterButton = nullptr;
+        ThreadFooterText = nullptr;
+    }
+
+    if (!ShouldDisplayThreadFooter())
+    {
+        return;
+    }
+
+    ThreadFooterText = WidgetTree->ConstructWidget<UTextBlock>();
+    ThreadFooterText->SetText(GetThreadFooterText());
+    FSlateFontInfo Font = ThreadFooterText->GetFont();
+    Font.Size = ThreadFooterFontSize;
+    ThreadFooterText->SetFont(Font);
+    if (const UThemeDataAsset* Theme = GetTheme())
+    {
+        ThreadFooterText->SetColorAndOpacity(Theme->GetPaletteColor(Theme->ThreadFooterTextColor));
+    }
+
+    ThreadFooterButton = WidgetTree->ConstructWidget<UButton>();
+    ThreadFooterButton->OnClicked.AddDynamic(this, &UMessageWidget::OnThreadFooterClicked);
+
+    // Flat, like the composer's attach button: the engine's default button background looks nothing
+    // like the rest of a message, and its padding would push the label away from the bubble
+    FButtonStyle Style = ThreadFooterButton->GetStyle();
+    for (FSlateBrush* Brush : {&Style.Normal, &Style.Hovered, &Style.Pressed, &Style.Disabled})
+    {
+        Brush->DrawAs = ESlateBrushDrawType::NoDrawType;
+    }
+    Style.NormalPadding = FMargin{0.f};
+    Style.PressedPadding = FMargin{0.f};
+    ThreadFooterButton->SetStyle(Style);
+    ThreadFooterButton->SetContent(ThreadFooterText);
+
+    // Last in the panel, so it sits below the bubble. OnSetup's alignment pass has already been and
+    // gone by now, so this slot is aligned to the message's side here instead.
+    if (UVerticalBoxSlot* BoxSlot = Cast<UVerticalBoxSlot>(AlignPanel->AddChild(ThreadFooterButton)))
+    {
+        BoxSlot->SetPadding(ThreadFooterPadding);
+        BoxSlot->SetHorizontalAlignment(Side == EMessageSide::Me ? HAlign_Right : HAlign_Left);
+    }
+}
+
+void UMessageWidget::OnThreadFooterClicked()
+{
+    if (UChannelContextWidget* Context = UChannelContextWidget::TryGet(this))
+    {
+        Context->OpenThread(Message);
     }
 }

@@ -37,6 +37,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void EditMessage(const FMessage& Message);
 
+    UFUNCTION()
+    void OnThreadChanged(bool bThreadOpen, const FMessage& ParentMessage);
+
 protected:
     UPROPERTY(meta = (BindWidget))
     UMessageInputWidget* MessageInput;
@@ -83,6 +86,10 @@ protected:
     UPROPERTY(EditAnywhere, Category = "Attachment")
     FVector2D AttachButtonSize = FVector2D{32.f, 32.f};
 
+    /// Shown in the banner above the input while replying in a thread
+    UPROPERTY(EditAnywhere, Category = "Thread")
+    FText ThreadHeaderText = NSLOCTEXT("StreamChat", "ReplyingInThread", "Replying in thread");
+
     /// Length of each bar of the drawn plus, as a fraction of the button
     UPROPERTY(EditAnywhere, Category = "Attachment", meta = (ClampMin = "0.1", ClampMax = "1.0"))
     float AttachGlyphScale = 0.5f;
@@ -127,7 +134,17 @@ private:
     };
     void UpdateEditMessageAppearance(ESendButtonIconAppearance Appearance);
 
+    /// The banner above the input serves both editing and replying in a thread, so one place decides
+    /// what it says and whether it shows at all
+    void UpdateHeaderBanner();
+
     TOptional<FMessage> EditedMessage;
+
+    /// Set while a thread is open, so a sent message becomes a reply in it
+    TOptional<FMessage> ThreadParentMessage;
+
+    /// Whatever the WBP put in the banner, kept so the editing label survives a trip through a thread
+    FText DefaultHeaderText;
 
     /// Uploaded and waiting to go out with the next message
     UPROPERTY(Transient)

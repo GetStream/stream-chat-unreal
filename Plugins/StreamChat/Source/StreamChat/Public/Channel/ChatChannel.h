@@ -455,6 +455,85 @@ private:
     ///@}
 #pragma endregion Message
 
+#pragma region Thread
+    /** @name Thread
+     *  Reply in threads, and paginate a thread's replies.
+     *  @{
+     */
+
+public:
+    /**
+     * @brief Reply to a message, in that message's thread
+     *
+     * Replying to a message which isn't in a thread yet starts one. A reply does not appear in the
+     * channel message list, and does not count towards the channel's unread count, unless
+     * bAlsoSendInChannel is set.
+     *
+     * Equivalent to setting ParentId (and bShowInChannel) on the message and calling SendMessage.
+     *
+     * @param Reply A message struct containing information of the reply to be sent
+     * @param ParentMessage The message in this channel to reply to
+     * @param bAlsoSendInChannel Additionally show this reply in the main channel message list
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Thread", DisplayName = "Send Reply", meta = (Latent, WorldContext = WorldContextObject, LatentInfo = LatentInfo))
+    void SendReplyBP(
+        const FMessage& Reply,
+        const FMessage& ParentMessage,
+        bool bAlsoSendInChannel,
+        const UObject* WorldContextObject,
+        FLatentActionInfo LatentInfo,
+        bool& bSuccess);
+    void SendReply(
+        const FMessage& Reply,
+        const FMessage& ParentMessage,
+        bool bAlsoSendInChannel = false,
+        const TFunction<void(const bool& bSuccess)> Callback = {});
+
+    /**
+     * @brief Fetch the replies of a thread from the server, most recent last
+     *
+     * A channel query returns the channel's history and not its threads, so a thread's replies have
+     * to be fetched separately, once per thread the user opens.
+     *
+     * @param ParentMessage The message in this channel whose thread to fetch
+     * @param Limit Number of replies returned is limited by this value. Maximum 300.
+     * @param Callback Called with the fetched replies when a response is received
+     */
+    void QueryReplies(const FMessage& ParentMessage, int32 Limit = 20, TFunction<void(const TArray<FMessage>&)> Callback = {});
+
+    /**
+     * @brief Fetch replies older than the oldest one held locally, for scrolling up a thread
+     *
+     * @attention Some replies of this thread must already have been fetched for this to do anything.
+     * @param ParentMessage The message in this channel whose thread to paginate
+     * @param Limit Number of replies returned is limited by this value. Maximum 300.
+     * @param Callback Called with the fetched replies when a response is received
+     */
+    void QueryAdditionalReplies(const FMessage& ParentMessage, int32 Limit = 20, TFunction<void(const TArray<FMessage>&)> Callback = {});
+
+    /// Get the replies of a thread held locally, oldest first. Empty until they have been fetched.
+    const FMessages& GetReplies(const FMessage& ParentMessage) const;
+
+    /**
+     * @brief Get the replies of a thread held locally, oldest first
+     *
+     * Empty until they have been fetched with Query Replies.
+     */
+    UFUNCTION(BlueprintPure, Category = "Stream Chat|Channel|Thread", DisplayName = "Get Replies")
+    TArray<FMessage> GetRepliesBP(const FMessage& ParentMessage) const;
+
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRepliesUpdatedDelegate, const FString&, ParentMessageId);
+    /// Fired when any of the replies we have locally for a thread change.
+    /// MessagesUpdated also fires, so a channel-level message list needs no extra wiring.
+    UPROPERTY(BlueprintAssignable, Category = "Stream Chat|Channel|Thread")
+    FRepliesUpdatedDelegate RepliesUpdated;
+
+private:
+    void FetchReplies(const FString& ParentId, const FMessagePaginationOptions&, TFunction<void(const TArray<FMessage>&)> Callback);
+
+    ///@}
+#pragma endregion Thread
+
 #pragma region Reaction
     /** @name Reaction
      *  Send and delete reactions.
@@ -521,9 +600,15 @@ public:
     void StopTyping(const FString& ParentMessageId = TEXT(""));
 
     DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTypingIndicatorDelegate, ETypingIndicatorState, TypingState, const FUserRef&, User);
-    /// Fired whenever any user starts or stops typing
+    /// Fired whenever any user starts or stops typing, in the channel or in any of its threads
     UPROPERTY(BlueprintAssignable)
     FTypingIndicatorDelegate OnTypingIndicator;
+
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FThreadTypingIndicatorDelegate, ETypingIndicatorState, TypingState, const FUserRef&, User, const FString&, ParentMessageId);
+    /// Fired whenever any user starts or stops typing in a thread, carrying the thread it happened in.
+    /// OnTypingIndicator fires for these too, so subscribe here only to tell threads apart.
+    UPROPERTY(BlueprintAssignable)
+    FThreadTypingIndicatorDelegate OnThreadTypingIndicator;
 
 private:
     void SendStopTypingEvent(const FString& ParentMessageId = TEXT(""));

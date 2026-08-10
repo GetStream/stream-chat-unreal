@@ -15,6 +15,16 @@ void UMessageHoverMenuWidget::Setup(const FMessage& InMessage, const EMessageSid
     Super::Setup();
 }
 
+TSubclassOf<UReactionPickerWidget> UMessageHoverMenuWidget::GetReactionPickerWidgetClass() const
+{
+    return ReactionPickerWidgetClass;
+}
+
+TSubclassOf<UContextMenuWidget> UMessageHoverMenuWidget::GetContextMenuWidgetClass() const
+{
+    return ContextMenuWidgetClass;
+}
+
 void UMessageHoverMenuWidget::OnSetup()
 {
     if (OptionsMenuAnchor)

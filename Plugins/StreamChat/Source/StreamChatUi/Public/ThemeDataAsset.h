@@ -66,6 +66,10 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Attachment")
     FName AttachmentImagePlaceholderColor = TEXT("input-bg");
 
+    /// Colour of the "N replies" line under a message that has a thread
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Thread")
+    FName ThreadFooterTextColor = TEXT("accent-primary");
+
     /// The color of the background of the message composer
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Composer")
     FName MessageComposerBackgroundColor = TEXT("bars-bg");
