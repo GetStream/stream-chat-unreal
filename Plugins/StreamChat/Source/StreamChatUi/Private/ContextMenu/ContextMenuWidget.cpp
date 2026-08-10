@@ -2,12 +2,19 @@
 
 #include "ContextMenu/ContextMenuWidget.h"
 
+#include "ContextMenu/ThreadReplyContextMenuAction.h"
+
 void UContextMenuWidget::Setup(const FMessage& InMessage, const EMessageSide InSide)
 {
     Message = InMessage;
     Side = InSide;
 
     Super::Setup();
+}
+
+void UContextMenuWidget::SetHeaderContent(UWidget* Content)
+{
+    HeaderContent = Content;
 }
 
 void UContextMenuWidget::AddButton(UContextMenuAction* Action, const EContextMenuButtonPosition Position)
@@ -30,6 +37,14 @@ void UContextMenuWidget::NativePreConstruct()
         return;
     }
 
+    // WBP_ContextMenu was authored before threads existed and has no entry for replying in one, so it
+    // is added here rather than by editing the asset. Guarded so repeated pre-constructs do not stack
+    // up copies, and kept out of the editor preview, which shows the asset's own list.
+    if (!IsDesignTime() && !Actions.ContainsByPredicate([](const UContextMenuAction* A) { return A && A->IsA<UThreadReplyContextMenuAction>(); }))
+    {
+        Actions.Insert(NewObject<UThreadReplyContextMenuAction>(this), 0);
+    }
+
     for (UContextMenuAction* Action : Actions)
     {
         Action->SetContext(GetClient(), GetChannel());
@@ -48,5 +63,11 @@ void UContextMenuWidget::NativePreConstruct()
                                                     : Index == LastIndex ? EContextMenuButtonPosition::Bottom
                                                                          : EContextMenuButtonPosition::Mid;
         AddButton(DisplayedActions[Index], Position);
+    }
+
+    // After the buttons, because they are added to a panel that was just cleared
+    if (HeaderContent)
+    {
+        ButtonsPanel->InsertChildAt(0, HeaderContent);
     }
 }

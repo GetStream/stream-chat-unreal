@@ -163,11 +163,18 @@ void UMessageComposerWidget::NativeConstruct()
     if (UChannelContextWidget* Context = UChannelContextWidget::TryGet(this))
     {
         Context->OnStartEditMessage.AddDynamic(this, &UMessageComposerWidget::EditMessage);
+        Context->OnThreadChanged.AddDynamic(this, &UMessageComposerWidget::OnThreadChanged);
     }
 
     if (MessageInput)
     {
         MessageInput->SetKeyboardFocus();
+    }
+
+    if (EditMessageTextBlock && DefaultHeaderText.IsEmpty())
+    {
+        // Captured before anything rewrites it, so the banner can go back to saying what the WBP says
+        DefaultHeaderText = EditMessageTextBlock->GetText();
     }
 
     if (const UThemeDataAsset* Theme = UThemeDataAsset::Get(this))
@@ -213,6 +220,7 @@ void UMessageComposerWidget::NativeDestruct()
     if (UChannelContextWidget* Context = UChannelContextWidget::TryGet(this))
     {
         Context->OnStartEditMessage.RemoveDynamic(this, &UMessageComposerWidget::EditMessage);
+        Context->OnThreadChanged.RemoveDynamic(this, &UMessageComposerWidget::OnThreadChanged);
     }
     Super::NativeDestruct();
 }
@@ -225,6 +233,27 @@ void UMessageComposerWidget::EditMessage(const FMessage& Message)
         MessageInput->SetText(FText::FromString(Message.Text));
     }
     UpdateEditMessageAppearance(ESendButtonIconAppearance::Confirm);
+}
+
+void UMessageComposerWidget::OnThreadChanged(const bool bThreadOpen, const FMessage& ParentMessage)
+{
+    if (bThreadOpen)
+    {
+        ThreadParentMessage = ParentMessage;
+    }
+    else
+    {
+        ThreadParentMessage.Reset();
+    }
+
+    // Anything half-typed was meant for wherever the user was before
+    if (MessageInput)
+    {
+        MessageInput->SetText(FText::GetEmpty());
+    }
+    EditedMessage.Reset();
+    UpdateEditMessageAppearance(ESendButtonIconAppearance::Send);
+    RefreshSendButtonEnabled();
 }
 
 void UMessageComposerWidget::OnInputTextChanged(const FText&)
@@ -249,7 +278,17 @@ void UMessageComposerWidget::OnInputTextCommit(const FText&, const ETextCommit::
 
 void UMessageComposerWidget::OnCancelEditingButtonClicked()
 {
-    StopEditMessage();
+    if (EditedMessage)
+    {
+        StopEditMessage();
+        return;
+    }
+
+    // Nothing being edited, so the banner is the thread one and this is the way out of the thread
+    if (UChannelContextWidget* Context = UChannelContextWidget::TryGet(this))
+    {
+        Context->CloseThread();
+    }
 }
 
 void UMessageComposerWidget::OnSendButtonClicked()
@@ -403,7 +442,16 @@ void UMessageComposerWidget::SendMessage()
         Message.Attachments = MoveTemp(PendingAttachments);
         PendingAttachments.Reset();
 
-        Channel->SendMessage(Message);
+        if (ThreadParentMessage)
+        {
+            // Not shown in the channel: a reply belongs to its thread unless the user says otherwise,
+            // and this composer has no control to say otherwise with
+            Channel->SendReply(Message, *ThreadParentMessage);
+        }
+        else
+        {
+            Channel->SendMessage(Message);
+        }
         MessageInput->SetText(FText::GetEmpty());
         UpdateAttachmentAppearance();
     }
@@ -456,10 +504,25 @@ void UMessageComposerWidget::UpdateEditMessageAppearance(const ESendButtonIconAp
         SendMessageButton->SetIconPadding(IconPadding);
     }
 
+    UpdateHeaderBanner();
+}
+
+void UMessageComposerWidget::UpdateHeaderBanner()
+{
+    // Editing wins over the thread banner: you can edit a message from inside a thread, and knowing
+    // which message is being rewritten matters more than being reminded where you are.
+    const bool bEditing = EditedMessage.IsSet();
+    const bool bInThread = ThreadParentMessage.IsSet();
+
+    if (EditMessageTextBlock)
+    {
+        // The editing label belongs to the WBP, so it is restored rather than reinvented here
+        EditMessageTextBlock->SetText(!bEditing && bInThread ? ThreadHeaderText : DefaultHeaderText);
+    }
+
     if (CancelEditingHeaderPanel)
     {
-        const ESlateVisibility PanelVisibility =
-            Appearance == ESendButtonIconAppearance::Send ? ESlateVisibility::Collapsed : ESlateVisibility::SelfHitTestInvisible;
+        const ESlateVisibility PanelVisibility = bEditing || bInThread ? ESlateVisibility::SelfHitTestInvisible : ESlateVisibility::Collapsed;
         CancelEditingHeaderPanel->SetVisibility(PanelVisibility);
     }
 }

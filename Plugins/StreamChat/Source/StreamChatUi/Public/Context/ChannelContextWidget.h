@@ -39,7 +39,37 @@ public:
     UPROPERTY(BlueprintAssignable)
     FStartEditMessageDelegate OnStartEditMessage;
 
+    /**
+     * @brief Open the thread hanging off the given message
+     *
+     * The message list switches to the thread's replies and the composer starts sending into it.
+     * Also fetches the thread's replies, since channel state does not carry them.
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat")
+    void OpenThread(const FMessage& ParentMessage);
+
+    /// Leave the open thread and go back to the channel. Does nothing if no thread is open.
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat")
+    void CloseThread();
+
+    UFUNCTION(BlueprintPure, Category = "Stream Chat")
+    bool IsThreadOpen() const;
+
+    /// The message whose thread is open. Only meaningful while IsThreadOpen().
+    UFUNCTION(BlueprintPure, Category = "Stream Chat")
+    const FMessage& GetThreadParentMessage() const;
+
+    DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FThreadChangedDelegate, bool, bThreadOpen, const FMessage&, ParentMessage);
+    /// Fired when a thread is opened or closed, so the message list, composer and header can follow
+    UPROPERTY(BlueprintAssignable)
+    FThreadChangedDelegate OnThreadChanged;
+
 private:
     UPROPERTY(Transient)
     UChatChannel* Channel;
+
+    UPROPERTY(Transient)
+    FMessage ThreadParentMessage;
+
+    bool bThreadOpen = false;
 };

@@ -73,6 +73,40 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = Defaults)
     FMargin AttachmentPadding = FMargin{0.f, 0.f, 0.f, 2.f};
 
+    /// Space around the reply count shown below a message that has a thread
+    UPROPERTY(EditDefaultsOnly, Category = Thread)
+    FMargin ThreadFooterPadding = FMargin{2.f, 2.f, 2.f, 0.f};
+
+    UPROPERTY(EditDefaultsOnly, Category = Thread)
+    int32 ThreadFooterFontSize = 12;
+
+    /**
+     * @brief How long a press has to be held to bring up the message actions.
+     *
+     * The hover menu is the only route to the actions and the reaction picker, and hover does not
+     * exist on a touch screen, so a long press opens them directly.
+     */
+    UPROPERTY(EditDefaultsOnly, Category = "Message Actions")
+    float LongPressSeconds = 0.4f;
+
+    /**
+     * @brief How far the message may shift during a press before it stops counting as a long press.
+     *
+     * A press that drags the list is a scroll, and the message moves with it. Comparing the widget's
+     * own position catches that even when the list view has taken the pointer and no move events
+     * reach this widget at all.
+     */
+    UPROPERTY(EditDefaultsOnly, Category = "Message Actions")
+    float LongPressMoveTolerance = 4.f;
+
+    /// Shown under a message that has exactly one reply
+    UPROPERTY(EditDefaultsOnly, Category = Thread)
+    FText OneReplyText = NSLOCTEXT("StreamChat", "OneReply", "1 reply");
+
+    /// Shown under a message with several replies. {0} is the count.
+    UPROPERTY(EditDefaultsOnly, Category = Thread)
+    FText ManyRepliesFormat = NSLOCTEXT("StreamChat", "ManyReplies", "{0} replies");
+
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
     FMessage Message;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Setup)
@@ -82,13 +116,44 @@ protected:
 
 private:
     virtual void OnSetup() override;
+    virtual void NativeConstruct() override;
+    virtual void NativeDestruct() override;
 
     virtual void NativeOnMouseEnter(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
     virtual void NativeOnMouseLeave(const FPointerEvent& InMouseEvent) override;
+    virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+    virtual FReply NativeOnMouseButtonUp(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 
     bool ShouldDisplayHoverMenu() const;
 
+    /** @name Long press
+     *  Press and hold to bring up the reaction picker and the message actions.
+     *  @{
+     */
+    void BeginLongPress();
+    void CancelLongPress();
+    void OnLongPressElapsed();
+    bool ShouldDisplayActionsMenu() const;
+    void CreateActionsMenuAnchor();
+
+    UFUNCTION()
+    UUserWidget* CreateActionsMenu();
+    /// @}
+
     void CreateAttachmentWidgets();
+
+    /**
+     * Build the "Reply in thread" / "N replies" line under the message.
+     *
+     * A tap target rather than something on the message hover menu, because the hover menu never
+     * appears on a touch screen and this has to work on a phone.
+     */
+    void CreateThreadFooter();
+    bool ShouldDisplayThreadFooter() const;
+    FText GetThreadFooterText() const;
+
+    UFUNCTION()
+    void OnThreadFooterClicked();
 
     // Only valid while hovered
     UPROPERTY(Transient)
@@ -101,4 +166,20 @@ private:
     // Live in AlignPanel rather than a panel of their own, so tracked here to be replaced on re-setup
     UPROPERTY(Transient)
     TArray<UAttachmentWidget*> Attachments;
+
+    // Also lives in AlignPanel, for the same reason: WBP_Message has no slot for it
+    UPROPERTY(Transient)
+    UButton* ThreadFooterButton;
+
+    UPROPERTY(Transient)
+    UTextBlock* ThreadFooterText;
+
+    /// Hosts the long press menu. Empty and invisible until opened, and spawned in C++ because
+    /// WBP_Message has no anchor of its own.
+    UPROPERTY(Transient)
+    UMenuAnchor* ActionsMenuAnchor;
+
+    FTimerHandle LongPressTimer;
+    /// Where this widget sat when the press started, to tell a long press from a scroll
+    FVector2D PressPosition = FVector2D::ZeroVector;
 };

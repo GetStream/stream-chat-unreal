@@ -27,6 +27,17 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stream Chat")
     void Setup(const FMessage& InMessage, EMessageSide InSide);
 
+    /**
+     * @name Menu classes
+     * The Blueprint-configured picker and action list, so a long press can show the same menus this
+     * hover bar does. Reading them from this class's defaults avoids a second copy of the wiring that
+     * would sit at the native class and render an empty menu.
+     * @{
+     */
+    TSubclassOf<UReactionPickerWidget> GetReactionPickerWidgetClass() const;
+    TSubclassOf<UContextMenuWidget> GetContextMenuWidgetClass() const;
+    /// @}
+
 protected:
     UPROPERTY(meta = (BindWidget))
     UButton* ReactionButton;
