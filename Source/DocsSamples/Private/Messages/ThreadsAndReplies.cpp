@@ -23,6 +23,10 @@ void ThreadsAndReplies()
     Reply.ParentId = ParentMessage.Id;
     Reply.bShowInChannel = true;
     Channel->SendMessage(Reply);
+
+    // A reply is recognised by its parent, not by its type: the API reports thread replies as
+    // regular messages, so this is the check to use rather than comparing Type
+    const bool bIsReply = Reply.IsThreadReply();
 }
 
 // https://getstream.io/chat/docs/unreal/threads/?language=unreal#thread-pagination
@@ -40,6 +44,9 @@ void ThreadPagination()
 
     // Then page further back as the user scrolls up the thread
     Channel->QueryAdditionalReplies(ParentMessage, 20);
+
+    // Whatever has been fetched so far, oldest first
+    const FMessages& Replies = Channel->GetReplies(ParentMessage);
 }
 
 namespace
@@ -60,13 +67,30 @@ void ThreadList()
         {
             for (const FChatThread& Thread : Threads)
             {
-                const int32 Unread = Thread.UnreadCount();
+                const FMessage& Parent = Thread.ParentMessage;
+                const TArray<FMessage>& Preview = Thread.LatestReplies;
             }
             // Pass NextPage back as the fifth argument to fetch the following page, if it isn't empty
         });
 
     // Only threads with unread replies
     Client->QueryThreads(FFilter::Equal(TEXT("has_unread"), true));
+}
+
+// https://getstream.io/chat/docs/unreal/threads/?language=unreal#getting-a-thread-by-id
+void GetThreadById()
+{
+    // Pass a participant limit to get participants back. Left unset, this endpoint returns none at
+    // all rather than defaulting to some number of them.
+    Client->GetThread(
+        ParentMessage.Id,
+        10,    // Reply limit
+        25,    // Participant limit
+        [](const FChatThread& Thread)
+        {
+            const int32 ReplyCount = Thread.ReplyCount;
+            const TArray<FUserRef>& Participants = Thread.ThreadParticipants;
+        });
 }
 }    // namespace
 
