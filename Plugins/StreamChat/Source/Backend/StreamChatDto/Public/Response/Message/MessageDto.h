@@ -6,6 +6,7 @@
 #include "CoreMinimal.h"
 #include "MessageTypeDto.h"
 #include "Response/Message/AttachmentDto.h"
+#include "Response/Moderation/MessageModerationDto.h"
 #include "Response/Reaction/ReactionDto.h"
 #include "UserObjectDto.h"
 
@@ -71,6 +72,16 @@ struct STREAMCHATDTO_API FMessageDto
     /// Should be empty if `text` is provided
     UPROPERTY()
     FString Mml;
+
+    /// The moderation verdict for this message, as sent by Moderation V2
+    UPROPERTY()
+    FMessageModerationDto Moderation;
+
+    /// The moderation verdict for this message, as sent by the older moderation API
+    ///
+    /// Apps still on that version get their verdict here instead of in Moderation, so both are read.
+    UPROPERTY()
+    FMessageModerationDto ModerationDetails;
 
     /// The reactions added to the message by the current user.
     UPROPERTY()

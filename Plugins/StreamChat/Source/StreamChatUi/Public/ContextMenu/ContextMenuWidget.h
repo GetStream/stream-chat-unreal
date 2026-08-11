@@ -54,6 +54,16 @@ private:
     virtual void NativePreConstruct() override;
     void AddButton(UContextMenuAction* Action, EContextMenuButtonPosition Position);
 
+    /**
+     * Put an action at the top of the list unless one of its class is configured already.
+     *
+     * For actions newer than WBP_ContextMenu, whose list cannot be extended without editing the
+     * asset. The action itself decides whether it is displayed, so adding it is not the same as
+     * showing it.
+     */
+    template <class TAction>
+    void AddMissingAction();
+
     /// Sits above the buttons once the menu is built. Null unless a caller supplied one.
     UPROPERTY(Transient)
     UWidget* HeaderContent;

@@ -331,7 +331,25 @@ public:
     void UpdateMessage(const FMessage& Message);
 
     /**
+     * @brief Send a message again, after a first attempt did not reach the channel
+     *
+     * Written for a message moderation bounced: that message was never stored server side, so it has
+     * to be sent afresh rather than edited. The previous verdict and error type are cleared, so the
+     * message stops reading as rejected while the new attempt is in flight.
+     *
+     * Sending the same text again will usually be bounced again. Let the author edit it first, unless
+     * your moderation rules are configured to let a resend through.
+     *
+     * @param Message Message held by this channel which failed to send
+     */
+    UFUNCTION(BlueprintCallable, Category = "Stream Chat|Channel|Message")
+    void ResendMessage(const FMessage& Message);
+
+    /**
      * @brief Soft delete a message in this channel
+     *
+     * A message which never reached the server, including one moderation bounced, is only removed
+     * locally: there is nothing on the server to delete.
      *
      * @param Message Message which already exists in this channel
      */

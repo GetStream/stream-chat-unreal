@@ -75,6 +75,13 @@ void UMessageHoverMenuWidget::OnSetup()
     if (ReactionMenuAnchor)
     {
         ReactionMenuAnchor->SetPlacement(MenuPlacement_CenteredBelowAnchor);
+
+        // A bounced message was never stored, so there is nothing for a reaction to attach to and the
+        // request would fail. The options menu stays: that is where resending and discarding live.
+        if (Message.IsBounced())
+        {
+            ReactionMenuAnchor->SetVisibility(ESlateVisibility::Collapsed);
+        }
     }
 }
 

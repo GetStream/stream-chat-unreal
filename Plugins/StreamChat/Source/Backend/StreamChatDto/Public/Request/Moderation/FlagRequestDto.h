@@ -23,4 +23,12 @@ struct STREAMCHATDTO_API FFlagRequestDto
     /// ID of the user when reporting a user
     UPROPERTY()
     FString TargetUserId;
+
+    /// Why the content was reported. Shown to moderators in the review queue.
+    UPROPERTY()
+    FString Reason;
+
+    /// Extra key/value pairs to attach to the flag, surfaced alongside it in the review queue
+    UPROPERTY()
+    TMap<FString, FString> Custom;
 };

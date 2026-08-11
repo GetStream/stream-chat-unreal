@@ -19,6 +19,7 @@ void UThreadReplyContextMenuAction::OnPerform(const FMessage& Message, UWidget* 
 
 bool UThreadReplyContextMenuAction::OnShouldDisplay(EMessageSide, const FMessage& Message) const
 {
-    // Threads do not nest, and a deleted message has nothing to reply to
-    return !Message.IsThreadReply() && Message.Type != EMessageType::Deleted;
+    // Threads do not nest, and a deleted message has nothing to reply to. Neither has a bounced one:
+    // moderation did not store it, so there is no message for a thread to hang off.
+    return !Message.IsThreadReply() && Message.Type != EMessageType::Deleted && !Message.IsBounced();
 }

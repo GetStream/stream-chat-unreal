@@ -433,7 +433,16 @@ void UMessageComposerWidget::SendMessage()
     if (EditedMessage)
     {
         EditedMessage->Text = Text;
-        Channel->UpdateMessage(*EditedMessage);
+        if (EditedMessage->IsBounced())
+        {
+            // Moderation never stored the bounced message, so there is nothing on the server to edit.
+            // The rephrased text goes out as a fresh attempt instead.
+            Channel->ResendMessage(*EditedMessage);
+        }
+        else
+        {
+            Channel->UpdateMessage(*EditedMessage);
+        }
         StopEditMessage();
     }
     else

@@ -4,6 +4,7 @@
 
 #include "Channel/Attachment.h"
 #include "CoreMinimal.h"
+#include "Moderation/MessageModeration.h"
 #include "Reaction/Reactions.h"
 #include "Response/Channel/ChannelStateResponseFieldsDto.h"
 #include "Response/Message/SearchResultDto.h"
@@ -85,6 +86,25 @@ struct STREAMCHAT_API FMessage
     /// Does this message have a thread of replies hanging off it?
     bool IsThreadStart() const;
 
+    /**
+     * @brief Did moderation bounce this message back to be rephrased?
+     *
+     * A bounced message was never published and is not stored server side, so it exists only in this
+     * client's message list. Offer the author the chance to edit and send it again, or to discard it.
+     */
+    bool IsBounced() const;
+
+    /// Did moderation block this message and take it out of the channel?
+    bool IsRemovedByModeration() const;
+
+    /**
+     * @brief Is this the current user's own message, sitting in the list because moderation bounced it?
+     *
+     * The API reports a bounce as an error-type message, which is how it is told apart from a message
+     * that failed to send for some other reason.
+     */
+    bool IsModerationError() const;
+
     /// The message ID. This is either created by the Stream API or set client side when the message is created.
     UPROPERTY()
     FString Id;
@@ -148,6 +168,10 @@ struct STREAMCHAT_API FMessage
     /// Whether the message was shadowed or not
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat|Message", AdvancedDisplay)
     bool bIsShadowed = false;
+
+    /// What moderation decided about this message. Unset on all but a handful of messages.
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message", AdvancedDisplay)
+    FMessageModeration Moderation;
 
     /// Contains HTML markup of the message
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")

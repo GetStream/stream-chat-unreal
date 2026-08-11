@@ -784,10 +784,26 @@ void FChatApiSpec::Define()
                     Api->Flag(
                         MessageId,
                         {},
+                        TEXT("spam"),
+                        {{TEXT("source"), TEXT("automated test")}},
                         [=, this](const TResponse<FFlagResponseDto>& Response)
                         {
                             const auto& Dto = Response.GetRef();
                             TestEqual("Message ID matches query", Dto.Flag.TargetMessageId, MessageId);
+                            TestDone.Execute();
+                        });
+                });
+
+            LatentIt(
+                "Unflag message",
+                [=, this](const FDoneDelegate& TestDone)
+                {
+                    Api->Unflag(
+                        MessageId,
+                        {},
+                        [=, this](const TResponse<FFlagResponseDto>& Response)
+                        {
+                            TestTrue("Flag withdrawn", Response.IsSuccessful());
                             TestDone.Execute();
                         });
                 });

@@ -2,6 +2,7 @@
 
 #include "ContextMenu/ContextMenuWidget.h"
 
+#include "ContextMenu/ResendMessageContextMenuAction.h"
 #include "ContextMenu/ThreadReplyContextMenuAction.h"
 
 void UContextMenuWidget::Setup(const FMessage& InMessage, const EMessageSide InSide)
@@ -15,6 +16,16 @@ void UContextMenuWidget::Setup(const FMessage& InMessage, const EMessageSide InS
 void UContextMenuWidget::SetHeaderContent(UWidget* Content)
 {
     HeaderContent = Content;
+}
+
+template <class TAction>
+void UContextMenuWidget::AddMissingAction()
+{
+    if (Actions.ContainsByPredicate([](const UContextMenuAction* Action) { return Action && Action->IsA<TAction>(); }))
+    {
+        return;
+    }
+    Actions.Insert(NewObject<TAction>(this), 0);
 }
 
 void UContextMenuWidget::AddButton(UContextMenuAction* Action, const EContextMenuButtonPosition Position)
@@ -37,12 +48,14 @@ void UContextMenuWidget::NativePreConstruct()
         return;
     }
 
-    // WBP_ContextMenu was authored before threads existed and has no entry for replying in one, so it
-    // is added here rather than by editing the asset. Guarded so repeated pre-constructs do not stack
-    // up copies, and kept out of the editor preview, which shows the asset's own list.
-    if (!IsDesignTime() && !Actions.ContainsByPredicate([](const UContextMenuAction* A) { return A && A->IsA<UThreadReplyContextMenuAction>(); }))
+    // WBP_ContextMenu was authored before threads and moderation bounces existed and has no entry for
+    // either, so they are added here rather than by editing the asset. Guarded so repeated
+    // pre-constructs do not stack up copies, and kept out of the editor preview, which shows the
+    // asset's own list.
+    if (!IsDesignTime())
     {
-        Actions.Insert(NewObject<UThreadReplyContextMenuAction>(this), 0);
+        AddMissingAction<UThreadReplyContextMenuAction>();
+        AddMissingAction<UResendMessageContextMenuAction>();
     }
 
     for (UContextMenuAction* Action : Actions)
