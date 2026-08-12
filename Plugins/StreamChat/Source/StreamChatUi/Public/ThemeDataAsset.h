@@ -70,6 +70,10 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Thread")
     FName ThreadFooterTextColor = TEXT("accent-primary");
 
+    /// Colour of the warning shown under a message moderation would not let through
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Moderation")
+    FName ModerationWarningTextColor = TEXT("accent-error");
+
     /// The color of the background of the message composer
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Colors|Message Composer")
     FName MessageComposerBackgroundColor = TEXT("bars-bg");

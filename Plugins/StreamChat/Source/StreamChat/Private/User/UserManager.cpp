@@ -113,6 +113,40 @@ FUserUpdatedMultiDelegate& UUserManager::OnUserUpdated(const FUserRef& Ref)
 
 const FOwnUser& UUserManager::SetCurrentUser(const FOwnUserDto& Dto)
 {
+    // Carried over by hand because the own user payload has no blocked users in it, and this runs
+    // again every time the mute lists change. Rebuilding from the DTO alone would drop them.
+    TArray<FString> BlockedUserIds;
+    if (CurrentUser.IsSet())
+    {
+        BlockedUserIds = MoveTemp(CurrentUser->BlockedUserIds);
+    }
+
     CurrentUser.Emplace(Dto, this);
+    CurrentUser->BlockedUserIds = MoveTemp(BlockedUserIds);
     return CurrentUser.GetValue();
+}
+
+void UUserManager::SetBlockedUserIds(const TArray<FString>& BlockedUserIds)
+{
+    if (CurrentUser.IsSet())
+    {
+        CurrentUser->BlockedUserIds = BlockedUserIds;
+    }
+}
+
+void UUserManager::SetUserBlocked(const FString& UserId, const bool bBlocked)
+{
+    if (!CurrentUser.IsSet())
+    {
+        return;
+    }
+
+    if (bBlocked)
+    {
+        CurrentUser->BlockedUserIds.AddUnique(UserId);
+    }
+    else
+    {
+        CurrentUser->BlockedUserIds.Remove(UserId);
+    }
 }

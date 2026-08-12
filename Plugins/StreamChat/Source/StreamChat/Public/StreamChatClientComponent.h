@@ -15,6 +15,7 @@
 #include "Event/Notification/NotificationMutesUpdatedEvent.h"
 #include "IChatSocket.h"
 #include "Moderation/BanPaginationOptions.h"
+#include "Moderation/UserBlock.h"
 #include "PaginationOptions.h"
 #include "Templates/IsInvocable.h"
 #include "User/OwnUser.h"
@@ -479,18 +480,48 @@ public:
     /**
      * @brief Flag message for moderation
      *
+     * The flagged message reaches the review queue in the moderation dashboard. Flagging does not
+     * hide the message: that is a moderator's decision, or an automod rule's.
+     *
+     * @param Message A reference to an existing message
+     * @param Reason Why the message was reported. Shown to moderators in the review queue. (optional)
+     * @param CustomData Extra key/value pairs to attach to the flag (optional)
+     */
+    UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "Stream Chat|Client|Moderation")
+    void FlagMessage(const FMessage& Message, const FString& Reason, const TMap<FString, FString>& CustomData) const;
+
+    /// Overload rather than a default argument, because UHT cannot parse a default value for a TMap
+    /// parameter, and giving the Blueprint-facing function a different name would rename its node.
+    void FlagMessage(const FMessage& Message, const FString& Reason = TEXT("")) const;
+
+    /**
+     * @brief Withdraw a flag this user previously raised against a message
+     *
      * @param Message A reference to an existing message
      */
-    UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "Stream Chat|Client")
-    void FlagMessage(const FMessage& Message) const;
+    UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "Stream Chat|Client|Moderation")
+    void UnflagMessage(const FMessage& Message) const;
 
     /**
      * @brief Flag user for moderation
      *
      * @param User A reference to a user
+     * @param Reason Why the user was reported. Shown to moderators in the review queue. (optional)
+     * @param CustomData Extra key/value pairs to attach to the flag (optional)
      */
-    UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "Stream Chat|Client")
-    void FlagUser(const FUserRef& User) const;
+    UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "Stream Chat|Client|Moderation")
+    void FlagUser(const FUserRef& User, const FString& Reason, const TMap<FString, FString>& CustomData) const;
+
+    /// Overload rather than a default argument, for the same reason as FlagMessage
+    void FlagUser(const FUserRef& User, const FString& Reason = TEXT("")) const;
+
+    /**
+     * @brief Withdraw a flag this user previously raised against another user
+     *
+     * @param User A reference to a user
+     */
+    UFUNCTION(BlueprintCallable, BlueprintPure = false, Category = "Stream Chat|Client|Moderation")
+    void UnflagUser(const FUserRef& User) const;
 
     /**
      * @brief Mute the given user
@@ -532,9 +563,13 @@ public:
     /**
      * @brief Get the users blocked by the currently connected user
      *
-     * @param Callback Called with the ids of the blocked users
+     * Also refreshes FOwnUser::BlockedUserIds, which nothing else populates: the API reports blocks
+     * only here and in the block/unblock responses. Call this once after connecting if you rely on
+     * FOwnUser::HasBlockedUser.
+     *
+     * @param Callback Called with the blocks created by the current user
      */
-    void GetBlockedUsers(TFunction<void(const TArray<FString>&)> Callback) const;
+    void GetBlockedUsers(TFunction<void(const TArray<FUserBlock>&)> Callback = {}) const;
 
     ///@}
 #pragma endregion Moderation

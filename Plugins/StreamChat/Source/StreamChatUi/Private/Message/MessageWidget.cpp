@@ -174,6 +174,7 @@ void UMessageWidget::NativeConstruct()
     // Not in OnSetup: these need the channel context, and that means walking up to an ancestor.
     // Setup() runs before the list view parents this widget, so there is no ancestor to find yet.
     CreateThreadFooter();
+    CreateModerationWarning();
     CreateActionsMenuAnchor();
 }
 
@@ -286,12 +287,16 @@ UUserWidget* UMessageWidget::CreateActionsMenu()
     UContextMenuWidget* Actions = CreateWidget<UContextMenuWidget>(this, ActionsClass);
 
     // A menu anchor shows exactly one widget, so the picker rides along at the top of the action
-    // sheet rather than as a second menu. That is also where a phone user expects it.
-    if (const TSubclassOf<UReactionPickerWidget> PickerClass = MenuDefaults->GetReactionPickerWidgetClass())
+    // sheet rather than as a second menu. That is also where a phone user expects it. Left out for a
+    // bounced message: it was never stored, so there is nothing for a reaction to attach to.
+    if (!Message.IsBounced())
     {
-        UReactionPickerWidget* Picker = CreateWidget<UReactionPickerWidget>(this, PickerClass);
-        Picker->Setup(Message);
-        Actions->SetHeaderContent(Picker);
+        if (const TSubclassOf<UReactionPickerWidget> PickerClass = MenuDefaults->GetReactionPickerWidgetClass())
+        {
+            UReactionPickerWidget* Picker = CreateWidget<UReactionPickerWidget>(this, PickerClass);
+            Picker->Setup(Message);
+            Actions->SetHeaderContent(Picker);
+        }
     }
 
     Actions->Setup(Message, Side);
@@ -456,5 +461,49 @@ void UMessageWidget::OnThreadFooterClicked()
     if (UChannelContextWidget* Context = UChannelContextWidget::TryGet(this))
     {
         Context->OpenThread(Message);
+    }
+}
+
+bool UMessageWidget::ShouldDisplayModerationWarning() const
+{
+    // IsModerationError already restricts this to the current user's own messages, which is the only
+    // place a bounce can show up: nobody else is ever sent one.
+    return Message.IsModerationError();
+}
+
+void UMessageWidget::CreateModerationWarning()
+{
+    if (!AlignPanel || !WidgetTree)
+    {
+        return;
+    }
+
+    if (ModerationWarningText)
+    {
+        AlignPanel->RemoveChild(ModerationWarningText);
+        ModerationWarningText = nullptr;
+    }
+
+    if (!ShouldDisplayModerationWarning())
+    {
+        return;
+    }
+
+    ModerationWarningText = WidgetTree->ConstructWidget<UTextBlock>();
+    ModerationWarningText->SetText(BouncedMessageText);
+    FSlateFontInfo Font = ModerationWarningText->GetFont();
+    Font.Size = ModerationWarningFontSize;
+    ModerationWarningText->SetFont(Font);
+    if (const UThemeDataAsset* Theme = GetTheme())
+    {
+        ModerationWarningText->SetColorAndOpacity(Theme->GetPaletteColor(Theme->ModerationWarningTextColor));
+    }
+
+    // Last in the panel, so it sits below the bubble. OnSetup's alignment pass has already been and
+    // gone by now, so this slot is aligned to the message's side here instead.
+    if (UVerticalBoxSlot* BoxSlot = Cast<UVerticalBoxSlot>(AlignPanel->AddChild(ModerationWarningText)))
+    {
+        BoxSlot->SetPadding(ModerationWarningPadding);
+        BoxSlot->SetHorizontalAlignment(Side == EMessageSide::Me ? HAlign_Right : HAlign_Left);
     }
 }

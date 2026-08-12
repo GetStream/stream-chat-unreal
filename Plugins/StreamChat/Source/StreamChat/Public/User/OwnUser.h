@@ -30,6 +30,9 @@ struct STREAMCHAT_API FOwnUser
     /// Has this user muted the given user?
     bool HasMutedUser(const FUserRef& TargetUser) const;
 
+    /// Has this user blocked the given user?
+    bool HasBlockedUser(const FUserRef& TargetUser) const;
+
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stream Chat|User")
     FUserRef User;
 
@@ -51,4 +54,16 @@ struct STREAMCHAT_API FOwnUser
     /// Only populated for current user
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
     TArray<FMutedChannel> MutedChannels;
+
+    /**
+     * @brief Ids of the users this user has blocked
+     *
+     * Unlike the mute lists, this is not part of the own user the API sends down, and no event
+     * reports a change to it. It is maintained from the responses to
+     * UStreamChatClientComponent::BlockUser, UnblockUser and GetBlockedUsers, so it is only as
+     * complete as the calls this session has made. Call GetBlockedUsers once after connecting to
+     * populate it.
+     */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Stream Chat|User")
+    TArray<FString> BlockedUserIds;
 };

@@ -3,7 +3,9 @@
 #include "Channel/ChatChannel.h"
 #include "CoreMinimal.h"
 #include "Moderation/Ban.h"
+#include "Moderation/UserBlock.h"
 #include "StreamChatClientComponent.h"
+#include "User/UserManager.h"
 
 namespace ModerationTools
 {
@@ -16,6 +18,75 @@ FUserRef User;
 void Flag()
 {
     Client->FlagMessage(Message);
+
+    // Give the moderators a reason, and any extra context your app has
+    Client->FlagMessage(Message, TEXT("spam"), {{TEXT("origin"), TEXT("in-game report dialog")}});
+
+    Client->FlagUser(User, TEXT("impersonation"));
+
+    // Withdraw a flag raised by mistake
+    Client->UnflagMessage(Message);
+    Client->UnflagUser(User);
+}
+
+// https://getstream.io/chat/docs/unreal/moderation/?language=unreal#block
+void Block()
+{
+    // Hides every 1-on-1 channel shared with that user, and stops their events and push notifications
+    Client->BlockUser(User);
+
+    Client->UnblockUser(User);
+
+    // Nothing else populates FOwnUser::BlockedUserIds, so call this once after connecting if you want
+    // to know whether a user is blocked without asking the API again
+    Client->GetBlockedUsers(
+        [](const TArray<FUserBlock>& Blocks)
+        {
+            for (const FUserBlock& Block : Blocks)
+            {
+                UE_LOG(LogTemp, Log, TEXT("Blocked %s at %s"), *Block.BlockedUser->Id, *Block.CreatedAt.ToString());
+            }
+        });
+
+    const bool bBlocked = UUserManager::Get()->GetCurrentUser().HasBlockedUser(User);
+    UE_LOG(LogTemp, Log, TEXT("Blocked: %d"), bBlocked);
+}
+
+// https://getstream.io/moderation/docs/guides/bounce-message/
+void BouncedMessages()
+{
+    // Moderation can bounce a message back to its author instead of publishing it. The bounced message
+    // is only ever delivered to the author, and is not stored, so it lives in this client's message
+    // list alone. FMessage::Moderation carries the verdict.
+    if (Message.IsBounced())
+    {
+        UE_LOG(LogTemp, Log, TEXT("Bounced, original text was: %s"), *Message.Moderation.OriginalText);
+
+        // Let the author rephrase it. Editing a bounced message sends it afresh rather than updating
+        // one on the server, because there is nothing there to update.
+        FMessage Rephrased = Message;
+        Rephrased.Text = TEXT("Something more polite");
+        Channel->ResendMessage(Rephrased);
+
+        // Or discard it. Deleting a bounced message only removes it locally.
+        Channel->DeleteMessage(Message);
+    }
+
+    // The other verdicts. Remove means the message was taken out of the channel, and Flag means it was
+    // published but sent to the dashboard for a moderator to look at.
+    switch (Message.Moderation.Action)
+    {
+        case EMessageModerationAction::Bounce:
+        case EMessageModerationAction::Remove:
+        case EMessageModerationAction::Flag:
+            break;
+        case EMessageModerationAction::Other:
+            // An action added to the API since this version of the SDK
+            UE_LOG(LogTemp, Log, TEXT("Unrecognised moderation action: %s"), *Message.Moderation.RawAction);
+            break;
+        case EMessageModerationAction::None:
+            break;
+    }
 }
 
 // https://getstream.io/chat/docs/unreal/moderation/?language=unreal#mutes

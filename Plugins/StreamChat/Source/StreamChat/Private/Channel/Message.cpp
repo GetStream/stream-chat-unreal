@@ -7,6 +7,26 @@
 #include "Response/Message/MessageDto.h"
 #include "User/UserManager.h"
 
+namespace
+{
+/**
+ * Pick the moderation verdict out of a message DTO.
+ *
+ * An app configured for Moderation V2 gets its verdict in `moderation`, and one still on the older
+ * API gets it in `moderation_details`. Only ever one of the two arrives, so preferring the newer
+ * field and falling back covers both without the caller having to care which is in use.
+ */
+FMessageModeration PickModeration(const FMessageDto& Dto)
+{
+    const FMessageModeration V2{Dto.Moderation};
+    if (V2.IsSet())
+    {
+        return V2;
+    }
+    return FMessageModeration{Dto.ModerationDetails};
+}
+}    // namespace
+
 FMessage::FMessage() = default;
 
 FMessage::FMessage(const FMessageDto& Dto, UUserManager* UserManager)
@@ -26,6 +46,7 @@ FMessage::FMessage(const FMessageDto& Dto, UUserManager* UserManager)
     , ThreadParticipants{UserManager->UpsertUsers(Dto.ThreadParticipants)}
     , bIsSilent{Dto.bSilent}
     , bIsShadowed{Dto.bShadowed}
+    , Moderation{PickModeration(Dto)}
     , Html{Dto.Html}
     , ExtraData{Dto.AdditionalFields}
 {
@@ -67,4 +88,19 @@ bool FMessage::IsThreadReply() const
 bool FMessage::IsThreadStart() const
 {
     return ReplyCount > 0;
+}
+
+bool FMessage::IsBounced() const
+{
+    return Moderation.Action == EMessageModerationAction::Bounce;
+}
+
+bool FMessage::IsRemovedByModeration() const
+{
+    return Moderation.Action == EMessageModerationAction::Remove;
+}
+
+bool FMessage::IsModerationError() const
+{
+    return IsBounced() && Type == EMessageType::Error && User.IsCurrent();
 }

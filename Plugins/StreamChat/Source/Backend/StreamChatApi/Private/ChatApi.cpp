@@ -162,9 +162,23 @@ void FChatApi::QueryBannedUsers(
     Client->Get(Url).Query({{TEXT("payload"), Payload}}).Send(Callback);
 }
 
-void FChatApi::Flag(const FString& TargetMessageId, const FString& TargetUserId, const TCallback<FFlagResponseDto> Callback) const
+void FChatApi::Flag(
+    const FString& TargetMessageId,
+    const FString& TargetUserId,
+    const FString& Reason,
+    const TMap<FString, FString>& CustomData,
+    const TCallback<FFlagResponseDto> Callback) const
 {
     const FString Url = BuildUrl(TEXT("moderation/flag"));
+    const FFlagRequestDto Body{TargetMessageId, TargetUserId, Reason, CustomData};
+    Client->Post(Url).Json(Body).Send(Callback);
+}
+
+void FChatApi::Unflag(const FString& TargetMessageId, const FString& TargetUserId, const TCallback<FFlagResponseDto> Callback) const
+{
+    const FString Url = BuildUrl(TEXT("moderation/unflag"));
+    // Same body as flagging, minus the reason and custom data: they described the flag being raised,
+    // and the endpoint takes only the target of the one being withdrawn.
     const FFlagRequestDto Body{TargetMessageId, TargetUserId};
     Client->Post(Url).Json(Body).Send(Callback);
 }

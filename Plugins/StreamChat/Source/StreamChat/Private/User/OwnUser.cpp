@@ -29,9 +29,16 @@ void FOwnUser::Update(const FOwnUser& OwnUser)
     UnreadChannels = OwnUser.UnreadChannels;
     MutedUsers = OwnUser.MutedUsers;
     MutedChannels = OwnUser.MutedChannels;
+    // Deliberately not BlockedUserIds: the own user payload this was built from never carries them,
+    // so copying would clear what the block endpoints told us.
 }
 
 bool FOwnUser::HasMutedUser(const FUserRef& TargetUser) const
 {
     return MutedUsers.ContainsByPredicate([&TargetUser](const FMutedUser& M) { return M.Target == TargetUser; });
+}
+
+bool FOwnUser::HasBlockedUser(const FUserRef& TargetUser) const
+{
+    return BlockedUserIds.Contains(TargetUser->Id);
 }

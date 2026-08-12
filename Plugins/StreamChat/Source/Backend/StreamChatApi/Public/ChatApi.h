@@ -132,12 +132,27 @@ public:
         TCallback<FQueryBannedUsersResponseDto> Callback = {}) const;
 
     /**
-     * @brief Flag a user or message
+     * @brief Flag a user or message for a moderator to review
      * @param TargetMessageId ID of message to flag (optional)
      * @param TargetUserId ID of user to flag (optional)
+     * @param Reason Why the content was reported. Shown to moderators in the review queue. (optional)
+     * @param CustomData Extra key/value pairs to attach to the flag (optional)
      * @param Callback Called when response is received.
      */
-    void Flag(const FString& TargetMessageId = {}, const FString& TargetUserId = {}, TCallback<FFlagResponseDto> Callback = {}) const;
+    void Flag(
+        const FString& TargetMessageId = {},
+        const FString& TargetUserId = {},
+        const FString& Reason = {},
+        const TMap<FString, FString>& CustomData = {},
+        TCallback<FFlagResponseDto> Callback = {}) const;
+
+    /**
+     * @brief Withdraw a flag this user previously raised against a user or message
+     * @param TargetMessageId ID of message to unflag (optional)
+     * @param TargetUserId ID of user to unflag (optional)
+     * @param Callback Called when response is received.
+     */
+    void Unflag(const FString& TargetMessageId = {}, const FString& TargetUserId = {}, TCallback<FFlagResponseDto> Callback = {}) const;
 
     /**
      * @brief Mute a user

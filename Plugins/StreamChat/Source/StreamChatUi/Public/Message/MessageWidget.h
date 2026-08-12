@@ -99,6 +99,17 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = "Message Actions")
     float LongPressMoveTolerance = 4.f;
 
+    /// Space around the warning shown below a message moderation bounced
+    UPROPERTY(EditDefaultsOnly, Category = Moderation)
+    FMargin ModerationWarningPadding = FMargin{2.f, 2.f, 2.f, 0.f};
+
+    UPROPERTY(EditDefaultsOnly, Category = Moderation)
+    int32 ModerationWarningFontSize = 12;
+
+    /// Shown under the author's own message when moderation bounced it back to be rephrased
+    UPROPERTY(EditDefaultsOnly, Category = Moderation)
+    FText BouncedMessageText = NSLOCTEXT("StreamChat", "BouncedMessage", "Not sent. Hold to edit, send anyway or delete.");
+
     /// Shown under a message that has exactly one reply
     UPROPERTY(EditDefaultsOnly, Category = Thread)
     FText OneReplyText = NSLOCTEXT("StreamChat", "OneReply", "1 reply");
@@ -152,6 +163,16 @@ private:
     bool ShouldDisplayThreadFooter() const;
     FText GetThreadFooterText() const;
 
+    /**
+     * Build the "not sent" warning under a message moderation bounced.
+     *
+     * The author is the only one who ever sees a bounced message, and without this the message looks
+     * sent. The actions to do something about it are on the long press menu, which the warning says
+     * so, because a bounced message has no affordance of its own.
+     */
+    void CreateModerationWarning();
+    bool ShouldDisplayModerationWarning() const;
+
     UFUNCTION()
     void OnThreadFooterClicked();
 
@@ -173,6 +194,10 @@ private:
 
     UPROPERTY(Transient)
     UTextBlock* ThreadFooterText;
+
+    /// Also in AlignPanel, below the bubble. Null unless moderation bounced this message.
+    UPROPERTY(Transient)
+    UTextBlock* ModerationWarningText;
 
     /// Hosts the long press menu. Empty and invisible until opened, and spawned in C++ because
     /// WBP_Message has no anchor of its own.

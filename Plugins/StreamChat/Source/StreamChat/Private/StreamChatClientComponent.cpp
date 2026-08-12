@@ -19,6 +19,7 @@
 #include "Response/Channel/ChannelsResponseDto.h"
 #include "Response/Device/ListDevicesResponseDto.h"
 #include "Response/Message/SearchResponseDto.h"
+#include "Response/Moderation/BlockUserResponseDto.h"
 #include "Response/Moderation/GetBlockedUsersResponseDto.h"
 #include "Response/Moderation/MuteUserResponseDto.h"
 #include "Response/Moderation/QueryBannedUsersResponseDto.h"
@@ -631,14 +632,34 @@ void UStreamChatClientComponent::ListDevices(TFunction<void(TArray<FDevice>)> Ca
         });
 }
 
-void UStreamChatClientComponent::FlagMessage(const FMessage& Message) const
+void UStreamChatClientComponent::FlagMessage(const FMessage& Message, const FString& Reason, const TMap<FString, FString>& CustomData) const
 {
-    Api->Flag(Message.Id);
+    Api->Flag(Message.Id, {}, Reason, CustomData);
 }
 
-void UStreamChatClientComponent::FlagUser(const FUserRef& User) const
+void UStreamChatClientComponent::FlagMessage(const FMessage& Message, const FString& Reason) const
 {
-    Api->Flag({}, User->Id);
+    FlagMessage(Message, Reason, {});
+}
+
+void UStreamChatClientComponent::UnflagMessage(const FMessage& Message) const
+{
+    Api->Unflag(Message.Id);
+}
+
+void UStreamChatClientComponent::FlagUser(const FUserRef& User, const FString& Reason, const TMap<FString, FString>& CustomData) const
+{
+    Api->Flag({}, User->Id, Reason, CustomData);
+}
+
+void UStreamChatClientComponent::FlagUser(const FUserRef& User, const FString& Reason) const
+{
+    FlagUser(User, Reason, {});
+}
+
+void UStreamChatClientComponent::UnflagUser(const FUserRef& User) const
+{
+    Api->Unflag({}, User->Id);
 }
 
 void UStreamChatClientComponent::MuteUserBP(const FUserRef& User, const FTimespan Timeout) const
@@ -659,27 +680,51 @@ void UStreamChatClientComponent::UnmuteUser(const FUserRef& User) const
 
 void UStreamChatClientComponent::BlockUser(const FUserRef& User) const
 {
-    Api->BlockUser(User->Id);
+    Api->BlockUser(
+        User->Id,
+        [UserId = User->Id](const TResponse<FBlockUserResponseDto>& Response)
+        {
+            // No event reports a block, so the local list is the only record of one
+            if (Response.IsSuccessful())
+            {
+                UUserManager::Get()->SetUserBlocked(UserId, true);
+            }
+        });
 }
 
 void UStreamChatClientComponent::UnblockUser(const FUserRef& User) const
 {
-    Api->UnblockUser(User->Id);
+    Api->UnblockUser(
+        User->Id,
+        [UserId = User->Id](const TResponse<FResponseDto>& Response)
+        {
+            if (Response.IsSuccessful())
+            {
+                UUserManager::Get()->SetUserBlocked(UserId, false);
+            }
+        });
 }
 
-void UStreamChatClientComponent::GetBlockedUsers(TFunction<void(const TArray<FString>&)> Callback) const
+void UStreamChatClientComponent::GetBlockedUsers(TFunction<void(const TArray<FUserBlock>&)> Callback) const
 {
     Api->GetBlockedUsers(
         [Callback](const TResponse<FGetBlockedUsersResponseDto>& Response)
         {
-            TArray<FString> BlockedUserIds;
-            for (const FBlockedUserDto& Block : Response.GetRef().Blocks)
+            if (!Response.IsSuccessful())
             {
-                BlockedUserIds.Add(Block.BlockedUserId);
+                return;
             }
+
+            UUserManager* UserManager = UUserManager::Get();
+            const TArray<FUserBlock> Blocks = Util::Convert<FUserBlock>(Response.GetRef().Blocks, UserManager);
+
+            TArray<FString> BlockedUserIds;
+            Algo::Transform(Blocks, BlockedUserIds, [](const FUserBlock& Block) { return Block.BlockedUser->Id; });
+            UserManager->SetBlockedUserIds(BlockedUserIds);
+
             if (Callback)
             {
-                Callback(BlockedUserIds);
+                Callback(Blocks);
             }
         });
 }

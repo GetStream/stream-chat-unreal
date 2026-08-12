@@ -481,16 +481,37 @@ void UChatChannel::SendMessage(const FMessage& Message, const TFunction<void(con
         Properties.Id,
         Request,
         false,
-        [Callback](const TResponse<FMessageResponseDto>& Response)
+        [Callback, WeakThis = TWeakObjectPtr<UChatChannel>(this)](const TResponse<FMessageResponseDto>& Response)
         {
+            bool bBounced = false;
             if (const auto* Dto = Response.Get())
             {
-                // No need to add message here as the backend will send a websocket message
-                UE_LOG(LogTemp, Log, TEXT("Sent message [Id=%s]"), *Dto->Message.Id);
+                FMessage Sent{Dto->Message, UUserManager::Get()};
+                bBounced = Sent.IsBounced();
+                if (bBounced)
+                {
+                    // A bounce is the one success response that did not publish anything, and no
+                    // websocket event follows it, so the local copy has to be corrected here or it
+                    // would sit at Sending for ever. Failed is what marks it as needing the author's
+                    // attention; the bounce verdict rode along on the DTO.
+                    Sent.State = EMessageSendState::Failed;
+                    if (WeakThis.IsValid())
+                    {
+                        WeakThis->AddMessage(Sent);
+                    }
+                    UE_LOG(LogTemp, Log, TEXT("Message bounced by moderation [Id=%s]"), *Dto->Message.Id);
+                }
+                else
+                {
+                    // No need to add message here as the backend will send a websocket message
+                    UE_LOG(LogTemp, Log, TEXT("Sent message [Id=%s]"), *Dto->Message.Id);
+                }
             }
             if (Callback)
             {
-                Callback(Response.IsSuccessful());
+                // A bounced message never reached the channel, so this was not a successful send even
+                // though the request itself succeeded
+                Callback(Response.IsSuccessful() && !bBounced);
             }
         });
     MessageSent.Broadcast(NewMessage);
@@ -535,20 +556,44 @@ void UChatChannel::UpdateMessage(const FMessage& Message)
             {
                 if (WeakThis.IsValid())
                 {
-                    WeakThis->AddMessage(FMessage{Dto->Message, UUserManager::Get()});
-                    UE_LOG(LogTemp, Log, TEXT("Updated message [Id=%s]"), *Dto->Message.Id);
+                    FMessage Updated{Dto->Message, UUserManager::Get()};
+                    if (Updated.IsBounced())
+                    {
+                        // The edit was rejected, so nothing was stored. Shown as failed for the author
+                        // to rephrase; the text on the server is still the one from before the edit,
+                        // and re-querying the channel will bring that back.
+                        Updated.State = EMessageSendState::Failed;
+                        UE_LOG(LogTemp, Log, TEXT("Message edit bounced by moderation [Id=%s]"), *Dto->Message.Id);
+                    }
+                    else
+                    {
+                        UE_LOG(LogTemp, Log, TEXT("Updated message [Id=%s]"), *Dto->Message.Id);
+                    }
+                    WeakThis->AddMessage(Updated);
                 }
             }
         });
     // TODO retry?
 }
 
+void UChatChannel::ResendMessage(const FMessage& Message)
+{
+    FMessage Resent = Message;
+    Resent.Moderation = FMessageModeration{};
+    if (Resent.Type == EMessageType::Error)
+    {
+        Resent.Type = EMessageType::Regular;
+    }
+    SendMessage(Resent);
+}
+
 void UChatChannel::DeleteMessage(const FMessage& Message)
 {
     // TODO Attachments
 
-    // Directly deleting the local messages which are not yet sent to server
-    if (Message.State == EMessageSendState::Sending || Message.State == EMessageSendState::Failed)
+    // Directly deleting the local messages which are not yet sent to server. A bounced message is one
+    // of those: moderation does not store it, so the delete endpoint would not find it.
+    if (Message.State == EMessageSendState::Sending || Message.State == EMessageSendState::Failed || Message.IsBounced())
     {
         FMessage DeletedMessage = Message;
         DeletedMessage.Type = EMessageType::Deleted;
