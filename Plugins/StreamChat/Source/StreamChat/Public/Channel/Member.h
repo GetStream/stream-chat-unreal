@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "AdditionalFields.h"
 #include "CoreMinimal.h"
 #include "User/UserRef.h"
 
@@ -30,6 +31,20 @@ struct FMember
     bool operator==(const FMember&) const;
     friend uint32 GetTypeHash(const FMember& M);
 
+    /**
+     * @brief Has this member been invited to the channel and not yet answered?
+     *
+     * Both answers are recorded as a date, so an invite is outstanding only while neither is set.
+     * Show such a member an accept/reject prompt rather than the channel itself.
+     */
+    bool IsInvitePending() const;
+
+    /// Has this member accepted their invitation to the channel?
+    bool HasAcceptedInvite() const;
+
+    /// Has this member rejected their invitation to the channel?
+    bool HasRejectedInvite() const;
+
     /// The user information of this member
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Member") FUserRef User;
 
@@ -45,5 +60,52 @@ struct FMember
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Member")
     FString ChannelRole;
 
-    // TODO rest of the fields
+    /// When this user became a member of the channel
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Member")
+    FDateTime CreatedAt = FDateTime{0};
+
+    /// When this membership was last updated
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Member")
+    FDateTime UpdatedAt = FDateTime{0};
+
+    /// Whether this member was invited to the channel, rather than simply added to it
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Member")
+    bool bInvited = false;
+
+    /// When this member accepted their invitation. Zero if they never did.
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Member")
+    FDateTime InviteAcceptedAt = FDateTime{0};
+
+    /// When this member rejected their invitation. Zero if they never did.
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Member")
+    FDateTime InviteRejectedAt = FDateTime{0};
+
+    /// Whether this member can moderate the channel
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Member")
+    bool bIsModerator = false;
+
+    /**
+     * @brief Whether this member is shadow banned in this channel
+     *
+     * Their messages arrive marked as shadowed for everybody else, and not at all for a client
+     * which hides them. They are not told about any of this, which is the point.
+     */
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Member")
+    bool bShadowBanned = false;
+
+    /// Whether this member muted notifications from the channel
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Member")
+    bool bNotificationsMuted = false;
+
+    /// When this member archived the channel for themselves. Zero if they have not.
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Member")
+    FDateTime ArchivedAt = FDateTime{0};
+
+    /// When this member pinned the channel for themselves. Zero if they have not.
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Channel|Member")
+    FDateTime PinnedAt = FDateTime{0};
+
+    /// Any custom fields set on the membership
+    UPROPERTY(BlueprintReadOnly, Category = "Stream Chat|Channel|Member", AdvancedDisplay)
+    FAdditionalFields ExtraData;
 };

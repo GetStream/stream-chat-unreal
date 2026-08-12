@@ -23,5 +23,12 @@ struct FMessageNewEvent : public FMessageEvent
         return Type;
     }
 
-    // TODO everything else
+    /// How many users were watching the channel when the message arrived.
+    /// Left at TNumericLimits<uint32>::Max() if the API didn't send a count.
+    UPROPERTY()
+    uint32 WatcherCount = TNumericLimits<uint32>::Max();
+
+    /// Users who have replied in the thread. Only sent when the message is a thread reply.
+    UPROPERTY()
+    TArray<FUserObjectDto> ThreadParticipants;
 };

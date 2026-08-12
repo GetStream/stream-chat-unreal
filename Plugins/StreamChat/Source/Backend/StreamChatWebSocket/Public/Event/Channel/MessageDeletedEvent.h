@@ -23,8 +23,12 @@ struct FMessageDeletedEvent : public FMessageEvent
         return Type;
     }
 
+    /// Whether the message was removed outright, rather than being marked as deleted.
+    /// A hard deleted message never comes back from the API again.
     UPROPERTY()
     bool bHardDelete = false;
 
-    // TODO everything else
+    /// Users who have replied in the thread. Only sent when the deleted message was a thread reply.
+    UPROPERTY()
+    TArray<FUserObjectDto> ThreadParticipants;
 };

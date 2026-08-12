@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "AdditionalFields.h"
 #include "CoreMinimal.h"
 #include "UserObjectDto.h"
 
@@ -15,6 +16,10 @@ USTRUCT(BlueprintType)
 struct STREAMCHATDTO_API FChannelMemberDto
 {
     GENERATED_BODY()
+
+    /// Date when this member archived the channel for themselves
+    UPROPERTY()
+    FDateTime ArchivedAt = FDateTime{0};
 
     /// Expiration date of the ban
     UPROPERTY()
@@ -48,6 +53,14 @@ struct STREAMCHATDTO_API FChannelMemberDto
     UPROPERTY()
     bool bIsModerator = false;
 
+    /// Whether this member muted notifications from the channel
+    UPROPERTY()
+    bool bNotificationsMuted = false;
+
+    /// Date when this member pinned the channel for themselves
+    UPROPERTY()
+    FDateTime PinnedAt = FDateTime{0};
+
     /// Whether member is shadow banned in this channel or not
     UPROPERTY()
     bool bShadowBanned = false;
@@ -61,4 +74,7 @@ struct STREAMCHATDTO_API FChannelMemberDto
 
     UPROPERTY()
     FString UserId;
+
+    UPROPERTY()
+    FAdditionalFields AdditionalFields;
 };

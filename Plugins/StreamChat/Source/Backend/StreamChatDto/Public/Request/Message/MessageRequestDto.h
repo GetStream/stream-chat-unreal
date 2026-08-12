@@ -34,7 +34,10 @@ struct FMessageRequestDto
     UPROPERTY()
     FString Id;
 
-    // TODO Mentioned users
+    /// IDs of the users mentioned in the message.
+    /// The backend resolves these to full user objects on the way back out.
+    UPROPERTY()
+    TArray<FString> MentionedUsers;
 
     /// Should be empty if `text` is provided
     UPROPERTY()
@@ -50,9 +53,18 @@ struct FMessageRequestDto
     UPROPERTY()
     bool bShowInChannel = false;
 
-    // TODO PinExpires, bPinned, PinnedAt, PinnedBy
+    /// When the pin should lapse. Leave zeroed to pin indefinitely; ignored unless `bPinned`.
+    UPROPERTY()
+    FDateTime PinExpires = FDateTime{0};
 
-    // TODO quoted_message_id
+    /// Whether to pin the message in the channel.
+    /// `pinned_at` and `pinned_by` are not sent: the backend stamps both from this request.
+    UPROPERTY()
+    bool bPinned = false;
+
+    /// The ID of the message this one quotes. The backend embeds the quoted message in responses.
+    UPROPERTY()
+    FString QuotedMessageId;
 
     /// A map describing the count of score of every reaction
     UPROPERTY()

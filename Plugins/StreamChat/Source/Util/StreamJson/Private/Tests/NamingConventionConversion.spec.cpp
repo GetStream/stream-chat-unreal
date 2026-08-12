@@ -97,6 +97,42 @@ void FNamingConventionConversionSpec::Define()
                TestEqual(*Pair.Key, NamingConventionConversion::ConvertPropertyNameToSnakeCase(Pair.Key), Pair.Value);
            }
        });
+
+    It("should produce the wire keys of the message, member and event payloads",
+       EAsyncExecution::ThreadPool,
+       [this]()
+       {
+           // Nothing fails when one of these drifts: an event or a member simply arrives with the
+           // field left at its default, and a message is sent without it. i18n is the awkward one,
+           // being the only key in the API with a digit in the middle of it.
+           const TMap<FString, FString> Expected{
+               {TEXT("I18n"), TEXT("i18n")},
+               {TEXT("QuotedMessageId"), TEXT("quoted_message_id")},
+               {TEXT("MentionedUsers"), TEXT("mentioned_users")},
+               {TEXT("PinExpires"), TEXT("pin_expires")},
+               {TEXT("bPinned"), TEXT("pinned")},
+               {TEXT("PinnedAt"), TEXT("pinned_at")},
+               {TEXT("PinnedBy"), TEXT("pinned_by")},
+               {TEXT("Command"), TEXT("command")},
+               {TEXT("Cid"), TEXT("cid")},
+               {TEXT("bInvited"), TEXT("invited")},
+               {TEXT("InviteAcceptedAt"), TEXT("invite_accepted_at")},
+               {TEXT("InviteRejectedAt"), TEXT("invite_rejected_at")},
+               {TEXT("bIsModerator"), TEXT("is_moderator")},
+               {TEXT("bShadowBanned"), TEXT("shadow_banned")},
+               {TEXT("bNotificationsMuted"), TEXT("notifications_muted")},
+               {TEXT("ArchivedAt"), TEXT("archived_at")},
+               {TEXT("ChannelRole"), TEXT("channel_role")},
+               {TEXT("bHardDelete"), TEXT("hard_delete")},
+               {TEXT("WatcherCount"), TEXT("watcher_count")},
+               {TEXT("ConnectionId"), TEXT("connection_id")},
+               {TEXT("Team"), TEXT("team")},
+           };
+           for (const auto& Pair : Expected)
+           {
+               TestEqual(*Pair.Key, NamingConventionConversion::ConvertPropertyNameToSnakeCase(Pair.Key), Pair.Value);
+           }
+       });
 }
 
 #endif

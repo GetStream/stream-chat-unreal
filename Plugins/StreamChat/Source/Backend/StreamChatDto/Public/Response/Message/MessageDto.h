@@ -49,16 +49,21 @@ struct STREAMCHATDTO_API FMessageDto
     UPROPERTY()
     FString Html;
 
-    // TODO is this an object?
+    /// Automatic translations of the message, sent only by an app with auto-translation enabled.
+    ///
+    /// Keyed by `<language>_text` for each translation, plus a `language` key naming the language
+    /// the message was written in. Read through FMessage rather than picking those apart here.
     UPROPERTY()
-    FString I18n;
+    TMap<FString, FString> I18n;
 
     /// The message ID. This is either created by Stream or set client side when
     /// the message is added.
     UPROPERTY()
     FString Id;
 
-    // TODO ImageLabels
+    // `image_labels` is not read: it is how the older moderation API reported what it saw in an
+    // attached image, and Moderation V2 sends the same thing as image harms, which FMessageModeration
+    // already carries for both versions.
 
     /// The latest reactions to the message created by any user.
     UPROPERTY()
@@ -91,10 +96,7 @@ struct STREAMCHATDTO_API FMessageDto
     UPROPERTY()
     FString ParentId;
 
-    /// Reserved field indicating when the message will expire
-    ///
-    /// if `null` message has no expiry
-    // TODO Optional
+    /// When the pin lapses. Stays zeroed when the API sends `null`, which means the pin doesn't expire.
     UPROPERTY()
     FDateTime PinExpires = FDateTime{0};
 
@@ -102,21 +104,17 @@ struct STREAMCHATDTO_API FMessageDto
     UPROPERTY()
     bool bPinned = false;
 
-    /// Reserved field indicating when the message was pinned
-    // TODO Optional
+    /// When the message was pinned. Zeroed unless it is pinned.
     UPROPERTY()
     FDateTime PinnedAt = FDateTime{0};
 
-    /// Reserved field indicating who pinned the message
-    // TODO Optional
+    /// Who pinned the message. Left with an empty ID unless it is pinned.
     UPROPERTY()
     FUserObjectDto PinnedBy;
 
-    /// A quoted reply message
-    // TODO Optional
-    // TODO recursive?
-    // UPROPERTY()
-    // FMessageDto QuotedMessage;
+    // The quoted message itself is not read: a USTRUCT cannot hold one of its own type, so this DTO
+    // would have to be duplicated to carry it. The ID below is the handle, and the quoted message is
+    // in the channel's message list under it.
 
     /// The ID of the quoted message, if the message is a quoted reply.
     UPROPERTY()
@@ -162,8 +160,9 @@ struct STREAMCHATDTO_API FMessageDto
     UPROPERTY()
     FDateTime UpdatedAt = FDateTime{0};
 
-    /// User who sent the message
-    // TODO Optional
+    /// User who sent the message.
+    /// Left with an empty ID by the handful of payloads which omit it, which yields an invalid
+    /// FUserRef on the message rather than a reference to a user who doesn't exist.
     UPROPERTY()
     FUserObjectDto User;
 
