@@ -10,10 +10,7 @@
 
 #if WITH_DEV_AUTOMATION_TESTS
 
-BEGIN_DEFINE_SPEC(
-    FMessageModerationSpec,
-    "StreamChat.MessageModeration",
-    EAutomationTestFlags::ProductFilter | EAutomationTestFlags_ApplicationContextMask)
+BEGIN_DEFINE_SPEC(FMessageModerationSpec, "StreamChat.MessageModeration", EAutomationTestFlags::ProductFilter | EAutomationTestFlags_ApplicationContextMask)
 END_DEFINE_SPEC(FMessageModerationSpec)
 
 void FMessageModerationSpec::Define()
