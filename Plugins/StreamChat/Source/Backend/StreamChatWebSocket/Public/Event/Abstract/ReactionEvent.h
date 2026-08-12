@@ -16,8 +16,9 @@ struct FReactionEvent : public FMessageEvent
 {
     GENERATED_BODY()
 
+    /// The reaction the event is about.
+    /// The message it belongs to is carried in full by FMessageEvent::Message, with its reaction
+    /// counts and scores already updated to account for this event.
     UPROPERTY()
     FReactionDto Reaction;
-
-    // TODO everything else
 };

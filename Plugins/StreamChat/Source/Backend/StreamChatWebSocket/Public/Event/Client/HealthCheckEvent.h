@@ -24,11 +24,17 @@ struct FHealthCheckEvent : public FChatEvent
         return Type;
     }
 
+    /// Identifies this WebSocket connection. Required on every API call made while it is open.
     UPROPERTY()
     FString ConnectionId;
 
+    /// The connected user. Only sent on the first health check of a connection, which is what
+    /// makes that one the signal that the connection is established.
     UPROPERTY()
     FOwnUserDto Me;
 
-    // TODO everything else
+    /// Channel CID (<type>:<id>) for a watched channel's health check, or `*` for the
+    /// connection-wide one, which is what the periodic keep-alive reply carries.
+    UPROPERTY()
+    FString Cid;
 };

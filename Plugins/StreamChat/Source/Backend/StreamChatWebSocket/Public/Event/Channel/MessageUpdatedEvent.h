@@ -22,6 +22,4 @@ struct FMessageUpdatedEvent : public FMessageEvent
         static const FName Type{TEXT("message.updated")};
         return Type;
     }
-
-    // TODO everything else
 };

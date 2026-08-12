@@ -77,8 +77,9 @@ struct STREAMCHAT_API FMessage
     explicit FMessage(const FSearchResultDto&, UUserManager*);
     /// Create a new message from a message string
     explicit FMessage(const FString& Text);
-    /// Convert a message into a create/update request for sending to the API
-    FMessageRequestDto ToRequestDto(const FString& Cid) const;
+    /// Convert a message into a create/update request for sending to the API.
+    /// Takes the channel's CID rather than reading this message's, which is empty until it is sent.
+    FMessageRequestDto ToRequestDto(const FString& ChannelCid) const;
 
     /// Is this message a reply in another message's thread?
     bool IsThreadReply() const;
@@ -105,9 +106,25 @@ struct STREAMCHAT_API FMessage
      */
     bool IsModerationError() const;
 
+    /// Is this message quoting another one? Look the quoted message up by QuotedMessageId.
+    bool IsQuoting() const;
+
+    /**
+     * @brief The message text in the given language, falling back to Text when it wasn't translated
+     *
+     * @param Language A language code as the API names it, e.g. "fr". Matches OriginalLanguage and
+     *                 the keys of Translations.
+     */
+    const FString& GetTranslation(const FString& Language) const;
+
     /// The message ID. This is either created by the Stream API or set client side when the message is created.
     UPROPERTY()
     FString Id;
+
+    /// CID (<type>:<id>) of the channel the message belongs to.
+    /// Empty on a message which hasn't been sent yet.
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
+    FString Cid;
 
     /// The text of this message
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat|Message")
@@ -181,8 +198,42 @@ struct STREAMCHAT_API FMessage
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat|Message")
     TArray<FAttachment> Attachments;
 
+    /// The slash command which produced this message, without the slash, e.g. "giphy". Empty for an
+    /// ordinary message.
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
+    FString Command;
+
+    /// Whether this message is pinned in the channel. Set this before sending to pin it.
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat|Message")
+    bool bPinned = false;
+
+    /// When the message was pinned. Zero unless it is pinned. Stamped by the API.
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
+    FDateTime PinnedAt = FDateTime{0};
+
+    /// Who pinned the message. Invalid unless it is pinned. Set by the API.
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message")
+    FUserRef PinnedBy;
+
+    /// When the pin lapses. Zero for a pin which doesn't expire. Set this before sending to pin the
+    /// message for a limited time.
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat|Message")
+    FDateTime PinExpires = FDateTime{0};
+
+    /// The ID of the message this one quotes. Empty if it quotes nothing.
+    /// Set this before sending to quote a message.
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stream Chat|Message")
+    FString QuotedMessageId;
+
+    /// Automatic translations of Text, keyed by language code, e.g. "fr".
+    /// Only filled in by an app which has auto-translation switched on.
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message", AdvancedDisplay)
+    TMap<FString, FString> Translations;
+
+    /// The language Text was written in, as detected by auto-translation. Empty without it.
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Stream Chat|Message", AdvancedDisplay)
+    FString OriginalLanguage;
+
     UPROPERTY(BlueprintReadWrite, Category = "Stream Chat|Message", AdvancedDisplay)
     FAdditionalFields ExtraData;
-
-    // TODO rest of fields
 };

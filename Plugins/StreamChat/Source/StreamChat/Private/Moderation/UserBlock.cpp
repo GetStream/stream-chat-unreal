@@ -5,8 +5,6 @@
 #include "User/UserManager.h"
 
 FUserBlock::FUserBlock(const FBlockedUserDto& Dto, UUserManager* UserManager)
-    : BlockedUser{UserManager->UpsertUser(Dto.BlockedUser)}
-    , BlockedBy{UserManager->UpsertUser(Dto.User)}
-    , CreatedAt{Dto.CreatedAt}
+    : BlockedUser{UserManager->UpsertUser(Dto.BlockedUser)}, BlockedBy{UserManager->UpsertUser(Dto.User)}, CreatedAt{Dto.CreatedAt}
 {
 }

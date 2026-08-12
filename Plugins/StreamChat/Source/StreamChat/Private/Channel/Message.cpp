@@ -25,12 +25,38 @@ FMessageModeration PickModeration(const FMessageDto& Dto)
     }
     return FMessageModeration{Dto.ModerationDetails};
 }
+
+/// The key auto-translation names the message's own language under
+const TCHAR* LanguageKey = TEXT("language");
+/// The suffix auto-translation appends to a language code to key that language's text
+const TCHAR* TranslationSuffix = TEXT("_text");
+
+/**
+ * Split the `i18n` object into a language code -> text map.
+ *
+ * The API packs both the detected language and every translation into one flat object, keyed
+ * `language` and `<code>_text` respectively. Callers want to look a translation up by plain language
+ * code, so the suffix is stripped here rather than at every call site.
+ */
+TMap<FString, FString> PickTranslations(const FMessageDto& Dto)
+{
+    TMap<FString, FString> Translations;
+    for (const TPair<FString, FString>& Pair : Dto.I18n)
+    {
+        if (Pair.Key.EndsWith(TranslationSuffix))
+        {
+            Translations.Add(Pair.Key.LeftChop(FCString::Strlen(TranslationSuffix)), Pair.Value);
+        }
+    }
+    return Translations;
+}
 }    // namespace
 
 FMessage::FMessage() = default;
 
 FMessage::FMessage(const FMessageDto& Dto, UUserManager* UserManager)
     : Id{Dto.Id}
+    , Cid{Dto.Cid}
     , Text{Dto.Text}
     , State{EMessageSendState::Sent}    // Assume response dto => sent
     , User{UserManager->UpsertUser(Dto.User)}
@@ -48,6 +74,14 @@ FMessage::FMessage(const FMessageDto& Dto, UUserManager* UserManager)
     , bIsShadowed{Dto.bShadowed}
     , Moderation{PickModeration(Dto)}
     , Html{Dto.Html}
+    , Command{Dto.Command}
+    , bPinned{Dto.bPinned}
+    , PinnedAt{Dto.PinnedAt}
+    , PinnedBy{UserManager->UpsertUser(Dto.PinnedBy)}
+    , PinExpires{Dto.PinExpires}
+    , QuotedMessageId{Dto.QuotedMessageId}
+    , Translations{PickTranslations(Dto)}
+    , OriginalLanguage{Dto.I18n.FindRef(LanguageKey)}
     , ExtraData{Dto.AdditionalFields}
 {
     Algo::Transform(Dto.Attachments, Attachments, [](const FAttachmentDto& Attachment) { return FAttachment{Attachment}; });
@@ -62,15 +96,19 @@ FMessage::FMessage(const FString& Text)
 {
 }
 
-FMessageRequestDto FMessage::ToRequestDto(const FString& Cid) const
+FMessageRequestDto FMessage::ToRequestDto(const FString& ChannelCid) const
 {
     // Assigned by name rather than positionally: the previous aggregate initialiser silently
     // shifted every field along when a new one was added to the DTO.
     FMessageRequestDto Dto;
     Algo::Transform(Attachments, Dto.Attachments, [](const FAttachment& Attachment) { return Attachment.ToDto(); });
-    Dto.Cid = Cid;
+    Dto.Cid = ChannelCid;
     Dto.Id = Id;
+    Algo::Transform(MentionedUsers, Dto.MentionedUsers, [](const FUserRef& User) { return User->Id; });
     Dto.ParentId = ParentId;
+    Dto.PinExpires = PinExpires;
+    Dto.bPinned = bPinned;
+    Dto.QuotedMessageId = QuotedMessageId;
     Dto.ReactionScores = Reactions.GetScores();
     // Only meaningful on a reply, and the backend rejects it on anything else
     Dto.bShowInChannel = IsThreadReply() && bShowInChannel;
@@ -103,4 +141,18 @@ bool FMessage::IsRemovedByModeration() const
 bool FMessage::IsModerationError() const
 {
     return IsBounced() && Type == EMessageType::Error && User.IsCurrent();
+}
+
+bool FMessage::IsQuoting() const
+{
+    return !QuotedMessageId.IsEmpty();
+}
+
+const FString& FMessage::GetTranslation(const FString& Language) const
+{
+    if (const FString* Translation = Translations.Find(Language))
+    {
+        return *Translation;
+    }
+    return Text;
 }
