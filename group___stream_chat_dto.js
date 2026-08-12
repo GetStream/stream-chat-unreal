@@ -118,6 +118,8 @@ var group___stream_chat_dto =
       [ "BlockedUserId", "struct_f_block_user_request_dto.html#a2f89825884eac3e043fbd81b1cadf16c", null ]
     ] ],
     [ "FFlagRequestDto", "struct_f_flag_request_dto.html", [
+      [ "Custom", "struct_f_flag_request_dto.html#a59df2c8b77df4f6b23608c5d75196d77", null ],
+      [ "Reason", "struct_f_flag_request_dto.html#a2109d16f922a6c454e9671fb4462061d", null ],
       [ "TargetMessageId", "struct_f_flag_request_dto.html#a1c18b9004f6e1c8bb9dc1151f3135ea4", null ],
       [ "TargetUserId", "struct_f_flag_request_dto.html#a0084634d43a100ad0339747db5e5d569", null ]
     ] ],
@@ -332,6 +334,8 @@ var group___stream_chat_dto =
       [ "LatestReactions", "struct_f_message_dto.html#a8113f65457346f85e2cde5158b0e7183", null ],
       [ "MentionedUsers", "struct_f_message_dto.html#a3029015ca8796ddc74db3163b1ab1f8b", null ],
       [ "Mml", "struct_f_message_dto.html#a7a1eead86619a84881840f70cabe9ea7", null ],
+      [ "Moderation", "struct_f_message_dto.html#a591990cef360b7c89a7845814cfb36d4", null ],
+      [ "ModerationDetails", "struct_f_message_dto.html#af29e845defa6bb71ce575cb343777025", null ],
       [ "OwnReactions", "struct_f_message_dto.html#a607ac7fc32caf6b25b9d0b0e3a5dba7a", null ],
       [ "ParentId", "struct_f_message_dto.html#a5120b8310d00c61c30d05b848764b259", null ],
       [ "PinExpires", "struct_f_message_dto.html#ae96097caea9a3ed132366c1bce3410c7", null ],
@@ -393,6 +397,15 @@ var group___stream_chat_dto =
     [ "FGetBlockedUsersResponseDto", "struct_f_get_blocked_users_response_dto.html", [
       [ "Blocks", "struct_f_get_blocked_users_response_dto.html#a2f308676a41cde9679282cfd7e91acd8", null ],
       [ "Duration", "struct_f_get_blocked_users_response_dto.html#a06b76df14de9507f14f466537ae08305", null ]
+    ] ],
+    [ "FMessageModerationDto", "struct_f_message_moderation_dto.html", [
+      [ "Action", "struct_f_message_moderation_dto.html#ac8bf09afe0f28bfb61e4ad899d68385f", null ],
+      [ "BlocklistMatched", "struct_f_message_moderation_dto.html#a46504a0546a1d3baf1510e2e8ffba63f", null ],
+      [ "bPlatformCircumvented", "struct_f_message_moderation_dto.html#a09d0e003167443354248ae625087318a", null ],
+      [ "ImageHarms", "struct_f_message_moderation_dto.html#ac2d544287751b3e76ebd00c6803cae5c", null ],
+      [ "OriginalText", "struct_f_message_moderation_dto.html#a1e5d6fa0004861d4a4745ef580d37e13", null ],
+      [ "SemanticFilterMatched", "struct_f_message_moderation_dto.html#a43825f9520aedad2f27dcda06fe217e0", null ],
+      [ "TextHarms", "struct_f_message_moderation_dto.html#aaf15a9cbe481913d6f2b559e503e7b60", null ]
     ] ],
     [ "FMuteChannelResponseDto", "struct_f_mute_channel_response_dto.html", [
       [ "ChannelMute", "struct_f_mute_channel_response_dto.html#a2dd1213e43edfa493c61d7f18c289223", null ],

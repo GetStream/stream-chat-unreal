@@ -222,12 +222,24 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>ShadowBanUser</b> (co
 <tr class="memitem:a6ddd4f30443b462afb6e9696dc4d4c69" id="r_a6ddd4f30443b462afb6e9696dc4d4c69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6ddd4f30443b462afb6e9696dc4d4c69">QueryBannedUsers</a> (const <a class="el" href="struct_f_filter.html">FFilter</a> &amp;Filter, const TArray&lt; <a class="el" href="struct_f_ban_sort_option.html">FBanSortOption</a> &gt; &amp;SortOptions={}, const TOptional&lt; <a class="el" href="struct_f_ban_pagination_options.html">FBanPaginationOptions</a> &gt; PaginationOptions={}, const TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_ban.html">FBan</a> &gt; &amp;)&gt; Callback={})</td></tr>
 <tr class="memdesc:a6ddd4f30443b462afb6e9696dc4d4c69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find and filter channel-scoped or global user bans.  <br /></td></tr>
 <tr class="separator:a6ddd4f30443b462afb6e9696dc4d4c69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52d8287ec7584239e4209ef2ec260ea8" id="r_a52d8287ec7584239e4209ef2ec260ea8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a52d8287ec7584239e4209ef2ec260ea8">FlagMessage</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;Message) const</td></tr>
-<tr class="memdesc:a52d8287ec7584239e4209ef2ec260ea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag message for moderation.  <br /></td></tr>
-<tr class="separator:a52d8287ec7584239e4209ef2ec260ea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5345b12be807a2217147d3e37ef9b311" id="r_a5345b12be807a2217147d3e37ef9b311"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5345b12be807a2217147d3e37ef9b311">FlagUser</a> (const <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;User) const</td></tr>
-<tr class="memdesc:a5345b12be807a2217147d3e37ef9b311"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag user for moderation.  <br /></td></tr>
-<tr class="separator:a5345b12be807a2217147d3e37ef9b311"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8564d7d876a4136aeba15d0173cea3a8" id="r_a8564d7d876a4136aeba15d0173cea3a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8564d7d876a4136aeba15d0173cea3a8">FlagMessage</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;Message, const FString &amp;Reason, const TMap&lt; FString, FString &gt; &amp;CustomData) const</td></tr>
+<tr class="memdesc:a8564d7d876a4136aeba15d0173cea3a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag message for moderation.  <br /></td></tr>
+<tr class="separator:a8564d7d876a4136aeba15d0173cea3a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecd471c7c320957151939fb45f6c5eec" id="r_aecd471c7c320957151939fb45f6c5eec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aecd471c7c320957151939fb45f6c5eec">FlagMessage</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;Message, const FString &amp;Reason=TEXT(&quot;&quot;)) const</td></tr>
+<tr class="separator:aecd471c7c320957151939fb45f6c5eec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4613f07b3d9291e73f634628ca34cd43" id="r_a4613f07b3d9291e73f634628ca34cd43"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4613f07b3d9291e73f634628ca34cd43">UnflagMessage</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;Message) const</td></tr>
+<tr class="memdesc:a4613f07b3d9291e73f634628ca34cd43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Withdraw a flag this user previously raised against a message.  <br /></td></tr>
+<tr class="separator:a4613f07b3d9291e73f634628ca34cd43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac60a66f72ce64cabf048b59ba72141cf" id="r_ac60a66f72ce64cabf048b59ba72141cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac60a66f72ce64cabf048b59ba72141cf">FlagUser</a> (const <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;User, const FString &amp;Reason, const TMap&lt; FString, FString &gt; &amp;CustomData) const</td></tr>
+<tr class="memdesc:ac60a66f72ce64cabf048b59ba72141cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag user for moderation.  <br /></td></tr>
+<tr class="separator:ac60a66f72ce64cabf048b59ba72141cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc02579ed6ca2ead59af2cce3d739709" id="r_adc02579ed6ca2ead59af2cce3d739709"><td class="memItemLeft" align="right" valign="top"><a id="adc02579ed6ca2ead59af2cce3d739709" name="adc02579ed6ca2ead59af2cce3d739709"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>FlagUser</b> (const <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;User, const FString &amp;Reason=TEXT(&quot;&quot;)) const</td></tr>
+<tr class="memdesc:adc02579ed6ca2ead59af2cce3d739709"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overload rather than a default argument, for the same reason as FlagMessage. <br /></td></tr>
+<tr class="separator:adc02579ed6ca2ead59af2cce3d739709"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35867d9b5c6bc43842dcfbc58ff5a423" id="r_a35867d9b5c6bc43842dcfbc58ff5a423"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35867d9b5c6bc43842dcfbc58ff5a423">UnflagUser</a> (const <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;User) const</td></tr>
+<tr class="memdesc:a35867d9b5c6bc43842dcfbc58ff5a423"><td class="mdescLeft">&#160;</td><td class="mdescRight">Withdraw a flag this user previously raised against another user.  <br /></td></tr>
+<tr class="separator:a35867d9b5c6bc43842dcfbc58ff5a423"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a47b35b743dca85a1e73fceaabdcada3d" id="r_a47b35b743dca85a1e73fceaabdcada3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47b35b743dca85a1e73fceaabdcada3d">MuteUserBP</a> (const <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;User, FTimespan Timeout) const</td></tr>
 <tr class="memdesc:a47b35b743dca85a1e73fceaabdcada3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mute the given user.  <br /></td></tr>
 <tr class="separator:a47b35b743dca85a1e73fceaabdcada3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -243,9 +255,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>MuteUser</b> (const <
 <tr class="memitem:a3c758399bbc4b06dbc4f4f53a45214f0" id="r_a3c758399bbc4b06dbc4f4f53a45214f0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3c758399bbc4b06dbc4f4f53a45214f0">UnblockUser</a> (const <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;User) const</td></tr>
 <tr class="memdesc:a3c758399bbc4b06dbc4f4f53a45214f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unblock a previously blocked user.  <br /></td></tr>
 <tr class="separator:a3c758399bbc4b06dbc4f4f53a45214f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a351e6e4397c366d2163ff0caf1325b6c" id="r_a351e6e4397c366d2163ff0caf1325b6c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a351e6e4397c366d2163ff0caf1325b6c">GetBlockedUsers</a> (TFunction&lt; void(const TArray&lt; FString &gt; &amp;)&gt; Callback) const</td></tr>
-<tr class="memdesc:a351e6e4397c366d2163ff0caf1325b6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the users blocked by the currently connected user.  <br /></td></tr>
-<tr class="separator:a351e6e4397c366d2163ff0caf1325b6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a982ef58a0337cc77543433ab276ac795" id="r_a982ef58a0337cc77543433ab276ac795"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a982ef58a0337cc77543433ab276ac795">GetBlockedUsers</a> (TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_user_block.html">FUserBlock</a> &gt; &amp;)&gt; Callback={}) const</td></tr>
+<tr class="memdesc:a982ef58a0337cc77543433ab276ac795"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the users blocked by the currently connected user.  <br /></td></tr>
+<tr class="separator:a982ef58a0337cc77543433ab276ac795"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -676,8 +688,8 @@ template&lt;class TEvent &gt; </td></tr>
 
 </div>
 </div>
-<a id="a52d8287ec7584239e4209ef2ec260ea8" name="a52d8287ec7584239e4209ef2ec260ea8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52d8287ec7584239e4209ef2ec260ea8">&#9670;&#160;</a></span>FlagMessage()</h2>
+<a id="a8564d7d876a4136aeba15d0173cea3a8" name="a8564d7d876a4136aeba15d0173cea3a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8564d7d876a4136aeba15d0173cea3a8">&#9670;&#160;</a></span>FlagMessage() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -685,24 +697,58 @@ template&lt;class TEvent &gt; </td></tr>
         <tr>
           <td class="memname">void UStreamChatClientComponent::FlagMessage </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_f_message.html">FMessage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>Message</em></span></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">const <a class="el" href="struct_f_message.html">FMessage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>Message</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>Reason</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TMap&lt; FString, FString &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>CustomData</em></span>&#160;) const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Flag message for moderation. </p>
+<p>The flagged message reaches the review queue in the moderation dashboard. Flagging does not hide the message: that is a moderator's decision, or an automod rule's.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">Message</td><td>A reference to an existing message </td></tr>
+    <tr><td class="paramname">Reason</td><td>Why the message was reported. Shown to moderators in the review queue. (optional) </td></tr>
+    <tr><td class="paramname">CustomData</td><td>Extra key/value pairs to attach to the flag (optional) </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a5345b12be807a2217147d3e37ef9b311" name="a5345b12be807a2217147d3e37ef9b311"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5345b12be807a2217147d3e37ef9b311">&#9670;&#160;</a></span>FlagUser()</h2>
+<a id="aecd471c7c320957151939fb45f6c5eec" name="aecd471c7c320957151939fb45f6c5eec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecd471c7c320957151939fb45f6c5eec">&#9670;&#160;</a></span>FlagMessage() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UStreamChatClientComponent::FlagMessage </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_f_message.html">FMessage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>Message</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>Reason</em></span><span class="paramdefsep"> = </span><span class="paramdefval">TEXT(&quot;&quot;)</span>&#160;) const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Overload rather than a default argument, because UHT cannot parse a default value for a TMap parameter, and giving the Blueprint-facing function a different name would rename its node. </p>
+
+</div>
+</div>
+<a id="ac60a66f72ce64cabf048b59ba72141cf" name="ac60a66f72ce64cabf048b59ba72141cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac60a66f72ce64cabf048b59ba72141cf">&#9670;&#160;</a></span>FlagUser()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -710,8 +756,17 @@ template&lt;class TEvent &gt; </td></tr>
         <tr>
           <td class="memname">void UStreamChatClientComponent::FlagUser </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>User</em></span></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">const <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>User</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>Reason</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TMap&lt; FString, FString &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>CustomData</em></span>&#160;) const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -720,14 +775,16 @@ template&lt;class TEvent &gt; </td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">User</td><td>A reference to a user </td></tr>
+    <tr><td class="paramname">Reason</td><td>Why the user was reported. Shown to moderators in the review queue. (optional) </td></tr>
+    <tr><td class="paramname">CustomData</td><td>Extra key/value pairs to attach to the flag (optional) </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a351e6e4397c366d2163ff0caf1325b6c" name="a351e6e4397c366d2163ff0caf1325b6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a351e6e4397c366d2163ff0caf1325b6c">&#9670;&#160;</a></span>GetBlockedUsers()</h2>
+<a id="a982ef58a0337cc77543433ab276ac795" name="a982ef58a0337cc77543433ab276ac795"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a982ef58a0337cc77543433ab276ac795">&#9670;&#160;</a></span>GetBlockedUsers()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -735,16 +792,17 @@ template&lt;class TEvent &gt; </td></tr>
         <tr>
           <td class="memname">void UStreamChatClientComponent::GetBlockedUsers </td>
           <td>(</td>
-          <td class="paramtype">TFunction&lt; void(const TArray&lt; FString &gt; &amp;)&gt;</td>          <td class="paramname"><span class="paramname"><em>Callback</em></span></td><td>)</td>
+          <td class="paramtype">TFunction&lt; void(const TArray&lt; <a class="el" href="struct_f_user_block.html">FUserBlock</a> &gt; &amp;)&gt;</td>          <td class="paramname"><span class="paramname"><em>Callback</em></span><span class="paramdefsep"> = </span><span class="paramdefval">{}</span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Get the users blocked by the currently connected user. </p>
+<p>Also refreshes <a class="el" href="struct_f_own_user.html#a33bf634b26a96253b7d0cf7c09f1427b" title="Ids of the users this user has blocked.">FOwnUser::BlockedUserIds</a>, which nothing else populates: the API reports blocks only here and in the block/unblock responses. Call this once after connecting if you rely on <a class="el" href="struct_f_own_user.html#a6b9e3d602bd0022ceade41ce86816fa7" title="Has this user blocked the given user?">FOwnUser::HasBlockedUser</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">Callback</td><td>Called with the ids of the blocked users </td></tr>
+    <tr><td class="paramname">Callback</td><td>Called with the blocks created by the current user </td></tr>
   </table>
   </dd>
 </dl>
@@ -1460,6 +1518,56 @@ template&lt;class TEvent , class UserClass &gt; </div>
 </div><div class="memdoc">
 
 <p>Unblock a previously blocked user. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">User</td><td>A reference to a user </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4613f07b3d9291e73f634628ca34cd43" name="a4613f07b3d9291e73f634628ca34cd43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4613f07b3d9291e73f634628ca34cd43">&#9670;&#160;</a></span>UnflagMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UStreamChatClientComponent::UnflagMessage </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_f_message.html">FMessage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>Message</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Withdraw a flag this user previously raised against a message. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Message</td><td>A reference to an existing message </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a35867d9b5c6bc43842dcfbc58ff5a423" name="a35867d9b5c6bc43842dcfbc58ff5a423"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35867d9b5c6bc43842dcfbc58ff5a423">&#9670;&#160;</a></span>UnflagUser()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UStreamChatClientComponent::UnflagUser </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>User</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Withdraw a flag this user previously raised against another user. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">User</td><td>A reference to a user </td></tr>

@@ -20,7 +20,9 @@ var searchData=
   ['operator_2d_3e_17',['operator-&gt;',['../struct_f_user_ref.html#a47fd6c407c35ffbae1ea3b30c01d6925',1,'FUserRef']]],
   ['operator_3d_3d_18',['operator==',['../struct_f_user_ref.html#a448939f19a97d325cda4e5eab587cf13',1,'FUserRef']]],
   ['or_19',['Or',['../struct_f_filter.html#a4b2bf856ffb4ad9efc4d36ed718ccb51',1,'FFilter::Or()'],['../group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a3a2d5fe857d8f9541136a124c2edec6c',1,'Or:&#160;Filter.h']]],
-  ['owncapabilities_20',['OwnCapabilities',['../struct_f_channel_response_dto.html#adb6e23ef5d4c0e7ed20e77e4f55c66d1',1,'FChannelResponseDto::OwnCapabilities'],['../struct_f_channel_properties.html#a2448f8bda77f37fddae01d0efd3f26ef',1,'FChannelProperties::OwnCapabilities']]],
-  ['ownreactions_21',['OwnReactions',['../struct_f_message_dto.html#a607ac7fc32caf6b25b9d0b0e3a5dba7a',1,'FMessageDto']]],
-  ['ownuser_22',['OwnUser',['../struct_f_mute_channel_response_dto.html#ae1d370b3dcd6aa9a9745ac9fb158c19f',1,'FMuteChannelResponseDto::OwnUser'],['../struct_f_mute_user_response_dto.html#a2c966a3996b74ae9ae5dbbcd2fa75694',1,'FMuteUserResponseDto::OwnUser']]]
+  ['originaltext_20',['OriginalText',['../struct_f_message_moderation_dto.html#a1e5d6fa0004861d4a4745ef580d37e13',1,'FMessageModerationDto::OriginalText'],['../struct_f_message_moderation.html#a35947e1983249467cdad182ec10c496b',1,'FMessageModeration::OriginalText']]],
+  ['other_21',['Other',['../group___stream_chat.html#ggafea2640b77b5dbce6dd012380d5e0297a6311ae17c1ee52b36e68aaf4ad066387',1,'MessageModeration.h']]],
+  ['owncapabilities_22',['OwnCapabilities',['../struct_f_channel_response_dto.html#adb6e23ef5d4c0e7ed20e77e4f55c66d1',1,'FChannelResponseDto::OwnCapabilities'],['../struct_f_channel_properties.html#a2448f8bda77f37fddae01d0efd3f26ef',1,'FChannelProperties::OwnCapabilities']]],
+  ['ownreactions_23',['OwnReactions',['../struct_f_message_dto.html#a607ac7fc32caf6b25b9d0b0e3a5dba7a',1,'FMessageDto']]],
+  ['ownuser_24',['OwnUser',['../struct_f_mute_channel_response_dto.html#ae1d370b3dcd6aa9a9745ac9fb158c19f',1,'FMuteChannelResponseDto::OwnUser'],['../struct_f_mute_user_response_dto.html#a2c966a3996b74ae9ae5dbbcd2fa75694',1,'FMuteUserResponseDto::OwnUser']]]
 ];

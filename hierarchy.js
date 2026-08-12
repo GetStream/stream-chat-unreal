@@ -78,6 +78,8 @@ var hierarchy =
     [ "FMessageDto", "struct_f_message_dto.html", [
       [ "FSearchResultMessageDto", "struct_f_search_result_message_dto.html", null ]
     ] ],
+    [ "FMessageModeration", "struct_f_message_moderation.html", null ],
+    [ "FMessageModerationDto", "struct_f_message_moderation_dto.html", null ],
     [ "FMessagePaginationParamsRequestDto", "struct_f_message_pagination_params_request_dto.html", null ],
     [ "FMessageRequestDto", "struct_f_message_request_dto.html", null ],
     [ "FMessageSortOption", "struct_f_message_sort_option.html", null ],
@@ -148,6 +150,7 @@ var hierarchy =
     [ "FUpdateUsersPartialRequestDto", "struct_f_update_users_partial_request_dto.html", null ],
     [ "FUpdateUsersRequestDto", "struct_f_update_users_request_dto.html", null ],
     [ "FUser", "struct_f_user.html", null ],
+    [ "FUserBlock", "struct_f_user_block.html", null ],
     [ "FUserDto", "struct_f_user_dto.html", [
       [ "FOwnUserDto", "struct_f_own_user_dto.html", null ],
       [ "FUserObjectDto", "struct_f_user_object_dto.html", [
@@ -173,6 +176,7 @@ var hierarchy =
     [ "UMessageWidget", "class_u_message_widget.html", null ],
     [ "UReactionGroupBlueprintLibrary", "class_u_reaction_group_blueprint_library.html", null ],
     [ "UReactionsBlueprintLibrary", "class_u_reactions_blueprint_library.html", null ],
+    [ "UResendMessageContextMenuAction", "class_u_resend_message_context_menu_action.html", null ],
     [ "UStreamChatClientComponent", "class_u_stream_chat_client_component.html", null ],
     [ "UStreamChatSettings", "class_u_stream_chat_settings.html", null ],
     [ "UStreamChatWebSocketSettings", "class_u_stream_chat_web_socket_settings.html", null ],

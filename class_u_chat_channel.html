@@ -253,6 +253,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>GetMessage</b> (const
 <tr class="memitem:ab5573d2437ef706d2bd0a4c3baff7cda" id="r_ab5573d2437ef706d2bd0a4c3baff7cda"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5573d2437ef706d2bd0a4c3baff7cda">UpdateMessage</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;Message)</td></tr>
 <tr class="memdesc:ab5573d2437ef706d2bd0a4c3baff7cda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update (user might see "Edit") a message which exists on this channel.  <br /></td></tr>
 <tr class="separator:ab5573d2437ef706d2bd0a4c3baff7cda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cb750144351dfe9d1ea03efc4c5bdbb" id="r_a6cb750144351dfe9d1ea03efc4c5bdbb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6cb750144351dfe9d1ea03efc4c5bdbb">ResendMessage</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;Message)</td></tr>
+<tr class="memdesc:a6cb750144351dfe9d1ea03efc4c5bdbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a message again, after a first attempt did not reach the channel.  <br /></td></tr>
+<tr class="separator:a6cb750144351dfe9d1ea03efc4c5bdbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd8d28c0f92e5aa93f9498a0307fe871" id="r_acd8d28c0f92e5aa93f9498a0307fe871"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acd8d28c0f92e5aa93f9498a0307fe871">DeleteMessage</a> (const <a class="el" href="struct_f_message.html">FMessage</a> &amp;Message)</td></tr>
 <tr class="memdesc:acd8d28c0f92e5aa93f9498a0307fe871"><td class="mdescLeft">&#160;</td><td class="mdescRight">Soft delete a message in this channel.  <br /></td></tr>
 <tr class="separator:acd8d28c0f92e5aa93f9498a0307fe871"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -529,6 +532,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>DisableSlowMode</b> (
 </div><div class="memdoc">
 
 <p>Soft delete a message in this channel. </p>
+<p>A message which never reached the server, including one moderation bounced, is only removed locally: there is nothing on the server to delete.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">Message</td><td>Message which already exists in this channel </td></tr>
@@ -1150,6 +1154,33 @@ template&lt;class TEvent , class UserClass &gt; </div>
     <tr><td class="paramname">MemberIds</td><td>IDs of users to remove from the channel as members </td></tr>
     <tr><td class="paramname">Message</td><td>Optionally include a message object that will be used to populate a system message </td></tr>
     <tr><td class="paramname">Callback</td><td>Called when response is received. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6cb750144351dfe9d1ea03efc4c5bdbb" name="a6cb750144351dfe9d1ea03efc4c5bdbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cb750144351dfe9d1ea03efc4c5bdbb">&#9670;&#160;</a></span>ResendMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void UChatChannel::ResendMessage </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_f_message.html">FMessage</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>Message</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Send a message again, after a first attempt did not reach the channel. </p>
+<p>Written for a message moderation bounced: that message was never stored server side, so it has to be sent afresh rather than edited. The previous verdict and error type are cleared, so the message stops reading as rejected while the new attempt is in flight.</p>
+<p>Sending the same text again will usually be bounced again. Let the author edit it first, unless your moderation rules are configured to let a resend through.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Message</td><td>Message held by this channel which failed to send </td></tr>
   </table>
   </dd>
 </dl>

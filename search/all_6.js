@@ -1,7 +1,7 @@
 var searchData=
 [
   ['generateuserid_0',['GenerateUserId',['../class_u_user_blueprint_library.html#ae5b091487fa7372d7858b6bf1ff1a070',1,'UUserBlueprintLibrary']]],
-  ['getblockedusers_1',['GetBlockedUsers',['../class_f_chat_api.html#a726b050faff136c0478ade4546d5c30e',1,'FChatApi::GetBlockedUsers()'],['../class_u_stream_chat_client_component.html#a351e6e4397c366d2163ff0caf1325b6c',1,'UStreamChatClientComponent::GetBlockedUsers()']]],
+  ['getblockedusers_1',['GetBlockedUsers',['../class_f_chat_api.html#a726b050faff136c0478ade4546d5c30e',1,'FChatApi::GetBlockedUsers()'],['../class_u_stream_chat_client_component.html#a982ef58a0337cc77543433ab276ac795',1,'UStreamChatClientComponent::GetBlockedUsers()']]],
   ['getdeletedat_2',['GetDeletedAt',['../struct_f_message_dto.html#adfae68c3d22afccc25f0cb7c95849c25',1,'FMessageDto']]],
   ['getinitials_3',['GetInitials',['../struct_f_user.html#a58dfd9a7274d80577b49c767840067d3',1,'FUser']]],
   ['getlastactive_4',['GetLastActive',['../struct_f_user.html#a28c7c7b17b39bad58ca6296fea0038e8',1,'FUser']]],

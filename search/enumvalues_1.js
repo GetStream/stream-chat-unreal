@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['bannedbyid_0',['BannedById',['../group___stream_chat.html#ggad83c2a39fafdf07b890e3260924f9f56a26e02bb8f81ec5a4d22cb8e3a8a8faf9',1,'ChannelSortOption.h']]]
+  ['bannedbyid_0',['BannedById',['../group___stream_chat.html#ggad83c2a39fafdf07b890e3260924f9f56a26e02bb8f81ec5a4d22cb8e3a8a8faf9',1,'ChannelSortOption.h']]],
+  ['bounce_1',['Bounce',['../group___stream_chat.html#ggafea2640b77b5dbce6dd012380d5e0297aeb9a56428f85bbdfd3846322baaffe6e',1,'MessageModeration.h']]]
 ];

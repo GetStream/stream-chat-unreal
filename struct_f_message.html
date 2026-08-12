@@ -140,6 +140,16 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsThreadReply</b> () 
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsThreadStart</b> () const</td></tr>
 <tr class="memdesc:ad23e4dc620037d72eefed5d2c4cfaded"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does this message have a thread of replies hanging off it? <br /></td></tr>
 <tr class="separator:ad23e4dc620037d72eefed5d2c4cfaded"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebc6ea67439ac72bda10b6363e04b5f1" id="r_aebc6ea67439ac72bda10b6363e04b5f1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aebc6ea67439ac72bda10b6363e04b5f1">IsBounced</a> () const</td></tr>
+<tr class="memdesc:aebc6ea67439ac72bda10b6363e04b5f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Did moderation bounce this message back to be rephrased?  <br /></td></tr>
+<tr class="separator:aebc6ea67439ac72bda10b6363e04b5f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b7baa626425bd577b36c4e1838fa6b9" id="r_a9b7baa626425bd577b36c4e1838fa6b9"><td class="memItemLeft" align="right" valign="top"><a id="a9b7baa626425bd577b36c4e1838fa6b9" name="a9b7baa626425bd577b36c4e1838fa6b9"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsRemovedByModeration</b> () const</td></tr>
+<tr class="memdesc:a9b7baa626425bd577b36c4e1838fa6b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Did moderation block this message and take it out of the channel? <br /></td></tr>
+<tr class="separator:a9b7baa626425bd577b36c4e1838fa6b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a6ff665ab42061f7fb3b6a9608359a9" id="r_a4a6ff665ab42061f7fb3b6a9608359a9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a6ff665ab42061f7fb3b6a9608359a9">IsModerationError</a> () const</td></tr>
+<tr class="memdesc:a4a6ff665ab42061f7fb3b6a9608359a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is this the current user's own message, sitting in the list because moderation bounced it?  <br /></td></tr>
+<tr class="separator:a4a6ff665ab42061f7fb3b6a9608359a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -202,6 +212,10 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>bIsSilent</b> = false
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>bIsShadowed</b> = false</td></tr>
 <tr class="memdesc:a10689717c2aee4a96a85ef83f4be9858"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether the message was shadowed or not. <br /></td></tr>
 <tr class="separator:a10689717c2aee4a96a85ef83f4be9858"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca1625a9af9d37f62a00c5821721965a" id="r_aca1625a9af9d37f62a00c5821721965a"><td class="memItemLeft" align="right" valign="top"><a id="aca1625a9af9d37f62a00c5821721965a" name="aca1625a9af9d37f62a00c5821721965a"></a>
+<a class="el" href="struct_f_message_moderation.html">FMessageModeration</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Moderation</b></td></tr>
+<tr class="memdesc:aca1625a9af9d37f62a00c5821721965a"><td class="mdescLeft">&#160;</td><td class="mdescRight">What moderation decided about this message. Unset on all but a handful of messages. <br /></td></tr>
+<tr class="separator:aca1625a9af9d37f62a00c5821721965a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad61c20d4391e36ad42b1fcfa413a6dc9" id="r_ad61c20d4391e36ad42b1fcfa413a6dc9"><td class="memItemLeft" align="right" valign="top"><a id="ad61c20d4391e36ad42b1fcfa413a6dc9" name="ad61c20d4391e36ad42b1fcfa413a6dc9"></a>
 FString&#160;</td><td class="memItemRight" valign="bottom"><b>Html</b></td></tr>
 <tr class="memdesc:ad61c20d4391e36ad42b1fcfa413a6dc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains HTML markup of the message. <br /></td></tr>
@@ -216,7 +230,48 @@ FAdditionalFields&#160;</td><td class="memItemRight" valign="bottom"><b>ExtraDat
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents a Stream Chat message. </p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aebc6ea67439ac72bda10b6363e04b5f1" name="aebc6ea67439ac72bda10b6363e04b5f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebc6ea67439ac72bda10b6363e04b5f1">&#9670;&#160;</a></span>IsBounced()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FMessage::IsBounced </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Did moderation bounce this message back to be rephrased? </p>
+<p>A bounced message was never published and is not stored server side, so it exists only in this client's message list. Offer the author the chance to edit and send it again, or to discard it. </p>
+
+</div>
+</div>
+<a id="a4a6ff665ab42061f7fb3b6a9608359a9" name="a4a6ff665ab42061f7fb3b6a9608359a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a6ff665ab42061f7fb3b6a9608359a9">&#9670;&#160;</a></span>IsModerationError()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FMessage::IsModerationError </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Is this the current user's own message, sitting in the list because moderation bounced it? </p>
+<p>The API reports a bounce as an error-type message, which is how it is told apart from a message that failed to send for some other reason. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
 <a id="af2e4953f3bcb28d058e3370cbb78f256" name="af2e4953f3bcb28d058e3370cbb78f256"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af2e4953f3bcb28d058e3370cbb78f256">&#9670;&#160;</a></span>bShowInChannel</h2>
 

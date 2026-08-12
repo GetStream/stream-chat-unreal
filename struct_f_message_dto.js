@@ -14,6 +14,8 @@ var struct_f_message_dto =
     [ "LatestReactions", "struct_f_message_dto.html#a8113f65457346f85e2cde5158b0e7183", null ],
     [ "MentionedUsers", "struct_f_message_dto.html#a3029015ca8796ddc74db3163b1ab1f8b", null ],
     [ "Mml", "struct_f_message_dto.html#a7a1eead86619a84881840f70cabe9ea7", null ],
+    [ "Moderation", "struct_f_message_dto.html#a591990cef360b7c89a7845814cfb36d4", null ],
+    [ "ModerationDetails", "struct_f_message_dto.html#af29e845defa6bb71ce575cb343777025", null ],
     [ "OwnReactions", "struct_f_message_dto.html#a607ac7fc32caf6b25b9d0b0e3a5dba7a", null ],
     [ "ParentId", "struct_f_message_dto.html#a5120b8310d00c61c30d05b848764b259", null ],
     [ "PinExpires", "struct_f_message_dto.html#ae96097caea9a3ed132366c1bce3410c7", null ],

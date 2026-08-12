@@ -31,6 +31,7 @@ var class_u_chat_channel =
     [ "QueryMembers", "class_u_chat_channel.html#a8079737719a8928c643630d4fab9c298", null ],
     [ "QueryReplies", "class_u_chat_channel.html#af072c4dff1b9058164266623fc2e13a1", null ],
     [ "RemoveMembers", "class_u_chat_channel.html#afdfde70695ffa82e37a4d216ea9c5c9e", null ],
+    [ "ResendMessage", "class_u_chat_channel.html#a6cb750144351dfe9d1ea03efc4c5bdbb", null ],
     [ "SearchMessages", "class_u_chat_channel.html#ab88c80df5f628c7faf4aa8861e410c08", null ],
     [ "SearchMessages", "class_u_chat_channel.html#abd9c334382f0b34ae03f96cf6113b384", null ],
     [ "SendEvent", "class_u_chat_channel.html#aed47eb30b9ab1fde4d67b88caa12d317", null ],

@@ -19,10 +19,13 @@ var searchData=
   ['messagesupdated_16',['MessagesUpdated',['../class_u_chat_channel.html#a7eee9c31542dec3a10bc033af1de4c75',1,'UChatChannel']]],
   ['mimetype_17',['MimeType',['../struct_f_attachment_dto.html#a75b71d995ce0b032f9fcffa6ba4be981',1,'FAttachmentDto::MimeType'],['../struct_f_attachment.html#a7f317653da28ee3a2cb20831006f7090',1,'FAttachment::MimeType']]],
   ['mml_18',['Mml',['../struct_f_message_request_dto.html#aaaffb243ad1068d68462da12c25d28c9',1,'FMessageRequestDto::Mml'],['../struct_f_message_dto.html#a7a1eead86619a84881840f70cabe9ea7',1,'FMessageDto::Mml']]],
-  ['moreinfo_19',['MoreInfo',['../struct_f_error_response_dto.html#a984f93721b5a17bc2d3133d8126bc810',1,'FErrorResponseDto']]],
-  ['mute_20',['Mute',['../struct_f_mute_user_response_dto.html#a713f2b3602f621d70f70331cbc0d7fb2',1,'FMuteUserResponseDto']]],
-  ['mutedchannels_21',['MutedChannels',['../struct_f_own_user.html#a420eac30bfe5755a124c8f43a1abf0d1',1,'FOwnUser']]],
-  ['mutedusers_22',['MutedUsers',['../struct_f_own_user.html#a267ef79e600c4db73b7c47d9b8d6b82c',1,'FOwnUser']]],
-  ['muteexpiresat_23',['MuteExpiresAt',['../struct_f_channel_response_dto.html#ab084032cdef730ca70af4721e7a6bd0a',1,'FChannelResponseDto::MuteExpiresAt'],['../struct_f_channel_properties.html#ac68111b087f5e1efa68e6d9b91a8d60d',1,'FChannelProperties::MuteExpiresAt']]],
-  ['mutes_24',['Mutes',['../struct_f_mute_user_response_dto.html#a022ae3bc6a7d5593c22d11a4a3fbf08a',1,'FMuteUserResponseDto']]]
+  ['moderation_19',['Moderation',['../struct_f_message_dto.html#a591990cef360b7c89a7845814cfb36d4',1,'FMessageDto::Moderation'],['../struct_f_message.html#aca1625a9af9d37f62a00c5821721965a',1,'FMessage::Moderation']]],
+  ['moderationdetails_20',['ModerationDetails',['../struct_f_message_dto.html#af29e845defa6bb71ce575cb343777025',1,'FMessageDto']]],
+  ['moderationwarningpadding_21',['ModerationWarningPadding',['../class_u_message_widget.html#a5cdb9c6030ba1be8a7d40aea4382b799',1,'UMessageWidget']]],
+  ['moreinfo_22',['MoreInfo',['../struct_f_error_response_dto.html#a984f93721b5a17bc2d3133d8126bc810',1,'FErrorResponseDto']]],
+  ['mute_23',['Mute',['../struct_f_mute_user_response_dto.html#a713f2b3602f621d70f70331cbc0d7fb2',1,'FMuteUserResponseDto']]],
+  ['mutedchannels_24',['MutedChannels',['../struct_f_own_user.html#a420eac30bfe5755a124c8f43a1abf0d1',1,'FOwnUser']]],
+  ['mutedusers_25',['MutedUsers',['../struct_f_own_user.html#a267ef79e600c4db73b7c47d9b8d6b82c',1,'FOwnUser']]],
+  ['muteexpiresat_26',['MuteExpiresAt',['../struct_f_channel_response_dto.html#ab084032cdef730ca70af4721e7a6bd0a',1,'FChannelResponseDto::MuteExpiresAt'],['../struct_f_channel_properties.html#ac68111b087f5e1efa68e6d9b91a8d60d',1,'FChannelProperties::MuteExpiresAt']]],
+  ['mutes_27',['Mutes',['../struct_f_mute_user_response_dto.html#a022ae3bc6a7d5593c22d11a4a3fbf08a',1,'FMuteUserResponseDto']]]
 ];

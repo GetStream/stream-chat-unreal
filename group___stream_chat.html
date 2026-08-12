@@ -167,6 +167,12 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_ban_pagination_options.html">FBanPaginationOptions</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Options for pagination of bans.  <a href="struct_f_ban_pagination_options.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_moderation.html">FMessageModeration</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The moderation verdict for a message.  <a href="struct_f_message_moderation.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_user_block.html">FUserBlock</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">One user blocking another.  <a href="struct_f_user_block.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_pagination_options.html">FPaginationOptions</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Options for pagination.  <a href="struct_f_pagination_options.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -344,6 +350,17 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:gae884ad235d4918a9a12ecb8741344cc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of message, as set by the API or chat bots and custom commands.  <a href="#gae884ad235d4918a9a12ecb8741344cc7">More...</a><br /></td></tr>
 <tr class="separator:gae884ad235d4918a9a12ecb8741344cc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafea2640b77b5dbce6dd012380d5e0297" id="r_gafea2640b77b5dbce6dd012380d5e0297"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#gafea2640b77b5dbce6dd012380d5e0297">EMessageModerationAction</a> : uint8 { <br />
+&#160;&#160;<a class="el" href="#ggafea2640b77b5dbce6dd012380d5e0297a6adf97f83acf6453d4a6a4b1070f3754">EMessageModerationAction::None</a>
+, <a class="el" href="#ggafea2640b77b5dbce6dd012380d5e0297aeb9a56428f85bbdfd3846322baaffe6e">EMessageModerationAction::Bounce</a>
+, <a class="el" href="#ggafea2640b77b5dbce6dd012380d5e0297a1063e38cb53d94d386f21227fcd84717">EMessageModerationAction::Remove</a>
+, <a class="el" href="#ggafea2640b77b5dbce6dd012380d5e0297ac5836008c1649301e29351a55db8f65c">EMessageModerationAction::Flag</a>
+, <br />
+&#160;&#160;<a class="el" href="#ggafea2640b77b5dbce6dd012380d5e0297a6311ae17c1ee52b36e68aaf4ad066387">EMessageModerationAction::Other</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:gafea2640b77b5dbce6dd012380d5e0297"><td class="mdescLeft">&#160;</td><td class="mdescRight">What moderation decided to do with a message.  <a href="#gafea2640b77b5dbce6dd012380d5e0297">More...</a><br /></td></tr>
+<tr class="separator:gafea2640b77b5dbce6dd012380d5e0297"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>This module is the main interface to the Stream Chat low level client functionality. </p>
@@ -471,6 +488,42 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a5f61fcb6e17f7a46a46a47c7977c90c1" name="gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a5f61fcb6e17f7a46a46a47c7977c90c1"></a>Nor&#160;</td><td class="fielddoc"><p>Matches none of the values specified in an array. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga5f415eaba7bb8ad8ae40f5b8b3eb69b5ab270372be5b4433b4736daaf25e1c74e" name="gga5f415eaba7bb8ad8ae40f5b8b3eb69b5ab270372be5b4433b4736daaf25e1c74e"></a>Contains&#160;</td><td class="fielddoc"><p>Matches any list that contains the specified value. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="gafea2640b77b5dbce6dd012380d5e0297" name="gafea2640b77b5dbce6dd012380d5e0297"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafea2640b77b5dbce6dd012380d5e0297">&#9670;&#160;</a></span>EMessageModerationAction</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#gafea2640b77b5dbce6dd012380d5e0297">EMessageModerationAction</a> : uint8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>What moderation decided to do with a message. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggafea2640b77b5dbce6dd012380d5e0297a6adf97f83acf6453d4a6a4b1070f3754" name="ggafea2640b77b5dbce6dd012380d5e0297a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"><p>Moderation reached no verdict, which is the case for almost every message. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggafea2640b77b5dbce6dd012380d5e0297aeb9a56428f85bbdfd3846322baaffe6e" name="ggafea2640b77b5dbce6dd012380d5e0297aeb9a56428f85bbdfd3846322baaffe6e"></a>Bounce&#160;</td><td class="fielddoc"><p>The message needs rephrasing and sending again. It was neither published nor stored. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggafea2640b77b5dbce6dd012380d5e0297a1063e38cb53d94d386f21227fcd84717" name="ggafea2640b77b5dbce6dd012380d5e0297a1063e38cb53d94d386f21227fcd84717"></a>Remove&#160;</td><td class="fielddoc"><p>The message was blocked and removed from the channel. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggafea2640b77b5dbce6dd012380d5e0297ac5836008c1649301e29351a55db8f65c" name="ggafea2640b77b5dbce6dd012380d5e0297ac5836008c1649301e29351a55db8f65c"></a>Flag&#160;</td><td class="fielddoc"><p>The message was published, but sent to the dashboard for a moderator to review. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggafea2640b77b5dbce6dd012380d5e0297a6311ae17c1ee52b36e68aaf4ad066387" name="ggafea2640b77b5dbce6dd012380d5e0297a6311ae17c1ee52b36e68aaf4ad066387"></a>Other&#160;</td><td class="fielddoc"><p>An action this version of the SDK does not know about. Read <a class="el" href="struct_f_message_moderation.html#a0b5028180c18b4f9031f674f04fcb4b5" title="The action exactly as the API named it.">FMessageModeration::RawAction</a>. </p>
 </td></tr>
 </table>
 

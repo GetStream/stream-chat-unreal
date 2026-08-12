@@ -107,122 +107,132 @@ $(function(){initNavTree('_message_8h_source.html',''); initResizable(true); });
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;Channel/Attachment.h&quot;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;CoreMinimal.h&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;Reaction/Reactions.h&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;Response/Channel/ChannelStateResponseFieldsDto.h&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;Response/Message/SearchResultDto.h&quot;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;User/UserRef.h&quot;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;Message.generated.h&quot;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">struct </span><a class="code hl_struct" href="struct_f_message_dto.html">FMessageDto</a>;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">struct </span><a class="code hl_struct" href="struct_f_message_request_dto.html">FMessageRequestDto</a>;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>UENUM(BlueprintType)</div>
-<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="group___stream_chat.html#gabc7dccfc91858f37b4ad78364a0b2f91">   22</a></span>enum class <a class="code hl_enumeration" href="group___stream_chat.html#gabc7dccfc91858f37b4ad78364a0b2f91">EMessageSendState</a> : uint8</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_enumvalue" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a6adf97f83acf6453d4a6a4b1070f3754">None</a>,</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_enumvalue" href="group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91ae4b0c2b6d59cb4cf3e169a9886008087">Sending</a>,</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_enumvalue" href="group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91a7f8c0283f16925caed8e632086b81b9c">Sent</a>,</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_enumvalue" href="group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91a6909beea5b50605780e3411f879fe916">Updating</a>,</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_enumvalue" href="group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91affbb410a55bb31f801dea6387e2745ac">Deleting</a>,</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_enumvalue" href="group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91ad7c8c85bf79bbe1b7188497c32c3b0ca">Failed</a></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>};</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;Moderation/MessageModeration.h&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;Reaction/Reactions.h&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;Response/Channel/ChannelStateResponseFieldsDto.h&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;Response/Message/SearchResultDto.h&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;User/UserRef.h&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;Message.generated.h&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">struct </span><a class="code hl_struct" href="struct_f_message_dto.html">FMessageDto</a>;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">struct </span><a class="code hl_struct" href="struct_f_message_request_dto.html">FMessageRequestDto</a>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>UENUM(BlueprintType)</div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="group___stream_chat.html#gabc7dccfc91858f37b4ad78364a0b2f91">   23</a></span>enum class <a class="code hl_enumeration" href="group___stream_chat.html#gabc7dccfc91858f37b4ad78364a0b2f91">EMessageSendState</a> : uint8</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>{</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_enumvalue" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a6adf97f83acf6453d4a6a4b1070f3754">None</a>,</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_enumvalue" href="group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91ae4b0c2b6d59cb4cf3e169a9886008087">Sending</a>,</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_enumvalue" href="group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91a7f8c0283f16925caed8e632086b81b9c">Sent</a>,</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_enumvalue" href="group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91a6909beea5b50605780e3411f879fe916">Updating</a>,</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_enumvalue" href="group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91affbb410a55bb31f801dea6387e2745ac">Deleting</a>,</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_enumvalue" href="group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91ad7c8c85bf79bbe1b7188497c32c3b0ca">Failed</a></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>};</div>
 </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>UENUM(BlueprintType)</div>
-<div class="foldopen" id="foldopen00043" data-start="{" data-end="};">
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="group___stream_chat.html#gae884ad235d4918a9a12ecb8741344cc7">   43</a></span>enum class <a class="code hl_enumeration" href="group___stream_chat.html#gae884ad235d4918a9a12ecb8741344cc7">EMessageType</a> : uint8</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>{</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_enumvalue" href="group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7ad2203cb1237cb6460cbad94564e39345">Regular</a>,</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <a class="code hl_enumvalue" href="group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a446700a09f499c4dd922bfa13b27479d">Ephemeral</a>,</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <a class="code hl_enumvalue" href="group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a902b0d55fddef6f8d651fe1035b7d4bd">Error</a>,</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_enumvalue" href="group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a25d8df6e580905091a0d5ef5b9e05bf0">Reply</a>,</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_enumvalue" href="group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7aa45da96d0bf6575970f2d27af22be28a">System</a>,</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <a class="code hl_enumvalue" href="group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a5fe6005bf6e415c950c011fb65f12b8f">Deleted</a></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>};</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>UENUM(BlueprintType)</div>
+<div class="foldopen" id="foldopen00044" data-start="{" data-end="};">
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="group___stream_chat.html#gae884ad235d4918a9a12ecb8741344cc7">   44</a></span>enum class <a class="code hl_enumeration" href="group___stream_chat.html#gae884ad235d4918a9a12ecb8741344cc7">EMessageType</a> : uint8</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>{</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <a class="code hl_enumvalue" href="group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7ad2203cb1237cb6460cbad94564e39345">Regular</a>,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <a class="code hl_enumvalue" href="group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a446700a09f499c4dd922bfa13b27479d">Ephemeral</a>,</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <a class="code hl_enumvalue" href="group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a902b0d55fddef6f8d651fe1035b7d4bd">Error</a>,</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_enumvalue" href="group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a25d8df6e580905091a0d5ef5b9e05bf0">Reply</a>,</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <a class="code hl_enumvalue" href="group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7aa45da96d0bf6575970f2d27af22be28a">System</a>,</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <a class="code hl_enumvalue" href="group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7a5fe6005bf6e415c950c011fb65f12b8f">Deleted</a></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>};</div>
 </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>USTRUCT(BlueprintType)</div>
-<div class="foldopen" id="foldopen00068" data-start="{" data-end="};">
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="struct_f_message.html">   68</a></span>struct STREAMCHAT_API <a class="code hl_struct" href="struct_f_message.html">FMessage</a></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>{</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    GENERATED_BODY()</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="struct_f_message.html#aff41682f391499ba3bb62240017d64df">   73</a></span>    <a class="code hl_struct" href="struct_f_message.html">FMessage</a>();</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    explicit <a class="code hl_struct" href="struct_f_message.html">FMessage</a>(const <a class="code hl_struct" href="struct_f_message_dto.html">FMessageDto</a>&amp;, UUserManager*);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    explicit <a class="code hl_struct" href="struct_f_message.html">FMessage</a>(const <a class="code hl_struct" href="struct_f_search_result_dto.html">FSearchResultDto</a>&amp;, UUserManager*);</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    explicit <a class="code hl_struct" href="struct_f_message.html">FMessage</a>(const FString&amp; <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa9dffbf69ffba8bc38bc4e01abf4b1675">Text</a>);</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <a class="code hl_struct" href="struct_f_message_request_dto.html">FMessageRequestDto</a> ToRequestDto(const FString&amp; Cid) const;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordtype">bool</span> IsThreadReply() const;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordtype">bool</span> IsThreadStart() const;</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    UPROPERTY()</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="struct_f_message.html#a3bb506fb5bc73a79bda17ac633139c75">   90</a></span>    FString <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa490aa6e856ccf208a054389e47ce0d06">Id</a>;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = &quot;Stream Chat|Message&quot;)</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="struct_f_message.html#ae3268aa0c96ae1b8e21368503000ebda">   94</a></span>    FString <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa9dffbf69ffba8bc38bc4e01abf4b1675">Text</a>;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = &quot;Stream Chat|Message&quot;)</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="struct_f_message.html#af393eb1e750acd7b49b997c7e1b0ab3b">   98</a></span>    <a class="code hl_enumeration" href="group___stream_chat.html#gabc7dccfc91858f37b4ad78364a0b2f91">EMessageSendState</a> <a class="code hl_enumvalue" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d">State</a> = <a class="code hl_enumeration" href="group___stream_chat.html#gabc7dccfc91858f37b4ad78364a0b2f91">EMessageSendState</a>::<a class="code hl_enumvalue" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a6adf97f83acf6453d4a6a4b1070f3754">None</a>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>USTRUCT(BlueprintType)</div>
+<div class="foldopen" id="foldopen00069" data-start="{" data-end="};">
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="struct_f_message.html">   69</a></span>struct STREAMCHAT_API <a class="code hl_struct" href="struct_f_message.html">FMessage</a></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>{</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    GENERATED_BODY()</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="struct_f_message.html#aff41682f391499ba3bb62240017d64df">   74</a></span>    <a class="code hl_struct" href="struct_f_message.html">FMessage</a>();</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    explicit <a class="code hl_struct" href="struct_f_message.html">FMessage</a>(const <a class="code hl_struct" href="struct_f_message_dto.html">FMessageDto</a>&amp;, UUserManager*);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    explicit <a class="code hl_struct" href="struct_f_message.html">FMessage</a>(const <a class="code hl_struct" href="struct_f_search_result_dto.html">FSearchResultDto</a>&amp;, UUserManager*);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    explicit <a class="code hl_struct" href="struct_f_message.html">FMessage</a>(const FString&amp; <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa9dffbf69ffba8bc38bc4e01abf4b1675">Text</a>);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <a class="code hl_struct" href="struct_f_message_request_dto.html">FMessageRequestDto</a> ToRequestDto(const FString&amp; Cid) const;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordtype">bool</span> IsThreadReply() const;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordtype">bool</span> IsThreadStart() const;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordtype">bool</span> IsBounced() const;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordtype">bool</span> IsRemovedByModeration() const;</div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = &quot;Stream Chat|Message&quot;)</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="struct_f_message.html#a991f49c20c86a366fd633d5851ce161d">  102</a></span>    <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a> User;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = &quot;Stream Chat|Message&quot;)</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="struct_f_message.html#a8b04a180abfd5a7ee2978798426f7178">  106</a></span>    <a class="code hl_enumeration" href="group___stream_chat.html#gae884ad235d4918a9a12ecb8741344cc7">EMessageType</a> <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">Type</a> = <a class="code hl_enumeration" href="group___stream_chat.html#gae884ad235d4918a9a12ecb8741344cc7">EMessageType</a>::<a class="code hl_enumvalue" href="group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7ad2203cb1237cb6460cbad94564e39345">Regular</a>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordtype">bool</span> IsModerationError() const;</div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    UPROPERTY()</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="struct_f_message.html#af6f004b3f8981291856ca34b74b57121">  110</a></span>    TArray&lt;<a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&gt; MentionedUsers;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="struct_f_message.html#a3bb506fb5bc73a79bda17ac633139c75">  110</a></span>    FString <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa490aa6e856ccf208a054389e47ce0d06">Id</a>;</div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = &quot;Stream Chat|Message&quot;)</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="struct_f_message.html#ae1f1401a4081a7317e6a0f5bee667697">  114</a></span>    FDateTime CreatedAt = FDateTime{0};</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = &quot;Stream Chat|Message&quot;)</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="struct_f_message.html#ae3268aa0c96ae1b8e21368503000ebda">  114</a></span>    FString <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa9dffbf69ffba8bc38bc4e01abf4b1675">Text</a>;</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|Message&quot;</span>)</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="struct_f_message.html#a23d4defa884f5402870aa470199d4149">  118</a></span>    FDateTime UpdatedAt = FDateTime{0};</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = &quot;Stream Chat|Message&quot;)</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="struct_f_message.html#af393eb1e750acd7b49b997c7e1b0ab3b">  118</a></span>    <a class="code hl_enumeration" href="group___stream_chat.html#gabc7dccfc91858f37b4ad78364a0b2f91">EMessageSendState</a> <a class="code hl_enumvalue" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d">State</a> = <a class="code hl_enumeration" href="group___stream_chat.html#gabc7dccfc91858f37b4ad78364a0b2f91">EMessageSendState</a>::<a class="code hl_enumvalue" href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a6adf97f83acf6453d4a6a4b1070f3754">None</a>;</div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="struct_f_message.html#a335faf376af27f28fe1d7cc25f3c2288">  121</a></span>    TOptional&lt;FDateTime&gt; <a class="code hl_variable" href="struct_f_message.html#a335faf376af27f28fe1d7cc25f3c2288">DeletedAt</a>;</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|Message&quot;</span>)</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="struct_f_message.html#ad74d421c350e96e2b487b3ffd361934a">  125</a></span>    <a class="code hl_struct" href="struct_f_reactions.html">FReactions</a> Reactions;</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = &quot;Stream Chat|Message&quot;)</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno"><a class="line" href="struct_f_message.html#a63796defb157e51b8fad7328a3656a5c">  130</a></span>    FString <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faafaa6abc71ded82c59c64411193549cd">ParentId</a>;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = &quot;Stream Chat|Message&quot;)</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="struct_f_message.html#a991f49c20c86a366fd633d5851ce161d">  122</a></span>    <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a> User;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = &quot;Stream Chat|Message&quot;)</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="struct_f_message.html#a8b04a180abfd5a7ee2978798426f7178">  126</a></span>    <a class="code hl_enumeration" href="group___stream_chat.html#gae884ad235d4918a9a12ecb8741344cc7">EMessageType</a> <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faa1fa27779242b4902f7ae3bdd5c6d508">Type</a> = <a class="code hl_enumeration" href="group___stream_chat.html#gae884ad235d4918a9a12ecb8741344cc7">EMessageType</a>::<a class="code hl_enumvalue" href="group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7ad2203cb1237cb6460cbad94564e39345">Regular</a>;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    UPROPERTY()</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno"><a class="line" href="struct_f_message.html#af6f004b3f8981291856ca34b74b57121">  130</a></span>    TArray&lt;<a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&gt; MentionedUsers;</div>
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = &quot;Stream Chat|Message&quot;)</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="struct_f_message.html#af2e4953f3bcb28d058e3370cbb78f256">  135</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="struct_f_message_request_dto.html#a80dd40bed8e7e74957b1b8c018cc59c6">bShowInChannel</a> = false;</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = &quot;Stream Chat|Message&quot;)</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="struct_f_message.html#ac7c4a541fcc3cb379841977ebcee4f66">  139</a></span>    int32 <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fafb929994ee4a037b613ef81d0718f78b">ReplyCount</a> = 0;</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = &quot;Stream Chat|Message&quot;)</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="struct_f_message.html#a36f9b2415d81b54d7a3998da8e5ae767">  143</a></span>    TArray&lt;<a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&gt; ThreadParticipants;</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = &quot;Stream Chat|Message&quot;, AdvancedDisplay)</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keywordtype">bool</span> bIsSilent = false;</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = &quot;Stream Chat|Message&quot;, AdvancedDisplay)</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="struct_f_message.html#a10689717c2aee4a96a85ef83f4be9858">  150</a></span>    <span class="keywordtype">bool</span> bIsShadowed = false;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = &quot;Stream Chat|Message&quot;)</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="struct_f_message.html#ae1f1401a4081a7317e6a0f5bee667697">  134</a></span>    FDateTime CreatedAt = FDateTime{0};</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|Message&quot;</span>)</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno"><a class="line" href="struct_f_message.html#a23d4defa884f5402870aa470199d4149">  138</a></span>    FDateTime UpdatedAt = FDateTime{0};</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno"><a class="line" href="struct_f_message.html#a335faf376af27f28fe1d7cc25f3c2288">  141</a></span>    TOptional&lt;FDateTime&gt; <a class="code hl_variable" href="struct_f_message.html#a335faf376af27f28fe1d7cc25f3c2288">DeletedAt</a>;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = <span class="stringliteral">&quot;Stream Chat|Message&quot;</span>)</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno"><a class="line" href="struct_f_message.html#ad74d421c350e96e2b487b3ffd361934a">  145</a></span>    <a class="code hl_struct" href="struct_f_reactions.html">FReactions</a> Reactions;</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = &quot;Stream Chat|Message&quot;)</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno"><a class="line" href="struct_f_message.html#a63796defb157e51b8fad7328a3656a5c">  150</a></span>    FString <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8faafaa6abc71ded82c59c64411193549cd">ParentId</a>;</div>
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = &quot;Stream Chat|Message&quot;)</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno"><a class="line" href="struct_f_message.html#ad61c20d4391e36ad42b1fcfa413a6dc9">  154</a></span>    FString <a class="code hl_variable" href="struct_f_message_request_dto.html#a41f6cfe682e1521a72791f8fe00b8855">Html</a>;</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = &quot;Stream Chat|Message&quot;)</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="struct_f_message.html#ac379f0b2704722bf3d079ad2cf83e073">  158</a></span>    TArray&lt;<a class="code hl_struct" href="struct_f_attachment.html">FAttachment</a>&gt; <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa7e2708aeb65763c54052f57ed1a1ec1d">Attachments</a>;</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    UPROPERTY(BlueprintReadWrite, Category = &quot;Stream Chat|Message&quot;, AdvancedDisplay)</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    FAdditionalFields ExtraData;</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="comment">// TODO rest of fields</span></div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>};</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = &quot;Stream Chat|Message&quot;)</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="struct_f_message.html#af2e4953f3bcb28d058e3370cbb78f256">  155</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="struct_f_message_request_dto.html#a80dd40bed8e7e74957b1b8c018cc59c6">bShowInChannel</a> = false;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = &quot;Stream Chat|Message&quot;)</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="struct_f_message.html#ac7c4a541fcc3cb379841977ebcee4f66">  159</a></span>    int32 <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fafb929994ee4a037b613ef81d0718f78b">ReplyCount</a> = 0;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = &quot;Stream Chat|Message&quot;)</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno"><a class="line" href="struct_f_message.html#a36f9b2415d81b54d7a3998da8e5ae767">  163</a></span>    TArray&lt;<a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&gt; ThreadParticipants;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = &quot;Stream Chat|Message&quot;, AdvancedDisplay)</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="keywordtype">bool</span> bIsSilent = false;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = &quot;Stream Chat|Message&quot;, AdvancedDisplay)</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno"><a class="line" href="struct_f_message.html#a10689717c2aee4a96a85ef83f4be9858">  170</a></span>    <span class="keywordtype">bool</span> bIsShadowed = false;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = &quot;Stream Chat|Message&quot;, AdvancedDisplay)</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno"><a class="line" href="struct_f_message.html#aca1625a9af9d37f62a00c5821721965a">  174</a></span>    <a class="code hl_struct" href="struct_f_message_moderation.html">FMessageModeration</a> Moderation;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = &quot;Stream Chat|Message&quot;)</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno"><a class="line" href="struct_f_message.html#ad61c20d4391e36ad42b1fcfa413a6dc9">  178</a></span>    FString <a class="code hl_variable" href="struct_f_message_request_dto.html#a41f6cfe682e1521a72791f8fe00b8855">Html</a>;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = &quot;Stream Chat|Message&quot;)</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno"><a class="line" href="struct_f_message.html#ac379f0b2704722bf3d079ad2cf83e073">  182</a></span>    TArray&lt;<a class="code hl_struct" href="struct_f_attachment.html">FAttachment</a>&gt; <a class="code hl_enumvalue" href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa7e2708aeb65763c54052f57ed1a1ec1d">Attachments</a>;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    UPROPERTY(BlueprintReadWrite, Category = &quot;Stream Chat|Message&quot;, AdvancedDisplay)</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    FAdditionalFields ExtraData;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    <span class="comment">// TODO rest of fields</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>};</div>
 </div>
 <div class="ttc" id="agroup___stream_chat_api_html_gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d"><div class="ttname"><a href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a46a2a41cc6e552044816a2d04634545d">EChannelFlags::State</a></div><div class="ttdeci">@ State</div><div class="ttdoc">Return channel state in response.</div></div>
 <div class="ttc" id="agroup___stream_chat_api_html_gga683630d96445bae6259c39daebb90898a6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="group___stream_chat_api.html#gga683630d96445bae6259c39daebb90898a6adf97f83acf6453d4a6a4b1070f3754">EChannelFlags::None</a></div><div class="ttdeci">@ None</div><div class="ttdoc">Do nothing.</div></div>
-<div class="ttc" id="agroup___stream_chat_html_gabc7dccfc91858f37b4ad78364a0b2f91"><div class="ttname"><a href="group___stream_chat.html#gabc7dccfc91858f37b4ad78364a0b2f91">EMessageSendState</a></div><div class="ttdeci">EMessageSendState</div><div class="ttdoc">The client-side state of a message.</div><div class="ttdef"><b>Definition</b> Message.h:23</div></div>
-<div class="ttc" id="agroup___stream_chat_html_gae884ad235d4918a9a12ecb8741344cc7"><div class="ttname"><a href="group___stream_chat.html#gae884ad235d4918a9a12ecb8741344cc7">EMessageType</a></div><div class="ttdeci">EMessageType</div><div class="ttdoc">Type of message, as set by the API or chat bots and custom commands.</div><div class="ttdef"><b>Definition</b> Message.h:44</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gabc7dccfc91858f37b4ad78364a0b2f91"><div class="ttname"><a href="group___stream_chat.html#gabc7dccfc91858f37b4ad78364a0b2f91">EMessageSendState</a></div><div class="ttdeci">EMessageSendState</div><div class="ttdoc">The client-side state of a message.</div><div class="ttdef"><b>Definition</b> Message.h:24</div></div>
+<div class="ttc" id="agroup___stream_chat_html_gae884ad235d4918a9a12ecb8741344cc7"><div class="ttname"><a href="group___stream_chat.html#gae884ad235d4918a9a12ecb8741344cc7">EMessageType</a></div><div class="ttdeci">EMessageType</div><div class="ttdoc">Type of message, as set by the API or chat bots and custom commands.</div><div class="ttdef"><b>Definition</b> Message.h:45</div></div>
 <div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8fa490aa6e856ccf208a054389e47ce0d06"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa490aa6e856ccf208a054389e47ce0d06">EMessageSortField::Id</a></div><div class="ttdeci">@ Id</div><div class="ttdoc">Message ID.</div></div>
 <div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8fa7e2708aeb65763c54052f57ed1a1ec1d"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa7e2708aeb65763c54052f57ed1a1ec1d">EMessageSortField::Attachments</a></div><div class="ttdeci">@ Attachments</div><div class="ttdoc">Whether or not the message contains an attachment.</div></div>
 <div class="ttc" id="agroup___stream_chat_html_gga3f9dd725081330daf92bbd44f5084e8fa9dffbf69ffba8bc38bc4e01abf4b1675"><div class="ttname"><a href="group___stream_chat.html#gga3f9dd725081330daf92bbd44f5084e8fa9dffbf69ffba8bc38bc4e01abf4b1675">EMessageSortField::Text</a></div><div class="ttdeci">@ Text</div><div class="ttdoc">Text of the message.</div></div>
@@ -241,9 +251,10 @@ $(function(){initNavTree('_message_8h_source.html',''); initResizable(true); });
 <div class="ttc" id="agroup___stream_chat_html_ggae884ad235d4918a9a12ecb8741344cc7aa45da96d0bf6575970f2d27af22be28a"><div class="ttname"><a href="group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7aa45da96d0bf6575970f2d27af22be28a">EMessageType::System</a></div><div class="ttdeci">@ System</div><div class="ttdoc">A message generated by a system event, like updating the channel or muting a user.</div></div>
 <div class="ttc" id="agroup___stream_chat_html_ggae884ad235d4918a9a12ecb8741344cc7ad2203cb1237cb6460cbad94564e39345"><div class="ttname"><a href="group___stream_chat.html#ggae884ad235d4918a9a12ecb8741344cc7ad2203cb1237cb6460cbad94564e39345">EMessageType::Regular</a></div><div class="ttdeci">@ Regular</div><div class="ttdoc">A regular message created in the channel.</div></div>
 <div class="ttc" id="astruct_f_attachment_html"><div class="ttname"><a href="struct_f_attachment.html">FAttachment</a></div><div class="ttdoc">A file, image or link attached to a message.</div><div class="ttdef"><b>Definition</b> Attachment.h:42</div></div>
-<div class="ttc" id="astruct_f_message_dto_html"><div class="ttname"><a href="struct_f_message_dto.html">FMessageDto</a></div><div class="ttdoc">#/components/schemas/Message Represents any chat message. Used in responses only</div><div class="ttdef"><b>Definition</b> MessageDto.h:24</div></div>
-<div class="ttc" id="astruct_f_message_html"><div class="ttname"><a href="struct_f_message.html">FMessage</a></div><div class="ttdoc">Represents a Stream Chat message.</div><div class="ttdef"><b>Definition</b> Message.h:69</div></div>
-<div class="ttc" id="astruct_f_message_html_a335faf376af27f28fe1d7cc25f3c2288"><div class="ttname"><a href="struct_f_message.html#a335faf376af27f28fe1d7cc25f3c2288">FMessage::DeletedAt</a></div><div class="ttdeci">TOptional&lt; FDateTime &gt; DeletedAt</div><div class="ttdoc">Reserved field indicating when the message was deleted.</div><div class="ttdef"><b>Definition</b> Message.h:121</div></div>
+<div class="ttc" id="astruct_f_message_dto_html"><div class="ttname"><a href="struct_f_message_dto.html">FMessageDto</a></div><div class="ttdoc">#/components/schemas/Message Represents any chat message. Used in responses only</div><div class="ttdef"><b>Definition</b> MessageDto.h:25</div></div>
+<div class="ttc" id="astruct_f_message_html"><div class="ttname"><a href="struct_f_message.html">FMessage</a></div><div class="ttdoc">Represents a Stream Chat message.</div><div class="ttdef"><b>Definition</b> Message.h:70</div></div>
+<div class="ttc" id="astruct_f_message_html_a335faf376af27f28fe1d7cc25f3c2288"><div class="ttname"><a href="struct_f_message.html#a335faf376af27f28fe1d7cc25f3c2288">FMessage::DeletedAt</a></div><div class="ttdeci">TOptional&lt; FDateTime &gt; DeletedAt</div><div class="ttdoc">Reserved field indicating when the message was deleted.</div><div class="ttdef"><b>Definition</b> Message.h:141</div></div>
+<div class="ttc" id="astruct_f_message_moderation_html"><div class="ttname"><a href="struct_f_message_moderation.html">FMessageModeration</a></div><div class="ttdoc">The moderation verdict for a message.</div><div class="ttdef"><b>Definition</b> MessageModeration.h:42</div></div>
 <div class="ttc" id="astruct_f_message_request_dto_html"><div class="ttname"><a href="struct_f_message_request_dto.html">FMessageRequestDto</a></div><div class="ttdoc">#/components/schemas/MessageRequest</div><div class="ttdef"><b>Definition</b> MessageRequestDto.h:18</div></div>
 <div class="ttc" id="astruct_f_message_request_dto_html_a41f6cfe682e1521a72791f8fe00b8855"><div class="ttname"><a href="struct_f_message_request_dto.html#a41f6cfe682e1521a72791f8fe00b8855">FMessageRequestDto::Html</a></div><div class="ttdeci">FString Html</div><div class="ttdoc">Contains HTML markup of the message.</div><div class="ttdef"><b>Definition</b> MessageRequestDto.h:31</div></div>
 <div class="ttc" id="astruct_f_message_request_dto_html_a80dd40bed8e7e74957b1b8c018cc59c6"><div class="ttname"><a href="struct_f_message_request_dto.html#a80dd40bed8e7e74957b1b8c018cc59c6">FMessageRequestDto::bShowInChannel</a></div><div class="ttdeci">bool bShowInChannel</div><div class="ttdef"><b>Definition</b> MessageRequestDto.h:51</div></div>

@@ -139,6 +139,7 @@ var group___stream_chat =
       [ "QueryMembers", "class_u_chat_channel.html#a8079737719a8928c643630d4fab9c298", null ],
       [ "QueryReplies", "class_u_chat_channel.html#af072c4dff1b9058164266623fc2e13a1", null ],
       [ "RemoveMembers", "class_u_chat_channel.html#afdfde70695ffa82e37a4d216ea9c5c9e", null ],
+      [ "ResendMessage", "class_u_chat_channel.html#a6cb750144351dfe9d1ea03efc4c5bdbb", null ],
       [ "SearchMessages", "class_u_chat_channel.html#ab88c80df5f628c7faf4aa8861e410c08", null ],
       [ "SearchMessages", "class_u_chat_channel.html#abd9c334382f0b34ae03f96cf6113b384", null ],
       [ "SendEvent", "class_u_chat_channel.html#aed47eb30b9ab1fde4d67b88caa12d317", null ],
@@ -207,6 +208,9 @@ var group___stream_chat =
       [ "FMessage", "struct_f_message.html#aff41682f391499ba3bb62240017d64df", null ],
       [ "FMessage", "struct_f_message.html#a7e64696f404ed1586a13231e6ee7331c", null ],
       [ "FMessage", "struct_f_message.html#a2f18482b45463920b6cd94f44c155592", null ],
+      [ "IsBounced", "struct_f_message.html#aebc6ea67439ac72bda10b6363e04b5f1", null ],
+      [ "IsModerationError", "struct_f_message.html#a4a6ff665ab42061f7fb3b6a9608359a9", null ],
+      [ "IsRemovedByModeration", "struct_f_message.html#a9b7baa626425bd577b36c4e1838fa6b9", null ],
       [ "IsThreadReply", "struct_f_message.html#a8548fac482d1901d552ff2e3c99dc8e0", null ],
       [ "IsThreadStart", "struct_f_message.html#ad23e4dc620037d72eefed5d2c4cfaded", null ],
       [ "ToRequestDto", "struct_f_message.html#a84984fc8d09ddc31b4b178d15509b972", null ],
@@ -218,6 +222,7 @@ var group___stream_chat =
       [ "Html", "struct_f_message.html#ad61c20d4391e36ad42b1fcfa413a6dc9", null ],
       [ "Id", "struct_f_message.html#a3bb506fb5bc73a79bda17ac633139c75", null ],
       [ "MentionedUsers", "struct_f_message.html#af6f004b3f8981291856ca34b74b57121", null ],
+      [ "Moderation", "struct_f_message.html#aca1625a9af9d37f62a00c5821721965a", null ],
       [ "ParentId", "struct_f_message.html#a63796defb157e51b8fad7328a3656a5c", null ],
       [ "Reactions", "struct_f_message.html#ad74d421c350e96e2b487b3ffd361934a", null ],
       [ "ReplyCount", "struct_f_message.html#ac7c4a541fcc3cb379841977ebcee4f66", null ],
@@ -243,6 +248,22 @@ var group___stream_chat =
       [ "User", "struct_f_read.html#a79a699d416a8a243f98fc66e3d294d82", null ]
     ] ],
     [ "FBanPaginationOptions", "struct_f_ban_pagination_options.html", null ],
+    [ "FMessageModeration", "struct_f_message_moderation.html", [
+      [ "IsSet", "struct_f_message_moderation.html#a492f2d8ecba8db64f1dd119f2d653931", null ],
+      [ "Action", "struct_f_message_moderation.html#af636c2355ea9fea58ad74423e0ba0066", null ],
+      [ "BlocklistMatched", "struct_f_message_moderation.html#aac06693b9d7442348cab025fef485988", null ],
+      [ "bPlatformCircumvented", "struct_f_message_moderation.html#a7dfbaf4132d9b9689d938ddc1fa14608", null ],
+      [ "ImageHarms", "struct_f_message_moderation.html#addf04bd5a2e0d870a70014e02467b5a8", null ],
+      [ "OriginalText", "struct_f_message_moderation.html#a35947e1983249467cdad182ec10c496b", null ],
+      [ "RawAction", "struct_f_message_moderation.html#a0b5028180c18b4f9031f674f04fcb4b5", null ],
+      [ "SemanticFilterMatched", "struct_f_message_moderation.html#ae41604443899693077a43ad52dbb842f", null ],
+      [ "TextHarms", "struct_f_message_moderation.html#a9125a24ad2f6d0a1040e3bea07389df0", null ]
+    ] ],
+    [ "FUserBlock", "struct_f_user_block.html", [
+      [ "BlockedBy", "struct_f_user_block.html#a51d7f037fd1e8322b6079bd9c2dfb653", null ],
+      [ "BlockedUser", "struct_f_user_block.html#a9cbb5bffc08b048acf2c66c576ef0131", null ],
+      [ "CreatedAt", "struct_f_user_block.html#a479b1d31681e38f09165277661e68a6a", null ]
+    ] ],
     [ "FPaginationOptions", "struct_f_pagination_options.html", null ],
     [ "FReaction", "struct_f_reaction.html", [
       [ "CreatedAt", "struct_f_reaction.html#a0e769fe1b38e5122e985ab2a817aa25f", null ],
@@ -285,9 +306,11 @@ var group___stream_chat =
       [ "ConnectUser", "class_u_stream_chat_client_component.html#a8f8ee547ffba63c7c799ea57a33dc5d8", null ],
       [ "CreateChannel", "class_u_stream_chat_client_component.html#a2a8eced83c1c5533f264b8e1c7b5c15e", null ],
       [ "DisconnectUser", "class_u_stream_chat_client_component.html#ab1abed0a192360951268e62a6a78a8e7", null ],
-      [ "FlagMessage", "class_u_stream_chat_client_component.html#a52d8287ec7584239e4209ef2ec260ea8", null ],
-      [ "FlagUser", "class_u_stream_chat_client_component.html#a5345b12be807a2217147d3e37ef9b311", null ],
-      [ "GetBlockedUsers", "class_u_stream_chat_client_component.html#a351e6e4397c366d2163ff0caf1325b6c", null ],
+      [ "FlagMessage", "class_u_stream_chat_client_component.html#a8564d7d876a4136aeba15d0173cea3a8", null ],
+      [ "FlagMessage", "class_u_stream_chat_client_component.html#aecd471c7c320957151939fb45f6c5eec", null ],
+      [ "FlagUser", "class_u_stream_chat_client_component.html#ac60a66f72ce64cabf048b59ba72141cf", null ],
+      [ "FlagUser", "class_u_stream_chat_client_component.html#adc02579ed6ca2ead59af2cce3d739709", null ],
+      [ "GetBlockedUsers", "class_u_stream_chat_client_component.html#a982ef58a0337cc77543433ab276ac795", null ],
       [ "GetThread", "class_u_stream_chat_client_component.html#af47e148bd8d54e60e2f4afc50def9969", null ],
       [ "ListDevices", "class_u_stream_chat_client_component.html#a0f03f8337f0c164ca3dbcfbc7736a4dd", null ],
       [ "MarkAllRead", "class_u_stream_chat_client_component.html#a3c2012df6e551396792ffb92b3775221", null ],
@@ -310,6 +333,8 @@ var group___stream_chat =
       [ "ShadowUnbanUser", "class_u_stream_chat_client_component.html#a136da36f3a2a1d55a490813affefd32f", null ],
       [ "UnbanUser", "class_u_stream_chat_client_component.html#a81f007e47d4a929205530d6f1532987c", null ],
       [ "UnblockUser", "class_u_stream_chat_client_component.html#a3c758399bbc4b06dbc4f4f53a45214f0", null ],
+      [ "UnflagMessage", "class_u_stream_chat_client_component.html#a4613f07b3d9291e73f634628ca34cd43", null ],
+      [ "UnflagUser", "class_u_stream_chat_client_component.html#a35867d9b5c6bc43842dcfbc58ff5a423", null ],
       [ "UnmuteUser", "class_u_stream_chat_client_component.html#a40b0b86d6b374c18ea9f580060805773", null ],
       [ "UpsertUsers", "class_u_stream_chat_client_component.html#a8b6c449d6ed7cbe57df3d390829acedc", null ],
       [ "WatchChannel", "class_u_stream_chat_client_component.html#aa78cae04fd73d3df82ef147487a5a71c", null ],
@@ -353,6 +378,13 @@ var group___stream_chat =
       [ "EFilterOperator::Or", "group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a3a2d5fe857d8f9541136a124c2edec6c", null ],
       [ "EFilterOperator::Nor", "group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5a5f61fcb6e17f7a46a46a47c7977c90c1", null ],
       [ "EFilterOperator::Contains", "group___stream_chat.html#gga5f415eaba7bb8ad8ae40f5b8b3eb69b5ab270372be5b4433b4736daaf25e1c74e", null ]
+    ] ],
+    [ "EMessageModerationAction", "group___stream_chat.html#gafea2640b77b5dbce6dd012380d5e0297", [
+      [ "EMessageModerationAction::None", "group___stream_chat.html#ggafea2640b77b5dbce6dd012380d5e0297a6adf97f83acf6453d4a6a4b1070f3754", null ],
+      [ "EMessageModerationAction::Bounce", "group___stream_chat.html#ggafea2640b77b5dbce6dd012380d5e0297aeb9a56428f85bbdfd3846322baaffe6e", null ],
+      [ "EMessageModerationAction::Remove", "group___stream_chat.html#ggafea2640b77b5dbce6dd012380d5e0297a1063e38cb53d94d386f21227fcd84717", null ],
+      [ "EMessageModerationAction::Flag", "group___stream_chat.html#ggafea2640b77b5dbce6dd012380d5e0297ac5836008c1649301e29351a55db8f65c", null ],
+      [ "EMessageModerationAction::Other", "group___stream_chat.html#ggafea2640b77b5dbce6dd012380d5e0297a6311ae17c1ee52b36e68aaf4ad066387", null ]
     ] ],
     [ "EMessageSendState", "group___stream_chat.html#gabc7dccfc91858f37b4ad78364a0b2f91", [
       [ "EMessageSendState::Sending", "group___stream_chat.html#ggabc7dccfc91858f37b4ad78364a0b2f91ae4b0c2b6d59cb4cf3e169a9886008087", null ],

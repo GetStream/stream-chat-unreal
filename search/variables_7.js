@@ -6,9 +6,10 @@ var searchData=
   ['idlt_3',['IdLt',['../struct_f_query_users_request_dto.html#a6f4abd82d1ac91c98cef36056eb310ba',1,'FQueryUsersRequestDto']]],
   ['idlte_4',['IdLte',['../struct_f_query_users_request_dto.html#a3c0e53e31d9e1a6a81b6d92ef2dee6fe',1,'FQueryUsersRequestDto']]],
   ['image_5',['Image',['../struct_f_user.html#a2ca45f74018a8256b0a4a9955d52d6c7',1,'FUser']]],
-  ['imageurl_6',['ImageUrl',['../struct_f_attachment_dto.html#a87e32b9c954f310dbe960e9e8770143d',1,'FAttachmentDto::ImageUrl'],['../struct_f_attachment.html#ad1b074a6167b311c6b5a8f9324c78651',1,'FAttachment::ImageUrl']]],
-  ['imagewidthfraction_7',['ImageWidthFraction',['../class_u_attachment_widget.html#a958e01e7cd57cdb8ce98f2f08159e945',1,'UAttachmentWidget']]],
-  ['inviteacceptedat_8',['InviteAcceptedAt',['../struct_f_channel_member_request_dto.html#a488560ded7fb4ef215366b5ef67d7d6e',1,'FChannelMemberRequestDto::InviteAcceptedAt'],['../struct_f_channel_member_dto.html#ad74e316c7e86b7bf62eb15b095fe54a9',1,'FChannelMemberDto::InviteAcceptedAt']]],
-  ['inviterejectedat_9',['InviteRejectedAt',['../struct_f_channel_member_request_dto.html#aca6a1a7de3d30accee8204acf30cdff4',1,'FChannelMemberRequestDto::InviteRejectedAt'],['../struct_f_channel_member_dto.html#a68fadfd086ad0a9945e6670c613211bb',1,'FChannelMemberDto::InviteRejectedAt']]],
-  ['invites_10',['Invites',['../struct_f_update_channel_request_dto.html#a2fa985d2381f526c3d29c054bfa45b18',1,'FUpdateChannelRequestDto']]]
+  ['imageharms_6',['ImageHarms',['../struct_f_message_moderation_dto.html#ac2d544287751b3e76ebd00c6803cae5c',1,'FMessageModerationDto::ImageHarms'],['../struct_f_message_moderation.html#addf04bd5a2e0d870a70014e02467b5a8',1,'FMessageModeration::ImageHarms']]],
+  ['imageurl_7',['ImageUrl',['../struct_f_attachment_dto.html#a87e32b9c954f310dbe960e9e8770143d',1,'FAttachmentDto::ImageUrl'],['../struct_f_attachment.html#ad1b074a6167b311c6b5a8f9324c78651',1,'FAttachment::ImageUrl']]],
+  ['imagewidthfraction_8',['ImageWidthFraction',['../class_u_attachment_widget.html#a958e01e7cd57cdb8ce98f2f08159e945',1,'UAttachmentWidget']]],
+  ['inviteacceptedat_9',['InviteAcceptedAt',['../struct_f_channel_member_request_dto.html#a488560ded7fb4ef215366b5ef67d7d6e',1,'FChannelMemberRequestDto::InviteAcceptedAt'],['../struct_f_channel_member_dto.html#ad74e316c7e86b7bf62eb15b095fe54a9',1,'FChannelMemberDto::InviteAcceptedAt']]],
+  ['inviterejectedat_10',['InviteRejectedAt',['../struct_f_channel_member_request_dto.html#aca6a1a7de3d30accee8204acf30cdff4',1,'FChannelMemberRequestDto::InviteRejectedAt'],['../struct_f_channel_member_dto.html#a68fadfd086ad0a9945e6670c613211bb',1,'FChannelMemberDto::InviteRejectedAt']]],
+  ['invites_11',['Invites',['../struct_f_update_channel_request_dto.html#a2fa985d2381f526c3d29c054bfa45b18',1,'FUpdateChannelRequestDto']]]
 ];

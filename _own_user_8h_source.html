@@ -129,27 +129,33 @@ $(function(){initNavTree('_own_user_8h_source.html',''); initResizable(true); })
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">bool</span> HasMutedUser(const <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&amp; TargetUser) const;</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = &quot;Stream Chat|User&quot;)</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a> User;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordtype">bool</span> HasBlockedUser(const <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a>&amp; TargetUser) const;</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = &quot;Stream Chat|User&quot;)</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    int32 UnreadCount = 0;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = &quot;Stream Chat|User&quot;)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_struct" href="struct_f_user_ref.html">FUserRef</a> User;</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = &quot;Stream Chat|User&quot;)</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="struct_f_own_user.html#af6a448f3f046e8b2384d91dc73116602">   41</a></span>    int32 TotalUnreadCount = 0;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = &quot;Stream Chat|User&quot;)</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="struct_f_own_user.html#adc6e44bb1570326902112df736278939">   45</a></span>    int32 UnreadChannels = 0;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = &quot;Stream Chat|User&quot;)</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="struct_f_own_user.html#a267ef79e600c4db73b7c47d9b8d6b82c">   49</a></span>    TArray&lt;FMutedUser&gt; MutedUsers;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = &quot;Stream Chat|User&quot;)</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="struct_f_own_user.html#a420eac30bfe5755a124c8f43a1abf0d1">   53</a></span>    TArray&lt;FMutedChannel&gt; MutedChannels;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>};</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = &quot;Stream Chat|User&quot;)</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    int32 UnreadCount = 0;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = &quot;Stream Chat|User&quot;)</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="struct_f_own_user.html#af6a448f3f046e8b2384d91dc73116602">   44</a></span>    int32 TotalUnreadCount = 0;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = &quot;Stream Chat|User&quot;)</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="struct_f_own_user.html#adc6e44bb1570326902112df736278939">   48</a></span>    int32 UnreadChannels = 0;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = &quot;Stream Chat|User&quot;)</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="struct_f_own_user.html#a267ef79e600c4db73b7c47d9b8d6b82c">   52</a></span>    TArray&lt;FMutedUser&gt; MutedUsers;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = &quot;Stream Chat|User&quot;)</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="struct_f_own_user.html#a420eac30bfe5755a124c8f43a1abf0d1">   56</a></span>    TArray&lt;FMutedChannel&gt; MutedChannels;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = &quot;Stream Chat|User&quot;)</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="struct_f_own_user.html#a33bf634b26a96253b7d0cf7c09f1427b">   68</a></span>    TArray&lt;FString&gt; <a class="code hl_variable" href="struct_f_user_dto.html#af8bb8206c171c75539f426540601b60d">BlockedUserIds</a>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>};</div>
 </div>
 <div class="ttc" id="astruct_f_own_user_dto_html"><div class="ttname"><a href="struct_f_own_user_dto.html">FOwnUserDto</a></div><div class="ttdoc">#/components/schemas/OwnUser</div><div class="ttdef"><b>Definition</b> OwnUserDto.h:17</div></div>
 <div class="ttc" id="astruct_f_own_user_html"><div class="ttname"><a href="struct_f_own_user.html">FOwnUser</a></div><div class="ttdoc">The currently connected Stream Chat user.</div><div class="ttdef"><b>Definition</b> OwnUser.h:18</div></div>
+<div class="ttc" id="astruct_f_user_dto_html_af8bb8206c171c75539f426540601b60d"><div class="ttname"><a href="struct_f_user_dto.html#af8bb8206c171c75539f426540601b60d">FUserDto::BlockedUserIds</a></div><div class="ttdeci">TArray&lt; FString &gt; BlockedUserIds</div><div class="ttdoc">Ids of the users that this user has blocked.</div><div class="ttdef"><b>Definition</b> UserDto.h:60</div></div>
 <div class="ttc" id="astruct_f_user_ref_html"><div class="ttname"><a href="struct_f_user_ref.html">FUserRef</a></div><div class="ttdoc">A reference to a unique User.</div><div class="ttdef"><b>Definition</b> UserRef.h:23</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

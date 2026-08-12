@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['hasmuteduser_0',['HasMutedUser',['../struct_f_own_user.html#a793dff860329c6ae2d8285898b28ac5b',1,'FOwnUser']]],
-  ['hasownreaction_1',['HasOwnReaction',['../class_u_reaction_group_blueprint_library.html#a78f1574321dc9d64fff260963cdfc6fa',1,'UReactionGroupBlueprintLibrary::HasOwnReaction()'],['../class_u_reactions_blueprint_library.html#ac44e4c474d4e3e90b4a12e8d612dc565',1,'UReactionsBlueprintLibrary::HasOwnReaction()']]],
-  ['hide_2',['Hide',['../class_u_chat_channel.html#a04f40f2ee5819990ee220d64696b6695',1,'UChatChannel']]],
-  ['hidechannel_3',['HideChannel',['../class_f_chat_api.html#af0871c645d89799123feb8e167473c6a',1,'FChatApi']]]
+  ['hasblockeduser_0',['HasBlockedUser',['../struct_f_own_user.html#a6b9e3d602bd0022ceade41ce86816fa7',1,'FOwnUser']]],
+  ['hasmuteduser_1',['HasMutedUser',['../struct_f_own_user.html#a793dff860329c6ae2d8285898b28ac5b',1,'FOwnUser']]],
+  ['hasownreaction_2',['HasOwnReaction',['../class_u_reaction_group_blueprint_library.html#a78f1574321dc9d64fff260963cdfc6fa',1,'UReactionGroupBlueprintLibrary::HasOwnReaction()'],['../class_u_reactions_blueprint_library.html#ac44e4c474d4e3e90b4a12e8d612dc565',1,'UReactionsBlueprintLibrary::HasOwnReaction()']]],
+  ['hide_3',['Hide',['../class_u_chat_channel.html#a04f40f2ee5819990ee220d64696b6695',1,'UChatChannel']]],
+  ['hidechannel_4',['HideChannel',['../class_f_chat_api.html#af0871c645d89799123feb8e167473c6a',1,'FChatApi']]]
 ];

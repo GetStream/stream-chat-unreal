@@ -162,6 +162,12 @@ TArray&lt; <a class="el" href="struct_f_user_object_dto.html">FUserObjectDto</a>
 <tr class="separator:a3029015ca8796ddc74db3163b1ab1f8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a1eead86619a84881840f70cabe9ea7" id="r_a7a1eead86619a84881840f70cabe9ea7"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7a1eead86619a84881840f70cabe9ea7">Mml</a></td></tr>
 <tr class="separator:a7a1eead86619a84881840f70cabe9ea7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a591990cef360b7c89a7845814cfb36d4" id="r_a591990cef360b7c89a7845814cfb36d4"><td class="memItemLeft" align="right" valign="top"><a id="a591990cef360b7c89a7845814cfb36d4" name="a591990cef360b7c89a7845814cfb36d4"></a>
+<a class="el" href="struct_f_message_moderation_dto.html">FMessageModerationDto</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Moderation</b></td></tr>
+<tr class="memdesc:a591990cef360b7c89a7845814cfb36d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The moderation verdict for this message, as sent by Moderation V2. <br /></td></tr>
+<tr class="separator:a591990cef360b7c89a7845814cfb36d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af29e845defa6bb71ce575cb343777025" id="r_af29e845defa6bb71ce575cb343777025"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_f_message_moderation_dto.html">FMessageModerationDto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af29e845defa6bb71ce575cb343777025">ModerationDetails</a></td></tr>
+<tr class="separator:af29e845defa6bb71ce575cb343777025"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a607ac7fc32caf6b25b9d0b0e3a5dba7a" id="r_a607ac7fc32caf6b25b9d0b0e3a5dba7a"><td class="memItemLeft" align="right" valign="top"><a id="a607ac7fc32caf6b25b9d0b0e3a5dba7a" name="a607ac7fc32caf6b25b9d0b0e3a5dba7a"></a>
 TArray&lt; <a class="el" href="struct_f_reaction_dto.html">FReactionDto</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>OwnReactions</b></td></tr>
 <tr class="memdesc:a607ac7fc32caf6b25b9d0b0e3a5dba7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The reactions added to the message by the current user. <br /></td></tr>
@@ -280,6 +286,22 @@ FAdditionalFields&#160;</td><td class="memItemRight" valign="bottom"><b>Addition
       </table>
 </div><div class="memdoc">
 <p>Messaging Markup Language Should be empty if <code>text</code> is provided </p>
+
+</div>
+</div>
+<a id="af29e845defa6bb71ce575cb343777025" name="af29e845defa6bb71ce575cb343777025"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af29e845defa6bb71ce575cb343777025">&#9670;&#160;</a></span>ModerationDetails</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_f_message_moderation_dto.html">FMessageModerationDto</a> FMessageDto::ModerationDetails</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The moderation verdict for this message, as sent by the older moderation API</p>
+<p>Apps still on that version get their verdict here instead of in Moderation, so both are read. </p>
 
 </div>
 </div>

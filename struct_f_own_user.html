@@ -131,6 +131,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Update</b> (const <a 
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>HasMutedUser</b> (const <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;TargetUser) const</td></tr>
 <tr class="memdesc:a793dff860329c6ae2d8285898b28ac5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Has this user muted the given user? <br /></td></tr>
 <tr class="separator:a793dff860329c6ae2d8285898b28ac5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b9e3d602bd0022ceade41ce86816fa7" id="r_a6b9e3d602bd0022ceade41ce86816fa7"><td class="memItemLeft" align="right" valign="top"><a id="a6b9e3d602bd0022ceade41ce86816fa7" name="a6b9e3d602bd0022ceade41ce86816fa7"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>HasBlockedUser</b> (const <a class="el" href="struct_f_user_ref.html">FUserRef</a> &amp;TargetUser) const</td></tr>
+<tr class="memdesc:a6b9e3d602bd0022ceade41ce86816fa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Has this user blocked the given user? <br /></td></tr>
+<tr class="separator:a6b9e3d602bd0022ceade41ce86816fa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -156,10 +160,31 @@ TArray&lt; FMutedUser &gt;&#160;</td><td class="memItemRight" valign="bottom"><b
 TArray&lt; FMutedChannel &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>MutedChannels</b></td></tr>
 <tr class="memdesc:a420eac30bfe5755a124c8f43a1abf0d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Only populated for current user. <br /></td></tr>
 <tr class="separator:a420eac30bfe5755a124c8f43a1abf0d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33bf634b26a96253b7d0cf7c09f1427b" id="r_a33bf634b26a96253b7d0cf7c09f1427b"><td class="memItemLeft" align="right" valign="top">TArray&lt; FString &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a33bf634b26a96253b7d0cf7c09f1427b">BlockedUserIds</a></td></tr>
+<tr class="memdesc:a33bf634b26a96253b7d0cf7c09f1427b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ids of the users this user has blocked.  <br /></td></tr>
+<tr class="separator:a33bf634b26a96253b7d0cf7c09f1427b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The currently connected Stream Chat user. </p>
-</div><hr/>The documentation for this struct was generated from the following files:<ul>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a33bf634b26a96253b7d0cf7c09f1427b" name="a33bf634b26a96253b7d0cf7c09f1427b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33bf634b26a96253b7d0cf7c09f1427b">&#9670;&#160;</a></span>BlockedUserIds</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TArray&lt;FString&gt; FOwnUser::BlockedUserIds</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ids of the users this user has blocked. </p>
+<p>Unlike the mute lists, this is not part of the own user the API sends down, and no event reports a change to it. It is maintained from the responses to <a class="el" href="class_u_stream_chat_client_component.html#ad0d67e535099175fee63143356d4c772" title="Block a user.">UStreamChatClientComponent::BlockUser</a>, UnblockUser and GetBlockedUsers, so it is only as complete as the calls this session has made. Call GetBlockedUsers once after connecting to populate it. </p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
 <li>Source/StreamChat/Public/User/<a class="el" href="_own_user_8h_source.html">OwnUser.h</a></li>
 <li>Source/StreamChat/Private/User/<b>OwnUser.cpp</b></li>
 </ul>
