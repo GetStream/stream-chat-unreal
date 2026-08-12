@@ -112,6 +112,10 @@ $(function(){initNavTree('struct_f_channel_member_dto.html',''); initResizable(t
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr class="memitem:a4e870df89c295c530aa004993f7a581f" id="r_a4e870df89c295c530aa004993f7a581f"><td class="memItemLeft" align="right" valign="top"><a id="a4e870df89c295c530aa004993f7a581f" name="a4e870df89c295c530aa004993f7a581f"></a>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>ArchivedAt</b> = FDateTime{0}</td></tr>
+<tr class="memdesc:a4e870df89c295c530aa004993f7a581f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Date when this member archived the channel for themselves. <br /></td></tr>
+<tr class="separator:a4e870df89c295c530aa004993f7a581f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afed0bc6a60945c300b2b377d46a7b9b2" id="r_afed0bc6a60945c300b2b377d46a7b9b2"><td class="memItemLeft" align="right" valign="top"><a id="afed0bc6a60945c300b2b377d46a7b9b2" name="afed0bc6a60945c300b2b377d46a7b9b2"></a>
 FDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>BanExpires</b> = FDateTime{0}</td></tr>
 <tr class="memdesc:afed0bc6a60945c300b2b377d46a7b9b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expiration date of the ban. <br /></td></tr>
@@ -144,6 +148,14 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>bInvited</b> = false<
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>bIsModerator</b> = false</td></tr>
 <tr class="memdesc:a26c0226370d56566cbf7f72382e393d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether member is channel moderator or not. <br /></td></tr>
 <tr class="separator:a26c0226370d56566cbf7f72382e393d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0a9935c5672667a0d9cc599bafce990" id="r_ae0a9935c5672667a0d9cc599bafce990"><td class="memItemLeft" align="right" valign="top"><a id="ae0a9935c5672667a0d9cc599bafce990" name="ae0a9935c5672667a0d9cc599bafce990"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>bNotificationsMuted</b> = false</td></tr>
+<tr class="memdesc:ae0a9935c5672667a0d9cc599bafce990"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether this member muted notifications from the channel. <br /></td></tr>
+<tr class="separator:ae0a9935c5672667a0d9cc599bafce990"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a282e07f14f4c16d55bf199b945dbfdae" id="r_a282e07f14f4c16d55bf199b945dbfdae"><td class="memItemLeft" align="right" valign="top"><a id="a282e07f14f4c16d55bf199b945dbfdae" name="a282e07f14f4c16d55bf199b945dbfdae"></a>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>PinnedAt</b> = FDateTime{0}</td></tr>
+<tr class="memdesc:a282e07f14f4c16d55bf199b945dbfdae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Date when this member pinned the channel for themselves. <br /></td></tr>
+<tr class="separator:a282e07f14f4c16d55bf199b945dbfdae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a508900fdce5a52b8e91c8de14a3c7023" id="r_a508900fdce5a52b8e91c8de14a3c7023"><td class="memItemLeft" align="right" valign="top"><a id="a508900fdce5a52b8e91c8de14a3c7023" name="a508900fdce5a52b8e91c8de14a3c7023"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>bShadowBanned</b> = false</td></tr>
 <tr class="memdesc:a508900fdce5a52b8e91c8de14a3c7023"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether member is shadow banned in this channel or not. <br /></td></tr>
@@ -158,6 +170,9 @@ FDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>UpdatedAt</b> = 
 <tr class="memitem:a947c3995d90fda420bf77941bd6d245b" id="r_a947c3995d90fda420bf77941bd6d245b"><td class="memItemLeft" align="right" valign="top"><a id="a947c3995d90fda420bf77941bd6d245b" name="a947c3995d90fda420bf77941bd6d245b"></a>
 FString&#160;</td><td class="memItemRight" valign="bottom"><b>UserId</b></td></tr>
 <tr class="separator:a947c3995d90fda420bf77941bd6d245b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5600f23ba406654346f601aecf5c4180" id="r_a5600f23ba406654346f601aecf5c4180"><td class="memItemLeft" align="right" valign="top"><a id="a5600f23ba406654346f601aecf5c4180" name="a5600f23ba406654346f601aecf5c4180"></a>
+FAdditionalFields&#160;</td><td class="memItemRight" valign="bottom"><b>AdditionalFields</b></td></tr>
+<tr class="separator:a5600f23ba406654346f601aecf5c4180"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>#/components/schemas/ChannelMember </p>

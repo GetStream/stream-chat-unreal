@@ -130,13 +130,22 @@ static FName&#160;</td><td class="memItemRight" valign="bottom"><b>StaticType</b
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a54154a8c09d3cb306510fcfbf56a5c08" id="r_a54154a8c09d3cb306510fcfbf56a5c08"><td class="memItemLeft" align="right" valign="top"><a id="a54154a8c09d3cb306510fcfbf56a5c08" name="a54154a8c09d3cb306510fcfbf56a5c08"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>bHardDelete</b> = false</td></tr>
+<tr class="memitem:a54154a8c09d3cb306510fcfbf56a5c08" id="r_a54154a8c09d3cb306510fcfbf56a5c08"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54154a8c09d3cb306510fcfbf56a5c08">bHardDelete</a> = false</td></tr>
 <tr class="separator:a54154a8c09d3cb306510fcfbf56a5c08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6e5bf17578b7c6bda8cb8f72304217b" id="r_ac6e5bf17578b7c6bda8cb8f72304217b"><td class="memItemLeft" align="right" valign="top"><a id="ac6e5bf17578b7c6bda8cb8f72304217b" name="ac6e5bf17578b7c6bda8cb8f72304217b"></a>
+TArray&lt; <a class="el" href="struct_f_user_object_dto.html">FUserObjectDto</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ThreadParticipants</b></td></tr>
+<tr class="memdesc:ac6e5bf17578b7c6bda8cb8f72304217b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Users who have replied in the thread. Only sent when the deleted message was a thread reply. <br /></td></tr>
+<tr class="separator:ac6e5bf17578b7c6bda8cb8f72304217b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_struct_f_message_event"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_attribs_struct_f_message_event')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="struct_f_message_event.html">FMessageEvent</a></td></tr>
 <tr class="memitem:a0004b50152459dd18fece8a1f9bcaf19 inherit pub_attribs_struct_f_message_event" id="r_a0004b50152459dd18fece8a1f9bcaf19"><td class="memItemLeft" align="right" valign="top">
 <a class="el" href="struct_f_message_dto.html">FMessageDto</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Message</b></td></tr>
 <tr class="separator:a0004b50152459dd18fece8a1f9bcaf19 inherit pub_attribs_struct_f_message_event"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1d337e41b6a5e36961592be059ea6a3 inherit pub_attribs_struct_f_message_event" id="r_ad1d337e41b6a5e36961592be059ea6a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_f_user_object_dto.html">FUserObjectDto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_event.html#ad1d337e41b6a5e36961592be059ea6a3">User</a></td></tr>
+<tr class="separator:ad1d337e41b6a5e36961592be059ea6a3 inherit pub_attribs_struct_f_message_event"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1169d5a6ab51af689b459d97dcd1157 inherit pub_attribs_struct_f_message_event" id="r_ad1169d5a6ab51af689b459d97dcd1157"><td class="memItemLeft" align="right" valign="top">
+FString&#160;</td><td class="memItemRight" valign="bottom"><b>Team</b></td></tr>
+<tr class="memdesc:ad1169d5a6ab51af689b459d97dcd1157 inherit pub_attribs_struct_f_message_event"><td class="mdescLeft">&#160;</td><td class="mdescRight">Team the channel belongs to. Only sent by multi-tenant apps. <br /></td></tr>
+<tr class="separator:ad1169d5a6ab51af689b459d97dcd1157 inherit pub_attribs_struct_f_message_event"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_struct_f_channel_event"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_attribs_struct_f_channel_event')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="struct_f_channel_event.html">FChannelEvent</a></td></tr>
 <tr class="memitem:a0d6203e4d3ab48ab821533e718161bd6 inherit pub_attribs_struct_f_channel_event" id="r_a0d6203e4d3ab48ab821533e718161bd6"><td class="memItemLeft" align="right" valign="top">
 FString&#160;</td><td class="memItemRight" valign="bottom"><b>ChannelId</b></td></tr>
@@ -171,7 +180,23 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A message was deleted. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://getstream.io/chat/docs/events/#message.deleted">https://getstream.io/chat/docs/events/#message.deleted</a> </dd></dl>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a54154a8c09d3cb306510fcfbf56a5c08" name="a54154a8c09d3cb306510fcfbf56a5c08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54154a8c09d3cb306510fcfbf56a5c08">&#9670;&#160;</a></span>bHardDelete</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FMessageDeletedEvent::bHardDelete = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Whether the message was removed outright, rather than being marked as deleted. A hard deleted message never comes back from the API again. </p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
 <li>Source/Backend/StreamChatWebSocket/Public/Event/Channel/<a class="el" href="_message_deleted_event_8h_source.html">MessageDeletedEvent.h</a></li>
 </ul>
 </div><!-- contents -->

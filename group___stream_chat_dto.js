@@ -82,11 +82,15 @@ var group___stream_chat_dto =
     [ "FSendEventRequestDto", "struct_f_send_event_request_dto.html", null ],
     [ "FMessageRequestDto", "struct_f_message_request_dto.html", [
       [ "Attachments", "struct_f_message_request_dto.html#a721dedf3451b16ad8a99e40c9124defc", null ],
+      [ "bPinned", "struct_f_message_request_dto.html#a145829adecfb3b68077159821b56cd77", null ],
       [ "bShowInChannel", "struct_f_message_request_dto.html#a80dd40bed8e7e74957b1b8c018cc59c6", null ],
       [ "Html", "struct_f_message_request_dto.html#a41f6cfe682e1521a72791f8fe00b8855", null ],
       [ "Id", "struct_f_message_request_dto.html#ab7f3fdf46bffdab16aacaad520c611da", null ],
+      [ "MentionedUsers", "struct_f_message_request_dto.html#aee916e774391327f78198107a7aae2a6", null ],
       [ "Mml", "struct_f_message_request_dto.html#aaaffb243ad1068d68462da12c25d28c9", null ],
       [ "ParentId", "struct_f_message_request_dto.html#a7df1a59df78b272740d7cae76d932c54", null ],
+      [ "PinExpires", "struct_f_message_request_dto.html#af780d834bdfe4b0bb60117760fee4a56", null ],
+      [ "QuotedMessageId", "struct_f_message_request_dto.html#a44f5592c1435b28d940baec3aa62ba08", null ],
       [ "ReactionScores", "struct_f_message_request_dto.html#ad618a0e17f84e1bf126de384e52d89cd", null ],
       [ "Text", "struct_f_message_request_dto.html#ab24fd104212ec3a5b2263739aa4065b8", null ]
     ] ],
@@ -205,15 +209,18 @@ var group___stream_chat_dto =
       [ "UpdatedAt", "struct_f_channel_config_with_info_dto.html#a296e04832b02e2bba1e61924059a82ea", null ]
     ] ],
     [ "FChannelMemberDto", "struct_f_channel_member_dto.html", [
+      [ "ArchivedAt", "struct_f_channel_member_dto.html#a4e870df89c295c530aa004993f7a581f", null ],
       [ "BanExpires", "struct_f_channel_member_dto.html#afed0bc6a60945c300b2b377d46a7b9b2", null ],
       [ "bBanned", "struct_f_channel_member_dto.html#aab296a1b6d951f6586ac2e3a0cbac723", null ],
       [ "bInvited", "struct_f_channel_member_dto.html#ae0b003a0ce3333267c8c1c0c75bfc493", null ],
       [ "bIsModerator", "struct_f_channel_member_dto.html#a26c0226370d56566cbf7f72382e393d9", null ],
+      [ "bNotificationsMuted", "struct_f_channel_member_dto.html#ae0a9935c5672667a0d9cc599bafce990", null ],
       [ "bShadowBanned", "struct_f_channel_member_dto.html#a508900fdce5a52b8e91c8de14a3c7023", null ],
       [ "ChannelRole", "struct_f_channel_member_dto.html#aaeee953887e4ebf21a2ed620d9e24839", null ],
       [ "CreatedAt", "struct_f_channel_member_dto.html#aaf7e3ff515abe514eaa1e0b412a3d613", null ],
       [ "InviteAcceptedAt", "struct_f_channel_member_dto.html#ad74e316c7e86b7bf62eb15b095fe54a9", null ],
       [ "InviteRejectedAt", "struct_f_channel_member_dto.html#a68fadfd086ad0a9945e6670c613211bb", null ],
+      [ "PinnedAt", "struct_f_channel_member_dto.html#a282e07f14f4c16d55bf199b945dbfdae", null ],
       [ "UpdatedAt", "struct_f_channel_member_dto.html#a47a57b9ca890b0fa832b46174dd935c5", null ]
     ] ],
     [ "FChannelResponseDto", "struct_f_channel_response_dto.html", [
@@ -330,6 +337,7 @@ var group___stream_chat_dto =
       [ "Command", "struct_f_message_dto.html#ae091ffcdc7ef628f191ce7de4d68e6dc", null ],
       [ "CreatedAt", "struct_f_message_dto.html#a247fc682a7a7a24dd6376ed9d7af9c72", null ],
       [ "Html", "struct_f_message_dto.html#ab8c4a2805f662c12a7e09d0ee3e00d1d", null ],
+      [ "I18n", "struct_f_message_dto.html#a9ab64361a88276d96e5cc80c15a0cb16", null ],
       [ "Id", "struct_f_message_dto.html#a8b60be6934fb0896392a6c229a8afb69", null ],
       [ "LatestReactions", "struct_f_message_dto.html#a8113f65457346f85e2cde5158b0e7183", null ],
       [ "MentionedUsers", "struct_f_message_dto.html#a3029015ca8796ddc74db3163b1ab1f8b", null ],

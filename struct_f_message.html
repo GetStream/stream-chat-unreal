@@ -128,10 +128,8 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>FMessage</b> (const FString &amp;<a class="el" href="#ae3268aa0c96ae1b8e21368503000ebda">Text</a>)</td></tr>
 <tr class="memdesc:a2f18482b45463920b6cd94f44c155592"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new message from a message string. <br /></td></tr>
 <tr class="separator:a2f18482b45463920b6cd94f44c155592"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84984fc8d09ddc31b4b178d15509b972" id="r_a84984fc8d09ddc31b4b178d15509b972"><td class="memItemLeft" align="right" valign="top"><a id="a84984fc8d09ddc31b4b178d15509b972" name="a84984fc8d09ddc31b4b178d15509b972"></a>
-<a class="el" href="struct_f_message_request_dto.html">FMessageRequestDto</a>&#160;</td><td class="memItemRight" valign="bottom"><b>ToRequestDto</b> (const FString &amp;Cid) const</td></tr>
-<tr class="memdesc:a84984fc8d09ddc31b4b178d15509b972"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a message into a create/update request for sending to the API. <br /></td></tr>
-<tr class="separator:a84984fc8d09ddc31b4b178d15509b972"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0640d767c982892954f081b390498032" id="r_a0640d767c982892954f081b390498032"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_f_message_request_dto.html">FMessageRequestDto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0640d767c982892954f081b390498032">ToRequestDto</a> (const FString &amp;<a class="el" href="group___stream_chat.html#ggad83c2a39fafdf07b890e3260924f9f56aab9a84720cb59d32b0f65cabe317c4ab">ChannelCid</a>) const</td></tr>
+<tr class="separator:a0640d767c982892954f081b390498032"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8548fac482d1901d552ff2e3c99dc8e0" id="r_a8548fac482d1901d552ff2e3c99dc8e0"><td class="memItemLeft" align="right" valign="top"><a id="a8548fac482d1901d552ff2e3c99dc8e0" name="a8548fac482d1901d552ff2e3c99dc8e0"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsThreadReply</b> () const</td></tr>
 <tr class="memdesc:a8548fac482d1901d552ff2e3c99dc8e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is this message a reply in another message's thread? <br /></td></tr>
@@ -150,6 +148,13 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsRemovedByModeration
 <tr class="memitem:a4a6ff665ab42061f7fb3b6a9608359a9" id="r_a4a6ff665ab42061f7fb3b6a9608359a9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a6ff665ab42061f7fb3b6a9608359a9">IsModerationError</a> () const</td></tr>
 <tr class="memdesc:a4a6ff665ab42061f7fb3b6a9608359a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is this the current user's own message, sitting in the list because moderation bounced it?  <br /></td></tr>
 <tr class="separator:a4a6ff665ab42061f7fb3b6a9608359a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a4668222ac21b7e1f37d0333de060b1" id="r_a5a4668222ac21b7e1f37d0333de060b1"><td class="memItemLeft" align="right" valign="top"><a id="a5a4668222ac21b7e1f37d0333de060b1" name="a5a4668222ac21b7e1f37d0333de060b1"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsQuoting</b> () const</td></tr>
+<tr class="memdesc:a5a4668222ac21b7e1f37d0333de060b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Is this message quoting another one? Look the quoted message up by QuotedMessageId. <br /></td></tr>
+<tr class="separator:a5a4668222ac21b7e1f37d0333de060b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2f68be60f9c9736ac66ff4b38daee88" id="r_ab2f68be60f9c9736ac66ff4b38daee88"><td class="memItemLeft" align="right" valign="top">const FString &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab2f68be60f9c9736ac66ff4b38daee88">GetTranslation</a> (const FString &amp;Language) const</td></tr>
+<tr class="memdesc:ab2f68be60f9c9736ac66ff4b38daee88"><td class="mdescLeft">&#160;</td><td class="mdescRight">The message text in the given language, falling back to Text when it wasn't translated.  <br /></td></tr>
+<tr class="separator:ab2f68be60f9c9736ac66ff4b38daee88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -157,6 +162,8 @@ Public Attributes</h2></td></tr>
 FString&#160;</td><td class="memItemRight" valign="bottom"><b>Id</b></td></tr>
 <tr class="memdesc:a3bb506fb5bc73a79bda17ac633139c75"><td class="mdescLeft">&#160;</td><td class="mdescRight">The message ID. This is either created by the Stream API or set client side when the message is created. <br /></td></tr>
 <tr class="separator:a3bb506fb5bc73a79bda17ac633139c75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ced6d00713d67a2515114eba13c1077" id="r_a9ced6d00713d67a2515114eba13c1077"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9ced6d00713d67a2515114eba13c1077">Cid</a></td></tr>
+<tr class="separator:a9ced6d00713d67a2515114eba13c1077"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3268aa0c96ae1b8e21368503000ebda" id="r_ae3268aa0c96ae1b8e21368503000ebda"><td class="memItemLeft" align="right" valign="top"><a id="ae3268aa0c96ae1b8e21368503000ebda" name="ae3268aa0c96ae1b8e21368503000ebda"></a>
 FString&#160;</td><td class="memItemRight" valign="bottom"><b>Text</b></td></tr>
 <tr class="memdesc:ae3268aa0c96ae1b8e21368503000ebda"><td class="mdescLeft">&#160;</td><td class="mdescRight">The text of this message. <br /></td></tr>
@@ -224,6 +231,30 @@ FString&#160;</td><td class="memItemRight" valign="bottom"><b>Html</b></td></tr>
 TArray&lt; <a class="el" href="struct_f_attachment.html">FAttachment</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Attachments</b></td></tr>
 <tr class="memdesc:ac379f0b2704722bf3d079ad2cf83e073"><td class="mdescLeft">&#160;</td><td class="mdescRight">Files, images and link previews attached to this message. <br /></td></tr>
 <tr class="separator:ac379f0b2704722bf3d079ad2cf83e073"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0b4f4f3408c27cca14300ee53856fcb" id="r_ac0b4f4f3408c27cca14300ee53856fcb"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac0b4f4f3408c27cca14300ee53856fcb">Command</a></td></tr>
+<tr class="separator:ac0b4f4f3408c27cca14300ee53856fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2df560c507b394e31b1b2ce2dafbe82" id="r_ad2df560c507b394e31b1b2ce2dafbe82"><td class="memItemLeft" align="right" valign="top"><a id="ad2df560c507b394e31b1b2ce2dafbe82" name="ad2df560c507b394e31b1b2ce2dafbe82"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>bPinned</b> = false</td></tr>
+<tr class="memdesc:ad2df560c507b394e31b1b2ce2dafbe82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether this message is pinned in the channel. Set this before sending to pin it. <br /></td></tr>
+<tr class="separator:ad2df560c507b394e31b1b2ce2dafbe82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea0bde3612f67383d2eafb0e31109356" id="r_aea0bde3612f67383d2eafb0e31109356"><td class="memItemLeft" align="right" valign="top"><a id="aea0bde3612f67383d2eafb0e31109356" name="aea0bde3612f67383d2eafb0e31109356"></a>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>PinnedAt</b> = FDateTime{0}</td></tr>
+<tr class="memdesc:aea0bde3612f67383d2eafb0e31109356"><td class="mdescLeft">&#160;</td><td class="mdescRight">When the message was pinned. Zero unless it is pinned. Stamped by the API. <br /></td></tr>
+<tr class="separator:aea0bde3612f67383d2eafb0e31109356"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc908e13c1601cd87e4b73e77d5812ba" id="r_acc908e13c1601cd87e4b73e77d5812ba"><td class="memItemLeft" align="right" valign="top"><a id="acc908e13c1601cd87e4b73e77d5812ba" name="acc908e13c1601cd87e4b73e77d5812ba"></a>
+<a class="el" href="struct_f_user_ref.html">FUserRef</a>&#160;</td><td class="memItemRight" valign="bottom"><b>PinnedBy</b></td></tr>
+<tr class="memdesc:acc908e13c1601cd87e4b73e77d5812ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Who pinned the message. Invalid unless it is pinned. Set by the API. <br /></td></tr>
+<tr class="separator:acc908e13c1601cd87e4b73e77d5812ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85f01c7b2a70356ced40d706d9366887" id="r_a85f01c7b2a70356ced40d706d9366887"><td class="memItemLeft" align="right" valign="top">FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a85f01c7b2a70356ced40d706d9366887">PinExpires</a> = FDateTime{0}</td></tr>
+<tr class="separator:a85f01c7b2a70356ced40d706d9366887"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d88238d23df86b4d8c3d7d21da2aca5" id="r_a0d88238d23df86b4d8c3d7d21da2aca5"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0d88238d23df86b4d8c3d7d21da2aca5">QuotedMessageId</a></td></tr>
+<tr class="separator:a0d88238d23df86b4d8c3d7d21da2aca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2ba2c2863c15a69b4232cf055e5f273" id="r_ae2ba2c2863c15a69b4232cf055e5f273"><td class="memItemLeft" align="right" valign="top">TMap&lt; FString, FString &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae2ba2c2863c15a69b4232cf055e5f273">Translations</a></td></tr>
+<tr class="separator:ae2ba2c2863c15a69b4232cf055e5f273"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f4efec533be94b68ee9da5d4f7025b4" id="r_a7f4efec533be94b68ee9da5d4f7025b4"><td class="memItemLeft" align="right" valign="top"><a id="a7f4efec533be94b68ee9da5d4f7025b4" name="a7f4efec533be94b68ee9da5d4f7025b4"></a>
+FString&#160;</td><td class="memItemRight" valign="bottom"><b>OriginalLanguage</b></td></tr>
+<tr class="memdesc:a7f4efec533be94b68ee9da5d4f7025b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The language Text was written in, as detected by auto-translation. Empty without it. <br /></td></tr>
+<tr class="separator:a7f4efec533be94b68ee9da5d4f7025b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee0fb2fb84ea72749f57f2bcfab083e8" id="r_aee0fb2fb84ea72749f57f2bcfab083e8"><td class="memItemLeft" align="right" valign="top"><a id="aee0fb2fb84ea72749f57f2bcfab083e8" name="aee0fb2fb84ea72749f57f2bcfab083e8"></a>
 FAdditionalFields&#160;</td><td class="memItemRight" valign="bottom"><b>ExtraData</b></td></tr>
 <tr class="separator:aee0fb2fb84ea72749f57f2bcfab083e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -231,6 +262,31 @@ FAdditionalFields&#160;</td><td class="memItemRight" valign="bottom"><b>ExtraDat
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents a Stream Chat message. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab2f68be60f9c9736ac66ff4b38daee88" name="ab2f68be60f9c9736ac66ff4b38daee88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2f68be60f9c9736ac66ff4b38daee88">&#9670;&#160;</a></span>GetTranslation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const FString &amp; FMessage::GetTranslation </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>Language</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The message text in the given language, falling back to Text when it wasn't translated. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Language</td><td>A language code as the API names it, e.g. "fr". Matches OriginalLanguage and the keys of Translations. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="aebc6ea67439ac72bda10b6363e04b5f1" name="aebc6ea67439ac72bda10b6363e04b5f1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aebc6ea67439ac72bda10b6363e04b5f1">&#9670;&#160;</a></span>IsBounced()</h2>
 
@@ -271,6 +327,24 @@ FAdditionalFields&#160;</td><td class="memItemRight" valign="bottom"><b>ExtraDat
 
 </div>
 </div>
+<a id="a0640d767c982892954f081b390498032" name="a0640d767c982892954f081b390498032"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0640d767c982892954f081b390498032">&#9670;&#160;</a></span>ToRequestDto()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_f_message_request_dto.html">FMessageRequestDto</a> FMessage::ToRequestDto </td>
+          <td>(</td>
+          <td class="paramtype">const FString &amp;</td>          <td class="paramname"><span class="paramname"><em>ChannelCid</em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Convert a message into a create/update request for sending to the API. Takes the channel's CID rather than reading this message's, which is empty until it is sent. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="af2e4953f3bcb28d058e3370cbb78f256" name="af2e4953f3bcb28d058e3370cbb78f256"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af2e4953f3bcb28d058e3370cbb78f256">&#9670;&#160;</a></span>bShowInChannel</h2>
@@ -287,6 +361,36 @@ FAdditionalFields&#160;</td><td class="memItemRight" valign="bottom"><b>ExtraDat
 
 </div>
 </div>
+<a id="a9ced6d00713d67a2515114eba13c1077" name="a9ced6d00713d67a2515114eba13c1077"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ced6d00713d67a2515114eba13c1077">&#9670;&#160;</a></span>Cid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FMessage::Cid</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>CID (&lt;type&gt;:&lt;id&gt;) of the channel the message belongs to. Empty on a message which hasn't been sent yet. </p>
+
+</div>
+</div>
+<a id="ac0b4f4f3408c27cca14300ee53856fcb" name="ac0b4f4f3408c27cca14300ee53856fcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0b4f4f3408c27cca14300ee53856fcb">&#9670;&#160;</a></span>Command</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FMessage::Command</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The slash command which produced this message, without the slash, e.g. "giphy". Empty for an ordinary message. </p>
+
+</div>
+</div>
 <a id="a63796defb157e51b8fad7328a3656a5c" name="a63796defb157e51b8fad7328a3656a5c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a63796defb157e51b8fad7328a3656a5c">&#9670;&#160;</a></span>ParentId</h2>
 
@@ -299,6 +403,51 @@ FAdditionalFields&#160;</td><td class="memItemRight" valign="bottom"><b>ExtraDat
       </table>
 </div><div class="memdoc">
 <p>The message this one is a reply to. Empty if this message is not a reply in a thread. Set this before sending to start or continue a thread. </p>
+
+</div>
+</div>
+<a id="a85f01c7b2a70356ced40d706d9366887" name="a85f01c7b2a70356ced40d706d9366887"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85f01c7b2a70356ced40d706d9366887">&#9670;&#160;</a></span>PinExpires</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FDateTime FMessage::PinExpires = FDateTime{0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>When the pin lapses. Zero for a pin which doesn't expire. Set this before sending to pin the message for a limited time. </p>
+
+</div>
+</div>
+<a id="a0d88238d23df86b4d8c3d7d21da2aca5" name="a0d88238d23df86b4d8c3d7d21da2aca5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d88238d23df86b4d8c3d7d21da2aca5">&#9670;&#160;</a></span>QuotedMessageId</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FMessage::QuotedMessageId</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The ID of the message this one quotes. Empty if it quotes nothing. Set this before sending to quote a message. </p>
+
+</div>
+</div>
+<a id="ae2ba2c2863c15a69b4232cf055e5f273" name="ae2ba2c2863c15a69b4232cf055e5f273"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2ba2c2863c15a69b4232cf055e5f273">&#9670;&#160;</a></span>Translations</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TMap&lt;FString, FString&gt; FMessage::Translations</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Automatic translations of Text, keyed by language code, e.g. "fr". Only filled in by an app which has auto-translation switched on. </p>
 
 </div>
 </div>

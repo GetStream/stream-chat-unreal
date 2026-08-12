@@ -11,5 +11,5 @@ var searchData=
   ['queryreplies_8',['QueryReplies',['../class_u_chat_channel.html#af072c4dff1b9058164266623fc2e13a1',1,'UChatChannel']]],
   ['querythreads_9',['QueryThreads',['../class_f_chat_api.html#a46c7a86ffe232f6483e05b4ea43c131a',1,'FChatApi::QueryThreads()'],['../class_u_stream_chat_client_component.html#af50f3994b289917628249c4f99e3e90c',1,'UStreamChatClientComponent::QueryThreads()']]],
   ['queryusers_10',['QueryUsers',['../class_f_chat_api.html#a75e5bb2b831530b11a114e94d301f0c9',1,'FChatApi::QueryUsers()'],['../class_u_stream_chat_client_component.html#aecbc251fc7fa3f316c8ea609de72727e',1,'UStreamChatClientComponent::QueryUsers()']]],
-  ['quotedmessageid_11',['QuotedMessageId',['../struct_f_message_dto.html#ab8fb2103db4bb70fb536fd5fa2c932c0',1,'FMessageDto']]]
+  ['quotedmessageid_11',['QuotedMessageId',['../struct_f_message_request_dto.html#a44f5592c1435b28d940baec3aa62ba08',1,'FMessageRequestDto::QuotedMessageId'],['../struct_f_message_dto.html#ab8fb2103db4bb70fb536fd5fa2c932c0',1,'FMessageDto::QuotedMessageId'],['../struct_f_message.html#a0d88238d23df86b4d8c3d7d21da2aca5',1,'FMessage::QuotedMessageId']]]
 ];

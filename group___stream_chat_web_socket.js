@@ -15,10 +15,21 @@ var group___stream_chat_web_socket =
     [ "FLocalEvent", "struct_f_local_event.html", [
       [ "Type", "struct_f_local_event.html#a30ccc0345e12a6a302028584769e1e1d", null ]
     ] ],
-    [ "FMessageEvent", "struct_f_message_event.html", null ],
-    [ "FReactionEvent", "struct_f_reaction_event.html", null ],
-    [ "FMessageDeletedEvent", "struct_f_message_deleted_event.html", null ],
-    [ "FMessageNewEvent", "struct_f_message_new_event.html", null ],
+    [ "FMessageEvent", "struct_f_message_event.html", [
+      [ "Team", "struct_f_message_event.html#ad1169d5a6ab51af689b459d97dcd1157", null ],
+      [ "User", "struct_f_message_event.html#ad1d337e41b6a5e36961592be059ea6a3", null ]
+    ] ],
+    [ "FReactionEvent", "struct_f_reaction_event.html", [
+      [ "Reaction", "struct_f_reaction_event.html#ae5c994a0459d70d32515415a163225de", null ]
+    ] ],
+    [ "FMessageDeletedEvent", "struct_f_message_deleted_event.html", [
+      [ "bHardDelete", "struct_f_message_deleted_event.html#a54154a8c09d3cb306510fcfbf56a5c08", null ],
+      [ "ThreadParticipants", "struct_f_message_deleted_event.html#ac6e5bf17578b7c6bda8cb8f72304217b", null ]
+    ] ],
+    [ "FMessageNewEvent", "struct_f_message_new_event.html", [
+      [ "ThreadParticipants", "struct_f_message_new_event.html#a4819bc7b3d58988b1cae6644d72c8598", null ],
+      [ "WatcherCount", "struct_f_message_new_event.html#a257e8b597caff65002f9ef9bf4fecd90", null ]
+    ] ],
     [ "FMessageReadEvent", "struct_f_message_read_event.html", null ],
     [ "FMessageUpdatedEvent", "struct_f_message_updated_event.html", null ],
     [ "FReactionDeletedEvent", "struct_f_reaction_deleted_event.html", null ],
@@ -28,7 +39,11 @@ var group___stream_chat_web_socket =
     [ "FTypingStopEvent", "struct_f_typing_stop_event.html", null ],
     [ "FConnectionChangedEvent", "struct_f_connection_changed_event.html", null ],
     [ "FConnectionRecoveredEvent", "struct_f_connection_recovered_event.html", null ],
-    [ "FHealthCheckEvent", "struct_f_health_check_event.html", null ],
+    [ "FHealthCheckEvent", "struct_f_health_check_event.html", [
+      [ "Cid", "struct_f_health_check_event.html#ae304bf651f7b74f91df96744a8908d02", null ],
+      [ "ConnectionId", "struct_f_health_check_event.html#aeac628197f88309e4c7c993463ee003e", null ],
+      [ "Me", "struct_f_health_check_event.html#a300d3ff6ab3851b25ab9a4d577c90900", null ]
+    ] ],
     [ "FNotificationMarkReadEvent", "struct_f_notification_mark_read_event.html", null ],
     [ "FNotificationMessageNewEvent", "struct_f_notification_message_new_event.html", null ],
     [ "FNotificationMutesUpdatedEvent", "struct_f_notification_mutes_updated_event.html", null ],

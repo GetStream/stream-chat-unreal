@@ -132,6 +132,17 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const
 <tr class="memitem:a8e1db8d5966bb656834dbe3313d1d3a7" id="r_a8e1db8d5966bb656834dbe3313d1d3a7"><td class="memItemLeft" align="right" valign="top"><a id="a8e1db8d5966bb656834dbe3313d1d3a7" name="a8e1db8d5966bb656834dbe3313d1d3a7"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="struct_f_member.html">FMember</a> &amp;) const</td></tr>
 <tr class="separator:a8e1db8d5966bb656834dbe3313d1d3a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32cf41b31bedeb1bfb7e676ea79972fd" id="r_a32cf41b31bedeb1bfb7e676ea79972fd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a32cf41b31bedeb1bfb7e676ea79972fd">IsInvitePending</a> () const</td></tr>
+<tr class="memdesc:a32cf41b31bedeb1bfb7e676ea79972fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Has this member been invited to the channel and not yet answered?  <br /></td></tr>
+<tr class="separator:a32cf41b31bedeb1bfb7e676ea79972fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52f500669df70cc023345c4266f703fd" id="r_a52f500669df70cc023345c4266f703fd"><td class="memItemLeft" align="right" valign="top"><a id="a52f500669df70cc023345c4266f703fd" name="a52f500669df70cc023345c4266f703fd"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>HasAcceptedInvite</b> () const</td></tr>
+<tr class="memdesc:a52f500669df70cc023345c4266f703fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Has this member accepted their invitation to the channel? <br /></td></tr>
+<tr class="separator:a52f500669df70cc023345c4266f703fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5aeeac900a5c5fe5d9dad88af1e2d67" id="r_ac5aeeac900a5c5fe5d9dad88af1e2d67"><td class="memItemLeft" align="right" valign="top"><a id="ac5aeeac900a5c5fe5d9dad88af1e2d67" name="ac5aeeac900a5c5fe5d9dad88af1e2d67"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>HasRejectedInvite</b> () const</td></tr>
+<tr class="memdesc:ac5aeeac900a5c5fe5d9dad88af1e2d67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Has this member rejected their invitation to the channel? <br /></td></tr>
+<tr class="separator:ac5aeeac900a5c5fe5d9dad88af1e2d67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -151,6 +162,49 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>bBanned</b> = false</
 FString&#160;</td><td class="memItemRight" valign="bottom"><b>ChannelRole</b></td></tr>
 <tr class="memdesc:a57547478b40e7d00e35efec69d5ca8e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Role of the member in the channel. <br /></td></tr>
 <tr class="separator:a57547478b40e7d00e35efec69d5ca8e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5755e61565e1e616bc57cf8c0a8e4d42" id="r_a5755e61565e1e616bc57cf8c0a8e4d42"><td class="memItemLeft" align="right" valign="top"><a id="a5755e61565e1e616bc57cf8c0a8e4d42" name="a5755e61565e1e616bc57cf8c0a8e4d42"></a>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>CreatedAt</b> = FDateTime{0}</td></tr>
+<tr class="memdesc:a5755e61565e1e616bc57cf8c0a8e4d42"><td class="mdescLeft">&#160;</td><td class="mdescRight">When this user became a member of the channel. <br /></td></tr>
+<tr class="separator:a5755e61565e1e616bc57cf8c0a8e4d42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf01ee0d0e8e60a38466c24b60d55992" id="r_adf01ee0d0e8e60a38466c24b60d55992"><td class="memItemLeft" align="right" valign="top"><a id="adf01ee0d0e8e60a38466c24b60d55992" name="adf01ee0d0e8e60a38466c24b60d55992"></a>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>UpdatedAt</b> = FDateTime{0}</td></tr>
+<tr class="memdesc:adf01ee0d0e8e60a38466c24b60d55992"><td class="mdescLeft">&#160;</td><td class="mdescRight">When this membership was last updated. <br /></td></tr>
+<tr class="separator:adf01ee0d0e8e60a38466c24b60d55992"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31d9421765274a04c6ab311dabf6571d" id="r_a31d9421765274a04c6ab311dabf6571d"><td class="memItemLeft" align="right" valign="top"><a id="a31d9421765274a04c6ab311dabf6571d" name="a31d9421765274a04c6ab311dabf6571d"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>bInvited</b> = false</td></tr>
+<tr class="memdesc:a31d9421765274a04c6ab311dabf6571d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether this member was invited to the channel, rather than simply added to it. <br /></td></tr>
+<tr class="separator:a31d9421765274a04c6ab311dabf6571d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac39b5985099404418aba7c1acc13325c" id="r_ac39b5985099404418aba7c1acc13325c"><td class="memItemLeft" align="right" valign="top"><a id="ac39b5985099404418aba7c1acc13325c" name="ac39b5985099404418aba7c1acc13325c"></a>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>InviteAcceptedAt</b> = FDateTime{0}</td></tr>
+<tr class="memdesc:ac39b5985099404418aba7c1acc13325c"><td class="mdescLeft">&#160;</td><td class="mdescRight">When this member accepted their invitation. Zero if they never did. <br /></td></tr>
+<tr class="separator:ac39b5985099404418aba7c1acc13325c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3cbd5ccf0567e8f1c661d738dcfe375" id="r_aa3cbd5ccf0567e8f1c661d738dcfe375"><td class="memItemLeft" align="right" valign="top"><a id="aa3cbd5ccf0567e8f1c661d738dcfe375" name="aa3cbd5ccf0567e8f1c661d738dcfe375"></a>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>InviteRejectedAt</b> = FDateTime{0}</td></tr>
+<tr class="memdesc:aa3cbd5ccf0567e8f1c661d738dcfe375"><td class="mdescLeft">&#160;</td><td class="mdescRight">When this member rejected their invitation. Zero if they never did. <br /></td></tr>
+<tr class="separator:aa3cbd5ccf0567e8f1c661d738dcfe375"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a281eed2b155842ce4c1fd0013fa9fb36" id="r_a281eed2b155842ce4c1fd0013fa9fb36"><td class="memItemLeft" align="right" valign="top"><a id="a281eed2b155842ce4c1fd0013fa9fb36" name="a281eed2b155842ce4c1fd0013fa9fb36"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>bIsModerator</b> = false</td></tr>
+<tr class="memdesc:a281eed2b155842ce4c1fd0013fa9fb36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether this member can moderate the channel. <br /></td></tr>
+<tr class="separator:a281eed2b155842ce4c1fd0013fa9fb36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96f90539a666adf8bda3c7cfee1c2fb6" id="r_a96f90539a666adf8bda3c7cfee1c2fb6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a96f90539a666adf8bda3c7cfee1c2fb6">bShadowBanned</a> = false</td></tr>
+<tr class="memdesc:a96f90539a666adf8bda3c7cfee1c2fb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether this member is shadow banned in this channel.  <br /></td></tr>
+<tr class="separator:a96f90539a666adf8bda3c7cfee1c2fb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ab895b70c2ae4a0f829e2fd0468af03" id="r_a0ab895b70c2ae4a0f829e2fd0468af03"><td class="memItemLeft" align="right" valign="top"><a id="a0ab895b70c2ae4a0f829e2fd0468af03" name="a0ab895b70c2ae4a0f829e2fd0468af03"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>bNotificationsMuted</b> = false</td></tr>
+<tr class="memdesc:a0ab895b70c2ae4a0f829e2fd0468af03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether this member muted notifications from the channel. <br /></td></tr>
+<tr class="separator:a0ab895b70c2ae4a0f829e2fd0468af03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0a0c3707d424096b524a7be118ba42a" id="r_ab0a0c3707d424096b524a7be118ba42a"><td class="memItemLeft" align="right" valign="top"><a id="ab0a0c3707d424096b524a7be118ba42a" name="ab0a0c3707d424096b524a7be118ba42a"></a>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>ArchivedAt</b> = FDateTime{0}</td></tr>
+<tr class="memdesc:ab0a0c3707d424096b524a7be118ba42a"><td class="mdescLeft">&#160;</td><td class="mdescRight">When this member archived the channel for themselves. Zero if they have not. <br /></td></tr>
+<tr class="separator:ab0a0c3707d424096b524a7be118ba42a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5afabf9895b2f08ca849512fd59fa2f7" id="r_a5afabf9895b2f08ca849512fd59fa2f7"><td class="memItemLeft" align="right" valign="top"><a id="a5afabf9895b2f08ca849512fd59fa2f7" name="a5afabf9895b2f08ca849512fd59fa2f7"></a>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>PinnedAt</b> = FDateTime{0}</td></tr>
+<tr class="memdesc:a5afabf9895b2f08ca849512fd59fa2f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">When this member pinned the channel for themselves. Zero if they have not. <br /></td></tr>
+<tr class="separator:a5afabf9895b2f08ca849512fd59fa2f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c83a516871973fdc6ee703093339424" id="r_a3c83a516871973fdc6ee703093339424"><td class="memItemLeft" align="right" valign="top"><a id="a3c83a516871973fdc6ee703093339424" name="a3c83a516871973fdc6ee703093339424"></a>
+FAdditionalFields&#160;</td><td class="memItemRight" valign="bottom"><b>ExtraData</b></td></tr>
+<tr class="memdesc:a3c83a516871973fdc6ee703093339424"><td class="mdescLeft">&#160;</td><td class="mdescRight">Any custom fields set on the membership. <br /></td></tr>
+<tr class="separator:a3c83a516871973fdc6ee703093339424"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -160,7 +214,46 @@ uint32&#160;</td><td class="memItemRight" valign="bottom"><b>GetTypeHash</b> (co
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Contains information about a member of a chat channel. </p>
-</div><hr/>The documentation for this struct was generated from the following files:<ul>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a32cf41b31bedeb1bfb7e676ea79972fd" name="a32cf41b31bedeb1bfb7e676ea79972fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32cf41b31bedeb1bfb7e676ea79972fd">&#9670;&#160;</a></span>IsInvitePending()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FMember::IsInvitePending </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Has this member been invited to the channel and not yet answered? </p>
+<p>Both answers are recorded as a date, so an invite is outstanding only while neither is set. Show such a member an accept/reject prompt rather than the channel itself. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a96f90539a666adf8bda3c7cfee1c2fb6" name="a96f90539a666adf8bda3c7cfee1c2fb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96f90539a666adf8bda3c7cfee1c2fb6">&#9670;&#160;</a></span>bShadowBanned</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FMember::bShadowBanned = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Whether this member is shadow banned in this channel. </p>
+<p>Their messages arrive marked as shadowed for everybody else, and not at all for a client which hides them. They are not told about any of this, which is the point. </p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
 <li>Source/StreamChat/Public/Channel/<a class="el" href="_member_8h_source.html">Member.h</a></li>
 <li>Source/StreamChat/Private/Channel/<b>Member.cpp</b></li>
 </ul>

@@ -7,13 +7,14 @@ var searchData=
   ['addmembers_4',['AddMembers',['../struct_f_update_channel_request_dto.html#a8ac3ebebca82e45a73105778b81e2d5f',1,'FUpdateChannelRequestDto']]],
   ['addmoderators_5',['AddModerators',['../struct_f_update_channel_request_dto.html#a28ebf82105cf31f4892b80e30b8844fc',1,'FUpdateChannelRequestDto']]],
   ['approvedat_6',['ApprovedAt',['../struct_f_flag_dto.html#a54bc444934a06f4da11545c8826aae87',1,'FFlagDto']]],
-  ['asseturl_7',['AssetUrl',['../struct_f_attachment_dto.html#a37d9dfaac55ea22687f64febf0602e68',1,'FAttachmentDto::AssetUrl'],['../struct_f_attachment.html#acf51465e336e218a5e10f5b43751a262',1,'FAttachment::AssetUrl']]],
-  ['assignroles_8',['AssignRoles',['../struct_f_update_channel_request_dto.html#a83d1aae09b16d5c6af44eb4efa93c993',1,'FUpdateChannelRequestDto']]],
-  ['attachmentpadding_9',['AttachmentPadding',['../class_u_message_widget.html#a8403a76b973ee6d45537d5b7f9ee0978',1,'UMessageWidget']]],
-  ['attachments_10',['Attachments',['../struct_f_message_request_dto.html#a721dedf3451b16ad8a99e40c9124defc',1,'FMessageRequestDto::Attachments'],['../struct_f_message_dto.html#a4729426a241b004010a5eb7d4bd192d3',1,'FMessageDto::Attachments'],['../struct_f_message.html#ac379f0b2704722bf3d079ad2cf83e073',1,'FMessage::Attachments']]],
-  ['authorlink_11',['AuthorLink',['../struct_f_attachment_dto.html#a3588ee6a5a6e5b4951ba100d45f8e7d2',1,'FAttachmentDto']]],
-  ['authorname_12',['AuthorName',['../struct_f_attachment_dto.html#acb152dcf0c9c620951e74d038a83ed85',1,'FAttachmentDto']]],
-  ['automod_13',['Automod',['../struct_f_channel_config_with_info_dto.html#a57fe5d353169226ec7018d80e9d652cc',1,'FChannelConfigWithInfoDto::Automod'],['../struct_f_channel_config.html#a55ebcc199aa002185c99803a25761bad',1,'FChannelConfig::Automod']]],
-  ['automodbehavior_14',['AutomodBehavior',['../struct_f_channel_config_with_info_dto.html#ac5d942b03be77ce9ab66e058ab363cb2',1,'FChannelConfigWithInfoDto']]],
-  ['autotranslationlanguage_15',['AutoTranslationLanguage',['../struct_f_channel_response_dto.html#ab19afd64e7b5fabb2a59be6f62727526',1,'FChannelResponseDto::AutoTranslationLanguage'],['../struct_f_channel_properties.html#a0516cd1e38141aa0176120e6d32716bd',1,'FChannelProperties::AutoTranslationLanguage']]]
+  ['archivedat_7',['ArchivedAt',['../struct_f_channel_member_dto.html#a4e870df89c295c530aa004993f7a581f',1,'FChannelMemberDto::ArchivedAt'],['../struct_f_member.html#ab0a0c3707d424096b524a7be118ba42a',1,'FMember::ArchivedAt']]],
+  ['asseturl_8',['AssetUrl',['../struct_f_attachment_dto.html#a37d9dfaac55ea22687f64febf0602e68',1,'FAttachmentDto::AssetUrl'],['../struct_f_attachment.html#acf51465e336e218a5e10f5b43751a262',1,'FAttachment::AssetUrl']]],
+  ['assignroles_9',['AssignRoles',['../struct_f_update_channel_request_dto.html#a83d1aae09b16d5c6af44eb4efa93c993',1,'FUpdateChannelRequestDto']]],
+  ['attachmentpadding_10',['AttachmentPadding',['../class_u_message_widget.html#a8403a76b973ee6d45537d5b7f9ee0978',1,'UMessageWidget']]],
+  ['attachments_11',['Attachments',['../struct_f_message_request_dto.html#a721dedf3451b16ad8a99e40c9124defc',1,'FMessageRequestDto::Attachments'],['../struct_f_message_dto.html#a4729426a241b004010a5eb7d4bd192d3',1,'FMessageDto::Attachments'],['../struct_f_message.html#ac379f0b2704722bf3d079ad2cf83e073',1,'FMessage::Attachments']]],
+  ['authorlink_12',['AuthorLink',['../struct_f_attachment_dto.html#a3588ee6a5a6e5b4951ba100d45f8e7d2',1,'FAttachmentDto']]],
+  ['authorname_13',['AuthorName',['../struct_f_attachment_dto.html#acb152dcf0c9c620951e74d038a83ed85',1,'FAttachmentDto']]],
+  ['automod_14',['Automod',['../struct_f_channel_config_with_info_dto.html#a57fe5d353169226ec7018d80e9d652cc',1,'FChannelConfigWithInfoDto::Automod'],['../struct_f_channel_config.html#a55ebcc199aa002185c99803a25761bad',1,'FChannelConfig::Automod']]],
+  ['automodbehavior_15',['AutomodBehavior',['../struct_f_channel_config_with_info_dto.html#ac5d942b03be77ce9ab66e058ab363cb2',1,'FChannelConfigWithInfoDto']]],
+  ['autotranslationlanguage_16',['AutoTranslationLanguage',['../struct_f_channel_response_dto.html#ab19afd64e7b5fabb2a59be6f62727526',1,'FChannelResponseDto::AutoTranslationLanguage'],['../struct_f_channel_properties.html#a0516cd1e38141aa0176120e6d32716bd',1,'FChannelProperties::AutoTranslationLanguage']]]
 ];

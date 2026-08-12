@@ -125,6 +125,8 @@ FString&#160;</td><td class="memItemRight" valign="bottom"><b>Html</b></td></tr>
 FString&#160;</td><td class="memItemRight" valign="bottom"><b>Id</b></td></tr>
 <tr class="memdesc:ab7f3fdf46bffdab16aacaad520c611da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Message ID is unique string identifier of the message. <br /></td></tr>
 <tr class="separator:ab7f3fdf46bffdab16aacaad520c611da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee916e774391327f78198107a7aae2a6" id="r_aee916e774391327f78198107a7aae2a6"><td class="memItemLeft" align="right" valign="top">TArray&lt; FString &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aee916e774391327f78198107a7aae2a6">MentionedUsers</a></td></tr>
+<tr class="separator:aee916e774391327f78198107a7aae2a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaaffb243ad1068d68462da12c25d28c9" id="r_aaaffb243ad1068d68462da12c25d28c9"><td class="memItemLeft" align="right" valign="top"><a id="aaaffb243ad1068d68462da12c25d28c9" name="aaaffb243ad1068d68462da12c25d28c9"></a>
 FString&#160;</td><td class="memItemRight" valign="bottom"><b>Mml</b></td></tr>
 <tr class="memdesc:aaaffb243ad1068d68462da12c25d28c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Should be empty if <code>text</code> is provided. <br /></td></tr>
@@ -133,6 +135,16 @@ FString&#160;</td><td class="memItemRight" valign="bottom"><b>Mml</b></td></tr>
 <tr class="separator:a7df1a59df78b272740d7cae76d932c54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80dd40bed8e7e74957b1b8c018cc59c6" id="r_a80dd40bed8e7e74957b1b8c018cc59c6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80dd40bed8e7e74957b1b8c018cc59c6">bShowInChannel</a> = false</td></tr>
 <tr class="separator:a80dd40bed8e7e74957b1b8c018cc59c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af780d834bdfe4b0bb60117760fee4a56" id="r_af780d834bdfe4b0bb60117760fee4a56"><td class="memItemLeft" align="right" valign="top"><a id="af780d834bdfe4b0bb60117760fee4a56" name="af780d834bdfe4b0bb60117760fee4a56"></a>
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>PinExpires</b> = FDateTime{0}</td></tr>
+<tr class="memdesc:af780d834bdfe4b0bb60117760fee4a56"><td class="mdescLeft">&#160;</td><td class="mdescRight">When the pin should lapse. Leave zeroed to pin indefinitely; ignored unless <code>bPinned</code>. <br /></td></tr>
+<tr class="separator:af780d834bdfe4b0bb60117760fee4a56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a145829adecfb3b68077159821b56cd77" id="r_a145829adecfb3b68077159821b56cd77"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a145829adecfb3b68077159821b56cd77">bPinned</a> = false</td></tr>
+<tr class="separator:a145829adecfb3b68077159821b56cd77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44f5592c1435b28d940baec3aa62ba08" id="r_a44f5592c1435b28d940baec3aa62ba08"><td class="memItemLeft" align="right" valign="top"><a id="a44f5592c1435b28d940baec3aa62ba08" name="a44f5592c1435b28d940baec3aa62ba08"></a>
+FString&#160;</td><td class="memItemRight" valign="bottom"><b>QuotedMessageId</b></td></tr>
+<tr class="memdesc:a44f5592c1435b28d940baec3aa62ba08"><td class="mdescLeft">&#160;</td><td class="mdescRight">The ID of the message this one quotes. The backend embeds the quoted message in responses. <br /></td></tr>
+<tr class="separator:a44f5592c1435b28d940baec3aa62ba08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad618a0e17f84e1bf126de384e52d89cd" id="r_ad618a0e17f84e1bf126de384e52d89cd"><td class="memItemLeft" align="right" valign="top"><a id="ad618a0e17f84e1bf126de384e52d89cd" name="ad618a0e17f84e1bf126de384e52d89cd"></a>
 TMap&lt; FName, int32 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ReactionScores</b></td></tr>
 <tr class="memdesc:ad618a0e17f84e1bf126de384e52d89cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">A map describing the count of score of every reaction. <br /></td></tr>
@@ -167,6 +179,21 @@ FAdditionalFields&#160;</td><td class="memItemRight" valign="bottom"><b>Addition
 
 </div>
 </div>
+<a id="a145829adecfb3b68077159821b56cd77" name="a145829adecfb3b68077159821b56cd77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a145829adecfb3b68077159821b56cd77">&#9670;&#160;</a></span>bPinned</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool FMessageRequestDto::bPinned = false</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Whether to pin the message in the channel. <code>pinned_at</code> and <code>pinned_by</code> are not sent: the backend stamps both from this request. </p>
+
+</div>
+</div>
 <a id="a80dd40bed8e7e74957b1b8c018cc59c6" name="a80dd40bed8e7e74957b1b8c018cc59c6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a80dd40bed8e7e74957b1b8c018cc59c6">&#9670;&#160;</a></span>bShowInChannel</h2>
 
@@ -179,6 +206,21 @@ FAdditionalFields&#160;</td><td class="memItemRight" valign="bottom"><b>Addition
       </table>
 </div><div class="memdoc">
 <p>Whether a thread reply should also appear in the main channel message list. Ignored by the backend unless <code>ParentId</code> is set. </p>
+
+</div>
+</div>
+<a id="aee916e774391327f78198107a7aae2a6" name="aee916e774391327f78198107a7aae2a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee916e774391327f78198107a7aae2a6">&#9670;&#160;</a></span>MentionedUsers</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TArray&lt;FString&gt; FMessageRequestDto::MentionedUsers</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>IDs of the users mentioned in the message. The backend resolves these to full user objects on the way back out. </p>
 
 </div>
 </div>

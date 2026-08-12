@@ -143,9 +143,8 @@ FDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>CreatedAt</b> = 
 FString&#160;</td><td class="memItemRight" valign="bottom"><b>Html</b></td></tr>
 <tr class="memdesc:ab8c4a2805f662c12a7e09d0ee3e00d1d inherit pub_attribs_struct_f_message_dto"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains HTML markup of the message. <br /></td></tr>
 <tr class="separator:ab8c4a2805f662c12a7e09d0ee3e00d1d inherit pub_attribs_struct_f_message_dto"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a251e92a998d5ca9a1d8a800781db960b inherit pub_attribs_struct_f_message_dto" id="r_a251e92a998d5ca9a1d8a800781db960b"><td class="memItemLeft" align="right" valign="top">
-FString&#160;</td><td class="memItemRight" valign="bottom"><b>I18n</b></td></tr>
-<tr class="separator:a251e92a998d5ca9a1d8a800781db960b inherit pub_attribs_struct_f_message_dto"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ab64361a88276d96e5cc80c15a0cb16 inherit pub_attribs_struct_f_message_dto" id="r_a9ab64361a88276d96e5cc80c15a0cb16"><td class="memItemLeft" align="right" valign="top">TMap&lt; FString, FString &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#a9ab64361a88276d96e5cc80c15a0cb16">I18n</a></td></tr>
+<tr class="separator:a9ab64361a88276d96e5cc80c15a0cb16 inherit pub_attribs_struct_f_message_dto"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8b60be6934fb0896392a6c229a8afb69 inherit pub_attribs_struct_f_message_dto" id="r_a8b60be6934fb0896392a6c229a8afb69"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#a8b60be6934fb0896392a6c229a8afb69">Id</a></td></tr>
 <tr class="separator:a8b60be6934fb0896392a6c229a8afb69 inherit pub_attribs_struct_f_message_dto"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8113f65457346f85e2cde5158b0e7183 inherit pub_attribs_struct_f_message_dto" id="r_a8113f65457346f85e2cde5158b0e7183"><td class="memItemLeft" align="right" valign="top">
@@ -172,7 +171,9 @@ TArray&lt; <a class="el" href="struct_f_reaction_dto.html">FReactionDto</a> &gt;
 FString&#160;</td><td class="memItemRight" valign="bottom"><b>ParentId</b></td></tr>
 <tr class="memdesc:a5120b8310d00c61c30d05b848764b259 inherit pub_attribs_struct_f_message_dto"><td class="mdescLeft">&#160;</td><td class="mdescRight">The ID of the parent message, if the message is a thread reply. <br /></td></tr>
 <tr class="separator:a5120b8310d00c61c30d05b848764b259 inherit pub_attribs_struct_f_message_dto"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae96097caea9a3ed132366c1bce3410c7 inherit pub_attribs_struct_f_message_dto" id="r_ae96097caea9a3ed132366c1bce3410c7"><td class="memItemLeft" align="right" valign="top">FDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#ae96097caea9a3ed132366c1bce3410c7">PinExpires</a> = FDateTime{0}</td></tr>
+<tr class="memitem:ae96097caea9a3ed132366c1bce3410c7 inherit pub_attribs_struct_f_message_dto" id="r_ae96097caea9a3ed132366c1bce3410c7"><td class="memItemLeft" align="right" valign="top">
+FDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>PinExpires</b> = FDateTime{0}</td></tr>
+<tr class="memdesc:ae96097caea9a3ed132366c1bce3410c7 inherit pub_attribs_struct_f_message_dto"><td class="mdescLeft">&#160;</td><td class="mdescRight">When the pin lapses. Stays zeroed when the API sends <code>null</code>, which means the pin doesn't expire. <br /></td></tr>
 <tr class="separator:ae96097caea9a3ed132366c1bce3410c7 inherit pub_attribs_struct_f_message_dto"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1bb973eefdd96e99c2280c183beb8283 inherit pub_attribs_struct_f_message_dto" id="r_a1bb973eefdd96e99c2280c183beb8283"><td class="memItemLeft" align="right" valign="top">
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>bPinned</b> = false</td></tr>
@@ -180,14 +181,15 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>bPinned</b> = false</
 <tr class="separator:a1bb973eefdd96e99c2280c183beb8283 inherit pub_attribs_struct_f_message_dto"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c963cad79d30e7c78680264504b610e inherit pub_attribs_struct_f_message_dto" id="r_a7c963cad79d30e7c78680264504b610e"><td class="memItemLeft" align="right" valign="top">
 FDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>PinnedAt</b> = FDateTime{0}</td></tr>
-<tr class="memdesc:a7c963cad79d30e7c78680264504b610e inherit pub_attribs_struct_f_message_dto"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserved field indicating when the message was pinned. <br /></td></tr>
+<tr class="memdesc:a7c963cad79d30e7c78680264504b610e inherit pub_attribs_struct_f_message_dto"><td class="mdescLeft">&#160;</td><td class="mdescRight">When the message was pinned. Zeroed unless it is pinned. <br /></td></tr>
 <tr class="separator:a7c963cad79d30e7c78680264504b610e inherit pub_attribs_struct_f_message_dto"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a03b589d76fad8b5693cc016a4d5be0 inherit pub_attribs_struct_f_message_dto" id="r_a8a03b589d76fad8b5693cc016a4d5be0"><td class="memItemLeft" align="right" valign="top">
 <a class="el" href="struct_f_user_object_dto.html">FUserObjectDto</a>&#160;</td><td class="memItemRight" valign="bottom"><b>PinnedBy</b></td></tr>
-<tr class="memdesc:a8a03b589d76fad8b5693cc016a4d5be0 inherit pub_attribs_struct_f_message_dto"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserved field indicating who pinned the message. <br /></td></tr>
+<tr class="memdesc:a8a03b589d76fad8b5693cc016a4d5be0 inherit pub_attribs_struct_f_message_dto"><td class="mdescLeft">&#160;</td><td class="mdescRight">Who pinned the message. Left with an empty ID unless it is pinned. <br /></td></tr>
 <tr class="separator:a8a03b589d76fad8b5693cc016a4d5be0 inherit pub_attribs_struct_f_message_dto"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8fb2103db4bb70fb536fd5fa2c932c0 inherit pub_attribs_struct_f_message_dto" id="r_ab8fb2103db4bb70fb536fd5fa2c932c0"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#ab8fb2103db4bb70fb536fd5fa2c932c0">QuotedMessageId</a></td></tr>
-<tr class="memdesc:ab8fb2103db4bb70fb536fd5fa2c932c0 inherit pub_attribs_struct_f_message_dto"><td class="mdescLeft">&#160;</td><td class="mdescRight">A quoted reply message.  <br /></td></tr>
+<tr class="memitem:ab8fb2103db4bb70fb536fd5fa2c932c0 inherit pub_attribs_struct_f_message_dto" id="r_ab8fb2103db4bb70fb536fd5fa2c932c0"><td class="memItemLeft" align="right" valign="top">
+FString&#160;</td><td class="memItemRight" valign="bottom"><b>QuotedMessageId</b></td></tr>
+<tr class="memdesc:ab8fb2103db4bb70fb536fd5fa2c932c0 inherit pub_attribs_struct_f_message_dto"><td class="mdescLeft">&#160;</td><td class="mdescRight">The ID of the quoted message, if the message is a quoted reply. <br /></td></tr>
 <tr class="separator:ab8fb2103db4bb70fb536fd5fa2c932c0 inherit pub_attribs_struct_f_message_dto"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a432e99d415b0b69a45144f1ee08dc467 inherit pub_attribs_struct_f_message_dto" id="r_a432e99d415b0b69a45144f1ee08dc467"><td class="memItemLeft" align="right" valign="top">
 TMap&lt; FName, int32 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ReactionCounts</b></td></tr>
@@ -229,9 +231,7 @@ TArray&lt; <a class="el" href="struct_f_user_object_dto.html">FUserObjectDto</a>
 FDateTime&#160;</td><td class="memItemRight" valign="bottom"><b>UpdatedAt</b> = FDateTime{0}</td></tr>
 <tr class="memdesc:acb10ccf5d7f6acaf5c51ca1b871041cf inherit pub_attribs_struct_f_message_dto"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserved field indicating when the message was updated last time. <br /></td></tr>
 <tr class="separator:acb10ccf5d7f6acaf5c51ca1b871041cf inherit pub_attribs_struct_f_message_dto"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c9a2ceefd25b236244a26d2e2d92a23 inherit pub_attribs_struct_f_message_dto" id="r_a1c9a2ceefd25b236244a26d2e2d92a23"><td class="memItemLeft" align="right" valign="top">
-<a class="el" href="struct_f_user_object_dto.html">FUserObjectDto</a>&#160;</td><td class="memItemRight" valign="bottom"><b>User</b></td></tr>
-<tr class="memdesc:a1c9a2ceefd25b236244a26d2e2d92a23 inherit pub_attribs_struct_f_message_dto"><td class="mdescLeft">&#160;</td><td class="mdescRight">User who sent the message. <br /></td></tr>
+<tr class="memitem:a1c9a2ceefd25b236244a26d2e2d92a23 inherit pub_attribs_struct_f_message_dto" id="r_a1c9a2ceefd25b236244a26d2e2d92a23"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_f_user_object_dto.html">FUserObjectDto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_f_message_dto.html#a1c9a2ceefd25b236244a26d2e2d92a23">User</a></td></tr>
 <tr class="separator:a1c9a2ceefd25b236244a26d2e2d92a23 inherit pub_attribs_struct_f_message_dto"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a73d824ab7340510f7edecf46f43cdd inherit pub_attribs_struct_f_message_dto" id="r_a0a73d824ab7340510f7edecf46f43cdd"><td class="memItemLeft" align="right" valign="top">
 FAdditionalFields&#160;</td><td class="memItemRight" valign="bottom"><b>AdditionalFields</b></td></tr>

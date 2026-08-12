@@ -10,6 +10,7 @@ var struct_f_message_dto =
     [ "Command", "struct_f_message_dto.html#ae091ffcdc7ef628f191ce7de4d68e6dc", null ],
     [ "CreatedAt", "struct_f_message_dto.html#a247fc682a7a7a24dd6376ed9d7af9c72", null ],
     [ "Html", "struct_f_message_dto.html#ab8c4a2805f662c12a7e09d0ee3e00d1d", null ],
+    [ "I18n", "struct_f_message_dto.html#a9ab64361a88276d96e5cc80c15a0cb16", null ],
     [ "Id", "struct_f_message_dto.html#a8b60be6934fb0896392a6c229a8afb69", null ],
     [ "LatestReactions", "struct_f_message_dto.html#a8113f65457346f85e2cde5158b0e7183", null ],
     [ "MentionedUsers", "struct_f_message_dto.html#a3029015ca8796ddc74db3163b1ab1f8b", null ],

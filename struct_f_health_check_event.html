@@ -130,10 +130,12 @@ static FName&#160;</td><td class="memItemRight" valign="bottom"><b>StaticType</b
 Public Attributes</h2></td></tr>
 <tr class="memitem:aeac628197f88309e4c7c993463ee003e" id="r_aeac628197f88309e4c7c993463ee003e"><td class="memItemLeft" align="right" valign="top"><a id="aeac628197f88309e4c7c993463ee003e" name="aeac628197f88309e4c7c993463ee003e"></a>
 FString&#160;</td><td class="memItemRight" valign="bottom"><b>ConnectionId</b></td></tr>
+<tr class="memdesc:aeac628197f88309e4c7c993463ee003e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifies this WebSocket connection. Required on every API call made while it is open. <br /></td></tr>
 <tr class="separator:aeac628197f88309e4c7c993463ee003e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a300d3ff6ab3851b25ab9a4d577c90900" id="r_a300d3ff6ab3851b25ab9a4d577c90900"><td class="memItemLeft" align="right" valign="top"><a id="a300d3ff6ab3851b25ab9a4d577c90900" name="a300d3ff6ab3851b25ab9a4d577c90900"></a>
-<a class="el" href="struct_f_own_user_dto.html">FOwnUserDto</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Me</b></td></tr>
+<tr class="memitem:a300d3ff6ab3851b25ab9a4d577c90900" id="r_a300d3ff6ab3851b25ab9a4d577c90900"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_f_own_user_dto.html">FOwnUserDto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a300d3ff6ab3851b25ab9a4d577c90900">Me</a></td></tr>
 <tr class="separator:a300d3ff6ab3851b25ab9a4d577c90900"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae304bf651f7b74f91df96744a8908d02" id="r_ae304bf651f7b74f91df96744a8908d02"><td class="memItemLeft" align="right" valign="top">FString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae304bf651f7b74f91df96744a8908d02">Cid</a></td></tr>
+<tr class="separator:ae304bf651f7b74f91df96744a8908d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_struct_f_chat_event"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_attribs_struct_f_chat_event')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="struct_f_chat_event.html">FChatEvent</a></td></tr>
 <tr class="memitem:aff9733dcd2ce4163ecd5a27fee3e8d8d inherit pub_attribs_struct_f_chat_event" id="r_aff9733dcd2ce4163ecd5a27fee3e8d8d"><td class="memItemLeft" align="right" valign="top">
 FName&#160;</td><td class="memItemRight" valign="bottom"><b>Type</b></td></tr>
@@ -153,7 +155,38 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Sent periodically from the API to indicate a healthy connection. </p>
 <dl class="section see"><dt>See also</dt><dd><a href="https://getstream.io/chat/docs/events/#health.check">https://getstream.io/chat/docs/events/#health.check</a> </dd></dl>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="ae304bf651f7b74f91df96744a8908d02" name="ae304bf651f7b74f91df96744a8908d02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae304bf651f7b74f91df96744a8908d02">&#9670;&#160;</a></span>Cid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">FString FHealthCheckEvent::Cid</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Channel CID (&lt;type&gt;:&lt;id&gt;) for a watched channel's health check, or <code>*</code> for the connection-wide one, which is what the periodic keep-alive reply carries. </p>
+
+</div>
+</div>
+<a id="a300d3ff6ab3851b25ab9a4d577c90900" name="a300d3ff6ab3851b25ab9a4d577c90900"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a300d3ff6ab3851b25ab9a4d577c90900">&#9670;&#160;</a></span>Me</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_f_own_user_dto.html">FOwnUserDto</a> FHealthCheckEvent::Me</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The connected user. Only sent on the first health check of a connection, which is what makes that one the signal that the connection is established. </p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
 <li>Source/Backend/StreamChatWebSocket/Public/Event/Client/<a class="el" href="_health_check_event_8h_source.html">HealthCheckEvent.h</a></li>
 </ul>
 </div><!-- contents -->

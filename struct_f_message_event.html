@@ -133,6 +133,12 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a0004b50152459dd18fece8a1f9bcaf19" id="r_a0004b50152459dd18fece8a1f9bcaf19"><td class="memItemLeft" align="right" valign="top"><a id="a0004b50152459dd18fece8a1f9bcaf19" name="a0004b50152459dd18fece8a1f9bcaf19"></a>
 <a class="el" href="struct_f_message_dto.html">FMessageDto</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Message</b></td></tr>
 <tr class="separator:a0004b50152459dd18fece8a1f9bcaf19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1d337e41b6a5e36961592be059ea6a3" id="r_ad1d337e41b6a5e36961592be059ea6a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_f_user_object_dto.html">FUserObjectDto</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1d337e41b6a5e36961592be059ea6a3">User</a></td></tr>
+<tr class="separator:ad1d337e41b6a5e36961592be059ea6a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1169d5a6ab51af689b459d97dcd1157" id="r_ad1169d5a6ab51af689b459d97dcd1157"><td class="memItemLeft" align="right" valign="top"><a id="ad1169d5a6ab51af689b459d97dcd1157" name="ad1169d5a6ab51af689b459d97dcd1157"></a>
+FString&#160;</td><td class="memItemRight" valign="bottom"><b>Team</b></td></tr>
+<tr class="memdesc:ad1169d5a6ab51af689b459d97dcd1157"><td class="mdescLeft">&#160;</td><td class="mdescRight">Team the channel belongs to. Only sent by multi-tenant apps. <br /></td></tr>
+<tr class="separator:ad1169d5a6ab51af689b459d97dcd1157"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_struct_f_channel_event"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_attribs_struct_f_channel_event')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="struct_f_channel_event.html">FChannelEvent</a></td></tr>
 <tr class="memitem:a0d6203e4d3ab48ab821533e718161bd6 inherit pub_attribs_struct_f_channel_event" id="r_a0d6203e4d3ab48ab821533e718161bd6"><td class="memItemLeft" align="right" valign="top">
 FString&#160;</td><td class="memItemRight" valign="bottom"><b>ChannelId</b></td></tr>
@@ -166,7 +172,23 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A WebSocket event related to a message. </p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="ad1d337e41b6a5e36961592be059ea6a3" name="ad1d337e41b6a5e36961592be059ea6a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1d337e41b6a5e36961592be059ea6a3">&#9670;&#160;</a></span>User</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_f_user_object_dto.html">FUserObjectDto</a> FMessageEvent::User</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The user who caused the event, which is the message's author for everything but a deletion performed by somebody else. </p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
 <li>Source/Backend/StreamChatWebSocket/Public/Event/Abstract/<a class="el" href="_message_event_8h_source.html">MessageEvent.h</a></li>
 </ul>
 </div><!-- contents -->
