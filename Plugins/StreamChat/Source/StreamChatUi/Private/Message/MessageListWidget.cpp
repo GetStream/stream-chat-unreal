@@ -164,27 +164,27 @@ void UMessageListWidget::RefreshItems()
 {
     Items.Reset();
 
-    UChatChannel* Channel = GetChannel();
-    if (!Channel)
+    UChatChannel* ActiveChannel = GetChannel();
+    if (!ActiveChannel)
     {
         return;
     }
 
     if (!IsThreadOpen())
     {
-        Items = Channel->State.Messages.GetMessages();
+        Items = ActiveChannel->State.Messages.GetMessages();
         return;
     }
 
     const FMessage& Parent = GetChannelContext()->GetThreadParentMessage();
-    const FMessages& ChannelMessages = Channel->State.Messages.GetMessages();
+    const FMessages& ChannelMessages = ActiveChannel->State.Messages.GetMessages();
 
     // The parent heads the thread, so the user can see what is being replied to. Preferring the copy
     // the channel holds keeps it live: a reaction or an edit on the parent shows up here too.
     const int32 ParentIndex = ChannelMessages.IndexOfByPredicate([&Parent](const FMessageRef& M) { return M->Id == Parent.Id; });
     Items.Add(ParentIndex != INDEX_NONE ? ChannelMessages[ParentIndex] : MakeShared<FMessage>(Parent));
 
-    Items.Append(Channel->GetReplies(Parent));
+    Items.Append(ActiveChannel->GetReplies(Parent));
 }
 
 UWidget* UMessageListWidget::CreateMessageWidget(const FMessageRef& Message)
