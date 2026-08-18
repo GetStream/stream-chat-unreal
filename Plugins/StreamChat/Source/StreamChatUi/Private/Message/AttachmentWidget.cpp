@@ -106,8 +106,8 @@ void UAttachmentWidget::NativePreConstruct()
 {
     Super::NativePreConstruct();
 
-    const UThemeDataAsset* Theme = GetTheme();
-    if (!Theme)
+    const UThemeDataAsset* ThemeAsset = GetTheme();
+    if (!ThemeAsset)
     {
         return;
     }
@@ -115,24 +115,24 @@ void UAttachmentWidget::NativePreConstruct()
     if (Image && !bImageLoaded)
     {
         // Tint the empty brush so a downloading image reads as a placeholder rather than a gap
-        Image->SetColorAndOpacity(Theme->GetPaletteColor(Theme->AttachmentImagePlaceholderColor));
+        Image->SetColorAndOpacity(ThemeAsset->GetPaletteColor(ThemeAsset->AttachmentImagePlaceholderColor));
     }
 
     if (FileRow)
     {
-        const FName Color = Side == EMessageSide::Me ? Theme->MeAttachmentRowColor : Theme->YouAttachmentRowColor;
-        FileRow->SetBrushColor(Theme->GetPaletteColor(Color));
+        const FName Color = Side == EMessageSide::Me ? ThemeAsset->MeAttachmentRowColor : ThemeAsset->YouAttachmentRowColor;
+        FileRow->SetBrushColor(ThemeAsset->GetPaletteColor(Color));
     }
 
     if (TitleTextBlock)
     {
-        TitleTextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Theme->AttachmentTitleTextColor));
+        TitleTextBlock->SetColorAndOpacity(ThemeAsset->GetPaletteColor(ThemeAsset->AttachmentTitleTextColor));
         SetFontSize(*TitleTextBlock, TitleFontSize);
     }
 
     if (SubtitleTextBlock)
     {
-        SubtitleTextBlock->SetColorAndOpacity(Theme->GetPaletteColor(Theme->AttachmentSubtitleTextColor));
+        SubtitleTextBlock->SetColorAndOpacity(ThemeAsset->GetPaletteColor(ThemeAsset->AttachmentSubtitleTextColor));
         SetFontSize(*SubtitleTextBlock, SubtitleFontSize);
     }
 }

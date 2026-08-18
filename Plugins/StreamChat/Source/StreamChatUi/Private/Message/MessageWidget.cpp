@@ -427,9 +427,9 @@ void UMessageWidget::CreateThreadFooter()
     FSlateFontInfo Font = ThreadFooterText->GetFont();
     Font.Size = ThreadFooterFontSize;
     ThreadFooterText->SetFont(Font);
-    if (const UThemeDataAsset* Theme = GetTheme())
+    if (const UThemeDataAsset* ThemeAsset = GetTheme())
     {
-        ThreadFooterText->SetColorAndOpacity(Theme->GetPaletteColor(Theme->ThreadFooterTextColor));
+        ThreadFooterText->SetColorAndOpacity(ThemeAsset->GetPaletteColor(ThemeAsset->ThreadFooterTextColor));
     }
 
     ThreadFooterButton = WidgetTree->ConstructWidget<UButton>();
@@ -494,9 +494,9 @@ void UMessageWidget::CreateModerationWarning()
     FSlateFontInfo Font = ModerationWarningText->GetFont();
     Font.Size = ModerationWarningFontSize;
     ModerationWarningText->SetFont(Font);
-    if (const UThemeDataAsset* Theme = GetTheme())
+    if (const UThemeDataAsset* ThemeAsset = GetTheme())
     {
-        ModerationWarningText->SetColorAndOpacity(Theme->GetPaletteColor(Theme->ModerationWarningTextColor));
+        ModerationWarningText->SetColorAndOpacity(ThemeAsset->GetPaletteColor(ThemeAsset->ModerationWarningTextColor));
     }
 
     // Last in the panel, so it sits below the bubble. OnSetup's alignment pass has already been and
