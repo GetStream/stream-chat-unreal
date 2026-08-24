@@ -65,18 +65,20 @@ jobs:
 
       - name: ☝️ Select UE5.8
         shell: bash
-        run: |
-          just set-engine 5.8
+        run: bash .github/scripts/select-engine.sh 5.8
 
+      - name: 🤖 Set up Android SDK
+        shell: bash
+        run: |
+          # Uses the engine root resolved by the previous step rather than a
+          # hard-coded one, so this keeps working wherever UE is installed.
           if [[ "$OSTYPE" == "darwin"* ]]; then
-            ue4 setroot "/Users/Shared/Epic Games/UE_5.8"
-            rm $HOME/.bash_profile
+            rm -f $HOME/.bash_profile
             touch $HOME/.bash_profile
-            "/Users/Shared/Epic Games/UE_5.8/Engine/Extras/Android/SetupAndroid.command"
+            "$UE_ROOT_BASH/Engine/Extras/Android/SetupAndroid.command"
             source $HOME/.bash_profile
           else
-            ue4 setroot "C:\UE\UE_5.8"
-            cmd "/C C:\UE\UE_5.8/Engine/Extras/Android/SetupAndroid.bat"
+            "$UE_ROOT_BASH/Engine/Extras/Android/SetupAndroid.bat"
           fi
 
       - name: Generate bundle version
@@ -271,18 +273,20 @@ jobs:
 
       - name: ☝️ Select UE${{ matrix.engine }}
         shell: bash
-        run: |
-          just set-engine ${{ matrix.engine }}
+        run: bash .github/scripts/select-engine.sh ${{ matrix.engine }}
 
+      - name: 🤖 Set up Android SDK
+        shell: bash
+        run: |
+          # Uses the engine root resolved by the previous step rather than a
+          # hard-coded one, so this keeps working wherever UE is installed.
           if [[ "$OSTYPE" == "darwin"* ]]; then
-            ue4 setroot "/Users/Shared/Epic Games/UE_${{ matrix.engine }}"
-            rm $HOME/.bash_profile
+            rm -f $HOME/.bash_profile
             touch $HOME/.bash_profile
-            "/Users/Shared/Epic Games/UE_${{ matrix.engine }}/Engine/Extras/Android/SetupAndroid.command"
+            "$UE_ROOT_BASH/Engine/Extras/Android/SetupAndroid.command"
             source $HOME/.bash_profile
           else
-            ue4 setroot "C:\UE\UE_${{ matrix.engine }}"
-            cmd "/C C:\UE\UE_${{ matrix.engine }}/Engine/Extras/Android/SetupAndroid.bat"
+            "$UE_ROOT_BASH/Engine/Extras/Android/SetupAndroid.bat"
           fi
 
       - name: 📦 Package plugin
