@@ -154,7 +154,7 @@ jobs:
         env:
           MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
           MACOS_CERTIFICATE_PWD: ${{ secrets.MACOS_CERTIFICATE_PWD }}
-          MACOS_IDENTITY_ID: ${{ secrets.MACOS_IDENTITY_ID }}
+          MACOS_IDENTITY_ID: ${{ vars.MACOS_IDENTITY_ID }}
         run: |
           build_config=${{ github.event.inputs.build-configuration }}
           if [ -z "$build_config" ]; then build_config=Shipping; fi
@@ -224,7 +224,7 @@ jobs:
         uses: jeevcat/xcode-notarize@main
         with:
           product-path: "${{ matrix.what }}.app"
-          appstore-connect-username: ${{ secrets.NOTARIZATION_USERNAME }}
+          appstore-connect-username: ${{ vars.NOTARIZATION_USERNAME }}
           appstore-connect-password: ${{ secrets.NOTARIZATION_PASSWORD }}
           verbose: true
 
